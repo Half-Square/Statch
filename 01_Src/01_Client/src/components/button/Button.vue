@@ -1,6 +1,6 @@
 <!--
 Author – @0K00
-Create Time – 2022-10-15 14:17:51
+Create Time – 2022-10-15 14:17
 Description – Button component
 -->
 
