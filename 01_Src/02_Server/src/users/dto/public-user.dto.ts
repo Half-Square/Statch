@@ -1,7 +1,7 @@
 /**
  * @ Author: Jbristhuille
  * @ Create Time: 2022-10-16 13:18:54
- * @ Description: Users DTO model
+ * @ Description: Public informations DTO returned for users collection
  */
 
 export class PublicUserDto {

@@ -20,12 +20,12 @@ import { PublicUserDto } from '../dto/public-user.dto';
 /***/
 
 /* Services */
-import { UsersService } from '../services/users.service';
+import { UsersDbService } from '../services/users-db.service';
 /***/
 
 @Controller('users')
 export class UsersController {
-    constructor(private users: UsersService) {
+    constructor(private users: UsersDbService) {
     }
 
     /*

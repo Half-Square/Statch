@@ -8,6 +8,7 @@
     * Nest
     * Entities
     * Controllers
+    * Services
 */
 
 /* Nest */
@@ -21,14 +22,17 @@ import { Users } from './users.entity';
 
 /* Controllers */
 import { UsersController } from './controllers/users.controller';
-import { UsersService } from './services/users.service';
+/***/
+
+/* Services */
+import { UsersDbService } from './services/users-db.service';
 /***/
 
 @Module({
     imports: [
         TypeOrmModule.forFeature([Users])
     ],
-    providers: [UsersService],
+    providers: [UsersDbService],
     controllers: [UsersController]
 })
 export class UsersModule {}
