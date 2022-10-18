@@ -22,10 +22,12 @@ import { AppService } from './app.service';
 
 /* Modules */
 import { UsersModule } from './users/users.module';
+import { ProjectsModule } from './projects/projects.module';
 /***/
 
 /* Entities */
 import { Users } from './users/users.entity';
+import { Projects } from './projects/projects.entity';
 /***/
 
 @Module({
@@ -38,10 +40,12 @@ import { Users } from './users/users.entity';
       password: '',
       database: 'test',
       entities: [
-        Users
+        Users,
+        Projects
       ]
     }),
-    UsersModule
+    UsersModule,
+    ProjectsModule
   ],
   controllers: [AppController],
   providers: [AppService],
