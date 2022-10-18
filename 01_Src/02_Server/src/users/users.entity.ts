@@ -1,7 +1,7 @@
 /**
  * @ Author: Jbristhuille
  * @ Create Time: 2022-10-16 12:32:26
- * @ Description:
+ * @ Description: Users collection description
  */
 
 /* SUMARY
@@ -9,7 +9,7 @@
 */
 
 /* Nest */
-import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from "typeorm";
 /***/
 
 @Entity()
@@ -30,14 +30,11 @@ export class Users {
     image: string;
 
     @Column()
-    role: number;
-
-    @Column()
     token: string;
 
     @Column()
     tokenStart: Date;
 
-    @Column()
+    @Column() // update with @OneToMany
     subscribes: number[];
 }
