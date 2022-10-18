@@ -1,7 +1,7 @@
 /**
  * @ Author: Jbristhuille
  * @ Create Time: 2022-10-16 13:23:00
- * @ Description: Users database access
+ * @ Description: Manage users collection database access
  */
 
 /* SUMMARY
