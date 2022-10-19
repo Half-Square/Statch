@@ -9,13 +9,13 @@
 */
 
 /* Nest */
-import { Entity, Column, PrimaryGeneratedColumn, OneToOne, OneToMany } from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn, OneToOne, OneToMany, ObjectID } from "typeorm";
 /***/
 
 @Entity()
 export class Projects {
     @PrimaryGeneratedColumn()
-    id: number;
+    _id: ObjectID;
 
     @Column()
     name: string;
@@ -27,7 +27,7 @@ export class Projects {
     version: string;
 
     @Column()
-    created: Date;
+    created: number;
 
     @Column()
     description: string;

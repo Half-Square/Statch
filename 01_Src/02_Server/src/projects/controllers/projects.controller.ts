@@ -8,14 +8,17 @@
     * Nest
     * DTO
     * Services
+    * Name: getAll
+    * Name: addOne
 */
 
 /* Nest */
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Post, Body } from '@nestjs/common';
 /***/
 
 /* DTO */
 import { PublicProjectsDto } from '../dto/public-projects.dto';
+import { CreateProjectsDto } from '../dto/create-projects';
 /***/
 
 /* Services */
@@ -43,6 +46,22 @@ export class ProjectsController {
         });
         
         return ret;
+    }
+    /***/
+
+    /*
+    * Name: addOne
+    * Description: Create project
+    * 
+    * Body:
+    * - name (String): Project name
+    * - version (String): Project version
+    * - description (String): Project version
+    */
+    @Post()
+    async addOne(@Body() body: CreateProjectsDto): Promise<PublicProjectsDto> {
+        let ret = await this.projects.insertOne(body);
+        return new PublicProjectsDto(ret);
     }
     /***/
 }

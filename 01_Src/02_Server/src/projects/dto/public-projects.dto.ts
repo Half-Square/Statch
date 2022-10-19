@@ -4,8 +4,16 @@
  * @ Description: Public informations returned for projects collection
  */
 
+/* SUMMARY
+    * Nest
+*/
+
+/* Nest */
+import { ObjectID } from "typeorm";
+/***/
+
 export class PublicProjectsDto {
-    id: number;
+    _id: ObjectID;
     name: string;
     status: string;
     version: string;
@@ -15,7 +23,7 @@ export class PublicProjectsDto {
     owner: number;
     
     constructor(data) {
-        this.id = data.id || 0;
+        this._id = data._id || null;
         this.name = data.name || "";
         this.status = data.status || "new";
         this.version = data.version || "0.0.0";
