@@ -9,13 +9,15 @@
     * Entities
     * DTO
     * Name: findAll
+    * Name: findById
     * Name: insertOne
 */
 
 /* Nest */
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, DataSource } from 'typeorm';
+import { Repository, DataSource, ObjectID } from 'typeorm';
+import { ObjectId } from 'mongodb';
 /***/
 
 /* Entities */
@@ -42,6 +44,20 @@ export class ProjectsDbService {
     */
     public findAll(): any {
         return this.projectsRepository.find();
+    }
+    /***/
+
+    /*
+    * Name: findById
+    * Description: Get item by id
+    * 
+    * Args:
+    * - id (String): Item id to get
+    * 
+    * Return (Any): Project data
+    */
+    public async findById(id): Promise<any> {
+      return this.projectsRepository.findBy({_id: new ObjectId(id)});
     }
     /***/
 

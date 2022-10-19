@@ -9,15 +9,17 @@
     * DTO
     * Services
     * Name: getAll
+    * Name: getById
     * Name: addOne
 */
 
 /* Nest */
-import { Controller, Get, Post, Body } from '@nestjs/common';
+import { Controller, Get, Post, Param, Body } from '@nestjs/common';
 /***/
 
 /* DTO */
 import { PublicProjectsDto } from '../dto/public-projects.dto';
+import { DetailsProjectsDto } from '../dto/details-projects.dto';
 import { CreateProjectsDto } from '../dto/create-projects';
 /***/
 
@@ -27,7 +29,7 @@ import { ProjectsDbService } from '../services/projects-db.service';
 
 @Controller('projects')
 export class ProjectsController {
-    constructor(private projects: ProjectsDbService) {
+    constructor(private projectsDb: ProjectsDbService) {
     }
 
     /*
@@ -38,7 +40,7 @@ export class ProjectsController {
     */
     @Get()
     async getAll(): Promise<PublicProjectsDto[]> {
-        let projects = await this.projects.findAll();
+        let projects = await this.projectsDb.findAll();
         let ret = [];
 
         projects.forEach((el) => {
@@ -50,6 +52,21 @@ export class ProjectsController {
     /***/
 
     /*
+    * Name: getById
+    * Description: Get complete projects informations by id
+    * 
+    * Params:
+    * - id (String): Projects id
+    * 
+    * Return (DetailsProjectsDto): Complete informations of project
+    */
+    @Get('/:id')
+    async getById(@Param() params): Promise<DetailsProjectsDto> {
+        return await this.projectsDb.findById(params.id);
+    }
+    /***/
+
+    /*
     * Name: addOne
     * Description: Create project
     * 
@@ -57,10 +74,12 @@ export class ProjectsController {
     * - name (String): Project name
     * - version (String): Project version
     * - description (String): Project version
+    * 
+    * Return (PublicProjectsDto): Created item
     */
     @Post()
     async addOne(@Body() body: CreateProjectsDto): Promise<PublicProjectsDto> {
-        let ret = await this.projects.insertOne(body);
+        let ret = await this.projectsDb.insertOne(body);
         return new PublicProjectsDto(ret);
     }
     /***/
