@@ -23,11 +23,13 @@ import { AppService } from './app.service';
 /* Modules */
 import { UsersModule } from './users/users.module';
 import { ProjectsModule } from './projects/projects.module';
+import { TasksModule } from './tasks/tasks.module';
 /***/
 
 /* Entities */
 import { Users } from './users/users.entity';
 import { Projects } from './projects/projects.entity';
+import { Tasks } from './tasks/tasks.entity';
 /***/
 
 @Module({
@@ -41,11 +43,13 @@ import { Projects } from './projects/projects.entity';
       database: 'test',
       entities: [
         Users,
-        Projects
+        Projects,
+        Tasks
       ]
     }),
     UsersModule,
-    ProjectsModule
+    ProjectsModule,
+    TasksModule
   ],
   controllers: [AppController],
   providers: [AppService],
