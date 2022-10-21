@@ -14,13 +14,23 @@
 */
 
 /* Nest */
-import { Controller, Get, Post, Param, Body } from '@nestjs/common';
+import {
+    Controller,
+    HttpStatus,
+    HttpException,
+    Get,
+    Post,
+    Param,
+    Body,
+    Put
+} from '@nestjs/common';
 /***/
 
 /* DTO */
 import { PublicProjectsDto } from '../dto/public-projects.dto';
 import { DetailsProjectsDto } from '../dto/details-projects.dto';
 import { CreateProjectsDto } from '../dto/create-projects';
+import { EditProjectsDto } from '../dto/edit-projects.dto';
 /***/
 
 /* Services */
@@ -81,6 +91,25 @@ export class ProjectsController {
     async addOne(@Body() body: CreateProjectsDto): Promise<PublicProjectsDto> {
         let ret = await this.projectsDb.insertOne(body);
         return new PublicProjectsDto(ret);
+    }
+    /***/
+
+    /*
+    * Name: editProject
+    * Description: Edit one project by ID
+    *
+    * Params:
+    * - id (String): Id of project to modify
+    * 
+    * Body:
+    * - assignees (Users[]):
+    */
+    @Put('/:id')
+    async editProject(@Param() params: any, @Body() body: EditProjectsDto): Promise<DetailsProjectsDto> {
+        let ret = await this.projectsDb.modifyById(params.id, body);
+
+        if (ret) return ret;
+        else throw new HttpException('Not found', HttpStatus.NOT_FOUND);
     }
     /***/
 }

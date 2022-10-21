@@ -9,7 +9,11 @@
 */
 
 /* Nest */
-import { Entity, Column, PrimaryGeneratedColumn, OneToOne, OneToMany, ObjectID } from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn, ObjectID } from "typeorm";
+/***/
+
+/* Entities */
+import { Users } from '../users/users.entity';
 /***/
 
 @Entity()
@@ -35,15 +39,15 @@ export class Projects {
     @Column()
     docs: string[];
 
-    @Column() // update with @OneToMany
+    @Column()
     tasks: number[];
 
-    @Column() // update with @OneToMany
+    @Column()
     comments: number[];
 
-    @Column() // update with OneToOne
+    @Column()
     owner: number;
 
-    @Column() // update with @OneToMany
-    assignees: number[];
+    @Column()
+    assignees: ObjectID[];
 }

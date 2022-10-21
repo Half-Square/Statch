@@ -11,27 +11,32 @@
     * Name: findAll
     * Name: findById
     * Name: insertOne
+    * Name: modifyById
 */
 
 /* Nest */
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, DataSource, ObjectID } from 'typeorm';
+import { Repository, DataSource, ObjectID, getMongoManager } from 'typeorm';
 import { ObjectId } from 'mongodb';
 /***/
 
 /* Entities */
 import { Projects } from '../projects.entity';
+import { Users } from '../../users/users.entity';
 /***/
 
 /* DTO */
 import { CreateProjectsDto } from '../dto/create-projects';
+import { EditProjectsDto } from '../dto/edit-projects.dto';
+import { PublicUserDto } from '../../users/dto/public-user.dto';
 /***/
 
 @Injectable()
 export class ProjectsDbService {
     constructor(
             @InjectRepository(Projects) private projectsRepository: Repository<Projects>,
+            @InjectRepository(Users) private usersRepository: Repository<Users>,
             private dataSource: DataSource
         ) {
     }
@@ -99,6 +104,42 @@ export class ProjectsDbService {
           await queryRunner.release();
           return project;
         }
+    }
+    /***/
+
+    /*
+    * Name: modifyById
+    * Description: Update projects informations
+    *
+    * Args:
+    * - id (String): Project id to modify
+    * - data (EditProjectsDto): Data to update
+    * 
+    * Return (any): Updated project
+    */
+    public async modifyById(id: string, data: EditProjectsDto): Promise<any> {
+      let project = await this.projectsRepository.findOneBy({_id: new ObjectId(id)});
+      let users = [];
+
+      if (project) {
+        for (let i = 0; i < data.assignees.length; i++) {
+          users.push(new ObjectId(data.assignees[i]));
+        }  
+
+        await this.dataSource.getMongoRepository(Projects).update({
+          _id: new ObjectId(id)
+        }, {
+          assignees: users
+        });
+
+        for (let i = 0; i < users.length; i ++) {
+          users[i] = await this.usersRepository.findOneBy({_id: users[i]});
+        }
+
+        project.assignees = users;
+      }
+
+      return project;
     }
     /***/
 }

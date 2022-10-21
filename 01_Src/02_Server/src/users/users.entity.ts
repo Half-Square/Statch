@@ -9,13 +9,13 @@
 */
 
 /* Nest */
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany, ObjectID } from "typeorm";
 /***/
 
 @Entity()
 export class Users {
     @PrimaryGeneratedColumn()
-    id: number;
+    _id: ObjectID;
 
     @Column()
     name: string;

@@ -18,6 +18,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 /* Entities */
 import { Projects } from './projects.entity';
+import { Users } from '../users/users.entity';
 /***/
 
 /* Controllers */
@@ -30,7 +31,7 @@ import { ProjectsDbService } from './services/projects-db.service';
 
 @Module({
     imports: [
-        TypeOrmModule.forFeature([Projects])
+        TypeOrmModule.forFeature([Projects, Users])
     ],
     providers: [ProjectsDbService],
     controllers: [ProjectsController]

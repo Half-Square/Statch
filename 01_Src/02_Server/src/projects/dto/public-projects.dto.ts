@@ -19,7 +19,6 @@ export class PublicProjectsDto {
     version: string;
     created: Date;
     description: string;
-    docs: string[];
     owner: number;
     
     constructor(data) {
@@ -29,7 +28,6 @@ export class PublicProjectsDto {
         this.version = data.version || "0.0.0";
         this.created = data.created || undefined;
         this.description = data.description || "";
-        this.docs = data.docs || [];
         this.owner = data.owner || undefined;
     }
 }

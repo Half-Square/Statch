@@ -4,15 +4,23 @@
  * @ Description: Public informations DTO returned for users collection
  */
 
+/* SUMMARY
+    * Nest
+*/
+
+/* Nest */
+import { ObjectID } from "typeorm";
+/***/
+
 export class PublicUserDto {
-    id: number;
+    _id: ObjectID;
     name: string;
     lastName: string;
     email: string;
     image: string;
 
     constructor(data) {
-        this.id = data.id || 0;
+        this._id = data._id || null;
         this.name = data.name || '';
         this.lastName = data.lastName || '';
         this.email = data.email || '';
