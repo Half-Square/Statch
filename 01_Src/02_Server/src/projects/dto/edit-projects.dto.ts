@@ -5,13 +5,18 @@
  */
 
 /* SUMMARY
+    * Nest
 */
 
-/* Entities */
-import { Users } from '../../users/users.entity';
+/* Nest */
+import { ObjectID } from 'typeorm';
 /***/
 
 export class EditProjectsDto {
-    assignees: Users[];
+    name: string;
+    status: string;
+    version: string;
+    description: string;
+    assignees: ObjectID[];
 }
 

@@ -10,6 +10,7 @@
 
 /* Nest */
 import { ObjectID } from "typeorm";
+import { ObjectId } from 'mongodb';
 /***/
 
 export class PublicProjectsDto {
@@ -22,7 +23,9 @@ export class PublicProjectsDto {
     owner: number;
     
     constructor(data) {
-        this._id = data._id || null;
+        console.log(data); // debug
+        
+        this._id = new ObjectId(data._id) || null;
         this.name = data.name || "";
         this.status = data.status || "new";
         this.version = data.version || "0.0.0";

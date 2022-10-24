@@ -89,8 +89,16 @@ export class ProjectsController {
     */
     @Post()
     async addOne(@Body() body: CreateProjectsDto): Promise<PublicProjectsDto> {
-        let ret = await this.projectsDb.insertOne(body);
-        return new PublicProjectsDto(ret);
+        try {
+            let id = await this.projectsDb.insertOne(body);
+            let ret = await this.projectsDb.findById(id);
+            
+            if (!id || !ret) throw 'An error occured';
+            return new PublicProjectsDto(ret);
+        } catch (err) {
+            console.error(err);
+            throw new HttpException('Internal Server Error', HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
     /***/
 
@@ -106,10 +114,15 @@ export class ProjectsController {
     */
     @Put('/:id')
     async editProject(@Param() params: any, @Body() body: EditProjectsDto): Promise<DetailsProjectsDto> {
-        let ret = await this.projectsDb.modifyById(params.id, body);
-
-        if (ret) return ret;
-        else throw new HttpException('Not found', HttpStatus.NOT_FOUND);
+        try {
+            // save change
+            // get updated
+            // get assignees info
+            return new DetailsProjectsDto(); // temp
+        } catch(err) {
+            console.error(err);
+            throw new HttpException('Internal Server Error', HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
     /***/
 }
