@@ -11,6 +11,7 @@
     * Name: findAll
     * Name: findById
     * Name: insertOne
+    * Name: updateOne
 */
 
 /* Nest */
@@ -26,6 +27,7 @@ import { Projects } from '../projects.entity';
 
 /* DTO */
 import { CreateProjectsDto } from '../dto/create-projects';
+import { EditProjectsDto } from '../dto/edit-projects.dto';
 /***/
 
 @Injectable()
@@ -57,7 +59,7 @@ export class ProjectsDbService {
     * Return (Any): Project data
     */
     public async findById(id: string): Promise<any> {
-      return this.projectsRepository.findBy({_id: new ObjectId(id)});
+      return this.projectsRepository.findOneBy({_id: new ObjectId(id)});
     }
     /***/
 
@@ -68,9 +70,9 @@ export class ProjectsDbService {
     * Args:
     * - data (CreateProjectsDto): Project data
     * 
-    * Return (Any): Inserted project data
+    * Return (String): Inserted project ID
     */
-    public insertOne(data: CreateProjectsDto): Promise<any> {
+    public insertOne(data: CreateProjectsDto): Promise<ObjectID> {
         return new Promise((resolve) => {
             let toSave = {
                 name: data.name || "",
@@ -89,6 +91,47 @@ export class ProjectsDbService {
                 return resolve(data.insertedId);
             });
         });
+    }
+    /***/
+
+    /*
+    * Name: updateOne
+    * Description: Update project with data sended by client
+    * 
+    * Args:
+    * - id (ObjectID): Project ID
+    * - data (EditProjectsDto):
+    *   - name (String): Project name
+    *   - status (string): Project status
+    *   - version (string): Project version
+    *   - description (string): Project description
+    *   - assignees (ObjectID[]): Users affected to the project
+    */
+    public async updateOne(id: ObjectID, data: EditProjectsDto): Promise<ObjectID> {
+        let toSave = {};
+
+        if (data.name) toSave['name'] = data.name;
+        if (data.status) toSave['status'] = data.status;
+        if (data.version) toSave['version'] = data.version;
+        if (data.description) toSave['descrription'] = data.description;
+
+        if (data.assignees) {
+            let tmp = [];
+
+            data.assignees.forEach((el) => {
+                tmp.push(el._id);
+            });
+
+            toSave['assignees'] = tmp;
+        }
+
+        await this.dataSource.getMongoRepository(Projects).updateOne({
+            _id: new ObjectId(id)
+        }, {
+            $set: toSave
+        });
+        
+        return id;
     }
     /***/
 }

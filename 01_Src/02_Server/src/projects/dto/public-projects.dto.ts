@@ -23,14 +23,12 @@ export class PublicProjectsDto {
     owner: number;
     
     constructor(data) {
-        console.log(data); // debug
-        
         this._id = new ObjectId(data._id) || null;
         this.name = data.name || "";
         this.status = data.status || "new";
         this.version = data.version || "0.0.0";
-        this.created = data.created || undefined;
+        this.created = data.created || 0;
         this.description = data.description || "";
-        this.owner = data.owner || undefined;
+        this.owner = data.owner || 0;
     }
 }

@@ -11,6 +11,7 @@
     * Name: getAll
     * Name: getById
     * Name: addOne
+    * Name: updateProject
 */
 
 /* Nest */
@@ -24,6 +25,8 @@ import {
     Body,
     Put
 } from '@nestjs/common';
+
+import { ObjectId } from 'mongodb';
 /***/
 
 /* DTO */
@@ -35,6 +38,7 @@ import { EditProjectsDto } from '../dto/edit-projects.dto';
 
 /* Services */
 import { ProjectsDbService } from '../services/projects-db.service';
+import { ObjectID } from 'typeorm';
 /***/
 
 @Controller('projects')
@@ -91,7 +95,7 @@ export class ProjectsController {
     async addOne(@Body() body: CreateProjectsDto): Promise<PublicProjectsDto> {
         try {
             let id = await this.projectsDb.insertOne(body);
-            let ret = await this.projectsDb.findById(id);
+            let ret = await this.projectsDb.findById(new ObjectId(id));
             
             if (!id || !ret) throw 'An error occured';
             return new PublicProjectsDto(ret);
@@ -103,8 +107,8 @@ export class ProjectsController {
     /***/
 
     /*
-    * Name: editProject
-    * Description: Edit one project by ID
+    * Name: updateProject
+    * Description: Update one project by ID
     *
     * Params:
     * - id (String): Id of project to modify
@@ -113,12 +117,16 @@ export class ProjectsController {
     * - assignees (Users[]):
     */
     @Put('/:id')
-    async editProject(@Param() params: any, @Body() body: EditProjectsDto): Promise<DetailsProjectsDto> {
+    async updateProject(@Param() params: any, @Body() body: EditProjectsDto): Promise<DetailsProjectsDto> {
         try {
-            // save change
-            // get updated
+            await this.projectsDb.updateOne(new ObjectId(params.id), body);
+            let project = await this.projectsDb.findById(params.id);
+            
+            if (!project) throw 'An error occured';
+
+            // Update users subscription
             // get assignees info
-            return new DetailsProjectsDto(); // temp
+            return new DetailsProjectsDto(project); // temp
         } catch(err) {
             console.error(err);
             throw new HttpException('Internal Server Error', HttpStatus.INTERNAL_SERVER_ERROR);
