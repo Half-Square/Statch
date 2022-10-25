@@ -38,7 +38,6 @@ import { EditProjectsDto } from '../dto/edit-projects.dto';
 
 /* Services */
 import { ProjectsDbService } from '../services/projects-db.service';
-import { ObjectID } from 'typeorm';
 /***/
 
 @Controller('projects')
@@ -54,14 +53,18 @@ export class ProjectsController {
     */
     @Get()
     async getAll(): Promise<PublicProjectsDto[]> {
-        let projects = await this.projectsDb.findAll();
-        let ret = [];
+        try {
+            let projects = await this.projectsDb.findAll();
+            let ret = [];
 
-        projects.forEach((el) => {
-            ret.push(new PublicProjectsDto(el));
-        });
-        
-        return ret;
+            for(let i = 0; i < projects.length; i++) {
+                ret.push(new PublicProjectsDto(projects[i]));
+            }
+
+            return ret;
+        } catch (error) {
+            return error;
+        }
     }
     /***/
 
@@ -76,7 +79,13 @@ export class ProjectsController {
     */
     @Get('/:id')
     async getById(@Param() params): Promise<DetailsProjectsDto> {
-        return await this.projectsDb.findById(params.id);
+        try {
+            let project = await this.projectsDb.findById(params.id);
+            
+            return new DetailsProjectsDto(project);
+        } catch (error) {
+            return error;
+        }
     }
     /***/
 
@@ -97,7 +106,6 @@ export class ProjectsController {
             let id = await this.projectsDb.insertOne(body);
             let ret = await this.projectsDb.findById(new ObjectId(id));
             
-            if (!id || !ret) throw 'An error occured';
             return new PublicProjectsDto(ret);
         } catch (err) {
             console.error(err);

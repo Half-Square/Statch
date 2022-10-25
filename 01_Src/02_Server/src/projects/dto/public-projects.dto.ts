@@ -10,25 +10,43 @@
 
 /* Nest */
 import { ObjectID } from "typeorm";
-import { ObjectId } from 'mongodb';
+import { IsString, IsNotEmpty, IsNumber } from 'class-validator';
 /***/
 
 export class PublicProjectsDto {
+    @IsString()
+    @IsNotEmpty()
     _id: ObjectID;
+
+    @IsString()
     name: string;
+
+    @IsString()
+    @IsNotEmpty()
     status: string;
+
+    @IsString()
+    @IsNotEmpty()
     version: string;
-    created: Date;
+
+    @IsNumber()
+    @IsNotEmpty()
+    created: number;
+
+    @IsString()
     description: string;
-    owner: number;
-    
+
+    @IsString()
+    @IsNotEmpty()
+    owner: ObjectID;
+
     constructor(data) {
-        this._id = new ObjectId(data._id) || null;
-        this.name = data.name || "";
-        this.status = data.status || "new";
-        this.version = data.version || "0.0.0";
-        this.created = data.created || 0;
-        this.description = data.description || "";
-        this.owner = data.owner || 0;
+        this._id = data._id;
+        this.name = data.name;
+        this.status = data.status;
+        this.version = data.version;
+        this.created = data.created;
+        this.description = data.description;
+        this.owner = data.owner;
     }
 }

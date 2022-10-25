@@ -4,14 +4,23 @@
  * @ Description: Projects creation model
  */
 
+/* SUMMARY
+    * Nest
+*/
+
+/* Nest */
+import { IsNotEmpty, IsString } from "class-validator";
+/***/
+
 export class CreateProjectsDto {
+    @IsString()
     name: string;
+
+    @IsString()
+    @IsNotEmpty()
     version: string;
+
+    @IsString()
+    @IsNotEmpty()
     description: string;
-    
-    constructor(data) {
-        this.name = data.name || "";
-        this.version = data.version || "0.0.0";
-        this.description = data.description || "";
-    }
 }

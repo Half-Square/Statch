@@ -6,10 +6,11 @@
 
 /* SUMMARY
     * Nest
+    * DTO
 */
 
 /* Nest */
-import { ObjectID } from 'typeorm';
+import { IsString, IsNotEmpty } from 'class-validator';
 /***/
 
 /* DTO */
@@ -17,10 +18,20 @@ import { PublicUserDto } from 'src/users/dto/public-user.dto';
 /***/
 
 export class EditProjectsDto {
+    @IsString()
     name: string;
+
+    @IsString()
+    @IsNotEmpty()
     status: string;
+
+    @IsString()
+    @IsNotEmpty()
     version: string;
+
+    @IsString()
     description: string;
+
     assignees: PublicUserDto[];
 }
 
