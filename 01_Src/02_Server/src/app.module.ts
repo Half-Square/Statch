@@ -17,7 +17,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 /***/
 
 /* Services */
-import { AppService } from './app.service';
+import { FormatService } from './services/format/format.service';
 /***/
 
 /* Modules */
@@ -52,6 +52,6 @@ import { Tasks } from './tasks/tasks.entity';
     TasksModule
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [FormatService],
 })
 export class AppModule {}

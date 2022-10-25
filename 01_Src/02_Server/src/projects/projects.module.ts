@@ -26,6 +26,7 @@ import { ProjectsController } from './controllers/projects.controller';
 /***/
 
 /* Services */
+import { FormatService } from 'src/services/format/format.service';
 import { ProjectsDbService } from './services/projects-db.service';
 /***/
 
@@ -33,7 +34,7 @@ import { ProjectsDbService } from './services/projects-db.service';
     imports: [
         TypeOrmModule.forFeature([Projects, Users])
     ],
-    providers: [ProjectsDbService],
+    providers: [ProjectsDbService, FormatService],
     controllers: [ProjectsController]
 })
 export class ProjectsModule {}

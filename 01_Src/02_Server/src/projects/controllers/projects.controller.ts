@@ -37,12 +37,13 @@ import { EditProjectsDto } from '../dto/edit-projects.dto';
 /***/
 
 /* Services */
+import { FormatService } from '../../services/format/format.service';
 import { ProjectsDbService } from '../services/projects-db.service';
 /***/
 
 @Controller('projects')
 export class ProjectsController {
-    constructor(private projectsDb: ProjectsDbService) {
+    constructor(private projectsDb: ProjectsDbService, private format: FormatService) {
     }
 
     /*
@@ -55,11 +56,7 @@ export class ProjectsController {
     async getAll(): Promise<PublicProjectsDto[]> {
         try {
             let projects = await this.projectsDb.findAll();
-            let ret = [];
-
-            for(let i = 0; i < projects.length; i++) {
-                ret.push(new PublicProjectsDto(projects[i]));
-            }
+            let ret = this.format.fromArray(projects, PublicProjectsDto);
 
             return ret;
         } catch (error) {
@@ -81,8 +78,7 @@ export class ProjectsController {
     async getById(@Param() params): Promise<DetailsProjectsDto> {
         try {
             let project = await this.projectsDb.findById(params.id);
-            
-            return new DetailsProjectsDto(project);
+            return this.format.fromObject(project, DetailsProjectsDto);
         } catch (error) {
             return error;
         }
@@ -106,7 +102,7 @@ export class ProjectsController {
             let id = await this.projectsDb.insertOne(body);
             let ret = await this.projectsDb.findById(new ObjectId(id));
             
-            return new PublicProjectsDto(ret);
+            return this.format.fromObject(ret, PublicProjectsDto);
         } catch (err) {
             console.error(err);
             throw new HttpException('Internal Server Error', HttpStatus.INTERNAL_SERVER_ERROR);
@@ -134,7 +130,7 @@ export class ProjectsController {
 
             // Update users subscription
             // get assignees info
-            return new DetailsProjectsDto(project); // temp
+            return this.format.fromObject(project, DetailsProjectsDto); // temp
         } catch(err) {
             console.error(err);
             throw new HttpException('Internal Server Error', HttpStatus.INTERNAL_SERVER_ERROR);
