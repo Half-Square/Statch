@@ -14,7 +14,7 @@ import { IsString, IsNotEmpty } from 'class-validator';
 /***/
 
 /* DTO */
-import { PublicUserDto } from 'src/users/dto/public-user.dto';
+import { PublicUserDto } from 'src/modules/users/dto/public-user.dto';
 /***/
 
 export class EditProjectsDto {

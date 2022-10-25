@@ -37,7 +37,7 @@ import { EditProjectsDto } from '../dto/edit-projects.dto';
 /***/
 
 /* Services */
-import { FormatService } from '../../services/format/format.service';
+import { FormatService } from '../../../services/format/format.service';
 import { ProjectsDbService } from '../services/projects-db.service';
 /***/
 

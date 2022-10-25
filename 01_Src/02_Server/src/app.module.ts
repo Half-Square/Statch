@@ -21,15 +21,15 @@ import { FormatService } from './services/format/format.service';
 /***/
 
 /* Modules */
-import { UsersModule } from './users/users.module';
-import { ProjectsModule } from './projects/projects.module';
-import { TasksModule } from './tasks/tasks.module';
+import { UsersModule } from './modules/users/users.module';
+import { ProjectsModule } from './modules/projects/projects.module';
+import { TasksModule } from './modules/tasks/tasks.module';
 /***/
 
 /* Entities */
-import { Users } from './users/users.entity';
-import { Projects } from './projects/projects.entity';
-import { Tasks } from './tasks/tasks.entity';
+import { Users } from './modules/users/users.entity';
+import { Projects } from './modules/projects/projects.entity';
+import { Tasks } from './modules/tasks/tasks.entity';
 /***/
 
 @Module({
