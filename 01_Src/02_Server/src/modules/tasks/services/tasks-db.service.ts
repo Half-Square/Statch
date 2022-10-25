@@ -10,7 +10,7 @@
 */
 
 /* Nest */
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, DataSource, ObjectID } from 'typeorm';
 import { ObjectId } from 'mongodb';
@@ -22,7 +22,8 @@ import { Tasks } from '../tasks.entity';
 
 @Injectable()
 export class TasksDbService {
-    constructor(@InjectRepository(Tasks) private TasksRepository: Repository<Tasks>) {
+    constructor(@InjectRepository(Tasks) private TasksRepository: Repository<Tasks>,
+                private datasource: DataSource) {
 
     }
 
@@ -35,8 +36,16 @@ export class TasksDbService {
     * 
     * Return (Any[]): List of project tasks
     */
-    public findByProject(id: string): Promise<any[]> {
-        return this.TasksRepository.findBy({project: id});;
+    public findByProject(id: string): Promise<Tasks[]> {
+        return new Promise((resolve, reject) => {
+            if (!ObjectId.isValid(id)) return reject(new HttpException("Invalid ID", HttpStatus.BAD_REQUEST));
+
+            this.TasksRepository.findBy({project: new ObjectId(id)}).then((data) => {
+                return resolve(data);
+            }).catch((err) => {
+                return reject(new HttpException("Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR))
+            });
+        });
     }
     /***/
 }

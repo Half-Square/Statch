@@ -8,6 +8,7 @@
     * Nest
     * Controllers
     * Services
+    * Modules
 */
 
 /* Nest */
@@ -24,15 +25,21 @@ import { TasksController } from './controllers/tasks.controller';
 /***/
 
 /* Services */
+import { FormatService } from 'src/services/format/format.service';
 import { TasksDbService } from './services/tasks-db.service';
+/***/
+
+/* Modules */
+import { ProjectsModule } from '../projects/projects.module';
 /***/
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Tasks])
-  ],
+    TypeOrmModule.forFeature([Tasks]),
+    ProjectsModule
+],
   controllers: [TasksController],
-  providers: [TasksDbService]
+  providers: [TasksDbService, FormatService]
 })
 export class TasksModule {
 }

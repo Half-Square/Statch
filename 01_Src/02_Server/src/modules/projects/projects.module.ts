@@ -35,6 +35,7 @@ import { ProjectsDbService } from './services/projects-db.service';
         TypeOrmModule.forFeature([Projects, Users])
     ],
     providers: [ProjectsDbService, FormatService],
-    controllers: [ProjectsController]
+    controllers: [ProjectsController],
+    exports: [ProjectsDbService]
 })
 export class ProjectsModule {}

@@ -4,6 +4,15 @@
  * @ Description: Public tasks information model
  */
 
+/* SUMMARY
+    * Nest
+*/
+
+/* Nest */
+import { IsString } from "class-validator";
+/***/
+
 export class PublicTasksDto {
+    @IsString()
     name: string;
 }

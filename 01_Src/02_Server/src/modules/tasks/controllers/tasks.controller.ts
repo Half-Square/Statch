@@ -12,7 +12,8 @@
 */
 
 /* Nest */
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Get, HttpException, HttpStatus, Param } from '@nestjs/common';
+import { ObjectId } from "mongodb";
 /***/
 
 /* Services */
@@ -21,11 +22,15 @@ import { TasksDbService } from '../services/tasks-db.service';
 
 /* DTO */
 import { PublicTasksDto } from '../dto/public-tasks.dto';
+import { FormatService } from 'src/services/format/format.service';
+import { ProjectsDbService } from 'src/modules/projects/services/projects-db.service';
 /***/
 
 @Controller()
 export class TasksController {
-    constructor(private tasksDb : TasksDbService) {
+    constructor(private tasksDb : TasksDbService,
+                private projectsDb: ProjectsDbService,
+                private format: FormatService) {
     }
 
     /*
@@ -38,15 +43,14 @@ export class TasksController {
     * Return (PublicTasksDto[]): Tasks list
     */
     @Get('/projects/:projectId/tasks')
-    async getAllInProject(@Param() params: any): Promise<PublicTasksDto[]> {
-        let data = await this.tasksDb.findByProject(params.projectId);
-        let ret = [];
-
-        data.forEach((task) => {
-            ret.push(new PublicTasksDto());
-        });
-        
-        return ret;
+    async getAllInProject(@Param() params): Promise<PublicTasksDto[]> {
+        try {
+            await this.projectsDb.findById(params.projectId);
+            let data = await this.tasksDb.findByProject(params.projectId);    
+            return this.format.fromArray(data, PublicTasksDto);  
+        } catch (error) {
+            return error;
+        }
     }
     /***/
 }
