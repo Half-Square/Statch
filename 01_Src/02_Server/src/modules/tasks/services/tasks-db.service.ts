@@ -38,8 +38,6 @@ export class TasksDbService {
     */
     public findByProject(id: string): Promise<Tasks[]> {
         return new Promise((resolve, reject) => {
-            if (!ObjectId.isValid(id)) return reject(new HttpException("Invalid ID", HttpStatus.BAD_REQUEST));
-
             this.TasksRepository.findBy({project: new ObjectId(id)}).then((data) => {
                 return resolve(data);
             }).catch((err) => {

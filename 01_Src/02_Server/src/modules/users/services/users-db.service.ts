@@ -11,7 +11,7 @@
 */
 
 /* Nest */
-import { Injectable } from '@nestjs/common';
+import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 /***/
@@ -29,10 +29,16 @@ export class UsersDbService {
     * Name: findAll
     * Description: Get all items in users collection
     * 
-    * Return (Any[]): List of all items in collection
+    * Return (Users[]): List of all items in collection
     */
-    public findAll(): any {
-        return this.usersRepository.find();
+    public findAll(): Promise<Users[]> {
+        return new Promise((resolve, reject) => {
+            this.usersRepository.find().then((data) => {
+                return resolve(data);
+            }).catch((err) => {
+                return reject(new HttpException("Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR));
+            });
+        });
     }
     /***/
 }

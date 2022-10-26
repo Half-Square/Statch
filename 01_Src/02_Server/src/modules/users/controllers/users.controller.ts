@@ -20,12 +20,14 @@ import { PublicUserDto } from '../dto/public-user.dto';
 /***/
 
 /* Services */
+import { FormatService } from 'src/services/format/format.service';
 import { UsersDbService } from '../services/users-db.service';
 /***/
 
 @Controller('users')
 export class UsersController {
-    constructor(private users: UsersDbService) {
+    constructor(private users: UsersDbService,
+                private format: FormatService) {
     }
 
     /*
@@ -36,14 +38,12 @@ export class UsersController {
     */
     @Get()
     async getAll(): Promise<PublicUserDto[]> {
-        let users = await this.users.findAll();
-        let ret = [];
-
-        users.forEach((el) => {
-            ret.push(new PublicUserDto(el));
-        });
-
-        return ret;
+        try {
+            let users = await this.users.findAll();
+            return this.format.fromArray(users, PublicUserDto);
+        } catch (error) {
+            return error;
+        }
     }
     /***/
 }

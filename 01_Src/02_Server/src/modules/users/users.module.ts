@@ -26,13 +26,14 @@ import { UsersController } from './controllers/users.controller';
 
 /* Services */
 import { UsersDbService } from './services/users-db.service';
+import { FormatService } from 'src/services/format/format.service';
 /***/
 
 @Module({
     imports: [
         TypeOrmModule.forFeature([Users])
     ],
-    providers: [UsersDbService],
+    providers: [UsersDbService, FormatService],
     controllers: [UsersController]
 })
 export class UsersModule {}
