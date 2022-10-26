@@ -28,6 +28,7 @@ import { Projects } from '../projects.entity';
 /* DTO */
 import { CreateProjectsDto } from '../dto/create-projects';
 import { EditProjectsDto } from '../dto/edit-projects.dto';
+import { rejects } from 'assert';
 /***/
 
 @Injectable()
@@ -129,31 +130,26 @@ export class ProjectsDbService {
     *   - description (string): Project description
     *   - assignees (ObjectID[]): Users affected to the project
     */
-    public async updateOne(id: ObjectID, data: EditProjectsDto): Promise<ObjectID> {
-        let toSave = {};
+    public updateOne(id: ObjectID, data: EditProjectsDto): Promise<ObjectID> {
+        return new Promise((resolve, reject) => {
+            let toSave = {};
 
-        if (data.name) toSave['name'] = data.name;
-        if (data.status) toSave['status'] = data.status;
-        if (data.version) toSave['version'] = data.version;
-        if (data.description) toSave['descrription'] = data.description;
+            if (data.name) toSave['name'] = data.name;
+            if (data.status) toSave['status'] = data.status;
+            if (data.version) toSave['version'] = data.version;
+            if (data.description) toSave['descrription'] = data.description;
+            toSave['assignees'] = data.assignees.map((el) => el._id);
 
-        if (data.assignees) {
-            let tmp = [];
-
-            data.assignees.forEach((el) => {
-                tmp.push(el._id);
+            this.dataSource.getMongoRepository(Projects).updateOne({
+                _id: new ObjectId(id)
+            }, {
+                $set: toSave
+            }).then((data) => {
+                return resolve(id);
+            }).catch((err) => {
+                return reject(new HttpException("Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR));
             });
-
-            toSave['assignees'] = tmp;
-        }
-
-        await this.dataSource.getMongoRepository(Projects).updateOne({
-            _id: new ObjectId(id)
-        }, {
-            $set: toSave
         });
-        
-        return id;
     }
     /***/
 }

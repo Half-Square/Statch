@@ -34,6 +34,7 @@ import { FormatService } from 'src/services/format/format.service';
         TypeOrmModule.forFeature([Users])
     ],
     providers: [UsersDbService, FormatService],
-    controllers: [UsersController]
+    controllers: [UsersController],
+    exports: [UsersDbService]
 })
 export class UsersModule {}

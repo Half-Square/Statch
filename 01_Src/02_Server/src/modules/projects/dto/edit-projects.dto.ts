@@ -10,28 +10,33 @@
 */
 
 /* Nest */
-import { IsString, IsNotEmpty } from 'class-validator';
+import { IsString, IsOptional, IsArray, IsEmpty } from 'class-validator';
 /***/
 
 /* DTO */
 import { PublicUserDto } from 'src/modules/users/dto/public-user.dto';
+import { IsNull } from 'typeorm';
 /***/
 
 export class EditProjectsDto {
     @IsString()
+    @IsOptional()
     name: string;
 
     @IsString()
-    @IsNotEmpty()
+    @IsOptional()
     status: string;
 
     @IsString()
-    @IsNotEmpty()
+    @IsOptional()
     version: string;
 
     @IsString()
+    @IsOptional()
     description: string;
 
+    @IsArray()
+    @IsOptional()
     assignees: PublicUserDto[];
 }
 

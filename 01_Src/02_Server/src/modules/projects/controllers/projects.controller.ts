@@ -39,11 +39,15 @@ import { EditProjectsDto } from '../dto/edit-projects.dto';
 /* Services */
 import { FormatService } from '../../../services/format/format.service';
 import { ProjectsDbService } from '../services/projects-db.service';
+import { UsersDbService } from 'src/modules/users/services/users-db.service';
+import { PublicUserDto } from 'src/modules/users/dto/public-user.dto';
 /***/
 
 @Controller('projects')
 export class ProjectsController {
-    constructor(private projectsDb: ProjectsDbService, private format: FormatService) {
+    constructor(private projectsDb: ProjectsDbService,
+                private usersDb: UsersDbService,
+                private format: FormatService) {
     }
 
     /*
@@ -102,6 +106,8 @@ export class ProjectsController {
             let id = await this.projectsDb.insertOne(body);
             let ret = await this.projectsDb.findById(new ObjectId(id));
             
+            // Set and agglomerate owner
+
             return this.format.fromObject(ret, PublicProjectsDto);
         } catch (err) {
             console.error(err);
@@ -123,14 +129,17 @@ export class ProjectsController {
     @Put('/:id')
     async updateProject(@Param() params: any, @Body() body: EditProjectsDto): Promise<DetailsProjectsDto> {
         try {
-            await this.projectsDb.updateOne(new ObjectId(params.id), body);
-            let project = await this.projectsDb.findById(params.id);
-            
-            if (!project) throw 'An error occured';
+            let users = await this.usersDb.findWithIds(body.assignees ? body.assignees.map((el) => el._id) : []); // Get assigned users
+            body.assignees = users;
 
-            // Update users subscription
-            // get assignees info
-            return this.format.fromObject(project, DetailsProjectsDto); // temp
+            await this.projectsDb.updateOne(new ObjectId(params.id), body); // Update project
+            let project = await this.projectsDb.findById(params.id);
+
+            this.usersDb.addSubscriptionsToMany(users, params.id, "projects"); // Update users subscription
+
+            project.assignees = this.format.fromArray(users, PublicUserDto); // Agglomerate data in project
+
+            return this.format.fromObject(project, DetailsProjectsDto);
         } catch(err) {
             console.error(err);
             throw new HttpException('Internal Server Error', HttpStatus.INTERNAL_SERVER_ERROR);

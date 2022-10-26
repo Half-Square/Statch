@@ -9,6 +9,7 @@
     * Entities
     * Controllers
     * Services
+    * Modules
 */
 
 /* Nest */
@@ -30,9 +31,14 @@ import { FormatService } from 'src/services/format/format.service';
 import { ProjectsDbService } from './services/projects-db.service';
 /***/
 
+/* Module */
+import { UsersModule } from '../users/users.module';
+/***/
+
 @Module({
     imports: [
-        TypeOrmModule.forFeature([Projects, Users])
+        TypeOrmModule.forFeature([Projects, Users]),
+        UsersModule
     ],
     providers: [ProjectsDbService, FormatService],
     controllers: [ProjectsController],
