@@ -7,6 +7,7 @@
 /* SUMMARY
     * Nest
     * Entities
+    * Node modules
     * Name: findAll
     * Name: findWithIds
     * Name: addSubscriptionsToMany
@@ -21,6 +22,10 @@ import { ObjectId } from 'mongodb';
 
 /* Entities */
 import { Users } from '../users.entity';
+/***/
+
+/* Node modules */
+import * as _ from 'lodash';
 /***/
 
 @Injectable()
@@ -86,7 +91,7 @@ export class UsersDbService {
     public addSubscriptionsToMany(users: Users[], id: ObjectID, type: string): Promise<Users[]> {
         return new Promise(async (resolve, reject) => {
             users.filter((user) => {
-                return user.subscribes.find((el) => {el._id == new ObjectId(id)}) ? false : true;
+                return _.find(user.subscribes, (el) => el._id == id) ? false : true;
             }).forEach((user) => {
                 user.subscribes.push({_id: new ObjectId(id), type: type});
             });
