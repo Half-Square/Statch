@@ -6,10 +6,16 @@
 
 /* SUMARY
     * Nest
+    * DTO
 */
 
 /* Nest */
-import { Entity, Column, PrimaryGeneratedColumn, OneToOne, OneToMany, ObjectID } from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
+import { ObjectID } from 'mongodb';
+/***/
+
+/* DTO */
+import { PublicUserDto } from "../users/dto/public-user.dto";
 /***/
 
 @Entity()
@@ -18,7 +24,7 @@ export class Tasks {
     _id: ObjectID;
     
     @Column()
-    project: string;
+    project: ObjectID;
 
     @Column()
     name: string;
@@ -42,5 +48,5 @@ export class Tasks {
     owner: number;
 
     @Column() // update with @OneToMany
-    assignees: number[];
+    assignees: PublicUserDto[];
 }

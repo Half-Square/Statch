@@ -6,11 +6,18 @@
 
 /* SUMMARY
     * Nest
+    * DTO
 */
 
 /* Nest */
-import { IsNotEmpty, IsNumber, IsString } from "class-validator";
-import { ObjectID } from "typeorm";
+import { Type } from "class-transformer";
+import { IsArray, IsNotEmpty, IsNumber, IsString, ValidateNested } from "class-validator";
+import { ObjectID } from "mongodb";
+/***/
+
+/* DTO */
+import { DetailsTasksDto } from "src/modules/tasks/dto/details-tasks.dto";
+import { PublicTasksDto } from "src/modules/tasks/dto/public-tasks.dto";
 /***/
 
 export class DetailsProjectsDto {
@@ -39,8 +46,10 @@ export class DetailsProjectsDto {
     @IsString()
     docs: string[];
 
-    @IsString()
-    tasks: ObjectID[];
+    @IsArray()
+    @ValidateNested({each: true})
+    @Type(() => PublicTasksDto)
+    tasks: PublicTasksDto[];
 
     @IsString()
     comments: ObjectID[];

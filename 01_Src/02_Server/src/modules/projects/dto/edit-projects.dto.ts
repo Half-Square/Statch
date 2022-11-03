@@ -10,7 +10,9 @@
 */
 
 /* Nest */
-import { IsString, IsOptional, IsArray, IsEmpty } from 'class-validator';
+import { Type } from "class-transformer";
+import { IsString, IsOptional, IsArray, ValidateNested } from 'class-validator';
+import { PublicTasksDto } from "src/modules/tasks/dto/public-tasks.dto";
 /***/
 
 /* DTO */
@@ -36,7 +38,24 @@ export class EditProjectsDto {
     description: string;
 
     @IsArray()
+    @ValidateNested({each: true})
+    @Type(() => PublicTasksDto)
+    @IsOptional()
+    tasks: PublicTasksDto[];
+
+    @IsArray()
+    @ValidateNested({each: true})
+    @Type(() => PublicUserDto)
     @IsOptional()
     assignees: PublicUserDto[];
+
+    constructor(data) {
+        this.name = data.name;
+        this.status = data.status;
+        this.version = data.version;
+        this.description = data.description;
+        this.tasks = data.tasks;
+        this.assignees = data.assignees;
+    }
 }
 

@@ -8,11 +8,12 @@
     * Nest
     * Services
     * DTO
-    * Name: getAllInproject
+    * Name: getAllInProject
+    * Name: createTask
 */
 
 /* Nest */
-import { Controller, Get, HttpException, HttpStatus, Param } from '@nestjs/common';
+import { Controller, Get, Post, HttpException, HttpStatus, Param, Body } from '@nestjs/common';
 import { ObjectId } from "mongodb";
 /***/
 
@@ -24,6 +25,10 @@ import { TasksDbService } from '../services/tasks-db.service';
 import { PublicTasksDto } from '../dto/public-tasks.dto';
 import { FormatService } from 'src/services/format/format.service';
 import { ProjectsDbService } from 'src/modules/projects/services/projects-db.service';
+import { DetailsTasksDto } from '../dto/details-tasks.dto';
+import { CreateTasksDto } from '../dto/create-tasks.dto';
+import { EditProjectsDto } from 'src/modules/projects/dto/edit-projects.dto';
+import { ObjectID } from 'typeorm';
 /***/
 
 @Controller()
@@ -34,7 +39,7 @@ export class TasksController {
     }
 
     /*
-    * Name: getAllInproject
+    * Name: getAllInProject
     * Description: Get all project's tasks
     * 
     * Params:
@@ -49,6 +54,37 @@ export class TasksController {
             let data = await this.tasksDb.findByProject(params.projectId);    
             return this.format.fromArray(data, PublicTasksDto);  
         } catch (error) {
+            return error;
+        }
+    }
+    /***/
+
+    /*
+    * Name: createTask
+    * Descrription: Create task in project
+    * 
+    * Params:
+    * - projectId (ObjectId): Parent project ID
+    * 
+    * Body:
+    * - name (String): Task name
+    * - description (String): Tasks description
+    * 
+    * Return (DetailsTasksDto): Created task
+    */
+    @Post('/projects/:projectId/tasks')
+    async createTask(@Param() params, @Body() body: CreateTasksDto): Promise<DetailsTasksDto> {
+        try {
+            let project = await this.projectsDb.findById(params.projectId);
+
+            let id = await this.tasksDb.insertOne(new ObjectId(project._id), body);
+            let newTask = await this.tasksDb.getById(new ObjectId(id));
+            
+            project.tasks.push(newTask._id);
+            await this.projectsDb.updateOne(project._id, new EditProjectsDto(project));
+
+            return this.format.fromObject(newTask, DetailsTasksDto);
+        } catch(error) {
             return error;
         }
     }
