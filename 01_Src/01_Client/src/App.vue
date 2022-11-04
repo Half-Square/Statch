@@ -17,7 +17,6 @@ export default defineComponent({
 
 <style lang="scss">
 #app {
-  text-align: center;
   color: #2c3e50;
 }
 
