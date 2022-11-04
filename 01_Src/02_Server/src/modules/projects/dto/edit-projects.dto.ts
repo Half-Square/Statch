@@ -50,12 +50,14 @@ export class EditProjectsDto {
     assignees: PublicUserDto[];
 
     constructor(data) {
-        this.name = data.name;
-        this.status = data.status;
-        this.version = data.version;
-        this.description = data.description;
-        this.tasks = data.tasks;
-        this.assignees = data.assignees;
+        if (data) {
+            this.name = data.name;
+            this.status = data.status;
+            this.version = data.version;
+            this.description = data.description;
+            this.tasks = data.tasks;
+            this.assignees = data.assignees;
+        }
     }
 }
 

@@ -41,12 +41,14 @@ export class PublicProjectsDto {
     owner: ObjectID;
 
     constructor(data) {
-        this._id = data._id;
-        this.name = data.name;
-        this.status = data.status;
-        this.version = data.version;
-        this.created = data.created;
-        this.description = data.description;
-        this.owner = data.owner;
+        if (data) {
+            this._id = data._id;
+            this.name = data.name;
+            this.status = data.status;
+            this.version = data.version;
+            this.created = data.created;
+            this.description = data.description;
+            this.owner = data.owner;
+        }
     }
 }

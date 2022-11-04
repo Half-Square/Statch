@@ -9,7 +9,7 @@
 */
 
 /* Nest */
-import { IsEmail, IsNotEmpty, IsString } from "class-validator";
+import { IsEmail, IsNotEmpty, IsOptional, IsString } from "class-validator";
 import { ObjectID } from "typeorm";
 /***/
 
@@ -19,9 +19,11 @@ export class PublicUserDto {
     _id: ObjectID;
 
     @IsString()
+    @IsOptional()
     name: string;
 
     @IsString()
+    @IsOptional()
     lastName: string;
 
     @IsEmail()
@@ -29,13 +31,16 @@ export class PublicUserDto {
     email: string;
 
     @IsString()
+    @IsOptional()
     image: string;
 
     constructor(data) {
-        this._id = data._id;
-        this.name = data.name;
-        this.lastName = data.lastName;
-        this.email = data.email;
-        this.image = data.image;
+        if (data) {
+            this._id = data._id;
+            this.name = data.name;
+            this.lastName = data.lastName;
+            this.email = data.email;
+            this.image = data.image;
+        }
     }
 }
