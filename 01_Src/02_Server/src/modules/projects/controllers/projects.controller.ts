@@ -82,6 +82,9 @@ export class ProjectsController {
     async getById(@Param() params): Promise<DetailsProjectsDto> {
         try {
             let project = await this.projectsDb.findById(params.id);
+            let users = await this.usersDb.findWithIds(project.assignees);
+
+            project.assignees = this.format.fromArray(users, PublicUserDto); // Agglomerate data in project
             return this.format.fromObject(project, DetailsProjectsDto);
         } catch (error) {
             return error;
