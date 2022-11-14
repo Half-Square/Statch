@@ -24,13 +24,14 @@ import { FormatService } from './services/format/format.service';
 import { UsersModule } from './modules/users/users.module';
 import { ProjectsModule } from './modules/projects/projects.module';
 import { TasksModule } from './modules/tasks/tasks.module';
+import { CommentsModule } from './modules/comments/comments.module';
 /***/
 
 /* Entities */
 import { Users } from './modules/users/users.entity';
 import { Projects } from './modules/projects/projects.entity';
 import { Tasks } from './modules/tasks/tasks.entity';
-import { CommentsModule } from './modules/comments/comments.module';
+import { Comments } from './modules/comments/comments.entity';
 /***/
 
 @Module({
@@ -45,7 +46,8 @@ import { CommentsModule } from './modules/comments/comments.module';
       entities: [
         Users,
         Projects,
-        Tasks
+        Tasks,
+        Comments
       ]
     }),
     UsersModule,

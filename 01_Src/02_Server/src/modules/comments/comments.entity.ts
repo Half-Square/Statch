@@ -9,11 +9,12 @@
 */
 
 /* Nest */
-import { Entity, Column, PrimaryGeneratedColumn, ObjectID } from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
+import { ObjectID } from "mongodb";
 /***/
 
 @Entity()
-export class Projects {
+export class Comments {
     @PrimaryGeneratedColumn()
     _id: ObjectID;
 
@@ -28,4 +29,7 @@ export class Projects {
 
     @Column()
     reply: ObjectID[];
+
+    @Column()
+    parent: ObjectID;
 }
