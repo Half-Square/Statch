@@ -50,7 +50,7 @@ export class TasksController {
     @Get('/projects/:projectId/tasks')
     async getAllInProject(@Param() params): Promise<PublicTasksDto[]> {
         try {
-            await this.projectsDb.findById(params.projectId);
+            await this.projectsDb.getById(params.projectId);
             let data = await this.tasksDb.findByProject(params.projectId);    
             return this.format.fromArray(data, PublicTasksDto);  
         } catch (error) {
@@ -75,7 +75,7 @@ export class TasksController {
     @Post('/projects/:projectId/tasks')
     async createTask(@Param() params, @Body() body: CreateTasksDto): Promise<DetailsTasksDto> {
         try {
-            let project = await this.projectsDb.findById(params.projectId);
+            let project = await this.projectsDb.getById(params.projectId);
 
             let id = await this.tasksDb.insertOne(new ObjectId(project._id), body);
             let newTask = await this.tasksDb.getById(new ObjectId(id));

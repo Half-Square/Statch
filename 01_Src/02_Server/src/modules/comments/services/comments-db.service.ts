@@ -8,6 +8,7 @@
     * Nest
     * Entities
     * Name: getAll
+    * Name: insertOne
 */
 
 /* Nest */
@@ -43,6 +44,55 @@ export class CommentsDbService {
             }).catch((err) => {
                 console.error(err);
                 return reject(new HttpException('Internal Server Error', HttpStatus.INTERNAL_SERVER_ERROR));
+            });
+        });
+    }
+    /***/
+
+    /*
+    * Name: getById
+    * Description: Get comment by id
+    * 
+    * Args:
+    * - id (ObjectId): Comment ID
+    * 
+    * Return (Comments): Comment data
+    */
+    public getById(id: ObjectID): Promise<Comments> {
+        return new Promise((resolve, reject) => {
+            this.commentsRepository.findOneBy({_id: new ObjectId(id)}).then((comment) => {
+                if (comment) return resolve(comment);
+                else return reject(new HttpException('Not Found', HttpStatus.NOT_FOUND));
+            }).catch((err) => {
+                console.error(err);
+                return reject(new HttpException("Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR));
+            });
+        });
+    }
+    /***/
+
+    /*
+    * Name: insertOne
+    * Description: Insert new comment
+    * 
+    * Args:
+    * - content (String): Comment content
+    * 
+    * Return (ObjectId): New comment ID
+    */
+    public insertOne(content: String): Promise<ObjectID> {
+        return new Promise((resolve, reject) => {
+            this.datasource.getMongoRepository(Comments).insertOne({
+                author: 0, // tmp
+                created: Math.round(new Date().getTime()/1000), // In unix format
+                content: content,
+                reply: []
+            }).then((res) => {
+                if (res.insertedCount === 1) return resolve(res.insertedId);
+                else throw "No Item Inserted";
+            }).catch((err) => {
+                console.error(err);
+                return reject(new HttpException("Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR));
             });
         });
     }

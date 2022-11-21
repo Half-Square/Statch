@@ -9,7 +9,8 @@
 */
 
 /* Nest */
-import { IsNotEmpty, IsString } from "class-validator";
+import { IsArray, IsNotEmpty, IsString } from "class-validator";
+import { ObjectID } from "typeorm";
 /***/
 
 export class CreateProjectsDto {

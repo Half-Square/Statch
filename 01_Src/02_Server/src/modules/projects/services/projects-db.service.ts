@@ -8,8 +8,8 @@
     * Nest
     * Entities
     * DTO
-    * Name: findAll
-    * Name: findById
+    * Name: getAll
+    * Name: getById
     * Name: insertOne
     * Name: updateOne
 */
@@ -40,12 +40,12 @@ export class ProjectsDbService {
     }
 
     /*
-    * Name: findAll
+    * Name: getAll
     * Description: Get all items in users collection
     * 
     * Return (Projects[]): List of all items in collection
     */
-    public findAll(): Promise<Projects[]> {
+    public getAll(): Promise<Projects[]> {
         return new Promise((resolve, reject) => {
             this.projectsRepository.find().then((data) => {
                 return resolve(data);
@@ -57,7 +57,7 @@ export class ProjectsDbService {
     /***/
 
     /*
-    * Name: findById
+    * Name: getById
     * Description: Get item by id
     * 
     * Args:
@@ -65,7 +65,7 @@ export class ProjectsDbService {
     * 
     * Return (Project): Project data
     */
-    public findById(id: string): Promise<Projects> {
+    public getById(id: string): Promise<Projects> {
         return new Promise((resolve, reject) => {
             if (!ObjectId.isValid(id)) return reject(new HttpException("Invalid ID", HttpStatus.BAD_REQUEST));
 
@@ -140,6 +140,7 @@ export class ProjectsDbService {
             if (data.description) toSave['descrription'] = data.description;
             toSave['assignees'] = data.assignees.map((el) => el._id);
             toSave['tasks'] = data.tasks;
+            toSave['comments'] = data.comments;
 
             this.dataSource.getMongoRepository(Projects).updateOne({
                 _id: new ObjectId(id)

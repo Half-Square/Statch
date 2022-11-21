@@ -12,12 +12,12 @@
 /* Nest */
 import { Type } from "class-transformer";
 import { IsString, IsOptional, IsArray, ValidateNested } from 'class-validator';
-import { PublicTasksDto } from "src/modules/tasks/dto/public-tasks.dto";
+import { ObjectID } from "mongodb";
 /***/
 
 /* DTO */
 import { PublicUserDto } from 'src/modules/users/dto/public-user.dto';
-import { IsNull } from 'typeorm';
+import { PublicTasksDto } from "src/modules/tasks/dto/public-tasks.dto";
 /***/
 
 export class EditProjectsDto {
@@ -48,6 +48,9 @@ export class EditProjectsDto {
     @Type(() => PublicUserDto)
     @IsOptional()
     assignees: PublicUserDto[];
+
+    @IsArray()
+    comments: ObjectID;
 
     constructor(data) {
         if (data) {

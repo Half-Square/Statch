@@ -59,7 +59,7 @@ export class ProjectsController {
     @Get()
     async getAll(): Promise<PublicProjectsDto[]> {
         try {
-            let projects = await this.projectsDb.findAll();
+            let projects = await this.projectsDb.getAll();
             let ret = this.format.fromArray(projects, PublicProjectsDto);
 
             return ret;
@@ -81,7 +81,7 @@ export class ProjectsController {
     @Get('/:id')
     async getById(@Param() params): Promise<DetailsProjectsDto> {
         try {
-            let project = await this.projectsDb.findById(params.id);
+            let project = await this.projectsDb.getById(params.id);
             let users = await this.usersDb.findWithIds(project.assignees);
 
             project.assignees = this.format.fromArray(users, PublicUserDto); // Agglomerate data in project
@@ -107,7 +107,7 @@ export class ProjectsController {
     async addOne(@Body() body: CreateProjectsDto): Promise<PublicProjectsDto> {
         try {
             let id = await this.projectsDb.insertOne(body);
-            let ret = await this.projectsDb.findById(new ObjectId(id));
+            let ret = await this.projectsDb.getById(new ObjectId(id));
             
             // Set and agglomerate owner
 
@@ -126,8 +126,14 @@ export class ProjectsController {
     * Params:
     * - id (String): Id of project to modify
     * 
-    * Body:
-    * - assignees (Users[]):
+    * Body (EditProjectDto):
+    * - name (String): Project name
+    * - status (string): Project status
+    * - version (string): Project version
+    * - description (string): Project description
+    * - assignees (ObjectID[]): Users affected to the project
+    * 
+    * Return (DetailsProjectsDto): Project updated
     */
     @Put('/:id')
     async updateProject(@Param() params: any, @Body() body: EditProjectsDto): Promise<DetailsProjectsDto> {
@@ -136,7 +142,7 @@ export class ProjectsController {
             body.assignees = users;
 
             await this.projectsDb.updateOne(new ObjectId(params.id), body); // Update project
-            let project = await this.projectsDb.findById(params.id);
+            let project = await this.projectsDb.getById(params.id);
 
             this.usersDb.addSubscriptionsToMany(users, params.id, "projects"); // Update users subscription
 

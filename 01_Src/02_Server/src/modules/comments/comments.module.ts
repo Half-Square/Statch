@@ -21,18 +21,22 @@ import { CommentsController } from './controllers/comments.controller';
 
 /* Services */
 import { FormatService } from 'src/services/format/format.service';
+import { ProjectsDbService } from '../projects/services/projects-db.service';
+import { TasksDbService } from '../tasks/services/tasks-db.service';
 import { CommentsDbService } from './services/comments-db.service';
 /***/
 
 /* Entities */
 import { Comments } from './comments.entity';
+import { Projects } from '../projects/projects.entity';
+import { Tasks } from '../tasks/tasks.entity';
 /***/
 
 @Module({
     imports: [
-        TypeOrmModule.forFeature([Comments])
+        TypeOrmModule.forFeature([Comments, Projects, Tasks]),
     ],
     controllers: [CommentsController],
-    providers: [FormatService, CommentsDbService]
+        providers: [FormatService, ProjectsDbService, TasksDbService, CommentsDbService]
 })
 export class CommentsModule {}
