@@ -1,21 +1,30 @@
 /**
  * @ Author: Jbristhuille
- * @ Create Time: 2022-10-16 14:36:13
- * @ Description: Projects collection description
+ * @ Create Time: 2022-10-20 17:13:25
+ * @ Description: Tasks entity
  */
 
 /* SUMARY
     * Nest
+    * DTO
 */
 
 /* Nest */
-import { Entity, Column, PrimaryGeneratedColumn, OneToOne, OneToMany } from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
+import { ObjectID } from 'mongodb';
+/***/
+
+/* DTO */
+import { PublicUserDto } from "../users/dto/public-user.dto";
 /***/
 
 @Entity()
-export class Projects {
+export class Tasks {
     @PrimaryGeneratedColumn()
-    id: number;
+    _id: ObjectID;
+    
+    @Column()
+    project: ObjectID;
 
     @Column()
     name: string;
@@ -24,19 +33,13 @@ export class Projects {
     status: string;
 
     @Column()
-    version: string;
-
-    @Column()
-    created: Date;
+    created: number;
 
     @Column()
     description: string;
 
-    @Column()
-    docs: string[];
-
     @Column() // update with @OneToMany
-    tasks: number[];
+    tickets: string[];
 
     @Column() // update with @OneToMany
     comments: number[];
@@ -45,5 +48,5 @@ export class Projects {
     owner: number;
 
     @Column() // update with @OneToMany
-    assignees: number[];
+    assignees: PublicUserDto[];
 }

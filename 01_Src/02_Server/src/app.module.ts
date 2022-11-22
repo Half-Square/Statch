@@ -17,17 +17,21 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 /***/
 
 /* Services */
-import { AppService } from './app.service';
+import { FormatService } from './services/format/format.service';
 /***/
 
 /* Modules */
-import { UsersModule } from './users/users.module';
-import { ProjectsModule } from './projects/projects.module';
+import { UsersModule } from './modules/users/users.module';
+import { ProjectsModule } from './modules/projects/projects.module';
+import { TasksModule } from './modules/tasks/tasks.module';
+import { CommentsModule } from './modules/comments/comments.module';
 /***/
 
 /* Entities */
-import { Users } from './users/users.entity';
-import { Projects } from './projects/projects.entity';
+import { Users } from './modules/users/users.entity';
+import { Projects } from './modules/projects/projects.entity';
+import { Tasks } from './modules/tasks/tasks.entity';
+import { Comments } from './modules/comments/comments.entity';
 /***/
 
 @Module({
@@ -41,13 +45,17 @@ import { Projects } from './projects/projects.entity';
       database: 'test',
       entities: [
         Users,
-        Projects
+        Projects,
+        Tasks,
+        Comments
       ]
     }),
     UsersModule,
-    ProjectsModule
+    ProjectsModule,
+    TasksModule,
+    CommentsModule
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [FormatService],
 })
 export class AppModule {}

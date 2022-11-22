@@ -9,13 +9,17 @@
 */
 
 /* Nest */
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany, ObjectID } from "typeorm";
+/***/
+
+/* DTO */
+import { UsersSubscriptionsDto } from './dto/users-subscriptions.dto';
 /***/
 
 @Entity()
 export class Users {
     @PrimaryGeneratedColumn()
-    id: number;
+    _id: ObjectID;
 
     @Column()
     name: string;
@@ -36,5 +40,5 @@ export class Users {
     tokenStart: Date;
 
     @Column() // update with @OneToMany
-    subscribes: number[];
+    subscribes: UsersSubscriptionsDto[];
 }
