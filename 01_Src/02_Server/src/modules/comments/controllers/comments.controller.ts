@@ -18,7 +18,9 @@ import {
     Get,
     Post,
     Param,
-    Body
+    Body,
+    HttpException,
+    HttpStatus
 } from '@nestjs/common';
 
 import { ObjectId } from 'mongodb';
@@ -85,15 +87,18 @@ export class CommentsController{
                 tasks: "tasksDb"
             };
             
-            let parent = await this[type[params.type]].getById(params.id); // Get parent
-            let commentId = await this.commentsDb.insertOne(body.content); // Insert comment
-            let newComment = await this.commentsDb.getById(new ObjectId(commentId)); // Get inserted comment
-            
-            
-            parent.comments.push(commentId)// TODO: Update parent
-            await this[type[params.type]].updateOne(params.id, parent);
-
-            return this.format.fromObject(newComment, DetailsCommentsDto);
+            if (this[type[params.type]]) {
+                let parent = await this[type[params.type]].getById(params.id); // Get parent
+                let commentId = await this.commentsDb.insertOne(body.content); // Insert comment
+                let newComment = await this.commentsDb.getById(new ObjectId(commentId)); // Get inserted comment
+                
+                parent.comments.push(commentId)// TODO: Update parent
+                await this[type[params.type]].updateOne(params.id, parent);
+    
+                return this.format.fromObject(newComment, DetailsCommentsDto);
+            } else {
+                throw new HttpException('Invalid Url Parameter', HttpStatus.BAD_REQUEST);
+            }
         } catch (error) {
             return error;
         }
