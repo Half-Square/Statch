@@ -49,7 +49,7 @@ export class CommentsController{
 
     /*
     * Name: getAll
-    * Description: Get all comments
+    * Description: Get all comments in parent
     * 
     * Params:
     * - type (String): Projects, tasks or tickets
@@ -60,8 +60,18 @@ export class CommentsController{
     @Get()
     async getAll(@Param() params): Promise<PublicCommentsDto[]> {
         try {
-            let comments = await this.commentsDb.getAll(params.id);
-            return this.format.fromArray(comments, PublicCommentsDto); // temp
+            const type = {
+                projects: "projectsDb",
+                tasks: "tasksDb"
+            };
+            
+            if (this[type[params.type]]) {
+                await this[type[params.type]].getById(params.id); // Check parent
+                let comments = await this.commentsDb.getAllInParent(params.id);
+                return this.format.fromArray(comments, PublicCommentsDto); // temp
+            } else {
+                throw new HttpException('Invalid Url Parameter', HttpStatus.BAD_REQUEST);
+            }
         } catch (error) {
             return error;
         }
@@ -80,7 +90,7 @@ export class CommentsController{
     * Return (DetailsCommentsDto): New comment data
     */
     @Post()
-    async createComment(@Param() params, @Body() body: CreateCommentsDto): Promise<DetailsCommentsDto> { //PublicCommentsDto
+    async createComment(@Param() params, @Body() body: CreateCommentsDto): Promise<DetailsCommentsDto> {
         try {
             const type = {
                 projects: "projectsDb",
@@ -89,10 +99,10 @@ export class CommentsController{
             
             if (this[type[params.type]]) {
                 let parent = await this[type[params.type]].getById(params.id); // Get parent
-                let commentId = await this.commentsDb.insertOne(body.content); // Insert comment
+                let commentId = await this.commentsDb.insertOne(body.content, params.id); // Insert comment
                 let newComment = await this.commentsDb.getById(new ObjectId(commentId)); // Get inserted comment
                 
-                parent.comments.push(commentId)// TODO: Update parent
+                parent.comments.push(commentId)// Update parent
                 await this[type[params.type]].updateOne(params.id, parent);
     
                 return this.format.fromObject(newComment, DetailsCommentsDto);

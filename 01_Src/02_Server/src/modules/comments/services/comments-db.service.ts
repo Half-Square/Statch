@@ -7,7 +7,7 @@
 /* SUMMARY
     * Nest
     * Entities
-    * Name: getAll
+    * Name: getAllInParent
     * Name: insertOne
 */
 
@@ -29,7 +29,7 @@ export class CommentsDbService {
     }
 
     /*
-    * Name: getAll
+    * Name: getAllInParent
     * Description: Get all items in collection
     * 
     * Args:
@@ -37,7 +37,7 @@ export class CommentsDbService {
     * 
     * Return (Comments[]): List of comments
     */
-    public getAll(parentId: ObjectID): Promise<Comments[]> {
+    public getAllInParent(parentId: ObjectID): Promise<Comments[]> {
         return new Promise((resolve, reject) => {
             this.commentsRepository.findBy({parent: new ObjectId(parentId)}).then((comments) => {
                 return resolve(comments);
@@ -76,16 +76,18 @@ export class CommentsDbService {
     * Description: Insert new comment
     * 
     * Args:
+    * - parent (ObjectID): Parent ID
     * - content (String): Comment content
     * 
     * Return (ObjectId): New comment ID
     */
-    public insertOne(content: String): Promise<ObjectID> {
+    public insertOne(content: String, parent: ObjectID): Promise<ObjectID> {
         return new Promise((resolve, reject) => {
             this.datasource.getMongoRepository(Comments).insertOne({
                 author: 0, // tmp
                 created: Math.round(new Date().getTime()/1000), // In unix format
                 content: content,
+                parent: new ObjectId(parent),
                 reply: []
             }).then((res) => {
                 if (res.insertedCount === 1) return resolve(res.insertedId);

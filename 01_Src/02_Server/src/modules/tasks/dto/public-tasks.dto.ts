@@ -15,4 +15,10 @@ import { IsString } from "class-validator";
 export class PublicTasksDto {
     @IsString()
     name: string;
+
+    constructor(data) {
+        if (data) {
+            this.name = data.name
+        }
+    }
 }

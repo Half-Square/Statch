@@ -39,7 +39,6 @@ export class PublicCommentsDto {
             this.author = data.author;
             this.created = data.created;
             this.content = data.content;
-            this.parent = data.parent;
         }
     }
 }

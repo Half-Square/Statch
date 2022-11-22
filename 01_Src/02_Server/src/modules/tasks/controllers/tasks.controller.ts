@@ -51,8 +51,8 @@ export class TasksController {
     async getAllInProject(@Param() params): Promise<PublicTasksDto[]> {
         try {
             await this.projectsDb.getById(params.projectId);
-            let data = await this.tasksDb.findByProject(params.projectId);    
-            return this.format.fromArray(data, PublicTasksDto);  
+            let data = await this.tasksDb.findByProject(params.projectId);
+            return data && data.length > 0 ? this.format.fromArray(data, PublicTasksDto) : [];  
         } catch (error) {
             return error;
         }
