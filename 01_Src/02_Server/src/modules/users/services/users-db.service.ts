@@ -11,6 +11,7 @@
     * Name: getAll
     * Name: getById
     * Name: getByEmail
+    * Name: getByToken
     * Name: findWithIds
     * Name: addSubscriptionsToMany
     * Name: saveToken
@@ -96,6 +97,28 @@ export class UsersDbService {
             }).catch((err) => {
                 console.error(err);
                 return reject(new HttpException('Inernal Server Error', HttpStatus.INTERNAL_SERVER_ERROR));
+            });
+        });
+    }
+    /***/
+
+    /*
+    * Name: getByToken
+    * Description: Get user data by authentification token
+    * 
+    * Args:
+    * - token (String): User token
+    * 
+    * Return (Users): User data
+    */
+    public getByToken(token: string): Promise<Users> {
+        return new Promise((resolve, reject) => {
+            this.usersRepository.findOneBy({token: token}).then((user) => {
+                if (user) return resolve(user);
+                else return reject(new HttpException('User Not Found', HttpStatus.NOT_FOUND));
+            }).catch((err) => {
+                console.error(err);
+                return reject(new HttpException('Internal Server Error', HttpStatus.INTERNAL_SERVER_ERROR));
             });
         });
     }
