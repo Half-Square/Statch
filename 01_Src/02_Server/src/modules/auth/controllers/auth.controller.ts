@@ -12,11 +12,13 @@
 */
 
 /* Nest */
-import { Controller, Body } from '@nestjs/common';
+import { Controller, Body, Post, HttpException, HttpStatus } from '@nestjs/common';
 /***/
 
 /* Services */
 import { FormatService } from 'src/services/format/format.service';
+import { UsersDbService } from 'src/modules/users/services/users-db.service';
+import { TokenService } from '../services/token.service';
 /***/
 
 /* Dto */
@@ -26,7 +28,9 @@ import { AuthUserDto } from '../../users/dto/auth-user.dto';
 
 @Controller('auth')
 export class AuthController {
-    constructor(private format: FormatService) {
+    constructor(private format: FormatService,
+                private usersDb: UsersDbService,
+                private token: TokenService) {
     }
 
     /*
@@ -39,11 +43,20 @@ export class AuthController {
     * 
     * Return (AuthUserDto): User details with auth token
     */
+    @Post()
     async connectUser(@Body() body: ConnectUserDto): Promise<AuthUserDto> {
         try {
-            return this.format.fromObject({}, AuthUserDto);
+            let user = await this.usersDb.getByEmail(body.email);
+            await this.token.checkPassword(body.password, user.password);
+
+            let token = await this.token.genToken(user);
+            user.token = token.value;
+            user.tokenStart = token.start;
+
+            await this.usersDb.saveToken(user._id, user.token, user.tokenStart);
+
+            return this.format.fromObject(user, AuthUserDto);
         } catch (err) {
-            console.error(err);
             return err;
         }
     }

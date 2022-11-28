@@ -7,10 +7,14 @@
 /* SUMMARY
     * Nest
     * Controllers
+    * Services
+    * Modules
+    * Entities
 */
 
 /* Nest */
 import { Module } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
 /***/
 
 /* Controllers */
@@ -19,10 +23,24 @@ import { AuthController } from './controllers/auth.controller';
 
 /* Services */
 import { FormatService } from 'src/services/format/format.service';
+import { TokenService } from './services/token.service';
+import { UsersDbService } from '../users/services/users-db.service';
+/***/
+
+/* Modules */
+import { UsersModule } from '../users/users.module';
+/***/
+
+/* Entities */
+import { Users } from '../users/users.entity';
 /***/
 
 @Module({
-  controllers: [AuthController],
-  providers: [FormatService]
+    imports: [
+        TypeOrmModule.forFeature([Users]),
+        UsersModule
+    ],
+    controllers: [AuthController],
+    providers: [FormatService, TokenService, UsersDbService]
 })
 export class AuthModule {}

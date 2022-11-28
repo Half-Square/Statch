@@ -39,7 +39,7 @@ export class UsersController {
     @Get()
     async getAll(): Promise<PublicUserDto[]> {
         try {
-            let users = await this.users.findAll();
+            let users = await this.users.getAll();
             return this.format.fromArray(users, PublicUserDto);
         } catch (error) {
             return error;

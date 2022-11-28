@@ -14,10 +14,6 @@ import { ObjectID } from "typeorm";
 /***/
 
 export class ConnectUserDto {
-    @IsString()
-    @IsNotEmpty()
-    _id: ObjectID;
-
     @IsEmail()
     @IsNotEmpty()
     email: string;
@@ -28,7 +24,6 @@ export class ConnectUserDto {
 
     constructor(data) {
         if (data) {
-            this._id = data._id;
             this.email = data.email;
             this.password = data.password;
         }

@@ -8,9 +8,12 @@
     * Nest
     * Entities
     * Node modules
-    * Name: findAll
+    * Name: getAll
+    * Name: getById
+    * Name: getByEmail
     * Name: findWithIds
     * Name: addSubscriptionsToMany
+    * Name: saveToken
 */
 
 /* Nest */
@@ -35,17 +38,64 @@ export class UsersDbService {
     }
 
     /*
-    * Name: findAll
+    * Name: getAll
     * Description: Get all items in users collection
     * 
     * Return (Users[]): List of all items in collection
     */
-    public findAll(): Promise<Users[]> {
+    public getAll(): Promise<Users[]> {
         return new Promise((resolve, reject) => {
             this.usersRepository.find().then((data) => {
                 return resolve(data);
             }).catch((err) => {
+                console.error(err);
                 return reject(new HttpException("Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR));
+            });
+        });
+    }
+    /***/
+
+    /*
+    * Name: getById
+    * Description: Get user by id
+    * 
+    * Args:
+    * - id (ObjectID): User id
+    * 
+    * Return (Users): User data
+    */
+    public getById(id: ObjectID): Promise<Users> {
+        return new Promise((resolve, reject) => {
+            if (!ObjectId.isValid(id)) return reject(new HttpException('Invalid Id', HttpStatus.BAD_REQUEST));
+
+            this.usersRepository.findOneBy({_id: new ObjectId(id)}).then((user) => {
+                if (!user) return reject(new HttpException('User Not Found', HttpStatus.NOT_FOUND));
+                else return resolve(user);
+            }).catch((err) => {
+                console.error(err);
+                return reject(new HttpException('Inernal Server Error', HttpStatus.INTERNAL_SERVER_ERROR));
+            });
+        });
+    }
+    /***/
+
+    /*
+    * Name: getByEmail
+    * Description: Get user by email
+    * 
+    * Args:
+    * - email (String): User email
+    * 
+    * Return (Users): User data
+    */
+    public getByEmail(email: string): Promise<Users> {
+        return new Promise((resolve, reject) => {
+            this.usersRepository.findOneBy({email: email}).then((user) => {
+                if (!user) return reject(new HttpException('User Not Found', HttpStatus.NOT_FOUND));
+                else return resolve(user);
+            }).catch((err) => {
+                console.error(err);
+                return reject(new HttpException('Inernal Server Error', HttpStatus.INTERNAL_SERVER_ERROR));
             });
         });
     }
@@ -71,6 +121,7 @@ export class UsersDbService {
             }).then((users) => {
                 return resolve(users);
             }).catch((err) => {
+                console.error(err);
                 return reject(new HttpException("Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR));
             });
         });
@@ -102,11 +153,41 @@ export class UsersDbService {
                 }, {
                     $set: {subscribes: users[i].subscribes}
                 }).catch((err) => {
+                    console.error(err);
                     return reject(new HttpException("Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR));
                 });
             }
 
             return resolve(users);
+        });
+    }
+    /***/
+
+    /*
+    * Name: saveToken
+    * Description: Update token in user
+    * 
+    * Args:
+    * id (ObjectID): User ID
+    * token (String): Token to update
+    * tokenStart (Number): Token start time
+    */
+    public saveToken(id, token, start): Promise<void> {
+        return new Promise((resolve, reject) => {
+            this.datasource.getMongoRepository(Users).updateOne({
+                _id: new ObjectId(id)
+            }, {
+                $set: {
+                    token: token || null,
+                    tokenStart: start || null
+                }
+            }).then((res) => {
+                if (res.matchedCount === 1) return resolve();
+                throw 'No user matched';
+            }).catch((err) => {
+                console.error(err);
+                return reject(new HttpException('Internal Server Error', HttpStatus.INTERNAL_SERVER_ERROR));
+            });
         });
     }
     /***/

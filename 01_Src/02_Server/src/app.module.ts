@@ -25,6 +25,7 @@ import { UsersModule } from './modules/users/users.module';
 import { ProjectsModule } from './modules/projects/projects.module';
 import { TasksModule } from './modules/tasks/tasks.module';
 import { CommentsModule } from './modules/comments/comments.module';
+import { AuthModule } from './modules/auth/auth.module';
 /***/
 
 /* Entities */
@@ -32,7 +33,6 @@ import { Users } from './modules/users/users.entity';
 import { Projects } from './modules/projects/projects.entity';
 import { Tasks } from './modules/tasks/tasks.entity';
 import { Comments } from './modules/comments/comments.entity';
-import { AuthModule } from './modules/auth/auth.module';
 /***/
 
 @Module({
