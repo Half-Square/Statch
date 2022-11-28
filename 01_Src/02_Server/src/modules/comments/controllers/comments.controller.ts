@@ -8,6 +8,7 @@
     * Nest
     * Dto
     * Services
+    * Guards
     * Name: getAll
     * Name: createComment
 */
@@ -20,7 +21,8 @@ import {
     Param,
     Body,
     HttpException,
-    HttpStatus
+    HttpStatus,
+    UseGuards
 } from '@nestjs/common';
 
 import { ObjectId } from 'mongodb';
@@ -39,7 +41,12 @@ import { TasksDbService } from '../../tasks/services/tasks-db.service';
 import { DetailsCommentsDto } from '../dto/details-comments.dto';
 /***/
 
+/* Guards */
+import { AuthGuard } from 'src/modules/auth/guards/auth.guard';
+/***/
+
 @Controller('/:type/:id/comments')
+@UseGuards(AuthGuard)
 export class CommentsController{
     constructor(private format: FormatService,
                 private commentsDb: CommentsDbService,

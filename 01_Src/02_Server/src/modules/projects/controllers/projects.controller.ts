@@ -23,7 +23,8 @@ import {
     Post,
     Param,
     Body,
-    Put
+    Put,
+    UseGuards
 } from '@nestjs/common';
 
 import { ObjectId } from 'mongodb';
@@ -43,7 +44,12 @@ import { UsersDbService } from 'src/modules/users/services/users-db.service';
 import { PublicUserDto } from 'src/modules/users/dto/public-user.dto';
 /***/
 
+/* Guards */
+import { AuthGuard } from 'src/modules/auth/guards/auth.guard';
+/***/
+
 @Controller('projects')
+@UseGuards(AuthGuard)
 export class ProjectsController {
     constructor(private projectsDb: ProjectsDbService,
                 private usersDb: UsersDbService,

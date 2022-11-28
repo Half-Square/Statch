@@ -31,12 +31,14 @@ import { TasksDbService } from './services/tasks-db.service';
 
 /* Modules */
 import { ProjectsModule } from '../projects/projects.module';
+import { UsersModule } from '../users/users.module';
 /***/
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([Tasks]),
-    ProjectsModule
+    ProjectsModule,
+    UsersModule
 ],
   controllers: [TasksController],
   providers: [TasksDbService, FormatService]
