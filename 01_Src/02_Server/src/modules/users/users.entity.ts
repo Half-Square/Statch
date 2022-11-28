@@ -37,7 +37,7 @@ export class Users {
     token: string;
 
     @Column()
-    tokenStart: Date;
+    tokenStart: Number;
 
     @Column() // update with @OneToMany
     subscribes: UsersSubscriptionsDto[];

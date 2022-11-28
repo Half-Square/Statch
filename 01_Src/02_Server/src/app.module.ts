@@ -32,6 +32,7 @@ import { Users } from './modules/users/users.entity';
 import { Projects } from './modules/projects/projects.entity';
 import { Tasks } from './modules/tasks/tasks.entity';
 import { Comments } from './modules/comments/comments.entity';
+import { AuthModule } from './modules/auth/auth.module';
 /***/
 
 @Module({
@@ -53,7 +54,8 @@ import { Comments } from './modules/comments/comments.entity';
     UsersModule,
     ProjectsModule,
     TasksModule,
-    CommentsModule
+    CommentsModule,
+    AuthModule
   ],
   controllers: [AppController],
   providers: [FormatService],
