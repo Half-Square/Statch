@@ -14,6 +14,7 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { ConfigModule } from '@nestjs/config';
 /***/
 
 /* Services */
@@ -37,6 +38,7 @@ import { Comments } from './modules/comments/comments.entity';
 
 @Module({
   imports: [
+    ConfigModule.forRoot(),
     TypeOrmModule.forRoot({
       type: 'mongodb',
       host: 'localhost',

@@ -13,7 +13,7 @@
 */
 
 /* Nest */
-import { Module } from '@nestjs/common';
+import { Module, forwardRef } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 /***/
 
@@ -38,9 +38,10 @@ import { Users } from '../users/users.entity';
 @Module({
     imports: [
         TypeOrmModule.forFeature([Users]),
-        UsersModule
+        forwardRef(() => UsersModule)
     ],
     controllers: [AuthController],
-    providers: [FormatService, TokenService, UsersDbService]
+    providers: [FormatService, TokenService, UsersDbService],
+    exports: [TokenService]
 })
 export class AuthModule {}

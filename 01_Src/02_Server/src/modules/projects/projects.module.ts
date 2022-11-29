@@ -33,12 +33,14 @@ import { ProjectsDbService } from './services/projects-db.service';
 
 /* Module */
 import { UsersModule } from '../users/users.module';
+import { AuthModule } from '../auth/auth.module';
 /***/
 
 @Module({
     imports: [
         TypeOrmModule.forFeature([Projects, Users]),
-        UsersModule
+        UsersModule,
+        AuthModule
     ],
     providers: [ProjectsDbService, FormatService],
     controllers: [ProjectsController],

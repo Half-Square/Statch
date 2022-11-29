@@ -37,12 +37,14 @@ import { Tasks } from '../tasks/tasks.entity';
 
 /* Modules */
 import { UsersModule } from '../users/users.module';
+import { AuthModule } from '../auth/auth.module';
 /***/
 
 @Module({
     imports: [
         TypeOrmModule.forFeature([Comments, Projects, Tasks]),
-        UsersModule
+        UsersModule,
+        AuthModule
     ],
     controllers: [CommentsController],
         providers: [FormatService, ProjectsDbService, TasksDbService, CommentsDbService]
