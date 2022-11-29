@@ -8,12 +8,13 @@
     * Nest
     * Services
     * DTO
+    * Guards
     * Name: getAllInProject
     * Name: createTask
 */
 
 /* Nest */
-import { Controller, Get, Post, HttpException, HttpStatus, Param, Body } from '@nestjs/common';
+import { Controller, Get, Post, HttpException, HttpStatus, Param, Body, UseGuards } from '@nestjs/common';
 import { ObjectId } from "mongodb";
 /***/
 
@@ -28,10 +29,14 @@ import { ProjectsDbService } from 'src/modules/projects/services/projects-db.ser
 import { DetailsTasksDto } from '../dto/details-tasks.dto';
 import { CreateTasksDto } from '../dto/create-tasks.dto';
 import { EditProjectsDto } from 'src/modules/projects/dto/edit-projects.dto';
-import { ObjectID } from 'typeorm';
+/***/
+
+/* Guards */
+import { AuthGuard } from 'src/modules/auth/guards/auth.guard';
 /***/
 
 @Controller()
+@UseGuards(AuthGuard)
 export class TasksController {
     constructor(private tasksDb : TasksDbService,
                 private projectsDb: ProjectsDbService,

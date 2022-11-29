@@ -12,7 +12,7 @@
 */
 
 /* Nest */
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, UseGuards } from '@nestjs/common';
 /***/
 
 /* DTO */
@@ -24,7 +24,12 @@ import { FormatService } from 'src/services/format/format.service';
 import { UsersDbService } from '../services/users-db.service';
 /***/
 
+/* Guards */
+import { AuthGuard } from 'src/modules/auth/guards/auth.guard';
+/***/
+
 @Controller('users')
+@UseGuards(AuthGuard)
 export class UsersController {
     constructor(private users: UsersDbService,
                 private format: FormatService) {
@@ -39,7 +44,7 @@ export class UsersController {
     @Get()
     async getAll(): Promise<PublicUserDto[]> {
         try {
-            let users = await this.users.findAll();
+            let users = await this.users.getAll();
             return this.format.fromArray(users, PublicUserDto);
         } catch (error) {
             return error;

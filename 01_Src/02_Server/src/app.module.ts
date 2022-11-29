@@ -14,6 +14,7 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { ConfigModule } from '@nestjs/config';
 /***/
 
 /* Services */
@@ -25,6 +26,7 @@ import { UsersModule } from './modules/users/users.module';
 import { ProjectsModule } from './modules/projects/projects.module';
 import { TasksModule } from './modules/tasks/tasks.module';
 import { CommentsModule } from './modules/comments/comments.module';
+import { AuthModule } from './modules/auth/auth.module';
 /***/
 
 /* Entities */
@@ -36,6 +38,7 @@ import { Comments } from './modules/comments/comments.entity';
 
 @Module({
   imports: [
+    ConfigModule.forRoot(),
     TypeOrmModule.forRoot({
       type: 'mongodb',
       host: 'localhost',
@@ -53,7 +56,8 @@ import { Comments } from './modules/comments/comments.entity';
     UsersModule,
     ProjectsModule,
     TasksModule,
-    CommentsModule
+    CommentsModule,
+    AuthModule
   ],
   controllers: [AppController],
   providers: [FormatService],

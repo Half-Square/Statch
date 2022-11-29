@@ -37,8 +37,11 @@ export class Users {
     token: string;
 
     @Column()
-    tokenStart: Date;
+    tokenStart: Number;
 
-    @Column() // update with @OneToMany
+    @Column()
     subscribes: UsersSubscriptionsDto[];
+
+    @Column()
+    password: string;
 }
