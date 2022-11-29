@@ -15,11 +15,13 @@ import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 
 /* Services */
 import { UsersDbService } from 'src/modules/users/services/users-db.service';
+import { TokenService } from '../services/token.service';
 /***/
 
 @Injectable()
 export class AuthGuard implements CanActivate {
-    constructor(private usersDb: UsersDbService) {
+    constructor(private usersDb: UsersDbService,
+                private token: TokenService) {
     }
 
     async canActivate(context: ExecutionContext): Promise<boolean> {
@@ -28,7 +30,8 @@ export class AuthGuard implements CanActivate {
             const token = request.headers['x-token'];
 
             let user = await this.usersDb.getByToken(token);
-            // Todo: Check token validity
+            await this.token.checkValidity(token, user);
+
             return true;
         } catch (err) {
             return false;

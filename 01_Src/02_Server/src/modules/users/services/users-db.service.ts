@@ -15,6 +15,7 @@
     * Name: findWithIds
     * Name: addSubscriptionsToMany
     * Name: saveToken
+    * Name: clearToken
 */
 
 /* Nest */
@@ -207,6 +208,32 @@ export class UsersDbService {
             }).then((res) => {
                 if (res.matchedCount === 1) return resolve();
                 throw 'No user matched';
+            }).catch((err) => {
+                console.error(err);
+                return reject(new HttpException('Internal Server Error', HttpStatus.INTERNAL_SERVER_ERROR));
+            });
+        });
+    }
+    /***/
+
+    /*
+    * Name: clearToken
+    * Description: Clear user token, reset tokenStart
+    * 
+    * Args:
+    * - id (ObjectID): User id
+    */
+    public clearToken(id: ObjectID): Promise<void> {
+        return new Promise((resolve, reject) => {
+            this.datasource.getMongoRepository(Users).updateOne({
+                _id: new ObjectId(id)
+            }, {
+                $set: {
+                    token: null,
+                    tokenStart: null
+                }
+            }).then(() => {
+                return resolve();
             }).catch((err) => {
                 console.error(err);
                 return reject(new HttpException('Internal Server Error', HttpStatus.INTERNAL_SERVER_ERROR));
