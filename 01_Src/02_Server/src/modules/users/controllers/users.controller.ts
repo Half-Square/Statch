@@ -47,7 +47,7 @@ export class UsersController {
             let users = await this.users.getAll();
             return this.format.fromArray(users, PublicUserDto);
         } catch (error) {
-            return error;
+            throw error;
         }
     }
     /***/

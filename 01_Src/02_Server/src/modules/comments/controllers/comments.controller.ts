@@ -80,7 +80,7 @@ export class CommentsController{
                 throw new HttpException('Invalid Url Parameter', HttpStatus.BAD_REQUEST);
             }
         } catch (error) {
-            return error;
+            throw error;
         }
 
     }
@@ -117,7 +117,7 @@ export class CommentsController{
                 throw new HttpException('Invalid Url Parameter', HttpStatus.BAD_REQUEST);
             }
         } catch (error) {
-            return error;
+            throw error;
         }
     }
     /***/

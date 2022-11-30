@@ -57,7 +57,7 @@ export class AuthController {
 
             return this.format.fromObject(user, AuthUserDto);
         } catch (err) {
-            return err;
+            throw err;
         }
     }
     /***/

@@ -59,7 +59,7 @@ export class TasksController {
             let data = await this.tasksDb.findByProject(params.projectId);
             return data && data.length > 0 ? this.format.fromArray(data, PublicTasksDto) : [];  
         } catch (error) {
-            return error;
+            throw error;
         }
     }
     /***/
@@ -90,7 +90,7 @@ export class TasksController {
 
             return this.format.fromObject(newTask, DetailsTasksDto);
         } catch(error) {
-            return error;
+            throw error;
         }
     }
     /***/

@@ -70,7 +70,7 @@ export class ProjectsController {
 
             return ret;
         } catch (error) {
-            return error;
+            throw error;
         }
     }
     /***/
@@ -93,7 +93,7 @@ export class ProjectsController {
             project.assignees = this.format.fromArray(users, PublicUserDto); // Agglomerate data in project
             return this.format.fromObject(project, DetailsProjectsDto);
         } catch (error) {
-            return error;
+            throw error;
         }
     }
     /***/
