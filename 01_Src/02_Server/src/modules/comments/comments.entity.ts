@@ -19,7 +19,7 @@ export class Comments {
     _id: ObjectID;
 
     @Column()
-    author: string;
+    author: ObjectID;
 
     @Column()
     created: number;

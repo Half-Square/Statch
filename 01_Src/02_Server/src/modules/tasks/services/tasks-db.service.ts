@@ -84,10 +84,11 @@ export class TasksDbService {
     *   - name (String): Project name
     *   - version (String): Project version
     *   - description (String): Project description
+    * - owner (ObjectID): Owner user ID
     * 
     * Return (ObjectID): Inserted project ID
     */
-    public insertOne(projectId: string, data: CreateTasksDto): Promise<ObjectID> {
+    public insertOne(projectId: string, data: CreateTasksDto, owner: ObjectID): Promise<ObjectID> {
         return new Promise((resolve, reject) => {
             let toSave = {
                 project: new ObjectId(projectId),
@@ -97,7 +98,7 @@ export class TasksDbService {
                 description: data.description || "",
                 tickets: [],
                 comments: [],
-                owner: 0, // temp
+                owner: owner,
                 assignees: []
             };
 

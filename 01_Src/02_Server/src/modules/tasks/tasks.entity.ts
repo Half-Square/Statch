@@ -38,15 +38,15 @@ export class Tasks {
     @Column()
     description: string;
 
-    @Column() // update with @OneToMany
+    @Column()
     tickets: string[];
 
-    @Column() // update with @OneToMany
+    @Column()
     comments: number[];
 
-    @Column() // update with OneToOne
-    owner: number;
+    @Column()
+    owner: ObjectID;
 
-    @Column() // update with @OneToMany
+    @Column()
     assignees: PublicUserDto[];
 }

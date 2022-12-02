@@ -26,9 +26,9 @@ import { Projects } from '../projects.entity';
 /***/
 
 /* DTO */
-import { CreateProjectsDto } from '../dto/create-projects';
+import { CreateProjectsDto } from '../dto/create-projects.dto';
 import { EditProjectsDto } from '../dto/edit-projects.dto';
-import { rejects } from 'assert';
+import { Users } from 'src/modules/users/users.entity';
 /***/
 
 @Injectable()
@@ -89,10 +89,12 @@ export class ProjectsDbService {
     *   - name (String): Project name
     *   - version (String): Project version
     *   - description (String): Project description
+    * - owner (Users): Owner user data
+    *   - _id (ObjectID): Owner user ID
     * 
     * Return (ObjectID): Inserted project ID
     */
-    public insertOne(data: CreateProjectsDto): Promise<ObjectID> {
+    public insertOne(data: CreateProjectsDto, owner: Users): Promise<ObjectID> {
         return new Promise((resolve, reject) => {
             let toSave = {
                 name: data.name,
@@ -103,7 +105,7 @@ export class ProjectsDbService {
                 docs: [],
                 tasks: [],
                 comments: [],
-                owner: 0, // temp
+                owner: new ObjectId(owner._id), // temp
                 assignees: []
             };
 

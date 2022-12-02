@@ -78,13 +78,14 @@ export class CommentsDbService {
     * Args:
     * - parent (ObjectID): Parent ID
     * - content (String): Comment content
+    * - author (ObjectID): Author user ID
     * 
     * Return (ObjectId): New comment ID
     */
-    public insertOne(content: String, parent: ObjectID): Promise<ObjectID> {
+    public insertOne(content: String, parent: ObjectID, author: ObjectID): Promise<ObjectID> {
         return new Promise((resolve, reject) => {
             this.datasource.getMongoRepository(Comments).insertOne({
-                author: 0, // tmp
+                author: author,
                 created: Math.round(new Date().getTime()/1000), // In unix format
                 content: content,
                 parent: new ObjectId(parent),

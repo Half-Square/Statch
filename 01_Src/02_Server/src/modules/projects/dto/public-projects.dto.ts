@@ -6,11 +6,16 @@
 
 /* SUMMARY
     * Nest
+    * Dto
 */
 
 /* Nest */
 import { ObjectID } from "typeorm";
 import { IsString, IsNotEmpty, IsNumber } from 'class-validator';
+/***/
+
+/* Dto */
+import { PublicUserDto } from "src/modules/users/dto/public-user.dto";
 /***/
 
 export class PublicProjectsDto {
@@ -36,9 +41,8 @@ export class PublicProjectsDto {
     @IsString()
     description: string;
 
-    @IsString()
     @IsNotEmpty()
-    owner: ObjectID;
+    owner: PublicUserDto;
 
     constructor(data) {
         if (data) {

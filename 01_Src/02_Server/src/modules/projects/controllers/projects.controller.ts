@@ -17,14 +17,13 @@
 /* Nest */
 import {
     Controller,
-    HttpStatus,
-    HttpException,
     Get,
     Post,
     Param,
     Body,
     Put,
-    UseGuards
+    UseGuards,
+    Headers
 } from '@nestjs/common';
 
 import { ObjectId } from 'mongodb';
@@ -33,7 +32,7 @@ import { ObjectId } from 'mongodb';
 /* DTO */
 import { PublicProjectsDto } from '../dto/public-projects.dto';
 import { DetailsProjectsDto } from '../dto/details-projects.dto';
-import { CreateProjectsDto } from '../dto/create-projects';
+import { CreateProjectsDto } from '../dto/create-projects.dto';
 import { EditProjectsDto } from '../dto/edit-projects.dto';
 /***/
 
@@ -46,6 +45,7 @@ import { PublicUserDto } from 'src/modules/users/dto/public-user.dto';
 
 /* Guards */
 import { AuthGuard } from 'src/modules/auth/guards/auth.guard';
+import { ObjectID } from 'typeorm';
 /***/
 
 @Controller('projects')
@@ -66,6 +66,14 @@ export class ProjectsController {
     async getAll(): Promise<PublicProjectsDto[]> {
         try {
             let projects = await this.projectsDb.getAll();
+            let owners_id = projects.map((el) => new ObjectId(el.owner));
+            let users = await this.usersDb.findWithIds(owners_id);
+
+            projects.forEach((project) => {
+                let owner = users.find((user) => user._id.equals(project.owner));
+                if (owner) project.owner = this.format.fromObject(owner, PublicUserDto);
+            });
+
             let ret = this.format.fromArray(projects, PublicProjectsDto);
 
             return ret;
@@ -89,8 +97,10 @@ export class ProjectsController {
         try {
             let project = await this.projectsDb.getById(params.id);
             let users = await this.usersDb.findWithIds(project.assignees);
+            let owner = await this.usersDb.getById(new ObjectId(project.owner));
 
             project.assignees = this.format.fromArray(users, PublicUserDto); // Agglomerate data in project
+            project.owner = this.format.fromObject(owner, PublicUserDto);
             return this.format.fromObject(project, DetailsProjectsDto);
         } catch (error) {
             throw error;
@@ -110,17 +120,16 @@ export class ProjectsController {
     * Return (PublicProjectsDto): Created item
     */
     @Post()
-    async addOne(@Body() body: CreateProjectsDto): Promise<PublicProjectsDto> {
+    async addOne(@Headers() headers, @Body() body: CreateProjectsDto): Promise<PublicProjectsDto> {
         try {
-            let id = await this.projectsDb.insertOne(body);
+            let user = await this.usersDb.getByToken(headers['x-token']);
+            let id = await this.projectsDb.insertOne(body, user);
             let ret = await this.projectsDb.getById(new ObjectId(id));
             
-            // Set and agglomerate owner
-
+            ret.owner = this.format.fromObject(user, PublicUserDto);
             return this.format.fromObject(ret, PublicProjectsDto);
         } catch (err) {
-            console.error(err);
-            throw new HttpException('Internal Server Error', HttpStatus.INTERNAL_SERVER_ERROR);
+            throw err;
         }
     }
     /***/
@@ -152,12 +161,12 @@ export class ProjectsController {
 
             this.usersDb.addSubscriptionsToMany(users, params.id, "projects"); // Update users subscription
 
+            project.owner = this.format.fromObject(await this.usersDb.getById(new ObjectId(project.owner)), PublicUserDto); // Agglomerate owner data
             project.assignees = this.format.fromArray(users, PublicUserDto); // Agglomerate data in project
 
             return this.format.fromObject(project, DetailsProjectsDto);
         } catch(err) {
-            console.error(err);
-            throw new HttpException('Internal Server Error', HttpStatus.INTERNAL_SERVER_ERROR);
+            throw err;
         }
     }
     /***/

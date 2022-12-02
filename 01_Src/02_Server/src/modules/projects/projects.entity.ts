@@ -9,7 +9,8 @@
 */
 
 /* Nest */
-import { Entity, Column, PrimaryGeneratedColumn, ObjectID } from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
+import { ObjectID } from 'mongodb';
 /***/
 
 /* Entities */
@@ -46,7 +47,7 @@ export class Projects {
     comments: number[];
 
     @Column()
-    owner: number;
+    owner: ObjectID;
 
     @Column()
     assignees: ObjectID[];

@@ -151,7 +151,7 @@ export class UsersDbService {
         });
     }
     /***/
-
+    
     /*
     * Name: addSubscriptionsToMany
     * Description: Create new subscription to many users

@@ -14,21 +14,31 @@
 */
 
 /* Nest */
-import { Controller, Get, Post, HttpException, HttpStatus, Param, Body, UseGuards } from '@nestjs/common';
+import {
+    Controller,
+    Get,
+    Post,
+    Param,
+    Body,
+    UseGuards,
+    Headers
+} from '@nestjs/common';
 import { ObjectId } from "mongodb";
 /***/
 
 /* Services */
 import { TasksDbService } from '../services/tasks-db.service';
+import { UsersDbService } from 'src/modules/users/services/users-db.service';
+import { FormatService } from 'src/services/format/format.service';
+import { ProjectsDbService } from 'src/modules/projects/services/projects-db.service';
 /***/
 
 /* DTO */
 import { PublicTasksDto } from '../dto/public-tasks.dto';
-import { FormatService } from 'src/services/format/format.service';
-import { ProjectsDbService } from 'src/modules/projects/services/projects-db.service';
 import { DetailsTasksDto } from '../dto/details-tasks.dto';
 import { CreateTasksDto } from '../dto/create-tasks.dto';
 import { EditProjectsDto } from 'src/modules/projects/dto/edit-projects.dto';
+import { PublicUserDto } from 'src/modules/users/dto/public-user.dto';
 /***/
 
 /* Guards */
@@ -40,6 +50,7 @@ import { AuthGuard } from 'src/modules/auth/guards/auth.guard';
 export class TasksController {
     constructor(private tasksDb : TasksDbService,
                 private projectsDb: ProjectsDbService,
+                private usersDb: UsersDbService,
                 private format: FormatService) {
     }
 
@@ -57,7 +68,16 @@ export class TasksController {
         try {
             await this.projectsDb.getById(params.projectId);
             let data = await this.tasksDb.findByProject(params.projectId);
-            return data && data.length > 0 ? this.format.fromArray(data, PublicTasksDto) : [];  
+
+            let owners_id = data.map((el) => new ObjectId(el.owner));
+            let users = await this.usersDb.findWithIds(owners_id);
+
+            data.forEach((project) => {
+                let owner = users.find((user) => user._id.equals(project.owner));
+                if (owner) project.owner = this.format.fromObject(owner, PublicUserDto);
+            });
+
+            return this.format.fromArray(data, PublicTasksDto);  
         } catch (error) {
             throw error;
         }
@@ -78,15 +98,18 @@ export class TasksController {
     * Return (DetailsTasksDto): Created task
     */
     @Post('/projects/:projectId/tasks')
-    async createTask(@Param() params, @Body() body: CreateTasksDto): Promise<DetailsTasksDto> {
+    async createTask(@Param() params, @Body() body: CreateTasksDto, @Headers() headers): Promise<DetailsTasksDto> {
         try {
             let project = await this.projectsDb.getById(params.projectId);
-
-            let id = await this.tasksDb.insertOne(new ObjectId(project._id), body);
+            let owner = await this.usersDb.getByToken(headers['x-token']);
+            
+            let id = await this.tasksDb.insertOne(new ObjectId(project._id), body, owner._id);
             let newTask = await this.tasksDb.getById(new ObjectId(id));
             
             project.tasks.push(newTask._id);
             await this.projectsDb.updateOne(project._id, new EditProjectsDto(project));
+
+            newTask.owner = this.format.fromObject(owner, PublicUserDto);
 
             return this.format.fromObject(newTask, DetailsTasksDto);
         } catch(error) {

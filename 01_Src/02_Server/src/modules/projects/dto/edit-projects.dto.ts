@@ -11,7 +11,7 @@
 
 /* Nest */
 import { Type } from "class-transformer";
-import { IsString, IsOptional, IsArray, ValidateNested } from 'class-validator';
+import { IsString, IsOptional, IsArray, ValidateNested, IsNotEmpty } from 'class-validator';
 import { ObjectID } from "mongodb";
 /***/
 
@@ -38,10 +38,8 @@ export class EditProjectsDto {
     description: string;
 
     @IsArray()
-    @ValidateNested({each: true})
-    @Type(() => PublicTasksDto)
     @IsOptional()
-    tasks: PublicTasksDto[];
+    tasks: ObjectID[];
 
     @IsArray()
     @ValidateNested({each: true})
@@ -50,7 +48,7 @@ export class EditProjectsDto {
     assignees: PublicUserDto[];
 
     @IsArray()
-    comments: ObjectID;
+    comments: ObjectID[];
 
     constructor(data) {
         if (data) {

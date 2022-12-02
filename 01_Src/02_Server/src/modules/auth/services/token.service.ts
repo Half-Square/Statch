@@ -45,7 +45,7 @@ export class TokenService {
     public checkPassword(toCheck: String, userPasswd: String): Promise<void> {
         return new Promise(async (resolve, reject) => {
             if (sha256(<string>toCheck) === userPasswd) return resolve();
-            return reject('Invalid Password');
+            return reject(new HttpException('Invalid Password', HttpStatus.UNAUTHORIZED));
         });
     }
     /***/

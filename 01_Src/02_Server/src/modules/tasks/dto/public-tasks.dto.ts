@@ -6,19 +6,38 @@
 
 /* SUMMARY
     * Nest
+    * Dto
 */
 
 /* Nest */
-import { IsString } from "class-validator";
+import { IsNotEmpty, IsString } from "class-validator";
+import { ObjectID } from "mongodb";
+/***/
+
+/* Dto */
+import { PublicUserDto } from "src/modules/users/dto/public-user.dto";
 /***/
 
 export class PublicTasksDto {
     @IsString()
+    @IsNotEmpty()
+    _id: ObjectID
+
+    @IsString()
     name: string;
+
+    @IsNotEmpty()
+    owner: PublicUserDto;
+
+    @IsString()
+    status: String;
 
     constructor(data) {
         if (data) {
-            this.name = data.name
+            this._id = data._id;
+            this.name = data.name;
+            this.owner = data.owner;
+            this.status = data.status;
         }
     }
 }

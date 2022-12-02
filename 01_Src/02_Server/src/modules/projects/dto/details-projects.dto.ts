@@ -18,6 +18,7 @@ import { ObjectID } from "mongodb";
 /* DTO */
 import { DetailsTasksDto } from "src/modules/tasks/dto/details-tasks.dto";
 import { PublicTasksDto } from "src/modules/tasks/dto/public-tasks.dto";
+import { PublicUserDto } from "src/modules/users/dto/public-user.dto";
 /***/
 
 export class DetailsProjectsDto {
@@ -56,7 +57,9 @@ export class DetailsProjectsDto {
 
     @IsString()
     @IsNotEmpty()
-    owner: ObjectID;
+    @ValidateNested({each: true})
+    @Type(() => PublicUserDto)
+    owner: PublicUserDto;
     
     assignees: ObjectID[];
 
