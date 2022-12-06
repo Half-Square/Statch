@@ -13,6 +13,7 @@
 import { Type } from "class-transformer";
 import { IsArray, IsNotEmpty, IsNumber, IsString, ValidateNested } from "class-validator";
 import { ObjectID } from "mongodb";
+import { PublicCommentsDto } from "src/modules/comments/dto/public-comments.dto";
 /***/
 
 /* DTO */
@@ -52,8 +53,10 @@ export class DetailsProjectsDto {
     @Type(() => PublicTasksDto)
     tasks: PublicTasksDto[];
 
-    @IsString()
-    comments: ObjectID[];
+    @IsArray()
+    @ValidateNested({each: true})
+    @Type(() => PublicCommentsDto)
+    comments: PublicCommentsDto[];
 
     @IsString()
     @IsNotEmpty()

@@ -35,6 +35,7 @@ import { ProjectsDbService } from './services/projects-db.service';
 import { UsersModule } from '../users/users.module';
 import { AuthModule } from '../auth/auth.module';
 import { TasksModule } from '../tasks/tasks.module';
+import { CommentsModule } from '../comments/comments.module';
 /***/
 
 @Module({
@@ -42,7 +43,8 @@ import { TasksModule } from '../tasks/tasks.module';
         TypeOrmModule.forFeature([Projects, Users]),
         UsersModule,
         AuthModule,
-        forwardRef(() => TasksModule)
+        forwardRef(() => TasksModule),
+        forwardRef(() => CommentsModule)
     ],
     providers: [ProjectsDbService, FormatService],
     controllers: [ProjectsController],

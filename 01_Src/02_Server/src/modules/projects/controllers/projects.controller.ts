@@ -35,6 +35,7 @@ import { DetailsProjectsDto } from '../dto/details-projects.dto';
 import { CreateProjectsDto } from '../dto/create-projects.dto';
 import { EditProjectsDto } from '../dto/edit-projects.dto';
 import { PublicTasksDto } from 'src/modules/tasks/dto/public-tasks.dto';
+import { PublicCommentsDto } from 'src/modules/comments/dto/public-comments.dto';
 /***/
 
 /* Services */
@@ -43,6 +44,7 @@ import { ProjectsDbService } from '../services/projects-db.service';
 import { UsersDbService } from 'src/modules/users/services/users-db.service';
 import { PublicUserDto } from 'src/modules/users/dto/public-user.dto';
 import { TasksDbService } from 'src/modules/tasks/services/tasks-db.service';
+import { CommentsDbService } from 'src/modules/comments/services/comments-db.service';
 /***/
 
 /* Guards */
@@ -55,6 +57,7 @@ export class ProjectsController {
     constructor(private projectsDb: ProjectsDbService,
                 private usersDb: UsersDbService,
                 private tasksDb: TasksDbService,
+                private commentsDb: CommentsDbService,
                 private format: FormatService) {
     }
 
@@ -101,8 +104,10 @@ export class ProjectsController {
             let users = await this.usersDb.findWithIds(project.assignees);
             let owner = await this.usersDb.getById(new ObjectId(project.owner));
             let tasks = await this.tasksDb.findWithIds(project.tasks);
+            let comments = await this.commentsDb.findWithIds(project.comments);
 
             project.tasks = this.format.fromArray(tasks, PublicTasksDto);
+            project.comments = this.format.fromArray(comments, PublicCommentsDto);
 
             project.assignees = this.format.fromArray(users, PublicUserDto); // Agglomerate data in project
             project.owner = this.format.fromObject(owner, PublicUserDto);

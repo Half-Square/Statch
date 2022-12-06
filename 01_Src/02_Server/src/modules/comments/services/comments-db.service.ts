@@ -72,6 +72,33 @@ export class CommentsDbService {
     /***/
 
     /*
+    * Name: findWithIds
+    * Description: Get all comments listed in array
+    * 
+    * Args:
+    * - list (Array): List of tasks ID to get
+    * 
+    * Return (Comments[]): Comments list
+    */
+    public findWithIds(list: ObjectID[]): Promise<Comments[]> {
+        return new Promise((resolve, reject) => {
+            let toGet = list.map((id) => {return new ObjectId(id)});
+            
+            this.datasource.getMongoRepository(Comments).findBy({
+                _id: {
+                    $in: toGet
+                }
+            }).then((comments) => {
+                return resolve(comments);
+            }).catch((err) => {
+                console.error(err);
+                return reject(new HttpException("Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR));
+            });
+        });
+    }
+    /***/
+
+    /*
     * Name: insertOne
     * Description: Insert new comment
     * 

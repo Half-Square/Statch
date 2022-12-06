@@ -13,7 +13,7 @@
 */
 
 /* Nest */
-import { Module } from '@nestjs/common';
+import { Module, forwardRef } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 /***/
 
@@ -38,15 +38,18 @@ import { Tasks } from '../tasks/tasks.entity';
 /* Modules */
 import { UsersModule } from '../users/users.module';
 import { AuthModule } from '../auth/auth.module';
+import { ProjectsModule } from '../projects/projects.module';
 /***/
 
 @Module({
     imports: [
         TypeOrmModule.forFeature([Comments, Projects, Tasks]),
         UsersModule,
-        AuthModule
+        AuthModule,
+        forwardRef(() => ProjectsModule)
     ],
     controllers: [CommentsController],
-        providers: [FormatService, ProjectsDbService, TasksDbService, CommentsDbService]
+    providers: [FormatService, ProjectsDbService, TasksDbService, CommentsDbService],
+    exports: [CommentsDbService]
 })
 export class CommentsModule {}

@@ -44,7 +44,7 @@ export class Projects {
     tasks: ObjectID[];
 
     @Column()
-    comments: number[];
+    comments: ObjectID[];
 
     @Column()
     owner: ObjectID;

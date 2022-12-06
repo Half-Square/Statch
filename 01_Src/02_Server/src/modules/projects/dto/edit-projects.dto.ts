@@ -50,6 +50,11 @@ export class EditProjectsDto {
     @IsArray()
     comments: ObjectID[];
 
+    @IsArray()
+    @Type(() => String)
+    @IsOptional()
+    docs: String[];
+
     constructor(data) {
         if (data) {
             this.name = data.name;
@@ -58,6 +63,7 @@ export class EditProjectsDto {
             this.description = data.description;
             this.tasks = data.tasks;
             this.assignees = data.assignees;
+            this.docs = data.docs;
         }
     }
 }
