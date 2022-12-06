@@ -41,7 +41,7 @@ export class Projects {
     docs: string[];
 
     @Column()
-    tasks: number[];
+    tasks: ObjectID[];
 
     @Column()
     comments: number[];

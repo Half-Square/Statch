@@ -13,7 +13,7 @@
 */
 
 /* Nest */
-import { Module } from '@nestjs/common';
+import { Module, forwardRef } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 /***/
 
@@ -34,13 +34,15 @@ import { ProjectsDbService } from './services/projects-db.service';
 /* Module */
 import { UsersModule } from '../users/users.module';
 import { AuthModule } from '../auth/auth.module';
+import { TasksModule } from '../tasks/tasks.module';
 /***/
 
 @Module({
     imports: [
         TypeOrmModule.forFeature([Projects, Users]),
         UsersModule,
-        AuthModule
+        AuthModule,
+        forwardRef(() => TasksModule)
     ],
     providers: [ProjectsDbService, FormatService],
     controllers: [ProjectsController],

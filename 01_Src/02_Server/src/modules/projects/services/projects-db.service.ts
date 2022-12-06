@@ -141,8 +141,6 @@ export class ProjectsDbService {
             if (data.version) toSave['version'] = data.version;
             if (data.description) toSave['descrription'] = data.description;
             toSave['assignees'] = data.assignees.map((el) => el._id);
-            toSave['tasks'] = data.tasks;
-            toSave['comments'] = data.comments;
 
             this.dataSource.getMongoRepository(Projects).updateOne({
                 _id: new ObjectId(id)

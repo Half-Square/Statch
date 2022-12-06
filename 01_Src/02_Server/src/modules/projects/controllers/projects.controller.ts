@@ -34,6 +34,7 @@ import { PublicProjectsDto } from '../dto/public-projects.dto';
 import { DetailsProjectsDto } from '../dto/details-projects.dto';
 import { CreateProjectsDto } from '../dto/create-projects.dto';
 import { EditProjectsDto } from '../dto/edit-projects.dto';
+import { PublicTasksDto } from 'src/modules/tasks/dto/public-tasks.dto';
 /***/
 
 /* Services */
@@ -41,11 +42,11 @@ import { FormatService } from '../../../services/format/format.service';
 import { ProjectsDbService } from '../services/projects-db.service';
 import { UsersDbService } from 'src/modules/users/services/users-db.service';
 import { PublicUserDto } from 'src/modules/users/dto/public-user.dto';
+import { TasksDbService } from 'src/modules/tasks/services/tasks-db.service';
 /***/
 
 /* Guards */
 import { AuthGuard } from 'src/modules/auth/guards/auth.guard';
-import { ObjectID } from 'typeorm';
 /***/
 
 @Controller('projects')
@@ -53,6 +54,7 @@ import { ObjectID } from 'typeorm';
 export class ProjectsController {
     constructor(private projectsDb: ProjectsDbService,
                 private usersDb: UsersDbService,
+                private tasksDb: TasksDbService,
                 private format: FormatService) {
     }
 
@@ -98,6 +100,9 @@ export class ProjectsController {
             let project = await this.projectsDb.getById(params.id);
             let users = await this.usersDb.findWithIds(project.assignees);
             let owner = await this.usersDb.getById(new ObjectId(project.owner));
+            let tasks = await this.tasksDb.findWithIds(project.tasks);
+
+            project.tasks = this.format.fromArray(tasks, PublicTasksDto);
 
             project.assignees = this.format.fromArray(users, PublicUserDto); // Agglomerate data in project
             project.owner = this.format.fromObject(owner, PublicUserDto);

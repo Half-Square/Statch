@@ -9,6 +9,7 @@
     * Entities
     * DTO
     * Name: findByProject
+    * Name: findWithIds
     * Name: getById
 */
 
@@ -69,6 +70,33 @@ export class TasksDbService {
                 return resolve(data);
             }).catch((err) => {
                 return reject(new HttpException("Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR))
+            });
+        });
+    }
+    /***/
+
+    /*
+    * Name: findWithIds
+    * Description: Get all tasks listed in array
+    * 
+    * Args:
+    * - list (Array): List of tasks ID to get
+    * 
+    * Return (Tasks[]): Tasks list
+    */
+    public findWithIds(list: ObjectID[]): Promise<Tasks[]> {
+        return new Promise((resolve, reject) => {
+            let toGet = list.map((id) => {return new ObjectId(id)});
+            
+            this.datasource.getMongoRepository(Tasks).findBy({
+                _id: {
+                    $in: toGet
+                }
+            }).then((tasks) => {
+                return resolve(tasks);
+            }).catch((err) => {
+                console.error(err);
+                return reject(new HttpException("Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR));
             });
         });
     }
