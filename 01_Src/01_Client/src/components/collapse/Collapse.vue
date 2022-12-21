@@ -15,12 +15,18 @@ Description – Collapse component
 
         computed: {
             indent() {
-                return { transform: `translate(${this.depth * 50}px)` }
+                return { transform: `translate(${this.depth * 16 / this.depth}px)` }
             },
             iconCollapse() {
                 return {
-                    '+': !this.showCollapse,
-                    '-': this.showCollapse
+                    'more': !this.showCollapse,
+                    'less': this.showCollapse
+                }
+            },
+            isOpen() {
+                return {
+                    'close': !this.showCollapse,
+                    'open': this.showCollapse
                 }
             },
         },
@@ -38,10 +44,12 @@ Description – Collapse component
 </script>
 
 <template>
-    <div class="collapse">
-        <div :style="indent" @click="toggleCollapse">
-            <i v-if="nodes" class="icon" :class="iconCollapse"></i>
-            {{ label }}
+    <div class="collapse" :style="indent" :class="isOpen">
+        <div class="label">
+        <div v-if="nodes" class="icon" :class="iconCollapse" @click="toggleCollapse">{{ showCollapse }}</div>
+            <div class="link">
+                {{ label }}
+            </div>
         </div>
         <Collapse
             v-if="showCollapse"
