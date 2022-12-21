@@ -1,5 +1,5 @@
 <template>
-  <div class="about">
+  <div class="test">
     <h1>This is an about page</h1>
     <Breadcrumbs />
   </div>
@@ -10,7 +10,7 @@
     import Breadcrumbs from "@/components/breadcrumbs/Breadcrumbs.vue";
 
     export default defineComponent({
-        name: 'About',
+        name: 'test',
         components: {
             Breadcrumbs
         }

@@ -2,11 +2,10 @@
   <div class="home">
     <Collapse :label="tree.label" :nodes="tree.nodes" :depth="0"></Collapse>
     <div class="test">
-      <Button type='submit' id='btntest' class='prm md' label='New element' />
-      <Button type='submit' id='btntest' class='scnd md' label='New element' />
-      <Button type='submit' id='btntest' class='trd md' label='New element' />
-      <Button type='submit' id='btntest' class='fth sm' label='New element' />
+      <Button id='btntest' type='prm' size='md' label='New element' @click='myCallback' icon='test' iconPosition='right' />
       <ProgressBar id="test" value="50" />
+      <Breadcrumbs />
+      <SearchBar />
     </div>
   </div>
 </template>
@@ -17,6 +16,8 @@ import HelloWorld from '@/components/HelloWorld.vue'; // @ is an alias to /src
 import Button from '@/components/button/Button.vue';
 import ProgressBar from "@/components/progressBar/ProgressBar.vue";
 import Collapse from "@/components/collapse/Collapse.vue";
+import Breadcrumbs from "@/components/breadcrumbs/Breadcrumbs.vue";
+import SearchBar from "@/compositions/searchBar/SearchBar.vue";
 
 export default defineComponent({
     name: 'HomeView',
@@ -24,7 +25,14 @@ export default defineComponent({
         HelloWorld,
         Button,
         ProgressBar,
-        Collapse
+        Collapse,
+        Breadcrumbs,
+        SearchBar
+    },
+    methods: {
+        myCallback() {
+            console.log('Button clicked!')
+        }
     },
     data: function () {
         return {
