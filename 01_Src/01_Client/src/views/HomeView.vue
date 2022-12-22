@@ -5,7 +5,10 @@
       <Button id='btntest' type='prm' size='md' label='New element' @click='myCallback' icon='test' iconPosition='right' />
       <ProgressBar id="test" value="50" />
       <Breadcrumbs />
-      <SearchBar />
+      <Button id='test' type='prm' size='md' label='Open' @click='showModal = true' icon='test' iconPosition='right' />
+      <Modal v-if="showModal" @closeModal='closeModal'>
+          <SearchBar />
+      </Modal>
     </div>
   </div>
 </template>
@@ -18,6 +21,7 @@ import ProgressBar from "@/components/progressBar/ProgressBar.vue";
 import Collapse from "@/components/collapse/Collapse.vue";
 import Breadcrumbs from "@/components/breadcrumbs/Breadcrumbs.vue";
 import SearchBar from "@/compositions/searchBar/SearchBar.vue";
+import Modal from "@/layouts/modal/Modal.vue";
 
 export default defineComponent({
     name: 'HomeView',
@@ -27,15 +31,20 @@ export default defineComponent({
         ProgressBar,
         Collapse,
         Breadcrumbs,
-        SearchBar
+        SearchBar,
+        Modal
     },
     methods: {
         myCallback() {
             console.log('Button clicked!')
+        },
+        closeModal(close: boolean) {
+            this.showModal = close
         }
     },
     data: function () {
         return {
+            showModal: false,
             tree: {
                 label: 'root',
                 nodes: [
@@ -64,7 +73,7 @@ export default defineComponent({
                         label: 'item2'
                     }
                 ]
-            }
+            },
         }
     }
 });
