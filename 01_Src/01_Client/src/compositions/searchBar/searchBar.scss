@@ -1,20 +1,99 @@
-input {
-    border: 1px solid #ccc;
-    padding: 8px;
-    width: 100%;
-}
+/*
+
+  File: searchBar.scss
+
+  Description: Style for Search Bar Component
+
+  Author: @qdouvillez
+
+  Date: 21 Dec 2022 at 20:37
+
+  Last Modified: 21 Dec 2022 at 20:37
+
+  Copyright: Copyright 2023, ©Half Square
+
+*/
+
+.searchBar {
+    background: rgba(51, 51, 51, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.32);
+    box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.15);
+    backdrop-filter: blur(25px);
+    border-radius: 8px;
+    overflow: hidden;
+
+    input {
+        all: unset;
+        color: rgba(255, 255, 255, 1);
+        padding: 14px;
+        font-style: normal;
+        font-weight: 400;
+        font-size: 24px;
+        line-height: 28px;
+        width: -webkit-fill-available;
+        &::placeholder {
+            color: rgba(255, 255, 255, 0.32);
+        }
+    }
+
+    .subtitle {
+        font-style: normal;
+        font-weight: 500;
+        font-size: 12px;
+        line-height: 14px;
+        color: rgba(255, 255, 255, 0.64);
+        padding: 16px 16px 8px;
+        border-top: 1px solid rgba(255, 255, 255, 0.32);
+    }
 
   ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
+        list-style: none;
+        margin: 0;
+        padding: 0 8px 8px;
+        max-height: 300px;
+        overflow-x: scroll;
+    }
 
   li {
-    cursor: pointer;
-    padding: 8px;
-}
+        cursor: pointer;
+        padding: 8px;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 19px;
+        color: rgba(255, 255, 255, 1);
+        border-radius: 4px;
+    }
 
   li.focused {
-    background-color: #eee;
+        background: rgba(55, 117, 202, 1);
+    }
+
+    .footer {
+        display: flex;
+        justify-content: flex-end;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 12px;
+        line-height: 14px;
+        color: rgba(255, 255, 255, 0.80);
+        padding: 8px 16px;
+        border-top: 1px solid rgba(255, 255, 255, 0.32);
+    }
 }
+
+
+.nested-enter-active, .nested-leave-active {
+    transition: all 100ms ease-in-out;
+}
+/* delay leave of parent element */
+.nested-leave-active {
+    transition-delay: 100ms;
+}
+
+.nested-enter-from,
+.nested-leave-to {
+    transform: translateY(-32px);
+    opacity: 0;
+}
+
