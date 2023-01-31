@@ -11,10 +11,10 @@ datasource db {
 }
 
 model Project {
-  id Int @default(autoincrement()) @id
-  name String
-  status String
-  version String
-  created DateTime @default(now())
-  description String @db.LongText
+  id          Int       @default(autoincrement()) @id
+  name        String
+  status      String    @default("new")
+  version     String    @default("0.1.0")
+  created     DateTime  @default(now())
+  description String    @db.LongText
 }
