@@ -1,5 +1,6 @@
-import { Project } from "@prisma/client";
-import { IsString, IsNumber, IsOptional } from "class-validator"
+import { Comment } from "@prisma/client";
+import { IsString, IsNumber, IsOptional, ValidateNested } from "class-validator"
+import { Type } from 'class-transformer';
 
 class createInput {
     @IsString()
@@ -36,7 +37,7 @@ class publicOutput {
     @IsString()
     description: string;
 
-    constructor(data: Project) {
+    constructor(data: any) {
         if (data) {
             this.id = data.id;
             this.name = data.name;
@@ -67,7 +68,11 @@ class detailsOutput {
     @IsString()
     description: string;
 
-    constructor(data: Project) {
+    @ValidateNested({ each: true })
+    @Type(() => Comment)
+    comments: Comment[];
+
+    constructor(data: any) {
         if (data) {
             this.id = data.id;
             this.name = data.name;
@@ -75,6 +80,7 @@ class detailsOutput {
             this.version = data.version;
             this.created = data.created;
             this.description = data.description;
+            this.comments = data.comments;
         }
     }
 }
