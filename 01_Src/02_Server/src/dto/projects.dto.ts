@@ -1,6 +1,7 @@
-import { Comment } from "@prisma/client";
-import { IsString, IsNumber, IsOptional, ValidateNested } from "class-validator"
-import { Type } from 'class-transformer';
+import { Comment, Task } from "@prisma/client";
+import { IsString, IsNumber, IsOptional, ValidateNested, IsArray } from "class-validator"
+import * as commentsDto from './comments.dto';
+import * as tasksDto from './tasks.dto';
 
 class createInput {
     @IsString()
@@ -68,9 +69,11 @@ class detailsOutput {
     @IsString()
     description: string;
 
-    @ValidateNested({ each: true })
-    @Type(() => Comment)
+    @IsArray()
     comments: Comment[];
+
+    @IsArray()
+    tasks: Task[];
 
     constructor(data: any) {
         if (data) {
@@ -80,7 +83,8 @@ class detailsOutput {
             this.version = data.version;
             this.created = data.created;
             this.description = data.description;
-            this.comments = data.comments;
+            this.comments = data.comments.map((el) => new commentsDto.publicOutput(el));
+            this.tasks = data.tasks.map((el) => new tasksDto.publicOutput(el));
         }
     }
 }

@@ -17,13 +17,22 @@ model Project {
   version     String      @default("0.1.0")
   created     DateTime    @default(now())
   description String      @db.LongText
-  comments   Comment[]
+  tasks       Task[]
+  comments    Comment[]
 }
 
 model Comment {
   id          Int         @default(autoincrement()) @id
   created     DateTime    @default(now())
   content     String      @db.LongText
-  parent      Project     @relation(fields: [parentId], references: [id])
-  parentId    Int
+  project     Project     @relation(fields: [projectId], references: [id])
+  projectId   Int
+}
+
+model Task {
+  id          Int         @default(autoincrement()) @id
+  name        String
+  status      String      @default("new")
+  project     Project     @relation(fields: [projectId], references: [id])
+  projectId   Int
 }

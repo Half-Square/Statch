@@ -22,7 +22,7 @@ export class ProjectsController {
       return res.map((el) => new projectsDto.publicOutput(el));
     } catch (err) {
       console.error(`${new Date().toISOString()} - ${err}`);
-      throw new HttpException('Internal Server Error', HttpStatus.INTERNAL_SERVER_ERROR);
+      throw err;
     }
   }
 
@@ -35,13 +35,14 @@ export class ProjectsController {
         },
         include: {
           comments: true,
+          tasks: true
         },
       });
       if (res) return new projectsDto.detailsOutput(res);
       else throw new HttpException('Not Found', HttpStatus.NOT_FOUND);
     } catch (err) {
       console.error(`${new Date().toISOString()} - ${err}`);
-      throw new HttpException('Internal Server Error', HttpStatus.INTERNAL_SERVER_ERROR);
+      throw err;
     }
   }
 
@@ -52,7 +53,7 @@ export class ProjectsController {
       return new projectsDto.detailsOutput(res);
     } catch (err) {
       console.error(`${new Date().toISOString()} - ${err}`);
-      throw new HttpException('Internal Server Error', HttpStatus.INTERNAL_SERVER_ERROR);
+      throw err;
     }
   }
 
@@ -60,12 +61,12 @@ export class ProjectsController {
   async getComments(@Param('id') id: string): Promise<commentsDto.publicOutput[]> {
     try {
       const res = await this.prisma.comment.findMany({
-        where: { parentId: Number(id) },
+        where: { projectId: Number(id) },
       });
       return res.map((el) => new commentsDto.publicOutput(el));
     } catch (err) {
       console.error(`${new Date().toISOString()} - ${err}`);
-      throw new HttpException('Internal Server Error', HttpStatus.INTERNAL_SERVER_ERROR);
+      throw err;
     }
   }
 
@@ -76,7 +77,7 @@ export class ProjectsController {
       const res = await this.prisma.comment.create({
         data: {
           content: body.content,
-          parentId: Number(id),
+          projectId: Number(id),
         },
       });
       return new commentsDto.detailsOutput(res);
@@ -84,7 +85,7 @@ export class ProjectsController {
       if (err.code == 'P2003')
         throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
       else
-        throw new HttpException('Internal Server Error', HttpStatus.INTERNAL_SERVER_ERROR);
+        throw err;
     }
   }
 }

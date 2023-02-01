@@ -17,14 +17,14 @@ class detailsOutput {
     content: string;
 
     @IsNumber()
-    parentId: number;
+    projectId: number;
 
     constructor(data: Comment) {
         if (data) {
             this.id = data.id;
             this.created = data.created;
             this.content = data.content;
-            this.parentId = data.parentId;
+            this.projectId = data.projectId;
         }
     }
 }
@@ -39,15 +39,11 @@ class publicOutput {
     @IsString()
     content: string;
 
-    @IsNumber()
-    parentId: number;
-
     constructor(data: Comment) {
         if (data) {
             this.id = data.id;
             this.created = data.created;
             this.content = data.content;
-            this.parentId = data.parentId;
         }
     }
 }
