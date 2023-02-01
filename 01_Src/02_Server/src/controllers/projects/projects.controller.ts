@@ -32,7 +32,7 @@ export class ProjectsController {
     try {
       const res = await this.prisma.project.findUnique({
         where: {
-          id: Number(id),
+          id: id,
         },
         include: {
           comments: true,
@@ -52,7 +52,7 @@ export class ProjectsController {
     try {
       let res = await this.prisma.project.update({
         where: {
-          id: Number(id)
+          id: id
         },
         data: body,
         include: {
@@ -70,43 +70,17 @@ export class ProjectsController {
   @Post('')
   async create(@Body() body: projectsDto.createInput): Promise<projectsDto.detailsOutput> {
     try {
-      const res = await this.prisma.project.create({ data: body });
+      const res = await this.prisma.project.create({
+        data: body,
+        include: {
+          comments: true,
+          tasks: true
+        }
+      });
       return new projectsDto.detailsOutput(res);
     } catch (err) {
       console.error(`${new Date().toISOString()} - ${err}`);
       throw err;
-    }
-  }
-
-  @Get('/:id/comments')
-  async getComments(@Param('id') id: string): Promise<commentsDto.publicOutput[]> {
-    try {
-      const res = await this.prisma.comment.findMany({
-        where: { projectId: Number(id) },
-      });
-      return res.map((el) => new commentsDto.publicOutput(el));
-    } catch (err) {
-      console.error(`${new Date().toISOString()} - ${err}`);
-      throw err;
-    }
-  }
-
-  @Post('/:id/comments')
-  async addComment( @Param('id') id: string,
-                    @Body() body: commentsDto.createInput): Promise<commentsDto.detailsOutput> {
-    try {
-      const res = await this.prisma.comment.create({
-        data: {
-          content: body.content,
-          projectId: Number(id),
-        },
-      });
-      return new commentsDto.detailsOutput(res);
-    } catch (err) {
-      if (err.code == 'P2003')
-        throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
-      else
-        throw err;
     }
   }
 }

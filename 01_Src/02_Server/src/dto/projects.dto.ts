@@ -38,8 +38,8 @@ class updateInput {
 }
 
 class publicOutput {
-    @IsNumber()
-    id: number;
+    @IsString()
+    id: string;
 
     @IsString()
     name: string;
@@ -69,8 +69,8 @@ class publicOutput {
 }
 
 class detailsOutput {
-    @IsNumber()
-    id: number;
+    @IsString()
+    id: string;
 
     @IsString()
     name: string;

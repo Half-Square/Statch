@@ -17,7 +17,7 @@ class updateInput {
 
 class publicOutput {
     @IsString()
-    id: number;
+    id: string;
 
     @IsString()
     name: string;
@@ -36,7 +36,7 @@ class publicOutput {
 
 class detailsOutput {
     @IsString()
-    id: number;
+    id: string;
 
     @IsString()
     name: string;

@@ -7,8 +7,8 @@ class createInput {
 }
 
 class detailsOutput {
-    @IsNumber()
-    id: number;
+    @IsString()
+    id: string;
 
     @IsString()
     created: Date;
@@ -26,8 +26,8 @@ class detailsOutput {
 }
 
 class publicOutput {
-    @IsNumber()
-    id: number;
+    @IsString()
+    id: string;
 
     @IsString()
     created: Date;

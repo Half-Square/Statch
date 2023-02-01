@@ -19,7 +19,7 @@ export class TasksController {
     @Get('projects/:id/tasks')
     async getAllFromProject(@Param('id') id: string): Promise<tasksDto.publicOutput[]> {
         try {
-            let res = await this.prisma.task.findMany({where: {projectId: Number(id)}});
+            let res = await this.prisma.task.findMany({where: {projectId: id}});
             return res.map((el) => new tasksDto.publicOutput(el));
         } catch (err) {
             console.error(`${new Date().toISOString()} - ${err}`);
@@ -33,8 +33,8 @@ export class TasksController {
             let res = await this.prisma.task.findFirst({
                 where: {
                     AND: [
-                        { id: Number(params.taskId) },
-                        { projectId: Number(params.id) },
+                        { id: params.taskId },
+                        { projectId: params.id },
                     ],
                 }
             });
@@ -50,7 +50,7 @@ export class TasksController {
     async update(@Param() params: any, @Body() body: tasksDto.updateInput): Promise<tasksDto.detailsOutput> {
         try {
             let res = await this.prisma.task.update({
-                where: {id: Number(params.taskId)},
+                where: {id: params.taskId},
                 data: body
             });
             return new tasksDto.detailsOutput(res);
@@ -66,7 +66,7 @@ export class TasksController {
             let res = await this.prisma.task.create({
                 data: {
                     name: body.name,
-                    projectId: Number(id)
+                    projectId: id
                 }
             });
             return new tasksDto.detailsOutput(res);

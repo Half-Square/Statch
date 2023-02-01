@@ -11,7 +11,7 @@ datasource db {
 }
 
 model Project {
-  id          Int         @default(autoincrement()) @id
+  id          String      @default(uuid()) @id
   name        String
   status      String      @default("new")
   version     String      @default("0.1.0")
@@ -21,18 +21,21 @@ model Project {
   comments    Comment[]
 }
 
-model Comment {
-  id          Int         @default(autoincrement()) @id
-  created     DateTime    @default(now())
-  content     String      @db.LongText
-  project     Project     @relation(fields: [projectId], references: [id])
-  projectId   Int
-}
-
 model Task {
-  id          Int         @default(autoincrement()) @id
+  id          String      @default(uuid()) @id
   name        String
   status      String      @default("new")
   project     Project     @relation(fields: [projectId], references: [id])
-  projectId   Int
+  projectId   String
+  comments    Comment[]
+}
+
+model Comment {
+  id          String      @default(uuid()) @id
+  created     DateTime    @default(now())
+  content     String      @db.LongText
+  project     Project?    @relation(fields: [projectId], references: [id])
+  projectId   String?
+  task        Task?       @relation(fields: [taskId], references: [id])
+  taskId      String?
 }
