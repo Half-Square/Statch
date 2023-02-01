@@ -19,6 +19,24 @@ class createInput {
     version: string;
 }
 
+class updateInput {
+    @IsString()
+    @IsOptional()
+    name: string;
+
+    @IsString()
+    @IsOptional()
+    status: string;
+
+    @IsString()
+    @IsOptional()
+    version: string;
+
+    @IsString()
+    @IsOptional()
+    description: string;
+}
+
 class publicOutput {
     @IsNumber()
     id: number;
@@ -91,6 +109,7 @@ class detailsOutput {
 
 export {
     createInput,
+    updateInput,
     publicOutput,
-    detailsOutput
+    detailsOutput,
 }
