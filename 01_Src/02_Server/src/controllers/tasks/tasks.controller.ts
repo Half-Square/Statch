@@ -1,6 +1,7 @@
 import {
     Controller,
     Get,
+    Put,
     Post,
     Body,
     Param,
@@ -39,6 +40,20 @@ export class TasksController {
             });
             if (res) return new tasksDto.detailsOutput(res);
             else throw new HttpException('Not Found', HttpStatus.NOT_FOUND);
+        } catch (err) {
+            console.error(`${new Date().toISOString()} - ${err}`);
+            throw err;
+        }
+    }
+
+    @Put('projects/:id/tasks/:taskId')
+    async update(@Param() params: any, @Body() body: tasksDto.updateInput): Promise<tasksDto.detailsOutput> {
+        try {
+            let res = await this.prisma.task.update({
+                where: {id: Number(params.taskId)},
+                data: body
+            });
+            return new tasksDto.detailsOutput(res);
         } catch (err) {
             console.error(`${new Date().toISOString()} - ${err}`);
             throw err;

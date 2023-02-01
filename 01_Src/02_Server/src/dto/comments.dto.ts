@@ -16,15 +16,11 @@ class detailsOutput {
     @IsString()
     content: string;
 
-    @IsNumber()
-    projectId: number;
-
     constructor(data: Comment) {
         if (data) {
             this.id = data.id;
             this.created = data.created;
             this.content = data.content;
-            this.projectId = data.projectId;
         }
     }
 }

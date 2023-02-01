@@ -1,8 +1,18 @@
-import { IsNumber, IsString } from "class-validator"
+import { IsNumber, IsOptional, IsString } from "class-validator"
 
 class createInput {
     @IsString()
     name: string;
+}
+
+class updateInput {
+    @IsString()
+    @IsOptional()
+    name: string;
+
+    @IsString()
+    @IsOptional()
+    status: string;
 }
 
 class publicOutput {
@@ -34,21 +44,18 @@ class detailsOutput {
     @IsString()
     status: string;
 
-    @IsNumber()
-    projectId: number;
-
     constructor(data: any) {
         if (data) {
             this.id = data.id;
             this.name = data.name;
             this.status = data.status;
-            this.projectId = data.projectId;
         }
     }
 }
 
 export {
     createInput,
+    updateInput,
     publicOutput,
     detailsOutput
 }
