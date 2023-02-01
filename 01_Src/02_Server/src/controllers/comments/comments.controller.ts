@@ -23,6 +23,10 @@ export class CommentsController {
     @Get(':parent/:id/comments')
     async getComments(@Param() params: any): Promise<commentsDto.publicOutput[]> {
       try {
+        if (!this.parents[params.parent]) {
+          throw new HttpException('Not Found', HttpStatus.NOT_FOUND);
+        }
+
         let toFind = {};
         toFind[this.parents[params.parent]] = params.id;
 
@@ -36,10 +40,14 @@ export class CommentsController {
       }
     }
   
-    @Post('/:parent/:id/comments')
+    @Post(':parent/:id/comments')
     async addComment( @Param() params: any,
                       @Body() body: commentsDto.createInput): Promise<commentsDto.detailsOutput> {
       try {
+        if (!this.parents[params.parent]) {
+          throw new HttpException('Not Found', HttpStatus.NOT_FOUND);
+        }
+
         let toSave = {content: body.content};
         toSave[this.parents[params.parent]] = params.id;
 
