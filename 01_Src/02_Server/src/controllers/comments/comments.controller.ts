@@ -14,7 +14,8 @@ import * as commentsDto from '../../dto/comments.dto';
 export class CommentsController {
     private parents = {
       projects: "projectId",
-      tasks: "taskId"
+      tasks: "taskId",
+      tickets: "ticketId"
     };
 
     constructor(private prisma: PrismaService) {

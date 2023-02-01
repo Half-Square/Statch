@@ -1,6 +1,4 @@
-import { IsNumber, IsOptional, IsString, IsArray } from "class-validator"
-import { Ticket } from "@prisma/client";
-import * as ticketsDto from './tickets.dto';
+import { IsNumber, IsOptional, IsString } from "class-validator"
 
 class createInput {
     @IsString()
@@ -46,15 +44,11 @@ class detailsOutput {
     @IsString()
     status: string;
 
-    @IsArray()
-    tickets: Ticket[]
-
     constructor(data: any) {
         if (data) {
             this.id = data.id;
             this.name = data.name;
             this.status = data.status;
-            this.tickets = data.tickets.map((el) => new ticketsDto.publicOutput(el));
         }
     }
 }

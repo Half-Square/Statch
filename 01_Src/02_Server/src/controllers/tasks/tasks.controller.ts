@@ -36,6 +36,9 @@ export class TasksController {
                         { id: params.taskId },
                         { projectId: params.id },
                     ],
+                },
+                include: {
+                    tickets: true
                 }
             });
             if (res) return new tasksDto.detailsOutput(res);
