@@ -27,11 +27,15 @@ class publicOutput {
     @IsString()
     status: string;
 
+    @IsString()
+    projectId: string;
+
     constructor(data: any) {
         if (data) {
             this.id = data.id;
             this.name = data.name;
             this.status = data.status;
+            this.projectId = data.projectId
         }
     }
 }
@@ -49,12 +53,16 @@ class detailsOutput {
     @IsArray()
     tickets: Ticket[]
 
+    @IsString()
+    projectId: string;
+
     constructor(data: any) {
         if (data) {
             this.id = data.id;
             this.name = data.name;
             this.status = data.status;
             this.tickets = data.tickets.map((el) => new ticketsDto.publicOutput(el));
+            this.projectId = data.projectId;
         }
     }
 }
