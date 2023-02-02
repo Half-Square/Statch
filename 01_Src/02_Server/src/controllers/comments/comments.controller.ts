@@ -1,3 +1,17 @@
+/**
+ * @ Author: Jbristhuille
+ * @ Create Time: 2023-02-01 15:23:55
+ * @ Description: Comments endpoint
+ */
+
+/* SUMMARY
+  * Imports
+  * Dto
+  * Name: getComments
+  * Name: addComment
+*/
+
+/* Imports */
 import {
     Controller,
     Get,
@@ -7,8 +21,12 @@ import {
     HttpException,
     HttpStatus
 } from '@nestjs/common';
+/***/
+
+/* Dto */
 import { PrismaService } from 'src/prisma.service';
 import * as commentsDto from '../../dto/comments.dto';
+/***/
 
 @Controller('')
 export class CommentsController {
@@ -21,6 +39,15 @@ export class CommentsController {
     constructor(private prisma: PrismaService) {
     }
 
+    /*
+    * Name: getComments
+    * Description: Get comments from parent
+    * 
+    * @param {string} parent - Parent endpoints name
+    * @param {string} id - Parent's ID
+    * 
+    * @returns {Comment[]} - List of all comments related to parent
+    */
     @Get(':parent/:id/comments')
     async getComments(@Param() params: any): Promise<commentsDto.publicOutput[]> {
       try {
@@ -40,7 +67,17 @@ export class CommentsController {
         throw err;
       }
     }
+    /***/
   
+    /*
+    * Name: addComment
+    * Description: Create new comment for parent
+    * 
+    * @param {string} parent - Parent endpoints name
+    * @param {string} id - Parent's ID
+    * 
+    * @returns {Comment} - Created comment
+    */
     @Post(':parent/:id/comments')
     async addComment( @Param() params: any,
                       @Body() body: commentsDto.createInput): Promise<commentsDto.detailsOutput> {
@@ -63,4 +100,5 @@ export class CommentsController {
           throw err;
       }
     }
+    /***/
 }

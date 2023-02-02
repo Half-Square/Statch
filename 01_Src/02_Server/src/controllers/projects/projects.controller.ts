@@ -1,3 +1,19 @@
+/**
+ * @ Author: Jbristhuille
+ * @ Create Time: 2023-01-31 09:16:17
+ * @ Description: Projects endpoint
+ */
+
+/* SUMMARY
+  * Imports
+  * Dto
+  * Name: getAll
+  * Name: getOne
+  * Name: update
+  * Name: create
+*/
+
+/* Imports */
 import {
   Controller,
   Get,
@@ -8,14 +24,23 @@ import {
   HttpException,
   HttpStatus,
 } from '@nestjs/common';
+/***/
+
+/* Dto */
 import { PrismaService } from 'src/prisma.service';
 import * as projectsDto from '../../dto/projects.dto';
-import * as commentsDto from '../../dto/comments.dto';
+/***/
 
 @Controller('projects')
 export class ProjectsController {
   constructor(private prisma: PrismaService) {}
 
+  /*
+  * Name: getAll
+  * Description: Get all projects
+  * 
+  * @returns {Project[]} - List of all projects
+  */
   @Get('')
   async getAll(): Promise<projectsDto.publicOutput[]> {
     try {
@@ -26,7 +51,16 @@ export class ProjectsController {
       throw err;
     }
   }
+  /***/
 
+  /*
+  * Name: getOne
+  * Description: Get one project by ID
+  *
+  * @param {string} id - Project's ID to get
+  * 
+  * @returns {Project} - Project details
+  */
   @Get('/:id')
   async getOne(@Param('id') id: string): Promise<projectsDto.detailsOutput> {
     try {
@@ -46,7 +80,21 @@ export class ProjectsController {
       throw err;
     }
   }
+  /***/
 
+  /*
+  * Name: update
+  * Description: Update project
+  * 
+  * @param {string} id - Project's ID to update
+  * @param {object} body - Data to update
+  *   - name: string (optional)
+  *   - description: string (optional)
+  *   - status: string (optional)
+  *   - version: string (optional)
+  * 
+  * @returns {Project} - Updated project
+  */
   @Put('/:id')
   async update(@Param('id') id: string, @Body() body: projectsDto.updateInput): Promise<projectsDto.detailsOutput> {
     try {
@@ -66,7 +114,20 @@ export class ProjectsController {
       throw err;
     }
   }
+  /***/
 
+  /*
+  * Name: create
+  * Description: Create project
+  * 
+  * @param {object} body - Data to update
+  *   - name: string
+  *   - description: string
+  *   - status: string (optional)
+  *   - version: string (optional)
+  * 
+  * @returns {Project} - Updated project
+  */
   @Post('')
   async create(@Body() body: projectsDto.createInput): Promise<projectsDto.detailsOutput> {
     try {
@@ -83,4 +144,5 @@ export class ProjectsController {
       throw err;
     }
   }
+  /***/
 }
