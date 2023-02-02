@@ -25,11 +25,15 @@ class publicOutput {
     @IsString()
     status: string;
 
+    @IsString()
+    taskId: string;
+
     constructor(data: any) {
         if (data) {
             this.id = data.id;
             this.name = data.name;
             this.status = data.status;
+            this.taskId = data.taskId;
         }
     }
 }
@@ -44,11 +48,15 @@ class detailsOutput {
     @IsString()
     status: string;
 
+    @IsString()
+    taskId: string;
+
     constructor(data: any) {
         if (data) {
             this.id = data.id;
             this.name = data.name;
             this.status = data.status;
+            this.taskId = data.taskId;
         }
     }
 }

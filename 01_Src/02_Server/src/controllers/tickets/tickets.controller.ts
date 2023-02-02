@@ -16,10 +16,10 @@ export class TicketsController {
     constructor(private prisma: PrismaService) {
     }
     
-    @Get('projects/:projectId/tasks/:id/tickets')
-    async getAllFromProject(@Param('id') id: string): Promise<ticketsDto.publicOutput[]> {
+    @Get('tickets')
+    async getAll(): Promise<ticketsDto.publicOutput[]> {
         try {
-            let res = await this.prisma.ticket.findMany({where: {taskId: id}});
+            let res = await this.prisma.ticket.findMany();
             return res.map((el) => new ticketsDto.publicOutput(el));
         } catch (err) {
             console.error(`${new Date().toISOString()} - ${err}`);
@@ -27,16 +27,11 @@ export class TicketsController {
         }
     }
 
-    @Get('projects/:projectId/tasks/:id/tickets/:ticketId')
-    async getOneFromProject(@Param() params: any): Promise<ticketsDto.detailsOutput> {
+    @Get('tickets/:id')
+    async getOne(@Param() params: any): Promise<ticketsDto.detailsOutput> {
         try {
             let res = await this.prisma.ticket.findFirst({
-                where: {
-                    AND: [
-                        { id: params.ticketId },
-                        { taskId: params.id },
-                    ],
-                }
+                where: { id: params.id }
             });
             if (res) return new ticketsDto.detailsOutput(res);
             else throw new HttpException('Not Found', HttpStatus.NOT_FOUND);
@@ -46,7 +41,7 @@ export class TicketsController {
         }
     }
 
-    @Put('projects/:projectId/tasks/:taskId/tickets/:id')
+    @Put('tickets/:id')
     async update(@Param() params: any, @Body() body: ticketsDto.updateInput): Promise<ticketsDto.detailsOutput> {
         try {
             let res = await this.prisma.ticket.update({
@@ -60,8 +55,19 @@ export class TicketsController {
         }
     }
 
-    @Post('projects/:id/tasks/:taskId/tickets')
-    async create(@Param('taskId') id: string, @Body() body: ticketsDto.createInput): Promise<ticketsDto.detailsOutput> {
+    @Get('tasks/:id/tickets')
+    async getAllFromProject(@Param('id') id: string): Promise<ticketsDto.publicOutput[]> {
+        try {
+            let res = await this.prisma.ticket.findMany({where: {taskId: id}});
+            return res.map((el) => new ticketsDto.publicOutput(el));
+        } catch (err) {
+            console.error(`${new Date().toISOString()} - ${err}`);
+            throw err;
+        }
+    }
+
+    @Post('tasks/:id/tickets')
+    async create(@Param('id') id: string, @Body() body: ticketsDto.createInput): Promise<ticketsDto.detailsOutput> {
         try {
             let res = await this.prisma.ticket.create({
                 data: {
