@@ -35,11 +35,9 @@ import * as projectsDto from '../../dto/projects.dto';
 export class ProjectsController {
   constructor(private prisma: PrismaService) {}
 
-  /*
-  * Name: getAll
-  * Description: Get all projects
-  * 
-  * @returns {Project[]} - List of all projects
+  /**
+  * Get all projects
+  * @returns - List of all projects
   */
   @Get('')
   async getAll(): Promise<projectsDto.publicOutput[]> {
@@ -53,13 +51,10 @@ export class ProjectsController {
   }
   /***/
 
-  /*
-  * Name: getOne
-  * Description: Get one project by ID
-  *
-  * @param {string} id - Project's ID to get
-  * 
-  * @returns {Project} - Project details
+  /**
+  * Get one project by ID
+  * @param id - Project's ID to get
+  * @returns - Project details
   */
   @Get('/:id')
   async getOne(@Param('id') id: string): Promise<projectsDto.detailsOutput> {
@@ -82,18 +77,11 @@ export class ProjectsController {
   }
   /***/
 
-  /*
-  * Name: update
-  * Description: Update project
-  * 
-  * @param {string} id - Project's ID to update
-  * @param {object} body - Data to update
-  *   - name: string (optional)
-  *   - description: string (optional)
-  *   - status: string (optional)
-  *   - version: string (optional)
-  * 
-  * @returns {Project} - Updated project
+  /**
+  * Update project
+  * @param id - Project's ID to update
+  * @param body - Data to update
+  * @returns - Updated project
   */
   @Put('/:id')
   async update(@Param('id') id: string, @Body() body: projectsDto.updateInput): Promise<projectsDto.detailsOutput> {
@@ -116,16 +104,9 @@ export class ProjectsController {
   }
   /***/
 
-  /*
-  * Name: create
-  * Description: Create project
-  * 
-  * @param {object} body - Data to update
-  *   - name: string
-  *   - description: string
-  *   - status: string (optional)
-  *   - version: string (optional)
-  * 
+  /**
+  * Create project
+  * @param body - Data to update
   * @returns {Project} - Updated project
   */
   @Post('')

@@ -39,14 +39,11 @@ export class CommentsController {
     constructor(private prisma: PrismaService) {
     }
 
-    /*
-    * Name: getComments
-    * Description: Get comments from parent
-    * 
-    * @param {string} parent - Parent endpoints name
-    * @param {string} id - Parent's ID
-    * 
-    * @returns {Comment[]} - List of all comments related to parent
+    /**
+    * Get comments from parent
+    * @param parent - Parent endpoints name
+    * @param id - Parent's ID
+    * @returns - List of all comments related to parent
     */
     @Get(':parent/:id/comments')
     async getComments(@Param() params: any): Promise<commentsDto.publicOutput[]> {
@@ -69,14 +66,11 @@ export class CommentsController {
     }
     /***/
   
-    /*
-    * Name: addComment
-    * Description: Create new comment for parent
-    * 
-    * @param {string} parent - Parent endpoints name
-    * @param {string} id - Parent's ID
-    * 
-    * @returns {Comment} - Created comment
+    /**
+    * Create new comment for parent
+    * @param parent - Parent endpoints name
+    * @param id - Parent's ID
+    * @returns - Created comment
     */
     @Post(':parent/:id/comments')
     async addComment( @Param() params: any,

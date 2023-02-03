@@ -37,11 +37,9 @@ export class TicketsController {
     constructor(private prisma: PrismaService) {
     }
     
-    /*
-    * Name: getAll
-    * Description: Get all tickets
-    * 
-    * @returns {ticket[]} - List of all tickets
+    /**
+    * Get all tickets
+    * @returns - List of all tickets
     */
     @Get('tickets')
     async getAll(): Promise<ticketsDto.publicOutput[]> {
@@ -55,13 +53,10 @@ export class TicketsController {
     }
     /***/
 
-    /*
-    * Name: getOne
-    * Description: Get ticket by ID
-    * 
-    * @param {string} id - Ticket's ID to get
-    * 
-    * @returns {Ticket} - Ticket's details
+    /**
+    * Get ticket by ID
+    * @param id - Ticket's ID to get
+    * @returns - Ticket's details
     */
     @Get('tickets/:id')
     async getOne(@Param() params: any): Promise<ticketsDto.detailsOutput> {
@@ -78,14 +73,10 @@ export class TicketsController {
     }
     /***/
 
-    /*
-    * Name: update
-    * Description: Update ticket
-    * 
-    * @param {string} id - Ticket's ID to update
-    * @param {object} body - Data
-    *   - name: string (optional)
-    *   - status: string (optional)
+    /**
+    * Update ticket
+    * @param id - Ticket's ID to update
+    * @param body - Data
     */
     @Put('tickets/:id')
     async update(@Param() params: any, @Body() body: ticketsDto.updateInput): Promise<ticketsDto.detailsOutput> {
@@ -102,13 +93,10 @@ export class TicketsController {
     }
     /***/
 
-    /*
-    * Name: getAllFromTask
-    * Description: Get all tickets in task
-    * 
-    * @param {string} id - Task's ID
-    * 
-    * @returns {tickets[]} - All tickets in task
+    /**
+    * Get all tickets in task
+    * @param id - Task's ID
+    * @returns - All tickets in task
     */
     @Get('tasks/:id/tickets')
     async getAllFromTask(@Param('id') id: string): Promise<ticketsDto.publicOutput[]> {
@@ -122,13 +110,11 @@ export class TicketsController {
     }
     /***/
 
-    /*
-    * Name: create
-    * Description: Create new ticket
-    * 
-    * @param {string} id - Task's ID
-    * @param {object} body - Data
-    *   - name: string
+    /**
+    * Create new ticket
+    * @param id - Task's ID
+    * @param body - Data
+    * @returns - Created task details
     */
     @Post('tasks/:id/tickets')
     async create(@Param('id') id: string, @Body() body: ticketsDto.createInput): Promise<ticketsDto.detailsOutput> {

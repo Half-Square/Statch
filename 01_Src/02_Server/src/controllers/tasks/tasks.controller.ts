@@ -37,11 +37,9 @@ export class TasksController {
     constructor(private prisma: PrismaService) {
     }
     
-    /*
-    * Name: getAll
-    * Description: Get all tasks
-    * 
-    * @returns {Task[]} - List of all tasks
+    /**
+    * Get all tasks in database
+    * @returns List of all tasks
     */
     @Get('tasks')
     async getAll(): Promise<tasksDto.publicOutput[]> {
@@ -55,13 +53,10 @@ export class TasksController {
     }
     /***/
 
-    /*
-    * Name: getById
-    * Description: Get task by ID
-    * 
-    * @param {string} - Task's ID to get
-    * 
-    * @returns {Task} - Task details
+    /**
+    * Get task by ID
+    * @param id - Task's ID to get
+    * @returns - Task details
     */
     @Get('tasks/:id')
     async getById(@Param('id') id: string): Promise<tasksDto.detailsOutput> {
@@ -79,16 +74,11 @@ export class TasksController {
     }
     /***/
 
-    /*
-    * Name: update
-    * Description: Update tasks
-    * 
-    * @param {string} id - Task's ID to update
-    * @param {object} body - Data to update
-    *   - name: string (optional)
-    *   - status: string (optional)
-    * 
-    * @returns {Task} - Updated task's details
+    /**
+    * Update tasks
+    * @param id - Task's ID to update
+    * @param body - Data to update
+    * @returns - Updated task's details
     */
     @Put('tasks/:id')
     async update(@Param('id') id: string, @Body() body: tasksDto.updateInput): Promise<tasksDto.detailsOutput> {
@@ -106,13 +96,10 @@ export class TasksController {
     }
     /***/
 
-    /*
-    * Name: getAllFromProject
-    * Description: Get all tasks in project
-    * 
-    * @param {string} id - Project's ID
-    * 
-    * @returns {Task[]} - Tasks list in project
+    /**
+    * Get all tasks in project
+    * @param id - Project's ID
+    * @returns - Tasks list in project
     */
     @Get('projects/:id/tasks')
     async getAllFromProject(@Param('id') id: string): Promise<tasksDto.publicOutput[]> {
@@ -126,14 +113,10 @@ export class TasksController {
     }
     /***/
 
-    /*
-    * Name: create
-    * Description: Create new task
-    * 
-    * @param {string} id - Project's ID where create task
-    * @param {object} body - Creation data
-    *   - name: string
-    * 
+    /**
+    * Create new task
+    * @param id - Project's ID where create task
+    * @param body - Creation data
     * @returns (Task) - Task's details
     */
     @Post('projects/:id/tasks')
