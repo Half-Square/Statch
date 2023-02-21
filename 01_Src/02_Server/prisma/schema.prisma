@@ -51,3 +51,11 @@ model Comment {
   ticket      Ticket?       @relation(fields: [ticketId], references: [id])
   ticketId    String?
 }
+
+model User {
+  id          String      @default(uuid()) @id
+  name        String
+  password    String
+  email       String      @unique
+  validate    Boolean     @default(false)
+}
