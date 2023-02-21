@@ -8,7 +8,7 @@
 
   Date: 21 Dec 2022 at 15:08
 
-  Last Modified: 21 Dec 2022 at 15:08
+  Last Modified: 24 Dec 2022 at 14:54
 
   Copyright: Copyright 2023, ©Half Square
 
@@ -101,18 +101,18 @@
 <template>
   <button @click="callback" :disabled="disabled" :class="[btn, type, size]" :id="id">
     <template v-if="iconPosition === 'left'">
-      <i :class="icon"></i>
+      <i class="icon" :class="icon"></i>
       {{ label }}
     </template>
     <template v-if="iconPosition === 'right'">
       {{ label }}
-      <i :class="icon"></i>
+      <i class="icon" :class="icon"></i>
     </template>
     <template v-if="iconPosition === 'none'">
       {{ label }}
     </template>
     <template v-if="iconPosition === 'only'">
-      <i :class="icon"></i>
+      <i class="icon" :class="icon"></i>
     </template>
   </button>
 </template>
