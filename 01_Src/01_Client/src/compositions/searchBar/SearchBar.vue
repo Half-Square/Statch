@@ -8,7 +8,7 @@
 
   Date: 20 Dec 2022 at 17:38
 
-  Last Modified: 22 Dec 2022 at 17:56
+  Last Modified: 24 Dec 2022 at 17:39
 
   Copyright: Copyright 2023, ©Half Square
 
@@ -199,7 +199,10 @@
 
 <template>
   <div class="searchBar">
-    <input type="text" id="inputSearch" autocomplete="off" placeholder="Search for commands or in projects..." v-model="query" @input="handleInput" @keydown.down="focusNextResult" @keydown.up="focusPrevResult" @keydown.enter="handleEnter" />
+    <div class="searchInput">
+          <i class="icon search"></i>
+          <input type="text" id="inputSearch" autocomplete="off" placeholder="Search for commands or in projects..." v-model="query" @input="handleInput" @keydown.down="focusNextResult" @keydown.up="focusPrevResult" @keydown.enter="handleEnter" />
+    </div>
     <Transition name="nested">
         <div v-if="results.length > 0" class="subtitle">Results</div>
     </Transition>
@@ -209,7 +212,10 @@
         </ul>
     </Transition>
     <Transition name="nested">
-        <div v-if="results.length > 0" class="footer">Go to</div>
+        <div v-if="results.length > 0" class="footer">
+          Go to
+          <div class="shortcut"><i class="icon enter"></i></div>
+        </div>
     </Transition>
   </div>
 </template>
