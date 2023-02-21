@@ -1,0 +1,30 @@
+#login {
+    background: #222222;
+    height: 100vh;
+}
+
+#login .container {
+    display: flex;
+    flex-direction: column;
+    max-width: 270px;
+    gap: 1.5rem;
+}
+
+#login a {
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 14px;
+    color: rgba(255, 255, 255, 0.64);
+    text-decoration: none;
+    transition: all 150ms ease-in;
+
+    div {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    &:hover {
+        color: rgba(255, 255, 255, 0.80);
+    }
+}
