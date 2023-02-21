@@ -5,7 +5,7 @@
       <Button id='btntest' type='prm' size='md' label='New element' @click='myCallback' icon='test' iconPosition='right' />
       <ProgressBar id="test" value="50" />
       <Breadcrumbs />
-      <Button id='test' type='prm' size='md' label='Open' @click='showModal = true' icon='test' iconPosition='right' />
+      <Button id='test' type='prm' size='md' label='Open' @click='showModal = true' icon='enter' iconPosition='right' />
       <Modal v-if="showModal" @closeModal='closeModal'>
           <SearchBar />
       </Modal>
