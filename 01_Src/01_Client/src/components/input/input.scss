@@ -1,0 +1,75 @@
+.input {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 0.5rem;
+    label {
+        cursor: pointer;
+        user-select: none;
+    }
+  input {
+        all: unset;
+        width: 100%;
+        border-radius: 0.25rem;
+        transition: all 150ms ease-in;
+        &:disabled, &:disabled + label {
+            cursor: not-allowed;
+        }
+    }
+}
+
+.input.md {
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 14px;
+    input {
+        padding: 0.5rem 1rem;
+    }
+}
+
+.input.prm {
+    label {
+        color: var(--dogme_c--dark);
+        font-weight: 700;
+    }
+ input {
+        background: rgba(34, 34, 34, 1);
+        color: rgba(255, 255, 255, 0.8);
+        border: 1px solid rgba(255, 255, 255, 0.8);
+        &::placeholder {
+            color: rgba(255, 255, 255, 0.32);
+        }
+  &:hover {
+            border-color: rgba(255, 255, 255, 1);
+        }
+  &:focus {
+            border-color: rgba(0, 108, 255, 1);
+        }
+  &:invalid {
+            border-color: red;
+            animation: invalid 0.4s 1 linear;
+        }
+  &:disabled {
+            background: red;
+        }
+  &:disabled, &:disabled + label, &:disabled::placeholder {
+            color: red;
+            border-color: transparent;
+        }
+  &:focus + label {
+            color: red;
+        }
+  &:invalid + label {
+            color: red;
+            animation: invalid 0.4s 1 linear;
+        }
+    }
+}
+
+@keyframes invalid {
+    0% { transform: translate(30px); }
+  20% { transform: translate(-30px); }
+  40% { transform: translate(15px); }
+  60% { transform: translate(-15px); }
+  80% { transform: translate(8px); }
+  100% { transform: translate(0px); }
+}
