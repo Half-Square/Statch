@@ -1,51 +1,47 @@
-import { IsString, IsNumber } from 'class-validator';
-import { Comment } from '@prisma/client';
+import {IsString} from "class-validator";
+import {Comment} from "@prisma/client";
 
-class createInput {
-    @IsString()
+class CreateInput {
+  @IsString()
     content: string;
 }
 
-class detailsOutput {
-    @IsString()
+class DetailsOutput {
+  @IsString()
     id: string;
 
-    @IsString()
+  @IsString()
     created: Date;
 
-    @IsString()
+  @IsString()
     content: string;
 
-    constructor(data: Comment) {
-        if (data) {
-            this.id = data.id;
-            this.created = data.created;
-            this.content = data.content;
-        }
+  constructor(data: Comment) {
+    if (data) {
+      this.id = data.id;
+      this.created = data.created;
+      this.content = data.content;
     }
+  }
 }
 
-class publicOutput {
-    @IsString()
+class PublicOutput {
+  @IsString()
     id: string;
 
-    @IsString()
+  @IsString()
     created: Date;
 
-    @IsString()
+  @IsString()
     content: string;
 
-    constructor(data: Comment) {
-        if (data) {
-            this.id = data.id;
-            this.created = data.created;
-            this.content = data.content;
-        }
+  constructor(data: Comment) {
+    if (data) {
+      this.id = data.id;
+      this.created = data.created;
+      this.content = data.content;
     }
+  }
 }
 
-export {
-    createInput,
-    publicOutput,
-    detailsOutput
-}
+export {CreateInput, PublicOutput, DetailsOutput};

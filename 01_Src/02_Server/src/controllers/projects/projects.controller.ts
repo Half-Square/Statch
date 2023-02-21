@@ -5,13 +5,13 @@
  */
 
 /* SUMMARY
-  * Imports
-  * Dto
-  * Name: getAll
-  * Name: getOne
-  * Name: update
-  * Name: create
-*/
+ * Imports
+ * Dto
+ * Name: getAll
+ * Name: getOne
+ * Name: update
+ * Name: create
+ */
 
 /* Imports */
 import {
@@ -22,28 +22,28 @@ import {
   Param,
   Body,
   HttpException,
-  HttpStatus,
-} from '@nestjs/common';
+  HttpStatus
+} from "@nestjs/common";
 /***/
 
 /* Dto */
-import { PrismaService } from 'src/prisma.service';
-import * as projectsDto from '../../dto/projects.dto';
+import {PrismaService} from "src/prisma.service";
+import * as projectsDto from "../../dto/projects.dto";
 /***/
 
-@Controller('projects')
+@Controller("projects")
 export class ProjectsController {
   constructor(private prisma: PrismaService) {}
 
   /**
-  * Get all projects
-  * @returns - List of all projects
-  */
-  @Get('')
-  async getAll(): Promise<projectsDto.publicOutput[]> {
+   * Get all projects
+   * @returns - List of all projects
+   */
+  @Get("")
+  async getAll(): Promise<projectsDto.PublicOutput[]> {
     try {
       const res = await this.prisma.project.findMany();
-      return res.map((el) => new projectsDto.publicOutput(el));
+      return res.map((el) => new projectsDto.PublicOutput(el));
     } catch (err) {
       console.error(`${new Date().toISOString()} - ${err}`);
       throw err;
@@ -52,24 +52,24 @@ export class ProjectsController {
   /***/
 
   /**
-  * Get one project by ID
-  * @param id - Project's ID to get
-  * @returns - Project details
-  */
-  @Get('/:id')
-  async getOne(@Param('id') id: string): Promise<projectsDto.detailsOutput> {
+   * Get one project by ID
+   * @param id - Project's ID to get
+   * @returns - Project details
+   */
+  @Get("/:id")
+  async getOne(@Param("id") id: string): Promise<projectsDto.DetailsOutput> {
     try {
       const res = await this.prisma.project.findUnique({
         where: {
-          id: id,
+          id: id
         },
         include: {
           comments: true,
           tasks: true
-        },
+        }
       });
-      if (res) return new projectsDto.detailsOutput(res);
-      else throw new HttpException('Not Found', HttpStatus.NOT_FOUND);
+      if (res) return new projectsDto.DetailsOutput(res);
+      else throw new HttpException("Not Found", HttpStatus.NOT_FOUND);
     } catch (err) {
       console.error(`${new Date().toISOString()} - ${err}`);
       throw err;
@@ -78,13 +78,16 @@ export class ProjectsController {
   /***/
 
   /**
-  * Update project
-  * @param id - Project's ID to update
-  * @param body - Data to update
-  * @returns - Updated project
-  */
-  @Put('/:id')
-  async update(@Param('id') id: string, @Body() body: projectsDto.updateInput): Promise<projectsDto.detailsOutput> {
+   * Update project
+   * @param id - Project's ID to update
+   * @param body - Data to update
+   * @returns - Updated project
+   */
+  @Put("/:id")
+  async update(
+    @Param("id") id: string,
+    @Body() body: projectsDto.UpdateInput,
+  ): Promise<projectsDto.DetailsOutput> {
     try {
       let res = await this.prisma.project.update({
         where: {
@@ -96,7 +99,7 @@ export class ProjectsController {
           comments: true
         }
       });
-      return new projectsDto.detailsOutput(res);
+      return new projectsDto.DetailsOutput(res);
     } catch (err) {
       console.error(`${new Date().toISOString()} - ${err}`);
       throw err;
@@ -105,12 +108,14 @@ export class ProjectsController {
   /***/
 
   /**
-  * Create project
-  * @param body - Data to update
-  * @returns {Project} - Updated project
-  */
-  @Post('')
-  async create(@Body() body: projectsDto.createInput): Promise<projectsDto.detailsOutput> {
+   * Create project
+   * @param body - Data to update
+   * @returns {Project} - Updated project
+   */
+  @Post("")
+  async create(
+    @Body() body: projectsDto.CreateInput,
+  ): Promise<projectsDto.DetailsOutput> {
     try {
       const res = await this.prisma.project.create({
         data: body,
@@ -119,7 +124,7 @@ export class ProjectsController {
           tasks: true
         }
       });
-      return new projectsDto.detailsOutput(res);
+      return new projectsDto.DetailsOutput(res);
     } catch (err) {
       console.error(`${new Date().toISOString()} - ${err}`);
       throw err;

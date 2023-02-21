@@ -1,115 +1,116 @@
-import { Comment, Task } from "@prisma/client";
-import { IsString, IsNumber, IsOptional, ValidateNested, IsArray } from "class-validator"
-import * as commentsDto from './comments.dto';
-import * as tasksDto from './tasks.dto';
+import {Comment, Task} from "@prisma/client";
+import {
+  IsString,
+  IsOptional,
+  IsArray
+} from "class-validator";
+import * as commentsDto from "./comments.dto";
+import * as tasksDto from "./tasks.dto";
 
-class createInput {
-    @IsString()
+class CreateInput {
+  @IsString()
     name: string;
 
-    @IsString()
+  @IsString()
     description: string;
 
-    @IsString()
-    @IsOptional()
+  @IsString()
+  @IsOptional()
     status: string;
 
-    @IsString()
-    @IsOptional()
+  @IsString()
+  @IsOptional()
     version: string;
 }
 
-class updateInput {
-    @IsString()
-    @IsOptional()
+class UpdateInput {
+  @IsString()
+  @IsOptional()
     name: string;
 
-    @IsString()
-    @IsOptional()
+  @IsString()
+  @IsOptional()
     status: string;
 
-    @IsString()
-    @IsOptional()
+  @IsString()
+  @IsOptional()
     version: string;
 
-    @IsString()
-    @IsOptional()
+  @IsString()
+  @IsOptional()
     description: string;
 }
 
-class publicOutput {
-    @IsString()
+class PublicOutput {
+  @IsString()
     id: string;
 
-    @IsString()
+  @IsString()
     name: string;
 
-    @IsString()
+  @IsString()
     status: string;
-    
-    @IsString()
+
+  @IsString()
     version: string;
-    
-    @IsString()
+
+  @IsString()
     created: Date;
 
-    @IsString()
+  @IsString()
     description: string;
 
-    constructor(data: any) {
-        if (data) {
-            this.id = data.id;
-            this.name = data.name;
-            this.status = data.name;
-            this.version = data.version;
-            this.created = data.created;
-            this.description = data.description;
-        }
+  constructor(data) {
+    if (data) {
+      this.id = data.id;
+      this.name = data.name;
+      this.status = data.name;
+      this.version = data.version;
+      this.created = data.created;
+      this.description = data.description;
     }
+  }
 }
 
-class detailsOutput {
-    @IsString()
+class DetailsOutput {
+  @IsString()
     id: string;
 
-    @IsString()
+  @IsString()
     name: string;
 
-    @IsString()
+  @IsString()
     status: string;
-    
-    @IsString()
+
+  @IsString()
     version: string;
-    
-    @IsString()
+
+  @IsString()
     created: Date;
 
-    @IsString()
+  @IsString()
     description: string;
 
-    @IsArray()
+  @IsArray()
     comments: Comment[];
 
-    @IsArray()
+  @IsArray()
     tasks: Task[];
 
-    constructor(data: any) {
-        if (data) {
-            this.id = data.id;
-            this.name = data.name;
-            this.status = data.name;
-            this.version = data.version;
-            this.created = data.created;
-            this.description = data.description;
-            this.comments = data.comments.map((el) => new commentsDto.publicOutput(el));
-            this.tasks = data.tasks.map((el) => new tasksDto.publicOutput(el));
-        }
+  constructor(data) {
+    if (data) {
+      this.id = data.id;
+      this.name = data.name;
+      this.status = data.name;
+      this.version = data.version;
+      this.created = data.created;
+      this.description = data.description;
+      this.comments = data.comments.map(
+        (el) => new commentsDto.PublicOutput(el),
+      );
+      this.tasks = data.tasks.map((el) => new tasksDto.PublicOutput(el));
     }
+  }
 }
 
-export {
-    createInput,
-    updateInput,
-    publicOutput,
-    detailsOutput,
-}
+export {CreateInput, UpdateInput, PublicOutput, DetailsOutput};

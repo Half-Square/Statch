@@ -1,25 +1,122 @@
 module.exports = {
-  parser: '@typescript-eslint/parser',
-  parserOptions: {
-    project: 'tsconfig.json',
-    tsconfigRootDir: __dirname,
-    sourceType: 'module',
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": "tsconfig.json",
+    "tsconfigRootDir": __dirname,
+    "sourceType": "module",
   },
-  plugins: ['@typescript-eslint/eslint-plugin'],
-  extends: [
-    'plugin:@typescript-eslint/recommended',
-    'plugin:prettier/recommended',
+  "plugins": ["@typescript-eslint/eslint-plugin"],
+  "extends": [
+    "plugin:@typescript-eslint/recommended"
   ],
-  root: true,
-  env: {
-    node: true,
-    jest: true,
+  "root": true,
+  "env": {
+    "node": true,
+    "jest": true,
   },
-  ignorePatterns: ['.eslintrc.js'],
-  rules: {
-    '@typescript-eslint/interface-name-prefix': 'off',
-    '@typescript-eslint/explicit-function-return-type': 'off',
-    '@typescript-eslint/explicit-module-boundary-types': 'off',
-    '@typescript-eslint/no-explicit-any': 'off',
-  },
+  "ignorePatterns": [".eslintrc.js", "**/*.spec.ts", "**/*.*-spec.ts"],
+  "rules": {
+    "camelcase": [
+      "error",
+      {
+        "allow": [
+          "^is_",
+          "^on_",
+          "^get_",
+          "^on",
+          "^is",
+          "^get",
+          "^st_",
+          "^st"
+        ]
+      }
+    ],
+    "semi": [
+      "error",
+      "always"
+    ],
+    "semi-spacing": [
+      "error",
+      {
+        "before": false,
+        "after": true
+      }
+    ],
+    "brace-style": [
+      "error"
+    ],
+    "comma-spacing": [
+      "error",
+      {
+        "before": false,
+        "after": true
+      }
+    ],
+    "comma-dangle": [
+      "error",
+      "never"
+    ],
+    "prefer-const": "off",
+    "@typescript-eslint/no-inferrable-types": "off",
+    "space-before-function-paren": [
+      "error",
+      "never"
+    ],
+    "quotes": [
+      "error",
+      "double",
+      {
+        "allowTemplateLiterals": true
+      }
+    ],
+    "indent": [
+      "error",
+      2,
+      {
+        "ignoredNodes": [
+          "JSXElement",
+          "JSXOpeningElement"
+        ]
+      }
+    ],
+    "max-len": [
+      "error",
+      {
+        "code": 80,
+        "ignoreComments": true,
+        "ignoreTrailingComments": true,
+        "ignoreUrls": true,
+        "ignorePattern": "^\\s*var\\s.+=\\s*require\\s*\\(",
+        "ignoreStrings": true
+      }
+    ],
+    "max-depth": [
+      "error",
+      4
+    ],
+    "max-nested-callbacks": [
+      "error",
+      3
+    ],
+    "@typescript-eslint/explicit-function-return-type": "error",
+    "@typescript-eslint/naming-convention": [
+      "error",
+      {
+        "selector": "function",
+        "format": [
+          "PascalCase",
+          "camelCase"
+        ]
+      },
+      {
+        "selector": [
+          "class",
+          "interface"
+        ],
+        "format": [
+          "PascalCase"
+        ]
+      }
+    ]
+  }
 };
