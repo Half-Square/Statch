@@ -8,6 +8,7 @@
 
 /* SUMMARY
   * RegisterInput
+  * PublicOuput
   * DetailsOutput
 */
 
@@ -26,6 +27,36 @@ class RegisterInput {
 
   @IsString()
   password: string;
+}
+/***/
+
+/**
+* PublicOutput
+*/
+class PublicOutput {
+  @IsString()
+  id: string;
+
+  @IsString()
+  name: string;
+
+  @IsString()
+  email: string;
+
+  @IsString()
+  password: string;
+
+  @IsBoolean()
+  validate: boolean;
+
+  constructor(data) {
+    if (data) {
+      this.id = data.id;
+      this.name = data.name;
+      this.email = data.email;
+      this.validate = data.validate;
+    }
+  }
 }
 /***/
 
@@ -61,5 +92,6 @@ class DetailsOutput {
 
 export {
   RegisterInput,
+  PublicOutput,
   DetailsOutput
 }

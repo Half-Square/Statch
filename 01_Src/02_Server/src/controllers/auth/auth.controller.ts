@@ -9,10 +9,12 @@
 /* SUMMARY
   * Imports
   * Dto
+  * getAll
+  * register
 */
 
 /* Imports */
-import { Controller, Post, Body, HttpException, HttpStatus } from '@nestjs/common';
+import { Controller, Post, Body, HttpException, HttpStatus, Get } from '@nestjs/common';
 import { sha256 } from 'js-sha256';
 import { PrismaService } from 'src/prisma.service';
 /***/
@@ -27,6 +29,23 @@ export class AuthController {
   }
 
   /**
+  * Get all users
+  * @returns - List of all user public informations 
+  */
+  @Get('users')
+  async getAll(): Promise<usersDto.PublicOutput[]> {
+    try {
+      const res = await this.prisma.user.findMany({});
+      return res.map((el) => new usersDto.PublicOutput(el));
+    } catch (err) {
+      console.error(`${new Date().toISOString()} - ${err}`);
+      throw err;
+    }
+  }
+  /***/
+
+  /**
+  * Register new user 
   * @param name - User's name
   * @param email - User's email
   * @param password - User's password
