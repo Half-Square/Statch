@@ -11,10 +11,20 @@
   * Dto
   * getAll
   * register
+  * activate
 */
 
 /* Imports */
-import { Controller, Post, Body, HttpException, HttpStatus, Get } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  HttpException,
+  HttpStatus,
+  Get,
+  Param,
+  Put
+} from '@nestjs/common';
 import { sha256 } from 'js-sha256';
 import { PrismaService } from 'src/prisma.service';
 /***/
@@ -62,7 +72,7 @@ export class AuthController {
           email: body.email
         }
       });
-      return new usersDto.DetailsOutput(res); // tmp
+      return new usersDto.DetailsOutput(res);
     } catch (err) {
       if (err.code == "P2002") {
         throw new HttpException("Email Already Exist", HttpStatus.NOT_ACCEPTABLE)
@@ -70,6 +80,25 @@ export class AuthController {
         console.error(`${new Date().toISOString()} - ${err}`);
         throw err;
       }
+    }
+  }
+  /***/
+
+  /**
+  * Activate user
+  */
+  @Put('users/:id')
+  async activate(@Param('id') id: string): Promise<usersDto.DetailsOutput> {
+    try {
+      const res = await this.prisma.user.update({
+        data: {validate: true},
+        where: {id: id} 
+      });
+
+      return new usersDto.DetailsOutput(res);
+    } catch (err) {
+      console.error(`${new Date().toISOString()} - ${err}`);
+      throw err;
     }
   }
   /***/
