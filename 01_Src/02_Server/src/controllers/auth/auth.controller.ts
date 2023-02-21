@@ -1,10 +1,9 @@
-/*
-* Filename: auth.controller.ts
-* Author: Jbristhuille
-* Date: Tue Feb 21 2023 11:50:29
-*
-* Description: Authentication endpoint
-*/
+/******************************************************************************
+ * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
+ * @CreatedDate           : 2023-02-21 13:01:19                               *
+ * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
+ * @LastEditDate          : 2023-02-21 13:53:25                               *
+ *****************************************************************************/
 
 /* SUMMARY
   * Imports
@@ -25,13 +24,14 @@ import {
   Get,
   Param,
   Put
-} from '@nestjs/common';
-import { sha256 } from 'js-sha256';
-import { PrismaService } from 'src/prisma.service';
+} from "@nestjs/common";
+import { sha256 } from "js-sha256";
+import { PrismaService } from "src/prisma.service";
+import * as jwt from 'jsonwebtoken';
 /***/
 
 /* Dto */
-import * as usersDto from '../../dto/users.dto';
+import * as usersDto from "../../dto/users.dto";
 /***/
 
 @Controller()
@@ -43,7 +43,7 @@ export class AuthController {
   * Get all users
   * @returns - List of all user public informations 
   */
-  @Get('users')
+  @Get("users")
   async getAll(): Promise<usersDto.PublicOutput[]> {
     try {
       const res = await this.prisma.user.findMany({});
@@ -59,8 +59,8 @@ export class AuthController {
   * Get one user
   * @returns - User's details
   */
-  @Get('users/:id')
-  async getOne(@Param('id') id: string): Promise<usersDto.DetailsOutput> {
+  @Get("users/:id")
+  async getOne(@Param("id") id: string): Promise<usersDto.DetailsOutput> {
     try {
       const res = await this.prisma.user.findUnique({where: {id: id}});
       return new usersDto.DetailsOutput(res);
@@ -78,7 +78,7 @@ export class AuthController {
   * @param password - User's password
   * @returns - New registered user details
   */
-  @Post('users')
+  @Post("users")
   async register(@Body() body: usersDto.RegisterInput): Promise<usersDto.DetailsOutput> {
     try {
       let passwd = String(sha256(body.password));
@@ -92,7 +92,7 @@ export class AuthController {
       return new usersDto.DetailsOutput(res);
     } catch (err) {
       if (err.code == "P2002") {
-        throw new HttpException("Email Already Exist", HttpStatus.NOT_ACCEPTABLE)
+        throw new HttpException("Email Already Exist", HttpStatus.NOT_ACCEPTABLE);
       } else {
         console.error(`${new Date().toISOString()} - ${err}`);
         throw err;
@@ -102,11 +102,37 @@ export class AuthController {
   /***/
 
   /**
+  * Connect user
+  * @param email - User's email
+  * @param password - User's password
+  * @returns - User connected details
+  */
+  @Post('login')
+  async login(@Body() body: usersDto.ConnectInput): Promise<usersDto.ConnectOutput> {
+    try {
+      const res = await this.prisma.user.findUnique({where: {email: body.email}});
+      if (!res) throw new HttpException("Not Found", HttpStatus.NOT_FOUND);
+      
+      if (res.password !== sha256(body.password)) {
+        throw new HttpException("Invalid Password", HttpStatus.BAD_REQUEST);
+      }
+
+      delete res.password;
+      res['token'] = jwt.sign(res, process.env.SALT, {algorithm: 'HS256'});
+      return new usersDto.ConnectOutput(res);
+    } catch (err) {
+      console.error(`${new Date().toISOString()} - ${err}`);
+      throw err;
+    }
+  }
+  /***/
+
+  /**
   * Activate user
   * @returns - User's details
   */
-  @Put('users/:id')
-  async activate(@Param('id') id: string): Promise<usersDto.DetailsOutput> {
+  @Put("users/:id")
+  async activate(@Param("id") id: string): Promise<usersDto.DetailsOutput> {
     try {
       const res = await this.prisma.user.update({
         data: {validate: true},

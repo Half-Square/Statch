@@ -5,7 +5,7 @@ import {ProjectsController} from "./controllers/projects/projects.controller";
 import {TasksController} from "./controllers/tasks/tasks.controller";
 import {CommentsController} from "./controllers/comments/comments.controller";
 import {TicketsController} from "./controllers/tickets/tickets.controller";
-import { AuthController } from './controllers/auth/auth.controller';
+import { AuthController } from "./controllers/auth/auth.controller";
 
 @Module({
   imports: [],

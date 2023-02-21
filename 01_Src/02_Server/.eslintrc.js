@@ -1,3 +1,10 @@
+/******************************************************************************
+ * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
+ * @CreatedDate           : 2023-02-21 13:04:59                               *
+ * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
+ * @LastEditDate          : 2023-02-21 13:06:20                               *
+ *****************************************************************************/
+
 module.exports = {
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
@@ -82,7 +89,7 @@ module.exports = {
     "max-len": [
       "error",
       {
-        "code": 80,
+        "code": 90,
         "ignoreComments": true,
         "ignoreTrailingComments": true,
         "ignoreUrls": true,
