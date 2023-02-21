@@ -10,6 +10,7 @@
   * Imports
   * Dto
   * getAll
+  * getOne
   * register
   * activate
 */
@@ -55,6 +56,22 @@ export class AuthController {
   /***/
 
   /**
+  * Get one user
+  * @returns - User's details
+  */
+  @Get('users/:id')
+  async getOne(@Param('id') id: string): Promise<usersDto.DetailsOutput> {
+    try {
+      const res = await this.prisma.user.findUnique({where: {id: id}});
+      return new usersDto.DetailsOutput(res);
+    } catch (err) {
+      console.error(`${new Date().toISOString()} - ${err}`);
+      throw err;
+    }
+  }
+  /***/
+
+  /**
   * Register new user 
   * @param name - User's name
   * @param email - User's email
@@ -86,6 +103,7 @@ export class AuthController {
 
   /**
   * Activate user
+  * @returns - User's details
   */
   @Put('users/:id')
   async activate(@Param('id') id: string): Promise<usersDto.DetailsOutput> {
