@@ -1,53 +1,35 @@
-/**
- * @ Author: Jbristhuille
- * @ Create Time: 2022-10-15 14:17:51
- * @ Description: Importations file
- */
+/******************************************************************************
+ * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
+ * @CreatedDate           : 2023-02-21 14:10:37                               *
+ * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
+ * @LastEditDate          : 2023-02-21 14:11:04                               *
+ *****************************************************************************/
 
 /* SUMMARY
-  * Nest
-  * Services
-  * Modules
+  * Imports
 */
 
-/* Nest */
-import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { TypeOrmModule } from '@nestjs/typeorm';
-/***/
-
-/* Services */
-import { AppService } from './app.service';
-/***/
-
-/* Modules */
-import { UsersModule } from './users/users.module';
-import { ProjectsModule } from './projects/projects.module';
-/***/
-
-/* Entities */
-import { Users } from './users/users.entity';
-import { Projects } from './projects/projects.entity';
+/* Imports */
+import {Module} from "@nestjs/common";
+import {AppController} from "./app.controller";
+import {PrismaService} from "./prisma.service";
+import {ProjectsController} from "./controllers/projects/projects.controller";
+import {TasksController} from "./controllers/tasks/tasks.controller";
+import {CommentsController} from "./controllers/comments/comments.controller";
+import {TicketsController} from "./controllers/tickets/tickets.controller";
+import { AuthController } from "./controllers/auth/auth.controller";
 /***/
 
 @Module({
-  imports: [
-    TypeOrmModule.forRoot({
-      type: 'mongodb',
-      host: 'localhost',
-      port: 27017,
-      username: 'root',
-      password: '',
-      database: 'test',
-      entities: [
-        Users,
-        Projects
-      ]
-    }),
-    UsersModule,
-    ProjectsModule
+  imports: [],
+  controllers: [
+    AppController,
+    ProjectsController,
+    TasksController,
+    CommentsController,
+    TicketsController,
+    AuthController
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  providers: [PrismaService]
 })
 export class AppModule {}
