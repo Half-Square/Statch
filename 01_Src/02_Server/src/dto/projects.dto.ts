@@ -1,3 +1,19 @@
+/******************************************************************************
+ * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
+ * @CreatedDate           : 2023-02-21 14:13:59                               *
+ * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
+ * @LastEditDate          : 2023-02-21 14:16:13                               *
+ *****************************************************************************/
+
+/* SUMMARY
+  * Imports
+  * CreateInput
+  * UpdateInput
+  * PublicOutput
+  * DetailsOutput
+*/
+
+/* Imports */
 import {Comment, Task} from "@prisma/client";
 import {
   IsString,
@@ -6,7 +22,11 @@ import {
 } from "class-validator";
 import * as commentsDto from "./comments.dto";
 import * as tasksDto from "./tasks.dto";
+/***/
 
+/**
+* CreateInput
+*/
 class CreateInput {
   @IsString()
     name: string;
@@ -22,7 +42,11 @@ class CreateInput {
   @IsOptional()
     version: string;
 }
+/***/
 
+/**
+* UpdateInput
+*/
 class UpdateInput {
   @IsString()
   @IsOptional()
@@ -40,7 +64,11 @@ class UpdateInput {
   @IsOptional()
     description: string;
 }
+/***/
 
+/**
+* PublicOutput 
+*/
 class PublicOutput {
   @IsString()
     id: string;
@@ -71,7 +99,11 @@ class PublicOutput {
     }
   }
 }
+/***/
 
+/**
+* DetailsOutput 
+*/
 class DetailsOutput {
   @IsString()
     id: string;
@@ -112,5 +144,6 @@ class DetailsOutput {
     }
   }
 }
+/***/
 
 export {CreateInput, UpdateInput, PublicOutput, DetailsOutput};

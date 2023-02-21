@@ -1,5 +1,18 @@
+/******************************************************************************
+ * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
+ * @CreatedDate           : 2023-02-21 14:06:44                               *
+ * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
+ * @LastEditDate          : 2023-02-21 14:10:05                               *
+ *****************************************************************************/
+
+/* SUMMARY
+  * Imports
+*/
+
+/* Imports */
 import {INestApplication, Injectable, OnModuleInit} from "@nestjs/common";
 import {PrismaClient} from "@prisma/client";
+/***/
 
 @Injectable()
 export class PrismaService extends PrismaClient implements OnModuleInit {

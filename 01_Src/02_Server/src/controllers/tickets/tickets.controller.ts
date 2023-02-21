@@ -1,17 +1,18 @@
-/**
- * @ Author: Jbristhuille
- * @ Create Time: 2023-02-01 16:54:31
- * @ Description: Tickets endpoint
- */
+/******************************************************************************
+ * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
+ * @CreatedDate           : 2023-02-21 14:22:05                               *
+ * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
+ * @LastEditDate          : 2023-02-21 14:22:14                               *
+ *****************************************************************************/
 
 /* SUMMARY
  * Imports
  * Dto
- * Name: getAll
- * Name: getOne
- * Name: update
- * Name: getAllFromTask
- * Name: create
+ * getAll
+ * getOne
+ * update
+ * getAllFromTask
+ * create
  */
 
 /* Imports */

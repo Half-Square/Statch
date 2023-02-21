@@ -1,17 +1,18 @@
-/**
- * @ Author: Jbristhuille
- * @ Create Time: 2023-02-01 09:48:24
- * @ Description: Tasks endpoints
- */
+/******************************************************************************
+ * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
+ * @CreatedDate           : 2023-02-21 14:21:47                               *
+ * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
+ * @LastEditDate          : 2023-02-21 14:21:56                               *
+ *****************************************************************************/
 
 /* SUMMARY
  * Imports
  * Dto
- * Name: getAll
- * Name: getById
- * Name: update
- * Name: getAllFromProject
- * Name: create
+ * getAll
+ * getById
+ * update
+ * getAllFromProject
+ * create
  */
 
 /* Imports */

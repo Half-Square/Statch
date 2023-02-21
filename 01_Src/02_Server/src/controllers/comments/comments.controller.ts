@@ -1,14 +1,15 @@
-/**
- * @ Author: Jbristhuille
- * @ Create Time: 2023-02-01 15:23:55
- * @ Description: Comments endpoint
- */
+/******************************************************************************
+ * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
+ * @CreatedDate           : 2023-02-21 14:20:59                               *
+ * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
+ * @LastEditDate          : 2023-02-21 14:21:14                               *
+ *****************************************************************************/
 
 /* SUMMARY
  * Imports
  * Dto
- * Name: getComments
- * Name: addComment
+ * getComments
+ * addComment
  */
 
 /* Imports */
