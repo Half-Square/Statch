@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE `project` MODIFY `status` VARCHAR(191) NOT NULL DEFAULT 'new',
+    MODIFY `version` VARCHAR(191) NOT NULL DEFAULT '0.1.0';
