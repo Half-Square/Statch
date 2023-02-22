@@ -1,41 +1,9 @@
 <!--
-
-  File: Button.vue
-
-  Description: Button Component with Callback and Options support
-
-  Author: @qdouvillez
-
-  Date: 21 Dec 2022 at 15:08
-
-  Last Modified: 24 Dec 2022 at 14:54
-
-  Copyright: Copyright 2023, ©Half Square
-
-
-
-  Purpose:
-
-  -
-
-
-
-  Dependencies:
-
-  - button.scss: Style file
-
-
-
-  Notes:
-
-  -
-
-
-
-  Summary:
-
-  -
-
+* @Author                : 0K00<qdouvillez@gmail.com>                         
+* @CreatedDate           : Invalid Date                                       
+* @LastEditors           : 0K00<qdouvillez@gmail.com>                         
+* @LastEditDate          : 2023-02-22 11:24:15                                
+*                                                                             
 -->
 
 
@@ -83,7 +51,7 @@
             },
             iconPosition: {
               type: String,
-              default: 'left',
+              default: 'none',
               validator: (value: string) => ['left', 'right', 'none', 'only'].includes(value)
             },
         },
