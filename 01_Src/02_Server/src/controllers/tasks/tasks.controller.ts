@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-02-21 14:21:47                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-02-21 14:21:56                               *
+ * @LastEditDate          : 2023-02-22 11:32:52                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -63,7 +63,7 @@ export class TasksController {
     try {
       let res = await this.prisma.task.findUnique({
         where: {id: id},
-        include: {tickets: true}
+        include: {tickets: true, comments: true}
       });
       if (res) return new tasksDto.DetailsOutput(res);
       else throw new HttpException("Not Found", HttpStatus.NOT_FOUND);

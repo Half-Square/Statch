@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-02-21 14:16:22                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-02-21 14:18:17                               *
+ * @LastEditDate          : 2023-02-22 11:31:24                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -17,6 +17,7 @@
 import {IsOptional, IsString, IsArray} from "class-validator";
 import {Ticket} from "@prisma/client";
 import * as ticketsDto from "./tickets.dto";
+import * as commentsDto from './comments.dto';
 /***/
 
 /**
@@ -47,16 +48,19 @@ class UpdateInput {
 */
 class PublicOutput {
   @IsString()
-    id: string;
+  id: string;
 
   @IsString()
-    name: string;
+  name: string;
 
   @IsString()
-    status: string;
+  status: string;
 
   @IsString()
-    projectId: string;
+  projectId: string;
+
+  @IsString()
+  created: string;
 
   constructor(data) {
     if (data) {
@@ -64,6 +68,7 @@ class PublicOutput {
       this.name = data.name;
       this.status = data.status;
       this.projectId = data.projectId;
+      this.created = data.created;
     }
   }
 }
@@ -74,19 +79,22 @@ class PublicOutput {
 */
 class DetailsOutput {
   @IsString()
-    id: string;
+  id: string;
 
   @IsString()
-    name: string;
+  name: string;
 
   @IsString()
-    status: string;
+  status: string;
 
   @IsArray()
-    tickets: Ticket[];
+  tickets: Ticket[];
 
   @IsString()
-    projectId: string;
+  projectId: string;
+
+  @IsArray()
+  comments: Comment[];
 
   constructor(data) {
     if (data) {
@@ -94,6 +102,7 @@ class DetailsOutput {
       this.name = data.name;
       this.status = data.status;
       this.tickets = data.tickets.map((el) => new ticketsDto.PublicOutput(el));
+      this.comments  = data.comments.map((el) => new commentsDto.PublicOutput(el));
       this.projectId = data.projectId;
     }
   }

@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-02-21 14:13:59                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-02-21 14:16:13                               *
+ * @LastEditDate          : 2023-02-22 11:25:39                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -92,7 +92,7 @@ class PublicOutput {
     if (data) {
       this.id = data.id;
       this.name = data.name;
-      this.status = data.name;
+      this.status = data.status;
       this.version = data.version;
       this.created = data.created;
       this.description = data.description;
@@ -133,7 +133,7 @@ class DetailsOutput {
     if (data) {
       this.id = data.id;
       this.name = data.name;
-      this.status = data.name;
+      this.status = data.status;
       this.version = data.version;
       this.created = data.created;
       this.description = data.description;
