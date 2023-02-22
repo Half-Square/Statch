@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-02-21 14:21:47                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-02-22 11:32:52                               *
+ * @LastEditDate          : 2023-02-22 15:14:28                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -24,8 +24,10 @@ import {
   Body,
   Param,
   HttpStatus,
-  HttpException
+  HttpException,
+  UseGuards
 } from "@nestjs/common";
+import { ConnectedGuard } from "src/guards/connected/connected.guard";
 /***/
 
 /* Dto */
@@ -34,6 +36,7 @@ import * as tasksDto from "../../dto/tasks.dto";
 /***/
 
 @Controller("")
+@UseGuards(ConnectedGuard)
 export class TasksController {
   constructor(private prisma: PrismaService) {}
 

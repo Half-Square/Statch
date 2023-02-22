@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-02-21 13:01:19                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-02-21 13:53:25                               *
+ * @LastEditDate          : 2023-02-22 15:12:45                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -23,7 +23,8 @@ import {
   HttpStatus,
   Get,
   Param,
-  Put
+  Put,
+  UseGuards
 } from "@nestjs/common";
 import { sha256 } from "js-sha256";
 import { PrismaService } from "src/prisma.service";
@@ -32,6 +33,7 @@ import * as jwt from "jsonwebtoken";
 
 /* Dto */
 import * as usersDto from "../../dto/users.dto";
+import { ConnectedGuard } from "src/guards/connected/connected.guard";
 /***/
 
 @Controller()
@@ -44,6 +46,7 @@ export class AuthController {
   * @returns - List of all user public informations 
   */
   @Get("users")
+  @UseGuards(ConnectedGuard)
   async getAll(): Promise<usersDto.PublicOutput[]> {
     try {
       const res = await this.prisma.user.findMany({});
@@ -60,6 +63,7 @@ export class AuthController {
   * @returns - User's details
   */
   @Get("users/:id")
+  @UseGuards(ConnectedGuard)
   async getOne(@Param("id") id: string): Promise<usersDto.DetailsOutput> {
     try {
       const res = await this.prisma.user.findUnique({where: {id: id}});
@@ -118,7 +122,12 @@ export class AuthController {
       }
 
       delete res.password;
-      res["token"] = jwt.sign(res, process.env.SALT, {algorithm: "HS256"});
+      
+      res["token"] = jwt.sign(res, process.env.SALT, {
+        algorithm: "HS256",
+        expiresIn: process.env.SESSION_TIME
+      });
+
       return new usersDto.ConnectOutput(res);
     } catch (err) {
       console.error(`${new Date().toISOString()} - ${err}`);
@@ -132,6 +141,7 @@ export class AuthController {
   * @returns - User's details
   */
   @Put("users/:id")
+  @UseGuards(ConnectedGuard)
   async activate(@Param("id") id: string): Promise<usersDto.DetailsOutput> {
     try {
       const res = await this.prisma.user.update({
