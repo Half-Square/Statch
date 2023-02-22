@@ -36,10 +36,10 @@ class RegisterInput {
 */
 class ConnectInput {
   @IsString()
-  email: string;
+    email: string;
 
   @IsString()
-  password: string;
+    password: string;
 }
 /***/
 
@@ -108,19 +108,19 @@ class DetailsOutput {
 */
 class ConnectOutput {
   @IsString()
-  id: string;
+    id: string;
 
   @IsString()
-  name: string;
+    name: string;
 
   @IsString()
-  email: string;
+    email: string;
 
   @IsString()
-  password: string;
+    password: string;
 
   @IsString()
-  token: boolean;
+    token: boolean;
 
   constructor(data) {
     if (data) {

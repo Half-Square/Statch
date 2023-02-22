@@ -27,7 +27,7 @@ import {
 } from "@nestjs/common";
 import { sha256 } from "js-sha256";
 import { PrismaService } from "src/prisma.service";
-import * as jwt from 'jsonwebtoken';
+import * as jwt from "jsonwebtoken";
 /***/
 
 /* Dto */
@@ -107,7 +107,7 @@ export class AuthController {
   * @param password - User's password
   * @returns - User connected details
   */
-  @Post('login')
+  @Post("login")
   async login(@Body() body: usersDto.ConnectInput): Promise<usersDto.ConnectOutput> {
     try {
       const res = await this.prisma.user.findUnique({where: {email: body.email}});
@@ -118,7 +118,7 @@ export class AuthController {
       }
 
       delete res.password;
-      res['token'] = jwt.sign(res, process.env.SALT, {algorithm: 'HS256'});
+      res["token"] = jwt.sign(res, process.env.SALT, {algorithm: "HS256"});
       return new usersDto.ConnectOutput(res);
     } catch (err) {
       console.error(`${new Date().toISOString()} - ${err}`);

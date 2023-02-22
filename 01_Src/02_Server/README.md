@@ -22,10 +22,22 @@ Install dependancies
 npm install
 ```
 
+In new workspace you must migrate database
+
+```
+npx prisma migrate dev
+```
+
 Start app in dev mode
 
 ```
 npm run start:dev
+```
+
+You can verify your code with eslint
+
+```
+npm run lint
 ```
 
 ## Deployment

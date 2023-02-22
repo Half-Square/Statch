@@ -17,7 +17,7 @@
 import {IsOptional, IsString, IsArray} from "class-validator";
 import {Ticket} from "@prisma/client";
 import * as ticketsDto from "./tickets.dto";
-import * as commentsDto from './comments.dto';
+import * as commentsDto from "./comments.dto";
 /***/
 
 /**
@@ -48,19 +48,19 @@ class UpdateInput {
 */
 class PublicOutput {
   @IsString()
-  id: string;
+    id: string;
 
   @IsString()
-  name: string;
+    name: string;
 
   @IsString()
-  status: string;
+    status: string;
 
   @IsString()
-  projectId: string;
+    projectId: string;
 
   @IsString()
-  created: string;
+    created: string;
 
   constructor(data) {
     if (data) {
@@ -79,22 +79,22 @@ class PublicOutput {
 */
 class DetailsOutput {
   @IsString()
-  id: string;
+    id: string;
 
   @IsString()
-  name: string;
+    name: string;
 
   @IsString()
-  status: string;
+    status: string;
 
   @IsArray()
-  tickets: Ticket[];
+    tickets: Ticket[];
 
   @IsString()
-  projectId: string;
+    projectId: string;
 
   @IsArray()
-  comments: Comment[];
+    comments: Comment[];
 
   constructor(data) {
     if (data) {
