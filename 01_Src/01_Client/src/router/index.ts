@@ -2,7 +2,7 @@
  * @Author                : 0K00<qdouvillez@gmail.com>                       *
  * @CreatedDate           : 2023-02-21 13:34:38                              *
  * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
- * @LastEditDate          : 2023-02-22 11:23:50                              *
+ * @LastEditDate          : 2023-02-22 15:50:43                              *
  *                                                                           *
  ****************************************************************************/
 
@@ -29,6 +29,11 @@ const routes: Array<RouteRecordRaw> = [
     path: '/projects',
     name: 'projects',
     component: () => import('../views/projects/Projects.vue'),
+  },
+  {
+    path: '/:type/:id',
+    name: 'project',
+    component: () => import('../views/project/Project.vue'),
   },
   {
     path: '/about',
