@@ -1,7 +1,9 @@
 <!--
-Author – @0K00
-Create Time – 2022-10-16 15:32
-Description – Label component
+* @Author                : 0K00<qdouvillez@gmail.com>                         
+* @CreatedDate           : 2023-02-23 15:46:48                                
+* @LastEditors           : 0K00<qdouvillez@gmail.com>                         
+* @LastEditDate          : 2023-02-23 16:01:48                                
+*                                                                             
 -->
 
 <script lang="ts">
@@ -12,26 +14,25 @@ Description – Label component
     name: 'Label',
 
     props: {
-      label: {
+      level: {
           type: String,
-          required: true
+          required: true,
+          validator(value: string) {
+                    return ['high', 'moderate', 'normal', 'low'].includes(value);
+                },
         },
-        id: {
+      id: {
           type: String,
-          required: true
+      },
+      lbl: {
+          type: String,
+          default: 'lbl',
       },
     },
 
-    computed: {
-      classes() {
-        return {
-          lbl: true,
-        };
-      }
-    },
   });
 </script>
 
 <template>
-  <div :id='id' :class='classes'>{{ label }}</div>
+  <div :id='id' :class="[lbl, level]">{{ level }}</div>
 </template>
