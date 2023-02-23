@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-02-21 13:01:19                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-02-23 14:30:42                               *
+ * @LastEditDate          : 2023-02-23 15:01:55                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -89,7 +89,7 @@ export class AuthController {
   * @returns - New registered user details
   */
   @Post("users")
-async register(@Body() body: usersDto.RegisterInput): Promise<usersDto.DetailsOutput> {
+  async register(@Body() body: usersDto.RegisterInput): Promise<usersDto.DetailsOutput> {
     try {
       let passwd = String(sha256(body.password));
       const res = await this.prisma.user.create({
@@ -168,16 +168,12 @@ async register(@Body() body: usersDto.RegisterInput): Promise<usersDto.DetailsOu
   * @returns - Success message
   */
   @Delete("users/:id")
-  async delete(@Param("id") id: string): Promise<any> {
+  async delete(@Param("id") id: string): Promise<void> {
     try {
-      await this.prisma.user.delete({where: {id: id}}).catch((err) => {
+      await this.prisma.user.delete({where: {id: id}}).catch(() => {
         throw new HttpException("Not Found", HttpStatus.NOT_FOUND);
       });
-      
-      return({
-        statusCode: 200,
-        message: "User deleted"
-      });
+
     } catch (err) {
       console.error(`${new Date().toISOString()} - ${err}`);
       throw err;

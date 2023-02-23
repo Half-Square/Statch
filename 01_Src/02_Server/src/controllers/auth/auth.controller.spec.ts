@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-02-23 10:44:41                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-02-23 14:58:00                               *
+ * @LastEditDate          : 2023-02-23 15:02:47                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -244,14 +244,6 @@ describe('AuthController', () => {
 
     beforeAll(async () => {
       ret = await controller.delete(testUser.id);
-    });
-
-    it("Must return object", () => {
-      expect(typeof ret === "object").toBe(true);
-    });
-
-    it("Must return success message", () => {
-      expect(ret.message === "User deleted");
     });
 
     it("Must remove entry in database", async () => {
