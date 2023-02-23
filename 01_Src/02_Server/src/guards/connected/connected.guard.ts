@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-02-22 14:25:04                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-02-22 14:42:05                               *
+ * @LastEditDate          : 2023-02-23 10:26:07                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -22,7 +22,7 @@ export class ConnectedGuard implements CanActivate {
 
   canActivate(context: ExecutionContext): boolean {
     try {
-      if (Number(process.env.IS_DEV)) return true;
+      if (Number(process.env.DISABLE_GUARDS)) return true;
 
       let token: string = context.switchToHttp().getRequest().headers["x-token"];
       jwt.verify(token, process.env.SALT);
