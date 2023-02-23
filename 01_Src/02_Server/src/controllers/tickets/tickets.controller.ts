@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-02-21 14:22:05                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-02-22 15:14:46                               *
+ * @LastEditDate          : 2023-02-23 10:33:04                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -27,11 +27,11 @@ import {
   HttpStatus,
   UseGuards
 } from "@nestjs/common";
-import { ConnectedGuard } from "src/guards/connected/connected.guard";
+import { ConnectedGuard } from "../../guards/connected/connected.guard";
 /***/
 
 /* Dto */
-import {PrismaService} from "src/prisma.service";
+import {PrismaService} from "../../prisma.service";
 import * as ticketsDto from "../../dto/tickets.dto";
 /***/
 

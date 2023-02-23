@@ -2,12 +2,13 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-02-21 13:01:19                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-02-22 15:12:45                               *
+ * @LastEditDate          : 2023-02-23 10:43:38                               *
  *****************************************************************************/
 
 /* SUMMARY
   * Imports
   * Dto
+  * Services
   * getAll
   * getOne
   * register
@@ -27,13 +28,16 @@ import {
   UseGuards
 } from "@nestjs/common";
 import { sha256 } from "js-sha256";
-import { PrismaService } from "src/prisma.service";
 import * as jwt from "jsonwebtoken";
 /***/
 
 /* Dto */
 import * as usersDto from "../../dto/users.dto";
-import { ConnectedGuard } from "src/guards/connected/connected.guard";
+import { ConnectedGuard } from "../../guards/connected/connected.guard";
+/***/
+
+/* Services */
+import { PrismaService } from "../../prisma.service";
 /***/
 
 @Controller()
