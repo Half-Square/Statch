@@ -1,41 +1,9 @@
 <!--
-
-  File: Input.vue
-
-  Description: Input Component with Callback and Options support
-
-  Author: @qdouvillez
-
-  Date: 22 Dec 2022 at 20:37
-
-  Last Modified: 22 Dec 2022 at 20:37
-
-  Copyright: Copyright 2023, ©Half Square
-
-
-
-  Purpose:
-
-  -
-
-
-
-  Dependencies:
-
-  - input.scss: Style file
-
-
-
-  Notes:
-
-  -
-
-
-
-  Summary:
-
-  -
-
+* @Author                : 0K00<qdouvillez@gmail.com>                         
+* @CreatedDate           : Invalid Date                                       
+* @LastEditors           : 0K00<qdouvillez@gmail.com>                         
+* @LastEditDate          : 2023-02-23 15:11:59                                
+*                                                                             
 -->
 
 
@@ -50,10 +18,6 @@
             id: {
                 type: String,
                 required: true,
-            },
-            value: {
-              type: String,
-              default: ''
             },
             is: {
               type: String,
@@ -81,6 +45,10 @@
                     return ['sm', 'md', 'l', 'xl'].includes(value);
                 },
             },
+            other: {
+                type: String,
+                default: null,
+            },
             disabled: {
                 type: Boolean,
                 default: false
@@ -101,20 +69,18 @@
         computed: {},
 
         data() {
-            return {}
+            return {
+                value: ""
+            }
         },
 
-        methods: {
-            onInput(event: any) {
-              this.$emit('input', event.target.value);
-            }
-        }
+        methods: {}
     });
 </script>
 
 <template>
-    <div :class="[input, type, size]">
-      <input :type="is" v-model="value" @input="onInput" :disabled="disabled" :placeholder="placeholder" :autocomplete="autocomplete" :id="id" />
+    <div :ref="id" :class="[input, type, size, other]">
+      <input :type="is" v-model="value" :disabled="disabled" :placeholder="placeholder" :autocomplete="autocomplete" :id="id" />
       <label v-if="isLabel === 'true'" :for="id">{{ labelText }}</label>
     </div>
 </template>
