@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-02-21 13:01:19                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-02-23 10:43:38                               *
+ * @LastEditDate          : 2023-02-23 14:30:42                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -13,6 +13,7 @@
   * getOne
   * register
   * activate
+  * delete
 */
 
 /* Imports */
@@ -25,7 +26,8 @@ import {
   Get,
   Param,
   Put,
-  UseGuards
+  UseGuards,
+  Delete
 } from "@nestjs/common";
 import { sha256 } from "js-sha256";
 import * as jwt from "jsonwebtoken";
@@ -87,7 +89,7 @@ export class AuthController {
   * @returns - New registered user details
   */
   @Post("users")
-  async register(@Body() body: usersDto.RegisterInput): Promise<usersDto.DetailsOutput> {
+async register(@Body() body: usersDto.RegisterInput): Promise<usersDto.DetailsOutput> {
     try {
       let passwd = String(sha256(body.password));
       const res = await this.prisma.user.create({
@@ -154,6 +156,28 @@ export class AuthController {
       });
 
       return new usersDto.DetailsOutput(res);
+    } catch (err) {
+      console.error(`${new Date().toISOString()} - ${err}`);
+      throw err;
+    }
+  }
+  /***/
+
+  /**
+  * Remove user by id
+  * @returns - Success message
+  */
+  @Delete("users/:id")
+  async delete(@Param("id") id: string): Promise<any> {
+    try {
+      await this.prisma.user.delete({where: {id: id}}).catch((err) => {
+        throw new HttpException("Not Found", HttpStatus.NOT_FOUND);
+      });
+      
+      return({
+        statusCode: 200,
+        message: "User deleted"
+      });
     } catch (err) {
       console.error(`${new Date().toISOString()} - ${err}`);
       throw err;

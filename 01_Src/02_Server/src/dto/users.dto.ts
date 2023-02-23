@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-02-21 13:03:45                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-02-21 13:26:15                               *
+ * @LastEditDate          : 2023-02-23 14:11:05                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -56,9 +56,6 @@ class PublicOutput {
   @IsString()
     email: string;
 
-  @IsString()
-    password: string;
-
   @IsBoolean()
     validate: boolean;
 
@@ -86,9 +83,6 @@ class DetailsOutput {
   @IsString()
     email: string;
 
-  @IsString()
-    password: string;
-
   @IsBoolean()
     validate: boolean;
 
@@ -115,10 +109,7 @@ class ConnectOutput {
 
   @IsString()
     email: string;
-
-  @IsString()
-    password: string;
-
+    
   @IsString()
     token: boolean;
 
