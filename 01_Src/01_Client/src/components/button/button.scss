@@ -2,7 +2,7 @@
  * @Author                : 0K00<qdouvillez@gmail.com>                       *
  * @CreatedDate           : 2023-02-22 10:14:38                              *
  * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
- * @LastEditDate          : 2023-02-22 11:24:03                              *
+ * @LastEditDate          : 2023-02-24 17:10:36                              *
  *                                                                           *
  ****************************************************************************/
 
@@ -47,12 +47,12 @@
    }
  }
  .btn.l {
-   font-size: 20px;
+   font-size: 24px;
    font-weight: 500;
-   padding: 0.5rem 1rem;
+   padding: 0.25rem 0.5rem;
  
    .icon {
-       font-size: 16px;
+       font-size: 24px;
    }
  }
  .btn.xl {
@@ -70,7 +70,6 @@
    color: rgba(255, 255, 255, 1);
    background: rgba(0, 108, 255, 1);
    border: 1px solid rgba(0, 108, 255, 1);
-   width: 100%;
  
    &:hover {
      background: rgba(24, 122, 255, 1);
@@ -103,11 +102,14 @@
  
    &:hover {
      color: #C8C8C8;
-     background: #292929;
+     background: #363636;
    }
    &:focus, &:active {
-       box-shadow: 0px 0px 0px 2px #C8C8C8;
+       box-shadow: 0px 0px 0px 1px #C8C8C8;
      }
+ }
+ .btn.trd.active {
+   color:rgba(0, 108, 255, 1);
  }
  
  .btn.fth {
@@ -123,3 +125,7 @@
        background: #1F1F1F;
      }
  }
+
+.btn.full {
+  width: 100%;
+}

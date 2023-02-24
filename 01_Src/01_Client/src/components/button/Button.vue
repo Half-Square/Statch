@@ -2,7 +2,7 @@
 * @Author                : 0K00<qdouvillez@gmail.com>                         
 * @CreatedDate           : Invalid Date                                       
 * @LastEditors           : 0K00<qdouvillez@gmail.com>                         
-* @LastEditDate          : 2023-02-22 11:24:15                                
+* @LastEditDate          : 2023-02-24 15:04:32                                
 *                                                                             
 -->
 
@@ -37,6 +37,9 @@
                     return ['sm', 'md', 'l', 'xl'].includes(value);
                 },
             },
+            other: {
+              type: String,
+            },
             disabled: {
                 type: Boolean,
                 default: false
@@ -67,7 +70,7 @@
 </script>
 
 <template>
-  <button @click="callback" :disabled="disabled" :class="[btn, type, size]" :id="id">
+  <button @click="callback" :disabled="disabled" :class="[btn, type, size, other]" :id="id">
     <template v-if="iconPosition === 'left'">
       <i class="icon" :class="icon"></i>
       {{ label }}

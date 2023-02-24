@@ -1,0 +1,32 @@
+/*****************************************************************************
+ * @Author                : 0K00<qdouvillez@gmail.com>                       *
+ * @CreatedDate           : 2023-02-24 14:54:36                              *
+ * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
+ * @LastEditDate          : 2023-02-24 17:12:16                              *
+ *                                                                           *
+ ****************************************************************************/
+
+#header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 40px;
+  box-shadow: inset 0px -1px 0px #000000;
+  padding: 0 0.5rem;
+
+  .menu {
+    grid-area: menu;
+  }
+
+  .bread {
+    grid-area: bread;
+    display: flex;
+    justify-content: center;
+  }
+    
+  .setting {
+    grid-area: option;
+    display: flex;
+    justify-content: flex-end;
+  }
+}
