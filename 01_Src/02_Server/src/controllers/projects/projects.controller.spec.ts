@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-02-23 10:40:24                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-02-24 11:46:38                               *
+ * @LastEditDate          : 2023-02-24 17:19:23                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -71,8 +71,6 @@ describe('ProjectsController', () => {
     });
 
     it("Must return value", () => {
-      console.log(typeof ret.created);
-
       expect(typeof ret.id === "string").toBe(true);
       expect(ret.name === data.name).toBe(true);
       expect(ret.status === data.status).toBe(true);
@@ -174,7 +172,6 @@ describe('ProjectsController', () => {
       try {
         await controller.update("fake id", data);
       } catch (err) {
-        console.log(err);
         expect(err.status === 404).toBe(true);
       }
     });
