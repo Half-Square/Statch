@@ -2,7 +2,7 @@
 * @Author                : 0K00<qdouvillez@gmail.com>                         
 * @CreatedDate           : 2023-02-24 14:54:57                                
 * @LastEditors           : 0K00<qdouvillez@gmail.com>                         
-* @LastEditDate          : 2023-02-24 17:13:02                                
+* @LastEditDate          : 2023-02-25 16:01:29                                
 *                                                                             
 -->
 
@@ -36,8 +36,8 @@
         },
 
         methods: {
-          closeModal(close: boolean) {
-            this.showModal = close
+          closeModal() {
+            this.showModal = false
           },
         }
     });

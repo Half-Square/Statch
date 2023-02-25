@@ -2,7 +2,7 @@
 * @Author                : 0K00<qdouvillez@gmail.com>                         
 * @CreatedDate           : Invalid Date                                       
 * @LastEditors           : 0K00<qdouvillez@gmail.com>                         
-* @LastEditDate          : 2023-02-24 15:04:32                                
+* @LastEditDate          : 2023-02-25 16:00:22                                
 *                                                                             
 -->
 
@@ -46,7 +46,6 @@
             },
             callback: {
                 type: Function as () => void,
-                required: true,
             },
             icon: {
               type: String,

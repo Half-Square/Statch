@@ -2,7 +2,7 @@
 * @Author                : 0K00<qdouvillez@gmail.com>                         
 * @CreatedDate           : 2023-02-24 14:57:58                                
 * @LastEditors           : 0K00<qdouvillez@gmail.com>                         
-* @LastEditDate          : 2023-02-24 17:09:48                                
+* @LastEditDate          : 2023-02-25 17:23:35                                
 *                                                                             
 -->
 
@@ -42,7 +42,7 @@ export default defineComponent({
     <Transition name="slide">
       <Nav v-if="show" />
     </Transition>
-    <aside>
+    <aside class="toto">
       <Header>
         <Button id='openMenu' type='trd' size='l' @click='showMenu' icon='panel' iconPosition='only' v-bind:class = "(show)?'active':''" />
       </Header>
@@ -63,5 +63,13 @@ export default defineComponent({
   .slide-enter-from,
   .slide-leave-to {
     margin-left: -248px;
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  .router-link-exact-active button .icon,  .router-link-exact-active{
+    color: rgba(0, 108, 255, 1);
   }
 </style>

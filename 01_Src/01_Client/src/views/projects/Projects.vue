@@ -2,7 +2,7 @@
 * @Author                : 0K00<qdouvillez@gmail.com>                         
 * @CreatedDate           : 2023-02-22 09:18:40                                
 * @LastEditors           : 0K00<qdouvillez@gmail.com>                         
-* @LastEditDate          : 2023-02-22 11:24:36                                
+* @LastEditDate          : 2023-02-25 17:18:36                                
 *                                                                             
 -->
 
@@ -37,7 +37,7 @@
 </script>
 
 <template>
-  <div id="projects">
+  <div id="projects" class="main">
     <div class="header">
         <div class="right">
             <h2>Projects</h2>
