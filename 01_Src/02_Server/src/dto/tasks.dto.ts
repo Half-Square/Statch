@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-02-21 14:16:22                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-02-22 11:31:24                               *
+ * @LastEditDate          : 2023-02-25 17:27:08                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -87,6 +87,9 @@ class DetailsOutput {
   @IsString()
     status: string;
 
+  @IsString()
+    created: Date;
+
   @IsArray()
     tickets: Ticket[];
 
@@ -100,10 +103,17 @@ class DetailsOutput {
     if (data) {
       this.id = data.id;
       this.name = data.name;
+      this.created = data.created;
       this.status = data.status;
-      this.tickets = data.tickets.map((el) => new ticketsDto.PublicOutput(el));
-      this.comments  = data.comments.map((el) => new commentsDto.PublicOutput(el));
       this.projectId = data.projectId;
+      
+      if (data.tickets) {
+        this.tickets = data.tickets.map((el) => new ticketsDto.PublicOutput(el));
+      }
+
+      if (data.comments) {
+        this.comments  = data.comments.map((el) => new commentsDto.PublicOutput(el));
+      }
     }
   }
 }

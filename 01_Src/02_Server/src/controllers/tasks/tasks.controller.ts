@@ -2,18 +2,19 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-02-21 14:21:47                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-02-23 10:41:18                               *
+ * @LastEditDate          : 2023-02-25 17:42:24                               *
  *****************************************************************************/
 
 /* SUMMARY
- * Imports
- * Dto
- * getAll
- * getById
- * update
- * getAllFromProject
- * create
- */
+  * Imports
+  * Dto
+  * getAll
+  * getById
+  * update
+  * getAllFromProject
+  * create
+  * delete
+*/
 
 /* Imports */
 import {
@@ -25,7 +26,8 @@ import {
   Param,
   HttpStatus,
   HttpException,
-  UseGuards
+  UseGuards,
+  Delete
 } from "@nestjs/common";
 import { ConnectedGuard } from "../../guards/connected/connected.guard";
 /***/
@@ -41,9 +43,9 @@ export class TasksController {
   constructor(private prisma: PrismaService) {}
 
   /**
-   * Get all tasks in database
-   * @returns List of all tasks
-   */
+  * Get all tasks in database
+  * @returns List of all tasks
+  */
   @Get("tasks")
   async getAll(): Promise<tasksDto.PublicOutput[]> {
     try {
@@ -57,10 +59,10 @@ export class TasksController {
   /***/
 
   /**
-   * Get task by ID
-   * @param id - Task's ID to get
-   * @returns - Task details
-   */
+  * Get task by ID
+  * @param id - Task's ID to get
+  * @returns - Task details
+  */
   @Get("tasks/:id")
   async getById(@Param("id") id: string): Promise<tasksDto.DetailsOutput> {
     try {
@@ -78,11 +80,11 @@ export class TasksController {
   /***/
 
   /**
-   * Update tasks
-   * @param id - Task's ID to update
-   * @param body - Data to update
-   * @returns - Updated task's details
-   */
+  * Update tasks
+  * @param id - Task's ID to update
+  * @param body - Data to update 
+  * @returns - Updated task's details
+  */
   @Put("tasks/:id")
   async update(
     @Param("id") id: string,
@@ -92,7 +94,7 @@ export class TasksController {
       let res = await this.prisma.task.update({
         where: {id: id},
         data: body,
-        include: {tickets: true}
+        include: {tickets: true, comments: true}
       });
       return new tasksDto.DetailsOutput(res);
     } catch (err) {
@@ -137,9 +139,29 @@ export class TasksController {
         data: {
           name: body.name,
           projectId: id
+        },
+        include: {
+          comments: true,
+          tickets: true
         }
       });
       return new tasksDto.DetailsOutput(res);
+    } catch (err) {
+      console.error(`${new Date().toISOString()} - ${err}`);
+      throw err;
+    }
+  }
+  /***/
+
+  /**
+  * Delete task by id 
+  */
+  @Delete("tasks/:id")
+  async delete(@Param("id") id: string): Promise<void> {
+    try {
+      await this.prisma.task.delete({where: {id: id}}).catch(() => {
+        throw new HttpException("Not Found", HttpStatus.NOT_FOUND);
+      });
     } catch (err) {
       console.error(`${new Date().toISOString()} - ${err}`);
       throw err;
