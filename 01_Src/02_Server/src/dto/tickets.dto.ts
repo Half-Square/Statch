@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-02-21 14:18:25                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-02-27 11:49:18                               *
+ * @LastEditDate          : 2023-02-27 14:46:23                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -27,6 +27,9 @@ import * as commentsDto from "../dto/comments.dto";
 class CreateInput {
   @IsString()
     name: string;
+
+  @IsString()
+    description: string;
 }
 /***/
 
@@ -41,6 +44,10 @@ class UpdateInput {
   @IsString()
   @IsOptional()
     status: string;
+
+  @IsString()
+  @IsOptional()
+    description: string;
 }
 /***/
 
@@ -55,6 +62,9 @@ class PublicOutput {
     name: string;
 
   @IsString()
+    description: string;
+
+  @IsString()
     status: string;
 
   @IsString()
@@ -64,6 +74,7 @@ class PublicOutput {
     if (data) {
       this.id = data.id;
       this.name = data.name;
+      this.description = data.description;
       this.status = data.status;
       this.taskId = data.taskId;
     }
@@ -82,6 +93,9 @@ class DetailsOutput {
     name: string;
 
   @IsString()
+    description: string;
+
+  @IsString()
     status: string;
 
   @IsString()
@@ -94,6 +108,7 @@ class DetailsOutput {
     if (data) {
       this.id = data.id;
       this.name = data.name;
+      this.description = data.description;
       this.status = data.status;
       this.taskId = data.taskId;
 

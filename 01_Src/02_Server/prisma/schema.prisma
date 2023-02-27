@@ -37,6 +37,7 @@ model Ticket {
   id          String      @default(nanoid(8)) @id
   name        String
   status      String      @default("new")
+  description String
   task        Task        @relation(fields: [taskId], references: [id])
   taskId      String
   comments    Comment[]
