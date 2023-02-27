@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-02-21 14:21:47                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-02-25 17:42:24                               *
+ * @LastEditDate          : 2023-02-27 14:35:53                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -138,6 +138,7 @@ export class TasksController {
       let res = await this.prisma.task.create({
         data: {
           name: body.name,
+          description: body.description,
           projectId: id
         },
         include: {

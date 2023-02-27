@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-02-21 14:22:05                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-02-27 12:00:55                               *
+ * @LastEditDate          : 2023-02-27 14:49:56                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -138,6 +138,7 @@ export class TicketsController {
       let res = await this.prisma.ticket.create({
         data: {
           name: body.name,
+          description: body.description,
           taskId: id
         },
         include: {comments: true}

@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-02-23 10:37:07                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-02-27 12:00:03                               *
+ * @LastEditDate          : 2023-02-27 14:48:49                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -47,6 +47,7 @@ describe('TicketsController', () => {
 
     const taskData = {
       name: "Test task",
+      description: "Testing purpose",
       projectId: project.id
     };
 
@@ -68,7 +69,8 @@ describe('TicketsController', () => {
   describe("create", () => {
     let ret;
     const data = {
-      name: "Test ticket"
+      name: "Test ticket",
+      description: "Testing purpose"
     };
 
     beforeAll(async () => {
@@ -83,6 +85,7 @@ describe('TicketsController', () => {
     it("Must return correct value", () => {
       expect(typeof ret.id === "string").toBe(true);
       expect(ret.name).toBe(data.name);
+      expect(ret.description).toBe(data.description);
       expect(ret.taskId).toBe(task.id);
       expect(Array.isArray(ret.comments)).toBe(true);
     });
@@ -111,6 +114,7 @@ describe('TicketsController', () => {
     it("Must return contain", () => {
       expect(typeof ret[0].id === "string").toBe(true);
       expect(typeof ret[0].name === "string").toBe(true);
+      expect(typeof ret[0].description).toBe("string");
       expect(typeof ret[0].status === "string").toBe(true);
       expect(typeof ret[0].taskId === "string").toBe(true);
     });
@@ -134,6 +138,7 @@ describe('TicketsController', () => {
     it("Must contain", () => {
       expect(typeof ret.id === "string").toBe(true);
       expect(typeof ret.name === "string").toBe(true);
+      expect(typeof ret.description).toBe("string");
       expect(typeof ret.status === "string").toBe(true);
       expect(typeof ret.taskId === "string").toBe(true);
       expect(Array.isArray(ret.comments)).toBe(true);
@@ -142,6 +147,7 @@ describe('TicketsController', () => {
     it("Must return correct value", () => {
       expect(ret.id).toBe(ticket.id);
       expect(ret.name).toBe(ticket.name);
+      expect(ret.description).toBe(ticket.description);
       expect(ret.taskId).toBe(task.id);
       expect(ret.status).toBe(ticket.status);
       expect(ret.comments.length).toBe(0);
@@ -166,6 +172,7 @@ describe('TicketsController', () => {
     it("Must contain", () => {
       expect(typeof ret[0].id === "string").toBe(true);
       expect(typeof ret[0].name === "string").toBe(true);
+      expect(typeof ret[0].description).toBe("string");
       expect(typeof ret[0].status === "string").toBe(true);
     });
 
@@ -183,6 +190,7 @@ describe('TicketsController', () => {
     let ret;
     const data = {
       name: "Updated",
+      description: "Updated",
       status: "open"
     };
 
@@ -197,6 +205,7 @@ describe('TicketsController', () => {
     it("Must contain", () => {
       expect(typeof ret.id === "string").toBe(true);
       expect(typeof ret.name === "string").toBe(true);
+      expect(typeof ret.description).toBe("string");
       expect(typeof ret.status === "string").toBe(true);
       expect(typeof ret.taskId === "string").toBe(true);
       expect(Array.isArray(ret.comments)).toBe(true);
@@ -205,6 +214,7 @@ describe('TicketsController', () => {
     it("Must return correct value", () => {
       expect(ret.id).toBe(ticket.id);
       expect(ret.name).toBe(data.name);
+      expect(ret.description).toBe(data.description);
       expect(ret.taskId).toBe(task.id);
       expect(ret.status).toBe(data.status);
       expect(ret.comments.length).toBe(0);
