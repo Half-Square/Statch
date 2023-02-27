@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-02-21 14:21:24                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-02-22 14:32:55                               *
+ * @LastEditDate          : 2023-02-24 11:46:15                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -25,17 +25,18 @@ import {
   Body,
   HttpException,
   HttpStatus,
-  UseGuards
+  UseGuards,
+  Delete
 } from "@nestjs/common";
 /***/
 
 /* Dto */
-import {PrismaService} from "src/prisma.service";
+import {PrismaService} from "../../prisma.service";
 import * as projectsDto from "../../dto/projects.dto";
 /***/
 
 /* Guards */
-import { ConnectedGuard } from "src/guards/connected/connected.guard";
+import { ConnectedGuard } from "../../guards/connected/connected.guard";
 /***/
 
 @Controller("projects")
@@ -109,6 +110,10 @@ export class ProjectsController {
       });
       return new projectsDto.DetailsOutput(res);
     } catch (err) {
+      if (err.code === "P2025") {
+        throw new HttpException("Not Found", HttpStatus.NOT_FOUND);
+      }
+
       console.error(`${new Date().toISOString()} - ${err}`);
       throw err;
     }
@@ -133,6 +138,22 @@ export class ProjectsController {
         }
       });
       return new projectsDto.DetailsOutput(res);
+    } catch (err) {
+      console.error(`${new Date().toISOString()} - ${err}`);
+      throw err;
+    }
+  }
+  /***/
+
+  /**
+  * Delete project by id 
+  */
+  @Delete("users/:id")
+  async delete(@Param("id") id: string): Promise<void> {
+    try {
+      await this.prisma.project.delete({where: {id: id}}).catch(() => {
+        throw new HttpException("Not Found", HttpStatus.NOT_FOUND);
+      });
     } catch (err) {
       console.error(`${new Date().toISOString()} - ${err}`);
       throw err;

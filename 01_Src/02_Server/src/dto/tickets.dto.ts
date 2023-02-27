@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-02-21 14:18:25                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-02-21 14:20:19                               *
+ * @LastEditDate          : 2023-02-27 11:49:18                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -14,7 +14,11 @@
 */
 
 /* Imports */
-import {IsOptional, IsString} from "class-validator";
+import {IsArray, IsOptional, IsString} from "class-validator";
+/***/
+
+/* Dto */
+import * as commentsDto from "../dto/comments.dto";
 /***/
 
 /**
@@ -83,12 +87,19 @@ class DetailsOutput {
   @IsString()
     taskId: string;
 
+  @IsArray()
+    comments: Comment[];
+
   constructor(data) {
     if (data) {
       this.id = data.id;
       this.name = data.name;
       this.status = data.status;
       this.taskId = data.taskId;
+
+      if (data.comments) {
+        this.comments = data.comments.map((el) => new commentsDto.PublicOutput(el));
+      }
     }
   }
 }
