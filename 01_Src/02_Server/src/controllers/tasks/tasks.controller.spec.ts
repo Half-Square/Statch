@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-02-23 10:39:11                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-02-25 17:41:42                               *
+ * @LastEditDate          : 2023-02-27 14:34:15                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -69,9 +69,11 @@ describe('TasksController', () => {
   */
   describe("create", () => {
     const data: tasksDto.CreateInput[] = [{
-      name: "Test task n° 1"
+      name: "Test task n° 1",
+      description: "Testing purpose"
     }, {
-      name: "Test task n° 2"
+      name: "Test task n° 2",
+      description: "Testing purpose"
     }];
 
     beforeAll(async () => {
@@ -88,7 +90,8 @@ describe('TasksController', () => {
 
     it("Must return correct value", () => {
       expect(typeof tasks[0].id === "string");
-      expect(tasks[0].name).toBe("Test task n° 1")
+      expect(tasks[0].name).toBe("Test task n° 1");
+      expect(tasks[0].description).toBe("Testing purpose");
       expect(tasks[0].created).toBeInstanceOf(Date);
       expect(tasks[0].status).toBe("new");
       expect(tasks[0].projectId).toBe(parents[0].id);
@@ -127,6 +130,7 @@ describe('TasksController', () => {
     it("Must return correct value type", () => {
       expect(typeof ret[0].id === "string").toBe(true);
       expect(typeof ret[0].name === "string").toBe(true);
+      expect(typeof ret[0].description === "string").toBe(true);
       expect(typeof ret[0].status === "string");
       expect(ret[0].created).toBeInstanceOf(Date);
       expect(typeof ret[0].projectId === "string").toBe(true);
@@ -151,6 +155,7 @@ describe('TasksController', () => {
     it("Must return correct value", () => {
       expect(ret.id).toBe(tasks[0].id);
       expect(ret.name).toBe(tasks[0].name);
+      expect(ret.description).toBe(tasks[0].description);
       expect(ret.created).toStrictEqual(tasks[0].created);
       expect(ret.status).toBe(tasks[0].status);
       expect(ret.projectId).toBe(parents[0].id);
@@ -180,6 +185,7 @@ describe('TasksController', () => {
     it("Return correct value type", () => {
       expect(typeof ret[0].id === "string").toBe(true);
       expect(typeof ret[0].name === "string").toBe(true);
+      expect(typeof ret[0].description).toBe("string");
       expect(typeof ret[0].status === "string").toBe(true);
       expect(ret[0].created).toBeInstanceOf(Date);
       expect(typeof ret[0].projectId === "string").toBe(true);
@@ -198,6 +204,7 @@ describe('TasksController', () => {
   describe("update", () => {
     const data: tasksDto.UpdateInput = {
       name: "Updated",
+      description: "Updated",
       status: "open"
     }
     let ret;
@@ -213,6 +220,7 @@ describe('TasksController', () => {
     it("Must return correct value type", () => {
       expect(typeof ret.id === "string").toBe(true);
       expect(typeof ret.name === "string").toBe(true);
+      expect(typeof ret.description).toBe("string");
       expect(typeof ret.status === "string").toBe(true);
       expect(ret.created).toBeInstanceOf(Date);
       expect(Array.isArray(ret.comments)).toBe(true);
@@ -223,6 +231,7 @@ describe('TasksController', () => {
     it("Must return correct updated value", () => {
       expect(ret.status).toBe("open");
       expect(ret.name).toBe("Updated");
+      expect(ret.description).toBe("Updated");
     });
 
     it("Must not modify another field", () => {

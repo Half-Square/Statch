@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-02-23 10:37:07                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-02-27 12:00:03                               *
+ * @LastEditDate          : 2023-02-27 14:42:39                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -47,6 +47,7 @@ describe('TicketsController', () => {
 
     const taskData = {
       name: "Test task",
+      description: "Testing purpose",
       projectId: project.id
     };
 
