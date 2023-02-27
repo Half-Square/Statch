@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-02-21 14:22:05                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-02-23 10:33:04                               *
+ * @LastEditDate          : 2023-02-27 12:00:55                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -13,6 +13,7 @@
  * update
  * getAllFromTask
  * create
+ * delete
  */
 
 /* Imports */
@@ -25,7 +26,8 @@ import {
   Body,
   HttpException,
   HttpStatus,
-  UseGuards
+  UseGuards,
+  Delete
 } from "@nestjs/common";
 import { ConnectedGuard } from "../../guards/connected/connected.guard";
 /***/
@@ -62,11 +64,13 @@ export class TicketsController {
    * @returns - Ticket's details
    */
   @Get("tickets/:id")
-  async getOne(@Param() params): Promise<ticketsDto.DetailsOutput> {
+  async getOne(@Param("id") id: string): Promise<ticketsDto.DetailsOutput> {
     try {
-      let res = await this.prisma.ticket.findFirst({
-        where: {id: params.id}
+      let res = await this.prisma.ticket.findUnique({
+        where: {id: id},
+        include: {comments: true}
       });
+      
       if (res) return new ticketsDto.DetailsOutput(res);
       else throw new HttpException("Not Found", HttpStatus.NOT_FOUND);
     } catch (err) {
@@ -83,13 +87,14 @@ export class TicketsController {
    */
   @Put("tickets/:id")
   async update(
-    @Param() params, 
+    @Param("id") id: string, 
     @Body() body: ticketsDto.UpdateInput
   ): Promise<ticketsDto.DetailsOutput> {
     try {
       let res = await this.prisma.ticket.update({
-        where: {id: params.id},
-        data: body
+        where: {id: id},
+        data: body,
+        include: {comments: true}
       });
       return new ticketsDto.DetailsOutput(res);
     } catch (err) {
@@ -134,9 +139,25 @@ export class TicketsController {
         data: {
           name: body.name,
           taskId: id
-        }
+        },
+        include: {comments: true}
       });
       return new ticketsDto.DetailsOutput(res);
+    } catch (err) {
+      console.error(`${new Date().toISOString()} - ${err}`);
+      throw err;
+    }
+  }
+  /***/
+
+  /**
+  * Delete ticket by id
+  * @param id - Ticket to delete 
+  */
+  @Delete("tickets/:id")
+  async delete(@Param("id") id: string): Promise<void> {
+    try {
+      await this.prisma.ticket.delete({where: {id: id}});
     } catch (err) {
       console.error(`${new Date().toISOString()} - ${err}`);
       throw err;
