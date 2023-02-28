@@ -2,12 +2,13 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-02-21 14:21:47                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-02-27 14:35:53                               *
+ * @LastEditDate          : 2023-02-28 14:07:37                               *
  *****************************************************************************/
 
 /* SUMMARY
   * Imports
   * Dto
+  * Guards
   * getAll
   * getById
   * update
@@ -27,14 +28,19 @@ import {
   HttpStatus,
   HttpException,
   UseGuards,
-  Delete
+  Delete,
+  Headers
 } from "@nestjs/common";
-import { ConnectedGuard } from "../../guards/connected/connected.guard";
+import * as jwt from "jsonwebtoken";
 /***/
 
 /* Dto */
 import {PrismaService} from "../../prisma.service";
 import * as tasksDto from "../../dto/tasks.dto";
+/***/
+
+/* Guards */
+import { ConnectedGuard } from "../../guards/connected/connected.guard";
 /***/
 
 @Controller("")
@@ -49,7 +55,7 @@ export class TasksController {
   @Get("tasks")
   async getAll(): Promise<tasksDto.PublicOutput[]> {
     try {
-      let res = await this.prisma.task.findMany();
+      let res = await this.prisma.task.findMany({include: {owner: true}});
       return res.map((el) => new tasksDto.PublicOutput(el));
     } catch (err) {
       console.error(`${new Date().toISOString()} - ${err}`);
@@ -68,7 +74,7 @@ export class TasksController {
     try {
       let res = await this.prisma.task.findUnique({
         where: {id: id},
-        include: {tickets: true, comments: true}
+        include: {tickets: true, comments: true, owner: true}
       });
       if (res) return new tasksDto.DetailsOutput(res);
       else throw new HttpException("Not Found", HttpStatus.NOT_FOUND);
@@ -94,7 +100,7 @@ export class TasksController {
       let res = await this.prisma.task.update({
         where: {id: id},
         data: body,
-        include: {tickets: true, comments: true}
+        include: {tickets: true, comments: true, owner: true}
       });
       return new tasksDto.DetailsOutput(res);
     } catch (err) {
@@ -114,7 +120,10 @@ export class TasksController {
     @Param("id") id: string,
   ): Promise<tasksDto.PublicOutput[]> {
     try {
-      let res = await this.prisma.task.findMany({where: {projectId: id}});
+      let res = await this.prisma.task.findMany({
+        where: {projectId: id},
+        include: {owner: true}
+      });
       return res.map((el) => new tasksDto.PublicOutput(el));
     } catch (err) {
       console.error(`${new Date().toISOString()} - ${err}`);
@@ -132,18 +141,22 @@ export class TasksController {
   @Post("projects/:id/tasks")
   async create(
     @Param("id") id: string,
+    @Headers("x-token") token: string,
     @Body() body: tasksDto.CreateInput,
   ): Promise<tasksDto.DetailsOutput> {
     try {
+      let user = jwt.verify(token, process.env.SALT);
       let res = await this.prisma.task.create({
         data: {
           name: body.name,
           description: body.description,
-          projectId: id
+          projectId: id,
+          ownerId: user.id
         },
         include: {
           comments: true,
-          tickets: true
+          tickets: true,
+          owner: true
         }
       });
       return new tasksDto.DetailsOutput(res);

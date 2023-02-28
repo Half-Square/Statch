@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-02-23 10:39:11                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-02-28 12:56:33                               *
+ * @LastEditDate          : 2023-02-28 14:24:58                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -19,6 +19,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { PrismaService } from '../../prisma.service';
 import { TasksController } from './tasks.controller';
 import { Project, User } from '@prisma/client';
+import * as jwt from "jsonwebtoken";
 /***/
 
 /* Dto */
@@ -48,6 +49,8 @@ describe('TasksController', () => {
         password: "123"
       }
     });
+
+    user["token"] = jwt.sign(user, process.env.SALT);
 
     parents.push(await prisma.project.create({
       data: {
@@ -89,8 +92,8 @@ describe('TasksController', () => {
     }];
 
     beforeAll(async () => {
-      let t1 = await controller.create(parents[0].id, data[0]);
-      let t2 = await controller.create(parents[1].id, data[1]);
+      let t1 = await controller.create(parents[0].id, user["token"], data[0]);
+      let t2 = await controller.create(parents[1].id, user["token"], data[1]);
 
       tasks.push(t1);
       tasks.push(t2);
@@ -111,6 +114,11 @@ describe('TasksController', () => {
       expect(tasks[0].comments.length).toBe(0);
       expect(Array.isArray(tasks[0].tickets)).toBe(true);
       expect(tasks[0].tickets.length).toBe(0);
+      expect(typeof tasks[0].owner).toBe("object");
+      expect(tasks[0].owner.id).toBe(user.id);
+      expect(tasks[0].owner.name).toBe(user.name);
+      expect(tasks[0].owner.email).toBe(user.email);
+      expect(tasks[0].owner.validate).toBe(user.validate);
     });
 
     it("Must create database entry", async () => {
@@ -147,6 +155,17 @@ describe('TasksController', () => {
       expect(ret[0].created).toBeInstanceOf(Date);
       expect(typeof ret[0].projectId === "string").toBe(true);
     });
+
+    it("Must return correct owner", () => {
+      let tmp = ret.find((el) => el.owner.id === user.id);
+
+      expect(tmp).toBeDefined();
+      expect(typeof tmp.owner).toBe("object");
+      expect(tmp.owner.id).toBe(user.id);
+      expect(tmp.owner.name).toBe(user.name);
+      expect(tmp.owner.email).toBe(user.email);
+      expect(tmp.owner.validate).toBe(user.validate);
+    });
   });
   /***/
 
@@ -176,6 +195,11 @@ describe('TasksController', () => {
       expect(ret.comments.length).toBe(0);
       expect(Array.isArray(ret.tickets)).toBe(true);
       expect(ret.tickets.length).toBe(0);
+      expect(typeof ret.owner).toBe("object");
+      expect(ret.owner.id).toBe(user.id);
+      expect(ret.owner.name).toBe(user.name);
+      expect(ret.owner.email).toBe(user.email);
+      expect(ret.owner.validate).toBe(user.validate);
     });
   });
   /***/
@@ -206,6 +230,17 @@ describe('TasksController', () => {
     it("Must not contain another parentId", () => {
       let tmp = ret.filter((el) => el.parentId === parents[0].id);
       expect(tmp.length).toBe(0);
+    });
+
+    it("Must return correct owner", () => {
+      let tmp = ret.find((el) => el.owner.id === user.id);
+
+      expect(tmp).toBeDefined();
+      expect(typeof tmp.owner).toBe("object");
+      expect(tmp.owner.id).toBe(user.id);
+      expect(tmp.owner.name).toBe(user.name);
+      expect(tmp.owner.email).toBe(user.email);
+      expect(tmp.owner.validate).toBe(user.validate);
     });
   });
   /***/
@@ -246,8 +281,17 @@ describe('TasksController', () => {
       expect(ret.description).toBe("Updated");
     });
 
+    it("Must return correct owner", () => {
+      expect(typeof ret.owner).toBe("object");
+      expect(ret.owner.id).toBe(user.id);
+      expect(ret.owner.name).toBe(user.name);
+      expect(ret.owner.email).toBe(user.email);
+      expect(ret.owner.validate).toBe(user.validate);
+    });
+
     it("Must not modify another field", () => {
       expect(ret.created).toStrictEqual(tasks[0].created);
+      expect(ret.owner).toStrictEqual(tasks[0].owner);
     });
   });
   /***/

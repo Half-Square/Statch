@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-02-23 10:37:07                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-02-28 11:24:39                               *
+ * @LastEditDate          : 2023-02-28 14:21:01                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -58,7 +58,8 @@ describe('TicketsController', () => {
     const taskData = {
       name: "Test task",
       description: "Testing purpose",
-      projectId: project.id
+      projectId: project.id,
+      ownerId: user.id
     };
 
     task = await prisma.task.create({data: taskData});

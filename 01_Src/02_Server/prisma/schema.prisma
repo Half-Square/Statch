@@ -19,6 +19,7 @@ model User {
   validate    Boolean     @default(false)
   comments    Comment[]
   projects    Project[]
+  tasks       Task[]
 }
 
 model Project {
@@ -44,6 +45,8 @@ model Task {
   projectId   String
   comments    Comment[]
   tickets     Ticket[]
+  owner       User        @relation(fields: [ownerId], references: [id])
+  ownerId     String
 }
 
 model Ticket {
