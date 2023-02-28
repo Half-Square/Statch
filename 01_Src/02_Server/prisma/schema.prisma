@@ -10,6 +10,19 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+
+model User {
+  id          String      @default(nanoid(8)) @id
+  name        String
+  password    String
+  email       String      @unique
+  validate    Boolean     @default(false)
+  comments    Comment[]
+  projects    Project[]
+  tasks       Task[]
+  tickets     Ticket[]
+}
+
 model Project {
   id          String      @default(nanoid(8)) @id
   name        String
@@ -19,6 +32,8 @@ model Project {
   description String      @db.LongText
   tasks       Task[]
   comments    Comment[]
+  owner       User        @relation(fields: [ownerId], references: [id])
+  ownerId     String
 }
 
 model Task {
@@ -31,6 +46,8 @@ model Task {
   projectId   String
   comments    Comment[]
   tickets     Ticket[]
+  owner       User        @relation(fields: [ownerId], references: [id])
+  ownerId     String
 }
 
 model Ticket {
@@ -41,6 +58,8 @@ model Ticket {
   task        Task        @relation(fields: [taskId], references: [id])
   taskId      String
   comments    Comment[]
+  owner       User        @relation(fields: [ownerId], references: [id])
+  ownerId     String
 }
 
 model Comment {
@@ -51,14 +70,8 @@ model Comment {
   projectId   String?
   task        Task?       @relation(fields: [taskId], references: [id])
   taskId      String?
-  ticket      Ticket?       @relation(fields: [ticketId], references: [id])
+  ticket      Ticket?     @relation(fields: [ticketId], references: [id])
   ticketId    String?
-}
-
-model User {
-  id          String      @default(nanoid(8)) @id
-  name        String
-  password    String
-  email       String      @unique
-  validate    Boolean     @default(false)
+  author      User        @relation(fields: [authorId], references: [id])
+  authorId    String
 }

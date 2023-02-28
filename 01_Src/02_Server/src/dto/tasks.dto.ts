@@ -2,11 +2,12 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-02-21 14:16:22                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-02-27 14:31:00                               *
+ * @LastEditDate          : 2023-02-28 14:10:22                               *
  *****************************************************************************/
 
 /* SUMMARY
   * Imports
+  * Dto
   * CreateInput
   * UpdateInput
   * PublicOutput
@@ -14,10 +15,14 @@
 */
 
 /* Imports */
-import {IsOptional, IsString, IsArray} from "class-validator";
+import {IsOptional, IsString, IsArray, IsObject} from "class-validator";
 import {Ticket} from "@prisma/client";
 import * as ticketsDto from "./tickets.dto";
 import * as commentsDto from "./comments.dto";
+/***/
+
+/* Dto */
+import * as usersDto from "../dto/users.dto";
 /***/
 
 /**
@@ -72,6 +77,9 @@ class PublicOutput {
   @IsString()
     created: string;
 
+  @IsObject()
+    owner: usersDto.PublicOutput;
+
   constructor(data) {
     if (data) {
       this.id = data.id;
@@ -80,6 +88,7 @@ class PublicOutput {
       this.status = data.status;
       this.projectId = data.projectId;
       this.created = data.created;
+      this.owner = new usersDto.PublicOutput(data.owner);
     }
   }
 }
@@ -113,6 +122,9 @@ class DetailsOutput {
   @IsArray()
     comments: Comment[];
 
+  @IsObject()
+    owner: usersDto.PublicOutput;
+
   constructor(data) {
     if (data) {
       this.id = data.id;
@@ -121,7 +133,8 @@ class DetailsOutput {
       this.created = data.created;
       this.status = data.status;
       this.projectId = data.projectId;
-      
+      this.owner = new usersDto.PublicOutput(data.owner);
+
       if (data.tickets) {
         this.tickets = data.tickets.map((el) => new ticketsDto.PublicOutput(el));
       }

@@ -2,17 +2,18 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-02-21 14:20:59                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-02-24 17:17:29                               *
+ * @LastEditDate          : 2023-02-28 10:25:35                               *
  *****************************************************************************/
 
 /* SUMMARY
- * Imports
- * Dto
- * Services
- * getComments
- * addComment
- * delete
- */
+  * Imports
+  * Dto
+  * Services
+  * getComments
+  * addComment
+  * delete
+  * Guards
+*/
 
 /* Imports */
 import {
@@ -21,12 +22,13 @@ import {
   Post,
   Param,
   Body,
+  Headers,
   HttpException,
   HttpStatus,
   UseGuards,
   Delete
 } from "@nestjs/common";
-import { ConnectedGuard } from "../../guards/connected/connected.guard";
+import * as jwt from "jsonwebtoken";
 /***/
 
 /* Dto */
@@ -35,6 +37,10 @@ import * as commentsDto from "../../dto/comments.dto";
 
 /* Services */
 import {PrismaService} from "../../prisma.service";
+/***/
+
+/* Guards */
+import { ConnectedGuard } from "../../guards/connected/connected.guard";
 /***/
 
 @Controller("")
@@ -65,7 +71,8 @@ export class CommentsController {
       toFind[this.parents[params.parent]] = params.id;
 
       const res = await this.prisma.comment.findMany({
-        where: toFind
+        where: toFind,
+        include: {author: true}
       });
       return res.map((el) => new commentsDto.PublicOutput(el));
     } catch (err) {
@@ -84,6 +91,7 @@ export class CommentsController {
   @Post(":parent/:id/comments")
   async addComment(
     @Param() params,
+    @Headers("x-token") token: string,
     @Body() body: commentsDto.CreateInput,
   ): Promise<commentsDto.DetailsOutput> {
     try {
@@ -91,11 +99,15 @@ export class CommentsController {
         throw new HttpException("Not Found", HttpStatus.NOT_FOUND);
       }
 
-      let toSave = {content: body.content};
+      let user = jwt.verify(token, process.env.SALT);
+
+      let toSave = {content: body.content, authorId: null};
       toSave[this.parents[params.parent]] = params.id;
+      toSave.authorId = user.id;
 
       const res = await this.prisma.comment.create({
-        data: toSave
+        data: toSave,
+        include: {author: true}
       });
       return new commentsDto.DetailsOutput(res);
     } catch (err) {

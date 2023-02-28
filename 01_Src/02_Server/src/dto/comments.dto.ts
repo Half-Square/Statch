@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-02-21 14:11:59                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-02-21 14:13:51                               *
+ * @LastEditDate          : 2023-02-28 10:39:41                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -13,8 +13,11 @@
 */
 
 /* Imports */
-import {IsString} from "class-validator";
-import {Comment} from "@prisma/client";
+import {IsObject, IsString} from "class-validator";
+/***/
+
+/* Dto */
+import * as usersDto from "../dto/users.dto";
 /***/
 
 /**
@@ -39,11 +42,15 @@ class DetailsOutput {
   @IsString()
     content: string;
 
-  constructor(data: Comment) {
+  @IsObject()
+    author: usersDto.PublicOutput;
+
+  constructor(data) {
     if (data) {
       this.id = data.id;
       this.created = data.created;
       this.content = data.content;
+      this.author = new usersDto.PublicOutput(data.author);
     }
   }
 }
@@ -62,11 +69,15 @@ class PublicOutput {
   @IsString()
     content: string;
 
-  constructor(data: Comment) {
+  @IsObject()
+    author: usersDto.PublicOutput;
+
+  constructor(data) {
     if (data) {
       this.id = data.id;
       this.created = data.created;
       this.content = data.content;
+      this.author = new usersDto.PublicOutput(data.author);
     }
   }
 }
