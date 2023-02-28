@@ -51,8 +51,10 @@ model Comment {
   projectId   String?
   task        Task?       @relation(fields: [taskId], references: [id])
   taskId      String?
-  ticket      Ticket?       @relation(fields: [ticketId], references: [id])
+  ticket      Ticket?     @relation(fields: [ticketId], references: [id])
   ticketId    String?
+  author      User        @relation(fields: [authorId], references: [id])
+  authorId    String
 }
 
 model User {
@@ -61,4 +63,5 @@ model User {
   password    String
   email       String      @unique
   validate    Boolean     @default(false)
+  comments    Comment[]
 }

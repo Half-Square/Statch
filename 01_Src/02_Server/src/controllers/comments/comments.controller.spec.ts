@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-02-23 10:45:52                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-02-24 17:18:41                               *
+ * @LastEditDate          : 2023-02-28 10:38:52                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -17,7 +17,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { PrismaService } from '../../prisma.service';
 import { CommentsController } from './comments.controller';
-import { Project, Comment } from '@prisma/client';
+import { Project, Comment, User } from '@prisma/client';
+import * as jwt from "jsonwebtoken";
 /***/
 
 /* Dto */
@@ -30,6 +31,7 @@ describe('CommentsController', () => {
   let prisma: PrismaService;
   let testParent: Project;
   let testComment: Comment;
+  let user: User;
 
   beforeAll(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -48,6 +50,19 @@ describe('CommentsController', () => {
     };
 
     testParent = await prisma.project.create({data: data});
+
+    user = await prisma.user.create({data: {
+      name: "test",
+      email: "test@test.fr",
+      password: "123"
+    }});
+
+    user["token"] = jwt.sign(user, process.env.SALT);
+  });
+
+  afterAll(async () => {
+    await prisma.project.delete({where: {id: testParent.id}});
+    await prisma.user.delete({where: {id: user.id}});
   });
 
   it('should be defined', () => {
@@ -66,8 +81,8 @@ describe('CommentsController', () => {
     beforeAll(async () => {
       ret = await controller.addComment({
         parent: "projects",
-        id: testParent.id
-      }, data);
+        id: testParent.id,
+      }, user["token"], data);
 
       testComment = {...ret};
     });
@@ -85,6 +100,11 @@ describe('CommentsController', () => {
       expect(typeof ret.id === "string").toBe(true);
       expect(ret.created).toBeInstanceOf(Date);
       expect(typeof ret.content === "string").toBe(true);
+      expect(typeof ret.author).toBe("object");
+      expect(ret.author.id).toBe(user.id);
+      expect(ret.author.name).toBe(user.name);
+      expect(ret.author.email).toBe(user.email);
+      expect(ret.author.validate).toBe(user.validate);
     });
   });
   /***/
@@ -110,6 +130,11 @@ describe('CommentsController', () => {
       expect(ret[0].id).toBe(testComment.id);
       expect(ret[0].created).toStrictEqual(testComment.created);
       expect(ret[0].content).toBe(testComment.content);
+      expect(typeof ret[0].author).toBe("object");
+      expect(ret[0].author.id).toBe(user.id);
+      expect(ret[0].author.name).toBe(user.name);
+      expect(ret[0].author.email).toBe(user.email);
+      expect(ret[0].author.validate).toBe(user.validate);
     });
 
     it("Return correct comments nb", () => {
@@ -124,10 +149,6 @@ describe('CommentsController', () => {
   describe("delete", () => {
     beforeAll(async () => {
       await controller.delete(testComment.id);
-    });
-
-    afterAll(async () => {
-      await prisma.project.delete({where: {id: testParent.id}});
     });
 
     it("Must remove db entry", async () => {
