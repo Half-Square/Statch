@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-02-23 10:37:07                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-02-28 14:21:01                               *
+ * @LastEditDate          : 2023-02-28 14:38:18                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -20,6 +20,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { Project, Task, Ticket, User } from '@prisma/client';
 import { PrismaService } from '../../prisma.service';
 import { TicketsController } from './tickets.controller';
+import * as jwt from "jsonwebtoken";
 /***/
 
 describe('TicketsController', () => {
@@ -46,6 +47,8 @@ describe('TicketsController', () => {
         password: "123"
       }
     });
+
+    user["token"] = jwt.sign(user, process.env.SALT);
 
     const projectData = {
       name: "Test project",
@@ -86,7 +89,7 @@ describe('TicketsController', () => {
     };
 
     beforeAll(async () => {
-      ret = await controller.create(task.id, data);
+      ret = await controller.create(task.id, user["token"], data);
       ticket = {...ret};
     });
 
@@ -100,6 +103,11 @@ describe('TicketsController', () => {
       expect(ret.description).toBe(data.description);
       expect(ret.taskId).toBe(task.id);
       expect(Array.isArray(ret.comments)).toBe(true);
+      expect(typeof ret.owner).toBe("object");
+      expect(ret.owner.id).toBe(user.id);
+      expect(ret.owner.name).toBe(user.name);
+      expect(ret.owner.email).toBe(user.email);
+      expect(ret.owner.validate).toBe(user.validate);
     });
 
     it("Must create database entry", async () => {
@@ -129,6 +137,17 @@ describe('TicketsController', () => {
       expect(typeof ret[0].description).toBe("string");
       expect(typeof ret[0].status === "string").toBe(true);
       expect(typeof ret[0].taskId === "string").toBe(true);
+    });
+
+    it("Must return correct owner", () => {
+      let tmp = ret.find((el) => el.owner.id === user.id);
+
+      expect(tmp).toBeDefined();
+      expect(typeof tmp.owner).toBe("object");
+      expect(tmp.owner.id).toBe(user.id);
+      expect(tmp.owner.name).toBe(user.name);
+      expect(tmp.owner.email).toBe(user.email);
+      expect(tmp.owner.validate).toBe(user.validate);
     });
   });
   /***/
@@ -163,6 +182,11 @@ describe('TicketsController', () => {
       expect(ret.taskId).toBe(task.id);
       expect(ret.status).toBe(ticket.status);
       expect(ret.comments.length).toBe(0);
+      expect(typeof ret.owner).toBe("object");
+      expect(ret.owner.id).toBe(user.id);
+      expect(ret.owner.name).toBe(user.name);
+      expect(ret.owner.email).toBe(user.email);
+      expect(ret.owner.validate).toBe(user.validate);
     });
   });
   /***/
@@ -191,6 +215,17 @@ describe('TicketsController', () => {
     it("Must found ticket", () => {
       let tmp = ret.find((el) => el.id === ticket.id);
       expect(tmp).toBeDefined();
+    });
+
+    it("Must return correct owner", () => {
+      let tmp = ret.find((el) => el.owner.id === user.id);
+
+      expect(tmp).toBeDefined();
+      expect(typeof tmp.owner).toBe("object");
+      expect(tmp.owner.id).toBe(user.id);
+      expect(tmp.owner.name).toBe(user.name);
+      expect(tmp.owner.email).toBe(user.email);
+      expect(tmp.owner.validate).toBe(user.validate);
     });
   });
   /***/
@@ -230,6 +265,11 @@ describe('TicketsController', () => {
       expect(ret.taskId).toBe(task.id);
       expect(ret.status).toBe(data.status);
       expect(ret.comments.length).toBe(0);
+      expect(typeof ret.owner).toBe("object");
+      expect(ret.owner.id).toBe(user.id);
+      expect(ret.owner.name).toBe(user.name);
+      expect(ret.owner.email).toBe(user.email);
+      expect(ret.owner.validate).toBe(user.validate);
     });
   });
   /***/

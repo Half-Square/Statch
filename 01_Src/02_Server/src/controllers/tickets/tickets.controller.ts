@@ -2,12 +2,13 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-02-21 14:22:05                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-02-27 14:49:56                               *
+ * @LastEditDate          : 2023-02-28 14:30:34                               *
  *****************************************************************************/
 
 /* SUMMARY
  * Imports
  * Dto
+ * Guards
  * getAll
  * getOne
  * update
@@ -24,17 +25,22 @@ import {
   Put,
   Param,
   Body,
+  Headers,
   HttpException,
   HttpStatus,
   UseGuards,
   Delete
 } from "@nestjs/common";
-import { ConnectedGuard } from "../../guards/connected/connected.guard";
+import * as jwt from "jsonwebtoken";
 /***/
 
 /* Dto */
 import {PrismaService} from "../../prisma.service";
 import * as ticketsDto from "../../dto/tickets.dto";
+/***/
+
+/* Guards */
+import { ConnectedGuard } from "../../guards/connected/connected.guard";
 /***/
 
 @Controller("")
@@ -49,7 +55,7 @@ export class TicketsController {
   @Get("tickets")
   async getAll(): Promise<ticketsDto.PublicOutput[]> {
     try {
-      let res = await this.prisma.ticket.findMany();
+      let res = await this.prisma.ticket.findMany({include: {owner: true}});
       return res.map((el) => new ticketsDto.PublicOutput(el));
     } catch (err) {
       console.error(`${new Date().toISOString()} - ${err}`);
@@ -68,7 +74,7 @@ export class TicketsController {
     try {
       let res = await this.prisma.ticket.findUnique({
         where: {id: id},
-        include: {comments: true}
+        include: {comments: true, owner: true}
       });
       
       if (res) return new ticketsDto.DetailsOutput(res);
@@ -94,7 +100,7 @@ export class TicketsController {
       let res = await this.prisma.ticket.update({
         where: {id: id},
         data: body,
-        include: {comments: true}
+        include: {comments: true, owner: true}
       });
       return new ticketsDto.DetailsOutput(res);
     } catch (err) {
@@ -114,7 +120,10 @@ export class TicketsController {
     @Param("id") id: string,
   ): Promise<ticketsDto.PublicOutput[]> {
     try {
-      let res = await this.prisma.ticket.findMany({where: {taskId: id}});
+      let res = await this.prisma.ticket.findMany({
+        where: {taskId: id},
+        include: {owner: true}
+      });
       return res.map((el) => new ticketsDto.PublicOutput(el));
     } catch (err) {
       console.error(`${new Date().toISOString()} - ${err}`);
@@ -132,16 +141,19 @@ export class TicketsController {
   @Post("tasks/:id/tickets")
   async create(
     @Param("id") id: string,
+    @Headers("x-token") token: string,
     @Body() body: ticketsDto.CreateInput,
   ): Promise<ticketsDto.DetailsOutput> {
     try {
+      let user = jwt.verify(token, process.env.SALT);
       let res = await this.prisma.ticket.create({
         data: {
           name: body.name,
           description: body.description,
-          taskId: id
+          taskId: id,
+          ownerId: user.id
         },
-        include: {comments: true}
+        include: {comments: true, owner: true}
       });
       return new ticketsDto.DetailsOutput(res);
     } catch (err) {

@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-02-21 14:18:25                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-02-27 14:46:23                               *
+ * @LastEditDate          : 2023-02-28 14:32:49                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -14,11 +14,12 @@
 */
 
 /* Imports */
-import {IsArray, IsOptional, IsString} from "class-validator";
+import {IsArray, IsObject, IsOptional, IsString} from "class-validator";
 /***/
 
 /* Dto */
 import * as commentsDto from "../dto/comments.dto";
+import * as usersDto from "../dto/users.dto";
 /***/
 
 /**
@@ -70,6 +71,9 @@ class PublicOutput {
   @IsString()
     taskId: string;
 
+  @IsObject()
+    owner: usersDto.PublicOutput;
+
   constructor(data) {
     if (data) {
       this.id = data.id;
@@ -77,6 +81,7 @@ class PublicOutput {
       this.description = data.description;
       this.status = data.status;
       this.taskId = data.taskId;
+      this.owner = new usersDto.PublicOutput(data.owner);
     }
   }
 }
@@ -104,6 +109,9 @@ class DetailsOutput {
   @IsArray()
     comments: Comment[];
 
+  @IsObject()
+    owner: usersDto.PublicOutput;
+
   constructor(data) {
     if (data) {
       this.id = data.id;
@@ -111,6 +119,7 @@ class DetailsOutput {
       this.description = data.description;
       this.status = data.status;
       this.taskId = data.taskId;
+      this.owner = new usersDto.PublicOutput(data.owner);
 
       if (data.comments) {
         this.comments = data.comments.map((el) => new commentsDto.PublicOutput(el));
