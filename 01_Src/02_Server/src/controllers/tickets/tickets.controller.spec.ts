@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-02-23 10:37:07                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-02-27 14:48:49                               *
+ * @LastEditDate          : 2023-02-28 11:24:39                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -17,7 +17,7 @@
 
 /* Imports */
 import { Test, TestingModule } from '@nestjs/testing';
-import { Project, Task, Ticket } from '@prisma/client';
+import { Project, Task, Ticket, User } from '@prisma/client';
 import { PrismaService } from '../../prisma.service';
 import { TicketsController } from './tickets.controller';
 /***/
@@ -28,6 +28,7 @@ describe('TicketsController', () => {
   let project: Project;
   let task: Task;
   let ticket: Ticket;
+  let user: User;
 
   beforeAll(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -38,9 +39,18 @@ describe('TicketsController', () => {
     controller = module.get<TicketsController>(TicketsController);
     prisma = module.get<PrismaService>(PrismaService);
   
+    user = await prisma.user.create({
+      data: {
+        name: "test",
+        email: "ticket@test.fr",
+        password: "123"
+      }
+    });
+
     const projectData = {
       name: "Test project",
-      description: "Testing purpose"
+      description: "Testing purpose",
+      ownerId: user.id
     };
 
     project = await prisma.project.create({data: projectData});
@@ -57,6 +67,7 @@ describe('TicketsController', () => {
   afterAll(async () => {
     await prisma.task.delete({where: {id: task.id}});
     await prisma.project.delete({where: {id: project.id}});
+    await prisma.user.delete({where: {id: user.id}});
   });
 
   it('should be defined', () => {

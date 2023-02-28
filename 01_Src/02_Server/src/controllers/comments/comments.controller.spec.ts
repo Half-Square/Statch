@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-02-23 10:45:52                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-02-28 10:38:52                               *
+ * @LastEditDate          : 2023-02-28 11:27:03                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -42,22 +42,23 @@ describe('CommentsController', () => {
     controller = module.get<CommentsController>(CommentsController);
     prisma = module.get<PrismaService>(PrismaService);
 
-    const data: projectsDto.CreateInput = {
-      name: "Test project",
-      description: "Testing purpose",
-      status: "new",
-      version: "1.0.0"
-    };
-
-    testParent = await prisma.project.create({data: data});
-
     user = await prisma.user.create({data: {
       name: "test",
-      email: "test@test.fr",
+      email: "comment@test.fr",
       password: "123"
     }});
-
+    
     user["token"] = jwt.sign(user, process.env.SALT);
+
+    testParent = await prisma.project.create({
+      data: {
+        name: "Test project",
+        description: "Testing purpose",
+        status: "new",
+        version: "1.0.0",
+        ownerId: user.id
+      }
+    });
   });
 
   afterAll(async () => {

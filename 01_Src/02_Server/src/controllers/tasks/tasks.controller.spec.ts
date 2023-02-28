@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-02-23 10:39:11                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-02-27 14:34:15                               *
+ * @LastEditDate          : 2023-02-28 12:56:33                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -18,7 +18,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { PrismaService } from '../../prisma.service';
 import { TasksController } from './tasks.controller';
-import { Project } from '@prisma/client';
+import { Project, User } from '@prisma/client';
 /***/
 
 /* Dto */
@@ -30,7 +30,8 @@ describe('TasksController', () => {
   let prisma: PrismaService;
   let parents: Project[] = [];
   let tasks = [];
-  
+  let user: User;
+
   beforeAll(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [TasksController],
@@ -40,24 +41,35 @@ describe('TasksController', () => {
     controller = module.get<TasksController>(TasksController);
     prisma = module.get<PrismaService>(PrismaService);
   
+    user = await prisma.user.create({
+      data: {
+        name: "test",
+        email: "task@test.fr",
+        password: "123"
+      }
+    });
+
     parents.push(await prisma.project.create({
       data: {
         name: "Test project n° 1",
-        description: "Testing purpose"
+        description: "Testing purpose",
+        ownerId: user.id
       }
     }));
 
     parents.push(await prisma.project.create({
       data: {
         name: "Test project n° 2",
-        description: "Testing purpose"
+        description: "Testing purpose",
+        ownerId: user.id
       }
     }));
   });
 
   afterAll(async () => {
-    for(let i: number; i < tasks.length; i++) await prisma.task.delete({where: {id: tasks[i].id}});
-    for(let i: number; i < parents.length; i++) await prisma.project.delete({where: {id: parents[i].id}});
+    await prisma.task.delete({where: {id: tasks[1].id}});
+    for(let i: number = 0; i < parents.length; i++) await prisma.project.delete({where: {id: parents[i].id}});
+    await prisma.user.delete({where: {id: user.id}});
   });
 
   it('should be defined', () => {
