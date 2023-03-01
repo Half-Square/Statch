@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-02-22 14:25:04                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-02-23 10:26:07                               *
+ * @LastEditDate          : 2023-02-23 10:32:22                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -11,7 +11,7 @@
 
 /* Imports */
 import { CanActivate, ExecutionContext, Injectable } from "@nestjs/common";
-import { PrismaService } from "src/prisma.service";
+import { PrismaService } from "../../prisma.service";
 import * as jwt from "jsonwebtoken";
 /***/
 

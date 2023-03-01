@@ -10,8 +10,21 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+
+model User {
+  id          String      @default(nanoid(8)) @id
+  name        String
+  password    String
+  email       String      @unique
+  validate    Boolean     @default(false)
+  comments    Comment[]
+  projects    Project[]
+  tasks       Task[]
+  tickets     Ticket[]
+}
+
 model Project {
-  id          String      @default(uuid()) @id
+  id          String      @default(nanoid(8)) @id
   name        String
   status      String      @default("new")
   version     String      @default("0.1.0")
@@ -19,44 +32,46 @@ model Project {
   description String      @db.LongText
   tasks       Task[]
   comments    Comment[]
+  owner       User        @relation(fields: [ownerId], references: [id])
+  ownerId     String
 }
 
 model Task {
-  id          String      @default(uuid()) @id
+  id          String      @default(nanoid(8)) @id
   created     DateTime    @default(now())
   name        String
   status      String      @default("new")
+  description String
   project     Project     @relation(fields: [projectId], references: [id])
   projectId   String
   comments    Comment[]
   tickets     Ticket[]
+  owner       User        @relation(fields: [ownerId], references: [id])
+  ownerId     String
 }
 
 model Ticket {
-  id          String      @default(uuid()) @id
+  id          String      @default(nanoid(8)) @id
   name        String
   status      String      @default("new")
+  description String
   task        Task        @relation(fields: [taskId], references: [id])
   taskId      String
   comments    Comment[]
+  owner       User        @relation(fields: [ownerId], references: [id])
+  ownerId     String
 }
 
 model Comment {
-  id          String      @default(uuid()) @id
+  id          String      @default(nanoid(8)) @id
   created     DateTime    @default(now())
   content     String      @db.LongText
   project     Project?    @relation(fields: [projectId], references: [id])
   projectId   String?
   task        Task?       @relation(fields: [taskId], references: [id])
   taskId      String?
-  ticket      Ticket?       @relation(fields: [ticketId], references: [id])
+  ticket      Ticket?     @relation(fields: [ticketId], references: [id])
   ticketId    String?
-}
-
-model User {
-  id          String      @default(uuid()) @id
-  name        String
-  password    String
-  email       String      @unique
-  validate    Boolean     @default(false)
+  author      User        @relation(fields: [authorId], references: [id])
+  authorId    String
 }

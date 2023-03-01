@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-02-21 14:21:24                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-02-22 14:32:55                               *
+ * @LastEditDate          : 2023-02-28 11:00:38                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -23,19 +23,22 @@ import {
   Post,
   Param,
   Body,
+  Headers,
   HttpException,
   HttpStatus,
-  UseGuards
+  UseGuards,
+  Delete
 } from "@nestjs/common";
+import * as jwt from "jsonwebtoken";
 /***/
 
 /* Dto */
-import {PrismaService} from "src/prisma.service";
+import {PrismaService} from "../../prisma.service";
 import * as projectsDto from "../../dto/projects.dto";
 /***/
 
 /* Guards */
-import { ConnectedGuard } from "src/guards/connected/connected.guard";
+import { ConnectedGuard } from "../../guards/connected/connected.guard";
 /***/
 
 @Controller("projects")
@@ -50,7 +53,7 @@ export class ProjectsController {
   @Get("")
   async getAll(): Promise<projectsDto.PublicOutput[]> {
     try {
-      const res = await this.prisma.project.findMany();
+      const res = await this.prisma.project.findMany({include: {owner: true}});
       return res.map((el) => new projectsDto.PublicOutput(el));
     } catch (err) {
       console.error(`${new Date().toISOString()} - ${err}`);
@@ -73,7 +76,8 @@ export class ProjectsController {
         },
         include: {
           comments: true,
-          tasks: true
+          tasks: true,
+          owner: true
         }
       });
       if (res) return new projectsDto.DetailsOutput(res);
@@ -104,11 +108,16 @@ export class ProjectsController {
         data: body,
         include: {
           tasks: true,
-          comments: true
+          comments: true,
+          owner: true
         }
       });
       return new projectsDto.DetailsOutput(res);
     } catch (err) {
+      if (err.code === "P2025") {
+        throw new HttpException("Not Found", HttpStatus.NOT_FOUND);
+      }
+
       console.error(`${new Date().toISOString()} - ${err}`);
       throw err;
     }
@@ -123,16 +132,37 @@ export class ProjectsController {
   @Post("")
   async create(
     @Body() body: projectsDto.CreateInput,
+    @Headers("x-token") token: string,
   ): Promise<projectsDto.DetailsOutput> {
     try {
+      let user = jwt.verify(token, process.env.SALT);
+      let data = {...body, ownerId: user.id};
+      
       const res = await this.prisma.project.create({
-        data: body,
+        data: data,
         include: {
           comments: true,
-          tasks: true
+          tasks: true,
+          owner: true
         }
       });
       return new projectsDto.DetailsOutput(res);
+    } catch (err) {
+      console.error(`${new Date().toISOString()} - ${err}`);
+      throw err;
+    }
+  }
+  /***/
+
+  /**
+  * Delete project by id 
+  */
+  @Delete("users/:id")
+  async delete(@Param("id") id: string): Promise<void> {
+    try {
+      await this.prisma.project.delete({where: {id: id}}).catch(() => {
+        throw new HttpException("Not Found", HttpStatus.NOT_FOUND);
+      });
     } catch (err) {
       console.error(`${new Date().toISOString()} - ${err}`);
       throw err;

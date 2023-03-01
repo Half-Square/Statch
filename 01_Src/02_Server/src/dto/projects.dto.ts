@@ -2,11 +2,12 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-02-21 14:13:59                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-02-22 11:25:39                               *
+ * @LastEditDate          : 2023-02-28 10:58:46                               *
  *****************************************************************************/
 
 /* SUMMARY
   * Imports
+  * Dto
   * CreateInput
   * UpdateInput
   * PublicOutput
@@ -18,10 +19,15 @@ import {Comment, Task} from "@prisma/client";
 import {
   IsString,
   IsOptional,
-  IsArray
+  IsArray,
+  IsObject
 } from "class-validator";
 import * as commentsDto from "./comments.dto";
 import * as tasksDto from "./tasks.dto";
+/***/
+
+/* Dto */
+import * as usersDto from "../dto/users.dto";
 /***/
 
 /**
@@ -88,6 +94,9 @@ class PublicOutput {
   @IsString()
     description: string;
 
+  @IsObject()
+    owner: usersDto.PublicOutput;
+
   constructor(data) {
     if (data) {
       this.id = data.id;
@@ -96,6 +105,7 @@ class PublicOutput {
       this.version = data.version;
       this.created = data.created;
       this.description = data.description;
+      this.owner = new usersDto.PublicOutput(data.owner);
     }
   }
 }
@@ -129,6 +139,9 @@ class DetailsOutput {
   @IsArray()
     tasks: Task[];
 
+  @IsObject()
+    owner: usersDto.PublicOutput;
+
   constructor(data) {
     if (data) {
       this.id = data.id;
@@ -141,6 +154,7 @@ class DetailsOutput {
         (el) => new commentsDto.PublicOutput(el),
       );
       this.tasks = data.tasks.map((el) => new tasksDto.PublicOutput(el));
+      this.owner = new usersDto.PublicOutput(data.owner);
     }
   }
 }
