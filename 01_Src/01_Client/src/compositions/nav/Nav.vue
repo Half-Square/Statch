@@ -2,7 +2,7 @@
 * @Author                : 0K00<qdouvillez@gmail.com>                         
 * @CreatedDate           : 2023-02-24 16:00:26                                
 * @LastEditors           : 0K00<qdouvillez@gmail.com>                         
-* @LastEditDate          : 2023-02-25 17:16:54                                
+* @LastEditDate          : 2023-02-27 17:01:58                                
 *                                                                             
 -->
 
@@ -25,30 +25,30 @@
               name: "Half Square",
               tree: {
                 label: 'root',
+                status: 'progress',
+                url: '/project/10',
                 nodes: [
                     {
                         label: 'item1',
+                        status: 'new',
+                        url: '/create',
                         nodes: [
                             {
-                                label: 'item1.1'
+                                label: 'item1.1',
+                                status: 'done',
+                                url: '/create',
                             },
                             {
                                 label: 'item1.2',
-                                nodes: [
-                                    {
-                                        label: 'item1.2.1',
-                                        nodes: [
-                                            {
-                                                label: 'item1.2.1.1'
-                                            }
-                                        ]
-                                    }
-                                ]
+                                status: 'wait',
+                                url: '/create',
                             }
                         ]
                     },
                     {
-                        label: 'item2'
+                        label: 'item2',
+                        status: 'reject',
+                        url: '/create',
                     }
                 ]
             },
@@ -76,7 +76,7 @@
       <Button id="goSetting" type="trd" size="l" icon="gear" icon-position="only" />
     </nav>
     <div class="menu">
-      <Collapse :label="tree.label" :nodes="tree.nodes" :depth="0"></Collapse>
+      <Collapse :label="tree.label" :nodes="tree.nodes" :status="tree.status" :depth="0"></Collapse>
     </div>
   </div>
 </template>

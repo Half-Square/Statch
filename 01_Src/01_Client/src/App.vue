@@ -2,7 +2,7 @@
 * @Author                : 0K00<qdouvillez@gmail.com>                         
 * @CreatedDate           : 2023-02-24 14:57:58                                
 * @LastEditors           : 0K00<qdouvillez@gmail.com>                         
-* @LastEditDate          : 2023-02-25 17:23:35                                
+* @LastEditDate          : 2023-03-01 12:03:25                                
 *                                                                             
 -->
 
@@ -24,7 +24,8 @@ export default defineComponent({
 
   data() {
     return {
-      show: true
+      show: true,
+      connected: true
     }
   },
 
@@ -38,16 +39,19 @@ export default defineComponent({
 </script>
 
 <template>
-  <div class="sidebar">
+  <div v-if="connected" class="sidebar">
     <Transition name="slide">
       <Nav v-if="show" />
     </Transition>
-    <aside class="toto">
+    <aside>
       <Header>
         <Button id='openMenu' type='trd' size='l' @click='showMenu' icon='panel' iconPosition='only' v-bind:class = "(show)?'active':''" />
       </Header>
       <router-view />
     </aside>
+  </div>
+  <div v-if="!connected">
+    <router-view />
   </div>
 </template>
 

@@ -2,7 +2,7 @@
 * @Author                : 0K00<qdouvillez@gmail.com>                         
 * @CreatedDate           : 2023-02-22 09:18:40                                
 * @LastEditors           : 0K00<qdouvillez@gmail.com>                         
-* @LastEditDate          : 2023-02-25 17:18:36                                
+* @LastEditDate          : 2023-02-27 14:56:15                                
 *                                                                             
 -->
 
@@ -10,12 +10,14 @@
     import { defineComponent } from 'vue';
     import './projects.scss';
     import Button from '@/components/button/Button.vue';
+    import Status from '@/components/status/Status.vue';
 
     export default defineComponent({
         name: 'Projects',
 
         components: {
             Button,
+            Status
         },
 
         props: [],
@@ -25,9 +27,11 @@
         data() {
             return {
                 content: [
-                    {status: 0, version: '0.1', name: 'Lorem', created: 'Jan 10', id: '/create'},
-                    {status: 0, version: '0.1', name: 'Lorem', created: 'Jan 10', id: '/create'},
-                    {status: 0, version: '0.1', name: 'Lorem', created: 'Jan 10', id: '/create'},
+                    {status: "done", version: '0.1', name: 'Lorem', created: 'Jan 10', id: '/create'},
+                    {status: "reject", version: '0.1', name: 'Lorem', created: 'Jan 10', id: '/create'},
+                    {status: "wait", version: '0.1', name: 'Lorem', created: 'Jan 10', id: '/create'},
+                    {status: "new", version: '0.1', name: 'Lorem', created: 'Jan 10', id: '/create'},
+                    {status: "progress", version: '0.1', name: 'Lorem', created: 'Jan 10', id: '/create'},
                 ]
             }
         },
@@ -48,7 +52,7 @@
     <div class="content" >
         <a v-for="item in content" :href="item.id">
             <div class="right">
-                <div class="status">{{ item.status }}</div>
+                <div class="status"><Status :status="item.status" /></div>
                 <div class="version">{{ item.version }}</div>
                 <div class="name">{{ item.name }}</div>
             </div>

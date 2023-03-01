@@ -1,21 +1,28 @@
 <!--
-Author – @0K00
-Create Time – 2022-11-04 11:30
-Description – Collapse component
+* @Author                : 0K00<qdouvillez@gmail.com>                         
+* @CreatedDate           : 2023-02-27 16:20:24                                
+* @LastEditors           : 0K00<qdouvillez@gmail.com>                         
+* @LastEditDate          : 2023-02-27 17:06:50                                
+*                                                                             
 -->
 
 <script lang='ts'>
     import { defineComponent } from "vue";
     import './collapse.scss';
+    import Status from "../status/Status.vue";
 
     export default defineComponent({
         name: 'Collapse',
 
-        props: [ 'label', 'nodes', 'depth' ],
+        components: {
+          Status  
+        },
+
+        props: [ 'label', 'nodes', 'depth', 'status', 'url' ],
 
         computed: {
             indent() {
-                return { transform: `translate(${this.depth * 16 / this.depth}px)` }
+                return { transform: `translate(${this.depth * 16 * this.depth}px)` }
             },
             iconCollapse() {
                 return {
@@ -44,16 +51,24 @@ Description – Collapse component
 </script>
 
 <template>
-    <div class="collapse" :style="indent" :class="isOpen">
-        <div class="label">
-        <div v-if="nodes" class="icon" :class="iconCollapse" @click="toggleCollapse">{{ showCollapse }}</div>
-            <div class="link">
-                {{ label }}
+    <div class="collapse" :class="isOpen">
+        <RouterLink :to="url">
+            <div class="label">
+                <div v-if="nodes" class="icons" :style="indent" :class="iconCollapse" @click="toggleCollapse">
+                    <i v-if="!showCollapse" class="icon chevron-right"></i>
+                    <i v-if="showCollapse" class="icon chevron-down"></i>
+                </div>
+                <div class="link" :style="indent">
+                    <Status :status="status" />
+                    <div class="text">{{ label }}</div>
+                </div>
             </div>
-        </div>
+        </RouterLink>
         <Collapse
             v-if="showCollapse"
             v-for="node in nodes"
+            :to="node.url"
+            :status="node.status"
             :nodes="node.nodes"
             :label="node.label"
             :depth="depth + 1"

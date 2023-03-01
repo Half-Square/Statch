@@ -2,7 +2,7 @@
  * @Author                : 0K00<qdouvillez@gmail.com>                       *
  * @CreatedDate           : 2023-02-22 12:07:19                              *
  * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
- * @LastEditDate          : 2023-02-24 16:51:57                              *
+ * @LastEditDate          : 2023-02-27 16:53:18                              *
  *                                                                           *
  ****************************************************************************/
 
@@ -69,6 +69,10 @@
         font-weight: 400;
         font-size: 12px;
         line-height: 16px;
+
+        .icon {
+          font-size: 16px;
+        }
       }
 
       .block .id {
@@ -164,6 +168,27 @@
     display: grid;
     grid-template-columns: 1fr 1fr; 
     align-items: center;
+
+    .icon {
+      font-size: 16px;
+    }
+
+    a {
+      font-style: normal;
+      font-weight: 400;
+      font-size: 12px;
+      line-height: 16px;
+      text-decoration: none;
+      color: rgba(91, 130, 250, 1);
+
+      .icon {
+        font-size: 12px;
+      }
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
   }
 
   .activity .content {
@@ -192,6 +217,7 @@
 
   .text {
     display: flex;
+    align-items: center;
     gap: 0.5rem;
     font-style: normal;
     font-weight: 400;

@@ -2,7 +2,7 @@
 * @Author                : 0K00<qdouvillez@gmail.com>                         
 * @CreatedDate           : 2023-02-22 11:32:10                                
 * @LastEditors           : 0K00<qdouvillez@gmail.com>                         
-* @LastEditDate          : 2023-02-24 16:51:34                                
+* @LastEditDate          : 2023-02-27 16:16:40                                
 *                                                                             
 -->
 
@@ -15,6 +15,7 @@
     import Input from "@/components/input/Input.vue";
     import Button from "@/components/button/Button.vue";
     import Label from "@/components/label/Label.vue";
+    import Status from '@/components/status/Status.vue';
 
     export default defineComponent({
         name: 'Project',
@@ -26,6 +27,7 @@
           Input,
           Button,
           Label,
+          Status
         },
 
         computed: {},
@@ -33,13 +35,13 @@
         data() {
             return {
               elements: [
-                {status: "0", id: "dc5c7a1", desc: "lorem ipsum...", level: "high", img: "", url: "/create", name: "Randy"},
-                {status: "0", id: "dc5c7a1", desc: "lorem ipsum...", level: "low", img: "", url: "/create", name: "Toto"},
-                {status: "0", id: "dc5c7a1", desc: "lorem ipsum...", level: "moderate", img: "", url: "/create", name: "Tata"},
-                {status: "0", id: "dc5c7a1", desc: "lorem ipsum...", level: "high", img: "", url: "/create", name: "Oui"},
-                {status: "0", id: "dc5c7a1", desc: "lorem ipsum...", level: "high", img: "", url: "/create", name: "Non"},
-                {status: "0", id: "dc5c7a1", desc: "lorem ipsum...", level: "normal", img: "", url: "/create", name: "Oh"},
-                {status: "0", id: "dc5c7a1", desc: "lorem ipsum...", level: "normal", img: "", url: "/create", name: "Ah"},
+                {status: "done", id: "dc5c7a1", desc: "lorem ipsum...", level: "high", img: "", url: "/create", name: "Randy"},
+                {status: "new", id: "dc5c7a1", desc: "lorem ipsum...", level: "low", img: "", url: "/create", name: "Toto"},
+                {status: "new", id: "dc5c7a1", desc: "lorem ipsum...", level: "moderate", img: "", url: "/create", name: "Tata"},
+                {status: "progress", id: "dc5c7a1", desc: "lorem ipsum...", level: "high", img: "", url: "/create", name: "Oui"},
+                {status: "progress", id: "dc5c7a1", desc: "lorem ipsum...", level: "high", img: "", url: "/create", name: "Non"},
+                {status: "wait", id: "dc5c7a1", desc: "lorem ipsum...", level: "normal", img: "", url: "/create", name: "Oh"},
+                {status: "reject", id: "dc5c7a1", desc: "lorem ipsum...", level: "normal", img: "", url: "/create", name: "Ah"},
               ],
               activity: [
                 {img: "0", alt: "oui", name: "Randy", action: "created", id: "dc5c7a1", url: "/create", time: "10 min"},
@@ -100,7 +102,7 @@
           <div class="elements">
             <a class="element" v-for="element in elements" :href="element.url">
               <div class="block">
-                <div class="status">{{ element.status }}</div>
+                <div class="status"><Status :status="element.status" /></div>
                 <div class="id">{{ element.id }}</div>
                 <div class="desc">{{ element.desc }}</div>
               </div>
@@ -150,19 +152,19 @@
           </div>
           <div class="container">
             <h4>Status</h4>
-            <div>0</div>
+            <div class="text"><Status status="progress" /> In progress</div>
           </div>
           <div class="container">
             <h4>No. of tasks</h4>
-            <div>4 tasks</div>
+            <div><a href="/create">4 tasks <i class="icon arrowright"></i></a></div>
           </div>
           <div class="container">
             <h4>No. of tickets</h4>
-            <div>14 tickets</div>
+            <div><a href="/create">14 tickets <i class="icon arrowright"></i></a></div>
           </div>
           <div class="container">
             <h4>No. of docs</h4>
-            <div>5 docs</div>
+            <div><a href="/create">5 docs <i class="icon arrowright"></i></a></div>
           </div>
           <div class="container">
             <h4>Created</h4>
