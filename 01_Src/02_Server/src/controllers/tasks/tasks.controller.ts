@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-02-21 14:21:47                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-03-02 13:44:37                               *
+ * @LastEditDate          : 2023-03-02 15:20:52                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -75,8 +75,12 @@ export class TasksController {
       let res = await this.prisma.task.findUnique({
         where: {id: id},
         include: {
-          tickets: true,
-          comments: true,
+          tickets: {
+            include: {owner: true}
+          },
+          comments: {
+            include: {author: true}
+          },
           owner: true,
           assignments: {
             include: {user: true}
@@ -118,8 +122,12 @@ export class TasksController {
           }
         },
         include: {
-          tickets: true,
-          comments: true,
+          tickets: {
+            include: {owner: true}
+          },
+          comments: {
+            include: {author: true}
+          },
           owner: true,
           assignments: {
             include: {user: true}
@@ -183,8 +191,12 @@ export class TasksController {
           }
         },
         include: {
-          comments: true,
-          tickets: true,
+          comments: {
+            include: {author: true}
+          },
+          tickets: {
+            include: {owner: true}
+          },
           owner: true,
           assignments: {
             include: {user: true}
