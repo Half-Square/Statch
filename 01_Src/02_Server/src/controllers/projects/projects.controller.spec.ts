@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-02-23 10:40:24                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-03-02 13:32:40                               *
+ * @LastEditDate          : 2023-03-02 15:19:49                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -182,7 +182,7 @@ describe('ProjectsController', () => {
       name: "Updated test",
       description: "Updated description",
       version: "1.1.0",
-      status: "open",
+      status: "progress",
       assignments: []
     };
 
@@ -232,7 +232,7 @@ describe('ProjectsController', () => {
         name: "Updated test",
         description: "Updated description",
         version: "1.1.0",
-        status: "open",
+        status: "progress",
         assignments: [user2]
       });
 
