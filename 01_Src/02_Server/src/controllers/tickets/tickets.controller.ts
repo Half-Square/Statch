@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-02-21 14:22:05                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-03-02 14:30:14                               *
+ * @LastEditDate          : 2023-03-02 15:27:43                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -75,7 +75,9 @@ export class TicketsController {
       let res = await this.prisma.ticket.findUnique({
         where: {id: id},
         include: {
-          comments: true,
+          comments: {
+            include: {author: true}
+          },
           owner: true,
           assignments: {
             include: {user: true}
@@ -117,7 +119,9 @@ export class TicketsController {
           }
         },
         include: {
-          comments: true,
+          comments: {
+            include: {author: true}
+          },
           owner: true,
           assignments: {
             include: {user: true}
@@ -181,7 +185,9 @@ export class TicketsController {
           }
         },
         include: {
-          comments: true,
+          comments: {
+            include: {author: true}
+          },
           owner: true,
           assignments: {
             include: {user: true}
