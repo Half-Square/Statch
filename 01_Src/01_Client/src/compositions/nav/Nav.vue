@@ -2,7 +2,7 @@
 * @Author                : 0K00<qdouvillez@gmail.com>                         
 * @CreatedDate           : 2023-02-24 16:00:26                                
 * @LastEditors           : 0K00<qdouvillez@gmail.com>                         
-* @LastEditDate          : 2023-02-27 17:01:58                                
+* @LastEditDate          : 2023-03-02 14:36:20                                
 *                                                                             
 -->
 
@@ -26,29 +26,34 @@
               tree: {
                 label: 'root',
                 status: 'progress',
-                url: '/project/10',
+                type: 'project',
+                id: '6',
                 nodes: [
                     {
                         label: 'item1',
                         status: 'new',
-                        url: '/create',
+                        type: 'task',
+                        id: '7',
                         nodes: [
                             {
                                 label: 'item1.1',
                                 status: 'done',
-                                url: '/create',
+                                type: 'ticket',
+                                id: '8',
                             },
                             {
                                 label: 'item1.2',
                                 status: 'wait',
-                                url: '/create',
+                                type: 'ticket',
+                                id: '9',
                             }
                         ]
                     },
                     {
                         label: 'item2',
                         status: 'reject',
-                        url: '/create',
+                        type: 'task',
+                        id: '10',
                     }
                 ]
             },
@@ -67,7 +72,7 @@
       {{ name }}
     </header>
     <nav>
-      <RouterLink :to="{ path: '/projects' }">
+      <RouterLink to="/projects">
         <Button id="goProjects" type="trd" size="l" icon="dashboard" icon-position="only" />
       </RouterLink>
       <Button id="goActivity" type="trd" size="l" icon="bell" icon-position="only" />
@@ -76,7 +81,7 @@
       <Button id="goSetting" type="trd" size="l" icon="gear" icon-position="only" />
     </nav>
     <div class="menu">
-      <Collapse :label="tree.label" :nodes="tree.nodes" :status="tree.status" :depth="0"></Collapse>
+      <Collapse :label="tree.label" :id="tree.id" :type="tree.type" :nodes="tree.nodes" :status="tree.status" :depth="0"></Collapse>
     </div>
   </div>
 </template>

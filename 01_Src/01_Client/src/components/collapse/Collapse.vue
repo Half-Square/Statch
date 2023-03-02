@@ -2,7 +2,7 @@
 * @Author                : 0K00<qdouvillez@gmail.com>                         
 * @CreatedDate           : 2023-02-27 16:20:24                                
 * @LastEditors           : 0K00<qdouvillez@gmail.com>                         
-* @LastEditDate          : 2023-02-27 17:06:50                                
+* @LastEditDate          : 2023-03-02 14:47:56                                
 *                                                                             
 -->
 
@@ -18,7 +18,7 @@
           Status  
         },
 
-        props: [ 'label', 'nodes', 'depth', 'status', 'url' ],
+        props: [ 'label', 'nodes', 'depth', 'status', 'id', 'type' ],
 
         computed: {
             indent() {
@@ -52,22 +52,23 @@
 
 <template>
     <div class="collapse" :class="isOpen">
-        <RouterLink :to="url">
-            <div class="label">
-                <div v-if="nodes" class="icons" :style="indent" :class="iconCollapse" @click="toggleCollapse">
-                    <i v-if="!showCollapse" class="icon chevron-right"></i>
-                    <i v-if="showCollapse" class="icon chevron-down"></i>
-                </div>
+        <div class="label" v-bind:class = "($route.params.id == id)?'active':''">
+            <div v-if="nodes" class="icons" :style="indent" :class="iconCollapse" @click="toggleCollapse">
+                <i v-if="!showCollapse" class="icon chevron-right"></i>
+                <i v-if="showCollapse" class="icon chevron-down"></i>
+            </div>
+            <RouterLink :to="{ name: 'project', params: {type: type, id: id } }">
                 <div class="link" :style="indent">
                     <Status :status="status" />
                     <div class="text">{{ label }}</div>
                 </div>
-            </div>
-        </RouterLink>
+            </RouterLink>
+        </div>
         <Collapse
             v-if="showCollapse"
             v-for="node in nodes"
-            :to="node.url"
+            :id="node.id"
+            :type="node.type"
             :status="node.status"
             :nodes="node.nodes"
             :label="node.label"
