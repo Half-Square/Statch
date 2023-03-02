@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-02-21 14:22:05                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-02-28 14:30:34                               *
+ * @LastEditDate          : 2023-03-02 15:27:43                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -74,7 +74,15 @@ export class TicketsController {
     try {
       let res = await this.prisma.ticket.findUnique({
         where: {id: id},
-        include: {comments: true, owner: true}
+        include: {
+          comments: {
+            include: {author: true}
+          },
+          owner: true,
+          assignments: {
+            include: {user: true}
+          }
+        }
       });
       
       if (res) return new ticketsDto.DetailsOutput(res);
@@ -99,8 +107,26 @@ export class TicketsController {
     try {
       let res = await this.prisma.ticket.update({
         where: {id: id},
-        data: body,
-        include: {comments: true, owner: true}
+        data: {
+          name: body.name,
+          status: body.status,
+          description: body.description,
+          assignments: {
+            deleteMany: {},
+            create: body.assignments.map((el) => {
+              return {userId: el.id};
+            }) 
+          }
+        },
+        include: {
+          comments: {
+            include: {author: true}
+          },
+          owner: true,
+          assignments: {
+            include: {user: true}
+          }
+        }
       });
       return new ticketsDto.DetailsOutput(res);
     } catch (err) {
@@ -151,9 +177,22 @@ export class TicketsController {
           name: body.name,
           description: body.description,
           taskId: id,
-          ownerId: user.id
+          ownerId: user.id,
+          assignments: {
+            create: [{
+              userId: user.id
+            }]
+          }
         },
-        include: {comments: true, owner: true}
+        include: {
+          comments: {
+            include: {author: true}
+          },
+          owner: true,
+          assignments: {
+            include: {user: true}
+          }
+        }
       });
       return new ticketsDto.DetailsOutput(res);
     } catch (err) {

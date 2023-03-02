@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-02-21 14:21:47                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-02-28 14:07:37                               *
+ * @LastEditDate          : 2023-03-02 15:20:52                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -74,7 +74,18 @@ export class TasksController {
     try {
       let res = await this.prisma.task.findUnique({
         where: {id: id},
-        include: {tickets: true, comments: true, owner: true}
+        include: {
+          tickets: {
+            include: {owner: true}
+          },
+          comments: {
+            include: {author: true}
+          },
+          owner: true,
+          assignments: {
+            include: {user: true}
+          }
+        }
       });
       if (res) return new tasksDto.DetailsOutput(res);
       else throw new HttpException("Not Found", HttpStatus.NOT_FOUND);
@@ -99,8 +110,29 @@ export class TasksController {
     try {
       let res = await this.prisma.task.update({
         where: {id: id},
-        data: body,
-        include: {tickets: true, comments: true, owner: true}
+        data: {
+          name: body.name,
+          status: body.status,
+          description: body.description,
+          assignments: {
+            deleteMany: {},
+            create: body.assignments.map((el) => {
+              return {userId: el.id};
+            }) 
+          }
+        },
+        include: {
+          tickets: {
+            include: {owner: true}
+          },
+          comments: {
+            include: {author: true}
+          },
+          owner: true,
+          assignments: {
+            include: {user: true}
+          }
+        }
       });
       return new tasksDto.DetailsOutput(res);
     } catch (err) {
@@ -151,12 +183,24 @@ export class TasksController {
           name: body.name,
           description: body.description,
           projectId: id,
-          ownerId: user.id
+          ownerId: user.id,
+          assignments: {
+            create: [{
+              userId: user.id
+            }]
+          }
         },
         include: {
-          comments: true,
-          tickets: true,
-          owner: true
+          comments: {
+            include: {author: true}
+          },
+          tickets: {
+            include: {owner: true}
+          },
+          owner: true,
+          assignments: {
+            include: {user: true}
+          }
         }
       });
       return new tasksDto.DetailsOutput(res);

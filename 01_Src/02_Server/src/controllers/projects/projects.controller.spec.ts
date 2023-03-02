@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-02-23 10:40:24                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-02-28 11:23:33                               *
+ * @LastEditDate          : 2023-03-02 15:19:49                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -98,7 +98,8 @@ describe('ProjectsController', () => {
       expect(ret.owner.id).toBe(user.id);
       expect(ret.owner.name).toBe(user.name);
       expect(ret.owner.email).toBe(user.email);
-      expect(ret.owner.validate).toBe(user.validate);      
+      expect(ret.owner.validate).toBe(user.validate);
+      expect(ret.assignments[0].id).toBe(user.id);   
     });
   });
   /***/
@@ -167,6 +168,7 @@ describe('ProjectsController', () => {
       expect(ret.owner.name).toBe(user.name);
       expect(ret.owner.email).toBe(user.email);
       expect(ret.owner.validate).toBe(user.validate);
+      expect(ret.assignments[0].id).toBe(user.id);   
     });
   });
   /***/
@@ -176,11 +178,12 @@ describe('ProjectsController', () => {
   */
   describe("update", () => {
     let ret;
-    const data: projectsDto.UpdateInput = {
+    let data: projectsDto.UpdateInput = {
       name: "Updated test",
       description: "Updated description",
       version: "1.1.0",
-      status: "open"
+      status: "progress",
+      assignments: []
     };
 
     beforeAll(async () => {
@@ -205,6 +208,7 @@ describe('ProjectsController', () => {
       expect(ret.owner.name).toBe(user.name);
       expect(ret.owner.email).toBe(user.email);
       expect(ret.owner.validate).toBe(user.validate);
+      expect(ret.assignments.length).toBe(0);
     });
 
     it("Must return an error on invalid", async () => {
@@ -213,6 +217,27 @@ describe('ProjectsController', () => {
       } catch (err) {
         expect(err.status === 404).toBe(true);
       }
+    });
+
+    it("Must add correct user in assignment", async () => {
+      let user2 = await prisma.user.create({
+        data: {
+          email: "projecttest2@mail.fr",
+          name: "test2",
+          password: "123"
+        }
+      });
+
+      let tmp = await controller.update(testProject.id, {
+        name: "Updated test",
+        description: "Updated description",
+        version: "1.1.0",
+        status: "progress",
+        assignments: [user2]
+      });
+
+      expect(tmp.assignments[0].id).toBe(user2.id);
+      await prisma.user.delete({where: {id: user2.id}});
     });
   });
   /***/

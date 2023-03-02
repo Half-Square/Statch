@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-02-21 14:16:22                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-02-28 14:10:22                               *
+ * @LastEditDate          : 2023-03-02 15:41:19                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -15,7 +15,7 @@
 */
 
 /* Imports */
-import {IsOptional, IsString, IsArray, IsObject} from "class-validator";
+import {IsOptional, IsString, IsArray, IsObject, IsNumber, IsIn} from "class-validator";
 import {Ticket} from "@prisma/client";
 import * as ticketsDto from "./tickets.dto";
 import * as commentsDto from "./comments.dto";
@@ -46,12 +46,16 @@ class UpdateInput {
     name: string;
 
   @IsString()
+  @IsIn(["new", "done", "reject", "progress"])
   @IsOptional()
     status: string;
 
   @IsString()
   @IsOptional()
     description: string;
+
+  @IsArray()
+    assignments: usersDto.PublicOutput[];
 }
 /***/
 
@@ -69,6 +73,7 @@ class PublicOutput {
     description: string;
 
   @IsString()
+  @IsIn(["new", "done", "reject", "progress"])
     status: string;
 
   @IsString()
@@ -108,6 +113,7 @@ class DetailsOutput {
     description: string;
 
   @IsString()
+  @IsIn(["new", "done", "reject", "progress"])
     status: string;
 
   @IsString()
@@ -125,6 +131,12 @@ class DetailsOutput {
   @IsObject()
     owner: usersDto.PublicOutput;
 
+  @IsArray()
+    assignments: usersDto.PublicOutput[];
+
+  @IsNumber()
+    progress: number;
+
   constructor(data) {
     if (data) {
       this.id = data.id;
@@ -134,6 +146,9 @@ class DetailsOutput {
       this.status = data.status;
       this.projectId = data.projectId;
       this.owner = new usersDto.PublicOutput(data.owner);
+      this.assignments = data.assignments.map((el) => {
+        return new usersDto.PublicOutput(el.user);
+      });
 
       if (data.tickets) {
         this.tickets = data.tickets.map((el) => new ticketsDto.PublicOutput(el));
@@ -142,6 +157,8 @@ class DetailsOutput {
       if (data.comments) {
         this.comments  = data.comments.map((el) => new commentsDto.PublicOutput(el));
       }
+
+      this.progress =  Math.floor(this.tickets.filter((el) => el.status === "done").length * 100 / this.tickets.length) || 0;
     }
   }
 }

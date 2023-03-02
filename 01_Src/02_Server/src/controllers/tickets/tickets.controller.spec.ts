@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-02-23 10:37:07                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-02-28 14:38:18                               *
+ * @LastEditDate          : 2023-03-02 14:31:35                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -108,6 +108,7 @@ describe('TicketsController', () => {
       expect(ret.owner.name).toBe(user.name);
       expect(ret.owner.email).toBe(user.email);
       expect(ret.owner.validate).toBe(user.validate);
+      expect(ret.assignments[0].id).toBe(user.id);
     });
 
     it("Must create database entry", async () => {
@@ -187,6 +188,7 @@ describe('TicketsController', () => {
       expect(ret.owner.name).toBe(user.name);
       expect(ret.owner.email).toBe(user.email);
       expect(ret.owner.validate).toBe(user.validate);
+      expect(ret.assignments[0].id).toBe(user.id);
     });
   });
   /***/
@@ -238,7 +240,8 @@ describe('TicketsController', () => {
     const data = {
       name: "Updated",
       description: "Updated",
-      status: "open"
+      status: "open",
+      assignments: []
     };
 
     beforeAll(async () => {
@@ -270,6 +273,7 @@ describe('TicketsController', () => {
       expect(ret.owner.name).toBe(user.name);
       expect(ret.owner.email).toBe(user.email);
       expect(ret.owner.validate).toBe(user.validate);
+      expect(ret.assignments.length).toBe(0);
     });
   });
   /***/

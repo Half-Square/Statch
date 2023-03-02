@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-02-23 10:39:11                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-02-28 14:24:58                               *
+ * @LastEditDate          : 2023-03-02 13:48:26                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -119,6 +119,7 @@ describe('TasksController', () => {
       expect(tasks[0].owner.name).toBe(user.name);
       expect(tasks[0].owner.email).toBe(user.email);
       expect(tasks[0].owner.validate).toBe(user.validate);
+      expect(tasks[0].assignments[0].id).toBe(user.id);
     });
 
     it("Must create database entry", async () => {
@@ -200,6 +201,7 @@ describe('TasksController', () => {
       expect(ret.owner.name).toBe(user.name);
       expect(ret.owner.email).toBe(user.email);
       expect(ret.owner.validate).toBe(user.validate);
+      expect(ret.assignments[0].id).toBe(user.id);
     });
   });
   /***/
@@ -252,7 +254,8 @@ describe('TasksController', () => {
     const data: tasksDto.UpdateInput = {
       name: "Updated",
       description: "Updated",
-      status: "open"
+      status: "open",
+      assignments: []
     }
     let ret;
     
@@ -279,6 +282,7 @@ describe('TasksController', () => {
       expect(ret.status).toBe("open");
       expect(ret.name).toBe("Updated");
       expect(ret.description).toBe("Updated");
+      expect(ret.assignments.length).toBe(0);
     });
 
     it("Must return correct owner", () => {

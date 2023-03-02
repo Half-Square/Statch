@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-02-21 14:13:59                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-02-28 10:58:46                               *
+ * @LastEditDate          : 2023-03-02 15:39:51                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -20,7 +20,9 @@ import {
   IsString,
   IsOptional,
   IsArray,
-  IsObject
+  IsObject,
+  IsNumber,
+  IsIn
 } from "class-validator";
 import * as commentsDto from "./comments.dto";
 import * as tasksDto from "./tasks.dto";
@@ -41,6 +43,7 @@ class CreateInput {
     description: string;
 
   @IsString()
+  @IsIn(["new", "done", "reject", "progress"])
   @IsOptional()
     status: string;
 
@@ -59,6 +62,7 @@ class UpdateInput {
     name: string;
 
   @IsString()
+  @IsIn(["new", "done", "reject", "progress"])
   @IsOptional()
     status: string;
 
@@ -69,6 +73,9 @@ class UpdateInput {
   @IsString()
   @IsOptional()
     description: string;
+
+  @IsArray()
+    assignments: usersDto.PublicOutput[];
 }
 /***/
 
@@ -83,6 +90,7 @@ class PublicOutput {
     name: string;
 
   @IsString()
+  @IsIn(["new", "done", "reject", "progress"])
     status: string;
 
   @IsString()
@@ -122,6 +130,7 @@ class DetailsOutput {
     name: string;
 
   @IsString()
+  @IsIn(["new", "done", "reject", "progress"])
     status: string;
 
   @IsString()
@@ -142,6 +151,12 @@ class DetailsOutput {
   @IsObject()
     owner: usersDto.PublicOutput;
 
+  @IsArray()
+    assignments: usersDto.PublicOutput;
+
+  @IsNumber()
+    progress: number;
+
   constructor(data) {
     if (data) {
       this.id = data.id;
@@ -150,11 +165,14 @@ class DetailsOutput {
       this.version = data.version;
       this.created = data.created;
       this.description = data.description;
-      this.comments = data.comments.map(
-        (el) => new commentsDto.PublicOutput(el),
-      );
       this.tasks = data.tasks.map((el) => new tasksDto.PublicOutput(el));
       this.owner = new usersDto.PublicOutput(data.owner);
+      this.comments = data.comments.map((el) => new commentsDto.PublicOutput(el),);
+      this.assignments = data.assignments.map((el) => {
+        return new usersDto.PublicOutput(el.user);
+      });
+
+      this.progress =  Math.floor(this.tasks.filter((el) => el.status === "done").length * 100 / this.tasks.length) || 0;
     }
   }
 }
