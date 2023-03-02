@@ -22,6 +22,16 @@ Install dependancies
 npm install
 ```
 
+You must create an .env file with the following keys
+
+```
+PORT=5000                                               # Server port
+DATABASE_URL="mysql://root:root@localhost:3306/statch"  # Database url and credential
+SALT="69a7f1ab427d98f1efb3e660dc5bc8c"                  # Token secret
+DISABLE_GUARDS=1                                        # Enable/disable guards (0: false, 1: true)
+SESSION_TIME=8h                                         # Time before session timeout
+```
+
 In new workspace you must migrate database
 
 ```
