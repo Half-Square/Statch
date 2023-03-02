@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-02-21 14:16:22                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-03-02 15:10:25                               *
+ * @LastEditDate          : 2023-03-02 15:41:19                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -15,7 +15,7 @@
 */
 
 /* Imports */
-import {IsOptional, IsString, IsArray, IsObject, IsNumber} from "class-validator";
+import {IsOptional, IsString, IsArray, IsObject, IsNumber, IsIn} from "class-validator";
 import {Ticket} from "@prisma/client";
 import * as ticketsDto from "./tickets.dto";
 import * as commentsDto from "./comments.dto";
@@ -46,6 +46,7 @@ class UpdateInput {
     name: string;
 
   @IsString()
+  @IsIn(["new", "done", "reject", "progress"])
   @IsOptional()
     status: string;
 
@@ -72,6 +73,7 @@ class PublicOutput {
     description: string;
 
   @IsString()
+  @IsIn(["new", "done", "reject", "progress"])
     status: string;
 
   @IsString()
@@ -111,6 +113,7 @@ class DetailsOutput {
     description: string;
 
   @IsString()
+  @IsIn(["new", "done", "reject", "progress"])
     status: string;
 
   @IsString()
