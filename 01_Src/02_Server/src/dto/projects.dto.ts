@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-02-21 14:13:59                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-03-01 13:31:41                               *
+ * @LastEditDate          : 2023-03-02 12:44:05                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -69,6 +69,9 @@ class UpdateInput {
   @IsString()
   @IsOptional()
     description: string;
+
+  @IsArray()
+    assignment: usersDto.PublicOutput[];
 }
 /***/
 

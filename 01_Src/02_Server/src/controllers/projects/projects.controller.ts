@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-02-21 14:21:24                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-03-01 13:35:10                               *
+ * @LastEditDate          : 2023-03-02 12:57:06                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -108,7 +108,18 @@ export class ProjectsController {
         where: {
           id: id
         },
-        data: body,
+        data: {
+          name: body.name,
+          status: body.status,
+          version: body.version,
+          description: body.description,
+          assignment: {
+            deleteMany: {},
+            create: body.assignment.map((el) => {
+              return {userId: el.id};
+            })
+          }
+        },
         include: {
           tasks: true,
           comments: true,
