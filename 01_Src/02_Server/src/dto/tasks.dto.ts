@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-02-21 14:16:22                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-03-02 13:43:48                               *
+ * @LastEditDate          : 2023-03-02 15:10:25                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -15,7 +15,7 @@
 */
 
 /* Imports */
-import {IsOptional, IsString, IsArray, IsObject} from "class-validator";
+import {IsOptional, IsString, IsArray, IsObject, IsNumber} from "class-validator";
 import {Ticket} from "@prisma/client";
 import * as ticketsDto from "./tickets.dto";
 import * as commentsDto from "./comments.dto";
@@ -131,6 +131,9 @@ class DetailsOutput {
   @IsArray()
     assignments: usersDto.PublicOutput[];
 
+  @IsNumber()
+    progress: number;
+
   constructor(data) {
     if (data) {
       this.id = data.id;
@@ -151,6 +154,8 @@ class DetailsOutput {
       if (data.comments) {
         this.comments  = data.comments.map((el) => new commentsDto.PublicOutput(el));
       }
+
+      this.progress =  Math.floor(this.tickets.filter((el) => el.status === "done").length * 100 / this.tickets.length) || 0;
     }
   }
 }

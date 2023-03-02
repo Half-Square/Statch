@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-02-21 14:13:59                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-03-02 13:32:21                               *
+ * @LastEditDate          : 2023-03-02 15:10:35                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -20,7 +20,8 @@ import {
   IsString,
   IsOptional,
   IsArray,
-  IsObject
+  IsObject,
+  IsNumber
 } from "class-validator";
 import * as commentsDto from "./comments.dto";
 import * as tasksDto from "./tasks.dto";
@@ -148,6 +149,9 @@ class DetailsOutput {
   @IsArray()
     assignments: usersDto.PublicOutput;
 
+  @IsNumber()
+    progress: number;
+
   constructor(data) {
     if (data) {
       this.id = data.id;
@@ -162,6 +166,8 @@ class DetailsOutput {
       this.assignments = data.assignments.map((el) => {
         return new usersDto.PublicOutput(el.user);
       });
+
+      this.progress =  Math.floor(this.tasks.filter((el) => el.status === "done").length * 100 / this.tasks.length) || 0;
     }
   }
 }
