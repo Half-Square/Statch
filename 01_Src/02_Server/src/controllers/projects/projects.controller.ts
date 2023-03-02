@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-02-21 14:21:24                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-03-02 13:32:07                               *
+ * @LastEditDate          : 2023-03-02 15:17:14                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -76,7 +76,9 @@ export class ProjectsController {
         },
         include: {
           comments: true,
-          tasks: true,
+          tasks: {
+            include: {owner: true}
+          },
           owner: true,
           assignments: {
             include: {user: true}
@@ -121,7 +123,9 @@ export class ProjectsController {
           }
         },
         include: {
-          tasks: true,
+          tasks: {
+            include: {owner: true}
+          },
           comments: true,
           owner: true,
           assignments: {
@@ -166,7 +170,9 @@ export class ProjectsController {
         },
         include: {
           comments: true,
-          tasks: true,
+          tasks: {
+            include: {owner: true}
+          },
           owner: true,
           assignments: {
             include: {user: true}
