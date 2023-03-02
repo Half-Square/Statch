@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-02-21 14:21:24                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-02-28 11:00:38                               *
+ * @LastEditDate          : 2023-03-02 13:32:07                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -77,7 +77,10 @@ export class ProjectsController {
         include: {
           comments: true,
           tasks: true,
-          owner: true
+          owner: true,
+          assignments: {
+            include: {user: true}
+          }
         }
       });
       if (res) return new projectsDto.DetailsOutput(res);
@@ -105,11 +108,25 @@ export class ProjectsController {
         where: {
           id: id
         },
-        data: body,
+        data: {
+          name: body.name,
+          status: body.status,
+          version: body.version,
+          description: body.description,
+          assignments: {
+            deleteMany: {},
+            create: body.assignments.map((el) => {
+              return {userId: el.id};
+            })
+          }
+        },
         include: {
           tasks: true,
           comments: true,
-          owner: true
+          owner: true,
+          assignments: {
+            include: {user: true}
+          }
         }
       });
       return new projectsDto.DetailsOutput(res);
@@ -136,14 +153,24 @@ export class ProjectsController {
   ): Promise<projectsDto.DetailsOutput> {
     try {
       let user = jwt.verify(token, process.env.SALT);
-      let data = {...body, ownerId: user.id};
       
       const res = await this.prisma.project.create({
-        data: data,
+        data: {
+          ...body,
+          ownerId: user.id,
+          assignments: {
+            create: [{
+              userId: user.id
+            }]
+          }
+        },
         include: {
           comments: true,
           tasks: true,
-          owner: true
+          owner: true,
+          assignments: {
+            include: {user: true}
+          }
         }
       });
       return new projectsDto.DetailsOutput(res);
@@ -157,7 +184,7 @@ export class ProjectsController {
   /**
   * Delete project by id 
   */
-  @Delete("users/:id")
+  @Delete("/:id")
   async delete(@Param("id") id: string): Promise<void> {
     try {
       await this.prisma.project.delete({where: {id: id}}).catch(() => {
