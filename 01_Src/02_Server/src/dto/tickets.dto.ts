@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-02-21 14:18:25                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-02-28 14:32:49                               *
+ * @LastEditDate          : 2023-03-02 14:29:23                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -49,6 +49,9 @@ class UpdateInput {
   @IsString()
   @IsOptional()
     description: string;
+
+  @IsArray()
+    assignments: usersDto.PublicOutput[];
 }
 /***/
 
@@ -112,6 +115,9 @@ class DetailsOutput {
   @IsObject()
     owner: usersDto.PublicOutput;
 
+  @IsArray()
+    assignments: usersDto.PublicOutput[];
+
   constructor(data) {
     if (data) {
       this.id = data.id;
@@ -120,6 +126,9 @@ class DetailsOutput {
       this.status = data.status;
       this.taskId = data.taskId;
       this.owner = new usersDto.PublicOutput(data.owner);
+      this.assignments = data.assignments.map((el) => {
+        return new usersDto.PublicOutput(el.user);
+      });
 
       if (data.comments) {
         this.comments = data.comments.map((el) => new commentsDto.PublicOutput(el));
