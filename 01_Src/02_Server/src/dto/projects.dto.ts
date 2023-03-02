@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-02-21 14:13:59                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-03-02 12:44:05                               *
+ * @LastEditDate          : 2023-03-02 13:32:21                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -71,7 +71,7 @@ class UpdateInput {
     description: string;
 
   @IsArray()
-    assignment: usersDto.PublicOutput[];
+    assignments: usersDto.PublicOutput[];
 }
 /***/
 
@@ -146,7 +146,7 @@ class DetailsOutput {
     owner: usersDto.PublicOutput;
 
   @IsArray()
-    assignment: usersDto.PublicOutput;
+    assignments: usersDto.PublicOutput;
 
   constructor(data) {
     if (data) {
@@ -159,7 +159,7 @@ class DetailsOutput {
       this.tasks = data.tasks.map((el) => new tasksDto.PublicOutput(el));
       this.owner = new usersDto.PublicOutput(data.owner);
       this.comments = data.comments.map((el) => new commentsDto.PublicOutput(el),);
-      this.assignment = data.assignment.map((el) => {
+      this.assignments = data.assignments.map((el) => {
         return new usersDto.PublicOutput(el.user);
       });
     }

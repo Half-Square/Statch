@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-02-21 14:21:24                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-03-02 13:00:15                               *
+ * @LastEditDate          : 2023-03-02 13:32:07                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -78,7 +78,7 @@ export class ProjectsController {
           comments: true,
           tasks: true,
           owner: true,
-          assignment: {
+          assignments: {
             include: {user: true}
           }
         }
@@ -113,9 +113,9 @@ export class ProjectsController {
           status: body.status,
           version: body.version,
           description: body.description,
-          assignment: {
+          assignments: {
             deleteMany: {},
-            create: body.assignment.map((el) => {
+            create: body.assignments.map((el) => {
               return {userId: el.id};
             })
           }
@@ -124,7 +124,7 @@ export class ProjectsController {
           tasks: true,
           comments: true,
           owner: true,
-          assignment: {
+          assignments: {
             include: {user: true}
           }
         }
@@ -158,7 +158,7 @@ export class ProjectsController {
         data: {
           ...body,
           ownerId: user.id,
-          assignment: {
+          assignments: {
             create: [{
               userId: user.id
             }]
@@ -168,7 +168,7 @@ export class ProjectsController {
           comments: true,
           tasks: true,
           owner: true,
-          assignment: {
+          assignments: {
             include: {user: true}
           }
         }

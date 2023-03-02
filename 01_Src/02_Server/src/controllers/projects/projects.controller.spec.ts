@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-02-23 10:40:24                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-03-02 13:14:29                               *
+ * @LastEditDate          : 2023-03-02 13:32:40                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -99,7 +99,7 @@ describe('ProjectsController', () => {
       expect(ret.owner.name).toBe(user.name);
       expect(ret.owner.email).toBe(user.email);
       expect(ret.owner.validate).toBe(user.validate);
-      expect(ret.assignment[0].id).toBe(user.id);   
+      expect(ret.assignments[0].id).toBe(user.id);   
     });
   });
   /***/
@@ -168,7 +168,7 @@ describe('ProjectsController', () => {
       expect(ret.owner.name).toBe(user.name);
       expect(ret.owner.email).toBe(user.email);
       expect(ret.owner.validate).toBe(user.validate);
-      expect(ret.assignment[0].id).toBe(user.id);   
+      expect(ret.assignments[0].id).toBe(user.id);   
     });
   });
   /***/
@@ -183,7 +183,7 @@ describe('ProjectsController', () => {
       description: "Updated description",
       version: "1.1.0",
       status: "open",
-      assignment: []
+      assignments: []
     };
 
     beforeAll(async () => {
@@ -208,7 +208,7 @@ describe('ProjectsController', () => {
       expect(ret.owner.name).toBe(user.name);
       expect(ret.owner.email).toBe(user.email);
       expect(ret.owner.validate).toBe(user.validate);
-      expect(ret.assignment.length).toBe(0);
+      expect(ret.assignments.length).toBe(0);
     });
 
     it("Must return an error on invalid", async () => {
@@ -233,10 +233,10 @@ describe('ProjectsController', () => {
         description: "Updated description",
         version: "1.1.0",
         status: "open",
-        assignment: [user2]
+        assignments: [user2]
       });
 
-      expect(tmp.assignment[0].id).toBe(user2.id);
+      expect(tmp.assignments[0].id).toBe(user2.id);
       await prisma.user.delete({where: {id: user2.id}});
     });
   });
