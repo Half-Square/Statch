@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-02-21 14:18:25                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-03-02 15:10:55                               *
+ * @LastEditDate          : 2023-03-02 15:41:40                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -14,7 +14,7 @@
 */
 
 /* Imports */
-import {IsArray, IsObject, IsOptional, IsString} from "class-validator";
+import {IsArray, IsIn, IsObject, IsOptional, IsString} from "class-validator";
 /***/
 
 /* Dto */
@@ -44,6 +44,7 @@ class UpdateInput {
 
   @IsString()
   @IsOptional()
+  @IsIn(["new", "done", "reject", "progress"])
     status: string;
 
   @IsString()
@@ -69,6 +70,7 @@ class PublicOutput {
     description: string;
 
   @IsString()
+  @IsIn(["new", "done", "reject", "progress"])
     status: string;
 
   @IsString()
@@ -104,6 +106,7 @@ class DetailsOutput {
     description: string;
 
   @IsString()
+  @IsIn(["new", "done", "reject", "progress"])
     status: string;
 
   @IsString()

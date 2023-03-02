@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-02-21 14:13:59                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-03-02 15:10:35                               *
+ * @LastEditDate          : 2023-03-02 15:39:51                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -21,7 +21,8 @@ import {
   IsOptional,
   IsArray,
   IsObject,
-  IsNumber
+  IsNumber,
+  IsIn
 } from "class-validator";
 import * as commentsDto from "./comments.dto";
 import * as tasksDto from "./tasks.dto";
@@ -42,6 +43,7 @@ class CreateInput {
     description: string;
 
   @IsString()
+  @IsIn(["new", "done", "reject", "progress"])
   @IsOptional()
     status: string;
 
@@ -60,6 +62,7 @@ class UpdateInput {
     name: string;
 
   @IsString()
+  @IsIn(["new", "done", "reject", "progress"])
   @IsOptional()
     status: string;
 
@@ -87,6 +90,7 @@ class PublicOutput {
     name: string;
 
   @IsString()
+  @IsIn(["new", "done", "reject", "progress"])
     status: string;
 
   @IsString()
@@ -126,6 +130,7 @@ class DetailsOutput {
     name: string;
 
   @IsString()
+  @IsIn(["new", "done", "reject", "progress"])
     status: string;
 
   @IsString()
