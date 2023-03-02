@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-02-21 14:21:24                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-03-02 12:57:06                               *
+ * @LastEditDate          : 2023-03-02 13:00:15                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -98,7 +98,7 @@ export class ProjectsController {
    * @param body - Data to update
    * @returns - Updated project
    */
-  @Put("/:id") // TODO: implement assignment
+  @Put("/:id")
   async update(
     @Param("id") id: string,
     @Body() body: projectsDto.UpdateInput,

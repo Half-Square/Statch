@@ -33,7 +33,7 @@ model Project {
   description String      @db.LongText
   tasks       Task[]
   comments    Comment[]
-  owner       User        @relation(fields: [ownerId], references: [id])
+  owner       User        @relation(fields: [ownerId], references: [id], onDelete: Cascade)
   ownerId     String
   assignment  Assignment[]
 }
@@ -44,11 +44,11 @@ model Task {
   name        String
   status      String      @default("new")
   description String
-  project     Project     @relation(fields: [projectId], references: [id])
+  project     Project     @relation(fields: [projectId], references: [id], onDelete: Cascade)
   projectId   String
   comments    Comment[]
   tickets     Ticket[]
-  owner       User        @relation(fields: [ownerId], references: [id])
+  owner       User        @relation(fields: [ownerId], references: [id], onDelete: Cascade)
   ownerId     String
 }
 
@@ -57,10 +57,10 @@ model Ticket {
   name        String
   status      String      @default("new")
   description String
-  task        Task        @relation(fields: [taskId], references: [id])
+  task        Task        @relation(fields: [taskId], references: [id], onDelete: Cascade)
   taskId      String
   comments    Comment[]
-  owner       User        @relation(fields: [ownerId], references: [id])
+  owner       User        @relation(fields: [ownerId], references: [id], onDelete: Cascade)
   ownerId     String
 }
 
@@ -68,20 +68,20 @@ model Comment {
   id          String      @default(nanoid(8)) @id
   created     DateTime    @default(now())
   content     String      @db.LongText
-  project     Project?    @relation(fields: [projectId], references: [id])
+  project     Project?    @relation(fields: [projectId], references: [id], onDelete: Cascade)
   projectId   String?
-  task        Task?       @relation(fields: [taskId], references: [id])
+  task        Task?       @relation(fields: [taskId], references: [id], onDelete: Cascade)
   taskId      String?
-  ticket      Ticket?     @relation(fields: [ticketId], references: [id])
+  ticket      Ticket?     @relation(fields: [ticketId], references: [id], onDelete: Cascade)
   ticketId    String?
-  author      User        @relation(fields: [authorId], references: [id])
+  author      User        @relation(fields: [authorId], references: [id], onDelete: Cascade)
   authorId    String
 }
 
 model Assignment {
-  user        User        @relation(fields: [userId], references: [id])
+  user        User        @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId      String
-  project     Project     @relation(fields: [projectId], references: [id])
+  project     Project     @relation(fields: [projectId], references: [id], onDelete: Cascade)
   projectId   String
   @@id([userId, projectId])
 }
