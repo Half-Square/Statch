@@ -2,11 +2,13 @@
  * @Author                : Adrien Lanco<adrienlanco0@gmail.com>              *
  * @CreatedDate           : 2023-03-17 11:51:54                               *
  * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>              *
- * @LastEditDate          : 2023-03-17 11:53:55                               *
+ * @LastEditDate          : 2023-03-17 13:29:09                               *
  *****************************************************************************/
 
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 import { AvatarComponent } from './avatar/avatar.component';
 import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
@@ -29,7 +31,9 @@ import { StatusComponent } from './status/status.component';
     StatusComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    RouterModule,
+    FormsModule
   ],
   exports: [
     BreadcrumbsComponent,

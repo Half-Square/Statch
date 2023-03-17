@@ -1,1 +1,17 @@
-<p>input works!</p>
+<!--
+* @Author                : Adrien Lanco<adrienlanco0@gmail.com>
+* @CreatedDate           : 2023-03-17 13:20:00
+* @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>
+* @LastEditDate          : 2023-03-17 13:31:56
+-->
+
+<div [class]="['input', type, size, other]">
+  <input  [type]="is"
+          [(ngModel)]="value"
+          (ngModelChange)="valueChange.emit(value)"
+          [disabled]="disabled"
+          [placeholder]="placeholder"
+          [autocomplete]="autocomplete"
+          [id]="id" />
+  <label *ngIf="isLabel === true" [for]="id">{{ label }}</label>
+</div>

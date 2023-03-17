@@ -1,1 +1,33 @@
-<p>collapse works!</p>
+<!--
+* @Author                : Adrien Lanco<adrienlanco0@gmail.com>
+* @CreatedDate           : 2023-03-17 12:58:00
+* @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>
+* @LastEditDate          : 2023-03-17 13:15:55
+-->
+
+<div class="collapse" ngClass="{ this.showCollapse ? 'open', 'close'} ">
+  <div class="label" ngClass="{ 'active': $route.params.id == id }">
+      <div *ngIf="nodes" class="icons" [ngStyle]="indent()" (click)="toggleCollapse"
+            ngClass="{ this.showCollapse ? 'less', 'more'} " >
+          <i *ngIf="!showCollapse" class="icon chevron-right"></i>
+          <i *ngIf="showCollapse" class="icon chevron-down"></i>
+      </div>
+      <nav [routerLink]="[ 'project' , type , id ]">
+          <div class="link" [ngStyle]="indent()">
+              <app-status [status]="status"></app-status>
+              <div class="text">{{ label }}</div>
+          </div>
+      </nav>
+  </div>
+
+  <ng-container *ngIf="showCollapse">
+    <app-collapse *ngFor="let node in nodes"
+      [id]="node.id"
+      [type]="node.type"
+      [status]="node.status"
+      [nodes]="node.nodes"
+      [label]="node.label"
+      [depth]="depth + 1">
+    </app-collapse>
+  </ng-container>
+</div>

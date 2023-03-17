@@ -1,1 +1,14 @@
-<p>breadcrumbs works!</p>
+<!--
+* @Author                : Adrien Lanco<adrienlanco0@gmail.com>
+* @CreatedDate           : 2023-03-17 12:19:36
+* @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>
+* @LastEditDate          : 2023-03-17 12:19:37
+-->
+
+<nav>
+  <ol class="breadcrumb">
+      <li class="item" *ngFor="let crumb in crumbs; let index = index">
+          <p [routerLink]="crumb.path">{{ crumb.name }}</p>
+      </li>
+  </ol>
+</nav>
