@@ -2,12 +2,12 @@
 * @Author                : Adrien Lanco<adrienlanco0@gmail.com>
 * @CreatedDate           : 2023-03-17 14:41:00
 * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>
-* @LastEditDate          : 2023-03-17 16:31:56
+* @LastEditDate          : 2023-03-17 20:36:37
 -->
 
 <div id="nav">
   <header>
-    {{ organisation.name }}
+    Half Square
   </header>
   <nav>
     <app-button id="goProjects" type="trd" size="l"
@@ -27,38 +27,44 @@
                 routerLink="/settings"  />
   </nav>
   <div class="menu">
-    <app-collapse [label]="organisation.name"
-                  [id]="organisation.id"
-                  [type]="'organisation'"
-                  [depth]="0">
 
-      <app-collapse *ngFor="let project of organisation.projects"
-                    [label]="project.name"
-                    [id]="project.id"
-                    [type]="'project'"
-                    [status]="project.status"
-                    [depth]="1">
+    <app-collapse *ngFor="let project of projects"
+                  [label]="project.name"
+                  [id]="project.id"
+                  [type]="'project'"
+                  [status]="project.status"
+                  [depth]="1">
 
-        <app-collapse *ngFor="let task of project.tasks"
-                      [label]="task.name"
-                      [id]="task.id"
-                      [type]="'task'"
-                      [status]="task.status"
-                      [depth]="2">
+      <app-collapse *ngFor="let task of project.tasks"
+                    [label]="task.name"
+                    [id]="task.id"
+                    [type]="'task'"
+                    [status]="task.status"
+                    [depth]="2">
 
-          <app-collapse *ngFor="let ticket of task.tickets"
-                        [label]="ticket.name"
-                        [id]="ticket.id"
-                        [type]="'ticket'"
-                        [status]="ticket.status"
-                        [noContent]="true"
-                        [depth]="3">
-          </app-collapse>
-
+        <app-collapse *ngFor="let ticket of task.tickets"
+                      [label]="ticket.name"
+                      [id]="ticket.id"
+                      [type]="'ticket'"
+                      [status]="ticket.status"
+                      [noContent]="true"
+                      [depth]="3">
         </app-collapse>
 
+        <app-button class="newTicket" type="scnd" size="md"
+        label="New ticket (Alt + T)"
+        (click)='openNewTicket(task.id)' />
       </app-collapse>
 
+
+      <app-button class="newTask" type="scnd" size="md"
+      label="New task (Alt + N)"
+      (click)='openNewTask(project.id)' />
     </app-collapse>
+
+
+    <app-button class="newProject" type="scnd" size="md"
+    label="New project (Alt + N)"
+    (click)='openNewProject()' />
   </div>
 </div>

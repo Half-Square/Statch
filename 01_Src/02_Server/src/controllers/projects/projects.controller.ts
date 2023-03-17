@@ -1,8 +1,8 @@
 /******************************************************************************
- * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
+ * @Author                : Adrien Lanco<adrienlanco0@gmail.com>              *
  * @CreatedDate           : 2023-02-21 14:21:24                               *
- * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-03-02 15:22:05                               *
+ * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>              *
+ * @LastEditDate          : 2023-03-17 19:33:59                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -70,6 +70,8 @@ export class ProjectsController {
   @Get("/:id")
   async getOne(@Param("id") id: string): Promise<projectsDto.DetailsOutput> {
     try {
+      console.log(id);
+      
       const res = await this.prisma.project.findUnique({
         where: {
           id: id

@@ -2,17 +2,17 @@
 * @Author                : Adrien Lanco<adrienlanco0@gmail.com>
 * @CreatedDate           : 2023-03-17 12:58:00
 * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>
-* @LastEditDate          : 2023-03-17 14:41:18
+* @LastEditDate          : 2023-03-17 20:19:44
 -->
 
-<div class="collapse" ngClass="{ this.showCollapse ? 'open', 'close'} ">
-  <div class="label" ngClass="{ 'active': $route.params.id == id }">
-      <div *ngIf="!noContent" class="icons" [ngStyle]="indent()" (click)="toggleCollapse"
-            ngClass="{ this.showCollapse ? 'less', 'more'} " >
+<div class="collapse" [ngClass]="{ 'open': showCollapse, 'close': !showCollapse }">
+  <div class="label" [ngClass]="{ 'active': false }">
+      <div *ngIf="!noContent" class="icons" [ngStyle]="indent()" (click)="toggleCollapse()"
+            [ngClass]="{ 'less': showCollapse, 'more': !showCollapse }" >
           <i *ngIf="!showCollapse" class="icon chevron-right"></i>
           <i *ngIf="showCollapse" class="icon chevron-down"></i>
       </div>
-      <nav [routerLink]="[ 'project' , type , id ]">
+      <nav [routerLink]="[ type+(id? '/'+id : '') ]">
           <div class="link" [ngStyle]="indent()">
               <app-status [status]="status"></app-status>
               <div class="text">{{ label }}</div>

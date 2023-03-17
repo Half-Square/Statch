@@ -2,7 +2,7 @@
  * @Author                : Adrien Lanco<adrienlanco0@gmail.com>              *
  * @CreatedDate           : 2023-03-17 13:07:58                               *
  * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>              *
- * @LastEditDate          : 2023-03-17 14:49:00                               *
+ * @LastEditDate          : 2023-03-17 19:28:29                               *
  *****************************************************************************/
 
 import { Component, Input } from '@angular/core';

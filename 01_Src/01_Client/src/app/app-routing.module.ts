@@ -15,17 +15,21 @@ import { SignupComponent } from './views/signup/signup.component';
 import { TaskComponent } from './views/task/task.component';
 import { TicketComponent } from './views/ticket/ticket.component';
 
+import {
+  AuthGuardService as AuthGuard
+} from './services/auth/auth-guard.service';
+
 const routes: Routes = [
   { path: '', redirectTo: '/projects', pathMatch: 'full' },
 
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
 
-  { path: 'projects', component: ProjectsComponent },
+  { path: 'projects', component: ProjectsComponent, canActivate: [AuthGuard]  },
 
-  { path: 'project/:id', component: ProjectComponent },
-  { path: 'task/:id', component: TaskComponent },
-  { path: 'ticket/:id', component: TicketComponent }
+  { path: 'project/:id', component: ProjectComponent, canActivate: [AuthGuard]  },
+  { path: 'task/:id', component: TaskComponent, canActivate: [AuthGuard]  },
+  { path: 'ticket/:id', component: TicketComponent, canActivate: [AuthGuard]  }
 
   // { path: 'new/:type', component: NewElemComponent }
 ];

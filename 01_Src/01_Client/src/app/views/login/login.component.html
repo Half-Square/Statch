@@ -2,15 +2,15 @@
 * @Author                : Adrien Lanco<adrienlanco0@gmail.com>
 * @CreatedDate           : 2023-03-17 15:25:00
 * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>
-* @LastEditDate          : 2023-03-17 15:42:46
+* @LastEditDate          : 2023-03-17 18:56:50
 -->
 
 <div id="login">
   <img src="/assets/logotype.svg" alt="Statch logotype" width="102" height="28">
   <div class="container">
-    <app-input  id="mail" placeholder="Enter your email..."
+    <app-input  id="mail" [(value)]="email" placeholder="Enter your email..."
                 type="prm" size="md" other="full" />
-    <app-input  id="pwd" is="password" placeholder="Enter your password..."
+    <app-input  id="pwd" [(value)]="password" is="password" placeholder="Enter your password..."
                 type="prm" size="md" other="full" />
     <app-button id='btnLogin' type='prm' size='md' label='Open'
                 other="full" (click)='login()' icon='enter' iconPosition='right' />

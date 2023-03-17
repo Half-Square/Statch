@@ -2,7 +2,7 @@
  * @Author                : Adrien Lanco<adrienlanco0@gmail.com>              *
  * @CreatedDate           : 2023-03-17 16:07:54                               *
  * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>              *
- * @LastEditDate          : 2023-03-17 16:22:55                               *
+ * @LastEditDate          : 2023-03-17 18:59:06                               *
  *****************************************************************************/
 
 import { Component, OnInit } from '@angular/core';
@@ -14,7 +14,7 @@ import {
   transition
 } from '@angular/animations';
 import { UserService } from './services/user/user.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -34,16 +34,14 @@ import { Router } from '@angular/router';
 export class AppComponent implements OnInit {
   title = 'statch';
 
-  constructor(private router: Router) {}
+  constructor(private router: Router,
+              private route: ActivatedRoute) {}
 
   public show: boolean = true
   public  is_connected: boolean =  true
 
   ngOnInit() {
     UserService.init()
-    this.isConnected()
-    if (!UserService.isConnected())
-      this.router.navigate(["/login"])
   }
 
 

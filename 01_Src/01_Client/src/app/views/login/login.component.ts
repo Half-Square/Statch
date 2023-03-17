@@ -2,7 +2,7 @@
  * @Author                : Adrien Lanco<adrienlanco0@gmail.com>              *
  * @CreatedDate           : 2023-03-17 16:23:16                               *
  * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>              *
- * @LastEditDate          : 2023-03-17 16:23:16                               *
+ * @LastEditDate          : 2023-03-17 18:56:57                               *
  *****************************************************************************/
 
 import { Component, OnInit } from '@angular/core';
@@ -22,22 +22,23 @@ export class LoginComponent implements OnInit {
               private api: ApiService) {
   }
 
-  private email: string = "";
-  private password: string = "";
+  public email: string = "";
+  public password: string = "";
 
   public message: string = "";
 
   ngOnInit() {
-    UserService.init()
-
     if (UserService.isConnected())
       this.router.navigate(["/"])
   }
 
   public login(): void {
-    let emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
-    if (!emailRegex.test(this.email)) {
+    let mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    if (!this.email.match(mailformat)) {
+
       this.message = "Please entere a valid email address"
+      console.log(this.message);
+
       return;
     }
 

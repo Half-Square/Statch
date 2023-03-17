@@ -2,7 +2,7 @@
 * @Author                : Adrien Lanco<adrienlanco0@gmail.com>
 * @CreatedDate           : 2023-03-17 16:16:00
 * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>
-* @LastEditDate          : 2023-03-17 16:22:34
+* @LastEditDate          : 2023-03-17 19:13:28
 -->
 
 <!--
@@ -11,14 +11,16 @@
 * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>
 * @LastEditDate          : 2023-03-17 14:50:03
 -->
-<div class="sidebar">
+<div class="sidebar" *ngIf="isConnected()">
     <app-nav *ngIf="show" />
-
     <aside>
       <app-header>
-        <app-button id='openMenu' type='trd' size='l' (click)='showMenu' icon='panel' iconPosition='only' [class]="(show)? 'active' : '' " />
+        <app-button id='openMenu' type='trd' size='l' (click)='showMenu' icon='panel' iconPosition='only' [other]="(show)? 'active' : '' " />
       </app-header>
       <router-outlet></router-outlet>
     </aside>
 </div>
 
+<ng-container *ngIf="!isConnected()">
+  <router-outlet></router-outlet>
+</ng-container>

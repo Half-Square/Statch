@@ -2,7 +2,7 @@
  * @Author                : Adrien Lanco<adrienlanco0@gmail.com>              *
  * @CreatedDate           : 2023-03-17 15:11:14                               *
  * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>              *
- * @LastEditDate          : 2023-03-17 16:23:54                               *
+ * @LastEditDate          : 2023-03-17 19:04:32                               *
  *****************************************************************************/
 
 import { Component, OnInit } from '@angular/core';
@@ -43,7 +43,7 @@ export class SearchBarComponent implements OnInit {
     *
     */
     ngOnInit(): void {
-      document.getElementById("inputSearch")!.focus();
+      // document.getElementById("inputSearch")!.focus();
     }
     /***/
 
