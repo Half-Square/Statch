@@ -2,7 +2,7 @@
  * @Author                : Adrien Lanco<adrienlanco0@gmail.com>              *
  * @CreatedDate           : 2023-03-17 11:52:49                               *
  * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>              *
- * @LastEditDate          : 2023-03-17 11:52:49                               *
+ * @LastEditDate          : 2023-03-17 15:39:01                               *
  *****************************************************************************/
 
 import { NgModule } from '@angular/core';
@@ -16,7 +16,7 @@ import { TaskComponent } from './views/task/task.component';
 import { TicketComponent } from './views/ticket/ticket.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/projects' },
+  { path: '', redirectTo: '/projects', pathMatch: 'full' },
 
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
