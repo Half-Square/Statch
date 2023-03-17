@@ -1,8 +1,8 @@
 <!--
 * @Author                : Adrien Lanco<adrienlanco0@gmail.com>
-* @CreatedDate           : 2023-03-17 15:15:09
+* @CreatedDate           : 2023-03-17 15:15:00
 * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>
-* @LastEditDate          : 2023-03-17 15:15:09
+* @LastEditDate          : 2023-03-17 16:26:02
 -->
 
 <div class="searchBar">
@@ -20,7 +20,7 @@
       <div @nested *ngIf="results.length > 0" class="subtitle">Results</div>
 
       <ul @nested class="results" *ngIf="results.length > 0">
-        <li *ngFor="let result in results; let index = index"
+        <li *ngFor="let result of results; let index = index"
             [ngClass]="{ focused: index === focusedResult }"
             (click)="selectResult(result)"
             (mouseover)="focusResult(index)">{{ result.name }}</li>

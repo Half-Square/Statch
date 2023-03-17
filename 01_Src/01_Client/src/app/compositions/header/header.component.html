@@ -2,11 +2,13 @@
 * @Author                : Adrien Lanco<adrienlanco0@gmail.com>
 * @CreatedDate           : 2023-03-17 13:48:00
 * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>
-* @LastEditDate          : 2023-03-17 14:00:26
+* @LastEditDate          : 2023-03-17 16:15:15
 -->
 
 <div id="header">
-  <slot class="menu"></slot>
+  <menu class="menu">
+    <ng-content></ng-content>
+  </menu>
   <app-breadcrumbs class="bread" />
   <div class="setting">
     <app-button id='openSearch' type='trd' size='l'

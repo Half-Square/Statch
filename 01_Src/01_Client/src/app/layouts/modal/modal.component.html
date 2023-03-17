@@ -2,10 +2,10 @@
 * @Author                : Adrien Lanco<adrienlanco0@gmail.com>
 * @CreatedDate           : 2023-03-17 13:55:00
 * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>
-* @LastEditDate          : 2023-03-17 13:58:30
+* @LastEditDate          : 2023-03-17 16:24:48
 -->
 
-<div class="modal" ngIf="!isOpen"
+<div class="modal" *ngIf="!isOpen"
      (click)="closeModal" (keydown.esc)="closeModal">
   <div class="modal-content">
       <ng-content></ng-content>

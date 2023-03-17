@@ -2,10 +2,10 @@
  * @Author                : Adrien Lanco<adrienlanco0@gmail.com>              *
  * @CreatedDate           : 2023-03-17 15:11:14                               *
  * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>              *
- * @LastEditDate          : 2023-03-17 15:13:21                               *
+ * @LastEditDate          : 2023-03-17 16:23:54                               *
  *****************************************************************************/
 
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   trigger,
   state,
@@ -21,7 +21,6 @@ import {
   animations: [
     trigger('nested', [
       transition(':enter', [
-        style({ opacity: 0 }),
         animate('100ms 100ms ease-in-out', style({ opacity: 1 })),
       ]),
       transition(':leave', [
@@ -30,7 +29,7 @@ import {
     ])
   ]
 })
-export class SearchBarComponent {
+export class SearchBarComponent implements OnInit {
 
     public query: string = '';
     public results: Array<any> = []; // TO DO Cmd Interface

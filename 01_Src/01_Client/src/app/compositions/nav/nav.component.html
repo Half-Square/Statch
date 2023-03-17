@@ -2,7 +2,7 @@
 * @Author                : Adrien Lanco<adrienlanco0@gmail.com>
 * @CreatedDate           : 2023-03-17 14:41:00
 * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>
-* @LastEditDate          : 2023-03-17 14:48:28
+* @LastEditDate          : 2023-03-17 16:31:56
 -->
 
 <div id="nav">
@@ -32,21 +32,21 @@
                   [type]="'organisation'"
                   [depth]="0">
 
-      <app-collapse *ngFor="let project in organisation.projects"
+      <app-collapse *ngFor="let project of organisation.projects"
                     [label]="project.name"
                     [id]="project.id"
                     [type]="'project'"
                     [status]="project.status"
                     [depth]="1">
 
-        <app-collapse *ngFor="let task in project.tasks"
+        <app-collapse *ngFor="let task of project.tasks"
                       [label]="task.name"
                       [id]="task.id"
                       [type]="'task'"
                       [status]="task.status"
                       [depth]="2">
 
-          <app-collapse *ngFor="let ticket in task.tickets"
+          <app-collapse *ngFor="let ticket of task.tickets"
                         [label]="ticket.name"
                         [id]="ticket.id"
                         [type]="'ticket'"

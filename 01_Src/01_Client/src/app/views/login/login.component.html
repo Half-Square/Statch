@@ -1,1 +1,23 @@
-<p>login works!</p>
+<!--
+* @Author                : Adrien Lanco<adrienlanco0@gmail.com>
+* @CreatedDate           : 2023-03-17 15:25:00
+* @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>
+* @LastEditDate          : 2023-03-17 15:42:46
+-->
+
+<div id="login">
+  <img src="/assets/logotype.svg" alt="Statch logotype" width="102" height="28">
+  <div class="container">
+    <app-input  id="mail" placeholder="Enter your email..."
+                type="prm" size="md" other="full" />
+    <app-input  id="pwd" is="password" placeholder="Enter your password..."
+                type="prm" size="md" other="full" />
+    <app-button id='btnLogin' type='prm' size='md' label='Open'
+                other="full" (click)='login()' icon='enter' iconPosition='right' />
+    <a href="/signup">
+      <div>
+        Create your account<i class="icon arrowright"></i>
+      </div>
+    </a>
+  </div>
+</div>

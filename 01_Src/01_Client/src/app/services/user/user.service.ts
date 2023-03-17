@@ -2,7 +2,7 @@
  * @Author                : Adrien Lanco<adrienlanco0@gmail.com>              *
  * @CreatedDate           : 2023-03-17 15:22:52                               *
  * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>              *
- * @LastEditDate          : 2023-03-17 15:23:19                               *
+ * @LastEditDate          : 2023-03-17 16:21:29                               *
  *****************************************************************************/
 
 import { Injectable } from '@angular/core';
@@ -35,7 +35,7 @@ export class UserService {
   }
 
   public static isConnected(): boolean {
-    return this.is_connected;
+    return true//this.is_connected;
   }
 
   public static setUser(data: UserInterface) {
