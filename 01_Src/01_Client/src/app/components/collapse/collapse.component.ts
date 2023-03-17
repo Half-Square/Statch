@@ -2,7 +2,7 @@
  * @Author                : Adrien Lanco<adrienlanco0@gmail.com>              *
  * @CreatedDate           : 2023-03-17 13:07:58                               *
  * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>              *
- * @LastEditDate          : 2023-03-17 13:16:26                               *
+ * @LastEditDate          : 2023-03-17 14:49:00                               *
  *****************************************************************************/
 
 import { Component, Input } from '@angular/core';
@@ -19,10 +19,9 @@ export class CollapseComponent {
   @Input() type: string = "";
   @Input() id: string = "";
 
-  @Input() nodes: Array<CollapseComponent> = [];
-
   @Input() depth: number = 0;
 
+  @Input() noContent: boolean = false;
 
   public showCollapse: boolean = false;
 

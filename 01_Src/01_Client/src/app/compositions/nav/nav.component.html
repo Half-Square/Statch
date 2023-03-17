@@ -1,1 +1,64 @@
-<p>nav works!</p>
+<!--
+* @Author                : Adrien Lanco<adrienlanco0@gmail.com>
+* @CreatedDate           : 2023-03-17 14:41:00
+* @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>
+* @LastEditDate          : 2023-03-17 14:48:28
+-->
+
+<div id="nav">
+  <header>
+    {{ organisation.name }}
+  </header>
+  <nav>
+    <app-button id="goProjects" type="trd" size="l"
+                icon="dashboard" icon-position="only"
+                routerLink="/project"/>
+    <app-button id="goActivity" type="trd" size="l"
+                icon="bell" icon-position="only"
+                routerLink="/activity" />
+    <app-button id="add" type="trd" size="l"
+                icon="plus" icon-position="only"
+                routerLink="/add"  />
+    <app-button id="goFollow" type="trd" size="l"
+                icon="flag" icon-position="only"
+                routerLink="/follow"  />
+    <app-button id="goSetting" type="trd" size="l"
+                icon="gear" icon-position="only"
+                routerLink="/settings"  />
+  </nav>
+  <div class="menu">
+    <app-collapse [label]="organisation.name"
+                  [id]="organisation.id"
+                  [type]="'organisation'"
+                  [depth]="0">
+
+      <app-collapse *ngFor="let project in organisation.projects"
+                    [label]="project.name"
+                    [id]="project.id"
+                    [type]="'project'"
+                    [status]="project.status"
+                    [depth]="1">
+
+        <app-collapse *ngFor="let task in project.tasks"
+                      [label]="task.name"
+                      [id]="task.id"
+                      [type]="'task'"
+                      [status]="task.status"
+                      [depth]="2">
+
+          <app-collapse *ngFor="let ticket in task.tickets"
+                        [label]="ticket.name"
+                        [id]="ticket.id"
+                        [type]="'ticket'"
+                        [status]="ticket.status"
+                        [noContent]="true"
+                        [depth]="3">
+          </app-collapse>
+
+        </app-collapse>
+
+      </app-collapse>
+
+    </app-collapse>
+  </div>
+</div>

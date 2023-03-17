@@ -1,1 +1,22 @@
-<p>header works!</p>
+<!--
+* @Author                : Adrien Lanco<adrienlanco0@gmail.com>
+* @CreatedDate           : 2023-03-17 13:48:00
+* @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>
+* @LastEditDate          : 2023-03-17 14:00:26
+-->
+
+<div id="header">
+  <slot class="menu"></slot>
+  <app-breadcrumbs class="bread" />
+  <div class="setting">
+    <app-button id='openSearch' type='trd' size='l'
+                (click)='showModal = true'
+                icon='search' iconPosition='only'
+                [ngClass]="(showModal) ? 'active' : '' " />
+    <app-button id='openOption' type='trd' size='l'
+                icon='dotshorizontal' iconPosition='only' />
+  </div>
+  <app-modal [(isOpen)]="showModal">
+        <app-search-bar />
+  </app-modal>
+</div>
