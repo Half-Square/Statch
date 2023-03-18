@@ -2,7 +2,7 @@
  * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
  * @CreatedDate           : 2023-03-17 16:08:36                              *
  * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
- * @LastEditDate          : 2023-03-17 16:38:51                              *
+ * @LastEditDate          : 2023-03-18 15:17:52                              *
  ****************************************************************************/
 
 
@@ -11,7 +11,7 @@
   .sidebar {
     display: flex;
     overflow: hidden;
-
+    min-height: 100vh;
     aside {
         width: calc(100% - 1px);
     }
@@ -21,9 +21,4 @@
         height: calc(100vh - 40px);
     }
   }
-}
-
-
-a {
-  text-decoration: none;
 }

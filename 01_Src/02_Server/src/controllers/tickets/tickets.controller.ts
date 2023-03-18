@@ -1,8 +1,8 @@
 /******************************************************************************
- * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
+ * @Author                : Adrien Lanco<adrienlanco0@gmail.com>              *
  * @CreatedDate           : 2023-02-21 14:22:05                               *
- * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-03-02 15:27:43                               *
+ * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>              *
+ * @LastEditDate          : 2023-03-18 15:08:43                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -207,13 +207,17 @@ export class TicketsController {
   * @param id - Ticket to delete 
   */
   @Delete("tickets/:id")
-  async delete(@Param("id") id: string): Promise<void> {
+  async delete(@Param("id") id: string): Promise<Object> {
     try {
-      await this.prisma.ticket.delete({where: {id: id}});
+      this.prisma.ticket.delete({where: {id: id}})
+      .then(()=>{
+        return {id: id};
+      });
     } catch (err) {
       console.error(`${new Date().toISOString()} - ${err}`);
       throw err;
     }
+    return {id: ""};
   }
   /***/
 }

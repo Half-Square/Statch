@@ -3,7 +3,7 @@
  * @Author                : Adrien Lanco<adrienlanco0@gmail.com>              *
  * @CreatedDate           : 2023-03-02 13:57:55                               *
  * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>              *
- * @LastEditDate          : 2023-03-17 15:18:45                               *
+ * @LastEditDate          : 2023-03-18 14:27:07                               *
  *****************************************************************************/
 
 import { Injectable } from '@angular/core';

@@ -2,7 +2,7 @@
  * @Author                : Adrien Lanco<adrienlanco0@gmail.com>              *
  * @CreatedDate           : 2023-03-17 16:49:59                               *
  * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>              *
- * @LastEditDate          : 2023-03-17 20:03:34                               *
+ * @LastEditDate          : 2023-03-18 00:32:58                               *
  *****************************************************************************/
 
 import { Component, OnInit } from '@angular/core';
@@ -18,7 +18,11 @@ export class ProjectComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private router: Router) {
+    ProjectListService.projectChange.subscribe((value) => {
+      console.log(value);
 
+      this.project = value;
+    })
   }
 
   public id: string = "";
@@ -62,14 +66,7 @@ export class ProjectComponent implements OnInit {
 
   async ngOnInit() {
     this.id = this.route.snapshot.paramMap.get('id') || "";
-    let project = await ProjectListService.getProject(this.id);
-    if (!project)
-      this.router.navigate(["/not-found?type=project"])
-    else
-      this.project = project;
-
-      console.log("fd", project);
-
+    this.project = await ProjectListService.getProject(this.id);
   }
 
   public newComment() {

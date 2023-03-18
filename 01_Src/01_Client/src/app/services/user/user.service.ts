@@ -2,11 +2,12 @@
  * @Author                : Adrien Lanco<adrienlanco0@gmail.com>              *
  * @CreatedDate           : 2023-03-17 15:22:52                               *
  * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>              *
- * @LastEditDate          : 2023-03-17 20:34:21                               *
+ * @LastEditDate          : 2023-03-17 23:37:04                               *
  *****************************************************************************/
 
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { ProjectListService } from '../project-list/project-list.service';
 
 export class UserInterface {
   "id":    string;

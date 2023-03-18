@@ -2,7 +2,7 @@
  * @Author                : Adrien Lanco<adrienlanco0@gmail.com>              *
  * @CreatedDate           : 2023-03-17 15:11:14                               *
  * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>              *
- * @LastEditDate          : 2023-03-17 19:04:32                               *
+ * @LastEditDate          : 2023-03-18 00:45:08                               *
  *****************************************************************************/
 
 import { Component, OnInit } from '@angular/core';
@@ -24,7 +24,7 @@ import {
         animate('100ms 100ms ease-in-out', style({ opacity: 1 })),
       ]),
       transition(':leave', [
-        animate('100ms 100ms ease-in-out', style({ opacity: 0 }))
+        animate('100ms 100ms ease-in-out', style({ opacity: 0, transform: "translateY(-32px)" }))
       ])
     ])
   ]

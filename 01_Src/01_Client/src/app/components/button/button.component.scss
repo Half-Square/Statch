@@ -2,11 +2,14 @@
  * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
  * @CreatedDate           : 2023-02-22 10:14:38                              *
  * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
- * @LastEditDate          : 2023-03-17 12:47:47                              *
+ * @LastEditDate          : 2023-03-18 15:28:47                              *
  ****************************************************************************/
 
  @import '/src/assets/scss/main.scss';
 
+ :host {
+  display: block;
+ }
  .test {
    max-width: 50vw;
  }

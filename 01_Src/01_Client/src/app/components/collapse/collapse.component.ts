@@ -2,10 +2,10 @@
  * @Author                : Adrien Lanco<adrienlanco0@gmail.com>              *
  * @CreatedDate           : 2023-03-17 13:07:58                               *
  * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>              *
- * @LastEditDate          : 2023-03-17 19:28:29                               *
+ * @LastEditDate          : 2023-03-18 01:32:13                               *
  *****************************************************************************/
 
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Output, Input } from '@angular/core';
 
 @Component({
   selector: 'app-collapse',
@@ -23,6 +23,8 @@ export class CollapseComponent {
 
   @Input() noContent: boolean = false;
 
+  @Output() onOpen: EventEmitter<void> = new EventEmitter<void>;
+
   public showCollapse: boolean = false;
 
   public indent(): Object {
@@ -32,5 +34,8 @@ export class CollapseComponent {
 
   public toggleCollapse(): void {
     this.showCollapse = !this.showCollapse;
+
+    if (this.showCollapse)
+      this.onOpen.emit();
   }
 }

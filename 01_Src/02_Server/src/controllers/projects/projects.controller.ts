@@ -2,7 +2,7 @@
  * @Author                : Adrien Lanco<adrienlanco0@gmail.com>              *
  * @CreatedDate           : 2023-02-21 14:21:24                               *
  * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>              *
- * @LastEditDate          : 2023-03-17 19:33:59                               *
+ * @LastEditDate          : 2023-03-18 14:55:20                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -70,7 +70,7 @@ export class ProjectsController {
   @Get("/:id")
   async getOne(@Param("id") id: string): Promise<projectsDto.DetailsOutput> {
     try {
-      console.log(id);
+      console.log("getOne Project:", id);
       
       const res = await this.prisma.project.findUnique({
         where: {
@@ -199,15 +199,19 @@ export class ProjectsController {
   * Delete project by id 
   */
   @Delete("/:id")
-  async delete(@Param("id") id: string): Promise<void> {
+  async delete(@Param("id") id: string): Promise<Object> {
     try {
-      await this.prisma.project.delete({where: {id: id}}).catch(() => {
+      this.prisma.project.delete({where: {id: id}})
+      .then(()=>{
+        return {id: id};
+      }).catch(() => {
         throw new HttpException("Not Found", HttpStatus.NOT_FOUND);
       });
     } catch (err) {
       console.error(`${new Date().toISOString()} - ${err}`);
       throw err;
     }
+    return {id: ""};
   }
   /***/
 }

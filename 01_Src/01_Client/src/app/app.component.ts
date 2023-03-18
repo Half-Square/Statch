@@ -2,7 +2,7 @@
  * @Author                : Adrien Lanco<adrienlanco0@gmail.com>              *
  * @CreatedDate           : 2023-03-17 16:07:54                               *
  * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>              *
- * @LastEditDate          : 2023-03-17 18:59:06                               *
+ * @LastEditDate          : 2023-03-18 16:00:07                               *
  *****************************************************************************/
 
 import { Component, OnInit } from '@angular/core';
@@ -14,7 +14,8 @@ import {
   transition
 } from '@angular/animations';
 import { UserService } from './services/user/user.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
+import { ProjectListService } from './services/project-list/project-list.service';
 
 @Component({
   selector: 'app-root',
@@ -35,13 +36,22 @@ export class AppComponent implements OnInit {
   title = 'statch';
 
   constructor(private router: Router,
-              private route: ActivatedRoute) {}
+              private route: ActivatedRoute) {
+      router.events.subscribe((val) => {
+        if (val instanceof NavigationEnd && this.isConnected()) {
+          this.handleNavigation(val)
+        }
+      });
+    }
 
   public show: boolean = true
   public  is_connected: boolean =  true
 
   ngOnInit() {
-    UserService.init()
+    UserService.init();
+
+    if (this.isConnected())
+      ProjectListService.getProjectList();
   }
 
 
@@ -51,5 +61,29 @@ export class AppComponent implements OnInit {
 
   public isConnected(): boolean {
     return UserService.isConnected();
+  }
+
+  private handleNavigation(navEnd: NavigationEnd): void {
+    let url = navEnd.urlAfterRedirects.split("/");
+
+    if (url[1] == 'projects') {
+      ProjectListService.getProjectList();
+    }
+    if (url[1] == 'project') {
+      ProjectListService.getProject(url[2]);
+      ProjectListService.setActualProject(url[2]);
+    } else {
+    }
+    if (url[1] == 'task') {
+      console.log("sdf");
+
+      ProjectListService.getTask(url[2]);
+      ProjectListService.setActualTask(url[2]);
+    }
+
+    if (url[1] == 'ticket') {
+      ProjectListService.getTicket(url[2]);
+      ProjectListService.setActualTicket(url[2]);
+    }
   }
 }

@@ -2,7 +2,7 @@
  * @Author                : Adrien Lanco<adrienlanco0@gmail.com>              *
  * @CreatedDate           : 2023-03-17 14:25:08                               *
  * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>              *
- * @LastEditDate          : 2023-03-17 20:38:40                               *
+ * @LastEditDate          : 2023-03-18 16:21:51                               *
  *****************************************************************************/
 
 import { Injectable } from '@angular/core';
@@ -26,6 +26,7 @@ export interface TaskInterface {
   id: string,
   status: string,
   created: string,
+  projectId: string,
   tickets: Array<TicketInterface>
 }
 
@@ -34,7 +35,8 @@ export interface TicketInterface {
   description: string,
   id: string,
   created: string,
-  status: string
+  status: string,
+  taskId: string
 }
 
 @Injectable({
@@ -44,10 +46,18 @@ export class ProjectListService {
 
   private static api: ApiService = new ApiService();
 
-  private static projectList: Array<ProjectInterface>;
+  private static projectList: Array<ProjectInterface> = new Array<ProjectInterface>;
 
   public static projectListChange:
     Subject<Array<ProjectInterface>> = new Subject<Array<ProjectInterface>>();
+
+  private static actualProject: string;
+  public static projectChange:
+    Subject<ProjectInterface> = new Subject<ProjectInterface>();
+
+  public static actualTask: TaskInterface;
+  public static actualTicket: TicketInterface;
+
 
   public static get projects(): Array<ProjectInterface> {
     if (!this.projectList) {
@@ -58,21 +68,22 @@ export class ProjectListService {
   }
 
   public static getProjectList(): Promise<Array<ProjectInterface>> {
-    console.log("getProjectList");
-
     return new Promise<Array<ProjectInterface>>((resolve, reject) => {
       this.api.request("GET", "projects")
       .then((ret: Array<ProjectInterface>) => {
         let map: any = {};
-
-        if (this.projectList)
+        ret.forEach((newProject) => {
+          let change = false;
           this.projectList.forEach((project) => {
-              map[project["id"]] = project;
+            if (project["id"] == newProject["id"]) {
+              map[project["id"]] = Object.assign(project, newProject)
+              change = true;
+            }
           });
-        if (ret)
-          ret.forEach((project) => {
-              map[project["id"]] = project;
-          });
+          if (!change)
+            map[newProject["id"]] = newProject;
+        });
+
         this.projectList = Object.values(map);
         this.projectListChange.next(this.projectList);
         return ret
@@ -80,26 +91,181 @@ export class ProjectListService {
     })
   }
 
-
   public static async getProject(projectId: string): Promise<ProjectInterface> {
     return new Promise<ProjectInterface>((resolve, reject) => {
       this.api.request("GET", "projects/"+projectId)
       .then((ret: ProjectInterface) => {
-        let changed = false
-        this.projectList.forEach(project => {
-          if (projectId == project.id) {
-            project = ret;
-            changed = true;
-          }
-        });
-        if (!changed)
-          this.projectList.push(ret)
-
-        this.projectListChange.next(this.projectList);
+        this.addProject(ret)
         return resolve(ret)
       }).catch((err) => {
         return reject(err)
       })
     })
+  }
+
+  public static async getTask(taskId: string): Promise<TaskInterface> {
+    return new Promise<TaskInterface>((resolve, reject) => {
+      this.api.request("GET", "tasks/"+taskId)
+      .then((ret: TaskInterface) => {
+        this.addTask(ret.projectId, ret)
+        return resolve(ret)
+      }).catch((err) => {
+        return reject(err)
+      })
+    })
+  }
+
+  public static async getTicket(ticketId: string): Promise<TicketInterface> {
+    return new Promise<TicketInterface>((resolve, reject) => {
+      this.api.request("GET", "tickets/"+ticketId)
+      .then((ret: TicketInterface) => {
+        this.addTicket(ret.taskId, ret) //TO DO get project id from back
+        return resolve(ret)
+      }).catch((err) => {
+        return reject(err)
+      })
+    })
+  }
+
+  public static addProject(newProject:ProjectInterface): void {
+    let changed = false
+    this.projectList.forEach(project => {
+      if (project.id == newProject.id) {
+        project = Object.assign(project, newProject);
+        changed = true;
+      }
+    });
+    if (!changed)
+      this.projectList.push(newProject)
+    if (this.actualProject == newProject.id)
+      this.projectChange.next(newProject);
+    this.projectListChange.next(this.projectList);
+  }
+
+  public static addTask(projectId: string, newTask:TaskInterface): void {
+    this.projectList.forEach(project => {
+      if (projectId == project.id) {
+        let changed = false
+        if (project.tasks)
+          project.tasks.forEach(task => {
+            if (task.id == newTask.id) {
+              task = Object.assign(task, newTask);;
+              changed = true;
+            }
+          });
+        if (!changed) {
+          if (project.tasks) project.tasks.push(newTask);
+          else project.tasks = [ newTask ]
+        }
+
+      }
+    });
+    this.projectListChange.next(this.projectList);
+  }
+
+  public static addTicket(taskId: string, newTicket:TicketInterface): void {
+    this.projectList.forEach(project => {
+      if (project.tasks)
+        project.tasks.forEach(task => {
+          if (taskId == task.id) {
+            let changed = false
+
+            if (task.tickets)
+              task.tickets.forEach(ticket => {
+                if (ticket.id == newTicket.id) {
+                  ticket = Object.assign(ticket, newTicket);;
+                  changed = true;
+                }
+              });
+            if (!changed) {
+              if (task.tickets) task.tickets.push(newTicket);
+              else task.tickets = [ newTicket ]
+            }
+          }
+        });
+    });
+    this.projectListChange.next(this.projectList);
+  }
+
+  public static setActualProject(projectId: string): void {
+    this.actualProject = projectId;
+    this.projectListChange.next(this.projectList);
+  }
+
+  public static setActualTask(taskId: string): void {
+    for (let i = 0; i < this.projectList.length; i++) {
+      for (let j = 0; j < this.projectList[i].tasks.length; j++) {
+        let task = this.projectList[i].tasks[j]
+        if (task.id == taskId) {
+          console.log("dsffd");
+
+          this.setActualProject(task.projectId)
+          this.actualTask = task;
+          this.projectListChange.next(this.projectList);
+          return
+        }
+      }
+    }
+  }
+
+  public static setActualTicket(ticketId: string): void {
+    for (let i = 0; i < this.projectList.length; i++) {
+      for (let j = 0; j < this.projectList[i].tasks.length; j++) {
+        let task = this.projectList[i].tasks[j]
+        for (let k = 0; k < task.tickets.length; k++) {
+          let ticket = task.tickets[k];
+          if (ticket.id == ticketId) {
+            this.setActualProject(task.projectId)
+            this.actualTask = task;
+            this.actualTicket = ticket;
+            this.projectListChange.next(this.projectList);
+
+            return
+          }
+        }
+      }
+    }
+  }
+
+  public static removeProject(projectId: string): void {
+    for (let i = 0; i < this.projectList.length; i++) {
+      if (this.projectList[i].id == projectId) {
+        this.projectList.splice(i, 1);
+        this.projectListChange.next(this.projectList);
+        return;
+      }
+    }
+  }
+
+  public static removeTask(projectId: string, taskId:string): void {
+    this.projectList.forEach(project => {
+      if (projectId == project.id) {
+        for (let i = 0; i < project.tasks.length; i++) {
+          if (project.tasks[i].id == taskId) {
+            project.tasks.splice(i, 1);
+            this.projectListChange.next(this.projectList);
+            return;
+          }
+        }
+      }
+    });
+  }
+
+  public static removeTicket(projectId: string, taskId: string, ticketId: string): void {
+    this.projectList.forEach(project => {
+      if (projectId == project.id) {
+        project.tasks.forEach(task => {
+          if (taskId == task.id) {
+            for (let i = 0; i < task.tickets.length; i++) {
+              if (task.tickets[i].id == ticketId) {
+                task.tickets.splice(i, 1);
+                this.projectListChange.next(this.projectList);
+                return;
+              }
+            }
+          }
+        });
+      }
+    });
   }
 }

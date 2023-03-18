@@ -2,7 +2,7 @@
  * @Author                : Adrien Lanco<adrienlanco0@gmail.com>              *
  * @CreatedDate           : 2023-03-17 16:23:16                               *
  * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>              *
- * @LastEditDate          : 2023-03-17 18:56:57                               *
+ * @LastEditDate          : 2023-03-18 14:27:24                               *
  *****************************************************************************/
 
 import { Component, OnInit } from '@angular/core';
@@ -35,10 +35,7 @@ export class LoginComponent implements OnInit {
   public login(): void {
     let mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     if (!this.email.match(mailformat)) {
-
       this.message = "Please entere a valid email address"
-      console.log(this.message);
-
       return;
     }
 

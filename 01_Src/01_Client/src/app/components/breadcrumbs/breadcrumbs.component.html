@@ -2,13 +2,13 @@
 * @Author                : Adrien Lanco<adrienlanco0@gmail.com>
 * @CreatedDate           : 2023-03-17 12:19:00
 * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>
-* @LastEditDate          : 2023-03-17 16:25:19
+* @LastEditDate          : 2023-03-18 15:44:51
 -->
 
 <nav>
   <ol class="breadcrumb">
       <li class="item" *ngFor="let crumb of crumbs; let index = index">
-          <p [routerLink]="crumb.path">{{ crumb.name }}</p>
+          <a [href]="crumb.path">{{ crumb.name }}</a>
       </li>
   </ol>
 </nav>

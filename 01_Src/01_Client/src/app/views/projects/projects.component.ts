@@ -2,7 +2,7 @@
  * @Author                : Adrien Lanco<adrienlanco0@gmail.com>              *
  * @CreatedDate           : 2023-03-17 17:24:53                               *
  * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>              *
- * @LastEditDate          : 2023-03-17 20:05:23                               *
+ * @LastEditDate          : 2023-03-17 23:30:26                               *
  *****************************************************************************/
 
 import { Component, OnInit } from '@angular/core';
@@ -19,18 +19,15 @@ export class ProjectsComponent implements OnInit {
 
   constructor(private api: ApiService,
               private router: Router) {
-    this.projectList = ProjectListService.projects;
     ProjectListService.projectListChange.subscribe((value) => {
       this.projectList = value;
     })
   }
 
 
-  public projectList: Array<ProjectInterface>;
+  public projectList: Array<ProjectInterface>= new Array<ProjectInterface>;
 
   ngOnInit() {
-    console.log("here sdf");
-    ProjectListService.getProjectList()
   }
 
   async openNewProject(): Promise<void> {
