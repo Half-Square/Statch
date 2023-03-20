@@ -2,7 +2,7 @@
 * @Author                : Adrien Lanco<adrienlanco0@gmail.com>
 * @CreatedDate           : 2023-03-17 14:41:00
 * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>
-* @LastEditDate          : 2023-03-18 15:27:19
+* @LastEditDate          : 2023-03-18 17:00:42
 -->
 
 <div id="nav">
@@ -10,7 +10,7 @@
   <nav>
     <app-button id="goProjects" type="trd" size="l"
                 icon="dashboard" icon-position="only"
-                routerLink="/project"/>
+                routerLink="/projects"/>
     <app-button id="goActivity" type="trd" size="l"
                 icon="bell" icon-position="only"
                 routerLink="/activity" />
@@ -22,7 +22,7 @@
                 routerLink="/follow"  />
     <app-button id="goSetting" type="trd" size="l"
                 icon="gear" icon-position="only"
-                routerLink="/settings"  />
+                [routerLink]="['/settings']"  />
   </nav>
   <div class="menu">
 
@@ -58,7 +58,7 @@
         <app-button class="newTicket" type="scnd" size="md"
         [ngStyle]="{transform: 'translate(' + 4*16 + 'px)'}"
         label="New ticket (Alt + T)"
-        (click)='command.openNewTicket(project.id, task.id)' />
+        (click)='command.openNewTicket(task.id)' />
         <app-button class="deleteTask" type="scnd" size="md"
         [ngStyle]="{transform: 'translate(' + 4*16 + 'px)'}"
         label="Delete task (Alt + N)"

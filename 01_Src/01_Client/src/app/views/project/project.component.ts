@@ -2,11 +2,12 @@
  * @Author                : Adrien Lanco<adrienlanco0@gmail.com>              *
  * @CreatedDate           : 2023-03-17 16:49:59                               *
  * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>              *
- * @LastEditDate          : 2023-03-18 00:32:58                               *
+ * @LastEditDate          : 2023-03-18 16:56:00                               *
  *****************************************************************************/
 
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { CommandService } from 'src/app/services/command/command.service';
 import { ProjectInterface, ProjectListService } from 'src/app/services/project-list/project-list.service';
 
 @Component({
@@ -17,16 +18,17 @@ import { ProjectInterface, ProjectListService } from 'src/app/services/project-l
 export class ProjectComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
-              private router: Router) {
+              private router: Router,
+              public command: CommandService) {
     ProjectListService.projectChange.subscribe((value) => {
-      console.log(value);
-
       this.project = value;
     })
   }
 
   public id: string = "";
   public project: ProjectInterface = {} as ProjectInterface;
+
+  public nbTicket: number = 0;
 
   public newCommentContent: string = "";
 

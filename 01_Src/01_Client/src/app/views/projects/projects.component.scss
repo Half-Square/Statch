@@ -2,13 +2,14 @@
  * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
  * @CreatedDate           : 2023-02-22 10:04:43                              *
  * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
- * @LastEditDate          : 2023-03-17 17:17:08                              *
+ * @LastEditDate          : 2023-03-18 16:34:24                              *
  ****************************************************************************/
 
  #projects {
   display: flex;
   flex-direction: column;
   background: rgba(34, 34, 34, 1);
+  min-height: 100%;
 }
 
 #projects .header {

@@ -2,7 +2,7 @@
  * @Author                : Adrien Lanco<adrienlanco0@gmail.com>              *
  * @CreatedDate           : 2023-03-17 22:34:38                               *
  * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>              *
- * @LastEditDate          : 2023-03-18 16:01:27                               *
+ * @LastEditDate          : 2023-03-18 16:59:56                               *
  *****************************************************************************/
 
 import { Injectable } from '@angular/core';
@@ -46,7 +46,7 @@ export class CommandService {
     })
   }
 
-  async openNewTicket(projectId: string, taskId: string): Promise<void> {
+  async openNewTicket(taskId: string): Promise<void> {
     return new Promise<void>((resolve, reject) => {
       this.api.request("POST", "tasks/"+taskId+"/tickets", {
         name: "New Ticket",

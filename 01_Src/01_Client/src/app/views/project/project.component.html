@@ -2,7 +2,7 @@
 * @Author                : Adrien Lanco<adrienlanco0@gmail.com>
 * @CreatedDate           : 2023-03-17 16:48:00
 * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>
-* @LastEditDate          : 2023-03-17 17:11:03
+* @LastEditDate          : 2023-03-18 17:38:45
 -->
 
 <div id="project">
@@ -16,6 +16,10 @@
       <div class="advancement">
         <app-progress-bar id="test" [value]="15" />
         <div class="tasks">
+          <a class="task" *ngIf="!project.tasks || project.tasks.length < 1" (click)="command.openNewTask(project.id)">
+            Create new Task
+          </a>
+
           <a class="task" *ngFor="let task of project.tasks" [href]="'/task/'+task.id">
             <div class="block">
               <div class="status"><app-status [status]="task.status" /></div>
@@ -57,32 +61,32 @@
           <h4>Owner</h4>
           <div class="text">
             <app-avatar id="madelyn" />
-            Madelyn Press
+            {{ project.owner ? project.owner.name : "" }}
           </div>
         </div>
         <div class="container">
           <h4>Version</h4>
-          <div class="text">0.10</div>
+          <div class="text">{{ project.version}}</div>
         </div>
         <div class="container">
           <h4>Status</h4>
-          <div class="text"><app-status status="progress" /> In progress</div>
+          <div class="text"><app-status [status]="project.status" />{{ project.status }}</div>
         </div>
         <div class="container">
           <h4>No. of tasks</h4>
-          <div><a href="/create">4 tasks <i class="icon arrowright"></i></a></div>
+          <div><a href="/create">{{ project.tasks ? project.tasks.length : '0' }} tasks <i class="icon arrowright"></i></a></div>
         </div>
         <div class="container">
           <h4>No. of tickets</h4>
-          <div><a href="/create">14 tickets <i class="icon arrowright"></i></a></div>
+          <div><a href="/create">TO DO BACK tickets <i class="icon arrowright"></i></a></div>
         </div>
         <div class="container">
           <h4>No. of docs</h4>
-          <div><a href="/create">5 docs <i class="icon arrowright"></i></a></div>
+          <div><a href="/create">0 docs <i class="icon arrowright"></i></a></div>
         </div>
         <div class="container">
           <h4>Created</h4>
-          <div class="text">Jun 10</div>
+          <div class="text">{{ project.created }}</div>
         </div>
       </div>
       <div class="activity">

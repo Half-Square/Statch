@@ -1,1 +1,98 @@
-<p>task works!</p>
+<!--
+* @Author                : Adrien Lanco<adrienlanco0@gmail.com>
+* @CreatedDate           : 2023-03-17 16:48:00
+* @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>
+* @LastEditDate          : 2023-03-18 17:09:56
+-->
+
+<div id="task">
+  <div class="task">
+    <div class="main">
+      <header>
+        <h1>{{ task.name }}</h1>
+        <h2>{{ task.description }}</h2>
+        <p>Lorem</p>
+      </header>
+      <div class="advancement">
+        <app-progress-bar id="test" [value]="15" />
+        <div class="tickets">
+          <a class="ticket" *ngIf="!task.tickets || task.tickets.length < 1" (click)="command.openNewTicket(task.id)">
+            Create new Ticket
+          </a>
+
+          <a class="ticket" *ngFor="let ticket of task.tickets" [href]="'/ticket/'+ticket.id">
+            <div class="block">
+              <div class="status"><app-status [status]="ticket.status" /></div>
+              <div class="id">{{ ticket.id }}</div>
+              <div class="description">{{ ticket.description }}</div>
+            </div>
+            <div class="block">
+              <!-- <app-label :level="task.level" />
+              <app-avatar :id="task.name" /> -->
+            </div>
+          </a>
+        </div>
+      </div>
+      <div class="comments">
+        <h2>Comments</h2>
+        <app-comment  *ngFor="let comment of comments"
+                      [id]="comment.id"
+                      [name]="comment.author.name"
+                      [lastName]="comment.author.lastName"
+                      [content]="comment.content"
+                      [created]="comment.created"/>
+        <div class="commentInput">
+          <app-input id="newCommentContent" [(value)]="newCommentContent" placeholder="Add comment..." />
+          <app-button id='newComment' type='scnd' size='md' label='Post' (click)='newComment' />
+        </div>
+      </div>
+    </div>
+    <aside>
+      <div class="details">
+        <h3>Details</h3>
+        <div class="container">
+          <h4>Assignee</h4>
+          <div class="text">
+            <app-avatar  id="randy" />
+            Randy Gouse
+          </div>
+        </div>
+        <div class="container">
+          <h4>Owner</h4>
+          <div class="text">
+            <app-avatar id="madelyn" />
+            {{ task.owner ? task.owner.name : "" }}
+          </div>
+        </div>
+        <div class="container">
+          <h4>Version</h4>
+          <div class="text">{{ task.version}}</div>
+        </div>
+        <div class="container">
+          <h4>Status</h4>
+          <div class="text"><app-status [status]="task.status" />{{ task.status }}</div>
+        </div>
+        <div class="container">
+          <h4>No. of tickets</h4>
+          <div><a href="/create">{{ task.tickets ? task.tickets.length : '0' }}  <i class="icon arrowright"></i></a></div>
+        </div>
+        <div class="container">
+          <h4>No. of docs</h4>
+          <div><a href="/create">0 docs <i class="icon arrowright"></i></a></div>
+        </div>
+        <div class="container">
+          <h4>Created</h4>
+          <div class="text">{{ task.created }}</div>
+        </div>
+      </div>
+      <div class="activity">
+        <h3>Last activity</h3>
+        <div class="content" *ngFor="let item of activity">
+          <div class="img"><app-avatar [id]="item.name" /></div>
+          <div class="name">{{ item.name }}</div>
+          <div class="desc">{{ item.action }} <a [href]="item.url">{{ item.id }}</a>, {{ item.time }} ago</div>
+        </div>
+      </div>
+    </aside>
+  </div>
+</div>

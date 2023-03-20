@@ -2,7 +2,7 @@
  * @Author                : Adrien Lanco<adrienlanco0@gmail.com>              *
  * @CreatedDate           : 2023-03-17 14:25:08                               *
  * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>              *
- * @LastEditDate          : 2023-03-18 16:21:51                               *
+ * @LastEditDate          : 2023-03-18 17:05:07                               *
  *****************************************************************************/
 
 import { Injectable } from '@angular/core';
@@ -17,6 +17,12 @@ export interface ProjectInterface {
   status: string,
   created: string,
   version: string,
+  owner: {
+    email: string,
+    name: string,
+    id: string,
+    validate: boolean
+  }
   tasks: Array<TaskInterface>
 }
 
@@ -27,6 +33,13 @@ export interface TaskInterface {
   status: string,
   created: string,
   projectId: string,
+  version: string,
+  owner: {
+    email: string,
+    name: string,
+    id: string,
+    validate: boolean
+  }
   tickets: Array<TicketInterface>
 }
 
@@ -37,6 +50,13 @@ export interface TicketInterface {
   created: string,
   status: string,
   taskId: string
+  version: string,
+  owner: {
+    email: string,
+    name: string,
+    id: string,
+    validate: boolean
+  }
 }
 
 @Injectable({
@@ -54,6 +74,12 @@ export class ProjectListService {
   private static actualProject: string;
   public static projectChange:
     Subject<ProjectInterface> = new Subject<ProjectInterface>();
+
+  public static taskChange:
+    Subject<TaskInterface> = new Subject<TaskInterface>();
+
+  public static ticketChange:
+    Subject<TicketInterface> = new Subject<TicketInterface>();
 
   public static actualTask: TaskInterface;
   public static actualTicket: TicketInterface;

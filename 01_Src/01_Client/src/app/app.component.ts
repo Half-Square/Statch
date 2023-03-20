@@ -2,7 +2,7 @@
  * @Author                : Adrien Lanco<adrienlanco0@gmail.com>              *
  * @CreatedDate           : 2023-03-17 16:07:54                               *
  * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>              *
- * @LastEditDate          : 2023-03-18 16:00:07                               *
+ * @LastEditDate          : 2023-03-18 17:37:04                               *
  *****************************************************************************/
 
 import { Component, OnInit } from '@angular/core';
@@ -24,10 +24,11 @@ import { ProjectListService } from './services/project-list/project-list.service
   animations: [
     trigger('slide', [
       transition(':enter', [
-        animate('all 0.3s ease-in', style({ opacity: 1 })),
+        style({ opacity: 0, marginLeft: '-248px' }),
+        animate('0.3s linear', style({ opacity: 1, marginLeft: '0' })),
       ]),
       transition(':leave', [
-        animate('all 0.3s ease-in', style({ opacity: 0, marginLeft: '-248px' }))
+        animate('0.3s linear', style({ opacity: 0, marginLeft: '-248px'  }))
       ])
     ])
   ]
@@ -75,8 +76,6 @@ export class AppComponent implements OnInit {
     } else {
     }
     if (url[1] == 'task') {
-      console.log("sdf");
-
       ProjectListService.getTask(url[2]);
       ProjectListService.setActualTask(url[2]);
     }
