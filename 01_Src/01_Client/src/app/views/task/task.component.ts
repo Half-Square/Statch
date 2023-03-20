@@ -2,7 +2,7 @@
  * @Author                : Adrien Lanco<adrienlanco0@gmail.com>              *
  * @CreatedDate           : 2023-03-18 17:03:31                               *
  * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>              *
- * @LastEditDate          : 2023-03-18 17:04:24                               *
+ * @LastEditDate          : 2023-03-20 10:25:46                               *
  *****************************************************************************/
 
 import { Component } from '@angular/core';
@@ -20,6 +20,8 @@ export class TaskComponent {
               private router: Router,
               public command: CommandService) {
     ProjectListService.taskChange.subscribe((value) => {
+      console.log("taskChange", value);
+
       this.task = value;
     })
   }
@@ -67,7 +69,6 @@ export class TaskComponent {
 
   async ngOnInit() {
     this.id = this.route.snapshot.paramMap.get('id') || "";
-    this.task = await ProjectListService.getTask(this.id);
   }
 
   public newComment() {

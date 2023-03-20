@@ -2,7 +2,7 @@
  * @Author                : Adrien Lanco<adrienlanco0@gmail.com>              *
  * @CreatedDate           : 2023-03-17 16:07:54                               *
  * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>              *
- * @LastEditDate          : 2023-03-18 17:37:04                               *
+ * @LastEditDate          : 2023-03-20 10:40:20                               *
  *****************************************************************************/
 
 import { Component, OnInit } from '@angular/core';
@@ -38,21 +38,31 @@ export class AppComponent implements OnInit {
 
   constructor(private router: Router,
               private route: ActivatedRoute) {
-      router.events.subscribe((val) => {
-        if (val instanceof NavigationEnd && this.isConnected()) {
+    router.events.subscribe((val) => {
+      if (val instanceof NavigationEnd && this.isConnected()) {
+        this.url = val;
+        if (this.init)
           this.handleNavigation(val)
-        }
-      });
-    }
+      }
+    });
+  }
 
   public show: boolean = true
   public  is_connected: boolean =  true
 
+  private url: any;
+  private init: boolean = false;
+
   ngOnInit() {
     UserService.init();
 
-    if (this.isConnected())
-      ProjectListService.getProjectList();
+    if (this.isConnected()) {
+      ProjectListService.getProjectList()
+      .then(() =>{
+        this.init = true;
+        this.handleNavigation(this.url)
+      })
+    }
   }
 
 
@@ -71,18 +81,27 @@ export class AppComponent implements OnInit {
       ProjectListService.getProjectList();
     }
     if (url[1] == 'project') {
-      ProjectListService.getProject(url[2]);
-      ProjectListService.setActualProject(url[2]);
+      ProjectListService.getProject(url[2])
+      .then(()=> {
+        ProjectListService.setActualProject(url[2]);
+      });
     } else {
     }
     if (url[1] == 'task') {
-      ProjectListService.getTask(url[2]);
-      ProjectListService.setActualTask(url[2]);
+      ProjectListService.getTask(url[2])
+      .then(()=> {
+        ProjectListService.setActualTask(url[2]);
+      });
     }
 
     if (url[1] == 'ticket') {
-      ProjectListService.getTicket(url[2]);
-      ProjectListService.setActualTicket(url[2]);
+      console.log("here");
+
+      ProjectListService.getTicket(url[2])
+      .then(()=> {
+        console.log("heres s");
+        ProjectListService.setActualTicket(url[2]);
+      });
     }
   }
 }

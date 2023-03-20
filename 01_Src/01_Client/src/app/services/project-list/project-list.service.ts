@@ -2,7 +2,7 @@
  * @Author                : Adrien Lanco<adrienlanco0@gmail.com>              *
  * @CreatedDate           : 2023-03-17 14:25:08                               *
  * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>              *
- * @LastEditDate          : 2023-03-18 17:05:07                               *
+ * @LastEditDate          : 2023-03-20 10:41:58                               *
  *****************************************************************************/
 
 import { Injectable } from '@angular/core';
@@ -112,8 +112,8 @@ export class ProjectListService {
 
         this.projectList = Object.values(map);
         this.projectListChange.next(this.projectList);
-        return ret
-      })
+        return  resolve(ret)
+      }).catch((err) => { return reject(err) })
     })
   }
 
@@ -146,7 +146,11 @@ export class ProjectListService {
       this.api.request("GET", "tickets/"+ticketId)
       .then((ret: TicketInterface) => {
         this.addTicket(ret.taskId, ret) //TO DO get project id from back
-        return resolve(ret)
+        this.getTask(ret.taskId)
+        .then(() => {
+          return resolve(ret)
+
+        })
       }).catch((err) => {
         return reject(err)
       })
@@ -214,42 +218,46 @@ export class ProjectListService {
   }
 
   public static setActualProject(projectId: string): void {
-    this.actualProject = projectId;
-    this.projectListChange.next(this.projectList);
+    for (let i = 0; i < this.projectList.length; i++) {
+      if (this.projectList[i].id == projectId) {
+        this.projectChange.next(this.projectList[i]);
+        return
+      }
+    }
   }
 
   public static setActualTask(taskId: string): void {
     for (let i = 0; i < this.projectList.length; i++) {
-      for (let j = 0; j < this.projectList[i].tasks.length; j++) {
-        let task = this.projectList[i].tasks[j]
-        if (task.id == taskId) {
-          console.log("dsffd");
-
-          this.setActualProject(task.projectId)
-          this.actualTask = task;
-          this.projectListChange.next(this.projectList);
-          return
+      if (this.projectList[i].tasks)
+        for (let j = 0; j < this.projectList[i].tasks.length; j++) {
+          let task = this.projectList[i].tasks[j]
+          if (task.id == taskId) {
+            this.projectChange.next(this.projectList[i]);
+            this.taskChange.next(task);
+            return
+          }
         }
-      }
     }
   }
 
   public static setActualTicket(ticketId: string): void {
     for (let i = 0; i < this.projectList.length; i++) {
-      for (let j = 0; j < this.projectList[i].tasks.length; j++) {
-        let task = this.projectList[i].tasks[j]
-        for (let k = 0; k < task.tickets.length; k++) {
-          let ticket = task.tickets[k];
-          if (ticket.id == ticketId) {
-            this.setActualProject(task.projectId)
-            this.actualTask = task;
-            this.actualTicket = ticket;
-            this.projectListChange.next(this.projectList);
+      if (this.projectList[i].tasks)
+        for (let j = 0; j < this.projectList[i].tasks.length; j++) {
+          let task = this.projectList[i].tasks[j]
+          if (task.tickets)
+            for (let k = 0; k < task.tickets.length; k++) {
+              let ticket = task.tickets[k];
+              if (ticket.id == ticketId) {
+                this.projectChange.next(this.projectList[i]);
+                this.taskChange.next(task);
+                console.log("setActualTicket", ticket);
 
-            return
-          }
+                this.ticketChange.next(ticket);
+                return
+              }
+            }
         }
-      }
     }
   }
 

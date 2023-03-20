@@ -2,7 +2,7 @@
  * @Author                : Adrien Lanco<adrienlanco0@gmail.com>              *
  * @CreatedDate           : 2023-03-17 16:49:59                               *
  * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>              *
- * @LastEditDate          : 2023-03-18 16:56:00                               *
+ * @LastEditDate          : 2023-03-20 10:25:22                               *
  *****************************************************************************/
 
 import { Component, OnInit } from '@angular/core';
@@ -21,6 +21,8 @@ export class ProjectComponent implements OnInit {
               private router: Router,
               public command: CommandService) {
     ProjectListService.projectChange.subscribe((value) => {
+      console.log("projectChange", value);
+
       this.project = value;
     })
   }
@@ -68,7 +70,6 @@ export class ProjectComponent implements OnInit {
 
   async ngOnInit() {
     this.id = this.route.snapshot.paramMap.get('id') || "";
-    this.project = await ProjectListService.getProject(this.id);
   }
 
   public newComment() {
