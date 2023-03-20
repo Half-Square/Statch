@@ -2,7 +2,7 @@
  * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
  * @CreatedDate           : 2023-03-17 16:07:54                              *
  * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
- * @LastEditDate          : 2023-03-20 18:11:54                              *
+ * @LastEditDate          : 2023-03-20 18:23:09                              *
  ****************************************************************************/
 
 import { Component, OnInit } from '@angular/core';
@@ -61,7 +61,6 @@ export class AppComponent implements OnInit {
       this.command.getProjectList();
     }
   }
-
 
   public showMenu() {
     this.show = !this.show;
