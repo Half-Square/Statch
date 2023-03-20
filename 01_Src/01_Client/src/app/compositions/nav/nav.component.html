@@ -1,0 +1,84 @@
+<!--
+* @Author                : Adrien Lanco<adrienlanco0@gmail.com>
+* @CreatedDate           : 2023-03-17 14:41:00
+* @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>
+* @LastEditDate          : 2023-03-18 17:00:42
+-->
+
+<div id="nav">
+  <a href="/projects"><header>Half Square</header></a>
+  <nav>
+    <app-button id="goProjects" type="trd" size="l"
+                icon="dashboard" icon-position="only"
+                routerLink="/projects"/>
+    <app-button id="goActivity" type="trd" size="l"
+                icon="bell" icon-position="only"
+                routerLink="/activity" />
+    <app-button id="add" type="trd" size="l"
+                icon="plus" icon-position="only"
+                routerLink="/add"  />
+    <app-button id="goFollow" type="trd" size="l"
+                icon="flag" icon-position="only"
+                routerLink="/follow"  />
+    <app-button id="goSetting" type="trd" size="l"
+                icon="gear" icon-position="only"
+                [routerLink]="['/settings']"  />
+  </nav>
+  <div class="menu">
+
+    <app-collapse *ngFor="let project of projects"
+                  [label]="project.name"
+                  [id]="project.id"
+                  [type]="'project'"
+                  [status]="project.status"
+                  (onOpen)="pListS.getProject(project.id)"
+                  [depth]="1">
+
+      <app-collapse *ngFor="let task of project.tasks"
+                    [label]="task.name"
+                    [id]="task.id"
+                    [type]="'task'"
+                    [status]="task.status"
+                    (onOpen)="pListS.getTask(task.id)"
+                    [depth]="2">
+
+        <app-collapse *ngFor="let ticket of task.tickets"
+                      [label]="ticket.name"
+                      [id]="ticket.id"
+                      [type]="'ticket'"
+                      [status]="ticket.status"
+                      [noContent]="true"
+                      [depth]="3">
+          <app-button class="deleteTicket" type="scnd" size="md"
+          [ngStyle]="{transform: 'translate(' + 9*16 + 'px)'}"
+          label="Delete ticket (Alt + T)"
+          (click)='command.deleteTicket(project.id, ticket)' />
+        </app-collapse>
+
+        <app-button class="newTicket" type="scnd" size="md"
+        [ngStyle]="{transform: 'translate(' + 4*16 + 'px)'}"
+        label="New ticket (Alt + T)"
+        (click)='command.openNewTicket(task.id)' />
+        <app-button class="deleteTask" type="scnd" size="md"
+        [ngStyle]="{transform: 'translate(' + 4*16 + 'px)'}"
+        label="Delete task (Alt + N)"
+        (click)='command.deleteTask(task)' />
+      </app-collapse>
+
+
+      <app-button class="newTask" type="scnd" size="md"
+      [ngStyle]="{transform: 'translateX(' + 16 + 'px)'}"
+      label="New task (Alt + N)"
+      (click)='command.openNewTask(project.id)' />
+      <app-button class="deleteProject" type="scnd" size="md"
+      [ngStyle]="{transform: 'translateX(' + 16 + 'px)'}"
+      label="Delete project (Alt + N)"
+      (click)='command.deleteProject(project.id)' />
+    </app-collapse>
+
+
+    <app-button class="newProject" type="scnd" size="md"
+    label="New project (Alt + N)"
+    (click)='command.openNewProject()' />
+  </div>
+</div>

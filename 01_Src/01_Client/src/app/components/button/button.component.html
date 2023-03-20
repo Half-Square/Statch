@@ -1,0 +1,11 @@
+<!--
+* @Author                : Adrien Lanco<adrienlanco0@gmail.com>
+* @CreatedDate           : 2023-03-17 12:29:00
+* @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>
+* @LastEditDate          : 2023-03-17 18:53:10
+-->
+
+<button (click)="callback" [disabled]="disabled" class="{{ 'btn '+classes }}">
+  <p *ngIf="iconPosition !== 'only'">{{ label }}</p>
+  <i *ngIf="iconPosition !== 'none'" class="{{ 'icon '+icon }}"></i>
+</button>

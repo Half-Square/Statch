@@ -1,8 +1,8 @@
 /******************************************************************************
- * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
+ * @Author                : Adrien Lanco<adrienlanco0@gmail.com>              *
  * @CreatedDate           : 2023-02-21 14:21:47                               *
- * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-03-02 15:20:52                               *
+ * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>              *
+ * @LastEditDate          : 2023-03-18 15:09:05                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -72,6 +72,8 @@ export class TasksController {
   @Get("tasks/:id")
   async getById(@Param("id") id: string): Promise<tasksDto.DetailsOutput> {
     try {
+      console.log("getOne task:", id);
+
       let res = await this.prisma.task.findUnique({
         where: {id: id},
         include: {
@@ -215,15 +217,18 @@ export class TasksController {
   * Delete task by id 
   */
   @Delete("tasks/:id")
-  async delete(@Param("id") id: string): Promise<void> {
+  async delete(@Param("id") id: string): Promise<Object> {
     try {
-      await this.prisma.task.delete({where: {id: id}}).catch(() => {
+      this.prisma.task.delete({where: {id: id}}).then(()=>{
+        return {id: id};
+      }).catch(() => {
         throw new HttpException("Not Found", HttpStatus.NOT_FOUND);
       });
     } catch (err) {
       console.error(`${new Date().toISOString()} - ${err}`);
       throw err;
     }
+    return {id: ""};
   }
   /***/
 }
