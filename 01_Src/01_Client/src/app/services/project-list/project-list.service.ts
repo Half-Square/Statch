@@ -2,7 +2,7 @@
  * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
  * @CreatedDate           : 2023-03-17 14:25:08                              *
  * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
- * @LastEditDate          : 2023-03-20 15:38:08                              *
+ * @LastEditDate          : 2023-03-20 17:45:35                              *
  ****************************************************************************/
 
 import { Injectable } from '@angular/core';
@@ -60,8 +60,10 @@ export class ProjectListService {
   */
   public static addProject(newProject:ProjectInterface): void {
     let changed = false
+
     this.projectList.forEach(project => {
       if (project.id == newProject.id) {
+        newProject.tasks = project.tasks
         project = Object.assign(project, newProject);
         changed = true;
       }
@@ -85,7 +87,7 @@ export class ProjectListService {
         if (project.tasks)
           project.tasks.forEach(task => {
             if (task.id == newTask.id) {
-              task = Object.assign(task, newTask);;
+              task = Object.assign(task, newTask);
               changed = true;
             }
           });
@@ -125,10 +127,13 @@ export class ProjectListService {
               if (task.tickets) task.tickets.push(newTicket);
               else task.tickets = [ newTicket ]
             }
+            console.log("addTicket", this.projectList);
+
+            this.projectListChange.next(this.projectList);
+            return
           }
         });
     });
-    this.projectListChange.next(this.projectList);
   }
   /***/
 

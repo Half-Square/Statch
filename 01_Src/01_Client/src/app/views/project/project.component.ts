@@ -1,9 +1,9 @@
-/******************************************************************************
- * @Author                : Adrien Lanco<adrienlanco0@gmail.com>              *
- * @CreatedDate           : 2023-03-17 16:49:59                               *
- * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>              *
- * @LastEditDate          : 2023-03-20 10:25:22                               *
- *****************************************************************************/
+/*****************************************************************************
+ * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
+ * @CreatedDate           : 2023-03-17 16:49:59                              *
+ * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
+ * @LastEditDate          : 2023-03-20 17:46:12                              *
+ ****************************************************************************/
 
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -20,9 +20,7 @@ export class ProjectComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               private router: Router,
               public command: CommandService) {
-    ProjectListService.projectChange.subscribe((value) => {
-      console.log("projectChange", value);
-
+    ProjectListService.projectChange.subscribe((value: ProjectInterface) => {
       this.project = value;
     })
   }

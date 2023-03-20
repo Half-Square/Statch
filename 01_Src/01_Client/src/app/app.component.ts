@@ -2,7 +2,7 @@
  * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
  * @CreatedDate           : 2023-03-17 16:07:54                              *
  * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
- * @LastEditDate          : 2023-03-20 12:19:59                              *
+ * @LastEditDate          : 2023-03-20 17:20:53                              *
  ****************************************************************************/
 
 import { Component, OnInit } from '@angular/core';
@@ -43,8 +43,7 @@ export class AppComponent implements OnInit {
     router.events.subscribe((val) => {
       if (val instanceof NavigationEnd && this.isConnected()) {
         this.url = val;
-        if (this.init)
-          this.handleNavigation(val)
+        this.handleNavigation(val)
       }
     });
   }
@@ -61,7 +60,6 @@ export class AppComponent implements OnInit {
     if (this.isConnected()) {
       this.command.getProjectList()
       .then(() =>{
-        this.init = true;
         this.handleNavigation(this.url)
       })
     }

@@ -2,7 +2,7 @@
  * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
  * @CreatedDate           : 2023-03-17 22:34:38                              *
  * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
- * @LastEditDate          : 2023-03-20 13:52:28                              *
+ * @LastEditDate          : 2023-03-20 17:30:31                              *
  ****************************************************************************/
 
 import { Injectable } from '@angular/core';
@@ -95,9 +95,9 @@ export class CommandService {
     return new Promise<TicketInterface>((resolve, reject) => {
       this.api.request("GET", "tickets/"+ticketId)
       .then((ret: TicketInterface) => {
-        ProjectListService.addTicket(ret) //TO DO get project id from back
         this.getTask(ret.taskId)
         .then(() => {
+          ProjectListService.addTicket(ret) //TO DO get project id from back
           return resolve(ret)
         }).catch((err) => {
           return reject(err)

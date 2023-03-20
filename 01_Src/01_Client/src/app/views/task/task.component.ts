@@ -1,9 +1,9 @@
-/******************************************************************************
- * @Author                : Adrien Lanco<adrienlanco0@gmail.com>              *
- * @CreatedDate           : 2023-03-18 17:03:31                               *
- * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>              *
- * @LastEditDate          : 2023-03-20 10:25:46                               *
- *****************************************************************************/
+/*****************************************************************************
+ * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
+ * @CreatedDate           : 2023-03-18 17:03:31                              *
+ * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
+ * @LastEditDate          : 2023-03-20 17:46:22                              *
+ ****************************************************************************/
 
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -19,9 +19,7 @@ export class TaskComponent {
   constructor(private route: ActivatedRoute,
               private router: Router,
               public command: CommandService) {
-    ProjectListService.taskChange.subscribe((value) => {
-      console.log("taskChange", value);
-
+    ProjectListService.taskChange.subscribe((value: TaskInterface) => {
       this.task = value;
     })
   }

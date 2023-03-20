@@ -1,9 +1,9 @@
-/******************************************************************************
- * @Author                : Adrien Lanco<adrienlanco0@gmail.com>              *
- * @CreatedDate           : 2023-03-20 09:41:42                               *
- * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>              *
- * @LastEditDate          : 2023-03-20 10:19:38                               *
- *****************************************************************************/
+/*****************************************************************************
+ * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
+ * @CreatedDate           : 2023-03-20 09:41:42                              *
+ * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
+ * @LastEditDate          : 2023-03-20 17:46:59                              *
+ ****************************************************************************/
 
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -19,9 +19,7 @@ export class TicketComponent {
   constructor(private route: ActivatedRoute,
     private router: Router,
     public command: CommandService) {
-    ProjectListService.ticketChange.subscribe((value) => {
-      console.log("ticketChange", value);
-
+    ProjectListService.ticketChange.subscribe((value: TicketInterface) => {
       this.ticket = value;
     })
   }
