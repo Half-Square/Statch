@@ -1,12 +1,12 @@
-/******************************************************************************
- * @Author                : Adrien Lanco<adrienlanco0@gmail.com>              *
- * @CreatedDate           : 2023-03-17 14:41:39                               *
- * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>              *
- * @LastEditDate          : 2023-03-18 15:04:11                               *
- *****************************************************************************/
+/*****************************************************************************
+ * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
+ * @CreatedDate           : 2023-03-17 14:41:39                              *
+ * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
+ * @LastEditDate          : 2023-03-20 15:00:43                              *
+ ****************************************************************************/
 
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 import { ApiService } from 'src/app/services/api/api.service';
 import { CommandService } from 'src/app/services/command/command.service';
 
@@ -25,13 +25,53 @@ export class NavComponent {
   constructor(private api: ApiService,
               private router: Router,
               public command: CommandService) {
-    this.projects = ProjectListService.projects
-    ProjectListService.projectListChange.subscribe((value) => {
-      this.projects = value;
-      console.log("NavComponent", value)
+    router.events.subscribe((val) => {
+      if (val instanceof NavigationEnd) {
+        this.handleNavigation(val)
+      }
+    });
+    ProjectListService.projectListChange
+    .subscribe((value: Array<ProjectInterface>) => {
+      this.projectList = value;
+      console.log("here");
+
+      this.getProjects()
+    })
+    ProjectListService.projectChange
+    .subscribe((project: ProjectInterface) => {
+      console.log("here 1");
+
+      this.projectId = project.id;
+      this.getProjects()
     })
   }
 
   public projects = new Array<ProjectInterface>;
-  public pListS = ProjectListService;
+  public projectList = new Array<ProjectInterface>;
+
+  public url: Array<string> = [];
+  public projectId: string = "";
+
+  private handleNavigation(navEnd: NavigationEnd): void {
+    this.url = navEnd.urlAfterRedirects.split("/");
+  }
+
+  private getProjects(): void {
+    if (this.url[1] == 'project' ||
+        this.url[1] == 'task' ||
+        this.url[1] == 'ticket') {
+      if (this.projectId) {
+        for (let i = 0; i < this.projectList.length; i++) {
+          if (this.projectId == this.projectList[i].id) {
+            this.projects = [ this.projectList[i] ];
+          }
+        }
+      } else {
+        this.projects = this.projectList;
+      }
+    } else {
+      this.projects = this.projectList;
+    }
+  };
+
 }

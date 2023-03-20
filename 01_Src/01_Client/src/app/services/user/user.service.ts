@@ -1,13 +1,12 @@
-/******************************************************************************
- * @Author                : Adrien Lanco<adrienlanco0@gmail.com>              *
- * @CreatedDate           : 2023-03-17 15:22:52                               *
- * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>              *
- * @LastEditDate          : 2023-03-17 23:37:04                               *
- *****************************************************************************/
+/*****************************************************************************
+ * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
+ * @CreatedDate           : 2023-03-17 15:22:52                              *
+ * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
+ * @LastEditDate          : 2023-03-20 14:40:20                              *
+ ****************************************************************************/
 
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { ProjectListService } from '../project-list/project-list.service';
 
 export class UserInterface {
   "id":    string;

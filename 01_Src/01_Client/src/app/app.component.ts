@@ -1,9 +1,9 @@
-/******************************************************************************
- * @Author                : Adrien Lanco<adrienlanco0@gmail.com>              *
- * @CreatedDate           : 2023-03-17 16:07:54                               *
- * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>              *
- * @LastEditDate          : 2023-03-20 10:40:20                               *
- *****************************************************************************/
+/*****************************************************************************
+ * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
+ * @CreatedDate           : 2023-03-17 16:07:54                              *
+ * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
+ * @LastEditDate          : 2023-03-20 12:19:59                              *
+ ****************************************************************************/
 
 import { Component, OnInit } from '@angular/core';
 import {
@@ -16,6 +16,7 @@ import {
 import { UserService } from './services/user/user.service';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { ProjectListService } from './services/project-list/project-list.service';
+import { CommandService } from './services/command/command.service';
 
 @Component({
   selector: 'app-root',
@@ -25,10 +26,10 @@ import { ProjectListService } from './services/project-list/project-list.service
     trigger('slide', [
       transition(':enter', [
         style({ opacity: 0, marginLeft: '-248px' }),
-        animate('0.3s linear', style({ opacity: 1, marginLeft: '0' })),
+        animate('0.3s ease-in', style({ opacity: 1, marginLeft: '0' })),
       ]),
       transition(':leave', [
-        animate('0.3s linear', style({ opacity: 0, marginLeft: '-248px'  }))
+        animate('0.3s ease-in', style({ opacity: 0, marginLeft: '-248px'  }))
       ])
     ])
   ]
@@ -37,7 +38,8 @@ export class AppComponent implements OnInit {
   title = 'statch';
 
   constructor(private router: Router,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute,
+              private command: CommandService) {
     router.events.subscribe((val) => {
       if (val instanceof NavigationEnd && this.isConnected()) {
         this.url = val;
@@ -57,7 +59,7 @@ export class AppComponent implements OnInit {
     UserService.init();
 
     if (this.isConnected()) {
-      ProjectListService.getProjectList()
+      this.command.getProjectList()
       .then(() =>{
         this.init = true;
         this.handleNavigation(this.url)
@@ -78,28 +80,25 @@ export class AppComponent implements OnInit {
     let url = navEnd.urlAfterRedirects.split("/");
 
     if (url[1] == 'projects') {
-      ProjectListService.getProjectList();
+      this.command.getProjectList();
     }
     if (url[1] == 'project') {
-      ProjectListService.getProject(url[2])
+      this.command.getProject(url[2])
       .then(()=> {
         ProjectListService.setActualProject(url[2]);
       });
-    } else {
     }
+
     if (url[1] == 'task') {
-      ProjectListService.getTask(url[2])
+      this.command.getTask(url[2])
       .then(()=> {
         ProjectListService.setActualTask(url[2]);
       });
     }
 
     if (url[1] == 'ticket') {
-      console.log("here");
-
-      ProjectListService.getTicket(url[2])
+      this.command.getTicket(url[2])
       .then(()=> {
-        console.log("heres s");
         ProjectListService.setActualTicket(url[2]);
       });
     }

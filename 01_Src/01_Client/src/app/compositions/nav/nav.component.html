@@ -2,7 +2,7 @@
 * @Author                : Adrien Lanco<adrienlanco0@gmail.com>
 * @CreatedDate           : 2023-03-17 14:41:00
 * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>
-* @LastEditDate          : 2023-03-18 17:00:42
+* @LastEditDate          : 2023-03-20 13:52:55
 -->
 
 <div id="nav">
@@ -31,7 +31,7 @@
                   [id]="project.id"
                   [type]="'project'"
                   [status]="project.status"
-                  (onOpen)="pListS.getProject(project.id)"
+                  (onOpen)="command.getProject(project.id)"
                   [depth]="1">
 
       <app-collapse *ngFor="let task of project.tasks"
@@ -39,7 +39,7 @@
                     [id]="task.id"
                     [type]="'task'"
                     [status]="task.status"
-                    (onOpen)="pListS.getTask(task.id)"
+                    (onOpen)="command.getTask(task.id)"
                     [depth]="2">
 
         <app-collapse *ngFor="let ticket of task.tickets"
@@ -52,7 +52,7 @@
           <app-button class="deleteTicket" type="scnd" size="md"
           [ngStyle]="{transform: 'translate(' + 9*16 + 'px)'}"
           label="Delete ticket (Alt + T)"
-          (click)='command.deleteTicket(project.id, ticket)' />
+          (click)='command.deleteTicket(ticket)' />
         </app-collapse>
 
         <app-button class="newTicket" type="scnd" size="md"
