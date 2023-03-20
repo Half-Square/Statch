@@ -1,11 +1,20 @@
-/******************************************************************************
- * @Author                : Adrien Lanco<adrienlanco0@gmail.com>              *
- * @CreatedDate           : 2023-03-17 15:11:14                               *
- * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>              *
- * @LastEditDate          : 2023-03-18 00:45:08                               *
- *****************************************************************************/
+/*****************************************************************************
+ * @Author                : 0K00<qdouvillez@gmail.com>                       *
+ * @CreatedDate           : 2023-03-20 16:31:02                              *
+ * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
+ * @LastEditDate          : 2023-03-20 18:26:08                              *
+ *                                                                           *
+ ****************************************************************************/
 
-import { Component, OnInit } from '@angular/core';
+/*****************************************************************************
+ * @Author                : 0K00<qdouvillez@gmail.com>                       *
+ * @CreatedDate           : 2023-03-17 15:11:14                              *
+ * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
+ * @LastEditDate          : 2023-03-20 16:30:58                              *
+ *                                                                           *
+ ****************************************************************************/
+
+import { AfterContentInit, AfterViewInit, Component, OnInit } from '@angular/core';
 import {
   trigger,
   state,
@@ -31,9 +40,13 @@ import {
 })
 export class SearchBarComponent implements OnInit {
 
+
+
     public query: string = '';
     public results: Array<any> = []; // TO DO Cmd Interface
+    public resultsSelected: any = [];
     public focusedResult: number = -1;
+    public stepSearch: number = 0;
 
 
     /*
@@ -43,7 +56,6 @@ export class SearchBarComponent implements OnInit {
     *
     */
     ngOnInit(): void {
-      // document.getElementById("inputSearch")!.focus();
     }
     /***/
 
@@ -92,7 +104,7 @@ export class SearchBarComponent implements OnInit {
     */
     public focusNextResult(): void {
       this.focusedResult = Math.min(this.focusedResult + 1, this.results.length - 1);
-      this.followFocus()
+      this.followFocus("start")
     }
     /***/
 
@@ -104,7 +116,7 @@ export class SearchBarComponent implements OnInit {
     */
     public focusPrevResult(): void {
       this.focusedResult = Math.max(this.focusedResult - 1, 0);
-      this.followFocus()
+      this.followFocus("end")
     }
     /***/
 
@@ -128,10 +140,14 @@ export class SearchBarComponent implements OnInit {
      *
      *
     */
-    public followFocus(): void {
-      const selectedResult = document.getElementById(`result-${this.focusedResult}`);
-      if (selectedResult) {
-        selectedResult.scrollIntoView({ behavior: 'smooth' });
+    public followFocus(event: string): void {
+      let focus = document.getElementsByClassName("focused")
+
+      if(event === "end") {
+        focus[0].scrollIntoView({ behavior: "smooth", block: "end" });
+      }
+      if(event === "start") {
+        focus[0].scrollIntoView({ behavior: "smooth", block: "start" });
       }
     }
     /***/
@@ -145,9 +161,39 @@ export class SearchBarComponent implements OnInit {
      *
     */
     public selectResult(result: any): void {
+      this.commands(result)
       console.log('clicked', result)
     }
     /***/
+
+    public redirect(result: any): void {
+      console.log('clicked', result)
+    }
+
+    public commands(result: any): void {
+      this.resetInput();
+      this.resultsSelected.push(result)
+      this.stepSearch += 1;
+    }
+
+    public returnStep(step: number): void {
+      console.log(step);
+      if(step === 0) {
+        this.resultsSelected = [];
+        this.stepSearch = 0;
+        console.log('toto');
+
+        return
+      }
+      this.stepSearch -= this.resultsSelected.length - step;
+      this.resultsSelected.splice(step);
+
+    }
+
+    private resetInput(): void {
+      this.results = [];
+      this.query = '';
+    }
 
     /*
      * Name: handleEnter

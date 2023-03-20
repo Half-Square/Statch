@@ -1,8 +1,9 @@
 /*****************************************************************************
- * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
+ * @Author                : 0K00<qdouvillez@gmail.com>                       *
  * @CreatedDate           : Invalid Date                                     *
- * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
- * @LastEditDate          : 2023-03-17 15:03:53                              *
+ * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
+ * @LastEditDate          : 2023-03-20 18:39:06                              *
+ *                                                                           *
  ****************************************************************************/
 
  .searchBar {
@@ -13,11 +14,91 @@
   border-radius: 8px;
   overflow: hidden;
 
+    /* width */
+  ::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+  }
+
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #9C9C9C;
+    border-radius: 999px;
+  }
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #b8b8b8;
+  }
+
   .searchInput {
-      display: flex;
+      display: grid;
+      grid-auto-flow: column;
       align-items: center;
+      justify-content: start;
+      justify-items: start;
+      overflow: hidden;
       padding: 14px;
       gap: 0.25rem;
+
+      .resultContainer {
+        overflow: auto;
+        display: flex;
+        gap: 0.25rem;
+        max-width: -webkit-fill-available;
+      }
+
+      .return {
+        cursor: pointer;
+      }
+
+      .label {
+        display: flex;
+        align-items: center;
+        font-style: normal;
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 16px;
+        background: rgba(255, 255, 255, 0.16);
+        padding: 4px 8px;
+        border-radius: 4px;
+        color: rgb(255, 255, 255);
+
+        .text {
+          max-width: 100px;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+        .return {
+          display: flex;
+          align-items: flex-end;
+
+          .icon {
+            font-size: 16px;
+          }
+        }
+      }
+
+      .label:not(:first-child) {
+        position: relative;
+        margin-left: 16px;
+        &::before {
+          font-family: 'icon' !important;
+          content: '\e919';
+          position: absolute;
+          color: #9C9C9C;
+          left: -18px;
+          font-size: 16px;
+        }
+      }
+
+
       i {
           color: rgba(255, 255, 255, 0.64);
           font-size: 40px;
@@ -49,7 +130,8 @@
 ul {
       list-style: none;
       margin: 0;
-      padding: 0 8px 8px;
+      margin-right: 4px;
+      padding: 0 4px 8px 8px;
       max-height: 300px;
       overflow-y: auto;
   }
