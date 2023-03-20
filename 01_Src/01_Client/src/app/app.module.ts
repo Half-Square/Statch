@@ -2,7 +2,7 @@
  * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
  * @CreatedDate           : 2023-03-17 11:54:55                              *
  * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
- * @LastEditDate          : 2023-03-20 16:26:20                              *
+ * @LastEditDate          : 2023-03-20 16:55:38                              *
  ****************************************************************************/
 
 import { NgModule } from '@angular/core';
@@ -14,7 +14,6 @@ import { AppComponent } from './app.component';
 
 import { ComponentsModule } from './components/components.module';
 import { CompositionsModule } from './compositions/compositions.module';
-import { DirectivesModule } from './directives/directives.module';
 import { ViewsModule } from './views/views.module';
 
 @NgModule({
@@ -27,8 +26,7 @@ import { ViewsModule } from './views/views.module';
     AppRoutingModule,
     ComponentsModule,
     CompositionsModule,
-    ViewsModule,
-    DirectivesModule
+    ViewsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

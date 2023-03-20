@@ -2,7 +2,7 @@
  * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
  * @CreatedDate           : 2023-03-17 11:38:53                              *
  * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
- * @LastEditDate          : 2023-03-20 16:26:02                              *
+ * @LastEditDate          : 2023-03-20 16:55:47                              *
  ****************************************************************************/
 
 import { NgModule } from '@angular/core';
@@ -17,7 +17,6 @@ import { CommentComponent } from './comment/comment.component';
 import { HeaderComponent } from './header/header.component';
 import { NavComponent } from './nav/nav.component';
 import { SearchBarComponent } from './search-bar/search-bar.component';
-import { DirectivesModule } from '../directives/directives.module';
 
 
 @NgModule({
@@ -32,8 +31,7 @@ import { DirectivesModule } from '../directives/directives.module';
     ComponentsModule,
     RouterModule,
     FormsModule,
-    LayoutsModule,
-    DirectivesModule
+    LayoutsModule
   ],
   exports: [
     CommentComponent,
