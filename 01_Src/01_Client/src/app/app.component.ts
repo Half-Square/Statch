@@ -2,7 +2,7 @@
  * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
  * @CreatedDate           : 2023-03-17 16:07:54                              *
  * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
- * @LastEditDate          : 2023-03-20 17:20:53                              *
+ * @LastEditDate          : 2023-03-20 18:11:54                              *
  ****************************************************************************/
 
 import { Component, OnInit } from '@angular/core';
@@ -58,10 +58,7 @@ export class AppComponent implements OnInit {
     UserService.init();
 
     if (this.isConnected()) {
-      this.command.getProjectList()
-      .then(() =>{
-        this.handleNavigation(this.url)
-      })
+      this.command.getProjectList();
     }
   }
 

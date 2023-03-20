@@ -2,7 +2,7 @@
  * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
  * @CreatedDate           : 2023-03-17 14:25:08                              *
  * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
- * @LastEditDate          : 2023-03-20 17:45:35                              *
+ * @LastEditDate          : 2023-03-20 18:03:21                              *
  ****************************************************************************/
 
 import { Injectable } from '@angular/core';
@@ -63,7 +63,19 @@ export class ProjectListService {
 
     this.projectList.forEach(project => {
       if (project.id == newProject.id) {
-        newProject.tasks = project.tasks
+        if ((!newProject.tasks || newProject.tasks.length < 1) && project.tasks)
+          newProject.tasks = project.tasks;
+        if (newProject.tasks && newProject.tasks.length > 0 &&
+          project.tasks && project.tasks.length > 0) {
+            project.tasks.forEach(task => {
+              newProject.tasks.forEach(newTask => {
+                if (task.id == newTask.id && task.tickets) {
+                  newTask.tickets = task.tickets;
+                }
+              });
+          });
+        }
+
         project = Object.assign(project, newProject);
         changed = true;
       }
@@ -127,8 +139,6 @@ export class ProjectListService {
               if (task.tickets) task.tickets.push(newTicket);
               else task.tickets = [ newTicket ]
             }
-            console.log("addTicket", this.projectList);
-
             this.projectListChange.next(this.projectList);
             return
           }

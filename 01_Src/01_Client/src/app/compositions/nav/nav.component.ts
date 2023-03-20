@@ -2,7 +2,7 @@
  * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
  * @CreatedDate           : 2023-03-17 14:41:39                              *
  * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
- * @LastEditDate          : 2023-03-20 15:00:43                              *
+ * @LastEditDate          : 2023-03-20 18:11:33                              *
  ****************************************************************************/
 
 import { Component } from '@angular/core';
@@ -33,14 +33,10 @@ export class NavComponent {
     ProjectListService.projectListChange
     .subscribe((value: Array<ProjectInterface>) => {
       this.projectList = value;
-      console.log("here");
-
       this.getProjects()
     })
     ProjectListService.projectChange
     .subscribe((project: ProjectInterface) => {
-      console.log("here 1");
-
       this.projectId = project.id;
       this.getProjects()
     })
