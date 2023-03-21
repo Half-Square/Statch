@@ -2,7 +2,7 @@
  * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
  * @CreatedDate           : 2023-03-17 16:49:59                              *
  * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
- * @LastEditDate          : 2023-03-21 20:40:36                              *
+ * @LastEditDate          : 2023-03-21 20:49:22                              *
  ****************************************************************************/
 
 import { Component, OnInit } from '@angular/core';
@@ -20,14 +20,11 @@ export class ProjectComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               private router: Router,
               public command: CommandService) {
-      this.route.queryParams
-      .subscribe((params: any) => {
-        console.log(params.edit);
-
-        if (params.edit) this.onEdit = params.edit
-        else this.onEdit = false
-      }
-    );
+    this.route.queryParams
+    .subscribe((params: any) => {
+      if (params.edit) this.onEdit = params.edit
+      else this.onEdit = false
+    });
     ProjectListService.projectChange.subscribe((value: ProjectInterface) => {
       this.project = structuredClone(value)
     })
@@ -86,9 +83,6 @@ export class ProjectComponent implements OnInit {
 
   public saveProject() {
     this.command.editProject(this.project)
-    .then(() => {
-
-    })
   }
 
   public redirectToEdit() {

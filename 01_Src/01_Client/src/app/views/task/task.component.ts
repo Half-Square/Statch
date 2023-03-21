@@ -2,7 +2,7 @@
  * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
  * @CreatedDate           : 2023-03-18 17:03:31                              *
  * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
- * @LastEditDate          : 2023-03-20 17:46:22                              *
+ * @LastEditDate          : 2023-03-21 20:49:29                              *
  ****************************************************************************/
 
 import { Component } from '@angular/core';
@@ -19,10 +19,17 @@ export class TaskComponent {
   constructor(private route: ActivatedRoute,
               private router: Router,
               public command: CommandService) {
+    this.route.queryParams
+    .subscribe((params: any) => {
+      if (params.edit) this.onEdit = params.edit
+      else this.onEdit = false
+    });
     ProjectListService.taskChange.subscribe((value: TaskInterface) => {
-      this.task = value;
+      this.task = structuredClone(value);
     })
   }
+
+  public onEdit: boolean = false;
 
   public id: string = "";
   public task: TaskInterface = {} as TaskInterface;
@@ -71,5 +78,16 @@ export class TaskComponent {
 
   public newComment() {
     console.log(this.newCommentContent);
+  }
+
+  public saveTask() {
+    this.command.editTask(this.task)
+  }
+
+  public redirectToEdit() {
+    this.router.navigate(
+      [ "task", this.task.id ],
+      { queryParams: { edit: true } }
+    )
   }
 }

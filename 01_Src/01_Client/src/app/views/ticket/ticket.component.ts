@@ -2,7 +2,7 @@
  * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
  * @CreatedDate           : 2023-03-20 09:41:42                              *
  * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
- * @LastEditDate          : 2023-03-20 17:46:59                              *
+ * @LastEditDate          : 2023-03-21 20:52:44                              *
  ****************************************************************************/
 
 import { Component } from '@angular/core';
@@ -16,13 +16,21 @@ import { ProjectListService, TicketInterface } from 'src/app/services/project-li
   styleUrls: ['./ticket.component.scss']
 })
 export class TicketComponent {
+
   constructor(private route: ActivatedRoute,
-    private router: Router,
-    public command: CommandService) {
+              private router: Router,
+              public command: CommandService) {
+    this.route.queryParams
+    .subscribe((params: any) => {
+      if (params.edit) this.onEdit = params.edit
+      else this.onEdit = false
+    });
     ProjectListService.ticketChange.subscribe((value: TicketInterface) => {
-      this.ticket = value;
+      this.ticket = structuredClone(value);
     })
   }
+
+  public onEdit: boolean = false;
 
   public id: string = "";
   public ticket: TicketInterface = {} as TicketInterface;
@@ -71,5 +79,16 @@ export class TicketComponent {
 
   public newComment() {
     console.log(this.newCommentContent);
+  }
+
+  public saveTicket() {
+    this.command.editTicket(this.ticket)
+  }
+
+  public redirectToEdit() {
+    this.router.navigate(
+      [ "ticket", this.ticket.id ],
+      { queryParams: { edit: true } }
+    )
   }
 }

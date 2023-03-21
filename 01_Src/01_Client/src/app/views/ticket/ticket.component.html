@@ -2,16 +2,19 @@
 * @Author                : Adrien Lanco<adrienlanco0@gmail.com>
 * @CreatedDate           : 2023-03-17 16:48:00
 * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>
-* @LastEditDate          : 2023-03-21 15:31:52
+* @LastEditDate          : 2023-03-21 21:03:42
 -->
 
 <div id="ticket">
   <div class="ticket">
     <div class="main">
       <header>
-        <h1>{{ ticket.name }}</h1>
-        <h2>{{ ticket.description }}</h2>
-        <p>Lorem</p>
+        <h1 edtTxt [isEdit]="onEdit" [(value)]="ticket.name"></h1>
+        <h2 edtTxt [isEdit]="onEdit" [(value)]="ticket.description"></h2>
+
+        <app-button id="editTicket" type="scnd" size="md" label="Edit Ticket" *ngIf="!onEdit" (click)="redirectToEdit()" />
+        <app-button id="saveTicket" type="scnd" size="md" label="Save Ticket" *ngIf="onEdit" (click)='saveTicket()' />
+        <app-button id="deleteTicket" type="scnd" size="md" label="Delete Ticket" *ngIf="onEdit" (click)='command.deleteTicket(ticket)' />
       </header>
       <div class="advancement">
         <app-progress-bar id="test" [value]="15" />
@@ -53,7 +56,9 @@
         </div>
         <div class="container">
           <h4>Status</h4>
-          <div class="text"><app-status [status]="ticket.status" />{{ ticket.status }}</div>
+          <div class="text">
+            <app-status-labeled [isEdit]="onEdit" [(status)]="ticket.status"/>
+          </div>
         </div>
         <div class="container">
           <h4>Created</h4>

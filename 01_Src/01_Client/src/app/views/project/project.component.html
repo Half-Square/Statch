@@ -2,7 +2,7 @@
 * @Author                : Adrien Lanco<adrienlanco0@gmail.com>
 * @CreatedDate           : 2023-03-17 16:48:00
 * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>
-* @LastEditDate          : 2023-03-21 20:39:12
+* @LastEditDate          : 2023-03-21 21:03:20
 -->
 
 <div id="project">
@@ -14,6 +14,7 @@
 
         <app-button id="editProj" type="scnd" size="md" label="Edit Project" *ngIf="!onEdit" (click)="redirectToEdit()" />
         <app-button id="saveProj" type="scnd" size="md" label="Save Project" *ngIf="onEdit" (click)='saveProject()' />
+        <app-button id="deleteProj" type="scnd" size="md" label="Delete Project" *ngIf="onEdit" (click)='command.deleteProject(project.id)' />
       </header>
       <div class="advancement">
         <app-progress-bar id="test" [value]="15" />

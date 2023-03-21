@@ -2,7 +2,7 @@
  * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
  * @CreatedDate           : 2023-03-17 14:25:08                              *
  * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
- * @LastEditDate          : 2023-03-21 20:19:25                              *
+ * @LastEditDate          : 2023-03-21 20:56:12                              *
  ****************************************************************************/
 
 import { Injectable } from '@angular/core';
@@ -132,7 +132,7 @@ export class ProjectListService {
       }
     });
     if (!changed)
-      this.projectList.push(newProject)
+      this.projectList.unshift(newProject)
     if (willEmit)
       this.projectListChange.next(this.projectList);
   }
@@ -156,7 +156,7 @@ export class ProjectListService {
             }
           });
         if (!changed) {
-          if (project.tasks) project.tasks.push(newTask);
+          if (project.tasks) project.tasks.unshift(newTask);
           else project.tasks = [ newTask ]
         }
         console.log("addTask", project.tasks);
@@ -191,7 +191,7 @@ export class ProjectListService {
                 }
               });
             if (!changed) {
-              if (task.tickets) task.tickets.push(newTicket);
+              if (task.tickets) task.tickets.unshift(newTicket);
               else task.tickets = [ newTicket ]
             }
             this.projectListChange.next(this.projectList);

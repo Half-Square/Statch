@@ -2,7 +2,7 @@
 * @Author                : Adrien Lanco<adrienlanco0@gmail.com>
 * @CreatedDate           : 2023-03-17 14:41:00
 * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>
-* @LastEditDate          : 2023-03-21 20:04:59
+* @LastEditDate          : 2023-03-21 21:03:58
 -->
 
 <div id="nav">
@@ -51,17 +51,7 @@
                       [noContent]="true"
                       [depth]="3">
         </app-collapse>
-
-        <app-button class="deleteTask" type="scnd" size="md"
-        [ngStyle]="{transform: 'translate(' + 4*16 + 'px)'}"
-        label="Delete task (Alt + N)"
-        (click)='command.deleteTask(task)' />
       </app-collapse>
-
-      <app-button class="deleteProject" type="scnd" size="md"
-      [ngStyle]="{transform: 'translateX(' + 16 + 'px)'}"
-      label="Delete project (Alt + N)"
-      (click)='command.deleteProject(project.id)' />
     </app-collapse>
 
   </div>
