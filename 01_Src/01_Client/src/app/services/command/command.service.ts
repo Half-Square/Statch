@@ -2,7 +2,7 @@
  * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
  * @CreatedDate           : 2023-03-17 22:34:38                              *
  * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
- * @LastEditDate          : 2023-03-21 14:34:55                              *
+ * @LastEditDate          : 2023-03-21 20:27:13                              *
  ****************************************************************************/
 
 import { Injectable } from '@angular/core';
@@ -27,7 +27,6 @@ export class CommandService {
   */
   public getProjectList(): Promise<Array<ProjectInterface>> {
     return new Promise<Array<ProjectInterface>>((resolve, reject) => {
-
       this.api.request("GET", "projects")
       .then((ret: Array<ProjectInterface>) => {
         ProjectListService.addProjectList(ret);
@@ -197,6 +196,75 @@ export class CommandService {
   /***/
 
   /**
+  * @name editProject
+  * @descr PUT a project on api,
+  *        then update it from the project list
+  *        and redirect to the project page
+  *
+  * @param project (ProjectInterface): Project to edit
+  *
+  * @return (Promise<void>): Resolve on valid PUT project
+  */
+  public async editProject(project: ProjectInterface): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
+      this.api.request("PUT", "projects/"+project.id, project)
+      .then((ret: any) => {
+        ProjectListService.addProject(ret);
+        this.router.navigate(["project", project.id])
+      }).catch((error: any) => {
+        console.error("editProject error >> "+error)
+      })
+    })
+  }
+  /***/
+
+  /**
+  * @name editTask
+  * @descr PUT a task on api,
+  *        then update it from the project list
+  *        and redirect to the task page
+  *
+  * @param task (ProjectInterface): Task to edit
+  *
+  * @return (Promise<void>): Resolve on valid PUT task
+  */
+  public async editTask(task: TaskInterface): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
+      this.api.request("PUT", "tasks/"+task.id, task)
+      .then((ret: any) => {
+        ProjectListService.addTask(task);
+        this.router.navigate(["/task/", task.id ])
+      }).catch((error: any) => {
+        console.error("editTask error >> "+error)
+      })
+    })
+  }
+  /***/
+
+  /**
+  * @name editTicket
+  * @descr PUT a ticket on api,
+  *        then update it from the project list
+  *        and redirect to the ticket page
+  *
+  * @param task (TicketInterface): Ticket to edit
+  *
+  * @return (Promise<void>): Resolve on valid PUT ticket
+  */
+  public async editTicket(ticket: TicketInterface): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
+      this.api.request("PUT", "tickets/"+ticket.id, ticket)
+      .then((ret: any) => {
+        ProjectListService.addTicket(ticket);
+        this.router.navigate(["/ticket/", ticket.id ])
+      }).catch((error: any) => {
+        console.error("editTask error >> "+error)
+      })
+    })
+  }
+  /***/
+
+  /**
   * @name deleteProject
   * @descr DELETE a project on api,
   *        then remove it from the project list
@@ -206,64 +274,64 @@ export class CommandService {
   *
   * @return (Promise<void>): Resolve on valid DELETE project
   */
-  public async deleteProject(projectId: string): Promise<void> {
-    return new Promise<void>((resolve, reject) => {
-      this.api.request("DELETE", "projects/"+projectId, {})
-      .then((ret: any) => {
-        ProjectListService.removeProject(projectId);
-        this.router.navigate(["/projects"])
-      }).catch((error: any) => {
-        console.error("New project error >> "+error)
+    public async deleteProject(projectId: string): Promise<void> {
+      return new Promise<void>((resolve, reject) => {
+        this.api.request("DELETE", "projects/"+projectId, {})
+        .then((ret: any) => {
+          ProjectListService.removeProject(projectId);
+          this.router.navigate(["/projects"])
+        }).catch((error: any) => {
+          console.error("New project error >> "+error)
+        })
       })
-    })
-  }
-  /***/
+    }
+    /***/
 
-  /**
-  * @name deleteTask
-  * @descr DELETE a task on api,
-  *        then remove it from the project list
-  *        and redirect to the task project page
-  *
-  * @param task (TaskInterface): task to delete
-  *
-  * @return (Promise<void>): Resolve on valid DELETE task
-  */
-  public async deleteTask(task: TaskInterface): Promise<void> {
-    return new Promise<void>((resolve, reject) => {
-      this.api.request("DELETE", "tasks/"+task.id, {})
-      .then((ret: any) => {
+    /**
+    * @name deleteTask
+    * @descr DELETE a task on api,
+    *        then remove it from the project list
+    *        and redirect to the task project page
+    *
+    * @param task (TaskInterface): task to delete
+    *
+    * @return (Promise<void>): Resolve on valid DELETE task
+    */
+    public async deleteTask(task: TaskInterface): Promise<void> {
+      return new Promise<void>((resolve, reject) => {
+        this.api.request("DELETE", "tasks/"+task.id, {})
+        .then((ret: any) => {
 
-        ProjectListService.removeTask(task.projectId, task.id);
-        this.router.navigate(["/project/", task.projectId ])
-      }).catch((error: any) => {
-        console.error("New Task error >> "+error)
+          ProjectListService.removeTask(task.projectId, task.id);
+          this.router.navigate(["/project/", task.projectId ])
+        }).catch((error: any) => {
+          console.error("New Task error >> "+error)
+        })
       })
-    })
-  }
-  /***/
+    }
+    /***/
 
-  /**
-  * @name deleteTicket
-  * @descr DELETE a ticket on api,
-  *        then remove it from the project list
-  *        and redirect to the ticket task page
-  *
-  * @param projectId: TO DO back add projectId to ticket
-  * @param ticket (TicketInterface): ticket to delete
-  *
-  * @return (Promise<void>): Resolve on valid DELETE ticket
-  */
-  public async deleteTicket(ticket: TicketInterface): Promise<void> {
-    return new Promise<void>((resolve, reject) => {
-      this.api.request("DELETE", "tickets/"+ticket.id, {})
-      .then((ret: any) => {
-        ProjectListService.removeTicket(ticket.taskId, ticket.id);
-        this.router.navigate(["/task/", ticket.taskId ])
-      }).catch((error: any) => {
-        console.error("New project 2 error >> "+error)
+    /**
+    * @name deleteTicket
+    * @descr DELETE a ticket on api,
+    *        then remove it from the project list
+    *        and redirect to the ticket task page
+    *
+    * @param projectId: TO DO back add projectId to ticket
+    * @param ticket (TicketInterface): ticket to delete
+    *
+    * @return (Promise<void>): Resolve on valid DELETE ticket
+    */
+    public async deleteTicket(ticket: TicketInterface): Promise<void> {
+      return new Promise<void>((resolve, reject) => {
+        this.api.request("DELETE", "tickets/"+ticket.id, {})
+        .then((ret: any) => {
+          ProjectListService.removeTicket(ticket.taskId, ticket.id);
+          this.router.navigate(["/task/", ticket.taskId ])
+        }).catch((error: any) => {
+          console.error("New project 2 error >> "+error)
+        })
       })
-    })
-  }
-  /***/
+    }
+    /***/
 }

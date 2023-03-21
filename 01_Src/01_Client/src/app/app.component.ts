@@ -2,7 +2,7 @@
  * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
  * @CreatedDate           : 2023-03-17 16:07:54                              *
  * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
- * @LastEditDate          : 2023-03-20 18:23:09                              *
+ * @LastEditDate          : 2023-03-21 20:34:08                              *
  ****************************************************************************/
 
 import { Component, OnInit } from '@angular/core';
@@ -71,10 +71,14 @@ export class AppComponent implements OnInit {
   }
 
   private handleNavigation(navEnd: NavigationEnd): void {
-    let url = navEnd.urlAfterRedirects.split("/");
+    let queries = navEnd.urlAfterRedirects.split("?");
+    let url = queries[0].split("/");
 
     if (url[1] == 'projects') {
       this.command.getProjectList();
+      ProjectListService.setActualProject("-1");
+      ProjectListService.setActualTask("-1");
+      ProjectListService.setActualTicket("-1");
     }
     if (url[1] == 'project') {
       this.command.getProject(url[2])

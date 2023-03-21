@@ -2,7 +2,7 @@
  * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
  * @CreatedDate           : 2023-03-17 13:07:58                              *
  * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
- * @LastEditDate          : 2023-03-21 12:00:17                              *
+ * @LastEditDate          : 2023-03-21 20:17:37                              *
  ****************************************************************************/
 
 import { Component, EventEmitter, Output, Input } from '@angular/core';
@@ -15,7 +15,6 @@ import { Component, EventEmitter, Output, Input } from '@angular/core';
 export class CollapseComponent {
 
   constructor() {
-    this.showCollapse = this.isOpen
   }
   @Input() label: string = "";
   @Input() status: string = "";

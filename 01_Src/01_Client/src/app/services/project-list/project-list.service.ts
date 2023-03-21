@@ -2,7 +2,7 @@
  * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
  * @CreatedDate           : 2023-03-17 14:25:08                              *
  * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
- * @LastEditDate          : 2023-03-21 14:35:58                              *
+ * @LastEditDate          : 2023-03-21 20:19:25                              *
  ****************************************************************************/
 
 import { Injectable } from '@angular/core';
@@ -13,6 +13,10 @@ import { Subject } from 'rxjs';
 })
 export class ProjectListService {
   private static projectList: Array<ProjectInterface> = new Array<ProjectInterface>;
+
+  private static actualProject: string = "-1";
+  private static actualTask: string = "-1";
+  private static actualTicket: string = "-1";
 
   public static projectListChange:
     Subject<Array<ProjectInterface>> = new Subject<Array<ProjectInterface>>();
@@ -25,6 +29,22 @@ export class ProjectListService {
 
   public static ticketChange:
     Subject<TicketInterface> = new Subject<TicketInterface>();
+
+  public static get projects(): Array<ProjectInterface> {
+    return this.projectList;
+  }
+
+  public static get projectId(): string {
+    return this.actualProject;
+  }
+
+  public static get taskId(): string {
+    return this.actualTask;
+  }
+
+  public static get ticketId(): string {
+    return this.actualTicket;
+  }
 
   public static isProjectInit(projectId: string): boolean {
     for (let i = 0; i < this.projectList.length; i++) {
@@ -191,6 +211,7 @@ export class ProjectListService {
   public static setActualProject(projectId: string): void {
     for (let i = 0; i < this.projectList.length; i++) {
       if (this.projectList[i].id == projectId) {
+        this.actualProject = projectId;
         this.projectChange.next(this.projectList[i]);
         return
       }
@@ -210,6 +231,8 @@ export class ProjectListService {
         for (let j = 0; j < this.projectList[i].tasks.length; j++) {
           let task = this.projectList[i].tasks[j]
           if (task.id == taskId) {
+            this.actualProject = this.projectList[i].id;
+            this.actualTask = taskId;
             this.projectChange.next(this.projectList[i]);
             this.taskChange.next(task);
             return
@@ -234,6 +257,10 @@ export class ProjectListService {
             for (let k = 0; k < task.tickets.length; k++) {
               let ticket = task.tickets[k];
               if (ticket.id == ticketId) {
+                this.actualProject = this.projectList[i].id;
+                this.actualTask = ticket.taskId;
+                this.actualTicket = ticketId;
+
                 this.projectChange.next(this.projectList[i]);
                 this.taskChange.next(task);
                 this.ticketChange.next(ticket);
@@ -321,7 +348,8 @@ export interface ProjectInterface {
     name: string,
     id: string,
     validate: boolean
-  }
+  },
+  assignments: [],
   tasks: Array<TaskInterface>
 }
 

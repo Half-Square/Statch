@@ -2,7 +2,7 @@
  * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
  * @CreatedDate           : 2023-03-17 14:41:39                              *
  * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
- * @LastEditDate          : 2023-03-21 14:55:44                              *
+ * @LastEditDate          : 2023-03-21 20:04:35                              *
  ****************************************************************************/
 
 import { Component } from '@angular/core';
@@ -24,44 +24,10 @@ import {
 })
 export class NavComponent {
 
-  constructor(private api: ApiService,
-              private router: Router,
+  constructor(private router: Router,
               public command: CommandService) {
-    router.events.subscribe((val) => {
-      if (val instanceof NavigationEnd) {
-        this.handleNavigation(val)
-      }
-    });
-    ProjectListService.projectListChange
-    .subscribe((value: Array<ProjectInterface>) => {
-      console.log("projectListChange");
-
-      this.projectList = value;
-      this.getProjects()
-    })
-    ProjectListService.projectChange
-    .subscribe((project: ProjectInterface) => {
-      console.log("projectChange");
-
-      this.projectId = project.id;
-      this.taskId = "";
-      this.ticketId = "";
-      this.getProjects()
-    })
-    ProjectListService.taskChange
-    .subscribe((task: TaskInterface) => {
-      console.log("taskChange");
-
-      this.projectId = task.projectId;
-      this.taskId = task.id;
-      this.ticketId = "";
-    })
-    ProjectListService.ticketChange
-    .subscribe((ticket: TicketInterface) => {
-      console.log("ticketChange");
-      this.taskId = ticket.taskId;
-      this.ticketId = ticket.id;
-    })
+    this.initData();
+    this.subscribeEvent();
   }
 
   public projects = new Array<ProjectInterface>;
@@ -73,28 +39,67 @@ export class NavComponent {
   public taskId: string = "";
   public ticketId: string = "";
 
+  private initData():void {
+    this.url = this.router.url.split("/")
+    this.projectList = ProjectListService.projects
+    this.projectId = ProjectListService.projectId
+    this.taskId = ProjectListService.taskId
+    this.ticketId = ProjectListService.ticketId
+    this.getProjects()
+  }
+
+  private subscribeEvent():void {
+    this.router.events.subscribe((val: any) => {
+      if (val instanceof NavigationEnd) {
+        this.handleNavigation(val)
+      }
+    });
+    ProjectListService.projectListChange
+    .subscribe((value: Array<ProjectInterface>) => {
+      this.projectList = value;
+      this.getProjects()
+    })
+    ProjectListService.projectChange
+    .subscribe((project: ProjectInterface) => {
+      this.projectId = project.id;
+      this.taskId = "";
+      this.ticketId = "";
+      this.getProjects()
+    })
+    ProjectListService.taskChange
+    .subscribe((task: TaskInterface) => {
+      this.projectId = task.projectId;
+      this.taskId = task.id;
+      this.ticketId = "";
+    })
+    ProjectListService.ticketChange
+    .subscribe((ticket: TicketInterface) => {
+      this.taskId = ticket.taskId;
+      this.ticketId = ticket.id;
+    })
+  }
+
   private handleNavigation(navEnd: NavigationEnd): void {
     this.url = navEnd.urlAfterRedirects.split("/");
   }
 
   private getProjects(): void {
-    if (this.url[1] == 'project' ||
+    if ((this.url[1] == 'project' ||
         this.url[1] == 'task' ||
-        this.url[1] == 'ticket') {
-      if (this.projectId) {
-        for (let i = 0; i < this.projectList.length; i++) {
-          if (this.projectId == this.projectList[i].id) {
-            this.projects = [ this.projectList[i] ];
-          }
+        this.url[1] == 'ticket') &&
+        this.projectId) {
+      for (let i = 0; i < this.projectList.length; i++) {
+        if (this.projectId == this.projectList[i].id) {
+          this.projects = [ this.projectList[i] ];
         }
-      } else {
-        this.projects = this.projectList;
       }
-    } else {
+    } else if (this.url[1] == 'projects') {
       this.projects = this.projectList;
       this.projectId = "";
       this.taskId = "";
       this.ticketId = "";
+    } else {
+      this.projects = this.projectList;
     }
   };
 }
