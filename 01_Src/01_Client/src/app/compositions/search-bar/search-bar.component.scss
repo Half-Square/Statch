@@ -2,7 +2,7 @@
  * @Author                : 0K00<qdouvillez@gmail.com>                       *
  * @CreatedDate           : Invalid Date                                     *
  * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
- * @LastEditDate          : 2023-03-20 18:39:06                              *
+ * @LastEditDate          : 2023-03-21 14:24:23                              *
  *                                                                           *
  ****************************************************************************/
 
@@ -12,7 +12,6 @@
   box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.15);
   backdrop-filter: blur(25px);
   border-radius: 8px;
-  overflow: hidden;
 
     /* width */
   ::-webkit-scrollbar {
@@ -37,27 +36,46 @@
   }
 
   .searchInput {
-      display: grid;
-      grid-auto-flow: column;
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
       align-items: center;
-      justify-content: start;
-      justify-items: start;
       overflow: hidden;
       padding: 14px;
       gap: 0.25rem;
 
       .resultContainer {
-        overflow: auto;
         display: flex;
         gap: 0.25rem;
-        max-width: -webkit-fill-available;
+
+        .invSearch {
+          display: none;
+        }
+
+        .label-block {
+          position: absolute;
+          top: 47px;
+          left: 58px;
+          padding-top: 4px;
+
+          .item {
+            display: flex;
+            flex-direction: column-reverse;
+            padding: 4px;
+            gap: 4px;
+            border-radius: 4px;
+            background: rgb(60 60 60);
+            z-index: 10;
+          }
+        }
+
       }
 
       .return {
         cursor: pointer;
       }
 
-      .label {
+      .label-search {
         display: flex;
         align-items: center;
         font-style: normal;
@@ -84,20 +102,6 @@
           }
         }
       }
-
-      .label:not(:first-child) {
-        position: relative;
-        margin-left: 16px;
-        &::before {
-          font-family: 'icon' !important;
-          content: '\e919';
-          position: absolute;
-          color: #9C9C9C;
-          left: -18px;
-          font-size: 16px;
-        }
-      }
-
 
       i {
           color: rgba(255, 255, 255, 0.64);

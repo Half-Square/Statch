@@ -2,7 +2,7 @@
 * @Author                : 0K00<qdouvillez@gmail.com>
 * @CreatedDate           : 2023-03-17 15:15:00
 * @LastEditors           : 0K00<qdouvillez@gmail.com>
-* @LastEditDate          : 2023-03-20 18:06:15
+* @LastEditDate          : 2023-03-21 14:34:19
 *
 -->
 
@@ -13,23 +13,47 @@
       <i  class="icon chevron-left"></i>
     </div>
     <div class="resultContainer">
-      <div *ngFor="let resultSelected of resultsSelected; let step = index" class="label">
-        <div class="text">
-          {{ resultSelected.name ? resultSelected.name : '' }}
+
+      <div *ngIf="resultsSelected.length > 3" (mouseenter)="showBlock = true" (mouseleave)="showBlock = false">
+        <div class="label-search">
+          ...
         </div>
-        <div (click)="returnStep(step)" class="return">
-          <i  class="icon cross-2"></i>
+        <div *ngIf="showBlock" class="label-block">
+          <div class="item">
+            <div *ngFor="let item of resultsSelected; let i = index" [ngClass]="{'invSearch': i == resultsSelected.length - 1}">
+              <div class="label-search">
+                <div class="text">
+                  {{item.name}}
+                </div>
+                <div (click)="returnStep(i)" class="return">
+                  <i  class="icon cross-2"></i>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
+
+      <div *ngFor="let item of resultsSelected; let i = index" [ngClass]="{'invSearch': resultsSelected.length > 3 && i !== resultsSelected.length - 1}">
+        <div [ngClass]="{'not-last-item': i !== resultsSelected.length - 1}" class="label-search">
+          <div class="text">
+            {{item.name}}
+          </div>
+          <div (click)="returnStep(i)" class="return">
+            <i  class="icon cross-2"></i>
+          </div>
+        </div>
+      </div>
+
     </div>
     <input type="text" id="inputSearch" autocomplete="off"
-      placeholder="Search..."
+      placeholder="{{placeholderSearch}}"
       [(ngModel)]="query"
       appFocusOnShow
       (ngModelChange)="handleInput()"
       (keydown.arrowDown)="focusNextResult()"
       (keydown.arrowUp)="focusPrevResult()"
-      (keydown.enter)="handleEnter()" />
+      (keydown)="handle($event)" />
   </div>
 
   <div @nested *ngIf="results.length > 0" class="subtitle">Results</div>

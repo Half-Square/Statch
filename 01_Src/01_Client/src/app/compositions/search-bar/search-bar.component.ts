@@ -2,15 +2,7 @@
  * @Author                : 0K00<qdouvillez@gmail.com>                       *
  * @CreatedDate           : 2023-03-20 16:31:02                              *
  * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
- * @LastEditDate          : 2023-03-20 18:26:08                              *
- *                                                                           *
- ****************************************************************************/
-
-/*****************************************************************************
- * @Author                : 0K00<qdouvillez@gmail.com>                       *
- * @CreatedDate           : 2023-03-17 15:11:14                              *
- * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
- * @LastEditDate          : 2023-03-20 16:30:58                              *
+ * @LastEditDate          : 2023-03-21 14:56:08                              *
  *                                                                           *
  ****************************************************************************/
 
@@ -47,7 +39,8 @@ export class SearchBarComponent implements OnInit {
     public resultsSelected: any = [];
     public focusedResult: number = -1;
     public stepSearch: number = 0;
-
+    public showBlock: boolean = false;
+    public placeholderSearch: string = 'Search projects or commands line...';
 
     /*
     * Name: ngOnInit
@@ -161,16 +154,32 @@ export class SearchBarComponent implements OnInit {
      *
     */
     public selectResult(result: any): void {
-      this.commands(result)
-      console.log('clicked', result)
+      this.redirect(result)
     }
     /***/
+
+    public handle(event: any): void {
+      if(!event.altKey && event.key === "Enter")  {
+        console.log('Enter');
+        this.handleEnter();
+      } if (event.altKey && event.key === "Enter") {
+        console.log('Alt + Enter');
+        this.handleCommands();
+      }
+    }
 
     public redirect(result: any): void {
       console.log('clicked', result)
     }
 
+    public handleCommands(): void {
+      if (this.focusedResult > -1 && this.results.length > 0) {
+        this.commands(this.results[this.focusedResult]);
+      }
+    }
+
     public commands(result: any): void {
+      this.placeholderSearch = "Search in..."
       this.resetInput();
       this.resultsSelected.push(result)
       this.stepSearch += 1;
@@ -202,8 +211,8 @@ export class SearchBarComponent implements OnInit {
      *
     */
     public handleEnter(): void {
-      if (this.focusedResult > -1) {
-        this.selectResult(this.results[this.focusedResult]);
+      if (this.focusedResult > -1 && this.results.length > 0) {
+        this.redirect(this.results[this.focusedResult]);
       }
     }
 }
