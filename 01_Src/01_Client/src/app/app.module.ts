@@ -1,9 +1,10 @@
-/******************************************************************************
- * @Author                : Adrien Lanco<adrienlanco0@gmail.com>              *
- * @CreatedDate           : 2023-03-17 11:54:55                               *
- * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>              *
- * @LastEditDate          : 2023-03-18 17:26:14                               *
- *****************************************************************************/
+/*****************************************************************************
+ * @Author                : 0K00<qdouvillez@gmail.com>                       *
+ * @CreatedDate           : 2023-03-17 11:54:55                              *
+ * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
+ * @LastEditDate          : 2023-03-20 16:50:21                              *
+ *                                                                           *
+ ****************************************************************************/
 
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -15,6 +16,7 @@ import { AppComponent } from './app.component';
 import { ComponentsModule } from './components/components.module';
 import { CompositionsModule } from './compositions/compositions.module';
 import { ViewsModule } from './views/views.module';
+import { DirectivesModule } from './directives/directives.module';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,8 @@ import { ViewsModule } from './views/views.module';
     AppRoutingModule,
     ComponentsModule,
     CompositionsModule,
-    ViewsModule
+    ViewsModule,
+    DirectivesModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
