@@ -2,7 +2,7 @@
 * @Author                : Adrien Lanco<adrienlanco0@gmail.com>
 * @CreatedDate           : 2023-03-17 16:48:00
 * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>
-* @LastEditDate          : 2023-03-18 17:09:56
+* @LastEditDate          : 2023-03-20 18:29:24
 -->
 
 <div id="task">
@@ -16,10 +16,6 @@
       <div class="advancement">
         <app-progress-bar id="test" [value]="15" />
         <div class="tickets">
-          <a class="ticket" *ngIf="!task.tickets || task.tickets.length < 1" (click)="command.openNewTicket(task.id)">
-            Create new Ticket
-          </a>
-
           <a class="ticket" *ngFor="let ticket of task.tickets" [href]="'/ticket/'+ticket.id">
             <div class="block">
               <div class="status"><app-status [status]="ticket.status" /></div>
@@ -30,6 +26,10 @@
               <!-- <app-label :level="task.level" />
               <app-avatar :id="task.name" /> -->
             </div>
+          </a>
+
+          <a class="ticket" (click)="command.openNewTicket(task.id)">
+            Create new Ticket
           </a>
         </div>
       </div>

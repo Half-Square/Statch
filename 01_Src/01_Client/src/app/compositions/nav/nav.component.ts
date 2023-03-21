@@ -2,7 +2,7 @@
  * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
  * @CreatedDate           : 2023-03-17 14:41:39                              *
  * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
- * @LastEditDate          : 2023-03-20 18:11:33                              *
+ * @LastEditDate          : 2023-03-21 14:55:44                              *
  ****************************************************************************/
 
 import { Component } from '@angular/core';
@@ -12,7 +12,9 @@ import { CommandService } from 'src/app/services/command/command.service';
 
 import {
   ProjectListService,
-  ProjectInterface
+  ProjectInterface,
+  TaskInterface,
+  TicketInterface
 } from 'src/app/services/project-list/project-list.service';
 
 @Component({
@@ -32,13 +34,33 @@ export class NavComponent {
     });
     ProjectListService.projectListChange
     .subscribe((value: Array<ProjectInterface>) => {
+      console.log("projectListChange");
+
       this.projectList = value;
       this.getProjects()
     })
     ProjectListService.projectChange
     .subscribe((project: ProjectInterface) => {
+      console.log("projectChange");
+
       this.projectId = project.id;
+      this.taskId = "";
+      this.ticketId = "";
       this.getProjects()
+    })
+    ProjectListService.taskChange
+    .subscribe((task: TaskInterface) => {
+      console.log("taskChange");
+
+      this.projectId = task.projectId;
+      this.taskId = task.id;
+      this.ticketId = "";
+    })
+    ProjectListService.ticketChange
+    .subscribe((ticket: TicketInterface) => {
+      console.log("ticketChange");
+      this.taskId = ticket.taskId;
+      this.ticketId = ticket.id;
     })
   }
 
@@ -46,7 +68,10 @@ export class NavComponent {
   public projectList = new Array<ProjectInterface>;
 
   public url: Array<string> = [];
+
   public projectId: string = "";
+  public taskId: string = "";
+  public ticketId: string = "";
 
   private handleNavigation(navEnd: NavigationEnd): void {
     this.url = navEnd.urlAfterRedirects.split("/");
@@ -67,7 +92,9 @@ export class NavComponent {
       }
     } else {
       this.projects = this.projectList;
+      this.projectId = "";
+      this.taskId = "";
+      this.ticketId = "";
     }
   };
-
 }

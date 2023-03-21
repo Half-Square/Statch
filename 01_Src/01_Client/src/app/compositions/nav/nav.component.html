@@ -2,7 +2,7 @@
 * @Author                : Adrien Lanco<adrienlanco0@gmail.com>
 * @CreatedDate           : 2023-03-17 14:41:00
 * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>
-* @LastEditDate          : 2023-03-20 13:52:55
+* @LastEditDate          : 2023-03-21 11:53:39
 -->
 
 <div id="nav">
@@ -27,18 +27,19 @@
   <div class="menu">
 
     <app-collapse *ngFor="let project of projects"
-                  [label]="project.name"
+                  [label]="project.name+(project.id == projectId)"
                   [id]="project.id"
                   [type]="'project'"
                   [status]="project.status"
+                  [isOpen]="project.id == projectId"
                   (onOpen)="command.getProject(project.id)"
                   [depth]="1">
-
       <app-collapse *ngFor="let task of project.tasks"
                     [label]="task.name"
                     [id]="task.id"
                     [type]="'task'"
                     [status]="task.status"
+                    [isOpen]="task.id == taskId"
                     (onOpen)="command.getTask(task.id)"
                     [depth]="2">
 
@@ -49,36 +50,19 @@
                       [status]="ticket.status"
                       [noContent]="true"
                       [depth]="3">
-          <app-button class="deleteTicket" type="scnd" size="md"
-          [ngStyle]="{transform: 'translate(' + 9*16 + 'px)'}"
-          label="Delete ticket (Alt + T)"
-          (click)='command.deleteTicket(ticket)' />
         </app-collapse>
 
-        <app-button class="newTicket" type="scnd" size="md"
-        [ngStyle]="{transform: 'translate(' + 4*16 + 'px)'}"
-        label="New ticket (Alt + T)"
-        (click)='command.openNewTicket(task.id)' />
         <app-button class="deleteTask" type="scnd" size="md"
         [ngStyle]="{transform: 'translate(' + 4*16 + 'px)'}"
         label="Delete task (Alt + N)"
         (click)='command.deleteTask(task)' />
       </app-collapse>
 
-
-      <app-button class="newTask" type="scnd" size="md"
-      [ngStyle]="{transform: 'translateX(' + 16 + 'px)'}"
-      label="New task (Alt + N)"
-      (click)='command.openNewTask(project.id)' />
       <app-button class="deleteProject" type="scnd" size="md"
       [ngStyle]="{transform: 'translateX(' + 16 + 'px)'}"
       label="Delete project (Alt + N)"
       (click)='command.deleteProject(project.id)' />
     </app-collapse>
 
-
-    <app-button class="newProject" type="scnd" size="md"
-    label="New project (Alt + N)"
-    (click)='command.openNewProject()' />
   </div>
 </div>

@@ -2,7 +2,7 @@
  * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
  * @CreatedDate           : 2023-03-17 22:34:38                              *
  * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
- * @LastEditDate          : 2023-03-20 17:30:31                              *
+ * @LastEditDate          : 2023-03-21 14:34:55                              *
  ****************************************************************************/
 
 import { Injectable } from '@angular/core';
@@ -46,11 +46,11 @@ export class CommandService {
   *
   * @returns (Promise<ProjectInterface>): Resolve project
   */
-  public async getProject(projectId: string): Promise<ProjectInterface> {
+  public async getProject(projectId: string, willEmit: boolean = true): Promise<ProjectInterface> {
     return new Promise<ProjectInterface>((resolve, reject) => {
       this.api.request("GET", "projects/"+projectId)
       .then((ret: ProjectInterface) => {
-        ProjectListService.addProject(ret)
+        ProjectListService.addProject(ret, willEmit)
         return resolve(ret)
       }).catch((err) => {
         return reject(err)
@@ -68,12 +68,20 @@ export class CommandService {
   *
   * @returns (Promise<TaskInterface>): Resolve task
   */
-  public async getTask(taskId: string): Promise<TaskInterface> {
+  public async getTask(taskId: string, willEmit: boolean = true): Promise<TaskInterface> {
     return new Promise<TaskInterface>((resolve, reject) => {
       this.api.request("GET", "tasks/"+taskId)
       .then((ret: TaskInterface) => {
-        ProjectListService.addTask(ret.projectId, ret)
-        return resolve(ret)
+        if (ProjectListService.isProjectInit(ret.projectId)) {
+          ProjectListService.addTask(ret, willEmit)
+          return resolve(ret)
+        } else {
+          this.getProject(ret.projectId, false)
+          .then(() => {
+            ProjectListService.addTask(ret, willEmit)
+            return resolve(ret)
+          })
+        }
       }).catch((err) => {
         return reject(err)
       })
@@ -95,13 +103,18 @@ export class CommandService {
     return new Promise<TicketInterface>((resolve, reject) => {
       this.api.request("GET", "tickets/"+ticketId)
       .then((ret: TicketInterface) => {
-        this.getTask(ret.taskId)
-        .then(() => {
-          ProjectListService.addTicket(ret) //TO DO get project id from back
+        if (ProjectListService.isTaskInit(ret.taskId)) {
+          ProjectListService.addTicket(ret)
           return resolve(ret)
-        }).catch((err) => {
-          return reject(err)
-        })
+        } else {
+          this.getTask(ret.taskId, false)
+          .then(() => {
+            ProjectListService.addTicket(ret);
+            return resolve(ret)
+          }).catch((err) => {
+            return reject(err)
+          })
+        }
       }).catch((err) => {
         return reject(err)
       })
@@ -149,7 +162,7 @@ export class CommandService {
         name: "New Task",
         description: "My awesome new Task"
       }).then((ret: any) => {
-        ProjectListService.addTask(ret.projectId, ret);
+        ProjectListService.addTask(ret);
         this.router.navigate(["/task/", ret.id ])
       }).catch((error: any) => {
         console.error("New Task error >> "+error)

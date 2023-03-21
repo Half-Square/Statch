@@ -2,7 +2,7 @@
  * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
  * @CreatedDate           : 2023-03-17 14:25:08                              *
  * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
- * @LastEditDate          : 2023-03-20 18:03:21                              *
+ * @LastEditDate          : 2023-03-21 14:35:58                              *
  ****************************************************************************/
 
 import { Injectable } from '@angular/core';
@@ -25,6 +25,35 @@ export class ProjectListService {
 
   public static ticketChange:
     Subject<TicketInterface> = new Subject<TicketInterface>();
+
+  public static isProjectInit(projectId: string): boolean {
+    for (let i = 0; i < this.projectList.length; i++) {
+      if (this.projectList[i].id == projectId) {
+        if (this.projectList[i].tasks && this.projectList[i].tasks.length > 0)
+          return true;
+        else
+          return false;
+      }
+    }
+    return false;
+  }
+
+  public static isTaskInit(taskId: string): boolean {
+    for (let i = 0; i < this.projectList.length; i++) {
+      if (this.projectList[i].tasks) {
+        for (let j = 0; j < this.projectList[i].tasks.length; j++) {
+          let task = this.projectList[i].tasks[j];
+          if (task.id == taskId) {
+            if (task.tickets && task.tickets.length > 0)
+              return true;
+            else
+              return false;
+          }
+        }
+      }
+    }
+    return false;
+  }
 
   /**
   * @name addProjectList
@@ -58,7 +87,7 @@ export class ProjectListService {
   *
   * @param newProject (ProjectInterface): project to update or add
   */
-  public static addProject(newProject:ProjectInterface): void {
+  public static addProject(newProject:ProjectInterface, willEmit: boolean = true): void {
     let changed = false
 
     this.projectList.forEach(project => {
@@ -77,12 +106,15 @@ export class ProjectListService {
         }
 
         project = Object.assign(project, newProject);
+        console.log("addProject", project);
+
         changed = true;
       }
     });
     if (!changed)
       this.projectList.push(newProject)
-    this.projectListChange.next(this.projectList);
+    if (willEmit)
+      this.projectListChange.next(this.projectList);
   }
   /***/
 
@@ -92,9 +124,9 @@ export class ProjectListService {
   *        then emit projectListChange
   * @param taskId (TaskInterface) task to update or add
   */
-  public static addTask(projectId: string, newTask:TaskInterface): void {
+  public static addTask(newTask:TaskInterface, willEmit: boolean = true): void {
     this.projectList.forEach(project => {
-      if (projectId == project.id) {
+      if (newTask.projectId == project.id) {
         let changed = false
         if (project.tasks)
           project.tasks.forEach(task => {
@@ -107,10 +139,13 @@ export class ProjectListService {
           if (project.tasks) project.tasks.push(newTask);
           else project.tasks = [ newTask ]
         }
+        console.log("addTask", project.tasks);
 
       }
     });
-    this.projectListChange.next(this.projectList);
+
+    if (willEmit)
+      this.projectListChange.next(this.projectList);
   }
   /***/
 

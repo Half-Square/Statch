@@ -16,9 +16,6 @@
       <div class="advancement">
         <app-progress-bar id="test" [value]="15" />
         <div class="tasks">
-          <a class="task" *ngIf="!project.tasks || project.tasks.length < 1" (click)="command.openNewTask(project.id)">
-            Create new Task
-          </a>
 
           <a class="task" *ngFor="let task of project.tasks" [href]="'/task/'+task.id">
             <div class="block">
@@ -30,6 +27,10 @@
               <!-- <app-label :level="task.level" />
               <app-avatar :id="task.name" /> -->
             </div>
+          </a>
+
+          <a class="task" (click)="command.openNewTask(project.id)">
+            Create new Task
           </a>
         </div>
       </div>
