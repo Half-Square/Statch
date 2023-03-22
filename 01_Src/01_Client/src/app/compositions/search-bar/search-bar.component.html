@@ -1,0 +1,72 @@
+<!--
+* @Author                : 0K00<qdouvillez@gmail.com>
+* @CreatedDate           : 2023-03-17 15:15:00
+* @LastEditors           : 0K00<qdouvillez@gmail.com>
+* @LastEditDate          : 2023-03-21 14:34:19
+*
+-->
+
+<div class="searchBar">
+  <div class="searchInput">
+    <i *ngIf="stepSearch < 1" class="icon search"></i>
+    <div *ngIf="stepSearch > 0" (click)="returnStep(0)" class="return">
+      <i  class="icon chevron-left"></i>
+    </div>
+    <div class="resultContainer">
+
+      <div *ngIf="resultsSelected.length > 3" (mouseenter)="showBlock = true" (mouseleave)="showBlock = false">
+        <div class="label-search">
+          ...
+        </div>
+        <div *ngIf="showBlock" class="label-block">
+          <div class="item">
+            <div *ngFor="let item of resultsSelected; let i = index" [ngClass]="{'invSearch': i == resultsSelected.length - 1}">
+              <div class="label-search">
+                <div class="text">
+                  {{item.name}}
+                </div>
+                <div (click)="returnStep(i)" class="return">
+                  <i  class="icon cross-2"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div *ngFor="let item of resultsSelected; let i = index" [ngClass]="{'invSearch': resultsSelected.length > 3 && i !== resultsSelected.length - 1}">
+        <div [ngClass]="{'not-last-item': i !== resultsSelected.length - 1}" class="label-search">
+          <div class="text">
+            {{item.name}}
+          </div>
+          <div (click)="returnStep(i)" class="return">
+            <i  class="icon cross-2"></i>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <input type="text" id="inputSearch" autocomplete="off"
+      placeholder="{{placeholderSearch}}"
+      [(ngModel)]="query"
+      appFocusOnShow
+      (ngModelChange)="handleInput()"
+      (keydown.arrowDown)="focusNextResult()"
+      (keydown.arrowUp)="focusPrevResult()"
+      (keydown)="handle($event)" />
+  </div>
+
+  <div @nested *ngIf="results.length > 0" class="subtitle">Results</div>
+
+  <ul @nested class="results" *ngIf="results.length > 0">
+    <li *ngFor="let result of results; let index = index"
+      [ngClass]="{ focused: index === focusedResult }"
+      (click)="selectResult(result)"
+      (mouseover)="focusResult(index)">{{ result.name }}</li>
+  </ul>
+
+  <div @nested *ngIf="results.length > 0" class="footer">
+    Go to
+    <div class="shortcut"><i class="icon enter"></i></div>
+  </div>
+</div>

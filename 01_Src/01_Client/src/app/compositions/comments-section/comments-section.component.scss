@@ -1,0 +1,31 @@
+/*****************************************************************************
+ * @Author                : AdrienLanco0<121338518+AdrienLanco0@users.noreply.github.com>*
+ * @CreatedDate           : 2023-03-22 11:12:21                              *
+ * @LastEditors           : AdrienLanco0<121338518+AdrienLanco0@users.noreply.github.com>*
+ * @LastEditDate          : 2023-03-22 11:12:21                              *
+ ****************************************************************************/
+
+.comments {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 1rem;
+
+  h2 {
+    color: rgba(125, 125, 125, 1);
+  }
+
+  .commentInput {
+    display: flex;
+    gap: 0.5rem;
+
+    .input {
+      width: 100%;
+    }
+
+    .btn {
+      width: unset;
+    }
+  }
+}
+

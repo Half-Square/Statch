@@ -1,0 +1,24 @@
+/*****************************************************************************
+ * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
+ * @CreatedDate           : 2023-03-17 16:08:36                              *
+ * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
+ * @LastEditDate          : 2023-03-18 15:17:52                              *
+ ****************************************************************************/
+
+
+:host {
+  min-height: 100vh;
+  .sidebar {
+    display: flex;
+    overflow: hidden;
+    min-height: 100vh;
+    aside {
+        width: calc(100% - 1px);
+    }
+
+    .main {
+        overflow: auto;
+        height: calc(100vh - 40px);
+    }
+  }
+}

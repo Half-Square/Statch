@@ -1,0 +1,25 @@
+<!--
+* @Author                : Adrien Lanco<adrienlanco0@gmail.com>
+* @CreatedDate           : 2023-03-17 12:58:00
+* @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>
+* @LastEditDate          : 2023-03-21 11:42:46
+-->
+
+<div class="collapse" [ngClass]="{ 'open': show(), 'close': !show() }">
+  <div class="label" [ngClass]="{ 'active': false }">
+      <div *ngIf="!noContent" class="icons" [ngStyle]="indent()" (click)="toggleCollapse()"
+            [ngClass]="{ 'less': show(), 'more': !show() }" >
+          <i *ngIf="!show()" class="icon chevron-right"></i>
+          <i *ngIf="show()" class="icon chevron-down"></i>
+      </div>
+      <nav [routerLink]="[ type+(id? '/'+id : '') ]">
+          <div class="link" [ngStyle]="indent()">
+              <app-status [status]="status"></app-status>
+              <div class="text">{{ label }}</div>
+          </div>
+      </nav>
+  </div>
+
+  <ng-content *ngIf="show()">
+  </ng-content>
+</div>

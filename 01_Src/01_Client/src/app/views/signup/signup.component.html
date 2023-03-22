@@ -1,0 +1,43 @@
+<!--
+* @Author                : Adrien Lanco<adrienlanco0@gmail.com>
+* @CreatedDate           : 2023-03-17 15:48:00
+* @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>
+* @LastEditDate          : 2023-03-17 16:04:35
+-->
+
+<div id="signup">
+  <div *ngIf="step === 1" class="container" style="align-items: center; gap: 2rem;">
+    <div class="title">This is it!</div>
+    <div class="subtitle">The first step to becoming an efficient project manager in <i class="blue">Statch</i>.</div>
+    <app-button id='toStep2' type='prm' size='md' other="full" label="Let’s get started!" (click)='checkStep()' icon='enter' iconPosition='right' />
+  </div>
+  <div *ngIf="step === 2" class="container" style="align-items: flex-start; gap: 1.5rem;">
+    <app-input id="name" [(value)]="name" placeholder="Enter your name..." type="prm" size="md" other="full" [isLabel]="true" label="Your name"/>
+    <div class="error-mess" *ngIf="error === true">Name should not be empty</div>
+    <app-button id='toStep3' type='prm' size='md' other="full" label="Next" (click)='checkStep()' icon='arrowright' iconPosition='right' />
+  </div>
+  <div *ngIf="step === 3" class="container" style="align-items: flex-start; gap: 1.5rem;">
+    <app-input id="email" [(value)]="email" placeholder="Enter your email..." type="prm" size="md" other="full" [isLabel]="true" label="Your email"/>
+    <div class="error-mess" *ngIf="error === true">Please enter a valid email</div>
+    <app-button id='toStep4' type='prm' size='md' other="full" label="Next" (click)='checkStep()' icon='arrowright' iconPosition='right' />
+  </div>
+  <div *ngIf="step === 4" class="container" style="align-items: flex-start; gap: 1.5rem;">
+    <app-input id="pwd" [(value)]="pwd" is="password" placeholder="Enter your password..." type="prm" size="md" other="full" [isLabel]="true" label="Enter your password"/>
+    <app-input id="conPwd" [(value)]="conPwd" is="password" placeholder="Confirm your password..." type="prm" size="md" other="full" [isLabel]="true" label="Rewrite your password"/>
+    <div class="error-mess" *ngIf="error === true">Passwords don't match</div>
+    <app-button id='toStep5' type='prm' size='md' other="full" label="Finish" (click)='checkStep()' icon='arrowright' iconPosition='right' />
+  </div>
+  <div *ngIf="step === 5" class="container" style="align-items: center; gap: 2rem;">
+    <div class="title">Creating User...</div>
+    <div class="subtitle">Please wait while creating your account.</div>
+  </div>
+  <div *ngIf="step === 6" class="container" style="align-items: center; gap: 2rem;">
+    <div class="title">Completed!</div>
+    <div class="subtitle">Just wait for the person in charge to validate your account.</div>
+    <a href="/login">
+      <div>
+        Return to login<i class="icon arrowright"></i>
+      </div>
+    </a>
+  </div>
+</div>
