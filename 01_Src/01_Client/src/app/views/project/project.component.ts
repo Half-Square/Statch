@@ -1,9 +1,9 @@
-/******************************************************************************
- * @Author                : Adrien Lanco<adrienlanco0@gmail.com>              *
- * @CreatedDate           : 2023-03-17 16:49:59                               *
- * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>              *
- * @LastEditDate          : 2023-03-20 10:25:22                               *
- *****************************************************************************/
+/*****************************************************************************
+ * @Author                : AdrienLanco0<121338518+AdrienLanco0@users.noreply.github.com>*
+ * @CreatedDate           : 2023-03-17 16:49:59                              *
+ * @LastEditors           : AdrienLanco0<121338518+AdrienLanco0@users.noreply.github.com>*
+ * @LastEditDate          : 2023-03-22 11:21:12                              *
+ ****************************************************************************/
 
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -20,19 +20,22 @@ export class ProjectComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               private router: Router,
               public command: CommandService) {
-    ProjectListService.projectChange.subscribe((value) => {
-      console.log("projectChange", value);
-
-      this.project = value;
+    this.route.queryParams
+    .subscribe((params: any) => {
+      if (params.edit) this.onEdit = params.edit
+      else this.onEdit = false
+    });
+    ProjectListService.projectChange.subscribe((value: ProjectInterface) => {
+      this.project = structuredClone(value)
     })
   }
+
+  public onEdit: boolean = false;
 
   public id: string = "";
   public project: ProjectInterface = {} as ProjectInterface;
 
   public nbTicket: number = 0;
-
-  public newCommentContent: string = "";
 
   public activity : any = [
     {img: "0", alt: "oui", name: "Randy", action: "created", id: "dc5c7a1", url: "/create", time: "10 min"},
@@ -72,7 +75,14 @@ export class ProjectComponent implements OnInit {
     this.id = this.route.snapshot.paramMap.get('id') || "";
   }
 
-  public newComment() {
-    console.log(this.newCommentContent);
+  public saveProject() {
+    this.command.editProject(this.project)
+  }
+
+  public redirectToEdit() {
+    this.router.navigate(
+      [ "project", this.project.id ],
+      { queryParams: { edit: true } }
+    )
   }
 }

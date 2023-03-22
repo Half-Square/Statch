@@ -1,9 +1,9 @@
-/******************************************************************************
- * @Author                : Adrien Lanco<adrienlanco0@gmail.com>              *
- * @CreatedDate           : 2023-03-17 12:23:56                               *
- * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>              *
- * @LastEditDate          : 2023-03-20 09:44:23                               *
- *****************************************************************************/
+/*****************************************************************************
+ * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
+ * @CreatedDate           : 2023-03-17 12:23:56                              *
+ * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
+ * @LastEditDate          : 2023-03-20 12:13:08                              *
+ ****************************************************************************/
 
 import { Component } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
@@ -23,13 +23,13 @@ export class BreadcrumbsComponent {
   constructor(private router: Router,
               private route: ActivatedRoute) {
 
-    router.events.subscribe((val) => {
+    router.events.subscribe((val: any) => {
       if (val instanceof NavigationEnd) {
         this.handleNavigation(val)
       }
     });
-    this.projects = ProjectListService.projects;
-    ProjectListService.projectListChange.subscribe((value) => {
+    ProjectListService.projectListChange
+    .subscribe((value: Array<ProjectInterface>) => {
       this.projects = value;
       this.setCrumbs()
     })

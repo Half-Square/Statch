@@ -1,9 +1,8 @@
 /*****************************************************************************
- * @Author                : 0K00<qdouvillez@gmail.com>                       *
+ * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
  * @CreatedDate           : 2023-03-17 11:54:55                              *
- * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
- * @LastEditDate          : 2023-03-20 16:50:21                              *
- *                                                                           *
+ * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
+ * @LastEditDate          : 2023-03-20 16:55:38                              *
  ****************************************************************************/
 
 import { NgModule } from '@angular/core';
@@ -20,7 +19,7 @@ import { DirectivesModule } from './directives/directives.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent
   ],
   imports: [
     BrowserModule,
@@ -29,7 +28,7 @@ import { DirectivesModule } from './directives/directives.module';
     ComponentsModule,
     CompositionsModule,
     ViewsModule,
-    DirectivesModule,
+    DirectivesModule
   ],
   providers: [],
   bootstrap: [AppComponent]

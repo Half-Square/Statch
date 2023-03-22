@@ -1,9 +1,9 @@
-/******************************************************************************
- * @Author                : Adrien Lanco<adrienlanco0@gmail.com>              *
- * @CreatedDate           : 2023-03-17 11:51:44                               *
- * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>              *
- * @LastEditDate          : 2023-03-17 15:35:42                               *
- *****************************************************************************/
+/*****************************************************************************
+ * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
+ * @CreatedDate           : 2023-03-17 11:51:44                              *
+ * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
+ * @LastEditDate          : 2023-03-21 15:13:13                              *
+ ****************************************************************************/
 
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -19,6 +19,7 @@ import { ProjectComponent } from './project/project.component';
 import { TaskComponent } from './task/task.component';
 import { TicketComponent } from './ticket/ticket.component';
 
+import { DirectivesModule } from '../directives/directives.module';
 
 
 
@@ -35,6 +36,7 @@ import { TicketComponent } from './ticket/ticket.component';
     CommonModule,
     FormsModule,
 
+    DirectivesModule,
     ComponentsModule,
     CompositionsModule
   ],

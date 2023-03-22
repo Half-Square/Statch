@@ -1,9 +1,9 @@
-/******************************************************************************
- * @Author                : Adrien Lanco<adrienlanco0@gmail.com>              *
- * @CreatedDate           : 2023-03-20 09:41:42                               *
- * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>              *
- * @LastEditDate          : 2023-03-20 10:19:38                               *
- *****************************************************************************/
+/*****************************************************************************
+ * @Author                : AdrienLanco0<121338518+AdrienLanco0@users.noreply.github.com>*
+ * @CreatedDate           : 2023-03-20 09:41:42                              *
+ * @LastEditors           : AdrienLanco0<121338518+AdrienLanco0@users.noreply.github.com>*
+ * @LastEditDate          : 2023-03-22 11:22:25                              *
+ ****************************************************************************/
 
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -16,22 +16,26 @@ import { ProjectListService, TicketInterface } from 'src/app/services/project-li
   styleUrls: ['./ticket.component.scss']
 })
 export class TicketComponent {
-  constructor(private route: ActivatedRoute,
-    private router: Router,
-    public command: CommandService) {
-    ProjectListService.ticketChange.subscribe((value) => {
-      console.log("ticketChange", value);
 
-      this.ticket = value;
+  constructor(private route: ActivatedRoute,
+              private router: Router,
+              public command: CommandService) {
+    this.route.queryParams
+    .subscribe((params: any) => {
+      if (params.edit) this.onEdit = params.edit
+      else this.onEdit = false
+    });
+    ProjectListService.ticketChange.subscribe((value: TicketInterface) => {
+      this.ticket = structuredClone(value);
     })
   }
+
+  public onEdit: boolean = false;
 
   public id: string = "";
   public ticket: TicketInterface = {} as TicketInterface;
 
   public nbTicket: number = 0;
-
-  public newCommentContent: string = "";
 
   public activity : any = [
   {img: "0", alt: "oui", name: "Randy", action: "created", id: "dc5c7a1", url: "/create", time: "10 min"},
@@ -71,7 +75,14 @@ export class TicketComponent {
     this.id = this.route.snapshot.paramMap.get('id') || "";
   }
 
-  public newComment() {
-    console.log(this.newCommentContent);
+  public saveTicket() {
+    this.command.editTicket(this.ticket)
+  }
+
+  public redirectToEdit() {
+    this.router.navigate(
+      [ "ticket", this.ticket.id ],
+      { queryParams: { edit: true } }
+    )
   }
 }

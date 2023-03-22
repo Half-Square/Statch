@@ -1,24 +1,24 @@
 <!--
-* @Author                : Adrien Lanco<adrienlanco0@gmail.com>
+* @Author                : AdrienLanco0<121338518+AdrienLanco0@users.noreply.github.com>
 * @CreatedDate           : 2023-03-17 16:48:00
-* @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>
-* @LastEditDate          : 2023-03-18 17:38:45
+* @LastEditors           : AdrienLanco0<121338518+AdrienLanco0@users.noreply.github.com>
+* @LastEditDate          : 2023-03-22 11:20:50
 -->
 
 <div id="project">
   <div class="project">
     <div class="main">
       <header>
-        <h1>{{ project.name }}</h1>
-        <h2>{{ project.description }}</h2>
-        <p>Lorem</p>
+        <h1 edtTxt [isEdit]="onEdit" [(value)]="project.name"></h1>
+        <h2 edtTxt [isEdit]="onEdit" [(value)]="project.description"></h2>
+
+        <app-button id="editProj" type="scnd" size="md" label="Edit Project" *ngIf="!onEdit" (click)="redirectToEdit()" />
+        <app-button id="saveProj" type="scnd" size="md" label="Save Project" *ngIf="onEdit" (click)='saveProject()' />
+        <app-button id="deleteProj" type="scnd" size="md" label="Delete Project" *ngIf="onEdit" (click)='command.deleteProject(project.id)' />
       </header>
       <div class="advancement">
         <app-progress-bar id="test" [value]="15" />
         <div class="tasks">
-          <a class="task" *ngIf="!project.tasks || project.tasks.length < 1" (click)="command.openNewTask(project.id)">
-            Create new Task
-          </a>
 
           <a class="task" *ngFor="let task of project.tasks" [href]="'/task/'+task.id">
             <div class="block">
@@ -31,21 +31,13 @@
               <app-avatar :id="task.name" /> -->
             </div>
           </a>
+
+          <a class="task" (click)="command.openNewTask(project.id)">
+            Create new Task
+          </a>
         </div>
       </div>
-      <div class="comments">
-        <h2>Comments</h2>
-        <app-comment  *ngFor="let comment of comments"
-                      [id]="comment.id"
-                      [name]="comment.author.name"
-                      [lastName]="comment.author.lastName"
-                      [content]="comment.content"
-                      [created]="comment.created"/>
-        <div class="commentInput">
-          <app-input id="newCommentContent" [(value)]="newCommentContent" placeholder="Add comment..." />
-          <app-button id='newComment' type='scnd' size='md' label='Post' (click)='newComment' />
-        </div>
-      </div>
+      <app-comments-section targetType="projects" [targetId]="project.id" [comments]="project.comments" />
     </div>
     <aside>
       <div class="details">
@@ -66,23 +58,17 @@
         </div>
         <div class="container">
           <h4>Version</h4>
-          <div class="text">{{ project.version}}</div>
+          <div class="text" edtTxt [isEdit]="onEdit" [(value)]="project.version"></div>
         </div>
         <div class="container">
           <h4>Status</h4>
-          <div class="text"><app-status [status]="project.status" />{{ project.status }}</div>
+          <div class="text">
+            <app-status-labeled [isEdit]="onEdit" [(status)]="project.status"/>
+          </div>
         </div>
         <div class="container">
           <h4>No. of tasks</h4>
           <div><a href="/create">{{ project.tasks ? project.tasks.length : '0' }} tasks <i class="icon arrowright"></i></a></div>
-        </div>
-        <div class="container">
-          <h4>No. of tickets</h4>
-          <div><a href="/create">TO DO BACK tickets <i class="icon arrowright"></i></a></div>
-        </div>
-        <div class="container">
-          <h4>No. of docs</h4>
-          <div><a href="/create">0 docs <i class="icon arrowright"></i></a></div>
         </div>
         <div class="container">
           <h4>Created</h4>

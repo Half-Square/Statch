@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
+ * @Author                : AdrienLanco0<121338518+AdrienLanco0@users.noreply.github.com>*
  * @CreatedDate           : 2023-02-22 12:07:19                              *
- * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
- * @LastEditDate          : 2023-03-20 09:39:40                              *
+ * @LastEditors           : AdrienLanco0<121338518+AdrienLanco0@users.noreply.github.com>*
+ * @LastEditDate          : 2023-03-22 11:33:00                              *
  ****************************************************************************/
 
  #ticket {
@@ -37,26 +37,6 @@
     gap: 1rem;
     padding: 1rem;
     border-bottom: 1px solid rgba(56, 56, 56, 1);
-  }
-
-  .comments {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-    padding: 1rem;
-  }
-
-  .commentInput {
-    display: flex;
-    gap: 0.5rem;
-
-    .input {
-      width: 100%;
-    }
-
-    .btn {
-      width: unset;
-    }
   }
 
   h1 {

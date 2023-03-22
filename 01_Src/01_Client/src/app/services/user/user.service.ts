@@ -1,15 +1,14 @@
-/******************************************************************************
- * @Author                : Adrien Lanco<adrienlanco0@gmail.com>              *
- * @CreatedDate           : 2023-03-17 15:22:52                               *
- * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>              *
- * @LastEditDate          : 2023-03-17 23:37:04                               *
- *****************************************************************************/
+/*****************************************************************************
+ * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
+ * @CreatedDate           : 2023-03-17 15:22:52                              *
+ * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
+ * @LastEditDate          : 2023-03-20 18:25:46                              *
+ ****************************************************************************/
 
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { ProjectListService } from '../project-list/project-list.service';
 
-export class UserInterface {
+export interface UserInterface {
   "id":    string;
   "name":  string;
   "email": string;
@@ -31,6 +30,7 @@ export class UserService {
 
   public static init() {
     let user = sessionStorage.getItem('user');
+
     if (user)
       this.setUser(JSON.parse(user));
   }
@@ -40,19 +40,20 @@ export class UserService {
   }
 
   public static setUser(data: UserInterface) {
-    this.is_connected = true;
-    this.user = data;
-    sessionStorage.setItem('user', JSON.stringify(this.user));
+    if (data.name && data.token) {
+      this.is_connected = true;
+      this.user = data;
+      sessionStorage.setItem('user', JSON.stringify(this.user));
+    }
   }
 
   public static getUser(): UserInterface {
     return this.user;
   }
 
-  public static disconnect(): void {
-    this.user = new UserInterface;
+  public static disconnect(router: Router): void {
+    this.setUser({} as UserInterface)
     this.is_connected = false;
-    let router = new Router()
-    router.navigate(["/login"]);
+    router.navigate(['/login'])
   }
 }

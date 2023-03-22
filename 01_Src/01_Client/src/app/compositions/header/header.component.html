@@ -1,9 +1,8 @@
 <!--
 * @Author                : 0K00<qdouvillez@gmail.com>
 * @CreatedDate           : 2023-03-17 13:48:00
-* @LastEditors           : 0K00<qdouvillez@gmail.com>
-* @LastEditDate          : 2023-03-20 15:38:11
-*
+* @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>
+* @LastEditDate          : 2023-03-20 18:18:06
 -->
 
 <div id="header">
@@ -18,8 +17,10 @@
                 [ngClass]="(showModal) ? 'active' : '' " />
     <app-button id='openOption' type='trd' size='l'
                 icon='dotshorizontal' iconPosition='only' />
+    <app-button id='disconnect' type='trd' size='l'
+      icon='cross-1' iconPosition='only' (click)="disconnect()" />
   </div>
   <app-modal [(isOpen)]="showModal">
-        <app-search-bar />
+        <app-search-bar *ngIf="showModal"/>
   </app-modal>
 </div>

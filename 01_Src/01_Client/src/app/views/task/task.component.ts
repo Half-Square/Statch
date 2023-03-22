@@ -1,9 +1,9 @@
-/******************************************************************************
- * @Author                : Adrien Lanco<adrienlanco0@gmail.com>              *
- * @CreatedDate           : 2023-03-18 17:03:31                               *
- * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>              *
- * @LastEditDate          : 2023-03-20 10:25:46                               *
- *****************************************************************************/
+/*****************************************************************************
+ * @Author                : AdrienLanco0<121338518+AdrienLanco0@users.noreply.github.com>*
+ * @CreatedDate           : 2023-03-18 17:03:31                              *
+ * @LastEditors           : AdrienLanco0<121338518+AdrienLanco0@users.noreply.github.com>*
+ * @LastEditDate          : 2023-03-22 11:22:45                              *
+ ****************************************************************************/
 
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -19,19 +19,22 @@ export class TaskComponent {
   constructor(private route: ActivatedRoute,
               private router: Router,
               public command: CommandService) {
-    ProjectListService.taskChange.subscribe((value) => {
-      console.log("taskChange", value);
-
-      this.task = value;
+    this.route.queryParams
+    .subscribe((params: any) => {
+      if (params.edit) this.onEdit = params.edit
+      else this.onEdit = false
+    });
+    ProjectListService.taskChange.subscribe((value: TaskInterface) => {
+      this.task = structuredClone(value);
     })
   }
+
+  public onEdit: boolean = false;
 
   public id: string = "";
   public task: TaskInterface = {} as TaskInterface;
 
   public nbTicket: number = 0;
-
-  public newCommentContent: string = "";
 
   public activity : any = [
   {img: "0", alt: "oui", name: "Randy", action: "created", id: "dc5c7a1", url: "/create", time: "10 min"},
@@ -71,7 +74,14 @@ export class TaskComponent {
     this.id = this.route.snapshot.paramMap.get('id') || "";
   }
 
-  public newComment() {
-    console.log(this.newCommentContent);
+  public saveTask() {
+    this.command.editTask(this.task)
+  }
+
+  public redirectToEdit() {
+    this.router.navigate(
+      [ "task", this.task.id ],
+      { queryParams: { edit: true } }
+    )
   }
 }
