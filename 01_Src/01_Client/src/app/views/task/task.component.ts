@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
+ * @Author                : AdrienLanco0<121338518+AdrienLanco0@users.noreply.github.com>*
  * @CreatedDate           : 2023-03-18 17:03:31                              *
- * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
- * @LastEditDate          : 2023-03-21 20:49:29                              *
+ * @LastEditors           : AdrienLanco0<121338518+AdrienLanco0@users.noreply.github.com>*
+ * @LastEditDate          : 2023-03-22 11:22:45                              *
  ****************************************************************************/
 
 import { Component } from '@angular/core';
@@ -35,8 +35,6 @@ export class TaskComponent {
   public task: TaskInterface = {} as TaskInterface;
 
   public nbTicket: number = 0;
-
-  public newCommentContent: string = "";
 
   public activity : any = [
   {img: "0", alt: "oui", name: "Randy", action: "created", id: "dc5c7a1", url: "/create", time: "10 min"},
@@ -74,10 +72,6 @@ export class TaskComponent {
 
   async ngOnInit() {
     this.id = this.route.snapshot.paramMap.get('id') || "";
-  }
-
-  public newComment() {
-    console.log(this.newCommentContent);
   }
 
   public saveTask() {

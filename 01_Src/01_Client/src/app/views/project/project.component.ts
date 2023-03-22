@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
+ * @Author                : AdrienLanco0<121338518+AdrienLanco0@users.noreply.github.com>*
  * @CreatedDate           : 2023-03-17 16:49:59                              *
- * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
- * @LastEditDate          : 2023-03-21 20:49:22                              *
+ * @LastEditors           : AdrienLanco0<121338518+AdrienLanco0@users.noreply.github.com>*
+ * @LastEditDate          : 2023-03-22 11:21:12                              *
  ****************************************************************************/
 
 import { Component, OnInit } from '@angular/core';
@@ -36,8 +36,6 @@ export class ProjectComponent implements OnInit {
   public project: ProjectInterface = {} as ProjectInterface;
 
   public nbTicket: number = 0;
-
-  public newCommentContent: string = "";
 
   public activity : any = [
     {img: "0", alt: "oui", name: "Randy", action: "created", id: "dc5c7a1", url: "/create", time: "10 min"},
@@ -75,10 +73,6 @@ export class ProjectComponent implements OnInit {
 
   async ngOnInit() {
     this.id = this.route.snapshot.paramMap.get('id') || "";
-  }
-
-  public newComment() {
-    console.log(this.newCommentContent);
   }
 
   public saveProject() {

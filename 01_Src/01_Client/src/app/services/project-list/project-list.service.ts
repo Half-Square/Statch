@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
+ * @Author                : AdrienLanco0<121338518+AdrienLanco0@users.noreply.github.com>*
  * @CreatedDate           : 2023-03-17 14:25:08                              *
- * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
- * @LastEditDate          : 2023-03-21 20:56:12                              *
+ * @LastEditors           : AdrienLanco0<121338518+AdrienLanco0@users.noreply.github.com>*
+ * @LastEditDate          : 2023-03-22 11:29:46                              *
  ****************************************************************************/
 
 import { Injectable } from '@angular/core';
@@ -343,12 +343,8 @@ export interface ProjectInterface {
   status: string,
   created: string,
   version: string,
-  owner: {
-    email: string,
-    name: string,
-    id: string,
-    validate: boolean
-  },
+  comments: Array<CommentInterface>,
+  owner: UsersInterface,
   assignments: [],
   tasks: Array<TaskInterface>
 }
@@ -361,12 +357,8 @@ export interface TaskInterface {
   created: string,
   projectId: string,
   version: string,
-  owner: {
-    email: string,
-    name: string,
-    id: string,
-    validate: boolean
-  }
+  comments: Array<CommentInterface>,
+  owner: UsersInterface
   tickets: Array<TicketInterface>
 }
 
@@ -378,10 +370,20 @@ export interface TicketInterface {
   status: string,
   taskId: string
   version: string,
-  owner: {
-    email: string,
-    name: string,
-    id: string,
-    validate: boolean
-  }
+  comments: Array<CommentInterface>,
+  owner: UsersInterface
+}
+
+export interface UsersInterface {
+  email: string,
+  name: string,
+  id: string,
+  validate: boolean
+}
+
+export interface CommentInterface {
+  id: string,
+  author: UsersInterface,
+  created: string,
+  content: string,
 }

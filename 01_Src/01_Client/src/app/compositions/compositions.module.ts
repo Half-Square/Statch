@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
+ * @Author                : AdrienLanco0<121338518+AdrienLanco0@users.noreply.github.com>*
  * @CreatedDate           : 2023-03-17 11:38:53                              *
- * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
- * @LastEditDate          : 2023-03-20 16:55:47                              *
+ * @LastEditors           : AdrienLanco0<121338518+AdrienLanco0@users.noreply.github.com>*
+ * @LastEditDate          : 2023-03-22 11:19:34                              *
  ****************************************************************************/
 
 import { NgModule } from '@angular/core';
@@ -17,11 +17,13 @@ import { CommentComponent } from './comment/comment.component';
 import { HeaderComponent } from './header/header.component';
 import { NavComponent } from './nav/nav.component';
 import { SearchBarComponent } from './search-bar/search-bar.component';
+import { CommentsSectionComponent } from './comments-section/comments-section.component';
 
 
 @NgModule({
   declarations: [
     CommentComponent,
+    CommentsSectionComponent,
     HeaderComponent,
     NavComponent,
     SearchBarComponent
@@ -35,6 +37,7 @@ import { SearchBarComponent } from './search-bar/search-bar.component';
   ],
   exports: [
     CommentComponent,
+    CommentsSectionComponent,
     HeaderComponent,
     NavComponent,
     SearchBarComponent
