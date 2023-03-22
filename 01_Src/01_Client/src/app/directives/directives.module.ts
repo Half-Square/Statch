@@ -9,17 +9,21 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { EditableTextDirective } from './editable-text/editable-text.directive';
 
+import { FocusOnShowDirective } from './focus-on-show/focus-on-show.directive';
+
 
 
 @NgModule({
   declarations: [
-    EditableTextDirective
+    EditableTextDirective,
+    FocusOnShowDirective
   ],
   imports: [
     CommonModule
   ],
   exports: [
-    EditableTextDirective
+    EditableTextDirective,
+    FocusOnShowDirective
   ]
 })
 export class DirectivesModule { }

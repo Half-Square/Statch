@@ -17,7 +17,11 @@ import { CommentComponent } from './comment/comment.component';
 import { HeaderComponent } from './header/header.component';
 import { NavComponent } from './nav/nav.component';
 import { SearchBarComponent } from './search-bar/search-bar.component';
+
 import { CommentsSectionComponent } from './comments-section/comments-section.component';
+
+import { DirectivesModule } from '../directives/directives.module';
+
 
 
 @NgModule({
@@ -33,7 +37,8 @@ import { CommentsSectionComponent } from './comments-section/comments-section.co
     ComponentsModule,
     RouterModule,
     FormsModule,
-    LayoutsModule
+    LayoutsModule,
+    DirectivesModule
   ],
   exports: [
     CommentComponent,

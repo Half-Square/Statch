@@ -15,6 +15,7 @@ import { AppComponent } from './app.component';
 import { ComponentsModule } from './components/components.module';
 import { CompositionsModule } from './compositions/compositions.module';
 import { ViewsModule } from './views/views.module';
+import { DirectivesModule } from './directives/directives.module';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { ViewsModule } from './views/views.module';
     AppRoutingModule,
     ComponentsModule,
     CompositionsModule,
-    ViewsModule
+    ViewsModule,
+    DirectivesModule
   ],
   providers: [],
   bootstrap: [AppComponent]
