@@ -1,0 +1,34 @@
+<!--
+* @Author                : 0K00<qdouvillez@gmail.com>
+* @CreatedDate           : 2023-03-23 15:30:00
+* @LastEditors           : 0K00<qdouvillez@gmail.com>
+* @LastEditDate          : 2023-03-23 17:16:18
+*
+-->
+
+<div [ngClass]="['select', type, size, other]">
+  <div (click)="isOpen = !isOpen" class="control">
+    <div class="selected">
+      <i *ngIf="selectedOption.icon" class="{{'icon ' + selectedOption.icon}}"></i>
+      {{ selectedOption.text ? selectedOption.text : placeholder }}
+    </div>
+    <div class="chevron">
+      <i class="icon chevron-down"></i>
+    </div>
+  </div>
+  <div *ngIf="isOpen" class="menu">
+    <ul class="options">
+      <div *ngIf="!searchTerm && filteredOptions.length == 0">
+        <li *ngFor="let option of options" (click)="selectOption(option)" class="option">
+          <i *ngIf="option.icon" class="{{'icon ' + option.icon}}"></i>
+          {{ option.text }}
+        </li>
+      </div>
+      <li *ngFor="let option of filteredOptions" (click)="selectOption(option)" class="option">
+        <i *ngIf="option.icon" class="{{'icon ' + option.icon}}"></i>
+        {{ option.text }}
+      </li>
+    </ul>
+    <input *ngIf="search" type="text" [(ngModel)]="searchTerm" (input)="filterOptions()" placeholder="Search...">
+  </div>
+</div>

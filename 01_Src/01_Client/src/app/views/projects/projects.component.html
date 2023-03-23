@@ -1,8 +1,9 @@
 <!--
-* @Author                : Adrien Lanco<adrienlanco0@gmail.com>
+* @Author                : 0K00<qdouvillez@gmail.com>
 * @CreatedDate           : 2023-03-17 17:17:00
-* @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>
-* @LastEditDate          : 2023-03-17 18:58:04
+* @LastEditors           : 0K00<qdouvillez@gmail.com>
+* @LastEditDate          : 2023-03-23 17:35:44
+* 
 -->
 
 <div id="projects" class="main">
@@ -13,6 +14,7 @@
       </div>
       <app-button id="newProject" type="scnd" size="md" label="New project (Alt + P)" (click)='openNewProject()' />
   </div>
+  <app-select [search]=false ></app-select>
   <div class="content" >
       <a *ngFor="let project of projectList" [href]="'project/'+project.id">
           <div class="right">
