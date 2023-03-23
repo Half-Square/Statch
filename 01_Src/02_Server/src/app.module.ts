@@ -18,6 +18,7 @@ import {TasksController} from "./controllers/tasks/tasks.controller";
 import {CommentsController} from "./controllers/comments/comments.controller";
 import {TicketsController} from "./controllers/tickets/tickets.controller";
 import { AuthController } from "./controllers/auth/auth.controller";
+import { VersionsController } from './controllers/versions/versions.controller';
 /***/
 
 @Module({
@@ -28,7 +29,8 @@ import { AuthController } from "./controllers/auth/auth.controller";
     TasksController,
     CommentsController,
     TicketsController,
-    AuthController
+    AuthController,
+    VersionsController
   ],
   providers: [PrismaService]
 })

@@ -2,7 +2,7 @@
  * @Author                : AdrienLanco0<adrienlanco0@gmail.com>              *
  * @CreatedDate           : 2023-02-21 14:18:25                               *
  * @LastEditors           : AdrienLanco0<adrienlanco0@gmail.com>              *
- * @LastEditDate          : 2023-03-22 16:17:03                               *
+ * @LastEditDate          : 2023-03-23 14:08:54                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -70,7 +70,7 @@ class PublicOutput {
     description: string;
 
   @IsString()
-  @IsIn(["new", "done", "reject", "progress"])
+  @IsIn(["new", "done", "reject", "progress", "wait"])
     status: string;
 
   @IsString()
@@ -106,7 +106,7 @@ class DetailsOutput {
     description: string;
 
   @IsString()
-  @IsIn(["new", "done", "reject", "progress"])
+  @IsIn(["new", "done", "reject", "progress", "wait"])
     status: string;
 
   @IsString()
