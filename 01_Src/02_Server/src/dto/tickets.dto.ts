@@ -1,8 +1,8 @@
 /******************************************************************************
- * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
+ * @Author                : AdrienLanco0<adrienlanco0@gmail.com>              *
  * @CreatedDate           : 2023-02-21 14:18:25                               *
- * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-03-02 15:41:40                               *
+ * @LastEditors           : AdrienLanco0<adrienlanco0@gmail.com>              *
+ * @LastEditDate          : 2023-03-22 16:17:03                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -44,7 +44,7 @@ class UpdateInput {
 
   @IsString()
   @IsOptional()
-  @IsIn(["new", "done", "reject", "progress"])
+  @IsIn(["new", "done", "reject", "progress", "wait"])
     status: string;
 
   @IsString()

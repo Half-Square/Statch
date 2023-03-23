@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
+ * @Author                : AdrienLanco0<adrienlanco0@gmail.com>             *
  * @CreatedDate           : 2023-03-17 12:23:56                              *
- * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
- * @LastEditDate          : 2023-03-20 12:13:08                              *
+ * @LastEditors           : AdrienLanco0<adrienlanco0@gmail.com>             *
+ * @LastEditDate          : 2023-03-22 14:35:18                              *
  ****************************************************************************/
 
 import { Component } from '@angular/core';
@@ -22,14 +22,13 @@ interface CrumbsInterface {
 export class BreadcrumbsComponent {
   constructor(private router: Router,
               private route: ActivatedRoute) {
-
-    router.events.subscribe((val: any) => {
+    router.events.subscribe((val) => {
       if (val instanceof NavigationEnd) {
         this.handleNavigation(val)
       }
     });
-    ProjectListService.projectListChange
-    .subscribe((value: Array<ProjectInterface>) => {
+    this.projects = ProjectListService.projects;
+    ProjectListService.projectListChange.subscribe((value) => {
       this.projects = value;
       this.setCrumbs()
     })
@@ -46,9 +45,13 @@ export class BreadcrumbsComponent {
     this.url = navEnd.urlAfterRedirects.split("/");
   }
 
+  /**
+  * @name setCrumbs
+  * @descr set crumbs from project list and actual url
+  *
+  */
   private setCrumbs(): void {
     let url = this.url;
-
     if (url[1] == 'projects') {
       this.setCrumbProjects()
     } else if (url[1] == 'project') {
@@ -59,11 +62,23 @@ export class BreadcrumbsComponent {
       this.setCrumbTicket(url)
     }
   }
+  /***/
 
+  /**
+  * @name setCrumbProjects
+  * @descr set crumbs from project list on projects page
+  *
+  */
   private setCrumbProjects(): void {
     this.crumbs = [ this.projectsCrumb ];
   }
+  /***/
 
+  /**
+  * @name setCrumbProject
+  * @descr set crumbs from project list on project page
+  *
+  */
   private setCrumbProject(url: Array<string>): void {
     this.crumbs = [ this.projectsCrumb ];
     let id = url[2];
@@ -76,7 +91,13 @@ export class BreadcrumbsComponent {
       }
     }
   }
+  /***/
 
+  /**
+  * @name setCrumbTask
+  * @descr set crumbs from project list on task page
+  *
+  */
   private setCrumbTask(url: Array<string>): void {
     this.crumbs = [ this.projectsCrumb ];
     let taskId = url[2]
@@ -97,7 +118,13 @@ export class BreadcrumbsComponent {
         }
     }
   }
+  /***/
 
+  /**
+  * @name setCrumbTicket
+  * @descr set crumbs from project list on ticket page
+  *
+  */
   private setCrumbTicket(url: Array<string>): void {
     this.crumbs = [ this.projectsCrumb ];
     let ticketId = url[2]
@@ -125,4 +152,5 @@ export class BreadcrumbsComponent {
         }
     }
   }
+  /***/
 }

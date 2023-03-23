@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
+ * @Author                : AdrienLanco0<adrienlanco0@gmail.com>             *
  * @CreatedDate           : 2023-03-17 13:16:59                              *
- * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
- * @LastEditDate          : 2023-03-21 19:27:24                              *
+ * @LastEditors           : AdrienLanco0<adrienlanco0@gmail.com>             *
+ * @LastEditDate          : 2023-03-22 16:16:16                              *
  ****************************************************************************/
 
 import { Component, Input, Output, EventEmitter } from '@angular/core';
@@ -19,19 +19,19 @@ export class StatusLabeledComponent {
   @Input() isEdit: boolean = false;
 
   public statusList = [{
-    name: "Done",
-    value: "done"
-  }, {
     name: "New",
     value: "new"
   }, {
-    name: "Reject",
-    value: "reject"
+    name: "Done",
+    value: "done"
+  }, {
+    name: "In progress",
+    value: "progress"
   }, {
     name: "Wait",
     value: "wait"
   }, {
-    name: "Progress",
-    value: "progress"
+    name: "Rejected",
+    value: "reject"
   }]
 }

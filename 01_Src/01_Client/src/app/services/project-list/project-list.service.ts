@@ -2,7 +2,7 @@
  * @Author                : AdrienLanco0<121338518+AdrienLanco0@users.noreply.github.com>*
  * @CreatedDate           : 2023-03-17 14:25:08                              *
  * @LastEditors           : AdrienLanco0<121338518+AdrienLanco0@users.noreply.github.com>*
- * @LastEditDate          : 2023-03-22 11:29:46                              *
+ * @LastEditDate          : 2023-03-22 14:21:48                              *
  ****************************************************************************/
 
 import { Injectable } from '@angular/core';
@@ -126,8 +126,6 @@ export class ProjectListService {
         }
 
         project = Object.assign(project, newProject);
-        console.log("addProject", project);
-
         changed = true;
       }
     });
@@ -159,8 +157,6 @@ export class ProjectListService {
           if (project.tasks) project.tasks.unshift(newTask);
           else project.tasks = [ newTask ]
         }
-        console.log("addTask", project.tasks);
-
       }
     });
 

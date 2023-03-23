@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
+ * @Author                : AdrienLanco0<adrienlanco0@gmail.com>             *
  * @CreatedDate           : 2023-03-17 22:34:38                              *
- * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
- * @LastEditDate          : 2023-03-21 20:27:13                              *
+ * @LastEditors           : AdrienLanco0<adrienlanco0@gmail.com>             *
+ * @LastEditDate          : 2023-03-22 15:57:19                              *
  ****************************************************************************/
 
 import { Injectable } from '@angular/core';
@@ -317,7 +317,6 @@ export class CommandService {
     *        then remove it from the project list
     *        and redirect to the ticket task page
     *
-    * @param projectId: TO DO back add projectId to ticket
     * @param ticket (TicketInterface): ticket to delete
     *
     * @return (Promise<void>): Resolve on valid DELETE ticket

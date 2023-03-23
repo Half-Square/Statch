@@ -23,6 +23,13 @@ interface ApiError {
 export class ApiService {
 
   constructor() { }
+
+    /**
+    * @name transParams
+    * @descr adding / char beetween params
+    *
+    * @param value (String): merged params
+    */
     private transParams(p: Array<string>): String {
         if (p.length < 1) return "";
         let ret = "/";
@@ -32,7 +39,14 @@ export class ApiService {
         }
         return ret;
     };
+    /***/
 
+    /**
+    * @name transQueries
+    * @descr adding & char beetween queries
+    *
+    * @param value (String): merged queries
+    */
     private transQueries (q: Array<string>): String {
         if (q.length < 1) return "";
 
@@ -43,6 +57,7 @@ export class ApiService {
         }
         return ret;
     };
+    /***/
 
     private redirect() {
         return "hello"

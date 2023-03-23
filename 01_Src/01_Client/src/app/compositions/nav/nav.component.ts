@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
+ * @Author                : AdrienLanco0<adrienlanco0@gmail.com>             *
  * @CreatedDate           : 2023-03-17 14:41:39                              *
- * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
- * @LastEditDate          : 2023-03-21 20:04:35                              *
+ * @LastEditors           : AdrienLanco0<adrienlanco0@gmail.com>             *
+ * @LastEditDate          : 2023-03-22 14:51:17                              *
  ****************************************************************************/
 
 import { Component } from '@angular/core';
@@ -39,6 +39,11 @@ export class NavComponent {
   public taskId: string = "";
   public ticketId: string = "";
 
+  /**
+  * @name initData
+  * @descr Init data from project list service
+  *
+  */
   private initData():void {
     this.url = this.router.url.split("/")
     this.projectList = ProjectListService.projects
@@ -47,7 +52,13 @@ export class NavComponent {
     this.ticketId = ProjectListService.ticketId
     this.getProjects()
   }
+  /***/
 
+  /**
+  * @name subscribeEvent
+  * @descr subscribe to router and Project List events
+  *
+  */
   private subscribeEvent():void {
     this.router.events.subscribe((val: any) => {
       if (val instanceof NavigationEnd) {
@@ -78,11 +89,23 @@ export class NavComponent {
       this.ticketId = ticket.id;
     })
   }
+  /***/
 
+  /**
+  * @name handleNavigation
+  * @descr set url after navigation
+  *
+  */
   private handleNavigation(navEnd: NavigationEnd): void {
     this.url = navEnd.urlAfterRedirects.split("/");
   }
+  /***/
 
+  /**
+  * @name getProjects
+  * @descr set projects as a single or an array of projects from url
+  *
+  */
   private getProjects(): void {
     if ((this.url[1] == 'project' ||
         this.url[1] == 'task' ||
@@ -101,5 +124,6 @@ export class NavComponent {
     } else {
       this.projects = this.projectList;
     }
-  };
+  }
+  /***/
 }
