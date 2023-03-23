@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
+ * @Author                : AdrienLanco0<adrienlanco0@gmail.com>             *
  * @CreatedDate           : 2023-03-20 18:16:48                              *
- * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
- * @LastEditDate          : 2023-03-20 18:26:54                              *
+ * @LastEditors           : AdrienLanco0<adrienlanco0@gmail.com>             *
+ * @LastEditDate          : 2023-03-22 14:48:31                              *
  ****************************************************************************/
 
 import { Component } from '@angular/core';
@@ -19,7 +19,13 @@ export class HeaderComponent {
   constructor(private router: Router) {}
   public showModal: boolean = false;
 
+  /**
+  * @name disconnect
+  * @descr call UserService disconnect
+  *
+  */
   public disconnect(): void  {
     UserService.disconnect(this.router)
   }
+  /***/
 }

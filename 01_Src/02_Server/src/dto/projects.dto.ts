@@ -1,8 +1,8 @@
 /******************************************************************************
- * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
+ * @Author                : AdrienLanco0<adrienlanco0@gmail.com>              *
  * @CreatedDate           : 2023-02-21 14:13:59                               *
- * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-03-02 15:39:51                               *
+ * @LastEditors           : AdrienLanco0<adrienlanco0@gmail.com>              *
+ * @LastEditDate          : 2023-03-22 16:18:59                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -43,13 +43,17 @@ class CreateInput {
     description: string;
 
   @IsString()
-  @IsIn(["new", "done", "reject", "progress"])
+  @IsIn(["new", "done", "reject", "progress", "wait"])
   @IsOptional()
     status: string;
 
   @IsString()
   @IsOptional()
-    version: string;
+    targetVersion: string;
+
+  @IsString({each: true})  
+  @IsOptional()
+    versionList: Array<string>;
 }
 /***/
 

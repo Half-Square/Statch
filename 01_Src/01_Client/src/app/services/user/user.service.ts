@@ -28,9 +28,14 @@ export class UserService {
 
   private static user: UserInterface;
 
+  /**
+  * @name init
+  * @descr init user from sessionStorage
+  *
+  * @param ticketId (string): id of the actual ticket
+  */
   public static init() {
     let user = sessionStorage.getItem('user');
-
     if (user)
       this.setUser(JSON.parse(user));
   }

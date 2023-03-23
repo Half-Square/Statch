@@ -1,9 +1,9 @@
-/******************************************************************************
- * @Author                : AdrienLanco0<121338518+AdrienLanco0@users.noreply.github.com>*
- * @CreatedDate           : 2023-03-22 11:15:20                               *
- * @LastEditors           : AdrienLanco0<121338518+AdrienLanco0@users.noreply.github.com>*
- * @LastEditDate          : 2023-03-22 11:30:15                               *
- *****************************************************************************/
+/*****************************************************************************
+ * @Author                : AdrienLanco0<adrienlanco0@gmail.com>             *
+ * @CreatedDate           : 2023-03-22 11:15:20                              *
+ * @LastEditors           : AdrienLanco0<adrienlanco0@gmail.com>             *
+ * @LastEditDate          : 2023-03-22 14:48:02                              *
+ ****************************************************************************/
 
 import { Component, Input } from '@angular/core';
 import { ApiService } from 'src/app/services/api/api.service';
@@ -27,6 +27,11 @@ export class CommentsSectionComponent {
 
   public newCommentContent: string = "";
 
+  /**
+  * @name newComment
+  * @descr POST new comment on Api then add it to the comments List
+  *
+  */
   public newComment(): void {
     let path = this.targetType+"/"+this.targetId+"/comments"
     this.api.request("POST", path, { content: this.newCommentContent} )
@@ -34,4 +39,5 @@ export class CommentsSectionComponent {
       this.comments.push(ret)
     })
   }
+  /***/
 }
