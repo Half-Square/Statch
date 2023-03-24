@@ -1,9 +1,9 @@
 <!--
 * @Author                : 0K00<qdouvillez@gmail.com>
-* @CreatedDate           : 2023-03-23 15:30:00
+* @CreatedDate           : 2023-03-24 11:48:00
 * @LastEditors           : 0K00<qdouvillez@gmail.com>
-* @LastEditDate          : 2023-03-23 17:16:18
-*
+* @LastEditDate          : 2023-03-24 12:08:16
+* 
 -->
 
 <div [ngClass]="['select', type, size, other]">
@@ -16,19 +16,27 @@
       <i class="icon chevron-down"></i>
     </div>
   </div>
-  <div *ngIf="isOpen" class="menu">
+  <div @nested *ngIf="isOpen" class="menu">
     <ul class="options">
-      <div *ngIf="!searchTerm && filteredOptions.length == 0">
-        <li *ngFor="let option of options" (click)="selectOption(option)" class="option">
+      <ng-container *ngIf="!content">
+        <div *ngIf="!searchTerm && filteredOptions.length == 0">
+          <li *ngFor="let option of options" (click)="selectOption(option)" class="option">
+            <i *ngIf="option.icon" class="{{'icon ' + option.icon}}"></i>
+            {{ option.text }}
+          </li>
+        </div>
+        <div *ngIf="searchTerm && filteredOptions.length == 0">
+          <li class="noResult">No result</li>
+        </div>
+        <li *ngFor="let option of filteredOptions" (click)="selectOption(option)" class="option">
           <i *ngIf="option.icon" class="{{'icon ' + option.icon}}"></i>
           {{ option.text }}
         </li>
-      </div>
-      <li *ngFor="let option of filteredOptions" (click)="selectOption(option)" class="option">
-        <i *ngIf="option.icon" class="{{'icon ' + option.icon}}"></i>
-        {{ option.text }}
-      </li>
+      </ng-container>
+      <ng-container *ngIf="content">
+        <ng-content></ng-content>
+      </ng-container>
     </ul>
-    <input *ngIf="search" type="text" [(ngModel)]="searchTerm" (input)="filterOptions()" placeholder="Search...">
+    <app-input *ngIf="search" [(value)]="searchTerm" type="scnd" (input)="filterOptions()" placeholder="Search..."></app-input>
   </div>
 </div>
