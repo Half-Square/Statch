@@ -2,7 +2,7 @@
  * @Author                : Adrien Lanco<adrienlanco0@gmail.com>              *
  * @CreatedDate           : 2023-02-21 14:21:47                               *
  * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>              *
- * @LastEditDate          : 2023-03-18 15:09:05                               *
+ * @LastEditDate          : 2023-03-24 14:44:26                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -72,13 +72,20 @@ export class TasksController {
   @Get("tasks/:id")
   async getById(@Param("id") id: string): Promise<tasksDto.DetailsOutput> {
     try {
-      console.log("getOne task:", id);
-
       let res = await this.prisma.task.findUnique({
         where: {id: id},
         include: {
+          targetVersion: true,
           tickets: {
-            include: {owner: true}
+            orderBy: {
+              targetVersion: {
+                name: "desc"
+              },
+            },
+            include: {
+              owner: true,
+              targetVersion: true
+            }
           },
           comments: {
             include: {author: true}
@@ -89,6 +96,7 @@ export class TasksController {
           }
         }
       });
+
       if (res) return new tasksDto.DetailsOutput(res);
       else throw new HttpException("Not Found", HttpStatus.NOT_FOUND);
     } catch (err) {
@@ -109,13 +117,18 @@ export class TasksController {
     @Param("id") id: string,
     @Body() body: tasksDto.UpdateInput,
   ): Promise<tasksDto.DetailsOutput> {
-    try {
+    try {    
       let res = await this.prisma.task.update({
         where: {id: id},
         data: {
           name: body.name,
           status: body.status,
           description: body.description,
+          targetVersion: {
+            connect: {
+              id: body.targetVersion.id
+            }
+          },
           assignments: {
             deleteMany: {},
             create: body.assignments.map((el) => {
@@ -124,8 +137,15 @@ export class TasksController {
           }
         },
         include: {
+          targetVersion: true,
           tickets: {
-            include: {owner: true}
+            orderBy: {
+              targetVersion: { name: "desc" }
+            },
+            include: {
+              owner: true,
+              targetVersion: true
+            }
           },
           comments: {
             include: {author: true}
@@ -193,11 +213,18 @@ export class TasksController {
           }
         },
         include: {
+          targetVersion: true,
           comments: {
             include: {author: true}
           },
           tickets: {
-            include: {owner: true}
+            orderBy: {
+              targetVersion: { name: "desc" }
+            },
+            include: {
+              owner: true,
+              targetVersion: true
+            }
           },
           owner: true,
           assignments: {

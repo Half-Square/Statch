@@ -2,7 +2,7 @@
  * @Author                : Adrien Lanco<adrienlanco0@gmail.com>              *
  * @CreatedDate           : 2023-02-21 14:22:05                               *
  * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>              *
- * @LastEditDate          : 2023-03-18 15:08:43                               *
+ * @LastEditDate          : 2023-03-24 13:08:48                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -75,6 +75,7 @@ export class TicketsController {
       let res = await this.prisma.ticket.findUnique({
         where: {id: id},
         include: {
+          targetVersion: true,
           comments: {
             include: {author: true}
           },
@@ -111,6 +112,11 @@ export class TicketsController {
           name: body.name,
           status: body.status,
           description: body.description,
+          targetVersion: {
+            connect: {
+              id: body.targetVersion.id
+            }
+          },
           assignments: {
             deleteMany: {},
             create: body.assignments.map((el) => {
@@ -119,6 +125,7 @@ export class TicketsController {
           }
         },
         include: {
+          targetVersion: true,
           comments: {
             include: {author: true}
           },
@@ -185,6 +192,7 @@ export class TicketsController {
           }
         },
         include: {
+          targetVersion: true,
           comments: {
             include: {author: true}
           },

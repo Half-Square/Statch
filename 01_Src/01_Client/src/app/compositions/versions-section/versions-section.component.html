@@ -1,20 +1,29 @@
 <!--
-* @Author                : AdrienLanco0<adrienlanco0@gmail.com>
+* @Author                : Adrien Lanco<adrienlanco0@gmail.com>
 * @CreatedDate           : 2023-03-23 16:39:00
-* @LastEditors           : AdrienLanco0<adrienlanco0@gmail.com>
-* @LastEditDate          : 2023-03-23 17:14:37
+* @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>
+* @LastEditDate          : 2023-03-24 12:13:52
 -->
 
 <ng-container *ngIf="isEdit">
-  <!-- TO DO Create a selector Comp -->
-  <select name="" id="" [(ngModel)]="version.name" (ngModelChange)="versionJustChange()">
-    <option [ngValue]="''">
-      No version
-    </option>
-    <option *ngFor="let vers of versionList" [ngValue]="vers.name">
-      {{ vers.name }}
-    </option>
-  </select>
+  <div (click)="isOpen = !isOpen">{{ version && version.name ? version.name : '' }}</div>
+  <div *ngIf="isOpen">
+    <div name="" id="">
+      <div (click)="versionJustChange('')">
+        No version
+      </div>
+
+      <div *ngFor="let vers of versionList" (click)="versionJustChange(vers.name)" >
+        {{ vers.name }}
+      </div>
+
+      <div>
+        <input type="text" [(ngModel)]="newName" placeholder="+ New Version">
+        <button *ngIf="newName" (click)="newVersion()">Add</button>
+      </div>
+    </div>
+  </div>
+
 </ng-container>
 
 <ng-container *ngIf="!isEdit">

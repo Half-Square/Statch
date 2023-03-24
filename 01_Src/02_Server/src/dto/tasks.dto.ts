@@ -1,8 +1,8 @@
 /******************************************************************************
- * @Author                : AdrienLanco0<adrienlanco0@gmail.com>              *
+ * @Author                : Adrien Lanco<adrienlanco0@gmail.com>              *
  * @CreatedDate           : 2023-02-21 14:16:22                               *
- * @LastEditors           : AdrienLanco0<adrienlanco0@gmail.com>              *
- * @LastEditDate          : 2023-03-23 14:08:42                               *
+ * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>              *
+ * @LastEditDate          : 2023-03-24 13:06:46                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -23,6 +23,7 @@ import * as commentsDto from "./comments.dto";
 
 /* Dto */
 import * as usersDto from "../dto/users.dto";
+import * as versionsDto from "../dto/users.dto";
 /***/
 
 /**
@@ -56,6 +57,9 @@ class UpdateInput {
 
   @IsArray()
     assignments: usersDto.PublicOutput[];
+
+  @IsObject()
+    targetVersion: versionsDto.PublicOutput;
 }
 /***/
 
@@ -85,6 +89,9 @@ class PublicOutput {
   @IsObject()
     owner: usersDto.PublicOutput;
 
+  @IsObject()
+    targetVersion: versionsDto.PublicOutput;
+
   constructor(data) {
     if (data) {
       this.id = data.id;
@@ -94,6 +101,7 @@ class PublicOutput {
       this.projectId = data.projectId;
       this.created = data.created;
       this.owner = new usersDto.PublicOutput(data.owner);
+      this.targetVersion = new versionsDto.PublicOutput(data.targetVersion);
     }
   }
 }
@@ -132,10 +140,13 @@ class DetailsOutput {
     owner: usersDto.PublicOutput;
 
   @IsArray()
-    assignments: usersDto.PublicOutput[];
+    assignments: usersDto.PublicOutput;
 
   @IsNumber()
     progress: number;
+
+  @IsObject()
+    targetVersion: versionsDto.PublicOutput;
 
   constructor(data) {
     if (data) {
@@ -157,7 +168,9 @@ class DetailsOutput {
       if (data.comments) {
         this.comments  = data.comments.map((el) => new commentsDto.PublicOutput(el));
       }
-
+      
+      this.targetVersion = new versionsDto.PublicOutput(data.targetVersion);
+      
       this.progress =  Math.floor(this.tickets.filter((el) => el.status === "done").length * 100 / this.tickets.length) || 0;
     }
   }

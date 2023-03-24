@@ -1,8 +1,8 @@
 /******************************************************************************
- * @Author                : AdrienLanco0<adrienlanco0@gmail.com>              *
+ * @Author                : Adrien Lanco<adrienlanco0@gmail.com>              *
  * @CreatedDate           : 2023-02-21 14:21:24                               *
- * @LastEditors           : AdrienLanco0<adrienlanco0@gmail.com>              *
- * @LastEditDate          : 2023-03-23 17:20:01                               *
+ * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>              *
+ * @LastEditDate          : 2023-03-24 14:44:07                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -82,14 +82,20 @@ export class ProjectsController {
           },
           versionList: true,
           tasks: {
-            include: {owner: true}
+            orderBy: {
+              targetVersion: { name: "desc" }
+            },
+            include: {
+              owner: true,
+              targetVersion: true
+            }
           },
           owner: true,
           assignments: {
             include: {user: true}
           }
         }
-      });
+      });      
       if (res) return new projectsDto.DetailsOutput(res);
       else throw new HttpException("Not Found", HttpStatus.NOT_FOUND);
     } catch (err) {
@@ -130,7 +136,13 @@ export class ProjectsController {
         include: {
           versionList: true,
           tasks: {
-            include: {owner: true}
+            orderBy: {
+              targetVersion: { name: "desc" }
+            },
+            include: {
+              owner: true,
+              targetVersion: true
+            }
           },
           comments: {
             include: {author: true}
@@ -181,7 +193,13 @@ export class ProjectsController {
             include: {author: true}
           },
           tasks: {
-            include: {owner: true}
+            orderBy: {
+              targetVersion: { name: "desc" }
+            },
+            include: {
+              owner: true,
+              targetVersion: true
+            }
           },
           owner: true,
           assignments: {

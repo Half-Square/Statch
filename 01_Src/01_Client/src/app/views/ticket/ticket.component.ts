@@ -1,14 +1,14 @@
 /*****************************************************************************
- * @Author                : AdrienLanco0<121338518+AdrienLanco0@users.noreply.github.com>*
+ * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
  * @CreatedDate           : 2023-03-20 09:41:42                              *
- * @LastEditors           : AdrienLanco0<121338518+AdrienLanco0@users.noreply.github.com>*
- * @LastEditDate          : 2023-03-22 11:22:25                              *
+ * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
+ * @LastEditDate          : 2023-03-24 12:12:05                              *
  ****************************************************************************/
 
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommandService } from 'src/app/services/command/command.service';
-import { ProjectListService, TicketInterface } from 'src/app/services/project-list/project-list.service';
+import { ProjectListService, TicketInterface, VersionInterface } from 'src/app/services/project-list/project-list.service';
 
 @Component({
   selector: 'app-ticket',
@@ -84,5 +84,17 @@ export class TicketComponent {
       [ "ticket", this.ticket.id ],
       { queryParams: { edit: true } }
     )
+  }
+
+  public getTicketVersion(): VersionInterface {
+    if (this.ticket.targetVersion)
+      return this.ticket.targetVersion
+
+    return { id: "", name: "", projectId: "" } as VersionInterface;
+  }
+
+  public changeTicketVersion(change: any): void {
+    this.ticket.targetVersion = change;
+    this.command.editTicket(this.ticket)
   }
 }

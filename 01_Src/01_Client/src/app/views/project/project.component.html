@@ -1,8 +1,8 @@
 <!--
-* @Author                : AdrienLanco0<adrienlanco0@gmail.com>
+* @Author                : Adrien Lanco<adrienlanco0@gmail.com>
 * @CreatedDate           : 2023-03-17 16:48:00
-* @LastEditors           : AdrienLanco0<adrienlanco0@gmail.com>
-* @LastEditDate          : 2023-03-23 17:29:09
+* @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>
+* @LastEditDate          : 2023-03-24 14:30:53
 -->
 
 <div id="project">
@@ -23,6 +23,8 @@
           <a class="task" *ngFor="let task of project.tasks" [href]="'/task/'+task.id">
             <div class="block">
               <div class="status"><app-status [status]="task.status" /></div>
+              <div class="version">{{ task.targetVersion ?  task.targetVersion.name : "" }}</div>
+              <div class="name">{{ task.name }}</div>
               <div class="id">{{ task.id }}</div>
               <div class="description">{{ task.description }}</div>
             </div>
@@ -58,8 +60,6 @@
         </div>
         <div class="container">
           <h4>Version</h4>
-                    <!-- <app-versions-section [isEdit]="true" (versionChange)="changeProjectVersion($event)" /> -->
-
           <app-versions-section [isEdit]="true" [isProject]="true"
               [version]="getProjectVersion()" (versionNameChange)="changeProjectVersion($event)" />
         </div>

@@ -1,14 +1,14 @@
 /*****************************************************************************
- * @Author                : AdrienLanco0<121338518+AdrienLanco0@users.noreply.github.com>*
+ * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
  * @CreatedDate           : 2023-03-18 17:03:31                              *
- * @LastEditors           : AdrienLanco0<121338518+AdrienLanco0@users.noreply.github.com>*
- * @LastEditDate          : 2023-03-22 11:22:45                              *
+ * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
+ * @LastEditDate          : 2023-03-24 12:24:31                              *
  ****************************************************************************/
 
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommandService } from 'src/app/services/command/command.service';
-import { ProjectInterface, ProjectListService, TaskInterface } from 'src/app/services/project-list/project-list.service';
+import { ProjectInterface, ProjectListService, TaskInterface, VersionInterface } from 'src/app/services/project-list/project-list.service';
 
 @Component({
   selector: 'app-task',
@@ -84,4 +84,22 @@ export class TaskComponent {
       { queryParams: { edit: true } }
     )
   }
+
+  public getTaskVersion(): VersionInterface {
+    if (this.task.targetVersion)
+      return this.task.targetVersion
+
+    return { id: "", name: "", projectId: this.task.projectId } as VersionInterface;
+  }
+
+  public changeTaskVersion(change: any): void {
+    console.log(change);
+
+    this.task.targetVersion = change;
+
+    console.log(this.task);
+
+    this.command.editTask(this.task)
+  }
+
 }
