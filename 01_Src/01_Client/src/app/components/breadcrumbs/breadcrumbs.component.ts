@@ -2,7 +2,7 @@
  * @Author                : AdrienLanco0<adrienlanco0@gmail.com>             *
  * @CreatedDate           : 2023-03-17 12:23:56                              *
  * @LastEditors           : AdrienLanco0<adrienlanco0@gmail.com>             *
- * @LastEditDate          : 2023-03-22 14:35:18                              *
+ * @LastEditDate          : 2023-03-23 17:32:01                              *
  ****************************************************************************/
 
 import { Component } from '@angular/core';
@@ -42,7 +42,9 @@ export class BreadcrumbsComponent {
   private projectsCrumb = { name: "Projects", path: "/projects"};
 
   private handleNavigation(navEnd: NavigationEnd): void {
-    this.url = navEnd.urlAfterRedirects.split("/");
+    let queries = navEnd.urlAfterRedirects.split("?");
+    let url = queries[0].split("/");
+    this.url = url;
   }
 
   /**

@@ -1,0 +1,22 @@
+<!--
+* @Author                : AdrienLanco0<adrienlanco0@gmail.com>
+* @CreatedDate           : 2023-03-23 16:39:00
+* @LastEditors           : AdrienLanco0<adrienlanco0@gmail.com>
+* @LastEditDate          : 2023-03-23 17:14:37
+-->
+
+<ng-container *ngIf="isEdit">
+  <!-- TO DO Create a selector Comp -->
+  <select name="" id="" [(ngModel)]="version.name" (ngModelChange)="versionJustChange()">
+    <option [ngValue]="''">
+      No version
+    </option>
+    <option *ngFor="let vers of versionList" [ngValue]="vers.name">
+      {{ vers.name }}
+    </option>
+  </select>
+</ng-container>
+
+<ng-container *ngIf="!isEdit">
+  <p>{{ version.name }}</p>
+</ng-container>

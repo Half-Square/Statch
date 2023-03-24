@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : AdrienLanco0<121338518+AdrienLanco0@users.noreply.github.com>*
+ * @Author                : AdrienLanco0<adrienlanco0@gmail.com>             *
  * @CreatedDate           : 2023-03-17 11:38:53                              *
- * @LastEditors           : AdrienLanco0<121338518+AdrienLanco0@users.noreply.github.com>*
- * @LastEditDate          : 2023-03-22 11:19:34                              *
+ * @LastEditors           : AdrienLanco0<adrienlanco0@gmail.com>             *
+ * @LastEditDate          : 2023-03-23 16:42:22                              *
  ****************************************************************************/
 
 import { NgModule } from '@angular/core';
@@ -21,6 +21,7 @@ import { SearchBarComponent } from './search-bar/search-bar.component';
 import { CommentsSectionComponent } from './comments-section/comments-section.component';
 
 import { DirectivesModule } from '../directives/directives.module';
+import { VersionsSectionComponent } from './versions-section/versions-section.component';
 
 
 
@@ -30,7 +31,8 @@ import { DirectivesModule } from '../directives/directives.module';
     CommentsSectionComponent,
     HeaderComponent,
     NavComponent,
-    SearchBarComponent
+    SearchBarComponent,
+    VersionsSectionComponent
   ],
   imports: [
     CommonModule,
@@ -45,7 +47,8 @@ import { DirectivesModule } from '../directives/directives.module';
     CommentsSectionComponent,
     HeaderComponent,
     NavComponent,
-    SearchBarComponent
+    SearchBarComponent,
+    VersionsSectionComponent
   ],
 })
 export class CompositionsModule { }

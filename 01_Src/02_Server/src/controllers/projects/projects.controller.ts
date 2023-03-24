@@ -2,7 +2,7 @@
  * @Author                : AdrienLanco0<adrienlanco0@gmail.com>              *
  * @CreatedDate           : 2023-02-21 14:21:24                               *
  * @LastEditors           : AdrienLanco0<adrienlanco0@gmail.com>              *
- * @LastEditDate          : 2023-03-23 16:01:22                               *
+ * @LastEditDate          : 2023-03-23 17:20:01                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -128,6 +128,7 @@ export class ProjectsController {
           }
         },
         include: {
+          versionList: true,
           tasks: {
             include: {owner: true}
           },

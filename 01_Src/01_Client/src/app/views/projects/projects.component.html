@@ -1,8 +1,8 @@
 <!--
-* @Author                : Adrien Lanco<adrienlanco0@gmail.com>
+* @Author                : AdrienLanco0<adrienlanco0@gmail.com>
 * @CreatedDate           : 2023-03-17 17:17:00
-* @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>
-* @LastEditDate          : 2023-03-17 18:58:04
+* @LastEditors           : AdrienLanco0<adrienlanco0@gmail.com>
+* @LastEditDate          : 2023-03-23 17:23:36
 -->
 
 <div id="projects" class="main">
@@ -17,7 +17,7 @@
       <a *ngFor="let project of projectList" [href]="'project/'+project.id">
           <div class="right">
               <div class="status"><app-status [status]="project.status" /></div>
-              <div class="version">{{ project.version }}</div>
+              <div class="version">{{ project.actualVersion }}</div>
               <div class="name">{{ project.name }}</div>
           </div>
           <div class="date">{{ project.created }}</div>

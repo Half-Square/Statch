@@ -1,14 +1,14 @@
-/******************************************************************************
- * @Author                : Adrien Lanco<adrienlanco0@gmail.com>              *
- * @CreatedDate           : 2023-03-17 17:24:53                               *
- * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>              *
- * @LastEditDate          : 2023-03-17 23:30:26                               *
- *****************************************************************************/
+/*****************************************************************************
+ * @Author                : AdrienLanco0<adrienlanco0@gmail.com>             *
+ * @CreatedDate           : 2023-03-17 17:24:53                              *
+ * @LastEditors           : AdrienLanco0<adrienlanco0@gmail.com>             *
+ * @LastEditDate          : 2023-03-23 17:23:43                              *
+ ****************************************************************************/
 
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApiService } from 'src/app/services/api/api.service';
-import { ProjectInterface, ProjectListService } from 'src/app/services/project-list/project-list.service';
+import { ProjectInterface, ProjectListService, VersionInterface } from 'src/app/services/project-list/project-list.service';
 
 @Component({
   selector: 'app-projects',
