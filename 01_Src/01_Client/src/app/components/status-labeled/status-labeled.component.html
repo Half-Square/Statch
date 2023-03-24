@@ -1,15 +1,16 @@
 <!--
-* @Author                : Adrien Lanco<adrienlanco0@gmail.com>
+* @Author                : 0K00<qdouvillez@gmail.com>
 * @CreatedDate           : 2023-03-17 13:39:00
-* @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>
-* @LastEditDate          : 2023-03-21 20:23:33
+* @LastEditors           : 0K00<qdouvillez@gmail.com>
+* @LastEditDate          : 2023-03-24 11:16:00
+*
 -->
 
 <ng-container *ngIf="isEdit">
   <!-- TO DO Create a selector Comp -->
   <select name="" id="" [(ngModel)]="status" (ngModelChange)="statusChange.emit(status)">
     <option *ngFor="let statu of statusList" [ngValue]="statu.value">
-      <app-status [status]="statu.value"></app-status>
+      <app-status [status]="statu.value" />
       {{ statu.name }}
     </option>
   </select>

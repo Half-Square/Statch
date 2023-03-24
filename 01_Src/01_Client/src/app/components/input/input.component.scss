@@ -1,8 +1,9 @@
 /*****************************************************************************
- * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
+ * @Author                : 0K00<qdouvillez@gmail.com>                       *
  * @CreatedDate           : 2023-02-22 12:08:16                              *
- * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
- * @LastEditDate          : 2023-03-17 13:19:04                              *
+ * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
+ * @LastEditDate          : 2023-03-24 12:04:19                              *
+ *                                                                           *
  ****************************************************************************/
 
  .input {
@@ -15,7 +16,6 @@
   }
 input {
       all: unset;
-      border-radius: 0.25rem;
       transition: all 150ms ease-in;
       &:disabled, &:disabled + label {
           cursor: not-allowed;
@@ -37,37 +37,76 @@ input {
       color: rgba(255, 255, 255, 0.64);
       font-weight: 700;
   }
-input {
-      background: rgba(34, 34, 34, 1);
-      color: rgba(255, 255, 255, 0.8);
-      border: 1px solid rgba(255, 255, 255, 0.8);
-      &::placeholder {
-          color: rgba(255, 255, 255, 0.32);
-      }
-&:hover {
-          border-color: rgba(255, 255, 255, 1);
-      }
-&:focus {
-          border-color: rgba(0, 108, 255, 1);
-      }
-&:invalid {
-          border-color: red;
-          animation: invalid 0.4s 1 linear;
-      }
-&:disabled {
-          background: red;
-      }
-&:disabled, &:disabled + label, &:disabled::placeholder {
-          color: red;
-          border-color: transparent;
-      }
-&:focus + label {
-          color: rgba(255, 255, 255, 1);
-      }
-&:invalid + label {
-          color: red;
-          animation: invalid 0.4s 1 linear;
-      }
+  input {
+    border-radius: 0.25rem;
+    background: rgba(34, 34, 34, 1);
+    color: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    &::placeholder {
+        color: rgba(255, 255, 255, 0.32);
+    }
+    &:hover {
+              border-color: rgba(255, 255, 255, 1);
+          }
+    &:focus {
+              border-color: rgba(0, 108, 255, 1);
+          }
+    &:invalid {
+              border-color: red;
+              animation: invalid 0.4s 1 linear;
+          }
+    &:disabled {
+              background: red;
+          }
+    &:disabled, &:disabled + label, &:disabled::placeholder {
+              color: red;
+              border-color: transparent;
+          }
+    &:focus + label {
+              color: rgba(255, 255, 255, 1);
+          }
+    &:invalid + label {
+              color: red;
+              animation: invalid 0.4s 1 linear;
+          }
+  }
+}
+
+.input.scnd {
+  label {
+      color: rgba(255, 255, 255, 0.64);
+      font-weight: 700;
+  }
+  input {
+    padding: 8px;
+    background: rgba(47, 47, 47, 1);
+    color: rgba(255, 255, 255, 0.96);
+    border-top: 1px solid rgba(66, 66, 66, 1);
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 16px;
+    &::placeholder {
+        color: rgba(255, 255, 255, 0.48);
+    }
+    &:invalid {
+              border-color: red;
+              animation: invalid 0.4s 1 linear;
+          }
+    &:disabled {
+              background: red;
+          }
+    &:disabled, &:disabled + label, &:disabled::placeholder {
+              color: red;
+              border-color: transparent;
+          }
+    &:focus + label {
+              color: rgba(255, 255, 255, 1);
+          }
+    &:invalid + label {
+              color: red;
+              animation: invalid 0.4s 1 linear;
+          }
   }
 }
 

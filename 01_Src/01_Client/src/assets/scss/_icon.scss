@@ -1,8 +1,9 @@
 /*****************************************************************************
- * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
+ * @Author                : 0K00<qdouvillez@gmail.com>                       *
  * @CreatedDate           : 2023-02-27 14:46:55                              *
- * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
- * @LastEditDate          : 2023-03-17 15:46:46                              *
+ * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
+ * @LastEditDate          : 2023-03-24 11:10:23                              *
+ *                                                                           *
  ****************************************************************************/
 
 @font-face {
@@ -32,180 +33,216 @@
     -moz-osx-font-smoothing: grayscale;
   }
 
-  .icon.enter:before {
-    content: "\e93a";
-  }
-  .icon.dotshorizontal:before {
-    content: "\e922";
-  }
-  .icon.search:before {
+  .icon.filtersfill:before {
     content: "\e900";
   }
-  .icon.gear:before {
+  .icon.alt:before {
     content: "\e901";
   }
-  .icon.human:before {
+  .icon.arrowbottom-left:before {
     content: "\e902";
   }
-  .icon.humans:before {
+  .icon.arrowbottom-right:before {
     content: "\e903";
   }
-  .icon.round:before {
+  .icon.arrowdown:before {
     content: "\e904";
   }
-  .icon.page:before {
+  .icon.arrowleft:before {
     content: "\e905";
   }
-  .icon.picture:before {
+  .icon.arrowright:before {
     content: "\e906";
   }
-  .icon.panel:before {
+  .icon.arrowtop-left:before {
     content: "\e907";
   }
-  .icon.link:before {
-    content: "\e939";
-  }
-  .icon.flagadd:before {
+  .icon.arrowtop-right:before {
     content: "\e908";
   }
-  .icon.flagnew:before {
+  .icon.arrowup:before {
     content: "\e909";
   }
-  .icon.bell:before {
+  .icon.backspace:before {
     content: "\e90a";
   }
-  .icon.arrowbottom-left:before {
+  .icon.bell:before {
     content: "\e90b";
   }
-  .icon.arrowbottom-right:before {
+  .icon.box:before {
     content: "\e90c";
   }
-  .icon.arrowdown:before {
+  .icon.bubble:before {
     content: "\e90d";
   }
-  .icon.arrowleft:before {
+  .icon.bulbgear:before {
     content: "\e90e";
   }
-  .icon.arrowright:before {
+  .icon.bulb:before {
     content: "\e90f";
   }
-  .icon.arrowtop-left:before {
+  .icon.burger:before {
     content: "\e910";
   }
-  .icon.arrowtop-right:before {
+  .icon.check:before {
     content: "\e911";
   }
-  .icon.arrowup:before {
+  .icon.chevron-down:before {
     content: "\e912";
   }
-  .icon.bulbgear:before {
+  .icon.chevron-left:before {
     content: "\e913";
   }
-  .icon.bulb:before {
+  .icon.chevron-right:before {
     content: "\e914";
   }
-  .icon.burger:before {
+  .icon.chevron-up:before {
     content: "\e915";
   }
-  .icon.check:before {
+  .icon.clipboard:before {
     content: "\e916";
   }
-  .icon.chevron-down:before {
+  .icon.close:before {
     content: "\e917";
   }
-  .icon.chevron-left:before {
+  .icon.code:before {
     content: "\e918";
   }
-  .icon.chevron-right:before {
+  .icon.cross-1:before {
     content: "\e919";
   }
-  .icon.chevron-up:before {
+  .icon.cross-2:before {
     content: "\e91a";
   }
-  .icon.clipboard:before {
+  .icon.dashboard:before {
     content: "\e91b";
   }
-  .icon.close:before {
+  .icon.done:before {
     content: "\e91c";
   }
-  .icon.code:before {
+  .icon.dotshorizontal:before {
     content: "\e91d";
   }
-  .icon.cross-1:before {
+  .icon.dotsvertical:before {
     content: "\e91e";
   }
-  .icon.cross-2:before {
+  .icon.download:before {
     content: "\e91f";
   }
-  .icon.dashboard:before {
+  .icon.enter:before {
     content: "\e920";
   }
-  .icon.done:before {
+  .icon.eye:before {
     content: "\e921";
   }
-  .icon.dotsvertical:before {
+  .icon.filter:before {
+    content: "\e922";
+  }
+  .icon.filters:before {
     content: "\e923";
   }
-  .icon.download:before {
+  .icon.flagadd:before {
     content: "\e924";
   }
-  .icon.flag:before {
+  .icon.flagnew:before {
     content: "\e925";
   }
-  .icon.gearcheck:before {
+  .icon.flag:before {
     content: "\e926";
   }
-  .icon.headphone:before {
+  .icon.gearcheck:before {
     content: "\e927";
   }
-  .icon.heartfill:before {
+  .icon.gear:before {
     content: "\e928";
   }
-  .icon.heart:before {
+  .icon.headphone:before {
     content: "\e929";
   }
-  .icon.hs:before {
+  .icon.heartfill:before {
     content: "\e92a";
   }
-  .icon.linknone-1:before {
+  .icon.heart:before {
     content: "\e92b";
   }
-  .icon.linknone-2:before {
+  .icon.hs:before {
     content: "\e92c";
   }
-  .icon.link-1:before {
+  .icon.human:before {
     content: "\e92d";
   }
-  .icon.link-2:before {
+  .icon.humans:before {
     content: "\e92e";
   }
-  .icon.minus:before {
+  .icon.layer:before {
     content: "\e92f";
   }
-  .icon.new:before {
+  .icon.level:before {
     content: "\e930";
   }
-  .icon.open:before {
+  .icon.linknone-1:before {
     content: "\e931";
   }
-  .icon.page1:before {
+  .icon.linknone-2:before {
     content: "\e932";
   }
-  .icon.plus:before {
+  .icon.link:before {
     content: "\e933";
   }
-  .icon.progress:before {
+  .icon.link-1:before {
     content: "\e934";
   }
-  .icon.reject:before {
+  .icon.link-2:before {
     content: "\e935";
   }
-  .icon.roundfill:before {
+  .icon.map:before {
     content: "\e936";
   }
-  .icon.upload:before {
+  .icon.minus:before {
     content: "\e937";
   }
-  .icon.wait:before {
+  .icon.new:before {
     content: "\e938";
+  }
+  .icon.open:before {
+    content: "\e939";
+  }
+  .icon.page:before {
+    content: "\e93a";
+  }
+  .icon.panel:before {
+    content: "\e93b";
+  }
+  .icon.picture:before {
+    content: "\e93c";
+  }
+  .icon.plus:before {
+    content: "\e93d";
+  }
+  .icon.progress:before {
+    content: "\e93e";
+  }
+  .icon.puzzle:before {
+    content: "\e93f";
+  }
+  .icon.reject:before {
+    content: "\e940";
+  }
+  .icon.roundfill:before {
+    content: "\e941";
+  }
+  .icon.round:before {
+    content: "\e942";
+  }
+  .icon.roundchart:before {
+    content: "\e943";
+  }
+  .icon.search:before {
+    content: "\e944";
+  }
+  .icon.upload:before {
+    content: "\e945";
+  }
+  .icon.wait:before {
+    content: "\e946";
   }
