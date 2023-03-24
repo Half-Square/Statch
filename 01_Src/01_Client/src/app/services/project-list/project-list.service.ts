@@ -1,8 +1,9 @@
 /*****************************************************************************
- * @Author                : AdrienLanco0<121338518+AdrienLanco0@users.noreply.github.com>*
+ * @Author                : 0K00<qdouvillez@gmail.com>                       *
  * @CreatedDate           : 2023-03-17 14:25:08                              *
- * @LastEditors           : AdrienLanco0<121338518+AdrienLanco0@users.noreply.github.com>*
- * @LastEditDate          : 2023-03-22 14:21:48                              *
+ * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
+ * @LastEditDate          : 2023-03-24 15:55:52                              *
+ *                                                                           *
  ****************************************************************************/
 
 import { Injectable } from '@angular/core';
@@ -354,7 +355,8 @@ export interface TaskInterface {
   projectId: string,
   version: string,
   comments: Array<CommentInterface>,
-  owner: UsersInterface
+  owner: UsersInterface,
+  assignments: [],
   tickets: Array<TicketInterface>
 }
 
@@ -367,6 +369,7 @@ export interface TicketInterface {
   taskId: string
   version: string,
   comments: Array<CommentInterface>,
+  assignments: [],
   owner: UsersInterface
 }
 

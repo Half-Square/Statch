@@ -1,24 +1,50 @@
 <!--
-* @Author                : Adrien Lanco<adrienlanco0@gmail.com>
+* @Author                : 0K00<qdouvillez@gmail.com>
 * @CreatedDate           : 2023-03-17 12:58:00
-* @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>
-* @LastEditDate          : 2023-03-21 11:42:46
+* @LastEditors           : 0K00<qdouvillez@gmail.com>
+* @LastEditDate          : 2023-03-24 17:25:32
+* 
 -->
 
 <div class="collapse" [ngClass]="{ 'open': show(), 'close': !show() }">
-  <div class="label" [ngClass]="{ 'active': false }">
-      <div *ngIf="!noContent" class="icons" [ngStyle]="indent()" (click)="toggleCollapse()"
+  <div *ngIf="!other" class="label" [ngClass]="{ 'active': false }">
+      <div *ngIf="!noContent && !other" class="icons" [ngStyle]="indent()" (click)="toggleCollapse()"
             [ngClass]="{ 'less': show(), 'more': !show() }" >
           <i *ngIf="!show()" class="icon chevron-right"></i>
           <i *ngIf="show()" class="icon chevron-down"></i>
       </div>
+      <div *ngIf="!noContent && other" class="icons" [ngStyle]="indent()" (click)="toggleCollapse()"
+          [ngClass]="{ 'less': show(), 'more': !show() }" >
+        <i *ngIf="!show()" class="icon open"></i>
+        <i *ngIf="show()" class="icon close"></i>
+      </div>
       <nav [routerLink]="[ type+(id? '/'+id : '') ]">
           <div class="link" [ngStyle]="indent()">
+              <div *ngIf="level" class="level">{{ level }}</div>
+              <div *ngIf="version" class="version">{{ version }}</div>
               <app-status [status]="status"></app-status>
               <div class="text">{{ label }}</div>
           </div>
       </nav>
   </div>
+
+  <div *ngIf="other" class="label" [ngClass]="{ 'active': false }" [ngClass]="[other]" (click)="toggleCollapse()">
+    <div *ngIf="!noContent && other" class="icons" [ngStyle]="indent()"
+        [ngClass]="{ 'less': show(), 'more': !show() }" >
+      <i *ngIf="!show()" class="icon open"></i>
+      <i *ngIf="show()" class="icon close"></i>
+    </div>
+    <nav [routerLink]="[ '/' + type+(id? '/'+id : '') ]">
+        <div class="link" [ngStyle]="indent()">
+            <div *ngIf="level" class="level">{{ level }}</div>
+            <div *ngIf="version" class="version">{{ version }}</div>
+            <app-status [status]="status"></app-status>
+            <div class="text">{{ label }}</div>
+        </div>
+    </nav>
+</div>
+
+
 
   <ng-content *ngIf="show()">
   </ng-content>
