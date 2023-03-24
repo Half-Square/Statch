@@ -1,9 +1,8 @@
 /*****************************************************************************
- * @Author                : 0K00<qdouvillez@gmail.com>                       *
+ * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
  * @CreatedDate           : 2023-03-17 11:51:54                              *
- * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
- * @LastEditDate          : 2023-03-23 15:45:24                              *
- *                                                                           *
+ * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
+ * @LastEditDate          : 2023-03-24 15:23:15                              *
  ****************************************************************************/
 
 import { NgModule } from '@angular/core';
@@ -18,9 +17,6 @@ import { CollapseComponent } from './collapse/collapse.component';
 import { InputComponent } from './input/input.component';
 import { ProgressBarComponent } from './progress-bar/progress-bar.component';
 import { StatusComponent } from './status/status.component';
-import { StatusLabeledComponent } from './status-labeled/status-labeled.component';
-
-
 
 @NgModule({
   declarations: [
@@ -31,7 +27,6 @@ import { StatusLabeledComponent } from './status-labeled/status-labeled.componen
     InputComponent,
     ProgressBarComponent,
     StatusComponent,
-    StatusLabeledComponent,
   ],
   imports: [
     CommonModule,
@@ -46,7 +41,6 @@ import { StatusLabeledComponent } from './status-labeled/status-labeled.componen
     InputComponent,
     ProgressBarComponent,
     StatusComponent,
-    StatusLabeledComponent,
   ]
 })
 export class ComponentsModule { }

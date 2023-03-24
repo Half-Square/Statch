@@ -2,7 +2,7 @@
 * @Author                : Adrien Lanco<adrienlanco0@gmail.com>
 * @CreatedDate           : 2023-03-17 16:48:00
 * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>
-* @LastEditDate          : 2023-03-24 14:27:25
+* @LastEditDate          : 2023-03-24 15:37:42
 -->
 
 <div id="task">
@@ -64,7 +64,7 @@
         </div>
         <div class="container">
           <h4>Status</h4>
-          <div class="text"><app-status-labeled [isEdit]="true" [(status)]="task.status" /></div>
+          <app-status-labeled [isEdit]="true" [(status)]="task.status" (statusChange)="command.editTask(this.task)"/>
         </div>
         <div class="container">
           <h4>No. of tickets</h4>

@@ -1,0 +1,15 @@
+<!--
+* @Author                : Adrien Lanco<adrienlanco0@gmail.com>
+* @CreatedDate           : 2023-03-17 13:39:00
+* @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>
+* @LastEditDate          : 2023-03-24 15:29:18
+-->
+
+<ng-container *ngIf="isEdit">
+  <app-select [(value)]="value" (valueChange)="statusChange.emit(value.icon)"></app-select>
+</ng-container>
+
+<ng-container *ngIf="!isEdit">
+  <app-status [status]="status"></app-status>
+  <p>{{ status }}</p>
+</ng-container>

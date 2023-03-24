@@ -2,9 +2,20 @@
  * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
  * @CreatedDate           : 2023-03-24 11:19:56                              *
  * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
- * @LastEditDate          : 2023-03-24 11:19:56                              *
+ * @LastEditDate          : 2023-03-24 15:55:46                              *
  ****************************************************************************/
 
 :host {
   color: white;
+
+  .newVersion {
+    display: flex;
+
+    input {
+      max-width: 80%;
+    }
+    button {
+      max-width: 20%;
+    }
+  }
 }

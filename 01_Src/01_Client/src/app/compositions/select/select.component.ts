@@ -1,17 +1,11 @@
-/******************************************************************************
- * @Author                : 0K00<qdouvillez@gmail.com>                        *
- * @CreatedDate           : 2023-03-23 15:26:45                               *
- * @LastEditors           : 0K00<qdouvillez@gmail.com>                        *
- * @LastEditDate          : 2023-03-24 11:44:37                               *
- *                                                                            *
- *****************************************************************************/
+/*****************************************************************************
+ * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
+ * @CreatedDate           : 2023-03-23 15:26:45                              *
+ * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
+ * @LastEditDate          : 2023-03-24 16:06:02                              *
+ ****************************************************************************/
 
-interface selectedOption {
-  text: string,
-  icon?: string
-}
-
-import { Component, Input, Output, EventEmitter, HostListener, ElementRef } from '@angular/core';
+import { Component, Input, Output, EventEmitter, HostListener, ElementRef, AfterContentInit } from '@angular/core';
 import {
   trigger,
   state,
@@ -36,30 +30,15 @@ import {
     ])
   ]
 })
-export class SelectComponent {
+export class SelectComponent implements AfterContentInit {
   constructor(private ref: ElementRef) {
-    this.options = [{text: "New", icon: "new"}, {text: "In progress", icon: "progress"}, {text: "Completed", icon: "done"}, {text: "Rejected", icon: "reject"}, {text: "Pending", icon: "wait"}]
-  }
-
-  public filteredOptions: Array<selectedOption> = [];
-  public searchTerm: string = "";
-  public selectedOption: selectedOption = {} as selectedOption;
-  public isOpen: boolean = false;
-  private onOver: boolean = false;
-
-  filterOptions() {
-    this.filteredOptions = this.options.filter(option => option.text.toLowerCase().includes(this.searchTerm.toLowerCase()));
-  }
-
-  selectOption(option: selectedOption) {
-    this.optionSelected.emit(option);
-    this.selectedOption = {
-      text: option.text,
-      icon: option.icon
-    };
-    this.searchTerm = '';
-    this.filteredOptions = this.options;
-    this.isOpen = false;
+    this.options = [
+      {text: "New", icon: "new"},
+      {text: "In progress", icon: "progress"},
+      {text: "Completed", icon: "done"},
+      {text: "Rejected", icon: "reject"},
+      {text: "Pending", icon: "wait"}
+    ]
   }
 
   @Input() id: string = "";
@@ -76,11 +55,38 @@ export class SelectComponent {
 
   @Input() disabled: boolean = false;
 
-  @Input() options: Array<selectedOption>;
-  @Output() optionSelected = new EventEmitter<selectedOption>();
+  @Input() options: Array<{text: string, icon?: string}>;
+
+  @Input() value: {text: string, icon?: string} = {text: '', icon: ''};
+  @Output() valueChange = new EventEmitter<{text: string, icon?: string}>();
+
+  public filteredOptions: Array<{text: string, icon?: string}> = [];
+  public searchTerm: string = "";
+  public isOpen: boolean = false;
+  public load: boolean = true;
 
   @HostListener('document:click', ['$event'])
   clickout(event: any) {
-    if(!this.ref.nativeElement.contains(event.target)) this.isOpen = false;
+    if(!this.ref.nativeElement.contains(event.target))
+      this.isOpen = false;
+  }
+
+  ngAfterContentInit() {
+    this.load = false;
+  }
+
+  public filterOptions() {
+    this.filteredOptions = this.options.filter(option => {
+      option.text.toLowerCase().includes(this.searchTerm.toLowerCase())
+    });
+  }
+
+  public selectOption(option: {text: string, icon?: string}) {
+    this.value = option;
+    this.valueChange.emit(this.value);
+
+    this.searchTerm = '';
+    this.filteredOptions = this.options;
+    this.isOpen = false;
   }
 }

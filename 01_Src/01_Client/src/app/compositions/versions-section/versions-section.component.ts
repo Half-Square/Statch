@@ -2,12 +2,12 @@
  * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
  * @CreatedDate           : 2023-03-23 16:37:07                              *
  * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
- * @LastEditDate          : 2023-03-24 13:11:27                              *
+ * @LastEditDate          : 2023-03-24 16:11:02                              *
  ****************************************************************************/
 
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ApiService } from 'src/app/services/api/api.service';
-import { ProjectInterface, ProjectListService, VersionInterface } from 'src/app/services/project-list/project-list.service';
+import { ProjectInterface, ProjectListService, TaskInterface, TicketInterface, VersionInterface } from 'src/app/services/project-list/project-list.service';
 
 @Component({
   selector: 'app-versions-section',
@@ -23,6 +23,13 @@ export class VersionsSectionComponent {
         this.getProjectList()
       }
     })
+    ProjectListService.taskChange.subscribe((value: TaskInterface) => {
+      this.getProjectList()
+    })
+    ProjectListService.ticketChange.subscribe((value: TicketInterface) => {
+      this.getProjectList()
+    })
+
   }
 
   @Input()  version: VersionInterface = {} as VersionInterface;
@@ -33,18 +40,22 @@ export class VersionsSectionComponent {
   @Input() isProject: boolean = false;
 
   public versionList: Array<VersionInterface> = [];
+  public options: Array<{ text: string }> = [];
+  public value: {text: string} = {text: ""}
+
   public newName: string = "";
   public projectId: string = "";
-
-  public isOpen: boolean = false;
 
   getProjectList() {
     this.api.request("GET", "projects/"+this.projectId+"/versions")
     .then((ret) => {
-      console.log(this.version);
-
       this.versionList = ret;
-      if (!this.version.name) this.isOpen = true;
+      this.options = []
+      for (let i = 0; i < ret.length; i++) {
+        this.options.push({ text: ret[i].name })
+      }
+      if (this.version.name) this.value = { text: this.version.name }
+      else  this.value = { text: "" }
     })
   }
 
@@ -54,8 +65,6 @@ export class VersionsSectionComponent {
       return;
     } else {
       for (let i = 0; i < this.versionList.length; i++) {
-        console.log(versionName, this.versionList[i]);
-
         if (this.versionList[i].name == versionName) {
           this.version = this.versionList[i];
           this.versionChange.emit(this.version)
@@ -71,8 +80,9 @@ export class VersionsSectionComponent {
         name: this.newName
       }).then((ret) => {
         this.version = ret;
-        this.isOpen = false;
-        this.versionList.push(this.version)
+        if (this.version.name) this.value = { text: this.version.name }
+        this.versionList.push(this.version);
+        this.options.push({ text: this.version.name })
         this.versionJustChange(this.version.name)
       })
     }

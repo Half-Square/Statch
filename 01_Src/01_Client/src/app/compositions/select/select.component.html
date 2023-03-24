@@ -1,21 +1,21 @@
 <!--
-* @Author                : 0K00<qdouvillez@gmail.com>
+* @Author                : Adrien Lanco<adrienlanco0@gmail.com>
 * @CreatedDate           : 2023-03-24 11:48:00
-* @LastEditors           : 0K00<qdouvillez@gmail.com>
-* @LastEditDate          : 2023-03-24 12:08:16
-* 
+* @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>
+* @LastEditDate          : 2023-03-24 16:11:38
 -->
 
 <div [ngClass]="['select', type, size, other]">
   <div (click)="isOpen = !isOpen" class="control">
     <div class="selected">
-      <i *ngIf="selectedOption.icon" class="{{'icon ' + selectedOption.icon}}"></i>
-      {{ selectedOption.text ? selectedOption.text : placeholder }}
+      <i *ngIf="value.icon" class="{{'icon ' + value.icon}}"></i>
+      {{ value.text ? value.text : placeholder }}
     </div>
     <div class="chevron">
       <i class="icon chevron-down"></i>
     </div>
   </div>
+
   <div @nested *ngIf="isOpen" class="menu">
     <ul class="options">
       <ng-container *ngIf="!content">
@@ -33,7 +33,7 @@
           {{ option.text }}
         </li>
       </ng-container>
-      <ng-container *ngIf="content">
+      <ng-container>
         <ng-content></ng-content>
       </ng-container>
     </ul>
