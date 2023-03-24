@@ -1,8 +1,9 @@
 /*****************************************************************************
- * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
+ * @Author                : 0K00<qdouvillez@gmail.com>                       *
  * @CreatedDate           : 2023-03-17 11:51:54                              *
- * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
- * @LastEditDate          : 2023-03-21 19:34:38                              *
+ * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
+ * @LastEditDate          : 2023-03-23 15:45:24                              *
+ *                                                                           *
  ****************************************************************************/
 
 import { NgModule } from '@angular/core';
@@ -30,7 +31,7 @@ import { StatusLabeledComponent } from './status-labeled/status-labeled.componen
     InputComponent,
     ProgressBarComponent,
     StatusComponent,
-    StatusLabeledComponent
+    StatusLabeledComponent,
   ],
   imports: [
     CommonModule,
@@ -45,7 +46,7 @@ import { StatusLabeledComponent } from './status-labeled/status-labeled.componen
     InputComponent,
     ProgressBarComponent,
     StatusComponent,
-    StatusLabeledComponent
+    StatusLabeledComponent,
   ]
 })
 export class ComponentsModule { }

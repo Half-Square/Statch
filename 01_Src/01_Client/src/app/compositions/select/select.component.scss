@@ -1,0 +1,136 @@
+/*****************************************************************************
+ * @Author                : 0K00<qdouvillez@gmail.com>                       *
+ * @CreatedDate           : 2023-03-24 11:48:09                              *
+ * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
+ * @LastEditDate          : 2023-03-24 12:11:51                              *
+ *                                                                           *
+ ****************************************************************************/
+
+/*****************************************************************************
+ * @Author                : 0K00<qdouvillez@gmail.com>                       *
+ * @CreatedDate           : 2023-03-23 17:05:22                              *
+ * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
+ * @LastEditDate          : 2023-03-24 11:20:36                              *
+ *                                                                           *
+ ****************************************************************************/
+:host {
+  display: block;
+  width: fit-content;
+
+      /* width */
+      ::-webkit-scrollbar {
+        width: 4px;
+        height: 4px;
+      }
+
+      /* Track */
+      ::-webkit-scrollbar-track {
+        background: transparent;
+      }
+
+      /* Handle */
+      ::-webkit-scrollbar-thumb {
+        background: #9C9C9C;
+        border-radius: 999px;
+      }
+
+      /* Handle on hover */
+      ::-webkit-scrollbar-thumb:hover {
+        background: #b8b8b8;
+      }
+
+}
+
+.select {
+  position: relative;
+
+  .control {
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    background: #2E2E2E;
+    box-shadow: 0px 0px 0px 1px #424242;
+    border-radius: 4px;
+    max-width: fit-content;
+    color: rgba(255, 255, 255, 0.96);
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 16px;
+    padding: 6px 4px;
+    user-select: none;
+
+    .icon {
+      font-size: 16px;
+    }
+
+    .selected {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .chevron {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: rgba(255, 255, 255, 0.64);;
+    }
+  }
+
+  .menu {
+    position: absolute;
+    overflow: hidden;
+    top: calc(28px + 8px);
+    display: flex;
+    flex-direction: column;
+    background: #2E2E2E;
+    box-shadow: 0px 10px 36px rgba(0, 0, 0, 0.16), 0px 0px 0px 1px #424242;
+    border-radius: 8px;
+    width: 200px;
+
+    .options {
+      list-style: none;
+      user-select: none;
+      max-height: 136px;
+      overflow: auto;
+      margin: 4px;
+      margin-bottom: 0;
+      padding-bottom: 4px;
+    }
+
+    .option {
+      cursor: pointer;
+      font-style: normal;
+      font-weight: 400;
+      font-size: 12px;
+      line-height: 14px;
+      display: flex;
+      gap: 4px;
+      align-items: center;
+      color: rgba(255, 255, 255, 0.96);
+      border-radius: 4px;
+      padding: 6px 4px;
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.04);
+      }
+    }
+
+    .noResult {
+      font-style: normal;
+      font-weight: 400;
+      font-size: 12px;
+      line-height: 14px;
+      color: rgba(255, 255, 255, 0.96);
+      padding: 6px 4px;
+    }
+  }
+}
+
+
+

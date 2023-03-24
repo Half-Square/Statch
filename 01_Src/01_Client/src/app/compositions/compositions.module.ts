@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : AdrienLanco0<adrienlanco0@gmail.com>             *
+ * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
  * @CreatedDate           : 2023-03-17 11:38:53                              *
- * @LastEditors           : AdrienLanco0<adrienlanco0@gmail.com>             *
- * @LastEditDate          : 2023-03-23 16:42:22                              *
+ * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
+ * @LastEditDate          : 2023-03-24 15:23:08                              *
  ****************************************************************************/
 
 import { NgModule } from '@angular/core';
@@ -21,7 +21,11 @@ import { SearchBarComponent } from './search-bar/search-bar.component';
 import { CommentsSectionComponent } from './comments-section/comments-section.component';
 
 import { DirectivesModule } from '../directives/directives.module';
+
 import { VersionsSectionComponent } from './versions-section/versions-section.component';
+import { SelectComponent } from './select/select.component';
+import { StatusLabeledComponent } from './status-labeled/status-labeled.component';
+
 
 
 
@@ -32,7 +36,9 @@ import { VersionsSectionComponent } from './versions-section/versions-section.co
     HeaderComponent,
     NavComponent,
     SearchBarComponent,
-    VersionsSectionComponent
+    VersionsSectionComponent,
+    SelectComponent,
+    StatusLabeledComponent
   ],
   imports: [
     CommonModule,
@@ -48,7 +54,9 @@ import { VersionsSectionComponent } from './versions-section/versions-section.co
     HeaderComponent,
     NavComponent,
     SearchBarComponent,
-    VersionsSectionComponent
+    VersionsSectionComponent,
+    SelectComponent,
+    StatusLabeledComponent
   ],
 })
 export class CompositionsModule { }
