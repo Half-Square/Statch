@@ -2,8 +2,7 @@
  * @Author                : 0K00<qdouvillez@gmail.com>                        *
  * @CreatedDate           : 2023-03-24 15:14:47                               *
  * @LastEditors           : 0K00<qdouvillez@gmail.com>                        *
- * @LastEditDate          : 2023-03-24 17:23:16                               *
- *                                                                            *
+ * @LastEditDate          : 2023-03-25 13:16:40                               *
  *****************************************************************************/
 
 import { Component, EventEmitter, Output, Input } from '@angular/core';
@@ -28,6 +27,41 @@ export class AssignComponent {
   constructor(private router: Router,
               public command: CommandService) {
     this.projects = [{
+      name: "Cooking app",
+      description: "test",
+      id: "S_LA65br",
+      status: "progress",
+      created: "Quentin",
+      version: "0.1.0",
+      comments: [],
+      owner: {email: "", name: "", id: "", validate: true },
+      assignments: [],
+      tasks: [{
+        name: "Cooking app",
+        description: "test",
+        id: "ZemPMIsh",
+        projectId: "",
+        status: "progress",
+        created: "Quentin",
+        version: "0.1.0",
+        comments: [],
+        owner: {email: "", name: "", id: "", validate: true },
+        assignments: [],
+        tickets: [{
+          name: "Cooking app",
+          description: "test",
+          id: "d348dq8",
+          taskId: "",
+          status: "progress",
+          created: "Quentin",
+          version: "0.1.0",
+          comments: [],
+          owner: {email: "", name: "", id: "", validate: true },
+          assignments: [],
+        }]
+      }]
+    },
+    {
       name: "Cooking app",
       description: "test",
       id: "S_LA65br",

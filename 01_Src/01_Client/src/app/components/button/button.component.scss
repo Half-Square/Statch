@@ -115,16 +115,18 @@
  }
 
  .btn.fth {
-   color: rgba(116, 122, 116, 1);
+   color: rgba(255, 255, 255, 0.48);
    background: rgba(34, 34, 34, 1);
-   border: 1px dashed #4B4B4B;
+   border: 1px dashed rgba(255, 255, 255, 0.08);
+   font-weight: 400;
 
    &:hover {
-     background: #1F1F1F;
+     color: rgba(255, 255, 255, 0.64);
+     background: rgba(24, 24, 24, 1);
    }
    &:focus, &:active {
-       color: #C8C8C8;
-       background: #1F1F1F;
+       color: rgba(255, 255, 255, 0.96);
+       background: rgba(24, 24, 24, 1);
      }
  }
 

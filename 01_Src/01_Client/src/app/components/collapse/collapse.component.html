@@ -2,8 +2,7 @@
 * @Author                : 0K00<qdouvillez@gmail.com>
 * @CreatedDate           : 2023-03-17 12:58:00
 * @LastEditors           : 0K00<qdouvillez@gmail.com>
-* @LastEditDate          : 2023-03-24 17:25:32
-* 
+* @LastEditDate          : 2023-03-25 13:43:31
 -->
 
 <div class="collapse" [ngClass]="{ 'open': show(), 'close': !show() }">
@@ -20,7 +19,7 @@
       </div>
       <nav [routerLink]="[ type+(id? '/'+id : '') ]">
           <div class="link" [ngStyle]="indent()">
-              <div *ngIf="level" class="level">{{ level }}</div>
+              <app-level *ngIf="level" [degree]="level" />
               <div *ngIf="version" class="version">{{ version }}</div>
               <app-status [status]="status"></app-status>
               <div class="text">{{ label }}</div>
@@ -36,7 +35,7 @@
     </div>
     <nav [routerLink]="[ '/' + type+(id? '/'+id : '') ]">
         <div class="link" [ngStyle]="indent()">
-            <div *ngIf="level" class="level">{{ level }}</div>
+            <app-level *ngIf="level" [degree]="level" />
             <div *ngIf="version" class="version">{{ version }}</div>
             <app-status [status]="status"></app-status>
             <div class="text">{{ label }}</div>

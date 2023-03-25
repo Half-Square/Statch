@@ -71,6 +71,7 @@
   flex-direction: row-reverse;
   border-radius: 0;
   color: rgba(255, 255, 255, 0.96);
+  border-bottom: 1px solid rgb(34 34 34);
 
   .icons .icon {
     font-size: 16px;
@@ -117,17 +118,6 @@
     line-height: 24px;
     color: rgba(116, 122, 116, 1);
   }
-
-  .level {
-    background: rgba(27, 49, 69, 1);
-    border-radius: 4px;
-    padding: 8px;
-    font-style: normal;
-    font-weight: 400;
-    font-size: 12px;
-    line-height: 16px;
-    color: rgba(139, 152, 164, 1);
-  }
 }
 
 .label.assign.ticket {
@@ -155,17 +145,6 @@
     font-size: 12px;
     line-height: 24px;
     color: rgba(116, 122, 116, 1);
-  }
-
-  .level {
-    background: rgba(27, 49, 69, 1);
-    border-radius: 4px;
-    padding: 8px;
-    font-style: normal;
-    font-weight: 400;
-    font-size: 12px;
-    line-height: 16px;
-    color: rgba(139, 152, 164, 1);
   }
 }
 
