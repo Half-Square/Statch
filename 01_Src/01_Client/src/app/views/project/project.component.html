@@ -1,8 +1,8 @@
 <!--
-* @Author                : AdrienLanco0<121338518+AdrienLanco0@users.noreply.github.com>
+* @Author                : 0K00<qdouvillez@gmail.com>
 * @CreatedDate           : 2023-03-17 16:48:00
-* @LastEditors           : AdrienLanco0<121338518+AdrienLanco0@users.noreply.github.com>
-* @LastEditDate          : 2023-03-22 11:20:50
+* @LastEditors           : 0K00<qdouvillez@gmail.com>
+* @LastEditDate          : 2023-03-25 17:31:22
 -->
 
 <div id="project">
@@ -45,14 +45,14 @@
         <div class="container">
           <h4>Assignee</h4>
           <div class="text">
-            <app-avatar  id="randy" />
+            <app-avatar  id="randy" [userName]="'Randy'" />
             Randy Gouse
           </div>
         </div>
         <div class="container">
           <h4>Owner</h4>
           <div class="text">
-            <app-avatar id="madelyn" />
+            <app-avatar id="madelyn" [userName]="project.owner.name" />
             {{ project.owner ? project.owner.name : "" }}
           </div>
         </div>
@@ -78,7 +78,7 @@
       <div class="activity">
         <h3>Last activity</h3>
         <div class="content" *ngFor="let item of activity">
-          <div class="img"><app-avatar [id]="item.name" /></div>
+          <div class="img"><app-avatar [id]="item.name" [userName]="item.name" /></div>
           <div class="name">{{ item.name }}</div>
           <div class="desc">{{ item.action }} <a [href]="item.url">{{ item.id }}</a>, {{ item.time }} ago</div>
         </div>

@@ -1,13 +1,13 @@
 <!--
-* @Author                : Adrien Lanco<adrienlanco0@gmail.com>
+* @Author                : 0K00<qdouvillez@gmail.com>
 * @CreatedDate           : 2023-03-17 11:57:00
-* @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>
-* @LastEditDate          : 2023-03-17 13:47:32
+* @LastEditors           : 0K00<qdouvillez@gmail.com>
+* @LastEditDate          : 2023-03-25 17:28:57
 -->
 
 <div class="comment">
   <div class="img">
-    <app-avatar [userId]="userId" [imgPath]="imgPath" [alt]="name + 'photo'"></app-avatar>
+    <app-avatar [userId]="userId" [imgPath]="imgPath" [alt]="name + 'photo'" [userName]="name"></app-avatar>
   </div>
   <div class="info">{{ name }} {{ lastName }}, {{ created }} ago</div>
   <div class="content">{{ content }}</div>
