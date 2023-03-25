@@ -1,11 +1,18 @@
 <!--
-* @Author                : Adrien Lanco<adrienlanco0@gmail.com>
+* @Author                : 0K00<qdouvillez@gmail.com>
 * @CreatedDate           : 2023-03-17 12:09:00
-* @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>
-* @LastEditDate          : 2023-03-17 12:15:32
+* @LastEditors           : 0K00<qdouvillez@gmail.com>
+* @LastEditDate          : 2023-03-25 17:27:51
 -->
 
+<ng-container *ngIf="imgPath">
+  <div routerLink="{{ 'user/'+userId }}" class="{{ classes }}">
+    <img *ngIf="imgPath != null" src="{{ imgPath }}" alt="{{ alt }}" />
+  </div>
+</ng-container>
 
-<div routerLink="{{ 'user/'+userId }}" class="{{ classes }}">
-  <img *ngIf="imgPath != null" src="{{ imgPath }}" alt="{{ alt }}" />
-</div>
+<ng-container *ngIf="!imgPath">
+  <div routerLink="{{ 'user/'+userId }}" class="avatar noImg">
+    {{ userName }}
+  </div>
+</ng-container>
