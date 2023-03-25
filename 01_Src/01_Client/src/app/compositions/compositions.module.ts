@@ -2,8 +2,7 @@
  * @Author                : 0K00<qdouvillez@gmail.com>                       *
  * @CreatedDate           : 2023-03-17 11:38:53                              *
  * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
- * @LastEditDate          : 2023-03-23 15:44:47                              *
- *                                                                           *
+ * @LastEditDate          : 2023-03-25 17:05:38                              *
  ****************************************************************************/
 
 import { NgModule } from '@angular/core';
@@ -22,7 +21,7 @@ import { SearchBarComponent } from './search-bar/search-bar.component';
 import { CommentsSectionComponent } from './comments-section/comments-section.component';
 
 import { DirectivesModule } from '../directives/directives.module';
-import { SelectComponent } from './select/select.component';
+import { DropdownComponent } from './dropdown/dropdown.component';
 
 
 
@@ -33,7 +32,7 @@ import { SelectComponent } from './select/select.component';
     HeaderComponent,
     NavComponent,
     SearchBarComponent,
-    SelectComponent
+    DropdownComponent
   ],
   imports: [
     CommonModule,
@@ -49,7 +48,7 @@ import { SelectComponent } from './select/select.component';
     HeaderComponent,
     NavComponent,
     SearchBarComponent,
-    SelectComponent
+    DropdownComponent
   ],
 })
 export class CompositionsModule { }
