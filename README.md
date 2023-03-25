@@ -42,7 +42,6 @@ Welcome to the Statch Project Manager! This project is a project management tool
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgments">Acknowledgments</a></li>
   </ol>
 </details>
 
@@ -67,11 +66,12 @@ The Statch Project Manager is designed to help teams effectively manage their pr
 
 This section should list any major frameworks/libraries used to bootstrap your project. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
 
-* [VueJS](https://vuejs.org/ "VueJS") - A progressive JavaScript framework for building user interfaces
+* [Angular](https://angular.io/ "Angular") - A typescript framework, is a platform for building mobile and desktop web applications
 * [Typescript](https://www.typescriptlang.org/ "Typescript") - A typed superset of JavaScript that compiles to plain JavaScript
 * [NodeJS](https://nodejs.org/en/ "NodeJS") - A JavaScript runtime built on Chrome's V8 JavaScript engine
 * [NestJS](https://nestjs.com/ "NestJS") - A progressive Node.js framework for building efficient, scalable, and enterprise-grade server-side applications
-* [MongoDB](https://www.mongodb.com/ "MongoDB") - A document-oriented database designed for scalability, flexibility, and simplicity
+* [Mysql](https://www.mysql.com/downloads/ "Mysql") - 
+* [Prisma](https://www.prisma.io/ "Prisma") - 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -84,8 +84,10 @@ This section should list any major frameworks/libraries used to bootstrap your p
 
 To get started with the Statch, you'll need to have the following software installed on your machine:
 
-* [NodeJS](https://nodejs.org/en/ "NodeJS") and [npm](https://www.npmjs.com/ "npm") (or [yarn](https://yarnpkg.com/ "yarn"))
-* [MongoDB](https://www.mongodb.com/ "MongoDB")
+* [NodeJS 18.12.1](https://nodejs.org/en/download/releases/ "NodeJS")
+* [Mysql 8.0.27](https://www.mysql.com/downloads/ "Mysql")
+* [Prisma CLI 4.9.0](https://www.prisma.io/ "Prisma")
+* [NestJS CLI 9.1.9](https://nestjs.com/ "NestJS") 
 
 ### Installation
 
@@ -118,7 +120,7 @@ To get started with the Statch, you'll need to have the following software insta
    ```sh
    cd 01_SRC
    cd 01_Client
-   npm run serve # or yarn 
+   npm run start # or yarn 
    ```
    
 2. Start the back end server
@@ -126,6 +128,7 @@ To get started with the Statch, you'll need to have the following software insta
    ```sh
    cd 01_SRC
    cd 01_Server
+   npx prisma migrate dev
    npm run start:dev # or yarn 
    ```
 
@@ -194,7 +197,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 <!-- CONTACT -->
 ## Contact
 
-Half Square - contact@halfsquare.fr
+Half Square - [Website](https://halfsquare.fr "Half Square's website") or [contact@halfsquare.fr](mailto:contact@halfsquare.fr "contact@halfsquare.fr")
 
 Project Link: [https://github.com/Half-Square/Statch](https://github.com/Half-Square/Statch)
 

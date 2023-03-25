@@ -1,8 +1,9 @@
 /*****************************************************************************
- * @Author                : AdrienLanco0<adrienlanco0@gmail.com>             *
+ * @Author                : 0K00<qdouvillez@gmail.com>                       *
  * @CreatedDate           : 2023-03-17 13:07:58                              *
- * @LastEditors           : AdrienLanco0<adrienlanco0@gmail.com>             *
- * @LastEditDate          : 2023-03-22 14:46:49                              *
+ * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
+ * @LastEditDate          : 2023-03-24 17:03:42                              *
+ *                                                                           *
  ****************************************************************************/
 
 import { Component, EventEmitter, Output, Input } from '@angular/core';
@@ -18,9 +19,12 @@ export class CollapseComponent {
   }
   @Input() label: string = "";
   @Input() status: string = "";
+  @Input() version: string = "";
+  @Input() level: string = "";
 
   @Input() type: string = "";
   @Input() id: string = "";
+  @Input() other: string = "";
 
   @Input() depth: number = 0;
 

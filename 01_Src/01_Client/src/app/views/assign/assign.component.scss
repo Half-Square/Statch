@@ -1,0 +1,40 @@
+/*****************************************************************************
+ * @Author                : 0K00<qdouvillez@gmail.com>                       *
+ * @CreatedDate           : 2023-03-24 15:17:12                              *
+ * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
+ * @LastEditDate          : 2023-03-24 16:50:11                              *
+ *                                                                           *
+ ****************************************************************************/
+
+ #assign {
+  display: flex;
+  flex-direction: column;
+  background: rgba(34, 34, 34, 1);
+  min-height: 100%;
+}
+
+#assign .header {
+  display: flex;
+  justify-content: flex-end;
+  padding: 1.5rem 2rem;
+
+  .right {
+    margin-right: auto;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  h2 {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    color: rgba(255, 255, 255, 0.64);
+  }
+}
+
+#assign .content {
+  display: flex;
+  flex-direction: column;
+}
