@@ -8,17 +8,45 @@
 <div class="collapse" [ngClass]="{ 'open': show(), 'close': !show() }">
   <div class="label" routerLinkActive="active">
       <div *ngIf="!noContent" class="icons" [ngStyle]="indent()" (click)="toggleCollapse()"
+<div class="collapse" [ngClass]="{ 'open': show(), 'close': !show() }">
+  <div *ngIf="!other" class="label" [ngClass]="{ 'active': false }">
+      <div *ngIf="!noContent && !other" class="icons" [ngStyle]="indent()" (click)="toggleCollapse()"
             [ngClass]="{ 'less': show(), 'more': !show() }" >
           <i *ngIf="!show()" class="icon chevron-right"></i>
           <i *ngIf="show()" class="icon chevron-down"></i>
       </div>
+      <div *ngIf="!noContent && other" class="icons" [ngStyle]="indent()" (click)="toggleCollapse()"
+          [ngClass]="{ 'less': show(), 'more': !show() }" >
+        <i *ngIf="!show()" class="icon open"></i>
+        <i *ngIf="show()" class="icon close"></i>
+      </div>
       <nav [routerLink]="[ type+(id? '/'+id : '') ]">
           <div class="link" [ngStyle]="indent()">
+              <app-level *ngIf="level" [degree]="level" />
+              <div *ngIf="version" class="version">{{ version }}</div>
               <app-status [status]="status"></app-status>
               <div class="text">{{ label }}</div>
           </div>
       </nav>
   </div>
+
+  <div *ngIf="other" class="label" [ngClass]="{ 'active': false }" [ngClass]="[other]" (click)="toggleCollapse()">
+    <div *ngIf="!noContent && other" class="icons" [ngStyle]="indent()"
+        [ngClass]="{ 'less': show(), 'more': !show() }" >
+      <i *ngIf="!show()" class="icon open"></i>
+      <i *ngIf="show()" class="icon close"></i>
+    </div>
+    <nav [routerLink]="[ '/' + type+(id? '/'+id : '') ]">
+        <div class="link" [ngStyle]="indent()">
+            <app-level *ngIf="level" [degree]="level" />
+            <div *ngIf="version" class="version">{{ version }}</div>
+            <app-status [status]="status"></app-status>
+            <div class="text">{{ label }}</div>
+        </div>
+    </nav>
+</div>
+
+
 
   <ng-content *ngIf="show()">
   </ng-content>

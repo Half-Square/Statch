@@ -1,8 +1,9 @@
 /*****************************************************************************
- * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
+ * @Author                : 0K00<qdouvillez@gmail.com>                       *
  * @CreatedDate           : 2023-03-17 11:51:44                              *
- * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
- * @LastEditDate          : 2023-03-21 15:13:13                              *
+ * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
+ * @LastEditDate          : 2023-03-24 14:31:32                              *
+ *                                                                           *
  ****************************************************************************/
 
 import { NgModule } from '@angular/core';
@@ -20,6 +21,7 @@ import { TaskComponent } from './task/task.component';
 import { TicketComponent } from './ticket/ticket.component';
 
 import { DirectivesModule } from '../directives/directives.module';
+import { AssignComponent } from './assign/assign.component';
 
 
 
@@ -30,7 +32,8 @@ import { DirectivesModule } from '../directives/directives.module';
     ProjectsComponent,
     ProjectComponent,
     TaskComponent,
-    TicketComponent
+    TicketComponent,
+    AssignComponent
   ],
   imports: [
     CommonModule,
@@ -46,7 +49,8 @@ import { DirectivesModule } from '../directives/directives.module';
     ProjectsComponent,
     ProjectComponent,
     TaskComponent,
-    TicketComponent
+    TicketComponent,
+    AssignComponent
   ],
 })
 export class ViewsModule { }
