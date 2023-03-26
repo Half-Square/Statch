@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : AdrienLanco0<adrienlanco0@gmail.com>             *
+ * @Author                : 0K00<qdouvillez@gmail.com>                       *
  * @CreatedDate           : 2023-03-17 13:07:58                              *
- * @LastEditors           : AdrienLanco0<adrienlanco0@gmail.com>             *
- * @LastEditDate          : 2023-03-22 14:46:49                              *
+ * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
+ * @LastEditDate          : 2023-03-26 15:58:14                              *
  ****************************************************************************/
 
 import { Component, EventEmitter, Output, Input } from '@angular/core';
@@ -38,7 +38,7 @@ export class CollapseComponent {
   *
   */
   public indent(): Object {
-    let transform = this.depth * 16 * this.depth;
+    let transform = this.depth * 24;
     return { transform: 'translate(' + transform + 'px)' };
   }
   /***/

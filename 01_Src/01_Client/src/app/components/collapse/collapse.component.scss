@@ -33,13 +33,14 @@
          font-weight: 400;
          font-size: 16px;
          line-height: 24px;
+         margin-bottom: 4px;
 
          .icons .icon {
              font-size: 24px;
          }
 
          &:hover {
-             background: rgba(41, 41, 41, 1);
+             background: rgba(255, 255, 255, 0.1);
          }
          .link {
              cursor: pointer;
