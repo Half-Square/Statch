@@ -2,7 +2,7 @@
  * @Author                : 0K00<qdouvillez@gmail.com>                        *
  * @CreatedDate           : 2023-03-25 14:53:07                               *
  * @LastEditors           : 0K00<qdouvillez@gmail.com>                        *
- * @LastEditDate          : 2023-03-25 16:41:06                               *
+ * @LastEditDate          : 2023-03-26 18:18:26                               *
  *****************************************************************************/
 
 interface selectedOption {
@@ -51,6 +51,7 @@ export class DropdownComponent {
   @Input() options: Array<selectedOption>;
   @Input() content: boolean = false;
   @Input() placeholder: string = "Test";
+  @Input() autoAdd: boolean = false;
 
   @HostListener('document:click', ['$event'])
   clickout(event: any) {
@@ -72,6 +73,19 @@ export class DropdownComponent {
       this.selectedOptions.push(option);
     } else {
       this.selectedOptions.splice(index, 1);
+    }
+  }
+
+  addOption() {
+    let obj: selectedOption = { text: this.searchText };
+    this.options.push(obj);
+    this.searchText = "";
+    if(this.multi) {
+      this.selectedOptions.push(obj);
+      this.toggleDropdown();
+    } else {
+      this.selectedOptions = [obj];
+      this.toggleDropdown();
     }
   }
 
