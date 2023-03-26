@@ -42,7 +42,7 @@ export class CollapseComponent {
   *
   */
   public indent(): Object {
-    let transform = this.depth * 16 * this.depth;
+    let transform = this.depth * 24;
     return { transform: 'translate(' + transform + 'px)' };
   }
   /***/
