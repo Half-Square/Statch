@@ -1,8 +1,8 @@
 /******************************************************************************
- * @Author                : Adrien Lanco<adrienlanco0@gmail.com>              *
+ * @Author                : AdrienLanco0<adrienlanco0@gmail.com>              *
  * @CreatedDate           : 2023-02-21 14:22:05                               *
- * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>              *
- * @LastEditDate          : 2023-03-24 13:08:48                               *
+ * @LastEditors           : AdrienLanco0<adrienlanco0@gmail.com>              *
+ * @LastEditDate          : 2023-03-27 14:46:24                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -76,6 +76,11 @@ export class TicketsController {
         where: {id: id},
         include: {
           targetVersion: true,
+          task: {
+            select: {
+              projectId: true
+            }
+          },
           comments: {
             include: {author: true}
           },
@@ -112,11 +117,9 @@ export class TicketsController {
           name: body.name,
           status: body.status,
           description: body.description,
-          targetVersion: {
-            connect: {
-              id: body.targetVersion.id
-            }
-          },
+          targetVersion: body.targetVersion ?{
+            connect: { id: body.targetVersion.id }
+          } : {},
           assignments: {
             deleteMany: {},
             create: body.assignments.map((el) => {
@@ -126,6 +129,11 @@ export class TicketsController {
         },
         include: {
           targetVersion: true,
+          task: {
+            select: {
+              projectId: true
+            }
+          },
           comments: {
             include: {author: true}
           },
@@ -155,7 +163,14 @@ export class TicketsController {
     try {
       let res = await this.prisma.ticket.findMany({
         where: {taskId: id},
-        include: {owner: true}
+        include: {
+          task: {
+            select: {
+              projectId: true
+            }
+          },
+          owner: true
+        }
       });
       return res.map((el) => new ticketsDto.PublicOutput(el));
     } catch (err) {
@@ -192,6 +207,11 @@ export class TicketsController {
           }
         },
         include: {
+          task: {
+            select: {
+              projectId: true
+            }
+          },
           targetVersion: true,
           comments: {
             include: {author: true}

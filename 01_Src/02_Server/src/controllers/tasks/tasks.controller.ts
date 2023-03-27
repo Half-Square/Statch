@@ -1,8 +1,8 @@
 /******************************************************************************
- * @Author                : Adrien Lanco<adrienlanco0@gmail.com>              *
+ * @Author                : AdrienLanco0<adrienlanco0@gmail.com>              *
  * @CreatedDate           : 2023-02-21 14:21:47                               *
- * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>              *
- * @LastEditDate          : 2023-03-24 14:44:26                               *
+ * @LastEditors           : AdrienLanco0<adrienlanco0@gmail.com>              *
+ * @LastEditDate          : 2023-03-27 14:50:18                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -124,11 +124,9 @@ export class TasksController {
           name: body.name,
           status: body.status,
           description: body.description,
-          targetVersion: {
-            connect: {
-              id: body.targetVersion.id
-            }
-          },
+          targetVersion: body.targetVersion && body.targetVersion.id ?{
+            connect: { id: body.targetVersion.id }
+          } : {},
           assignments: {
             deleteMany: {},
             create: body.assignments.map((el) => {

@@ -2,7 +2,7 @@
  * @Author                : AdrienLanco0<adrienlanco0@gmail.com>             *
  * @CreatedDate           : 2023-03-24 15:14:47                              *
  * @LastEditors           : AdrienLanco0<adrienlanco0@gmail.com>             *
- * @LastEditDate          : 2023-03-27 13:01:45                              *
+ * @LastEditDate          : 2023-03-27 14:28:17                              *
  ****************************************************************************/
 
 import { Component, EventEmitter, Output, Input } from '@angular/core';
@@ -52,6 +52,7 @@ export class AssignComponent {
           name: "Cooking app",
           description: "test",
           id: "d348dq8",
+          projectId: "",
           taskId: "",
           status: "progress",
           created: "Quentin",
@@ -88,6 +89,7 @@ export class AssignComponent {
           name: "Cooking app",
           description: "test",
           id: "d348dq8",
+          projectId: "",
           taskId: "",
           status: "progress",
           created: "Quentin",

@@ -1,8 +1,8 @@
 /******************************************************************************
- * @Author                : Adrien Lanco<adrienlanco0@gmail.com>              *
+ * @Author                : AdrienLanco0<adrienlanco0@gmail.com>              *
  * @CreatedDate           : 2023-02-21 14:16:22                               *
- * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>              *
- * @LastEditDate          : 2023-03-24 13:06:46                               *
+ * @LastEditors           : AdrienLanco0<adrienlanco0@gmail.com>              *
+ * @LastEditDate          : 2023-03-27 14:41:27                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -59,6 +59,7 @@ class UpdateInput {
     assignments: usersDto.PublicOutput[];
 
   @IsObject()
+  @IsOptional()
     targetVersion: versionsDto.PublicOutput;
 }
 /***/
@@ -144,7 +145,7 @@ class DetailsOutput {
 
   @IsNumber()
     progress: number;
-
+    
   @IsObject()
     targetVersion: versionsDto.PublicOutput;
 
@@ -162,7 +163,10 @@ class DetailsOutput {
       });
 
       if (data.tickets) {
-        this.tickets = data.tickets.map((el) => new ticketsDto.PublicOutput(el));
+        this.tickets = data.tickets.map((el) => {
+          el.task = { projectId: data.projectId }
+          return new ticketsDto.PublicOutput(el)
+        });
       }
 
       if (data.comments) {

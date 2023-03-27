@@ -2,7 +2,7 @@
  * @Author                : AdrienLanco0<adrienlanco0@gmail.com>             *
  * @CreatedDate           : 2023-03-17 22:34:38                              *
  * @LastEditors           : AdrienLanco0<adrienlanco0@gmail.com>             *
- * @LastEditDate          : 2023-03-22 15:57:19                              *
+ * @LastEditDate          : 2023-03-27 14:39:42                              *
  ****************************************************************************/
 
 import { Injectable } from '@angular/core';
@@ -325,7 +325,7 @@ export class CommandService {
       return new Promise<void>((resolve, reject) => {
         this.api.request("DELETE", "tickets/"+ticket.id, {})
         .then((ret: any) => {
-          ProjectListService.removeTicket(ticket.taskId, ticket.id);
+          ProjectListService.removeTicket(ticket.projectId, ticket.taskId, ticket.id);
           this.router.navigate(["/task/", ticket.taskId ])
         }).catch((error: any) => {
           console.error("New project 2 error >> "+error)

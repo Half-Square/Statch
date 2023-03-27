@@ -2,7 +2,7 @@
  * @Author                : AdrienLanco0<adrienlanco0@gmail.com>             *
  * @CreatedDate           : 2023-03-17 14:25:08                              *
  * @LastEditors           : AdrienLanco0<adrienlanco0@gmail.com>             *
- * @LastEditDate          : 2023-03-27 12:18:40                              *
+ * @LastEditDate          : 2023-03-27 14:49:00                              *
  ****************************************************************************/
 
 import { Injectable } from '@angular/core';
@@ -174,26 +174,27 @@ export class ProjectListService {
   */
   public static addTicket(newTicket:TicketInterface): void {
     this.projectList.forEach(project => {
-      if (project.tasks)
-        project.tasks.forEach(task => {
-          if (newTicket.taskId == task.id) {
-            let changed = false
+      if (project.id == newTicket.projectId)
+        if (project.tasks)
+          project.tasks.forEach(task => {
+            if (newTicket.taskId == task.id) {
+              let changed = false
 
-            if (task.tickets)
-              task.tickets.forEach(ticket => {
-                if (ticket.id == newTicket.id) {
-                  ticket = Object.assign(ticket, newTicket);;
-                  changed = true;
-                }
-              });
-            if (!changed) {
-              if (task.tickets) task.tickets.unshift(newTicket);
-              else task.tickets = [ newTicket ]
+              if (task.tickets)
+                task.tickets.forEach(ticket => {
+                  if (ticket.id == newTicket.id) {
+                    ticket = Object.assign(ticket, newTicket);;
+                    changed = true;
+                  }
+                });
+              if (!changed) {
+                if (task.tickets) task.tickets.unshift(newTicket);
+                else task.tickets = [ newTicket ]
+              }
+              this.projectListChange.next(this.projectList);
+              return
             }
-            this.projectListChange.next(this.projectList);
-            return
-          }
-        });
+          });
     });
   }
   /***/
@@ -314,19 +315,20 @@ export class ProjectListService {
   * @param taskId (string) task id of the ticket to remove
   * @param ticketId (string) ticket id to remove
   */
-  public static removeTicket(taskId: string, ticketId: string): void {
+  public static removeTicket(projectId: string, taskId: string, ticketId: string): void {
     this.projectList.forEach(project => {
-      project.tasks.forEach(task => {
-        if (taskId == task.id) {
-          for (let i = 0; i < task.tickets.length; i++) {
-            if (task.tickets[i].id == ticketId) {
-              task.tickets.splice(i, 1);
-              this.projectListChange.next(this.projectList);
-              return;
+      if (project.id == projectId)
+        project.tasks.forEach(task => {
+          if (taskId == task.id) {
+            for (let i = 0; i < task.tickets.length; i++) {
+              if (task.tickets[i].id == ticketId) {
+                task.tickets.splice(i, 1);
+                this.projectListChange.next(this.projectList);
+                return;
+              }
             }
           }
-        }
-      });
+        });
     });
   }
   /***/
@@ -353,7 +355,7 @@ export interface TaskInterface {
   status: string,
   created: string,
   projectId: string,
-  targetVersion: VersionInterface,
+  targetVersion?: VersionInterface,
   comments: Array<CommentInterface>,
   owner: UsersInterface,
   assignments: [],
@@ -366,8 +368,9 @@ export interface TicketInterface {
   id: string,
   created: string,
   status: string,
-  taskId: string
-  targetVersion: VersionInterface,
+  taskId: string,
+  projectId: string,
+  targetVersion?: VersionInterface,
   comments: Array<CommentInterface>,
   assignments: [],
   owner: UsersInterface

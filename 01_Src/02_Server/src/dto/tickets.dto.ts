@@ -1,8 +1,8 @@
 /******************************************************************************
- * @Author                : Adrien Lanco<adrienlanco0@gmail.com>              *
+ * @Author                : AdrienLanco0<adrienlanco0@gmail.com>              *
  * @CreatedDate           : 2023-02-21 14:18:25                               *
- * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>              *
- * @LastEditDate          : 2023-03-24 13:10:10                               *
+ * @LastEditors           : AdrienLanco0<adrienlanco0@gmail.com>              *
+ * @LastEditDate          : 2023-03-27 14:41:17                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -56,6 +56,7 @@ class UpdateInput {
     assignments: usersDto.PublicOutput[];
   
   @IsObject()
+  @IsOptional()
     targetVersion: versionsDto.PublicOutput;
 }
 /***/
@@ -78,6 +79,9 @@ class PublicOutput {
     status: string;
 
   @IsString()
+    projectId: string;
+
+  @IsString()
     taskId: string;
 
   @IsObject()
@@ -92,6 +96,7 @@ class PublicOutput {
       this.name = data.name;
       this.description = data.description;
       this.status = data.status;
+      this.projectId = data.task.projectId;
       this.taskId = data.taskId;
       this.targetVersion = data.targetVersion;
       this.owner = new usersDto.PublicOutput(data.owner);
@@ -118,6 +123,9 @@ class DetailsOutput {
     status: string;
 
   @IsString()
+    projectId: string;
+
+  @IsString()
     taskId: string;
 
   @IsArray()
@@ -138,6 +146,7 @@ class DetailsOutput {
       this.name = data.name;
       this.description = data.description;
       this.status = data.status;
+      this.projectId = data.task.projectId;
       this.taskId = data.taskId;
       this.owner = new usersDto.PublicOutput(data.owner);
       this.targetVersion = data.targetVersion;
