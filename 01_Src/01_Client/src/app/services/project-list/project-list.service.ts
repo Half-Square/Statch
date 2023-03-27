@@ -2,7 +2,7 @@
  * @Author                : AdrienLanco0<adrienlanco0@gmail.com>             *
  * @CreatedDate           : 2023-03-17 14:25:08                              *
  * @LastEditors           : AdrienLanco0<adrienlanco0@gmail.com>             *
- * @LastEditDate          : 2023-03-27 14:49:00                              *
+ * @LastEditDate          : 2023-03-27 16:25:50                              *
  ****************************************************************************/
 
 import { Injectable } from '@angular/core';
@@ -29,6 +29,8 @@ export class ProjectListService {
 
   public static ticketChange:
     Subject<TicketInterface> = new Subject<TicketInterface>();
+
+  public static actualChange: Subject<void> = new Subject<void>();
 
   public static get projects(): Array<ProjectInterface> {
     return this.projectList;
@@ -210,6 +212,7 @@ export class ProjectListService {
       if (this.projectList[i].id == projectId) {
         this.actualProject = projectId;
         this.projectChange.next(this.projectList[i]);
+        this.actualChange.next();
         return
       }
     }
@@ -232,6 +235,7 @@ export class ProjectListService {
             this.actualTask = taskId;
             this.projectChange.next(this.projectList[i]);
             this.taskChange.next(task);
+            this.actualChange.next();
             return
           }
         }
@@ -261,6 +265,7 @@ export class ProjectListService {
                 this.projectChange.next(this.projectList[i]);
                 this.taskChange.next(task);
                 this.ticketChange.next(ticket);
+                this.actualChange.next();
                 return
               }
             }
@@ -339,6 +344,7 @@ export interface ProjectInterface {
   description: string,
   id: string,
   status: string,
+  level: string,
   created: string,
   actualVersion: string,
   versionList: Array<VersionInterface>,
@@ -353,6 +359,7 @@ export interface TaskInterface {
   description: string,
   id: string,
   status: string,
+  level: string,
   created: string,
   projectId: string,
   targetVersion?: VersionInterface,
@@ -368,6 +375,7 @@ export interface TicketInterface {
   id: string,
   created: string,
   status: string,
+  level: string,
   taskId: string,
   projectId: string,
   targetVersion?: VersionInterface,

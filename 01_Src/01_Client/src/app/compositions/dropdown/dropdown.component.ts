@@ -2,7 +2,7 @@
  * @Author                : AdrienLanco0<adrienlanco0@gmail.com>             *
  * @CreatedDate           : 2023-03-25 14:53:07                              *
  * @LastEditors           : AdrienLanco0<adrienlanco0@gmail.com>             *
- * @LastEditDate          : 2023-03-27 13:15:35                              *
+ * @LastEditDate          : 2023-03-27 16:33:17                              *
  ****************************************************************************/
 
 import { Component, Input, Output, EventEmitter, HostListener, ElementRef } from '@angular/core';

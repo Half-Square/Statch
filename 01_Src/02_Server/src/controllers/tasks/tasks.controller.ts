@@ -2,7 +2,7 @@
  * @Author                : AdrienLanco0<adrienlanco0@gmail.com>              *
  * @CreatedDate           : 2023-02-21 14:21:47                               *
  * @LastEditors           : AdrienLanco0<adrienlanco0@gmail.com>              *
- * @LastEditDate          : 2023-03-27 14:50:18                               *
+ * @LastEditDate          : 2023-03-27 16:06:14                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -123,6 +123,7 @@ export class TasksController {
         data: {
           name: body.name,
           status: body.status,
+          level: body.level,
           description: body.description,
           targetVersion: body.targetVersion && body.targetVersion.id ?{
             connect: { id: body.targetVersion.id }

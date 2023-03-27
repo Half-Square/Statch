@@ -2,7 +2,7 @@
  * @Author                : AdrienLanco0<adrienlanco0@gmail.com>              *
  * @CreatedDate           : 2023-02-21 14:16:22                               *
  * @LastEditors           : AdrienLanco0<adrienlanco0@gmail.com>              *
- * @LastEditDate          : 2023-03-27 14:41:27                               *
+ * @LastEditDate          : 2023-03-27 16:04:49                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -52,6 +52,11 @@ class UpdateInput {
     status: string;
 
   @IsString()
+  @IsIn(["low", "normal", "moderate", "hight"])
+  @IsOptional()
+    level: string;
+
+  @IsString()
   @IsOptional()
     description: string;
 
@@ -82,6 +87,10 @@ class PublicOutput {
     status: string;
 
   @IsString()
+  @IsIn(["low", "normal", "moderate", "hight"])
+    level: string;
+
+  @IsString()
     projectId: string;
 
   @IsString()
@@ -99,6 +108,7 @@ class PublicOutput {
       this.name = data.name;
       this.description = data.description;
       this.status = data.status;
+      this.level = data.level;
       this.projectId = data.projectId;
       this.created = data.created;
       this.owner = new usersDto.PublicOutput(data.owner);
@@ -124,6 +134,10 @@ class DetailsOutput {
   @IsString()
   @IsIn(["new", "done", "reject", "progress", "wait"])
     status: string;
+
+  @IsString()
+  @IsIn(["low", "normal", "moderate", "hight"])
+    level: string;
 
   @IsString()
     created: Date;
@@ -156,6 +170,7 @@ class DetailsOutput {
       this.description = data.description;
       this.created = data.created;
       this.status = data.status;
+      this.level = data.level;
       this.projectId = data.projectId;
       this.owner = new usersDto.PublicOutput(data.owner);
       this.assignments = data.assignments.map((el) => {

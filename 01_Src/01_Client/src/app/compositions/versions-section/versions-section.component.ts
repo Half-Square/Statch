@@ -2,7 +2,7 @@
  * @Author                : AdrienLanco0<adrienlanco0@gmail.com>             *
  * @CreatedDate           : 2023-03-23 16:37:07                              *
  * @LastEditors           : AdrienLanco0<adrienlanco0@gmail.com>             *
- * @LastEditDate          : 2023-03-27 13:18:55                              *
+ * @LastEditDate          : 2023-03-27 16:13:00                              *
  ****************************************************************************/
 
 import { Component, EventEmitter, Input, Output } from '@angular/core';
@@ -20,16 +20,11 @@ export class VersionsSectionComponent {
     ProjectListService.projectChange.subscribe((value: ProjectInterface) => {
       if (value.id != this.projectId) {
         this.projectId = value.id;
-        this.getProjectList()
       }
     })
-    ProjectListService.taskChange.subscribe((value: TaskInterface) => {
+    ProjectListService.actualChange.subscribe(() => {
       this.getProjectList()
     })
-    ProjectListService.ticketChange.subscribe((value: TicketInterface) => {
-      this.getProjectList()
-    })
-
   }
 
   @Input()  version: VersionInterface = {} as VersionInterface;

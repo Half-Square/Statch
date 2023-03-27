@@ -2,7 +2,7 @@
  * @Author                : AdrienLanco0<adrienlanco0@gmail.com>              *
  * @CreatedDate           : 2023-02-21 14:13:59                               *
  * @LastEditors           : AdrienLanco0<adrienlanco0@gmail.com>              *
- * @LastEditDate          : 2023-03-27 14:52:54                               *
+ * @LastEditDate          : 2023-03-27 16:04:29                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -50,6 +50,11 @@ class CreateInput {
     status: string;
 
   @IsString()
+  @IsIn(["low", "normal", "moderate", "hight"])
+  @IsOptional()
+    level: string;
+    
+  @IsString()
   @IsOptional()
     actualVersion: string;
 }
@@ -68,6 +73,11 @@ class UpdateInput {
   @IsOptional()
     status: string;
 
+  @IsString()
+  @IsIn(["low", "normal", "moderate", "hight"])
+  @IsOptional()
+    level: string;
+  
   @IsString()
   @IsOptional()
     actualVersion: string;
@@ -100,6 +110,10 @@ class PublicOutput {
     status: string;
 
   @IsString()
+  @IsIn(["low", "normal", "moderate", "hight"])
+    level: string;
+
+  @IsString()
   @IsOptional()
     actualVersion: string;
 
@@ -121,6 +135,7 @@ class PublicOutput {
       this.id = data.id;
       this.name = data.name;
       this.status = data.status;
+      this.level = data.level;
       this.actualVersion = data.actualVersion;
       this.created = data.created;
       this.description = data.description;
@@ -143,6 +158,10 @@ class DetailsOutput {
   @IsString()
   @IsIn(["new", "done", "reject", "progress", "wait"])
     status: string;
+
+  @IsString()
+  @IsIn(["low", "normal", "moderate", "hight"])
+    level: string;
 
   @IsString()
   @IsOptional()
@@ -178,6 +197,7 @@ class DetailsOutput {
       this.id = data.id;
       this.name = data.name;
       this.status = data.status;
+      this.level = data.level;
       this.actualVersion = data.actualVersion;
       if (data.versionList)
         this.versionList = data.versionList.map((el) => new versionsDto.PublicOutput(el));

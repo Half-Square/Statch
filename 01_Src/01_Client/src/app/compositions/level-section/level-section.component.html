@@ -1,0 +1,17 @@
+<!--
+* @Author                : AdrienLanco0<adrienlanco0@gmail.com>
+* @CreatedDate           : 2023-03-27 16:23:00
+* @LastEditors           : AdrienLanco0<adrienlanco0@gmail.com>
+* @LastEditDate          : 2023-03-27 16:33:20
+-->
+
+<ng-container *ngIf="isEdit">
+  <app-dropdown [contentOnly]="true" [placeholder]="level">
+    <app-level *ngFor="let option of options" [degree]="option.text"
+                (click)="selectLevel(option.text)" />
+  </app-dropdown>
+</ng-container>
+
+<ng-container *ngIf="!isEdit" >
+  <app-level (click)="isEdit = true" [degree]="level"></app-level>
+</ng-container>

@@ -28,6 +28,7 @@ model Project {
   id              String          @default(nanoid(8)) @id
   name            String
   status          String          @default("new")
+  level           String          @default("normal")
   created         DateTime        @default(now())
   description     String          @db.LongText
   tasks           Task[]
@@ -45,6 +46,7 @@ model Task {
   created         DateTime        @default(now())
   name            String
   status          String          @default("new")
+  level           String          @default("normal")
   description     String
   project         Project         @relation(fields: [projectId], references: [id], onDelete: Cascade)
   projectId       String
@@ -61,6 +63,7 @@ model Ticket {
   id              String          @default(nanoid(8)) @id
   name            String
   status          String          @default("new")
+  level           String          @default("normal")
   description     String
   task            Task            @relation(fields: [taskId], references: [id], onDelete: Cascade)
   taskId          String
@@ -68,7 +71,7 @@ model Ticket {
   owner           User            @relation(fields: [ownerId], references: [id], onDelete: Cascade)
   ownerId         String
   assignments     Assignment[]
-  targetVersion   Version?         @relation(fields: [targetVersionId], references: [id])
+  targetVersion   Version?        @relation(fields: [targetVersionId], references: [id])
   targetVersionId String?
 }
 

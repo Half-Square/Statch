@@ -2,7 +2,7 @@
  * @Author                : AdrienLanco0<adrienlanco0@gmail.com>              *
  * @CreatedDate           : 2023-02-21 14:18:25                               *
  * @LastEditors           : AdrienLanco0<adrienlanco0@gmail.com>              *
- * @LastEditDate          : 2023-03-27 14:41:17                               *
+ * @LastEditDate          : 2023-03-27 16:04:41                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -49,6 +49,11 @@ class UpdateInput {
     status: string;
 
   @IsString()
+  @IsIn(["low", "normal", "moderate", "hight"])
+  @IsOptional()
+    level: string;
+    
+  @IsString()
   @IsOptional()
     description: string;
 
@@ -79,6 +84,11 @@ class PublicOutput {
     status: string;
 
   @IsString()
+  @IsIn(["low", "normal", "moderate", "hight"])
+  @IsOptional()
+    level: string;
+
+  @IsString()
     projectId: string;
 
   @IsString()
@@ -96,6 +106,7 @@ class PublicOutput {
       this.name = data.name;
       this.description = data.description;
       this.status = data.status;
+      this.level = data.level;
       this.projectId = data.task.projectId;
       this.taskId = data.taskId;
       this.targetVersion = data.targetVersion;
@@ -123,6 +134,11 @@ class DetailsOutput {
     status: string;
 
   @IsString()
+  @IsIn(["low", "normal", "moderate", "hight"])
+  @IsOptional()
+    level: string;
+
+  @IsString()
     projectId: string;
 
   @IsString()
@@ -146,6 +162,7 @@ class DetailsOutput {
       this.name = data.name;
       this.description = data.description;
       this.status = data.status;
+      this.level = data.level;
       this.projectId = data.task.projectId;
       this.taskId = data.taskId;
       this.owner = new usersDto.PublicOutput(data.owner);

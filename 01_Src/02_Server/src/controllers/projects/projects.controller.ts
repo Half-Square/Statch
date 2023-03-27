@@ -1,8 +1,8 @@
 /******************************************************************************
- * @Author                : Adrien Lanco<adrienlanco0@gmail.com>              *
+ * @Author                : AdrienLanco0<adrienlanco0@gmail.com>              *
  * @CreatedDate           : 2023-02-21 14:21:24                               *
- * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>              *
- * @LastEditDate          : 2023-03-24 14:44:07                               *
+ * @LastEditors           : AdrienLanco0<adrienlanco0@gmail.com>              *
+ * @LastEditDate          : 2023-03-27 16:06:03                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -69,9 +69,7 @@ export class ProjectsController {
    */
   @Get("/:id")
   async getOne(@Param("id") id: string): Promise<projectsDto.DetailsOutput> {
-    try {
-      console.log("getOne Project:", id);
-      
+    try {     
       const res = await this.prisma.project.findUnique({
         where: {
           id: id
@@ -124,6 +122,7 @@ export class ProjectsController {
         data: {
           name: body.name,
           status: body.status,
+          level: body.level,
           actualVersion: body.actualVersion,
           description: body.description,
           assignments: {

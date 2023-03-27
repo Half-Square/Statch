@@ -2,7 +2,7 @@
  * @Author                : AdrienLanco0<adrienlanco0@gmail.com>              *
  * @CreatedDate           : 2023-02-21 14:22:05                               *
  * @LastEditors           : AdrienLanco0<adrienlanco0@gmail.com>              *
- * @LastEditDate          : 2023-03-27 14:46:24                               *
+ * @LastEditDate          : 2023-03-27 16:06:43                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -116,6 +116,7 @@ export class TicketsController {
         data: {
           name: body.name,
           status: body.status,
+          level: body.level,
           description: body.description,
           targetVersion: body.targetVersion ?{
             connect: { id: body.targetVersion.id }
