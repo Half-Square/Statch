@@ -1,14 +1,9 @@
-/******************************************************************************
- * @Author                : 0K00<qdouvillez@gmail.com>                        *
- * @CreatedDate           : 2023-03-25 14:53:07                               *
- * @LastEditors           : 0K00<qdouvillez@gmail.com>                        *
- * @LastEditDate          : 2023-03-26 18:18:26                               *
- *****************************************************************************/
-
-interface selectedOption {
-  text: string,
-  icon?: string
-}
+/*****************************************************************************
+ * @Author                : AdrienLanco0<adrienlanco0@gmail.com>             *
+ * @CreatedDate           : 2023-03-25 14:53:07                              *
+ * @LastEditors           : AdrienLanco0<adrienlanco0@gmail.com>             *
+ * @LastEditDate          : 2023-03-27 13:15:35                              *
+ ****************************************************************************/
 
 import { Component, Input, Output, EventEmitter, HostListener, ElementRef } from '@angular/core';
 import {
@@ -38,18 +33,26 @@ import {
 
 export class DropdownComponent {
   constructor(private ref: ElementRef) {
-    this.options = [{text: "New", icon: "new"}, {text: "In progress", icon: "progress"}, {text: "Completed", icon: "done"}, {text: "Rejected", icon: "reject"}, {text: "Pending", icon: "wait"}]
+    this.options = [
+      {text: "New", icon: "new"},
+      {text: "In progress", icon: "progress"},
+      {text: "Completed", icon: "done"},
+      {text: "Rejected", icon: "reject"},
+      {text: "Pending", icon: "wait"}
+    ]
   }
 
-  public filteredOptions: Array<selectedOption> = [];
+  public filteredOptions: Array<{text: string, icon?: string}> = [];
   public isDropdownOpen: boolean = false;
   public searchText: string = '';
-  public selectedOptions: Array<selectedOption> = [];
+
+  @Input() values: Array<{text: string, icon?: string}> = [];
+  @Output() valuesChange = new EventEmitter<Array<{text: string, icon?: string}>>();
 
   @Input() multi: boolean = false;
   @Input() search: boolean = false;
-  @Input() options: Array<selectedOption>;
-  @Input() content: boolean = false;
+  @Input() options: Array<{text: string, icon?: string}>;
+  @Input() contentOnly: boolean = false;
   @Input() placeholder: string = "Test";
   @Input() autoAdd: boolean = false;
 
@@ -62,31 +65,33 @@ export class DropdownComponent {
     this.isDropdownOpen = !this.isDropdownOpen;
   }
 
-  selectOption(option: selectedOption) {
-    this.selectedOptions = [option];
+  selectOption(option: {text: string, icon?: string}) {
+    this.values = [option];
     this.toggleDropdown()
+    this.valuesChange.emit(this.values);
   }
 
-  toggleSelectedOption(option: selectedOption) {
-    const index = this.selectedOptions.indexOf(option);
+  toggleSelectedOption(option: {text: string, icon?: string}) {
+    const index = this.values.indexOf(option);
     if (index === -1) {
-      this.selectedOptions.push(option);
+      this.values.push(option);
     } else {
-      this.selectedOptions.splice(index, 1);
+      this.values.splice(index, 1);
     }
   }
 
   addOption() {
-    let obj: selectedOption = { text: this.searchText };
+    let obj: {text: string, icon?: string} = { text: this.searchText };
     this.options.push(obj);
     this.searchText = "";
     if(this.multi) {
-      this.selectedOptions.push(obj);
+      this.values.push(obj);
       this.toggleDropdown();
     } else {
-      this.selectedOptions = [obj];
+      this.values = [obj];
       this.toggleDropdown();
     }
+    this.valuesChange.emit(this.values);
   }
 
   filterOptions() {

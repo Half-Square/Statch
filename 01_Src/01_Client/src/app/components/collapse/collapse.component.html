@@ -1,13 +1,10 @@
 <!--
-* @Author                : 0K00<qdouvillez@gmail.com>
+* @Author                : AdrienLanco0<adrienlanco0@gmail.com>
 * @CreatedDate           : 2023-03-17 12:58:00
-* @LastEditors           : 0K00<qdouvillez@gmail.com>
-* @LastEditDate          : 2023-03-26 16:07:32
+* @LastEditors           : AdrienLanco0<adrienlanco0@gmail.com>
+* @LastEditDate          : 2023-03-27 13:03:45
 -->
 
-<div class="collapse" [ngClass]="{ 'open': show(), 'close': !show() }">
-  <div class="label" routerLinkActive="active">
-      <div *ngIf="!noContent" class="icons" [ngStyle]="indent()" (click)="toggleCollapse()"
 <div class="collapse" [ngClass]="{ 'open': show(), 'close': !show() }">
   <div *ngIf="!other" class="label" [ngClass]="{ 'active': false }">
       <div *ngIf="!noContent && !other" class="icons" [ngStyle]="indent()" (click)="toggleCollapse()"

@@ -1,25 +1,25 @@
 <!--
-* @Author                : 0K00<qdouvillez@gmail.com>
+* @Author                : AdrienLanco0<adrienlanco0@gmail.com>
 * @CreatedDate           : 2023-03-25 14:41:00
-* @LastEditors           : 0K00<qdouvillez@gmail.com>
-* @LastEditDate          : 2023-03-26 18:39:51
+* @LastEditors           : AdrienLanco0<adrienlanco0@gmail.com>
+* @LastEditDate          : 2023-03-27 13:20:18
 -->
 
 <div class="dropdown">
   <div class="control" (click)="toggleDropdown()">
-    <ng-container *ngIf="selectedOptions.length == 0">
+    <ng-container *ngIf="values.length == 0 || !values[0].text">
       {{ placeholder }}
     </ng-container>
-    <ng-container *ngIf="selectedOptions.length < 3">
-      <div class="selected" *ngFor="let option of selectedOptions">
+    <ng-container *ngIf="values.length < 3">
+      <div class="selected" *ngFor="let option of values">
         <i *ngIf="option.icon" class="{{'icon ' + option.icon}}"></i>
         {{ option.text }}
       </div>
     </ng-container>
-    <ng-container *ngIf="selectedOptions.length > 2">
+    <ng-container *ngIf="values.length > 2">
       <div class="selected">
-        <i *ngIf="selectedOptions[selectedOptions.length - 1].icon" class="{{'icon ' + selectedOptions[selectedOptions.length - 1].icon}}"></i>
-        {{ selectedOptions[selectedOptions.length - 1].text }} + {{ selectedOptions.length - 1 }} others
+        <i *ngIf="values[values.length - 1].icon" class="{{'icon ' + values[values.length - 1].icon}}"></i>
+        {{ values[values.length - 1].text }} + {{ values.length - 1 }} others
       </div>
     </ng-container>
     <div class="chevron">
@@ -27,10 +27,10 @@
     </div>
   </div>
   <div @nested class="menu" *ngIf="isDropdownOpen">
-    <div class="options" *ngIf="!content">
+    <div class="options" *ngIf="!contentOnly">
       <div *ngIf="!multi">
         <ng-container *ngIf="!searchText && filteredOptions.length == 0">
-          <div class="option" *ngFor="let option of options" (click)="selectOption(option)" [class.selected]="selectedOptions.indexOf(option) !== -1">
+          <div class="option" *ngFor="let option of options" (click)="selectOption(option)" [class.selected]="values.indexOf(option) !== -1">
             <i *ngIf="option.icon" class="{{'icon ' + option.icon}}"></i>
             {{ option.text }}
           </div>
@@ -40,31 +40,31 @@
             No result
           </div>
         </ng-container>
-        <div class="option" *ngFor="let option of filteredOptions" (click)="selectOption(option)" [class.selected]="selectedOptions.indexOf(option) !== -1">
+        <div class="option" *ngFor="let option of filteredOptions" (click)="selectOption(option)" [class.selected]="values.indexOf(option) !== -1">
           <i *ngIf="option.icon" class="{{'icon ' + option.icon}}"></i>
           {{ option.text }}
         </div>
       </div>
       <div *ngIf="multi">
-        <div class="toggle" *ngIf="!searchText && selectedOptions.length > 0">
+        <div class="toggle" *ngIf="!searchText && values.length > 0">
           <div class="noResult">
             Selected
           </div>
-          <div class="option multi" *ngFor="let option of selectedOptions" (click)="toggleSelectedOption(option)" [class.selected]="selectedOptions.indexOf(option) !== -1">
+          <div class="option multi" *ngFor="let option of values" (click)="toggleSelectedOption(option)" [class.selected]="values.indexOf(option) !== -1">
             <div class="label">
               <i *ngIf="option.icon" class="{{'icon ' + option.icon}}"></i>
               {{ option.text }}
             </div>
-            <i class="icon" [class.checked]="selectedOptions.indexOf(option) !== -1" [ngClass]="selectedOptions.indexOf(option) !== -1 ? 'minus' : 'plus' "></i>
+            <i class="icon" [class.checked]="values.indexOf(option) !== -1" [ngClass]="values.indexOf(option) !== -1 ? 'minus' : 'plus' "></i>
           </div>
         </div>
         <ng-container *ngIf="!searchText">
-          <div class="option multi" *ngFor="let option of options" (click)="toggleSelectedOption(option)" [class.selectedInvisible]="selectedOptions.indexOf(option) !== -1">
+          <div class="option multi" *ngFor="let option of options" (click)="toggleSelectedOption(option)" [class.selectedInvisible]="values.indexOf(option) !== -1">
             <div class="label">
               <i *ngIf="option.icon" class="{{'icon ' + option.icon}}"></i>
               {{ option.text }}
             </div>
-            <i class="icon" [class.checked]="selectedOptions.indexOf(option) !== -1" [ngClass]="selectedOptions.indexOf(option) !== -1 ? 'minus' : 'plus' "></i>
+            <i class="icon" [class.checked]="values.indexOf(option) !== -1" [ngClass]="values.indexOf(option) !== -1 ? 'minus' : 'plus' "></i>
           </div>
         </ng-container>
         <ng-container *ngIf="searchText && filteredOptions.length == 0">
@@ -79,24 +79,24 @@
             </div>
           </ng-container>
         </ng-container>
-        <ng-container *ngIf="selectedOptions.length == options.length">
+        <ng-container *ngIf="values.length == options.length">
           <div class="noResult">
             No more choice
           </div>
         </ng-container>
         <ng-container *ngIf="searchText">
-          <div class="option multi" *ngFor="let option of filteredOptions" (click)="toggleSelectedOption(option)" [class.selected]="selectedOptions.indexOf(option) !== -1">
+          <div class="option multi" *ngFor="let option of filteredOptions" (click)="toggleSelectedOption(option)" [class.selected]="values.indexOf(option) !== -1">
             <div class="label">
               <i *ngIf="option.icon" class="{{'icon ' + option.icon}}"></i>
               {{ option.text }}
             </div>
-            <i class="icon" [class.checked]="selectedOptions.indexOf(option) !== -1" [ngClass]="selectedOptions.indexOf(option) !== -1 ? 'minus' : 'plus' "></i>
+            <i class="icon" [class.checked]="values.indexOf(option) !== -1" [ngClass]="values.indexOf(option) !== -1 ? 'minus' : 'plus' "></i>
           </div>
         </ng-container>
       </div>
     </div>
 
-    <ng-container *ngIf="content">
+    <ng-container>
       <ng-content></ng-content>
     </ng-container>
 

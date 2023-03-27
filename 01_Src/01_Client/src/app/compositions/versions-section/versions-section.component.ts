@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
+ * @Author                : AdrienLanco0<adrienlanco0@gmail.com>             *
  * @CreatedDate           : 2023-03-23 16:37:07                              *
- * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
- * @LastEditDate          : 2023-03-24 16:11:02                              *
+ * @LastEditors           : AdrienLanco0<adrienlanco0@gmail.com>             *
+ * @LastEditDate          : 2023-03-27 13:18:55                              *
  ****************************************************************************/
 
 import { Component, EventEmitter, Input, Output } from '@angular/core';
@@ -41,7 +41,7 @@ export class VersionsSectionComponent {
 
   public versionList: Array<VersionInterface> = [];
   public options: Array<{ text: string }> = [];
-  public value: {text: string} = {text: ""}
+  public value: Array<{ text: string }> = [{ text: "" }]
 
   public newName: string = "";
   public projectId: string = "";
@@ -54,8 +54,8 @@ export class VersionsSectionComponent {
       for (let i = 0; i < ret.length; i++) {
         this.options.push({ text: ret[i].name })
       }
-      if (this.version.name) this.value = { text: this.version.name }
-      else  this.value = { text: "" }
+      if (this.version.name) this.value = [{ text: this.version.name }]
+      else  this.value = [{ text: "" }]
     })
   }
 
@@ -80,7 +80,7 @@ export class VersionsSectionComponent {
         name: this.newName
       }).then((ret) => {
         this.version = ret;
-        if (this.version.name) this.value = { text: this.version.name }
+        if (this.version.name) this.value = [{ text: this.version.name }]
         this.versionList.push(this.version);
         this.options.push({ text: this.version.name })
         this.versionJustChange(this.version.name)

@@ -2,7 +2,7 @@
  * @Author                : AdrienLanco0<adrienlanco0@gmail.com>             *
  * @CreatedDate           : 2023-03-24 15:23:08                              *
  * @LastEditors           : AdrienLanco0<adrienlanco0@gmail.com>             *
- * @LastEditDate          : 2023-03-27 12:16:30                              *
+ * @LastEditDate          : 2023-03-27 13:26:07                              *
  ****************************************************************************/
 
 import { NgModule } from '@angular/core';
@@ -23,7 +23,6 @@ import { CommentsSectionComponent } from './comments-section/comments-section.co
 import { DirectivesModule } from '../directives/directives.module';
 
 import { VersionsSectionComponent } from './versions-section/versions-section.component';
-import { SelectComponent } from './select/select.component';
 import { StatusLabeledComponent } from './status-labeled/status-labeled.component';
 
 import { DropdownComponent } from './dropdown/dropdown.component';
@@ -38,8 +37,7 @@ import { DropdownComponent } from './dropdown/dropdown.component';
     NavComponent,
     SearchBarComponent,
     VersionsSectionComponent,
-    SelectComponent,
-    StatusLabeledComponent
+    StatusLabeledComponent,
     DropdownComponent
   ],
   imports: [
@@ -57,7 +55,6 @@ import { DropdownComponent } from './dropdown/dropdown.component';
     NavComponent,
     SearchBarComponent,
     VersionsSectionComponent,
-    SelectComponent,
     StatusLabeledComponent,
     DropdownComponent
   ],

@@ -1,9 +1,9 @@
-/******************************************************************************
- * @Author                : 0K00<qdouvillez@gmail.com>                        *
- * @CreatedDate           : 2023-03-24 15:14:47                               *
- * @LastEditors           : 0K00<qdouvillez@gmail.com>                        *
- * @LastEditDate          : 2023-03-25 13:16:40                               *
- *****************************************************************************/
+/*****************************************************************************
+ * @Author                : AdrienLanco0<adrienlanco0@gmail.com>             *
+ * @CreatedDate           : 2023-03-24 15:14:47                              *
+ * @LastEditors           : AdrienLanco0<adrienlanco0@gmail.com>             *
+ * @LastEditDate          : 2023-03-27 13:01:45                              *
+ ****************************************************************************/
 
 import { Component, EventEmitter, Output, Input } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
@@ -32,7 +32,8 @@ export class AssignComponent {
       id: "S_LA65br",
       status: "progress",
       created: "Quentin",
-      version: "0.1.0",
+      actualVersion: "0.1.0",
+      versionList: [ { id:"0", name: "0.1.0", projectId: "S_LA65br" }, ],
       comments: [],
       owner: {email: "", name: "", id: "", validate: true },
       assignments: [],
@@ -43,7 +44,7 @@ export class AssignComponent {
         projectId: "",
         status: "progress",
         created: "Quentin",
-        version: "0.1.0",
+        targetVersion: { id:"0", name: "0.1.0", projectId: "S_LA65br" },
         comments: [],
         owner: {email: "", name: "", id: "", validate: true },
         assignments: [],
@@ -54,7 +55,7 @@ export class AssignComponent {
           taskId: "",
           status: "progress",
           created: "Quentin",
-          version: "0.1.0",
+          targetVersion: { id:"0", name: "0.1.0", projectId: "S_LA65br" },
           comments: [],
           owner: {email: "", name: "", id: "", validate: true },
           assignments: [],
@@ -67,7 +68,8 @@ export class AssignComponent {
       id: "S_LA65br",
       status: "progress",
       created: "Quentin",
-      version: "0.1.0",
+      actualVersion: "0.1.0",
+      versionList: [ { id:"0", name: "0.1.0", projectId: "S_LA65br" }, ],
       comments: [],
       owner: {email: "", name: "", id: "", validate: true },
       assignments: [],
@@ -78,7 +80,7 @@ export class AssignComponent {
         projectId: "",
         status: "progress",
         created: "Quentin",
-        version: "0.1.0",
+        targetVersion: { id:"0", name: "0.1.0", projectId: "S_LA65br" },
         comments: [],
         owner: {email: "", name: "", id: "", validate: true },
         assignments: [],
@@ -89,7 +91,7 @@ export class AssignComponent {
           taskId: "",
           status: "progress",
           created: "Quentin",
-          version: "0.1.0",
+          targetVersion: { id:"0", name: "0.1.0", projectId: "S_LA65br" },
           comments: [],
           owner: {email: "", name: "", id: "", validate: true },
           assignments: [],

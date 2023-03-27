@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
+ * @Author                : AdrienLanco0<adrienlanco0@gmail.com>             *
  * @CreatedDate           : 2023-03-17 13:16:59                              *
- * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
- * @LastEditDate          : 2023-03-24 15:44:51                              *
+ * @LastEditors           : AdrienLanco0<adrienlanco0@gmail.com>             *
+ * @LastEditDate          : 2023-03-27 13:12:49                              *
  ****************************************************************************/
 
 import { Component, Input, Output, EventEmitter, AfterContentChecked } from '@angular/core';
@@ -18,12 +18,12 @@ export class StatusLabeledComponent implements AfterContentChecked {
 
   @Input() isEdit: boolean = false;
 
-  public value: {text: string, icon?: string} = {text: "New", icon: "new"}
+  public value: Array<{text: string, icon?: string}> = [{text: "New", icon: "new"}]
 
   ngAfterContentChecked() {
     for (let i = 0; i < this.statusList.length; i++) {
       if (this.statusList[i].icon == this.status)
-        this.value = this.statusList[i]
+        this.value = [this.statusList[i]]
     }
   }
 
