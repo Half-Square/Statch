@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
- * @CreatedDate           : 2023-03-17 11:38:53                              *
- * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
- * @LastEditDate          : 2023-03-24 15:23:08                              *
+ * @Author                : AdrienLanco0<adrienlanco0@gmail.com>             *
+ * @CreatedDate           : 2023-03-24 15:23:08                              *
+ * @LastEditors           : AdrienLanco0<adrienlanco0@gmail.com>             *
+ * @LastEditDate          : 2023-03-27 12:16:30                              *
  ****************************************************************************/
 
 import { NgModule } from '@angular/core';
@@ -26,6 +26,7 @@ import { VersionsSectionComponent } from './versions-section/versions-section.co
 import { SelectComponent } from './select/select.component';
 import { StatusLabeledComponent } from './status-labeled/status-labeled.component';
 
+import { DropdownComponent } from './dropdown/dropdown.component';
 
 
 
@@ -39,6 +40,7 @@ import { StatusLabeledComponent } from './status-labeled/status-labeled.componen
     VersionsSectionComponent,
     SelectComponent,
     StatusLabeledComponent
+    DropdownComponent
   ],
   imports: [
     CommonModule,
@@ -56,7 +58,8 @@ import { StatusLabeledComponent } from './status-labeled/status-labeled.componen
     SearchBarComponent,
     VersionsSectionComponent,
     SelectComponent,
-    StatusLabeledComponent
+    StatusLabeledComponent,
+    DropdownComponent
   ],
 })
 export class CompositionsModule { }
