@@ -2,7 +2,7 @@
  * @Author                : AdrienLanco0<adrienlanco0@gmail.com>              *
  * @CreatedDate           : 2023-03-27 16:56:41                               *
  * @LastEditors           : AdrienLanco0<adrienlanco0@gmail.com>              *
- * @LastEditDate          : 2023-03-28 15:02:46                               *
+ * @LastEditDate          : 2023-03-28 15:11:25                               *
  *****************************************************************************/
 
 import {
@@ -94,9 +94,7 @@ export class SearchController {
         }
       }
             
-      if (body.selected.taskId) {
-        ticketFilters.taskId = body.selected.taskId
-      }
+      if (body.selected.taskId) { ticketFilters.taskId = body.selected.taskId }
 
       if ((!type || type == "project") && !body.selected.projectId && !body.selected.taskId) {
         let where = wherePTT
@@ -108,7 +106,6 @@ export class SearchController {
       if ((!type || type == "task") && !body.selected.taskId) {
         let where = wherePTT
         where.where.AND[1] = taskFilters;
-
         res = await this.prisma.task.findMany(where);
         res.map((el) => { response.push(new searchsDto.TaskOutput(el))});
       }
@@ -116,7 +113,6 @@ export class SearchController {
       if ((!type || type == "ticket")) {
         let where = wherePTT
         where.where.AND[1] = ticketFilters;
-        
         res = await this.prisma.ticket.findMany(where);
         res.map((el) => { response.push(new searchsDto.TicketOutput(el))});
       }
@@ -128,6 +124,4 @@ export class SearchController {
     }
   }
   /***/
-
-  
 }

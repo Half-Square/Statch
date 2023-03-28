@@ -2,7 +2,7 @@
  * @Author                : AdrienLanco0<adrienlanco0@gmail.com>             *
  * @CreatedDate           : 2023-03-17 16:49:59                              *
  * @LastEditors           : AdrienLanco0<adrienlanco0@gmail.com>             *
- * @LastEditDate          : 2023-03-28 12:40:26                              *
+ * @LastEditDate          : 2023-03-28 16:33:43                              *
  ****************************************************************************/
 
 import { Component, OnInit } from '@angular/core';
@@ -118,6 +118,7 @@ export class ProjectComponent implements OnInit {
           done++
         cpt++
       });
-    this.advancement = Math.trunc(done / (cpt - rej)  * 100)
+    if (!cpt) this.advancement = 0
+    else this.advancement = Math.trunc(done / (cpt - rej)  * 100)
   }
 }

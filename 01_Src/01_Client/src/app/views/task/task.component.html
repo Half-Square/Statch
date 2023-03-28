@@ -2,7 +2,7 @@
 * @Author                : AdrienLanco0<adrienlanco0@gmail.com>
 * @CreatedDate           : 2023-03-17 16:48:00
 * @LastEditors           : AdrienLanco0<adrienlanco0@gmail.com>
-* @LastEditDate          : 2023-03-28 12:40:44
+* @LastEditDate          : 2023-03-28 17:04:41
 -->
 
 <div id="task">
@@ -44,17 +44,17 @@
       <div class="details">
         <h3>Details</h3>
         <div class="container">
-          <h4>Assignee</h4>
-          <div class="text">
-            <app-avatar id="randy" />
-            Randy Gouse
-          </div>
-        </div>
-        <div class="container">
           <h4>Owner</h4>
           <div class="text">
             <app-avatar id="madelyn" [userName]="task && task.owner ? task.owner.name : ''" />
             {{ task.owner ? task.owner.name : "" }}
+          </div>
+        </div>
+        <div class="container">
+          <h4>Assignee</h4>
+          <div class="text">
+            <app-assignee-section [assignees]="task ? task.assignments : []"
+            (onAssign)="command.assignMySelf('task', task)" />
           </div>
         </div>
         <div class="container">

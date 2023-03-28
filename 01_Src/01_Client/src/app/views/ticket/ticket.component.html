@@ -2,7 +2,7 @@
 * @Author                : AdrienLanco0<adrienlanco0@gmail.com>
 * @CreatedDate           : 2023-03-17 16:48:00
 * @LastEditors           : AdrienLanco0<adrienlanco0@gmail.com>
-* @LastEditDate          : 2023-03-28 12:39:57
+* @LastEditDate          : 2023-03-28 17:51:23
 -->
 
 <div id="ticket">
@@ -22,17 +22,17 @@
       <div class="details">
         <h3>Details</h3>
         <div class="container">
-          <h4>Assignee</h4>
-          <div class="text">
-            <app-avatar  id="randy" />
-            Randy Gouse
-          </div>
-        </div>
-        <div class="container">
           <h4>Owner</h4>
           <div class="text">
             <app-avatar id="madelyn" [userName]="ticket && ticket.owner ? ticket.owner.name : ''" />
             {{ ticket.owner ? ticket.owner.name : "" }}
+          </div>
+        </div>
+        <div class="container">
+          <h4>Assignee</h4>
+          <div class="text">
+            <app-assignee-section [assignees]="ticket ? ticket.assignments : []"
+            (onAssign)="command.assignMySelf('ticket', ticket)" />
           </div>
         </div>
         <div class="container">

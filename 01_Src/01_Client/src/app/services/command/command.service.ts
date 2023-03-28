@@ -2,13 +2,14 @@
  * @Author                : AdrienLanco0<adrienlanco0@gmail.com>             *
  * @CreatedDate           : 2023-03-17 22:34:38                              *
  * @LastEditors           : AdrienLanco0<adrienlanco0@gmail.com>             *
- * @LastEditDate          : 2023-03-27 14:39:42                              *
+ * @LastEditDate          : 2023-03-28 17:02:07                              *
  ****************************************************************************/
 
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApiService } from '../api/api.service';
-import { ProjectInterface, ProjectListService, TaskInterface, TicketInterface } from '../project-list/project-list.service';
+import { ProjectInterface, ProjectListService, TaskInterface, TicketInterface, UsersInterface } from '../project-list/project-list.service';
+import { UserService } from '../user/user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -206,6 +207,8 @@ export class CommandService {
   * @return (Promise<void>): Resolve on valid PUT project
   */
   public async editProject(project: ProjectInterface): Promise<void> {
+    console.log("heresdf ", project);
+
     return new Promise<void>((resolve, reject) => {
       this.api.request("PUT", "projects/"+project.id, project)
       .then((ret: any) => {
@@ -333,4 +336,18 @@ export class CommandService {
       })
     }
     /***/
+
+
+    public assignMySelf(type: string, data: ProjectInterface | TaskInterface | TicketInterface) {
+      console.log("here");
+
+      let user = UserService.getUser();
+      delete user.token
+      if (!data.assignments) data.assignments = []
+      data.assignments.push(user)
+
+      if (type == "project" && data) this.editProject(data as ProjectInterface);
+      if (type == "task" && data) this.editTask(data as TaskInterface);
+      if (type == "ticket" && data) this.editTicket(data as TicketInterface);
+    }
 }
