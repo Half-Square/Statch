@@ -2,7 +2,7 @@
  * @Author                : AdrienLanco0<adrienlanco0@gmail.com>              *
  * @CreatedDate           : 2023-02-21 14:18:25                               *
  * @LastEditors           : AdrienLanco0<adrienlanco0@gmail.com>              *
- * @LastEditDate          : 2023-03-27 16:04:41                               *
+ * @LastEditDate          : 2023-03-28 12:26:46                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -49,7 +49,7 @@ class UpdateInput {
     status: string;
 
   @IsString()
-  @IsIn(["low", "normal", "moderate", "hight"])
+  @IsIn(["low", "normal", "moderate", "high"])
   @IsOptional()
     level: string;
     
@@ -84,7 +84,7 @@ class PublicOutput {
     status: string;
 
   @IsString()
-  @IsIn(["low", "normal", "moderate", "hight"])
+  @IsIn(["low", "normal", "moderate", "high"])
   @IsOptional()
     level: string;
 
@@ -134,7 +134,7 @@ class DetailsOutput {
     status: string;
 
   @IsString()
-  @IsIn(["low", "normal", "moderate", "hight"])
+  @IsIn(["low", "normal", "moderate", "high"])
   @IsOptional()
     level: string;
 

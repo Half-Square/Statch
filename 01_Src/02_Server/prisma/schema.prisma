@@ -2,7 +2,8 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["fullTextSearch", "fullTextIndex"]
 }
 
 datasource db {
@@ -22,13 +23,17 @@ model User {
   tasks           Task[]
   tickets         Ticket[]
   assignment      Assignment[]
+
+  @@fulltext([id])
+  @@fulltext([name])
+  @@fulltext([email])
+  @@fulltext([id, name, email])
 }
 
 model Project {
   id              String          @default(nanoid(8)) @id
   name            String
   status          String          @default("new")
-  level           String          @default("normal")
   created         DateTime        @default(now())
   description     String          @db.LongText
   tasks           Task[]
@@ -39,6 +44,10 @@ model Project {
 
   actualVersion   String?
   versionList     Version[]
+
+  @@fulltext([id])
+  @@fulltext([name])
+  @@fulltext([id, name])
 }
 
 model Task {
@@ -57,6 +66,10 @@ model Task {
   assignments     Assignment[]
   targetVersion   Version?        @relation(fields: [targetVersionId], references: [id])
   targetVersionId String?
+
+  @@fulltext([id])
+  @@fulltext([name])
+  @@fulltext([id, name])
 }
 
 model Ticket {
@@ -73,6 +86,10 @@ model Ticket {
   assignments     Assignment[]
   targetVersion   Version?        @relation(fields: [targetVersionId], references: [id])
   targetVersionId String?
+
+  @@fulltext([id])
+  @@fulltext([name])
+  @@fulltext([id, name])
 }
 
 model Comment {

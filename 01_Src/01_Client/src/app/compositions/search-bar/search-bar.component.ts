@@ -1,9 +1,8 @@
 /*****************************************************************************
- * @Author                : 0K00<qdouvillez@gmail.com>                       *
+ * @Author                : AdrienLanco0<adrienlanco0@gmail.com>             *
  * @CreatedDate           : 2023-03-20 16:31:02                              *
- * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
- * @LastEditDate          : 2023-03-21 14:56:08                              *
- *                                                                           *
+ * @LastEditors           : AdrienLanco0<adrienlanco0@gmail.com>             *
+ * @LastEditDate          : 2023-03-28 12:04:28                              *
  ****************************************************************************/
 
 import { AfterContentInit, AfterViewInit, Component, OnInit } from '@angular/core';
@@ -14,6 +13,9 @@ import {
   animate,
   transition
 } from '@angular/animations';
+import { SearchResponseInterface } from 'src/app/services/project-list/project-list.service';
+import { ApiService } from 'src/app/services/api/api.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-search-bar',
@@ -32,10 +34,11 @@ import {
 })
 export class SearchBarComponent implements OnInit {
 
-
+    constructor(private api: ApiService,
+                private router: Router) {}
 
     public query: string = '';
-    public results: Array<any> = []; // TO DO Cmd Interface
+    public results: Array<SearchResponseInterface> = []; // TO DO Cmd Interface
     public resultsSelected: any = [];
     public focusedResult: number = -1;
     public stepSearch: number = 0;
@@ -73,18 +76,17 @@ export class SearchBarComponent implements OnInit {
     */
     public search(query: string): Promise<Response> {
         return new Promise((resolve, reject) => {
-          fetch(`https://demo.dataverse.org/api/search?q=${query}`)
-            .then(response => response.json())
-            .then(data => {
-              this.focusedResult = 0;
-              this.results = data.data.items;
-              resolve(data);
-            })
-            .catch(error => {
-              console.error(error);
-              this.results = [];
-              reject(error);
-            });
+          this.api.request("POST", "search", { query: query })
+          .then(data => {
+            this.focusedResult = 0;
+            this.results = data;
+            resolve(data);
+          })
+          .catch(error => {
+            console.error(error);
+            this.results = [];
+            reject(error);
+          });
         });
     }
     /***/
@@ -154,7 +156,9 @@ export class SearchBarComponent implements OnInit {
      *
     */
     public selectResult(result: any): void {
-      this.redirect(result)
+      let ptt = [ "project", "task", "ticket"]
+      if (ptt.includes(result.type))
+        this.redirect(result)
     }
     /***/
 
@@ -169,6 +173,7 @@ export class SearchBarComponent implements OnInit {
     }
 
     public redirect(result: any): void {
+      this.router.navigate([result.type, result.id ])
       console.log('clicked', result)
     }
 
