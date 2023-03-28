@@ -2,7 +2,7 @@
  * @Author                : AdrienLanco0<adrienlanco0@gmail.com>             *
  * @CreatedDate           : 2023-03-24 15:14:47                              *
  * @LastEditors           : AdrienLanco0<adrienlanco0@gmail.com>             *
- * @LastEditDate          : 2023-03-27 16:26:38                              *
+ * @LastEditDate          : 2023-03-28 12:28:21                              *
  ****************************************************************************/
 
 import { Component, EventEmitter, Output, Input } from '@angular/core';
@@ -29,9 +29,8 @@ export class AssignComponent {
     this.projects = [{
       name: "Cooking app",
       description: "test",
-      id: "S_LA65br",
+      id: "2ECNC-Lr",
       status: "progress",
-      level: "normal",
       created: "Quentin",
       actualVersion: "0.1.0",
       versionList: [ { id:"0", name: "0.1.0", projectId: "S_LA65br" }, ],
@@ -71,7 +70,6 @@ export class AssignComponent {
       description: "test",
       id: "S_LA65br",
       status: "progress",
-      level: "normal",
       created: "Quentin",
       actualVersion: "0.1.0",
       versionList: [ { id:"0", name: "0.1.0", projectId: "S_LA65br" }, ],

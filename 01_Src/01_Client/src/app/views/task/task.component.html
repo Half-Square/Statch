@@ -2,7 +2,7 @@
 * @Author                : AdrienLanco0<adrienlanco0@gmail.com>
 * @CreatedDate           : 2023-03-17 16:48:00
 * @LastEditors           : AdrienLanco0<adrienlanco0@gmail.com>
-* @LastEditDate          : 2023-03-27 16:34:47
+* @LastEditDate          : 2023-03-28 12:40:44
 -->
 
 <div id="task">
@@ -17,7 +17,7 @@
         <app-button id="deleteTask" type="scnd" size="md" label="Delete task" *ngIf="onEdit" (click)='command.deleteTask(task)' />
       </header>
       <div class="advancement">
-        <app-progress-bar id="test" [value]="15" />
+        <app-progress-bar id="test" [value]="advancement" />
         <div class="tickets">
           <a class="ticket" *ngFor="let ticket of task.tickets" [href]="'/ticket/'+ticket.id">
             <div class="block">
@@ -53,7 +53,7 @@
         <div class="container">
           <h4>Owner</h4>
           <div class="text">
-            <app-avatar id="madelyn" />
+            <app-avatar id="madelyn" [userName]="task && task.owner ? task.owner.name : ''" />
             {{ task.owner ? task.owner.name : "" }}
           </div>
         </div>

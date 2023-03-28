@@ -2,7 +2,7 @@
  * @Author                : AdrienLanco0<adrienlanco0@gmail.com>              *
  * @CreatedDate           : 2023-03-27 16:16:51                               *
  * @LastEditors           : AdrienLanco0<adrienlanco0@gmail.com>              *
- * @LastEditDate          : 2023-03-27 16:30:22                               *
+ * @LastEditDate          : 2023-03-28 12:28:36                               *
  *****************************************************************************/
 
 import { Component, Input, Output, EventEmitter, AfterContentChecked } from '@angular/core';
@@ -24,7 +24,7 @@ export class LevelSectionComponent implements AfterContentChecked {
     { text: "low"},
     { text: "normal"},
     { text: "moderate"},
-    { text: "hight"}
+    { text: "high"}
   ]
 
   ngAfterContentChecked() {

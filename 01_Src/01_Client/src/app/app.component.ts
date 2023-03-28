@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
+ * @Author                : AdrienLanco0<adrienlanco0@gmail.com>             *
  * @CreatedDate           : 2023-03-17 16:07:54                              *
- * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
- * @LastEditDate          : 2023-03-21 20:34:08                              *
+ * @LastEditors           : AdrienLanco0<adrienlanco0@gmail.com>             *
+ * @LastEditDate          : 2023-03-28 12:12:38                              *
  ****************************************************************************/
 
 import { Component, OnInit } from '@angular/core';
@@ -73,8 +73,9 @@ export class AppComponent implements OnInit {
   private handleNavigation(navEnd: NavigationEnd): void {
     let queries = navEnd.urlAfterRedirects.split("?");
     let url = queries[0].split("/");
+    let ptt = [ "project", "task", "ticket"]
 
-    if (url[1] == 'projects') {
+    if (!ptt.includes(url[1])) {
       this.command.getProjectList();
       ProjectListService.setActualProject("-1");
       ProjectListService.setActualTask("-1");

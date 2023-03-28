@@ -2,7 +2,7 @@
  * @Author                : AdrienLanco0<adrienlanco0@gmail.com>             *
  * @CreatedDate           : 2023-03-17 14:25:08                              *
  * @LastEditors           : AdrienLanco0<adrienlanco0@gmail.com>             *
- * @LastEditDate          : 2023-03-27 16:25:50                              *
+ * @LastEditDate          : 2023-03-28 12:28:05                              *
  ****************************************************************************/
 
 import { Injectable } from '@angular/core';
@@ -344,7 +344,6 @@ export interface ProjectInterface {
   description: string,
   id: string,
   status: string,
-  level: string,
   created: string,
   actualVersion: string,
   versionList: Array<VersionInterface>,
@@ -405,4 +404,11 @@ export interface VersionInterface {
   projectId: string,
   tasks?: Array<string>,
   tickets?: Array<string>,
+}
+
+export interface SearchResponseInterface {
+  id: string,
+  name: string,
+  type: string,
+  icon: string,
 }

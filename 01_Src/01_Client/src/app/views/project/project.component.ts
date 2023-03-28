@@ -2,7 +2,7 @@
  * @Author                : AdrienLanco0<adrienlanco0@gmail.com>             *
  * @CreatedDate           : 2023-03-17 16:49:59                              *
  * @LastEditors           : AdrienLanco0<adrienlanco0@gmail.com>             *
- * @LastEditDate          : 2023-03-23 17:26:05                              *
+ * @LastEditDate          : 2023-03-28 12:40:26                              *
  ****************************************************************************/
 
 import { Component, OnInit } from '@angular/core';
@@ -27,6 +27,7 @@ export class ProjectComponent implements OnInit {
     });
     ProjectListService.projectChange.subscribe((value: ProjectInterface) => {
       this.project = structuredClone(value)
+      this.setAdvancement()
     })
   }
 
@@ -36,6 +37,7 @@ export class ProjectComponent implements OnInit {
   public project: ProjectInterface = {} as ProjectInterface;
 
   public nbTicket: number = 0;
+  public advancement: number = 0;
 
   public activity : any = [
     {img: "0", alt: "oui", name: "Randy", action: "created", id: "dc5c7a1", url: "/create", time: "10 min"},
@@ -102,5 +104,20 @@ export class ProjectComponent implements OnInit {
   public changeProjectVersion(change: any): void {
     this.project.actualVersion = change;
     this.command.editProject(this.project)
+  }
+
+  private setAdvancement(): void {
+    let cpt = 0;
+    let rej = 0;
+    let done = 0
+    if (this.project.tasks)
+      this.project.tasks.forEach(task => {
+        if (task.status == "rejected")
+          rej++
+        if (task.status == "done")
+          done++
+        cpt++
+      });
+    this.advancement = Math.trunc(done / (cpt - rej)  * 100)
   }
 }
