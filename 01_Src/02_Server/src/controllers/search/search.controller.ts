@@ -1,8 +1,8 @@
 /******************************************************************************
- * @Author                : AdrienLanco0<adrienlanco0@gmail.com>              *
+ * @Author                : Adrien Lanco<adrienlanco0@gmail.com>              *
  * @CreatedDate           : 2023-03-27 16:56:41                               *
- * @LastEditors           : AdrienLanco0<adrienlanco0@gmail.com>              *
- * @LastEditDate          : 2023-03-28 15:11:25                               *
+ * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>              *
+ * @LastEditDate          : 2023-03-29 13:05:08                               *
  *****************************************************************************/
 
 import {
@@ -48,7 +48,7 @@ export class SearchController {
   async search(@Body() body: any): Promise<any> {
     try {
       let query = body.query
-      let type = "";
+      let type = ["project", "task", "ticket"];
       let res;
       let response: Array<searchsDto.SearchResponse> = [];
 
@@ -65,14 +65,23 @@ export class SearchController {
         delete body.filters.type
       }
 
-      if (body.filters.tags) {
-        body.filters.tags = { hasEvery: body.filters.tags }
+      if (body.filters.status) {
+        body.filters.status = { in: body.filters.status }
+      }
+
+      if (body.filters.level) {
+        body.filters.level = { in: body.filters.level }
+        type.map((t, i) => { if (t == "project") type.splice(i, 1)})
+      }
+
+      if (body.filters.labels) {
+        body.filters.labels = { hasEvery: body.filters.labels }
       }
       
       let projectFilters = structuredClone(body.filters);
       let taskFilters = structuredClone(body.filters);
       let ticketFilters = structuredClone(body.filters);
-
+      
       if (body.filters.version) {
         projectFilters.actualVersion = projectFilters.version.name;
         delete projectFilters.version;
@@ -96,21 +105,21 @@ export class SearchController {
             
       if (body.selected.taskId) { ticketFilters.taskId = body.selected.taskId }
 
-      if ((!type || type == "project") && !body.selected.projectId && !body.selected.taskId) {
+      if ((!type || type.includes("project")) && !body.selected.projectId && !body.selected.taskId) {
         let where = wherePTT
         where.where.AND[1] = projectFilters;
         res = await this.prisma.project.findMany(where);
         res.map((el) => { response.push(new searchsDto.ProjectOutput(el))});
       }
 
-      if ((!type || type == "task") && !body.selected.taskId) {
+      if ((!type || type.includes("task")) && !body.selected.taskId) {
         let where = wherePTT
         where.where.AND[1] = taskFilters;
         res = await this.prisma.task.findMany(where);
         res.map((el) => { response.push(new searchsDto.TaskOutput(el))});
       }
 
-      if ((!type || type == "ticket")) {
+      if (!type ||  type.includes("ticket")) {
         let where = wherePTT
         where.where.AND[1] = ticketFilters;
         res = await this.prisma.ticket.findMany(where);
