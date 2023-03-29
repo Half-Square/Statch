@@ -10,21 +10,60 @@
   flex-direction: column;
 }
 
+.header {
+  height: 40px;
+  background: rgba(34, 34, 34, 1);
+  border-bottom: 1px solid #000000;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 16px;
+  gap: 8px;
+}
+
 .ticket {
   display: grid;
   grid-template-columns: 1fr 0.5fr;
   background: rgba(34, 34, 34, 1);
   grid-template-areas:
   "main aside";
+  overflow: hidden;
+  height: calc(100vh - 81px);
 }
 
 .ticket .main {
   grid-area: main;
-  min-height: 100vh;
+  height: calc(100vh - 81px);
+  overflow: auto;
+      /* width */
+      &::-webkit-scrollbar {
+        width: 4px;
+        height: 4px;
+      }
 
+      /* Track */
+      &::-webkit-scrollbar-track {
+        background: transparent;
+      }
+
+      /* Handle */
+      &::-webkit-scrollbar-thumb {
+        background: #9C9C9C;
+        border-radius: 999px;
+      }
+
+      /* Handle on hover */
+      &::-webkit-scrollbar-thumb:hover {
+        background: #b8b8b8;
+      }
   header {
     padding: 1rem;
     border-bottom: 1px solid rgba(56, 56, 56, 1);
+    overflow-wrap: anywhere;
+
+    p {
+      overflow-wrap: anywhere;
+    }
 
     h2 {
       margin-bottom: 1rem;
@@ -99,8 +138,9 @@
 
   .container {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: minmax(67px, max-content) minmax(104px, 112px);
     align-items: center;
+    gap: 16px;
 
     .icon {
       font-size: 16px;
@@ -157,6 +197,7 @@
     font-size: 12px;
     line-height: 24px;
     color: rgba(200, 200, 200, 1);
+    min-height: 28px;
   }
 
 }

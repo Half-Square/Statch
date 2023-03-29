@@ -16,7 +16,7 @@
   display: flex;
   justify-content: flex-end;
   padding: 1.5rem 2rem;
-  border-bottom: 1px solid #4B4B4B;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 
   .right {
     margin-right: auto;
@@ -30,7 +30,7 @@
     font-weight: 500;
     font-size: 16px;
     line-height: 24px;
-    color: rgba(116, 122, 116, 1);
+    color: rgba(255, 255, 255, 0.64);
   }
 }
 
@@ -43,11 +43,11 @@
   display: flex;
   justify-content: flex-end;
   padding: 1rem 2rem;
-  border-bottom: 1px solid #4B4B4B;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   text-decoration: none;
 
   &:hover {
-    background: rgba(47, 47, 47, 1);
+    background: rgba(255, 255, 255, 0.08);
   }
 
   .version, .date {
@@ -55,7 +55,7 @@
     font-weight: 400;
     font-size: 12px;
     line-height: 24px;
-    color: rgba(116, 122, 116, 1);
+    color: rgba(255, 255, 255, 0.32);
   }
 
   .name {
@@ -63,7 +63,7 @@
     font-weight: 500;
     font-size: 16px;
     line-height: 24px;
-    color: rgba(241, 255, 241, 1);
+    color: rgba(255, 255, 255, 0.96);
   }
 
   .right {
