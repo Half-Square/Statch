@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : AdrienLanco0<adrienlanco0@gmail.com>             *
+ * @Author                : 0K00<qdouvillez@gmail.com>                       *
  * @CreatedDate           : 2023-03-24 15:23:08                              *
- * @LastEditors           : AdrienLanco0<adrienlanco0@gmail.com>             *
- * @LastEditDate          : 2023-03-28 16:16:02                              *
+ * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
+ * @LastEditDate          : 2023-03-29 16:58:29                              *
  ****************************************************************************/
 
 import { NgModule } from '@angular/core';
@@ -28,6 +28,7 @@ import { StatusLabeledComponent } from './status-labeled/status-labeled.componen
 import { DropdownComponent } from './dropdown/dropdown.component';
 import { LevelSectionComponent } from './level-section/level-section.component';
 import { AssigneeSectionComponent } from './assignee-section/assignee-section.component';
+import { PipeModule } from '../pipe/pipe.module';
 
 
 
@@ -42,7 +43,7 @@ import { AssigneeSectionComponent } from './assignee-section/assignee-section.co
     StatusLabeledComponent,
     DropdownComponent,
     LevelSectionComponent,
-    AssigneeSectionComponent
+    AssigneeSectionComponent,
   ],
   imports: [
     CommonModule,
@@ -50,7 +51,8 @@ import { AssigneeSectionComponent } from './assignee-section/assignee-section.co
     RouterModule,
     FormsModule,
     LayoutsModule,
-    DirectivesModule
+    DirectivesModule,
+    PipeModule
   ],
   exports: [
     CommentComponent,

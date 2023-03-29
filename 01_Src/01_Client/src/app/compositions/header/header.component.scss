@@ -32,4 +32,43 @@
     display: flex;
     justify-content: flex-end;
   }
+
+  .menuOption {
+    position: absolute;
+    overflow: hidden;
+    z-index: 10;
+    top: calc(28px + 8px);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    background: #2E2E2E;
+    box-shadow: 0px 10px 36px rgba(0, 0, 0, 0.16), 0px 0px 0px 1px #424242;
+    border-radius: 8px;
+    width: 136px;
+    padding: 4px;
+
+    .option {
+      cursor: pointer;
+      font-style: normal;
+      font-weight: 400;
+      font-size: 12px;
+      line-height: 14px;
+      display: flex;
+      gap: 4px;
+      align-items: center;
+      color: rgba(255, 255, 255, 0.96);
+      border-radius: 4px;
+      padding: 6px 4px;
+      width: calc(100% - 8px);
+      justify-content: flex-start;
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.04);
+      }
+    }
+    .disconnect {
+      color: rgb(255, 59, 59);
+      font-weight: 600;
+    }
+  }
 }

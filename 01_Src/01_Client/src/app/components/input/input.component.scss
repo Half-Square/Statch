@@ -5,6 +5,20 @@
  * @LastEditDate          : 2023-03-24 12:04:19                              *
  *                                                                           *
  ****************************************************************************/
+ :host.invalid .input {
+  input {
+    border-color: rgb(255, 72, 72);
+    animation: invalid 0.4s 1 linear;
+    &::placeholder {
+      color: rgb(110, 40, 40);
+  }
+  }
+  label {
+    color: rgb(255, 72, 72);
+    animation: invalid 0.4s 1 linear;
+  }
+}
+
 
  .input {
   display: flex;
@@ -115,6 +129,8 @@ input {
       width: 100%;
   }
 }
+
+
 
 @keyframes invalid {
   0% { transform: translate(30px); }

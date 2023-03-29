@@ -28,7 +28,7 @@
          align-items: center;
          gap: 0.25rem;
          cursor: pointer;
-         padding: 0.25rem;
+         padding: 0.25rem 16px;
          border-radius: 0.5rem;
          font-style: normal;
          font-weight: 400;
@@ -58,7 +58,7 @@
          }
      }
      .label.active {
-         background: rgba(55, 117, 202, 1);
+         background: rgba(0, 108, 255, 1);
      }
  }
 
@@ -73,6 +73,7 @@
   border-radius: 0;
   color: rgba(255, 255, 255, 0.96);
   border-bottom: 1px solid rgb(34 34 34);
+  margin-bottom: 1px;
 
   .icons .icon {
     font-size: 16px;
@@ -102,6 +103,7 @@
   border-radius: 0;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   color: rgba(255, 255, 255, 0.96);
+  margin-bottom: 0;
 
   .icons .icon {
     font-size: 16px;
@@ -130,6 +132,7 @@
   border-radius: 0;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   color: rgba(255, 255, 255, 0.96);
+  margin-bottom: 0;
 
   .icons .icon {
     font-size: 16px;
