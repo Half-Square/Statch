@@ -1,8 +1,8 @@
 <!--
-* @Author                : AdrienLanco0<adrienlanco0@gmail.com>
+* @Author                : Adrien Lanco<adrienlanco0@gmail.com>
 * @CreatedDate           : 2023-03-25 14:41:00
-* @LastEditors           : AdrienLanco0<adrienlanco0@gmail.com>
-* @LastEditDate          : 2023-03-27 13:20:18
+* @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>
+* @LastEditDate          : 2023-03-29 12:29:54
 -->
 
 <div class="dropdown">
@@ -35,9 +35,14 @@
             {{ option.text }}
           </div>
         </ng-container>
-        <ng-container *ngIf="searchText && filteredOptions.length == 0">
+        <ng-container *ngIf="searchText && filteredOptions.length == 0 && !autoAdd">
           <div class="noResult">
             No result
+          </div>
+        </ng-container>
+        <ng-container *ngIf="autoAdd && isAddable()">
+          <div class="add" (click)="addOption()">
+            Add <i class="colored">{{ searchText }}</i> to choices
           </div>
         </ng-container>
         <div class="option" *ngFor="let option of filteredOptions" (click)="selectOption(option)" [class.selected]="values.indexOf(option) !== -1">
@@ -73,7 +78,7 @@
               No result
             </div>
           </ng-container>
-          <ng-container *ngIf="autoAdd">
+          <ng-container *ngIf="autoAdd && isAddable()">
             <div class="add" (click)="addOption()">
               Add <i class="colored">{{ searchText }}</i> to choices
             </div>
@@ -100,6 +105,7 @@
       <ng-content></ng-content>
     </ng-container>
 
-      <app-input *ngIf="search" [(value)]="searchText" type="scnd" (input)="filterOptions()" placeholder="Search..."></app-input>
+      <app-input *ngIf="search" [(value)]="searchText" (valueChange)="searchTextChange.emit(searchText)"
+                  type="scnd" (input)="filterOptions()" [placeholder]="autoAdd ? 'Search / Add' : 'Search...'"></app-input>
   </div>
 </div>

@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : AdrienLanco0<adrienlanco0@gmail.com>             *
+ * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
  * @CreatedDate           : 2023-03-23 16:37:07                              *
- * @LastEditors           : AdrienLanco0<adrienlanco0@gmail.com>             *
- * @LastEditDate          : 2023-03-27 16:13:00                              *
+ * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
+ * @LastEditDate          : 2023-03-29 12:24:27                              *
  ****************************************************************************/
 
 import { Component, EventEmitter, Input, Output } from '@angular/core';
@@ -49,6 +49,7 @@ export class VersionsSectionComponent {
       for (let i = 0; i < ret.length; i++) {
         this.options.push({ text: ret[i].name })
       }
+      this.options.sort((a,b) => (a.text > b.text) ? -1 : ((b.text > a.text) ? 1 : 0))
       if (this.version.name) this.value = [{ text: this.version.name }]
       else  this.value = [{ text: "" }]
     })
@@ -69,17 +70,22 @@ export class VersionsSectionComponent {
     }
   }
 
-  public newVersion(): void {
-    if (this.version.projectId) {
-      this.api.request("POST", "projects/"+this.projectId+"/versions", {
-        name: this.newName
-      }).then((ret) => {
-        this.version = ret;
-        if (this.version.name) this.value = [{ text: this.version.name }]
-        this.versionList.push(this.version);
-        this.options.push({ text: this.version.name })
-        this.versionJustChange(this.version.name)
-      })
-    }
+  public async newVersion(): Promise<VersionInterface> {
+    return new Promise((resolve, reject) =>{
+      if (this.projectId && this.newName) {
+        this.api.request("POST", "projects/"+this.projectId+"/versions", {
+          name: this.newName
+        }).then((ret) => {
+          this.version = ret;
+          if (this.version.name) this.value = [{ text: this.version.name }]
+          this.versionList.push(this.version);
+          this.options.sort((a,b) => (a.text > b.text) ? -1 : ((b.text > a.text) ? 1 : 0))
+          this.versionJustChange(this.version.name)
+          return resolve(ret)
+        }).catch((err) => {
+          return reject(err)
+        })
+      }
+    })
   }
 }

@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : AdrienLanco0<adrienlanco0@gmail.com>             *
+ * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
  * @CreatedDate           : 2023-03-25 14:53:07                              *
- * @LastEditors           : AdrienLanco0<adrienlanco0@gmail.com>             *
- * @LastEditDate          : 2023-03-27 16:33:17                              *
+ * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
+ * @LastEditDate          : 2023-03-29 12:18:29                              *
  ****************************************************************************/
 
 import { Component, Input, Output, EventEmitter, HostListener, ElementRef } from '@angular/core';
@@ -44,7 +44,9 @@ export class DropdownComponent {
 
   public filteredOptions: Array<{text: string, icon?: string}> = [];
   public isDropdownOpen: boolean = false;
-  public searchText: string = '';
+
+  @Input() searchText: string = "";
+  @Output() searchTextChange: EventEmitter<string> = new EventEmitter<string>();
 
   @Input() values: Array<{text: string, icon?: string}> = [];
   @Output() valuesChange = new EventEmitter<Array<{text: string, icon?: string}>>();
@@ -54,7 +56,9 @@ export class DropdownComponent {
   @Input() options: Array<{text: string, icon?: string}>;
   @Input() contentOnly: boolean = false;
   @Input() placeholder: string = "Test";
+
   @Input() autoAdd: boolean = false;
+  @Output() addOptionCb: EventEmitter<void> = new EventEmitter<void>();
 
   @HostListener('document:click', ['$event'])
   clickout(event: any) {
@@ -80,21 +84,37 @@ export class DropdownComponent {
     }
   }
 
-  addOption() {
-    let obj: {text: string, icon?: string} = { text: this.searchText };
-    this.options.push(obj);
-    this.searchText = "";
-    if(this.multi) {
-      this.values.push(obj);
-      this.toggleDropdown();
-    } else {
-      this.values = [obj];
-      this.toggleDropdown();
+  async addOption() {
+    if (this.searchText) {
+      let obj: {text: string, icon?: string} = { text: this.searchText };
+      this.options.push(obj);
+
+      this.addOptionCb.emit()
+
+      this.searchText = "";
+      if(this.multi) {
+        this.values.push(obj);
+        this.toggleDropdown();
+      } else {
+        this.values = [obj];
+        this.toggleDropdown();
+      }
+      this.valuesChange.emit(this.values);
     }
-    this.valuesChange.emit(this.values);
   }
 
   filterOptions() {
     this.filteredOptions = this.options.filter(option => option.text.toLowerCase().includes(this.searchText.toLowerCase()));
+  }
+
+  public isAddable(): boolean {
+    if (this.searchText.length < 1)
+      return false;
+
+    for (let i = 0; i < this.options.length; i++) {
+      if (this.options[i].text == this.searchText)
+        return false;
+    }
+    return true
   }
 }

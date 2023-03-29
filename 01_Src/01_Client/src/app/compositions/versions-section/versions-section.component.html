@@ -1,17 +1,15 @@
 <!--
-* @Author                : AdrienLanco0<adrienlanco0@gmail.com>
+* @Author                : Adrien Lanco<adrienlanco0@gmail.com>
 * @CreatedDate           : 2023-03-23 16:39:00
-* @LastEditors           : AdrienLanco0<adrienlanco0@gmail.com>
-* @LastEditDate          : 2023-03-27 13:18:03
+* @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>
+* @LastEditDate          : 2023-03-29 12:12:40
 -->
 
 <ng-container *ngIf="isEdit">
-  <app-dropdown [options]="options" [(values)]="value" (valuesChange)="versionJustChange(value[0].text)"
-              [search]="options.length > 5" placeholder="Add a version">
-    <div class="newVersion">
-      <input type="text" [(ngModel)]="newName" placeholder="+ New Version">
-      <button *ngIf="newName" (click)="newVersion()">Add</button>
-    </div>
+  <app-dropdown [options]="options" [search]="true" [autoAdd]=true
+                [(values)]="value" (valuesChange)="versionJustChange(value[0].text)"
+                [(searchText)]="newName" (addOptionCb)="newVersion()"
+                placeholder="Add a version">
   </app-dropdown>
 </ng-container>
 
