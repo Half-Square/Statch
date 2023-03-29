@@ -1,8 +1,8 @@
 /******************************************************************************
- * @Author                : AdrienLanco0<adrienlanco0@gmail.com>              *
+ * @Author                : Adrien Lanco<adrienlanco0@gmail.com>              *
  * @CreatedDate           : 2023-02-21 14:21:24                               *
- * @LastEditors           : AdrienLanco0<adrienlanco0@gmail.com>              *
- * @LastEditDate          : 2023-03-28 12:25:58                               *
+ * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>              *
+ * @LastEditDate          : 2023-03-29 17:38:08                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -76,7 +76,7 @@ export class ProjectsController {
         },
         include: {
           comments: {
-            include: {author: true}
+            include: {author: true}, orderBy: { created: 'asc'},
           },
           versionList: true,
           tasks: {
@@ -143,7 +143,7 @@ export class ProjectsController {
             }
           },
           comments: {
-            include: {author: true}
+            include: {author: true}, orderBy: { created: 'asc'},          
           },
           owner: true,
           assignments: {
@@ -188,7 +188,7 @@ export class ProjectsController {
         },
         include: {
           comments: {
-            include: {author: true}
+            include: {author: true}, orderBy: { created: 'asc'},
           },
           tasks: {
             orderBy: {

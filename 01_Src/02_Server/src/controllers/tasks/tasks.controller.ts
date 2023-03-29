@@ -1,8 +1,8 @@
 /******************************************************************************
- * @Author                : AdrienLanco0<adrienlanco0@gmail.com>              *
+ * @Author                : Adrien Lanco<adrienlanco0@gmail.com>              *
  * @CreatedDate           : 2023-02-21 14:21:47                               *
- * @LastEditors           : AdrienLanco0<adrienlanco0@gmail.com>              *
- * @LastEditDate          : 2023-03-27 16:06:14                               *
+ * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>              *
+ * @LastEditDate          : 2023-03-29 17:37:23                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -88,7 +88,7 @@ export class TasksController {
             }
           },
           comments: {
-            include: {author: true}
+            include: {author: true}, orderBy: { created: 'asc'},
           },
           owner: true,
           assignments: {
@@ -147,7 +147,7 @@ export class TasksController {
             }
           },
           comments: {
-            include: {author: true}
+            include: {author: true}, orderBy: { created: 'asc'},
           },
           owner: true,
           assignments: {
@@ -214,7 +214,7 @@ export class TasksController {
         include: {
           targetVersion: true,
           comments: {
-            include: {author: true}
+            include: {author: true}, orderBy: { created: 'asc'},
           },
           tickets: {
             orderBy: {
