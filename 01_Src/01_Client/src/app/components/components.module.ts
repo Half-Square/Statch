@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : 0K00<qdouvillez@gmail.com>                       *
- * @CreatedDate           : 2023-03-17 11:51:54                              *
- * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
- * @LastEditDate          : 2023-03-25 13:42:20                              *
+ * @Author                : AdrienLanco0<adrienlanco0@gmail.com>             *
+ * @CreatedDate           : 2023-03-24 15:23:15                              *
+ * @LastEditors           : AdrienLanco0<adrienlanco0@gmail.com>             *
+ * @LastEditDate          : 2023-03-27 12:13:38                              *
  ****************************************************************************/
 
 import { NgModule } from '@angular/core';
@@ -17,9 +17,7 @@ import { CollapseComponent } from './collapse/collapse.component';
 import { InputComponent } from './input/input.component';
 import { ProgressBarComponent } from './progress-bar/progress-bar.component';
 import { StatusComponent } from './status/status.component';
-import { StatusLabeledComponent } from './status-labeled/status-labeled.component';
 import { LevelComponent } from './level/level.component';
-
 
 
 @NgModule({
@@ -31,8 +29,7 @@ import { LevelComponent } from './level/level.component';
     InputComponent,
     ProgressBarComponent,
     StatusComponent,
-    StatusLabeledComponent,
-    LevelComponent,
+    LevelComponent
   ],
   imports: [
     CommonModule,
@@ -47,8 +44,7 @@ import { LevelComponent } from './level/level.component';
     InputComponent,
     ProgressBarComponent,
     StatusComponent,
-    StatusLabeledComponent,
-    LevelComponent,
+    LevelComponent
   ]
 })
 export class ComponentsModule { }

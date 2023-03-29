@@ -1,9 +1,8 @@
 /*****************************************************************************
- * @Author                : 0K00<qdouvillez@gmail.com>                       *
+ * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
  * @CreatedDate           : 2023-03-17 13:07:58                              *
- * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
- * @LastEditDate          : 2023-03-24 17:03:42                              *
- *                                                                           *
+ * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
+ * @LastEditDate          : 2023-03-29 12:43:16                              *
  ****************************************************************************/
 
 import { Component, EventEmitter, Output, Input } from '@angular/core';
@@ -30,6 +29,7 @@ export class CollapseComponent {
 
   @Input() noContent: boolean = false;
   @Input() isOpen: boolean = false;
+  @Input() isActive: boolean = false;
 
   @Output() onOpen: EventEmitter<void> = new EventEmitter<void>;
 

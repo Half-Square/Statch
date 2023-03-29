@@ -2,7 +2,7 @@
  * @Author                : AdrienLanco0<adrienlanco0@gmail.com>              *
  * @CreatedDate           : 2023-02-21 14:13:59                               *
  * @LastEditors           : AdrienLanco0<adrienlanco0@gmail.com>              *
- * @LastEditDate          : 2023-03-22 16:18:59                               *
+ * @LastEditDate          : 2023-03-28 12:25:49                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -25,6 +25,8 @@ import {
   IsIn
 } from "class-validator";
 import * as commentsDto from "./comments.dto";
+import * as versionsDto from "./versions.dto";
+
 import * as tasksDto from "./tasks.dto";
 /***/
 
@@ -49,11 +51,7 @@ class CreateInput {
 
   @IsString()
   @IsOptional()
-    targetVersion: string;
-
-  @IsString({each: true})  
-  @IsOptional()
-    versionList: Array<string>;
+    actualVersion: string;
 }
 /***/
 
@@ -66,13 +64,17 @@ class UpdateInput {
     name: string;
 
   @IsString()
-  @IsIn(["new", "done", "reject", "progress"])
+  @IsIn(["new", "done", "reject", "progress", "wait"])
   @IsOptional()
     status: string;
-
+  
   @IsString()
   @IsOptional()
-    version: string;
+    actualVersion: string;
+
+  @IsArray()
+  @IsOptional()
+    versionList: versionsDto.PublicOutput;
 
   @IsString()
   @IsOptional()
@@ -94,11 +96,16 @@ class PublicOutput {
     name: string;
 
   @IsString()
-  @IsIn(["new", "done", "reject", "progress"])
+  @IsIn(["new", "done", "reject", "progress", "wait"])
     status: string;
 
   @IsString()
-    version: string;
+  @IsOptional()
+    actualVersion: string;
+
+  @IsArray()
+  @IsOptional()
+    versionList: versionsDto.PublicOutput;
 
   @IsString()
     created: Date;
@@ -114,7 +121,7 @@ class PublicOutput {
       this.id = data.id;
       this.name = data.name;
       this.status = data.status;
-      this.version = data.version;
+      this.actualVersion = data.actualVersion;
       this.created = data.created;
       this.description = data.description;
       this.owner = new usersDto.PublicOutput(data.owner);
@@ -134,11 +141,16 @@ class DetailsOutput {
     name: string;
 
   @IsString()
-  @IsIn(["new", "done", "reject", "progress"])
+  @IsIn(["new", "done", "reject", "progress", "wait"])
     status: string;
 
   @IsString()
-    version: string;
+  @IsOptional()
+    actualVersion: string;
+
+  @IsArray()
+  @IsOptional()
+    versionList: versionsDto.PublicOutput;
 
   @IsString()
     created: Date;
@@ -166,7 +178,9 @@ class DetailsOutput {
       this.id = data.id;
       this.name = data.name;
       this.status = data.status;
-      this.version = data.version;
+      this.actualVersion = data.actualVersion;
+      if (data.versionList)
+        this.versionList = data.versionList.map((el) => new versionsDto.PublicOutput(el));
       this.created = data.created;
       this.description = data.description;
       this.tasks = data.tasks.map((el) => new tasksDto.PublicOutput(el));

@@ -1,14 +1,14 @@
 /*****************************************************************************
- * @Author                : AdrienLanco0<121338518+AdrienLanco0@users.noreply.github.com>*
+ * @Author                : AdrienLanco0<adrienlanco0@gmail.com>             *
  * @CreatedDate           : 2023-03-17 16:49:59                              *
- * @LastEditors           : AdrienLanco0<121338518+AdrienLanco0@users.noreply.github.com>*
- * @LastEditDate          : 2023-03-22 11:21:12                              *
+ * @LastEditors           : AdrienLanco0<adrienlanco0@gmail.com>             *
+ * @LastEditDate          : 2023-03-28 16:33:43                              *
  ****************************************************************************/
 
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommandService } from 'src/app/services/command/command.service';
-import { ProjectInterface, ProjectListService } from 'src/app/services/project-list/project-list.service';
+import { ProjectInterface, ProjectListService, VersionInterface } from 'src/app/services/project-list/project-list.service';
 
 @Component({
   selector: 'app-project',
@@ -27,6 +27,7 @@ export class ProjectComponent implements OnInit {
     });
     ProjectListService.projectChange.subscribe((value: ProjectInterface) => {
       this.project = structuredClone(value)
+      this.setAdvancement()
     })
   }
 
@@ -36,6 +37,7 @@ export class ProjectComponent implements OnInit {
   public project: ProjectInterface = {} as ProjectInterface;
 
   public nbTicket: number = 0;
+  public advancement: number = 0;
 
   public activity : any = [
     {img: "0", alt: "oui", name: "Randy", action: "created", id: "dc5c7a1", url: "/create", time: "10 min"},
@@ -73,6 +75,8 @@ export class ProjectComponent implements OnInit {
 
   async ngOnInit() {
     this.id = this.route.snapshot.paramMap.get('id') || "";
+    console.log(this.getProjectVersion());
+
   }
 
   public saveProject() {
@@ -84,5 +88,37 @@ export class ProjectComponent implements OnInit {
       [ "project", this.project.id ],
       { queryParams: { edit: true } }
     )
+  }
+
+  public getProjectVersion(): VersionInterface {
+    if (this.project.versionList && this.project.versionList.length > 0 &&
+        this.project.actualVersion) {
+      for (let i = 0; i < this.project.versionList.length; i++) {
+        if (this.project.versionList[i].name ==  this.project.actualVersion)
+          return this.project.versionList[i]
+      }
+    }
+    return { id: "", name: "", projectId: this.id } as VersionInterface;
+  }
+
+  public changeProjectVersion(change: any): void {
+    this.project.actualVersion = change;
+    this.command.editProject(this.project)
+  }
+
+  private setAdvancement(): void {
+    let cpt = 0;
+    let rej = 0;
+    let done = 0
+    if (this.project.tasks)
+      this.project.tasks.forEach(task => {
+        if (task.status == "rejected")
+          rej++
+        if (task.status == "done")
+          done++
+        cpt++
+      });
+    if (!cpt) this.advancement = 0
+    else this.advancement = Math.trunc(done / (cpt - rej)  * 100)
   }
 }

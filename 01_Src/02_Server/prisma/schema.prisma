@@ -2,7 +2,8 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["fullTextSearch", "fullTextIndex"]
 }
 
 datasource db {
@@ -22,13 +23,17 @@ model User {
   tasks           Task[]
   tickets         Ticket[]
   assignment      Assignment[]
+
+  @@fulltext([id])
+  @@fulltext([name])
+  @@fulltext([email])
+  @@fulltext([id, name, email])
 }
 
 model Project {
   id              String          @default(nanoid(8)) @id
   name            String
   status          String          @default("new")
-  version         String          @default("0.1.0")
   created         DateTime        @default(now())
   description     String          @db.LongText
   tasks           Task[]
@@ -36,6 +41,13 @@ model Project {
   owner           User            @relation(fields: [ownerId], references: [id], onDelete: Cascade)
   ownerId         String
   assignments     Assignment[]
+
+  actualVersion   String?
+  versionList     Version[]
+
+  @@fulltext([id])
+  @@fulltext([name])
+  @@fulltext([id, name])
 }
 
 model Task {
@@ -43,6 +55,7 @@ model Task {
   created         DateTime        @default(now())
   name            String
   status          String          @default("new")
+  level           String          @default("normal")
   description     String
   project         Project         @relation(fields: [projectId], references: [id], onDelete: Cascade)
   projectId       String
@@ -51,12 +64,19 @@ model Task {
   owner           User            @relation(fields: [ownerId], references: [id], onDelete: Cascade)
   ownerId         String
   assignments     Assignment[]
+  targetVersion   Version?        @relation(fields: [targetVersionId], references: [id])
+  targetVersionId String?
+
+  @@fulltext([id])
+  @@fulltext([name])
+  @@fulltext([id, name])
 }
 
 model Ticket {
   id              String          @default(nanoid(8)) @id
   name            String
   status          String          @default("new")
+  level           String          @default("normal")
   description     String
   task            Task            @relation(fields: [taskId], references: [id], onDelete: Cascade)
   taskId          String
@@ -64,6 +84,12 @@ model Ticket {
   owner           User            @relation(fields: [ownerId], references: [id], onDelete: Cascade)
   ownerId         String
   assignments     Assignment[]
+  targetVersion   Version?        @relation(fields: [targetVersionId], references: [id])
+  targetVersionId String?
+
+  @@fulltext([id])
+  @@fulltext([name])
+  @@fulltext([id, name])
 }
 
 model Comment {
@@ -90,4 +116,15 @@ model Assignment {
   taskId          String?
   ticket          Ticket?         @relation(fields: [ticketId], references: [id])
   ticketId        String?
+}
+
+model Version {
+  id              String          @default(nanoid(8)) @id
+  name            String
+
+  project         Project         @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  projectId       String
+
+  tasks          Task[]
+  tickets        Ticket[]
 }

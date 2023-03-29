@@ -1,9 +1,9 @@
-/******************************************************************************
- * @Author                : 0K00<qdouvillez@gmail.com>                        *
- * @CreatedDate           : 2023-03-24 15:14:47                               *
- * @LastEditors           : 0K00<qdouvillez@gmail.com>                        *
- * @LastEditDate          : 2023-03-25 13:16:40                               *
- *****************************************************************************/
+/*****************************************************************************
+ * @Author                : AdrienLanco0<adrienlanco0@gmail.com>             *
+ * @CreatedDate           : 2023-03-24 15:14:47                              *
+ * @LastEditors           : AdrienLanco0<adrienlanco0@gmail.com>             *
+ * @LastEditDate          : 2023-03-28 12:28:21                              *
+ ****************************************************************************/
 
 import { Component, EventEmitter, Output, Input } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
@@ -29,10 +29,11 @@ export class AssignComponent {
     this.projects = [{
       name: "Cooking app",
       description: "test",
-      id: "S_LA65br",
+      id: "2ECNC-Lr",
       status: "progress",
       created: "Quentin",
-      version: "0.1.0",
+      actualVersion: "0.1.0",
+      versionList: [ { id:"0", name: "0.1.0", projectId: "S_LA65br" }, ],
       comments: [],
       owner: {email: "", name: "", id: "", validate: true },
       assignments: [],
@@ -42,8 +43,9 @@ export class AssignComponent {
         id: "ZemPMIsh",
         projectId: "",
         status: "progress",
+        level: "normal",
         created: "Quentin",
-        version: "0.1.0",
+        targetVersion: { id:"0", name: "0.1.0", projectId: "S_LA65br" },
         comments: [],
         owner: {email: "", name: "", id: "", validate: true },
         assignments: [],
@@ -51,10 +53,12 @@ export class AssignComponent {
           name: "Cooking app",
           description: "test",
           id: "d348dq8",
+          projectId: "",
           taskId: "",
           status: "progress",
+          level: "normal",
           created: "Quentin",
-          version: "0.1.0",
+          targetVersion: { id:"0", name: "0.1.0", projectId: "S_LA65br" },
           comments: [],
           owner: {email: "", name: "", id: "", validate: true },
           assignments: [],
@@ -67,7 +71,8 @@ export class AssignComponent {
       id: "S_LA65br",
       status: "progress",
       created: "Quentin",
-      version: "0.1.0",
+      actualVersion: "0.1.0",
+      versionList: [ { id:"0", name: "0.1.0", projectId: "S_LA65br" }, ],
       comments: [],
       owner: {email: "", name: "", id: "", validate: true },
       assignments: [],
@@ -77,8 +82,9 @@ export class AssignComponent {
         id: "ZemPMIsh",
         projectId: "",
         status: "progress",
+        level: "normal",
         created: "Quentin",
-        version: "0.1.0",
+        targetVersion: { id:"0", name: "0.1.0", projectId: "S_LA65br" },
         comments: [],
         owner: {email: "", name: "", id: "", validate: true },
         assignments: [],
@@ -86,10 +92,12 @@ export class AssignComponent {
           name: "Cooking app",
           description: "test",
           id: "d348dq8",
+          projectId: "",
           taskId: "",
           status: "progress",
+          level: "normal",
           created: "Quentin",
-          version: "0.1.0",
+          targetVersion: { id:"0", name: "0.1.0", projectId: "S_LA65br" },
           comments: [],
           owner: {email: "", name: "", id: "", validate: true },
           assignments: [],

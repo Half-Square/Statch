@@ -2,7 +2,7 @@
  * @Author                : AdrienLanco0<adrienlanco0@gmail.com>              *
  * @CreatedDate           : 2023-02-21 14:18:25                               *
  * @LastEditors           : AdrienLanco0<adrienlanco0@gmail.com>              *
- * @LastEditDate          : 2023-03-22 16:17:03                               *
+ * @LastEditDate          : 2023-03-28 12:26:46                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -20,6 +20,7 @@ import {IsArray, IsIn, IsObject, IsOptional, IsString} from "class-validator";
 /* Dto */
 import * as commentsDto from "../dto/comments.dto";
 import * as usersDto from "../dto/users.dto";
+import * as versionsDto from "../dto/versions.dto";
 /***/
 
 /**
@@ -48,11 +49,20 @@ class UpdateInput {
     status: string;
 
   @IsString()
+  @IsIn(["low", "normal", "moderate", "high"])
+  @IsOptional()
+    level: string;
+    
+  @IsString()
   @IsOptional()
     description: string;
 
   @IsArray()
     assignments: usersDto.PublicOutput[];
+  
+  @IsObject()
+  @IsOptional()
+    targetVersion: versionsDto.PublicOutput;
 }
 /***/
 
@@ -70,8 +80,16 @@ class PublicOutput {
     description: string;
 
   @IsString()
-  @IsIn(["new", "done", "reject", "progress"])
+  @IsIn(["new", "done", "reject", "progress", "wait"])
     status: string;
+
+  @IsString()
+  @IsIn(["low", "normal", "moderate", "high"])
+  @IsOptional()
+    level: string;
+
+  @IsString()
+    projectId: string;
 
   @IsString()
     taskId: string;
@@ -79,13 +97,19 @@ class PublicOutput {
   @IsObject()
     owner: usersDto.PublicOutput;
 
+  @IsObject()
+    targetVersion: versionsDto.PublicOutput;
+
   constructor(data) {
     if (data) {
       this.id = data.id;
       this.name = data.name;
       this.description = data.description;
       this.status = data.status;
+      this.level = data.level;
+      this.projectId = data.task.projectId;
       this.taskId = data.taskId;
+      this.targetVersion = data.targetVersion;
       this.owner = new usersDto.PublicOutput(data.owner);
     }
   }
@@ -106,8 +130,16 @@ class DetailsOutput {
     description: string;
 
   @IsString()
-  @IsIn(["new", "done", "reject", "progress"])
+  @IsIn(["new", "done", "reject", "progress", "wait"])
     status: string;
+
+  @IsString()
+  @IsIn(["low", "normal", "moderate", "high"])
+  @IsOptional()
+    level: string;
+
+  @IsString()
+    projectId: string;
 
   @IsString()
     taskId: string;
@@ -118,6 +150,9 @@ class DetailsOutput {
   @IsObject()
     owner: usersDto.PublicOutput;
 
+  @IsObject()
+    targetVersion: versionsDto.PublicOutput;
+
   @IsArray()
     assignments: usersDto.PublicOutput[];
 
@@ -127,8 +162,11 @@ class DetailsOutput {
       this.name = data.name;
       this.description = data.description;
       this.status = data.status;
+      this.level = data.level;
+      this.projectId = data.task.projectId;
       this.taskId = data.taskId;
       this.owner = new usersDto.PublicOutput(data.owner);
+      this.targetVersion = data.targetVersion;
       this.assignments = data.assignments.map((el) => {
         return new usersDto.PublicOutput(el.user);
       });

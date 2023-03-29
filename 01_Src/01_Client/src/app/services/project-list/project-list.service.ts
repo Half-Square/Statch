@@ -1,9 +1,8 @@
 /*****************************************************************************
- * @Author                : 0K00<qdouvillez@gmail.com>                       *
+ * @Author                : AdrienLanco0<adrienlanco0@gmail.com>             *
  * @CreatedDate           : 2023-03-17 14:25:08                              *
- * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
- * @LastEditDate          : 2023-03-24 15:55:52                              *
- *                                                                           *
+ * @LastEditors           : AdrienLanco0<adrienlanco0@gmail.com>             *
+ * @LastEditDate          : 2023-03-28 16:37:22                              *
  ****************************************************************************/
 
 import { Injectable } from '@angular/core';
@@ -30,6 +29,8 @@ export class ProjectListService {
 
   public static ticketChange:
     Subject<TicketInterface> = new Subject<TicketInterface>();
+
+  public static actualChange: Subject<void> = new Subject<void>();
 
   public static get projects(): Array<ProjectInterface> {
     return this.projectList;
@@ -175,26 +176,27 @@ export class ProjectListService {
   */
   public static addTicket(newTicket:TicketInterface): void {
     this.projectList.forEach(project => {
-      if (project.tasks)
-        project.tasks.forEach(task => {
-          if (newTicket.taskId == task.id) {
-            let changed = false
+      if (project.id == newTicket.projectId)
+        if (project.tasks)
+          project.tasks.forEach(task => {
+            if (newTicket.taskId == task.id) {
+              let changed = false
 
-            if (task.tickets)
-              task.tickets.forEach(ticket => {
-                if (ticket.id == newTicket.id) {
-                  ticket = Object.assign(ticket, newTicket);;
-                  changed = true;
-                }
-              });
-            if (!changed) {
-              if (task.tickets) task.tickets.unshift(newTicket);
-              else task.tickets = [ newTicket ]
+              if (task.tickets)
+                task.tickets.forEach(ticket => {
+                  if (ticket.id == newTicket.id) {
+                    ticket = Object.assign(ticket, newTicket);;
+                    changed = true;
+                  }
+                });
+              if (!changed) {
+                if (task.tickets) task.tickets.unshift(newTicket);
+                else task.tickets = [ newTicket ]
+              }
+              this.projectListChange.next(this.projectList);
+              return
             }
-            this.projectListChange.next(this.projectList);
-            return
-          }
-        });
+          });
     });
   }
   /***/
@@ -210,6 +212,7 @@ export class ProjectListService {
       if (this.projectList[i].id == projectId) {
         this.actualProject = projectId;
         this.projectChange.next(this.projectList[i]);
+        this.actualChange.next();
         return
       }
     }
@@ -232,6 +235,7 @@ export class ProjectListService {
             this.actualTask = taskId;
             this.projectChange.next(this.projectList[i]);
             this.taskChange.next(task);
+            this.actualChange.next();
             return
           }
         }
@@ -261,6 +265,7 @@ export class ProjectListService {
                 this.projectChange.next(this.projectList[i]);
                 this.taskChange.next(task);
                 this.ticketChange.next(ticket);
+                this.actualChange.next();
                 return
               }
             }
@@ -315,19 +320,20 @@ export class ProjectListService {
   * @param taskId (string) task id of the ticket to remove
   * @param ticketId (string) ticket id to remove
   */
-  public static removeTicket(taskId: string, ticketId: string): void {
+  public static removeTicket(projectId: string, taskId: string, ticketId: string): void {
     this.projectList.forEach(project => {
-      project.tasks.forEach(task => {
-        if (taskId == task.id) {
-          for (let i = 0; i < task.tickets.length; i++) {
-            if (task.tickets[i].id == ticketId) {
-              task.tickets.splice(i, 1);
-              this.projectListChange.next(this.projectList);
-              return;
+      if (project.id == projectId)
+        project.tasks.forEach(task => {
+          if (taskId == task.id) {
+            for (let i = 0; i < task.tickets.length; i++) {
+              if (task.tickets[i].id == ticketId) {
+                task.tickets.splice(i, 1);
+                this.projectListChange.next(this.projectList);
+                return;
+              }
             }
           }
-        }
-      });
+        });
     });
   }
   /***/
@@ -339,10 +345,11 @@ export interface ProjectInterface {
   id: string,
   status: string,
   created: string,
-  version: string,
+  actualVersion: string,
+  versionList: Array<VersionInterface>,
   comments: Array<CommentInterface>,
   owner: UsersInterface,
-  assignments: [],
+  assignments: Array<UsersInterface>,
   tasks: Array<TaskInterface>
 }
 
@@ -351,12 +358,13 @@ export interface TaskInterface {
   description: string,
   id: string,
   status: string,
+  level: string,
   created: string,
   projectId: string,
-  version: string,
+  targetVersion?: VersionInterface,
   comments: Array<CommentInterface>,
   owner: UsersInterface,
-  assignments: [],
+  assignments: Array<UsersInterface>,
   tickets: Array<TicketInterface>
 }
 
@@ -366,10 +374,12 @@ export interface TicketInterface {
   id: string,
   created: string,
   status: string,
-  taskId: string
-  version: string,
+  level: string,
+  taskId: string,
+  projectId: string,
+  targetVersion?: VersionInterface,
   comments: Array<CommentInterface>,
-  assignments: [],
+  assignments: Array<UsersInterface>,
   owner: UsersInterface
 }
 
@@ -385,4 +395,20 @@ export interface CommentInterface {
   author: UsersInterface,
   created: string,
   content: string,
+}
+
+
+export interface VersionInterface {
+  id: string,
+  name: string,
+  projectId: string,
+  tasks?: Array<string>,
+  tickets?: Array<string>,
+}
+
+export interface SearchResponseInterface {
+  id: string,
+  name: string,
+  type: string,
+  icon: string,
 }

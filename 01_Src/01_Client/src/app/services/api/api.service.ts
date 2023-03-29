@@ -1,10 +1,10 @@
 
-/******************************************************************************
- * @Author                : Adrien Lanco<adrienlanco0@gmail.com>              *
- * @CreatedDate           : 2023-03-02 13:57:55                               *
- * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>              *
- * @LastEditDate          : 2023-03-18 14:27:07                               *
- *****************************************************************************/
+/*****************************************************************************
+ * @Author                : AdrienLanco0<adrienlanco0@gmail.com>             *
+ * @CreatedDate           : 2023-03-02 13:57:55                              *
+ * @LastEditors           : AdrienLanco0<adrienlanco0@gmail.com>             *
+ * @LastEditDate          : 2023-03-28 16:59:21                              *
+ ****************************************************************************/
 
 import { Injectable } from '@angular/core';
 import { ConfigService } from '../config/config.service';
@@ -76,15 +76,18 @@ export class ApiService {
 
     public request(method: string, url: string, data: any = null, params: Array<string> = [], queries: Array<string> = []): Promise<any> {
         return new Promise((resolve, reject) => {
-            let api_url = ConfigService.get("API_URL");
-            let token = UserService.isConnected() ? UserService.getUser().token : "";
-            fetch(api_url+"/"+url+this.transParams(params)+this.transQueries(queries), {
-                method: method,
-                headers: {
-                    'content-type': 'application/json;charset=UTF-8',
-                    'X-Token': token
-                },
-                body: method == "GET" ? null : JSON.stringify(data),
+          let api_url = ConfigService.get("API_URL");
+          let token = UserService.isConnected() ? UserService.getUser().token : "";
+
+          let requestHeaders: HeadersInit = new Headers();
+          requestHeaders.set('Content-Type', 'application/json');
+          if (token)
+            requestHeaders.set('X-Token', token);
+
+          fetch(api_url+"/"+url+this.transParams(params)+this.transQueries(queries), {
+              method: method,
+              headers: requestHeaders,
+              body: method == "GET" ? null : JSON.stringify(data),
             }).then((res) => {
                 res.json()
                 .then((json) => {

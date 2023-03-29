@@ -1,15 +1,12 @@
 <!--
-* @Author                : 0K00<qdouvillez@gmail.com>
+* @Author                : Adrien Lanco<adrienlanco0@gmail.com>
 * @CreatedDate           : 2023-03-17 12:58:00
-* @LastEditors           : 0K00<qdouvillez@gmail.com>
-* @LastEditDate          : 2023-03-26 16:07:32
+* @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>
+* @LastEditDate          : 2023-03-29 12:43:22
 -->
 
 <div class="collapse" [ngClass]="{ 'open': show(), 'close': !show() }">
-  <div class="label" routerLinkActive="active">
-      <div *ngIf="!noContent" class="icons" [ngStyle]="indent()" (click)="toggleCollapse()"
-<div class="collapse" [ngClass]="{ 'open': show(), 'close': !show() }">
-  <div *ngIf="!other" class="label" [ngClass]="{ 'active': false }">
+  <div *ngIf="!other" class="label" [ngClass]="{ 'active': isActive }">
       <div *ngIf="!noContent && !other" class="icons" [ngStyle]="indent()" (click)="toggleCollapse()"
             [ngClass]="{ 'less': show(), 'more': !show() }" >
           <i *ngIf="!show()" class="icon chevron-right"></i>
@@ -30,7 +27,7 @@
       </nav>
   </div>
 
-  <div *ngIf="other" class="label" [ngClass]="{ 'active': false }" [ngClass]="[other]" (click)="toggleCollapse()">
+  <div *ngIf="other" class="label" [ngClass]="{ 'active': isActive }" [ngClass]="[other]" (click)="toggleCollapse()">
     <div *ngIf="!noContent && other" class="icons" [ngStyle]="indent()"
         [ngClass]="{ 'less': show(), 'more': !show() }" >
       <i *ngIf="!show()" class="icon open"></i>
