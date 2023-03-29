@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : AdrienLanco0<adrienlanco0@gmail.com>             *
+ * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
  * @CreatedDate           : 2023-03-17 22:34:38                              *
- * @LastEditors           : AdrienLanco0<adrienlanco0@gmail.com>             *
- * @LastEditDate          : 2023-03-28 17:02:07                              *
+ * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
+ * @LastEditDate          : 2023-03-29 15:59:39                              *
  ****************************************************************************/
 
 import { Injectable } from '@angular/core';
@@ -338,16 +338,62 @@ export class CommandService {
     /***/
 
 
-    public assignMySelf(type: string, data: ProjectInterface | TaskInterface | TicketInterface) {
-      console.log("here");
+    public async assignMySelf(type: string, data: ProjectInterface | TaskInterface | TicketInterface) {
+      return new Promise<void>(async (resolve, reject) => {
+        let user = UserService.getUser();
+        delete user.token
+        if (!data.assignments) data.assignments = []
+        data.assignments.push(user)
+        try {
+          if (type == "project" && data) await this.editProject(data as ProjectInterface);
+          if (type == "task" && data) await this.editTask(data as TaskInterface);
+          if (type == "ticket" && data) await this.editTicket(data as TicketInterface);
+          return resolve()
+        } catch(error: any) {
+          console.error("assignMySelf error >> "+error)
+          return reject()
+        }
+      });
+    }
 
-      let user = UserService.getUser();
-      delete user.token
-      if (!data.assignments) data.assignments = []
-      data.assignments.push(user)
+    public async getMyProject(): Promise<any> {
+      return new Promise<any>((resolve, reject) => {
+        let user = UserService.getUser();
+        this.api.request("GET", "users/"+user.id+"/project", {})
+        .then((ret: any) => {
+          return resolve(ret)
+        }).catch((error: any) => {
+          console.error("getMyProject error >> "+error)
+          return reject()
+        })
+      });
+    }
 
-      if (type == "project" && data) this.editProject(data as ProjectInterface);
-      if (type == "task" && data) this.editTask(data as TaskInterface);
-      if (type == "ticket" && data) this.editTicket(data as TicketInterface);
+    public async getMyTask(projectId: string): Promise<any> {
+      return new Promise<any>((resolve, reject) => {
+        let user = UserService.getUser();
+        this.api.request("GET", "users/"+user.id+"/task/"+projectId, {})
+        .then((ret: any) => {
+          console.log("sdf", ret);
+
+          return resolve(ret)
+        }).catch((error: any) => {
+          console.error("getMyTask error >> "+error)
+          return reject()
+        })
+      });
+    }
+
+    public async getMyTicket(taskId: string): Promise<any> {
+      return new Promise<any>((resolve, reject) => {
+        let user = UserService.getUser();
+        this.api.request("GET", "users/"+user.id+"/ticket/"+taskId, {})
+        .then((ret: any) => {
+          return resolve(ret)
+        }).catch((error: any) => {
+          console.error("getMyTicket error >> "+error)
+          return reject()
+        })
+      });
     }
 }

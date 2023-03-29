@@ -2,7 +2,7 @@
  * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
  * @CreatedDate           : 2023-03-17 11:54:55                              *
  * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
- * @LastEditDate          : 2023-03-20 16:55:38                              *
+ * @LastEditDate          : 2023-03-29 17:02:39                              *
  ****************************************************************************/
 
 import { NgModule } from '@angular/core';

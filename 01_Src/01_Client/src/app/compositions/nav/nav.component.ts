@@ -1,9 +1,8 @@
 /*****************************************************************************
- * @Author                : 0K00<qdouvillez@gmail.com>                       *
+ * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
  * @CreatedDate           : 2023-03-17 14:41:39                              *
- * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
- * @LastEditDate          : 2023-03-24 15:25:56                              *
- *                                                                           *
+ * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
+ * @LastEditDate          : 2023-03-29 17:16:31                              *
  ****************************************************************************/
 
 import { Component } from '@angular/core';
@@ -76,7 +75,6 @@ export class NavComponent {
       this.projectId = project.id;
       this.taskId = "";
       this.ticketId = "";
-      this.getProjects()
     })
     ProjectListService.taskChange
     .subscribe((task: TaskInterface) => {
@@ -88,6 +86,10 @@ export class NavComponent {
     .subscribe((ticket: TicketInterface) => {
       this.taskId = ticket.taskId;
       this.ticketId = ticket.id;
+    })
+    ProjectListService.actualChange
+    .subscribe(() => {
+      this.getProjects()
     })
   }
   /***/
@@ -117,13 +119,28 @@ export class NavComponent {
           this.projects = [ this.projectList[i] ];
         }
       }
-    } else if (this.url[1] == 'projects') {
+    } else {
       this.projects = this.projectList;
       this.projectId = "";
       this.taskId = "";
       this.ticketId = "";
+    }
+  }
+  /***/
+
+
+  /**
+  * @name getProjects
+  * @descr set projects as a single or an array of projects from url
+  *
+  */
+  public openNew(): void {
+    if (this.url[1] == 'project' && this.projectId) {
+      this.command.openNewTask(this.projectId)
+    } else if ((this.url[1] == 'task' || this.url[1] == 'ticket') && this.taskId) {
+      this.command.openNewTicket(this.taskId)
     } else {
-      this.projects = this.projectList;
+      this.command.openNewProject()
     }
   }
   /***/
