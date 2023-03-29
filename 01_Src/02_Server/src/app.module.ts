@@ -1,8 +1,8 @@
 /******************************************************************************
- * @Author                : AdrienLanco0<adrienlanco0@gmail.com>              *
+ * @Author                : Adrien Lanco<adrienlanco0@gmail.com>              *
  * @CreatedDate           : 2023-02-21 14:10:37                               *
- * @LastEditors           : AdrienLanco0<adrienlanco0@gmail.com>              *
- * @LastEditDate          : 2023-03-28 11:11:19                               *
+ * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>              *
+ * @LastEditDate          : 2023-03-29 15:46:01                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -21,6 +21,7 @@ import { AuthController } from "./controllers/auth/auth.controller";
 import { VersionsController } from './controllers/versions/versions.controller';
 import { SearchController } from './controllers/search/search.controller';
 import { SearchFilterService } from './controllers/search/services/search-filter/search-filter.service';
+import { AssignmentsController } from './controllers/assignments/assignments.controller';
 /***/
 
 @Module({
@@ -33,7 +34,8 @@ import { SearchFilterService } from './controllers/search/services/search-filter
     TicketsController,
     AuthController,
     VersionsController,
-    SearchController
+    SearchController,
+    AssignmentsController
   ],
   providers: [PrismaService, SearchFilterService]
 })

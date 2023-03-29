@@ -1,8 +1,8 @@
 /******************************************************************************
- * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
+ * @Author                : Adrien Lanco<adrienlanco0@gmail.com>              *
  * @CreatedDate           : 2023-02-21 14:20:59                               *
- * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-02-28 10:25:35                               *
+ * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>              *
+ * @LastEditDate          : 2023-03-29 17:12:43                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -74,7 +74,7 @@ export class CommentsController {
         where: toFind,
         include: {author: true}
       });
-      return res.map((el) => new commentsDto.PublicOutput(el));
+      return res.map((el) => new commentsDto.PublicOutput(el)).sort((a,b) => a.created.getTime() - b.created.getTime() );
     } catch (err) {
       console.error(`${new Date().toISOString()} - ${err}`);
       throw err;
