@@ -1,5 +1,5 @@
 /*****************************************************************************
- * @Author                : 0K00<qdouvillez@gmail.com>                       *
+ * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
  * @CreatedDate           : 2023-03-17 11:51:44                              *
  * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
  * @LastEditDate          : 2023-03-29 16:46:16                              *
@@ -22,6 +22,7 @@ import { TicketComponent } from './ticket/ticket.component';
 import { DirectivesModule } from '../directives/directives.module';
 import { AssignComponent } from './assign/assign.component';
 import { PipeModule } from '../pipe/pipe.module';
+
 
 
 

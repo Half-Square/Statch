@@ -1,8 +1,8 @@
 /******************************************************************************
- * @Author                : AdrienLanco0<adrienlanco0@gmail.com>              *
+ * @Author                : Adrien Lanco<adrienlanco0@gmail.com>              *
  * @CreatedDate           : 2023-02-21 14:18:25                               *
- * @LastEditors           : AdrienLanco0<adrienlanco0@gmail.com>              *
- * @LastEditDate          : 2023-03-28 12:26:46                               *
+ * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>              *
+ * @LastEditDate          : 2023-03-29 17:31:17                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -89,6 +89,9 @@ class PublicOutput {
     level: string;
 
   @IsString()
+    created: string;
+
+  @IsString()
     projectId: string;
 
   @IsString()
@@ -106,7 +109,8 @@ class PublicOutput {
       this.name = data.name;
       this.description = data.description;
       this.status = data.status;
-      this.level = data.level;
+      this.level = data.level;      
+      this.created = data.created;
       this.projectId = data.task.projectId;
       this.taskId = data.taskId;
       this.targetVersion = data.targetVersion;
@@ -139,6 +143,9 @@ class DetailsOutput {
     level: string;
 
   @IsString()
+    created: Date;
+
+  @IsString()
     projectId: string;
 
   @IsString()
@@ -163,14 +170,14 @@ class DetailsOutput {
       this.description = data.description;
       this.status = data.status;
       this.level = data.level;
+      this.created = data.created;
       this.projectId = data.task.projectId;
       this.taskId = data.taskId;
       this.owner = new usersDto.PublicOutput(data.owner);
       this.targetVersion = data.targetVersion;
       this.assignments = data.assignments.map((el) => {
         return new usersDto.PublicOutput(el.user);
-      });
-
+      });      
       if (data.comments) {
         this.comments = data.comments.map((el) => new commentsDto.PublicOutput(el));
       }

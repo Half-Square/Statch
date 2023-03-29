@@ -44,7 +44,6 @@
                     [isActive]="task.id == taskId && !ticketId"
                     (onOpen)="command.getTask(task.id)"
                     [depth]="1">
-
         <app-collapse *ngFor="let ticket of task.tickets"
                       [label]="ticket.name"
                       [id]="ticket.id"

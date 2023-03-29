@@ -1,5 +1,5 @@
 <!--
-* @Author                : 0K00<qdouvillez@gmail.com>
+* @Author                : Adrien Lanco<adrienlanco0@gmail.com>
 * @CreatedDate           : 2023-03-24 14:57:00
 * @LastEditors           : 0K00<qdouvillez@gmail.com>
 * @LastEditDate          : 2023-03-29 20:11:12
@@ -20,7 +20,7 @@
     [status]="project.status"
     [isOpen]="project.id == projectId"
     other="assign project"
-    (onOpen)="command.getProject(project.id)"
+    (onOpen)="getTasks(project.id)"
     [depth]="0">
 <app-collapse *ngFor="let task of project.tasks"
       [label]="task.name"
@@ -31,7 +31,7 @@
       [version]="task.id"
       level="normal"
       other="assign task"
-      (onOpen)="command.getTask(task.id)"
+      (onOpen)="getTickets(task.id)"
       [depth]="0">
 
 <app-collapse *ngFor="let ticket of task.tickets"

@@ -5,7 +5,7 @@
  * @LastEditDate          : 2023-03-29 20:31:46                              *
  ****************************************************************************/
 
-import { Component, EventEmitter, Output, Input } from '@angular/core';
+import { Component, EventEmitter, Output, Input, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { ApiService } from 'src/app/services/api/api.service';
 import { CommandService } from 'src/app/services/command/command.service';
@@ -16,86 +16,18 @@ import {
   TaskInterface,
   TicketInterface
 } from 'src/app/services/project-list/project-list.service';
+import { UserService } from 'src/app/services/user/user.service';
 
 @Component({
   selector: 'app-assign',
   templateUrl: './assign.component.html',
   styleUrls: ['./assign.component.scss']
 })
-export class AssignComponent {
+export class AssignComponent implements OnInit {
 
   constructor(private router: Router,
               public command: CommandService) {
-    this.projects = [{
-      name: "Cooking app",
-      description: "test",
-      id: "2ECNC-Lr",
-      status: "progress",
-      created: "Quentin",
-      actualVersion: "0.1.0",
-      versionList: [ { id:"0", name: "0.1.0", projectId: "S_LA65br" }, ],
-      comments: [],
-      owner: {email: "", name: "", id: "", validate: true },
-      assignments: [],
-      tasks: [{
-        name: "Cooking app",
-        description: "test",
-        id: "ZemPMIsh",
-        projectId: "",
-        status: "progress",
-        level: "normal",
-        created: "Quentin",
-        targetVersion: { id:"0", name: "0.1.0", projectId: "S_LA65br" },
-        comments: [],
-        owner: {email: "", name: "", id: "", validate: true },
-        assignments: [],
-        tickets: [{
-          name: "Cooking app",
-          description: "test",
-          id: "d348dq8",
-          projectId: "",
-          taskId: "",
-          status: "progress",
-          level: "normal",
-          created: "Quentin",
-          targetVersion: { id:"0", name: "0.1.0", projectId: "S_LA65br" },
-          comments: [],
-          owner: {email: "", name: "", id: "", validate: true },
-          assignments: [],
-        }]
-      }]
-    },
-    {
-      name: "Cooking app",
-      description: "test",
-      id: "S_LA65br",
-      status: "progress",
-      created: "Quentin",
-      actualVersion: "0.1.0",
-      versionList: [ { id:"0", name: "0.1.0", projectId: "S_LA65br" }, ],
-      comments: [],
-      owner: {email: "", name: "", id: "", validate: true },
-      assignments: [],
-      tasks: [{
-        name: "Cooking app",
-        description: "test",
-        id: "ZemPMIsh",
-        projectId: "",
-        status: "progress",
-        level: "normal",
-        created: "Quentin",
-        targetVersion: { id:"0", name: "0.1.0", projectId: "S_LA65br" },
-        comments: [],
-        owner: {email: "", name: "", id: "", validate: true },
-        assignments: [],
-        tickets: []
-      }]
-    }]
   }
-  ngOnInit() {
-
-  }
-
   public projectId: string = "";
   public taskId: string = "";
   public ticketId: string = "";
@@ -103,12 +35,16 @@ export class AssignComponent {
   public projects = new Array<ProjectInterface>;
   public open: boolean = false;
 
-  @Input() isOpen: boolean = false;
-
-  @Output() onOpen: EventEmitter<void> = new EventEmitter<void>;
-
   public showCollapse: boolean = false;
   public isInit: boolean = false;
+
+  @Input() isOpen: boolean = false;
+  @Output() onOpen: EventEmitter<void> = new EventEmitter<void>;
+
+  async ngOnInit() {
+    this.projects = await this.command.getMyProject()
+      console.log("this.projects", this.projects);
+  }
 
   /**
   * @name toggleCollapse
@@ -138,6 +74,36 @@ export class AssignComponent {
   }
   /***/
 
+  public getTasks(projectId: string) {
+    console.log("projectId", projectId);
+    this.command.getMyTask(projectId)
+    .then((tasks: Array<TaskInterface>) => {
+      if (tasks.length > 0)
+        for (let i = 0; i < this.projects.length; i++) {
+          if (this.projects[i].id == projectId) {
+            this.projects[i].tasks = tasks
+            return
+          }
+        }
+    })
+  }
 
+  public getTickets(taskId: string) {
+    this.command.getMyTicket(taskId)
+    .then((tickets: Array<TicketInterface>) => {
+      if (tickets.length > 0)
+        for (let i = 0; i < this.projects.length; i++) {
+          if (this.projects[i].tasks) {
+            let tasks = this.projects[i].tasks;
+            for (let j = 0; j < tasks.length; j++) {
+              if (tasks[j].id == taskId) {
+                tasks[j].tickets = tickets
+                return
+              }
+            }
+          }
+        }
+    })
+  }
 }
 

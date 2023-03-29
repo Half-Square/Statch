@@ -1,8 +1,8 @@
 /******************************************************************************
- * @Author                : AdrienLanco0<adrienlanco0@gmail.com>              *
+ * @Author                : Adrien Lanco<adrienlanco0@gmail.com>              *
  * @CreatedDate           : 2023-02-21 14:22:05                               *
- * @LastEditors           : AdrienLanco0<adrienlanco0@gmail.com>              *
- * @LastEditDate          : 2023-03-27 16:06:43                               *
+ * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>              *
+ * @LastEditDate          : 2023-03-29 17:37:28                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -82,7 +82,7 @@ export class TicketsController {
             }
           },
           comments: {
-            include: {author: true}
+            include: {author: true}, orderBy: { created: 'asc'},
           },
           owner: true,
           assignments: {
@@ -136,14 +136,14 @@ export class TicketsController {
             }
           },
           comments: {
-            include: {author: true}
+            include: {author: true}, orderBy: { created: 'asc'},
           },
           owner: true,
           assignments: {
             include: {user: true}
           }
         }
-      });
+      })
       return new ticketsDto.DetailsOutput(res);
     } catch (err) {
       console.error(`${new Date().toISOString()} - ${err}`);
@@ -215,7 +215,7 @@ export class TicketsController {
           },
           targetVersion: true,
           comments: {
-            include: {author: true}
+            include: {author: true}, orderBy: { created: 'asc'},
           },
           owner: true,
           assignments: {
