@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : AdrienLanco0<adrienlanco0@gmail.com>             *
+ * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
  * @CreatedDate           : 2023-03-17 15:22:52                              *
- * @LastEditors           : AdrienLanco0<adrienlanco0@gmail.com>             *
- * @LastEditDate          : 2023-03-28 16:42:04                              *
+ * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
+ * @LastEditDate          : 2023-03-30 10:24:35                              *
  ****************************************************************************/
 
 import { Injectable } from '@angular/core';
@@ -14,6 +14,7 @@ export interface UserInterface {
   "email": string;
   "token"?: string;
   "validate": boolean;
+  "isAdmin": boolean;
 }
 
 

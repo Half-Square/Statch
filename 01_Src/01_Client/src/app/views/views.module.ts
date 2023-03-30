@@ -21,6 +21,8 @@ import { TicketComponent } from './ticket/ticket.component';
 
 import { DirectivesModule } from '../directives/directives.module';
 import { AssignComponent } from './assign/assign.component';
+import { AdminComponent } from './admin/admin.component';
+import { AdminUsersComponent } from './admin/admin-users/admin-users.component';
 
 
 
@@ -33,7 +35,9 @@ import { AssignComponent } from './assign/assign.component';
     ProjectComponent,
     TaskComponent,
     TicketComponent,
-    AssignComponent
+    AssignComponent,
+    AdminComponent,
+    AdminUsersComponent
   ],
   imports: [
     CommonModule,

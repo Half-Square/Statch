@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : AdrienLanco0<adrienlanco0@gmail.com>             *
+ * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
  * @CreatedDate           : 2023-03-17 14:25:08                              *
- * @LastEditors           : AdrienLanco0<adrienlanco0@gmail.com>             *
- * @LastEditDate          : 2023-03-28 16:37:22                              *
+ * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
+ * @LastEditDate          : 2023-03-30 10:24:29                              *
  ****************************************************************************/
 
 import { Injectable } from '@angular/core';
@@ -185,7 +185,7 @@ export class ProjectListService {
               if (task.tickets)
                 task.tickets.forEach(ticket => {
                   if (ticket.id == newTicket.id) {
-                    ticket = Object.assign(ticket, newTicket);;
+                    ticket = Object.assign(ticket, newTicket);
                     changed = true;
                   }
                 });
@@ -388,6 +388,7 @@ export interface UsersInterface {
   name: string,
   id: string,
   validate: boolean
+  isAdmin: boolean;
 }
 
 export interface CommentInterface {

@@ -79,6 +79,8 @@ export class ApiService {
           let api_url = ConfigService.get("API_URL");
           let token = UserService.isConnected() ? UserService.getUser().token : "";
 
+          console.log(token);
+
           let requestHeaders: HeadersInit = new Headers();
           requestHeaders.set('Content-Type', 'application/json');
           if (token)
