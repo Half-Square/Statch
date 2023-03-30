@@ -10,7 +10,7 @@
   <h3 align="center">Statch</h3>
 
   <p align="center">
-Welcome to the Statch Project Manager! This project is a project management tool built with VueJS and Typescript for the front end, NodeJS and NestJS for the back end, and MongoDB for the database.
+Welcome to the Statch Project Manager! This project is a project management tool built with Angular and Typescript for the front end, NodeJS, NestJS and Prisma for the back end, and SQLite for the database.
     <br />
     <a href="https://github.com/Half-Square/Statch/issues">Report Bug</a>
     ·
@@ -70,8 +70,8 @@ This section should list any major frameworks/libraries used to bootstrap your p
 * [Typescript](https://www.typescriptlang.org/ "Typescript") - A typed superset of JavaScript that compiles to plain JavaScript
 * [NodeJS](https://nodejs.org/en/ "NodeJS") - A JavaScript runtime built on Chrome's V8 JavaScript engine
 * [NestJS](https://nestjs.com/ "NestJS") - A progressive Node.js framework for building efficient, scalable, and enterprise-grade server-side applications
-* [Mysql](https://www.mysql.com/downloads/ "Mysql") - 
-* [Prisma](https://www.prisma.io/ "Prisma") - 
+* [SQLite](https://www.sqlite.org/download.html "SQLite") - SQLite is a C-language library that implements a small, fast, self-contained, high-reliability, full-featured, SQL database engine.
+* [Prisma](https://www.prisma.io/ "Prisma") - Prisma Client is a query builder that’s tailored to your schema. We designed its API to be intuitive, both for SQL veterans and developers brand new to databases.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -85,7 +85,7 @@ This section should list any major frameworks/libraries used to bootstrap your p
 To get started with the Statch, you'll need to have the following software installed on your machine:
 
 * [NodeJS 18.12.1](https://nodejs.org/en/download/releases/ "NodeJS")
-* [Mysql 8.0.27](https://www.mysql.com/downloads/ "Mysql")
+* [SQLite](https://www.sqlite.org/download.html "SQLite")
 * [Prisma CLI 4.9.0](https://www.prisma.io/ "Prisma")
 * [NestJS CLI 9.1.9](https://nestjs.com/ "NestJS") 
 
