@@ -1,0 +1,24 @@
+.assignees {
+  display: flex;
+  align-items: center;
+
+  .assignee {
+    display: flex;
+    gap: 8px;
+  }
+
+  .over {
+    display: flex;
+    align-items: center;
+  }
+
+  .over .assignee:last-child {
+    transform: translateX(-8px);
+    border: 2px solid rgba(34, 34, 34, 1);
+    border-radius: 99px;
+  }
+
+  .other {
+    transform: translateX(-4px);
+  }
+}

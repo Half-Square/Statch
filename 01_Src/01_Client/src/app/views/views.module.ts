@@ -2,7 +2,7 @@
  * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
  * @CreatedDate           : 2023-03-17 11:51:44                              *
  * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
- * @LastEditDate          : 2023-03-29 17:02:55                              *
+ * @LastEditDate          : 2023-03-30 10:57:08                              *
  ****************************************************************************/
 
 import { NgModule } from '@angular/core';
@@ -24,8 +24,7 @@ import { AssignComponent } from './assign/assign.component';
 import { AdminComponent } from './admin/admin.component';
 import { AdminUsersComponent } from './admin/admin-users/admin-users.component';
 
-
-
+import { PipeModule } from '../pipe/pipe.module';
 
 @NgModule({
   declarations: [
@@ -42,10 +41,10 @@ import { AdminUsersComponent } from './admin/admin-users/admin-users.component';
   imports: [
     CommonModule,
     FormsModule,
-
     DirectivesModule,
     ComponentsModule,
-    CompositionsModule
+    CompositionsModule,
+    PipeModule
   ],
   exports: [
     LoginComponent,

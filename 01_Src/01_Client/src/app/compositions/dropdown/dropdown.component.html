@@ -1,25 +1,25 @@
 <!--
-* @Author                : Adrien Lanco<adrienlanco0@gmail.com>
+* @Author                : 0K00<qdouvillez@gmail.com>
 * @CreatedDate           : 2023-03-25 14:41:00
-* @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>
-* @LastEditDate          : 2023-03-29 12:29:54
+* @LastEditors           : 0K00<qdouvillez@gmail.com>
+* @LastEditDate          : 2023-03-29 19:09:00
 -->
 
 <div class="dropdown">
   <div class="control" (click)="toggleDropdown()">
     <ng-container *ngIf="values.length == 0 || !values[0].text">
-      {{ placeholder }}
+      <div class="ellipsis">{{ placeholder | capFL }}</div>
     </ng-container>
     <ng-container *ngIf="values.length < 3">
       <div class="selected" *ngFor="let option of values">
         <i *ngIf="option.icon" class="{{'icon ' + option.icon}}"></i>
-        {{ option.text }}
+        <div class="ellipsis">{{ option.text | capFL }}</div>
       </div>
     </ng-container>
     <ng-container *ngIf="values.length > 2">
       <div class="selected">
         <i *ngIf="values[values.length - 1].icon" class="{{'icon ' + values[values.length - 1].icon}}"></i>
-        {{ values[values.length - 1].text }} + {{ values.length - 1 }} others
+        <div class="ellipsis">{{ values[values.length - 1].text | capFL }} + {{ values.length - 1 }} others</div>
       </div>
     </ng-container>
     <div class="chevron">
@@ -32,7 +32,7 @@
         <ng-container *ngIf="!searchText && filteredOptions.length == 0">
           <div class="option" *ngFor="let option of options" (click)="selectOption(option)" [class.selected]="values.indexOf(option) !== -1">
             <i *ngIf="option.icon" class="{{'icon ' + option.icon}}"></i>
-            {{ option.text }}
+            {{ option.text | capFL }}
           </div>
         </ng-container>
         <ng-container *ngIf="searchText && filteredOptions.length == 0 && !autoAdd">
@@ -47,7 +47,7 @@
         </ng-container>
         <div class="option" *ngFor="let option of filteredOptions" (click)="selectOption(option)" [class.selected]="values.indexOf(option) !== -1">
           <i *ngIf="option.icon" class="{{'icon ' + option.icon}}"></i>
-          {{ option.text }}
+          {{ option.text | capFL }}
         </div>
       </div>
       <div *ngIf="multi">
@@ -58,7 +58,7 @@
           <div class="option multi" *ngFor="let option of values" (click)="toggleSelectedOption(option)" [class.selected]="values.indexOf(option) !== -1">
             <div class="label">
               <i *ngIf="option.icon" class="{{'icon ' + option.icon}}"></i>
-              {{ option.text }}
+              {{ option.text | capFL }}
             </div>
             <i class="icon" [class.checked]="values.indexOf(option) !== -1" [ngClass]="values.indexOf(option) !== -1 ? 'minus' : 'plus' "></i>
           </div>
@@ -67,7 +67,7 @@
           <div class="option multi" *ngFor="let option of options" (click)="toggleSelectedOption(option)" [class.selectedInvisible]="values.indexOf(option) !== -1">
             <div class="label">
               <i *ngIf="option.icon" class="{{'icon ' + option.icon}}"></i>
-              {{ option.text }}
+              {{ option.text | capFL }}
             </div>
             <i class="icon" [class.checked]="values.indexOf(option) !== -1" [ngClass]="values.indexOf(option) !== -1 ? 'minus' : 'plus' "></i>
           </div>
@@ -93,7 +93,7 @@
           <div class="option multi" *ngFor="let option of filteredOptions" (click)="toggleSelectedOption(option)" [class.selected]="values.indexOf(option) !== -1">
             <div class="label">
               <i *ngIf="option.icon" class="{{'icon ' + option.icon}}"></i>
-              {{ option.text }}
+              {{ option.text | capFL }}
             </div>
             <i class="icon" [class.checked]="values.indexOf(option) !== -1" [ngClass]="values.indexOf(option) !== -1 ? 'minus' : 'plus' "></i>
           </div>
@@ -101,9 +101,9 @@
       </div>
     </div>
 
-    <ng-container>
+    <div class="ngContent">
       <ng-content></ng-content>
-    </ng-container>
+    </div>
 
       <app-input *ngIf="search" [(value)]="searchText" (valueChange)="searchTextChange.emit(searchText)"
                   type="scnd" (input)="filterOptions()" [placeholder]="autoAdd ? 'Search / Add' : 'Search...'"></app-input>

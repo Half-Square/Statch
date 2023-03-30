@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : AdrienLanco0<adrienlanco0@gmail.com>             *
+ * @Author                : 0K00<qdouvillez@gmail.com>                       *
  * @CreatedDate           : 2023-03-17 16:07:54                              *
- * @LastEditors           : AdrienLanco0<adrienlanco0@gmail.com>             *
- * @LastEditDate          : 2023-03-28 12:12:38                              *
+ * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
+ * @LastEditDate          : 2023-03-29 20:25:17                              *
  ****************************************************************************/
 
 import { Component, OnInit } from '@angular/core';
@@ -25,11 +25,11 @@ import { CommandService } from './services/command/command.service';
   animations: [
     trigger('slide', [
       transition(':enter', [
-        style({ opacity: 0, marginLeft: '-248px' }),
+        style({ opacity: 1, marginLeft: '-248px' }),
         animate('0.3s ease-in', style({ opacity: 1, marginLeft: '0' })),
       ]),
       transition(':leave', [
-        animate('0.3s ease-in', style({ opacity: 0, marginLeft: '-248px'  }))
+        animate('0.3s ease-in', style({ opacity: 1, marginLeft: '-248px'  }))
       ])
     ])
   ]

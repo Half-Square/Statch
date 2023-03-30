@@ -2,13 +2,13 @@
 * @Author                : 0K00<qdouvillez@gmail.com>
 * @CreatedDate           : 2023-03-17 11:57:00
 * @LastEditors           : 0K00<qdouvillez@gmail.com>
-* @LastEditDate          : 2023-03-25 17:28:57
+* @LastEditDate          : 2023-03-29 17:01:27
 -->
 
 <div class="comment">
   <div class="img">
     <app-avatar [userId]="userId" [imgPath]="imgPath" [alt]="name + 'photo'" [userName]="name"></app-avatar>
   </div>
-  <div class="info">{{ name }} {{ lastName }}, {{ created }} ago</div>
+  <div class="info">{{ name }} {{ lastName }}, {{ created | dateDifference }}</div>
   <div class="content">{{ content }}</div>
 </div>
