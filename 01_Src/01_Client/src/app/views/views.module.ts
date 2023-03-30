@@ -2,7 +2,7 @@
  * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
  * @CreatedDate           : 2023-03-17 11:51:44                              *
  * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
- * @LastEditDate          : 2023-03-21 15:13:13                              *
+ * @LastEditDate          : 2023-03-30 10:57:08                              *
  ****************************************************************************/
 
 import { NgModule } from '@angular/core';
@@ -20,8 +20,11 @@ import { TaskComponent } from './task/task.component';
 import { TicketComponent } from './ticket/ticket.component';
 
 import { DirectivesModule } from '../directives/directives.module';
+import { AssignComponent } from './assign/assign.component';
+import { AdminComponent } from './admin/admin.component';
+import { AdminUsersComponent } from './admin/admin-users/admin-users.component';
 
-
+import { PipeModule } from '../pipe/pipe.module';
 
 @NgModule({
   declarations: [
@@ -30,15 +33,18 @@ import { DirectivesModule } from '../directives/directives.module';
     ProjectsComponent,
     ProjectComponent,
     TaskComponent,
-    TicketComponent
+    TicketComponent,
+    AssignComponent,
+    AdminComponent,
+    AdminUsersComponent
   ],
   imports: [
     CommonModule,
     FormsModule,
-
     DirectivesModule,
     ComponentsModule,
-    CompositionsModule
+    CompositionsModule,
+    PipeModule
   ],
   exports: [
     LoginComponent,
@@ -46,7 +52,8 @@ import { DirectivesModule } from '../directives/directives.module';
     ProjectsComponent,
     ProjectComponent,
     TaskComponent,
-    TicketComponent
+    TicketComponent,
+    AssignComponent
   ],
 })
 export class ViewsModule { }

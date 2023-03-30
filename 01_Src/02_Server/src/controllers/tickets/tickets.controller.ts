@@ -2,7 +2,7 @@
  * @Author                : Adrien Lanco<adrienlanco0@gmail.com>              *
  * @CreatedDate           : 2023-02-21 14:22:05                               *
  * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>              *
- * @LastEditDate          : 2023-03-18 15:08:43                               *
+ * @LastEditDate          : 2023-03-30 12:50:19                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -43,7 +43,7 @@ import * as ticketsDto from "../../dto/tickets.dto";
 import { ConnectedGuard } from "../../guards/connected/connected.guard";
 /***/
 
-@Controller("")
+@Controller("api")
 @UseGuards(ConnectedGuard)
 export class TicketsController {
   constructor(private prisma: PrismaService) {}
@@ -70,13 +70,20 @@ export class TicketsController {
    * @returns - Ticket's details
    */
   @Get("tickets/:id")
+  
   async getOne(@Param("id") id: string): Promise<ticketsDto.DetailsOutput> {
     try {
       let res = await this.prisma.ticket.findUnique({
         where: {id: id},
         include: {
+          targetVersion: true,
+          task: {
+            select: {
+              projectId: true
+            }
+          },
           comments: {
-            include: {author: true}
+            include: {author: true}, orderBy: { created: 'asc'},
           },
           owner: true,
           assignments: {
@@ -110,7 +117,11 @@ export class TicketsController {
         data: {
           name: body.name,
           status: body.status,
+          level: body.level,
           description: body.description,
+          targetVersion: body.targetVersion ?{
+            connect: { id: body.targetVersion.id }
+          } : {},
           assignments: {
             deleteMany: {},
             create: body.assignments.map((el) => {
@@ -119,15 +130,21 @@ export class TicketsController {
           }
         },
         include: {
+          targetVersion: true,
+          task: {
+            select: {
+              projectId: true
+            }
+          },
           comments: {
-            include: {author: true}
+            include: {author: true}, orderBy: { created: 'asc'},
           },
           owner: true,
           assignments: {
             include: {user: true}
           }
         }
-      });
+      })
       return new ticketsDto.DetailsOutput(res);
     } catch (err) {
       console.error(`${new Date().toISOString()} - ${err}`);
@@ -148,7 +165,14 @@ export class TicketsController {
     try {
       let res = await this.prisma.ticket.findMany({
         where: {taskId: id},
-        include: {owner: true}
+        include: {
+          task: {
+            select: {
+              projectId: true
+            }
+          },
+          owner: true
+        }
       });
       return res.map((el) => new ticketsDto.PublicOutput(el));
     } catch (err) {
@@ -185,8 +209,14 @@ export class TicketsController {
           }
         },
         include: {
+          task: {
+            select: {
+              projectId: true
+            }
+          },
+          targetVersion: true,
           comments: {
-            include: {author: true}
+            include: {author: true}, orderBy: { created: 'asc'},
           },
           owner: true,
           assignments: {

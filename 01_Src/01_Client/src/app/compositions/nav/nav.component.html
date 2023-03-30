@@ -2,27 +2,27 @@
 * @Author                : Adrien Lanco<adrienlanco0@gmail.com>
 * @CreatedDate           : 2023-03-17 14:41:00
 * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>
-* @LastEditDate          : 2023-03-21 21:03:58
+* @LastEditDate          : 2023-03-30 11:22:54
 -->
 
 <div id="nav">
   <a href="/projects"><header>Half Square</header></a>
   <nav>
     <app-button id="goProjects" type="trd" size="l"
-                icon="dashboard" icon-position="only"
-                routerLink="/projects"/>
+                icon="dashboard" iconPosition="only"
+                routerLink="/projects" />
     <app-button id="goActivity" type="trd" size="l"
-                icon="bell" icon-position="only"
+                icon="bell" iconPosition="only"
                 routerLink="/activity" />
     <app-button id="add" type="trd" size="l"
-                icon="plus" icon-position="only"
-                routerLink="/add"  />
+                icon="plus" iconPosition="only"
+                (click)="openNew()"  />
     <app-button id="goFollow" type="trd" size="l"
-                icon="flag" icon-position="only"
-                routerLink="/follow"  />
+                icon="flag" iconPosition="only"
+                routerLink="/assign"  />
     <app-button id="goSetting" type="trd" size="l"
-                icon="gear" icon-position="only"
-                [routerLink]="['/settings']"  />
+                icon="box" iconPosition="only"
+                [routerLink]="['/extension']"  />
   </nav>
   <div class="menu">
 
@@ -32,23 +32,25 @@
                   [type]="'project'"
                   [status]="project.status"
                   [isOpen]="project.id == projectId"
+                  [isActive]="project.id == projectId && !taskId && !ticketId"
                   (onOpen)="command.getProject(project.id)"
-                  [depth]="1">
+                  [depth]="0">
       <app-collapse *ngFor="let task of project.tasks"
                     [label]="task.name"
                     [id]="task.id"
                     [type]="'task'"
                     [status]="task.status"
                     [isOpen]="task.id == taskId"
+                    [isActive]="task.id == taskId && !ticketId"
                     (onOpen)="command.getTask(task.id)"
-                    [depth]="2">
-
+                    [depth]="1">
         <app-collapse *ngFor="let ticket of task.tickets"
                       [label]="ticket.name"
                       [id]="ticket.id"
                       [type]="'ticket'"
                       [status]="ticket.status"
                       [noContent]="true"
+                      [isActive]="ticket.id == ticketId"
                       [depth]="3">
         </app-collapse>
       </app-collapse>

@@ -2,13 +2,14 @@
  * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
  * @CreatedDate           : 2023-03-17 22:34:38                              *
  * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
- * @LastEditDate          : 2023-03-21 20:27:13                              *
+ * @LastEditDate          : 2023-03-30 11:19:03                              *
  ****************************************************************************/
 
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApiService } from '../api/api.service';
-import { ProjectInterface, ProjectListService, TaskInterface, TicketInterface } from '../project-list/project-list.service';
+import { ProjectInterface, ProjectListService, TaskInterface, TicketInterface, UsersInterface } from '../project-list/project-list.service';
+import { UserService } from '../user/user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -206,6 +207,8 @@ export class CommandService {
   * @return (Promise<void>): Resolve on valid PUT project
   */
   public async editProject(project: ProjectInterface): Promise<void> {
+    console.log("heresdf ", project);
+
     return new Promise<void>((resolve, reject) => {
       this.api.request("PUT", "projects/"+project.id, project)
       .then((ret: any) => {
@@ -317,7 +320,6 @@ export class CommandService {
     *        then remove it from the project list
     *        and redirect to the ticket task page
     *
-    * @param projectId: TO DO back add projectId to ticket
     * @param ticket (TicketInterface): ticket to delete
     *
     * @return (Promise<void>): Resolve on valid DELETE ticket
@@ -326,7 +328,7 @@ export class CommandService {
       return new Promise<void>((resolve, reject) => {
         this.api.request("DELETE", "tickets/"+ticket.id, {})
         .then((ret: any) => {
-          ProjectListService.removeTicket(ticket.taskId, ticket.id);
+          ProjectListService.removeTicket(ticket.projectId, ticket.taskId, ticket.id);
           this.router.navigate(["/task/", ticket.taskId ])
         }).catch((error: any) => {
           console.error("New project 2 error >> "+error)
@@ -334,4 +336,65 @@ export class CommandService {
       })
     }
     /***/
+
+
+    public async assignMySelf(type: string, data: ProjectInterface | TaskInterface | TicketInterface) {
+      return new Promise<void>(async (resolve, reject) => {
+        let user = UserService.getUser();
+        let toPush = structuredClone(user)
+        delete toPush.token
+        if (!data.assignments) data.assignments = []
+        data.assignments.push(toPush)
+        try {
+          if (type == "project" && data) await this.editProject(data as ProjectInterface);
+          if (type == "task" && data) await this.editTask(data as TaskInterface);
+          if (type == "ticket" && data) await this.editTicket(data as TicketInterface);
+          return resolve()
+        } catch(error: any) {
+          console.error("assignMySelf error >> "+error)
+          return reject()
+        }
+      });
+    }
+
+    public async getMyProject(): Promise<any> {
+      return new Promise<any>((resolve, reject) => {
+        let user = UserService.getUser();
+        this.api.request("GET", "users/"+user.id+"/project")
+        .then((ret: any) => {
+          return resolve(ret)
+        }).catch((error: any) => {
+          console.error("getMyProject error >> "+error)
+          return reject()
+        })
+      });
+    }
+
+    public async getMyTask(projectId: string): Promise<any> {
+      return new Promise<any>((resolve, reject) => {
+        let user = UserService.getUser();
+        this.api.request("GET", "users/"+user.id+"/task/"+projectId, {})
+        .then((ret: any) => {
+          console.log("sdf", ret);
+
+          return resolve(ret)
+        }).catch((error: any) => {
+          console.error("getMyTask error >> "+error)
+          return reject()
+        })
+      });
+    }
+
+    public async getMyTicket(taskId: string): Promise<any> {
+      return new Promise<any>((resolve, reject) => {
+        let user = UserService.getUser();
+        this.api.request("GET", "users/"+user.id+"/ticket/"+taskId, {})
+        .then((ret: any) => {
+          return resolve(ret)
+        }).catch((error: any) => {
+          console.error("getMyTicket error >> "+error)
+          return reject()
+        })
+      });
+    }
 }

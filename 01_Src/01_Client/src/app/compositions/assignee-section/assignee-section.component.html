@@ -1,0 +1,29 @@
+<!--
+* @Author                : Adrien Lanco<adrienlanco0@gmail.com>
+* @CreatedDate           : 2023-03-28 16:17:00
+* @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>
+* @LastEditDate          : 2023-03-30 11:07:23
+-->
+
+<div class="assignees">
+  <ng-container *ngIf="assignees && (assignees.length < 1 || assignees.length == 1)" >
+    <div class="assignee" *ngFor="let assignee of assignees">
+      <app-avatar [userName]="assignee.name" />
+      <p>{{assignee.name}}</p>
+    </div>
+  </ng-container>
+
+  <div class="over" *ngIf="assignees && assignees.length > 1">
+    <div class="assignee" *ngFor="let assignee of assignees | slice:0:2;">
+      <app-avatar [userName]="assignee.name" />
+    </div>
+  </div>
+  <div class="assignee other" *ngIf="assignees && assignees.length > 2">
+    <p>{{assignees.length - 2}} {{ assignees.length - 2 > 1 ? "others" : "other"}}</p>
+  </div>
+
+  <div *ngIf="!isAssignee">
+    <app-button id="assign" type="trd" size="sm" icon="plus" iconPosition="only" (click)="assignMySelf()"></app-button>
+  </div>
+</div>
+

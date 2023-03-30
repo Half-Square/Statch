@@ -1,8 +1,8 @@
 /******************************************************************************
- * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
+ * @Author                : AdrienLanco0<adrienlanco0@gmail.com>              *
  * @CreatedDate           : 2023-02-21 14:16:22                               *
- * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-03-02 15:41:19                               *
+ * @LastEditors           : AdrienLanco0<adrienlanco0@gmail.com>              *
+ * @LastEditDate          : 2023-03-28 12:26:35                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -23,6 +23,7 @@ import * as commentsDto from "./comments.dto";
 
 /* Dto */
 import * as usersDto from "../dto/users.dto";
+import * as versionsDto from "../dto/users.dto";
 /***/
 
 /**
@@ -46,9 +47,14 @@ class UpdateInput {
     name: string;
 
   @IsString()
-  @IsIn(["new", "done", "reject", "progress"])
+  @IsIn(["new", "done", "reject", "progress", "wait"])
   @IsOptional()
     status: string;
+
+  @IsString()
+  @IsIn(["low", "normal", "moderate", "high"])
+  @IsOptional()
+    level: string;
 
   @IsString()
   @IsOptional()
@@ -56,6 +62,10 @@ class UpdateInput {
 
   @IsArray()
     assignments: usersDto.PublicOutput[];
+
+  @IsObject()
+  @IsOptional()
+    targetVersion: versionsDto.PublicOutput;
 }
 /***/
 
@@ -73,8 +83,12 @@ class PublicOutput {
     description: string;
 
   @IsString()
-  @IsIn(["new", "done", "reject", "progress"])
+  @IsIn(["new", "done", "reject", "progress", "wait"])
     status: string;
+
+  @IsString()
+  @IsIn(["low", "normal", "moderate", "high"])
+    level: string;
 
   @IsString()
     projectId: string;
@@ -85,15 +99,20 @@ class PublicOutput {
   @IsObject()
     owner: usersDto.PublicOutput;
 
+  @IsObject()
+    targetVersion: versionsDto.PublicOutput;
+
   constructor(data) {
     if (data) {
       this.id = data.id;
       this.name = data.name;
       this.description = data.description;
       this.status = data.status;
+      this.level = data.level;
       this.projectId = data.projectId;
       this.created = data.created;
       this.owner = new usersDto.PublicOutput(data.owner);
+      this.targetVersion = new versionsDto.PublicOutput(data.targetVersion);
     }
   }
 }
@@ -113,8 +132,12 @@ class DetailsOutput {
     description: string;
 
   @IsString()
-  @IsIn(["new", "done", "reject", "progress"])
+  @IsIn(["new", "done", "reject", "progress", "wait"])
     status: string;
+
+  @IsString()
+  @IsIn(["low", "normal", "moderate", "high"])
+    level: string;
 
   @IsString()
     created: Date;
@@ -132,10 +155,13 @@ class DetailsOutput {
     owner: usersDto.PublicOutput;
 
   @IsArray()
-    assignments: usersDto.PublicOutput[];
+    assignments: usersDto.PublicOutput;
 
   @IsNumber()
     progress: number;
+    
+  @IsObject()
+    targetVersion: versionsDto.PublicOutput;
 
   constructor(data) {
     if (data) {
@@ -144,6 +170,7 @@ class DetailsOutput {
       this.description = data.description;
       this.created = data.created;
       this.status = data.status;
+      this.level = data.level;
       this.projectId = data.projectId;
       this.owner = new usersDto.PublicOutput(data.owner);
       this.assignments = data.assignments.map((el) => {
@@ -151,13 +178,18 @@ class DetailsOutput {
       });
 
       if (data.tickets) {
-        this.tickets = data.tickets.map((el) => new ticketsDto.PublicOutput(el));
+        this.tickets = data.tickets.map((el) => {
+          el.task = { projectId: data.projectId }
+          return new ticketsDto.PublicOutput(el)
+        });
       }
 
       if (data.comments) {
         this.comments  = data.comments.map((el) => new commentsDto.PublicOutput(el));
       }
-
+      
+      this.targetVersion = new versionsDto.PublicOutput(data.targetVersion);
+      
       this.progress =  Math.floor(this.tickets.filter((el) => el.status === "done").length * 100 / this.tickets.length) || 0;
     }
   }

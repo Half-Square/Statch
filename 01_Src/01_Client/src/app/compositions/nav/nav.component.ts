@@ -2,7 +2,7 @@
  * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
  * @CreatedDate           : 2023-03-17 14:41:39                              *
  * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
- * @LastEditDate          : 2023-03-21 20:04:35                              *
+ * @LastEditDate          : 2023-03-29 17:16:31                              *
  ****************************************************************************/
 
 import { Component } from '@angular/core';
@@ -39,6 +39,11 @@ export class NavComponent {
   public taskId: string = "";
   public ticketId: string = "";
 
+  /**
+  * @name initData
+  * @descr Init data from project list service
+  *
+  */
   private initData():void {
     this.url = this.router.url.split("/")
     this.projectList = ProjectListService.projects
@@ -47,7 +52,13 @@ export class NavComponent {
     this.ticketId = ProjectListService.ticketId
     this.getProjects()
   }
+  /***/
 
+  /**
+  * @name subscribeEvent
+  * @descr subscribe to router and Project List events
+  *
+  */
   private subscribeEvent():void {
     this.router.events.subscribe((val: any) => {
       if (val instanceof NavigationEnd) {
@@ -64,7 +75,6 @@ export class NavComponent {
       this.projectId = project.id;
       this.taskId = "";
       this.ticketId = "";
-      this.getProjects()
     })
     ProjectListService.taskChange
     .subscribe((task: TaskInterface) => {
@@ -77,12 +87,28 @@ export class NavComponent {
       this.taskId = ticket.taskId;
       this.ticketId = ticket.id;
     })
+    ProjectListService.actualChange
+    .subscribe(() => {
+      this.getProjects()
+    })
   }
+  /***/
 
+  /**
+  * @name handleNavigation
+  * @descr set url after navigation
+  *
+  */
   private handleNavigation(navEnd: NavigationEnd): void {
     this.url = navEnd.urlAfterRedirects.split("/");
   }
+  /***/
 
+  /**
+  * @name getProjects
+  * @descr set projects as a single or an array of projects from url
+  *
+  */
   private getProjects(): void {
     if ((this.url[1] == 'project' ||
         this.url[1] == 'task' ||
@@ -93,13 +119,29 @@ export class NavComponent {
           this.projects = [ this.projectList[i] ];
         }
       }
-    } else if (this.url[1] == 'projects') {
+    } else {
       this.projects = this.projectList;
       this.projectId = "";
       this.taskId = "";
       this.ticketId = "";
-    } else {
-      this.projects = this.projectList;
     }
-  };
+  }
+  /***/
+
+
+  /**
+  * @name getProjects
+  * @descr set projects as a single or an array of projects from url
+  *
+  */
+  public openNew(): void {
+    if (this.url[1] == 'project' && this.projectId) {
+      this.command.openNewTask(this.projectId)
+    } else if ((this.url[1] == 'task' || this.url[1] == 'ticket') && this.taskId) {
+      this.command.openNewTicket(this.taskId)
+    } else {
+      this.command.openNewProject()
+    }
+  }
+  /***/
 }

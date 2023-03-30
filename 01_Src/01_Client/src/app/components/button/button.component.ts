@@ -1,9 +1,9 @@
-/******************************************************************************
- * @Author                : Adrien Lanco<adrienlanco0@gmail.com>              *
- * @CreatedDate           : 2023-03-17 12:36:56                               *
- * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>              *
- * @LastEditDate          : 2023-03-17 19:11:23                               *
- *****************************************************************************/
+/*****************************************************************************
+ * @Author                : 0K00<qdouvillez@gmail.com>                       *
+ * @CreatedDate           : 2023-03-17 12:36:56                              *
+ * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
+ * @LastEditDate          : 2023-03-29 20:03:31                              *
+ ****************************************************************************/
 
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 
@@ -28,6 +28,6 @@ export class ButtonComponent implements OnInit {
   public classes: string = "";
 
   ngOnInit(): void {
-    this.classes = this.type+" "+this.size+" "+this.other;
+    this.classes = this.type+" "+this.size;
   }
 }

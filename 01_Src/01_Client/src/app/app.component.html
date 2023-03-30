@@ -2,20 +2,14 @@
 * @Author                : Adrien Lanco<adrienlanco0@gmail.com>
 * @CreatedDate           : 2023-03-17 16:16:00
 * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>
-* @LastEditDate          : 2023-03-18 17:24:49
+* @LastEditDate          : 2023-03-29 17:03:07
 -->
 
-<!--
-* @Author                : Adrien Lanco<adrienlanco0@gmail.com>
-* @CreatedDate           : 2023-03-17 11:55:00
-* @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>
-* @LastEditDate          : 2023-03-17 14:50:03
--->
 <div class="sidebar" *ngIf="isConnected()">
     <app-nav @slide *ngIf="show" />
     <aside>
       <app-header>
-        <app-button id='openMenu' type='trd' size='l' (click)='showMenu()' icon='panel' iconPosition='only' [other]="(show)? 'active' : '' " />
+        <app-button id='openMenu' type='trd' size='l' (click)='showMenu()' icon='panel' iconPosition='only' [other]=" show? 'active' : 'test' " />
       </app-header>
       <router-outlet></router-outlet>
     </aside>

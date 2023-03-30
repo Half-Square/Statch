@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : AdrienLanco0<121338518+AdrienLanco0@users.noreply.github.com>*
- * @CreatedDate           : 2023-03-17 11:38:53                              *
- * @LastEditors           : AdrienLanco0<121338518+AdrienLanco0@users.noreply.github.com>*
- * @LastEditDate          : 2023-03-22 11:19:34                              *
+ * @Author                : 0K00<qdouvillez@gmail.com>                       *
+ * @CreatedDate           : 2023-03-24 15:23:08                              *
+ * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
+ * @LastEditDate          : 2023-03-29 16:58:29                              *
  ****************************************************************************/
 
 import { NgModule } from '@angular/core';
@@ -22,6 +22,14 @@ import { CommentsSectionComponent } from './comments-section/comments-section.co
 
 import { DirectivesModule } from '../directives/directives.module';
 
+import { VersionsSectionComponent } from './versions-section/versions-section.component';
+import { StatusLabeledComponent } from './status-labeled/status-labeled.component';
+
+import { DropdownComponent } from './dropdown/dropdown.component';
+import { LevelSectionComponent } from './level-section/level-section.component';
+import { AssigneeSectionComponent } from './assignee-section/assignee-section.component';
+import { PipeModule } from '../pipe/pipe.module';
+
 
 
 @NgModule({
@@ -30,7 +38,12 @@ import { DirectivesModule } from '../directives/directives.module';
     CommentsSectionComponent,
     HeaderComponent,
     NavComponent,
-    SearchBarComponent
+    SearchBarComponent,
+    VersionsSectionComponent,
+    StatusLabeledComponent,
+    DropdownComponent,
+    LevelSectionComponent,
+    AssigneeSectionComponent,
   ],
   imports: [
     CommonModule,
@@ -38,14 +51,20 @@ import { DirectivesModule } from '../directives/directives.module';
     RouterModule,
     FormsModule,
     LayoutsModule,
-    DirectivesModule
+    DirectivesModule,
+    PipeModule
   ],
   exports: [
     CommentComponent,
     CommentsSectionComponent,
     HeaderComponent,
     NavComponent,
-    SearchBarComponent
+    SearchBarComponent,
+    VersionsSectionComponent,
+    StatusLabeledComponent,
+    DropdownComponent,
+    LevelSectionComponent,
+    AssigneeSectionComponent
   ],
 })
 export class CompositionsModule { }

@@ -2,10 +2,8 @@
  * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
  * @CreatedDate           : 2023-02-27 16:25:04                              *
  * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
- * @LastEditDate          : 2023-03-17 12:51:49                              *
+ * @LastEditDate          : 2023-03-30 12:17:14                              *
  ****************************************************************************/
-
- @import '/src/assets/scss/main.scss';
 
  .menu {
      padding: 0.5rem;
@@ -27,19 +25,20 @@
          align-items: center;
          gap: 0.25rem;
          cursor: pointer;
-         padding: 0.25rem;
+         padding: 0.25rem 16px;
          border-radius: 0.5rem;
          font-style: normal;
          font-weight: 400;
          font-size: 16px;
          line-height: 24px;
+         margin-bottom: 4px;
 
          .icons .icon {
              font-size: 24px;
          }
 
          &:hover {
-             background: rgba(41, 41, 41, 1);
+             background: rgba(255, 255, 255, 0.1);
          }
          .link {
              cursor: pointer;
@@ -56,6 +55,97 @@
          }
      }
      .label.active {
-         background: rgba(55, 117, 202, 1);
+         background: rgba(0, 108, 255, 1);
      }
  }
+
+
+.label.assign.project {
+  display: flex;
+  justify-content: space-between;
+  padding: 16px 32px;
+  text-decoration: none;
+  background: rgba(255, 255, 255, 0.08);
+  flex-direction: row-reverse;
+  border-radius: 0;
+  color: rgba(255, 255, 255, 0.96);
+  border-bottom: 1px solid rgb(34 34 34);
+  margin-bottom: 1px;
+
+  .icons .icon {
+    font-size: 16px;
+    color: rgba(255, 255, 255, 0.64);
+  }
+
+  &:hover  {
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  .version {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 24px;
+    color: rgba(116, 122, 116, 1);
+  }
+}
+
+.label.assign.task {
+  display: flex;
+  justify-content: space-between;
+  padding: 16px 32px;
+  text-decoration: none;
+  background: transparent;
+  flex-direction: row-reverse;
+  border-radius: 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.96);
+  margin-bottom: 0;
+
+  .icons .icon {
+    font-size: 16px;
+    color: rgba(255, 255, 255, 0.64);
+  }
+
+  &:hover  {
+    background: transparent;
+  }
+
+  .version {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 24px;
+    color: rgba(116, 122, 116, 1);
+  }
+}
+
+.label.assign.ticket {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 64px;
+  text-decoration: none;
+  background: transparent;
+  border-radius: 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.96);
+  margin-bottom: 0;
+
+  .icons .icon {
+    font-size: 16px;
+    color: rgba(255, 255, 255, 0.64);
+  }
+
+  &:hover  {
+    background: transparent;
+  }
+
+  .version {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 24px;
+    color: rgba(116, 122, 116, 1);
+  }
+}
+

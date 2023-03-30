@@ -2,10 +2,8 @@
  * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
  * @CreatedDate           : 2023-02-23 17:29:16                              *
  * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
- * @LastEditDate          : 2023-03-17 13:32:15                              *
+ * @LastEditDate          : 2023-03-30 12:17:12                              *
  ****************************************************************************/
-
- @import '/src/assets/scss/main.scss';
 
  .prbar {
     display: flex;
@@ -36,7 +34,7 @@
      }
      &-child {
          height: 100%;
-         background: linear-gradient(90deg, #2041A5 0%, #A52088 194.96%);
+         background: rgba(0, 108, 255, 1);
      }
      &-value {
          font-size: 12px;

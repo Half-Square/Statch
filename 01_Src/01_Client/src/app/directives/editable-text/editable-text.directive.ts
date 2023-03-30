@@ -1,9 +1,9 @@
-/******************************************************************************
- * @Author                : Adrien Lanco<adrienlanco0@gmail.com>              *
- * @CreatedDate           : 2023-03-21 15:04:38                               *
- * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>              *
- * @LastEditDate          : 2023-03-21 19:32:26                               *
- *****************************************************************************/
+/*****************************************************************************
+ * @Author                : AdrienLanco0<adrienlanco0@gmail.com>             *
+ * @CreatedDate           : 2023-03-21 15:04:38                              *
+ * @LastEditors           : AdrienLanco0<adrienlanco0@gmail.com>             *
+ * @LastEditDate          : 2023-03-22 14:53:28                              *
+ ****************************************************************************/
 
 import { Directive, Input, Output, EventEmitter, ElementRef, AfterContentChecked, HostListener } from '@angular/core';
 
@@ -29,7 +29,14 @@ export class EditableTextDirective implements AfterContentChecked {
     this.writeValue(this.value);
   }
 
-  writeValue(value: string) {
+  /**
+  * @name writeValue
+  * @descr init content with value
+  *
+  * @param value (String): value to write
+  */
+  public writeValue(value: string): void {
     this.el.nativeElement.textContent = value;
   }
+  /***/
 }

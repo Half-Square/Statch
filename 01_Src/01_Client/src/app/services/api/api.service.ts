@@ -1,13 +1,13 @@
 
-/******************************************************************************
- * @Author                : Adrien Lanco<adrienlanco0@gmail.com>              *
- * @CreatedDate           : 2023-03-02 13:57:55                               *
- * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>              *
- * @LastEditDate          : 2023-03-18 14:27:07                               *
- *****************************************************************************/
+/*****************************************************************************
+ * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
+ * @CreatedDate           : 2023-03-02 13:57:55                              *
+ * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
+ * @LastEditDate          : 2023-03-30 12:03:06                              *
+ ****************************************************************************/
 
 import { Injectable } from '@angular/core';
-import { ConfigService } from '../config/config.service';
+import { environment } from 'src/environments/environment';
 import { UserService } from '../user/user.service';
 
 
@@ -23,6 +23,13 @@ interface ApiError {
 export class ApiService {
 
   constructor() { }
+
+    /**
+    * @name transParams
+    * @descr adding / char beetween params
+    *
+    * @param value (String): merged params
+    */
     private transParams(p: Array<string>): String {
         if (p.length < 1) return "";
         let ret = "/";
@@ -32,7 +39,14 @@ export class ApiService {
         }
         return ret;
     };
+    /***/
 
+    /**
+    * @name transQueries
+    * @descr adding & char beetween queries
+    *
+    * @param value (String): merged queries
+    */
     private transQueries (q: Array<string>): String {
         if (q.length < 1) return "";
 
@@ -43,6 +57,7 @@ export class ApiService {
         }
         return ret;
     };
+    /***/
 
     private redirect() {
         return "hello"
@@ -61,15 +76,20 @@ export class ApiService {
 
     public request(method: string, url: string, data: any = null, params: Array<string> = [], queries: Array<string> = []): Promise<any> {
         return new Promise((resolve, reject) => {
-            let api_url = ConfigService.get("API_URL");
-            let token = UserService.isConnected() ? UserService.getUser().token : "";
-            fetch(api_url+"/"+url+this.transParams(params)+this.transQueries(queries), {
-                method: method,
-                headers: {
-                    'content-type': 'application/json;charset=UTF-8',
-                    'X-Token': token
-                },
-                body: method == "GET" ? null : JSON.stringify(data),
+          let api_url = environment.API_URL;
+          let token = UserService.isConnected() ? UserService.getUser().token : "";
+          console.log(UserService.isConnected());
+          console.log(token, UserService.getUser());
+
+          let requestHeaders: HeadersInit = new Headers();
+          requestHeaders.set('Content-Type', 'application/json');
+          if (token)
+            requestHeaders.set('X-Token', token);
+
+          fetch(api_url+"/"+url+this.transParams(params)+this.transQueries(queries), {
+              method: method,
+              headers: requestHeaders,
+              body: method == "GET" ? null : JSON.stringify(data),
             }).then((res) => {
                 res.json()
                 .then((json) => {

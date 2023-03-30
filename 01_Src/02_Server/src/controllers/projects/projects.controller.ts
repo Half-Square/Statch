@@ -2,7 +2,7 @@
  * @Author                : Adrien Lanco<adrienlanco0@gmail.com>              *
  * @CreatedDate           : 2023-02-21 14:21:24                               *
  * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>              *
- * @LastEditDate          : 2023-03-18 14:55:20                               *
+ * @LastEditDate          : 2023-03-30 12:50:05                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -41,7 +41,7 @@ import * as projectsDto from "../../dto/projects.dto";
 import { ConnectedGuard } from "../../guards/connected/connected.guard";
 /***/
 
-@Controller("projects")
+@Controller("api/projects")
 @UseGuards(ConnectedGuard)
 export class ProjectsController {
   constructor(private prisma: PrismaService) {}
@@ -69,26 +69,31 @@ export class ProjectsController {
    */
   @Get("/:id")
   async getOne(@Param("id") id: string): Promise<projectsDto.DetailsOutput> {
-    try {
-      console.log("getOne Project:", id);
-      
+    try {     
       const res = await this.prisma.project.findUnique({
         where: {
           id: id
         },
         include: {
           comments: {
-            include: {author: true}
+            include: {author: true}, orderBy: { created: 'asc'},
           },
+          versionList: true,
           tasks: {
-            include: {owner: true}
+            orderBy: {
+              targetVersion: { name: "desc" }
+            },
+            include: {
+              owner: true,
+              targetVersion: true
+            }
           },
           owner: true,
           assignments: {
             include: {user: true}
           }
         }
-      });
+      });      
       if (res) return new projectsDto.DetailsOutput(res);
       else throw new HttpException("Not Found", HttpStatus.NOT_FOUND);
     } catch (err) {
@@ -117,7 +122,7 @@ export class ProjectsController {
         data: {
           name: body.name,
           status: body.status,
-          version: body.version,
+          actualVersion: body.actualVersion,
           description: body.description,
           assignments: {
             deleteMany: {},
@@ -127,11 +132,18 @@ export class ProjectsController {
           }
         },
         include: {
+          versionList: true,
           tasks: {
-            include: {owner: true}
+            orderBy: {
+              targetVersion: { name: "desc" }
+            },
+            include: {
+              owner: true,
+              targetVersion: true
+            }
           },
           comments: {
-            include: {author: true}
+            include: {author: true}, orderBy: { created: 'asc'},          
           },
           owner: true,
           assignments: {
@@ -176,10 +188,16 @@ export class ProjectsController {
         },
         include: {
           comments: {
-            include: {author: true}
+            include: {author: true}, orderBy: { created: 'asc'},
           },
           tasks: {
-            include: {owner: true}
+            orderBy: {
+              targetVersion: { name: "desc" }
+            },
+            include: {
+              owner: true,
+              targetVersion: true
+            }
           },
           owner: true,
           assignments: {

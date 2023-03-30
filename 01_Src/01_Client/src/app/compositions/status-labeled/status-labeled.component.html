@@ -1,0 +1,15 @@
+<!--
+* @Author                : AdrienLanco0<adrienlanco0@gmail.com>
+* @CreatedDate           : 2023-03-17 13:39:00
+* @LastEditors           : AdrienLanco0<adrienlanco0@gmail.com>
+* @LastEditDate          : 2023-03-27 13:13:08
+-->
+
+<ng-container *ngIf="isEdit">
+  <app-dropdown [(values)]="value" (valuesChange)="statusChange.emit(value[0].icon)"></app-dropdown>
+</ng-container>
+
+<ng-container *ngIf="!isEdit">
+  <app-status [status]="status"></app-status>
+  <p>{{ status }}</p>
+</ng-container>

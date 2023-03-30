@@ -1,8 +1,8 @@
 /******************************************************************************
- * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
+ * @Author                : Adrien Lanco<adrienlanco0@gmail.com>              *
  * @CreatedDate           : 2023-02-21 13:03:45                               *
- * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-02-23 14:11:05                               *
+ * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>              *
+ * @LastEditDate          : 2023-03-30 10:00:40                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -14,7 +14,7 @@
 */
 
 /* Imports */
-import { IsBoolean, IsString } from "class-validator";
+import { IsBoolean, IsOptional, IsString } from "class-validator";
 
 /**
 * RegisterInput
@@ -44,6 +44,33 @@ class ConnectInput {
 /***/
 
 /**
+* UpdateInput
+*/
+class UpdateInput {
+  @IsString()
+    img: string;
+
+  @IsString()
+    description: string;
+    //TODO dto for update user
+}
+/***/
+
+/**
+* RightInput
+*/
+class RightInput {
+  @IsBoolean()
+  @IsOptional()
+    validate: boolean;
+
+  @IsBoolean()
+  @IsOptional()
+    isAdmin: boolean;
+}
+/***/
+
+/**
 * PublicOutput
 */
 class PublicOutput {
@@ -59,12 +86,16 @@ class PublicOutput {
   @IsBoolean()
     validate: boolean;
 
+  @IsBoolean()
+    isAdmin: boolean;
+
   constructor(data) {
     if (data) {
       this.id = data.id;
       this.name = data.name;
       this.email = data.email;
       this.validate = data.validate;
+      this.isAdmin = data.isAdmin;
     }
   }
 }
@@ -86,12 +117,16 @@ class DetailsOutput {
   @IsBoolean()
     validate: boolean;
 
+  @IsBoolean()
+    isAdmin: boolean;
+
   constructor(data) {
     if (data) {
       this.id = data.id;
       this.name = data.name;
       this.email = data.email;
       this.validate = data.validate;
+      this.isAdmin = data.isAdmin;
     }
   }
 }
@@ -113,12 +148,16 @@ class ConnectOutput {
   @IsString()
     token: boolean;
 
+  @IsBoolean()
+    isAdmin: boolean;
+
   constructor(data) {
     if (data) {
       this.id = data.id;
       this.name = data.name;
       this.email = data.email;
       this.token = data.token;
+      this.isAdmin = data.isAdmin;
     }
   }
 }
@@ -127,6 +166,7 @@ class ConnectOutput {
 export {
   RegisterInput,
   ConnectInput,
+  RightInput,
   PublicOutput,
   DetailsOutput,
   ConnectOutput

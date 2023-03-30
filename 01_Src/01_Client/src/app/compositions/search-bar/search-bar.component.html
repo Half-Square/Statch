@@ -1,9 +1,8 @@
 <!--
-* @Author                : 0K00<qdouvillez@gmail.com>
+* @Author                : AdrienLanco0<adrienlanco0@gmail.com>
 * @CreatedDate           : 2023-03-17 15:15:00
-* @LastEditors           : 0K00<qdouvillez@gmail.com>
-* @LastEditDate          : 2023-03-21 14:34:19
-*
+* @LastEditors           : AdrienLanco0<adrienlanco0@gmail.com>
+* @LastEditDate          : 2023-03-28 12:02:02
 -->
 
 <div class="searchBar">
@@ -23,6 +22,7 @@
             <div *ngFor="let item of resultsSelected; let i = index" [ngClass]="{'invSearch': i == resultsSelected.length - 1}">
               <div class="label-search">
                 <div class="text">
+                  <i  class="icon {{item.icon}}"></i>
                   {{item.name}}
                 </div>
                 <div (click)="returnStep(i)" class="return">
@@ -37,6 +37,7 @@
       <div *ngFor="let item of resultsSelected; let i = index" [ngClass]="{'invSearch': resultsSelected.length > 3 && i !== resultsSelected.length - 1}">
         <div [ngClass]="{'not-last-item': i !== resultsSelected.length - 1}" class="label-search">
           <div class="text">
+            <i  class="icon {{item.icon}}"></i>
             {{item.name}}
           </div>
           <div (click)="returnStep(i)" class="return">
@@ -62,7 +63,10 @@
     <li *ngFor="let result of results; let index = index"
       [ngClass]="{ focused: index === focusedResult }"
       (click)="selectResult(result)"
-      (mouseover)="focusResult(index)">{{ result.name }}</li>
+      (mouseover)="focusResult(index)">
+      <i  class="icon {{result.icon}}"></i>
+      {{ result.name }}
+    </li>
   </ul>
 
   <div @nested *ngIf="results.length > 0" class="footer">
