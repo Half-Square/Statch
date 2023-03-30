@@ -2,7 +2,7 @@
  * @Author                : Adrien Lanco<adrienlanco0@gmail.com>              *
  * @CreatedDate           : 2023-02-21 14:22:05                               *
  * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>              *
- * @LastEditDate          : 2023-03-29 17:37:28                               *
+ * @LastEditDate          : 2023-03-30 12:50:19                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -43,7 +43,7 @@ import * as ticketsDto from "../../dto/tickets.dto";
 import { ConnectedGuard } from "../../guards/connected/connected.guard";
 /***/
 
-@Controller("")
+@Controller("api")
 @UseGuards(ConnectedGuard)
 export class TicketsController {
   constructor(private prisma: PrismaService) {}
@@ -70,6 +70,7 @@ export class TicketsController {
    * @returns - Ticket's details
    */
   @Get("tickets/:id")
+  
   async getOne(@Param("id") id: string): Promise<ticketsDto.DetailsOutput> {
     try {
       let res = await this.prisma.ticket.findUnique({

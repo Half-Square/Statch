@@ -1,8 +1,8 @@
 /******************************************************************************
- * @Author                : AdrienLanco0<adrienlanco0@gmail.com>              *
+ * @Author                : Adrien Lanco<adrienlanco0@gmail.com>              *
  * @CreatedDate           : 2023-03-23 15:19:55                               *
- * @LastEditors           : AdrienLanco0<adrienlanco0@gmail.com>              *
- * @LastEditDate          : 2023-03-23 16:25:07                               *
+ * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>              *
+ * @LastEditDate          : 2023-03-30 12:50:23                               *
  *****************************************************************************/
 
 /* Imports */
@@ -34,7 +34,7 @@ import {PrismaService} from "../../prisma.service";
 import { ConnectedGuard } from "../../guards/connected/connected.guard";
 /***/
 
-@Controller("")
+@Controller("api")
 @UseGuards(ConnectedGuard)
 export class VersionsController {
 

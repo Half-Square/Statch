@@ -2,7 +2,7 @@
  * @Author                : Adrien Lanco<adrienlanco0@gmail.com>              *
  * @CreatedDate           : 2023-02-21 13:01:19                               *
  * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>              *
- * @LastEditDate          : 2023-03-30 10:15:56                               *
+ * @LastEditDate          : 2023-03-30 12:49:49                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -43,7 +43,7 @@ import { IsAdminGuard } from "../../guards/is-admin/is-admin.guard";
 import { PrismaService } from "../../prisma.service";
 /***/
 
-@Controller()
+@Controller("api")
 export class AuthController {
   constructor(private prisma: PrismaService) { 
   }

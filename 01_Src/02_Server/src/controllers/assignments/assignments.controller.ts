@@ -15,7 +15,7 @@ import {
  * @Author                : Adrien Lanco<adrienlanco0@gmail.com>              *
  * @CreatedDate           : 2023-03-29 15:51:17                               *
  * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>              *
- * @LastEditDate          : 2023-03-30 11:20:29                               *
+ * @LastEditDate          : 2023-03-30 12:49:41                               *
  *****************************************************************************/
 
 /* Dto */
@@ -30,7 +30,7 @@ import { ConnectedGuard } from "../../guards/connected/connected.guard";
 import { PrismaService } from "../../prisma.service";
 /***/
 
-@Controller('')
+@Controller('api')
 export class AssignmentsController {
   constructor(private prisma: PrismaService) { 
   }

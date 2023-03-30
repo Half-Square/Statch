@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : AdrienLanco0<adrienlanco0@gmail.com>             *
+ * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
  * @CreatedDate           : 2023-03-22 16:59:34                              *
- * @LastEditors           : AdrienLanco0<adrienlanco0@gmail.com>             *
- * @LastEditDate          : 2023-03-22 16:59:34                              *
+ * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
+ * @LastEditDate          : 2023-03-30 11:53:22                              *
  ****************************************************************************/
 
 import { Injectable } from '@angular/core';
@@ -14,7 +14,7 @@ export class ConfigService {
 
   constructor() { }
 
-  public static IS_PROD: boolean = false;
+  public static IS_PROD: boolean = true;
 
   private static readonly development: any = {
       API_URL: 'http://localhost:5000',
@@ -23,7 +23,7 @@ export class ConfigService {
   };
 
   private static readonly production: any = {
-      API_URL: 'inconstance',
+      API_URL: '',
       VERSION: '1.0',
       DEV_EMAIL: 'contact@halfsquare.fr'
   };
