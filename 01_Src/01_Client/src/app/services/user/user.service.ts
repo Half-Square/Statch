@@ -2,7 +2,7 @@
  * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
  * @CreatedDate           : 2023-03-17 15:22:52                              *
  * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
- * @LastEditDate          : 2023-03-30 10:24:35                              *
+ * @LastEditDate          : 2023-03-30 11:14:03                              *
  ****************************************************************************/
 
 import { Injectable } from '@angular/core';
@@ -36,6 +36,8 @@ export class UserService {
   *
   */
   public static init() {
+    console.log("init");
+
     let user = sessionStorage.getItem('user');
     if (user)
       this.setUser(JSON.parse(user));

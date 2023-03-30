@@ -15,7 +15,7 @@ import {
  * @Author                : Adrien Lanco<adrienlanco0@gmail.com>              *
  * @CreatedDate           : 2023-03-29 15:51:17                               *
  * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>              *
- * @LastEditDate          : 2023-03-29 17:27:14                               *
+ * @LastEditDate          : 2023-03-30 11:20:29                               *
  *****************************************************************************/
 
 /* Dto */
@@ -52,6 +52,8 @@ export class AssignmentsController {
           }
         });
         let toSend = [];
+        console.log(res.assignment);
+        
         res.assignment.map((el) => {
           if (el.project) 
             toSend.push(new projectsDto.PublicOutput(el.project))
