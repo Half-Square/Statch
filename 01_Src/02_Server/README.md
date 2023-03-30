@@ -52,7 +52,7 @@ npm run lint
 
 ## Deployment
 
-WIP...
+npm run build-full
 
 ### Documentations
 
