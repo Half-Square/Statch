@@ -3,11 +3,10 @@
 
 generator client {
   provider        = "prisma-client-js"
-  previewFeatures = ["fullTextSearch", "fullTextIndex"]
 }
 
 datasource db {
-  provider = "mysql"
+  provider = "sqlite"
   url      = env("DATABASE_URL")
 }
 
@@ -24,11 +23,6 @@ model User {
   tasks           Task[]
   tickets         Ticket[]
   assignment      Assignment[]
-
-  @@fulltext([id])
-  @@fulltext([name])
-  @@fulltext([email])
-  @@fulltext([id, name, email])
 }
 
 model Project {
@@ -36,7 +30,7 @@ model Project {
   name            String
   status          String          @default("new")
   created         DateTime        @default(now())
-  description     String          @db.LongText
+  description     String          
   tasks           Task[]
   comments        Comment[]
   owner           User            @relation(fields: [ownerId], references: [id], onDelete: Cascade)
@@ -45,10 +39,6 @@ model Project {
 
   actualVersion   String?
   versionList     Version[]
-
-  @@fulltext([id])
-  @@fulltext([name])
-  @@fulltext([id, name])
 }
 
 model Task {
@@ -67,10 +57,6 @@ model Task {
   assignments     Assignment[]
   targetVersion   Version?        @relation(fields: [targetVersionId], references: [id])
   targetVersionId String?
-
-  @@fulltext([id])
-  @@fulltext([name])
-  @@fulltext([id, name])
 }
 
 model Ticket {
@@ -88,16 +74,12 @@ model Ticket {
   assignments     Assignment[]
   targetVersion   Version?        @relation(fields: [targetVersionId], references: [id])
   targetVersionId String?
-
-  @@fulltext([id])
-  @@fulltext([name])
-  @@fulltext([id, name])
 }
 
 model Comment {
   id              String          @default(nanoid(8)) @id
   created         DateTime        @default(now())
-  content         String          @db.LongText
+  content         String          
   project         Project?        @relation(fields: [projectId], references: [id], onDelete: Cascade)
   projectId       String?
   task            Task?           @relation(fields: [taskId], references: [id], onDelete: Cascade)
