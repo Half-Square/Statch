@@ -2,7 +2,7 @@
  * @Author                : Adrien Lanco<adrienlanco0@gmail.com>              *
  * @CreatedDate           : 2023-02-21 14:21:24                               *
  * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>              *
- * @LastEditDate          : 2023-03-29 17:38:08                               *
+ * @LastEditDate          : 2023-03-30 12:50:05                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -41,7 +41,7 @@ import * as projectsDto from "../../dto/projects.dto";
 import { ConnectedGuard } from "../../guards/connected/connected.guard";
 /***/
 
-@Controller("projects")
+@Controller("api/projects")
 @UseGuards(ConnectedGuard)
 export class ProjectsController {
   constructor(private prisma: PrismaService) {}

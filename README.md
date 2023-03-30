@@ -132,6 +132,41 @@ To get started with the Statch, you'll need to have the following software insta
    npm run start:dev # or yarn 
    ```
 
+
+### Build project
+
+1. Build server
+
+   ```sh
+   cd 01_SRC
+   cd 02_Server
+   npm run build # or yarn 
+   ```
+
+2. Build front
+
+   ```sh
+   cd 01_SRC
+   cd 01_Client
+   npm run build # or yarn 
+   ```
+  
+3. Build front into server
+
+   ```sh
+   cd 01_SRC
+   cd 02_Server
+   npm run build-front # or yarn 
+   ```
+
+4. Build both into 02_Server/dist
+
+   ```sh
+   cd 01_SRC
+   cd 02_Server
+   npm run build-full # or yarn 
+   ```
+   
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 

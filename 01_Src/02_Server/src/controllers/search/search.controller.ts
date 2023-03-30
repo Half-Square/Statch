@@ -2,7 +2,7 @@
  * @Author                : Adrien Lanco<adrienlanco0@gmail.com>              *
  * @CreatedDate           : 2023-03-27 16:56:41                               *
  * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>              *
- * @LastEditDate          : 2023-03-29 13:05:08                               *
+ * @LastEditDate          : 2023-03-30 12:50:10                               *
  *****************************************************************************/
 
 import {
@@ -32,7 +32,7 @@ import { SearchFilterService } from "./services/search-filter/search-filter.serv
 /***/
 
 
-@Controller('search')
+@Controller('api/search')
 export class SearchController {
 
   constructor(private prisma: PrismaService,

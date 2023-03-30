@@ -3,11 +3,11 @@
  * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
  * @CreatedDate           : 2023-03-02 13:57:55                              *
  * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
- * @LastEditDate          : 2023-03-30 11:09:06                              *
+ * @LastEditDate          : 2023-03-30 12:03:06                              *
  ****************************************************************************/
 
 import { Injectable } from '@angular/core';
-import { ConfigService } from '../config/config.service';
+import { environment } from 'src/environments/environment';
 import { UserService } from '../user/user.service';
 
 
@@ -76,7 +76,7 @@ export class ApiService {
 
     public request(method: string, url: string, data: any = null, params: Array<string> = [], queries: Array<string> = []): Promise<any> {
         return new Promise((resolve, reject) => {
-          let api_url = ConfigService.get("API_URL");
+          let api_url = environment.API_URL;
           let token = UserService.isConnected() ? UserService.getUser().token : "";
           console.log(UserService.isConnected());
           console.log(token, UserService.getUser());
