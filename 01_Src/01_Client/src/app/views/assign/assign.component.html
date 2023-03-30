@@ -1,8 +1,8 @@
 <!--
-* @Author                : Adrien Lanco<adrienlanco0@gmail.com>
+* @Author                : 0K00<qdouvillez@gmail.com>
 * @CreatedDate           : 2023-03-24 14:57:00
 * @LastEditors           : 0K00<qdouvillez@gmail.com>
-* @LastEditDate          : 2023-03-29 20:11:12
+* @LastEditDate          : 2023-03-30 14:34:47
 -->
 
 <div id="assign" class="main">
@@ -29,7 +29,7 @@
       [status]="task.status"
       [isOpen]="task.id == taskId"
       [version]="task.id"
-      level="normal"
+      [level]="task.level"
       other="assign task"
       (onOpen)="getTickets(task.id)"
       [depth]="0">
@@ -39,7 +39,7 @@
         [id]="ticket.id"
         [type]="'ticket'"
         [version]="ticket.id"
-        level="moderate"
+        [level]="ticket.level"
         [status]="ticket.status"
         other="assign ticket"
         [noContent]="true"
