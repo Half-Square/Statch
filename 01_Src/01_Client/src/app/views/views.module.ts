@@ -1,8 +1,8 @@
 /*****************************************************************************
  * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
  * @CreatedDate           : 2023-03-17 11:51:44                              *
- * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
- * @LastEditDate          : 2023-03-29 16:46:16                              *
+ * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
+ * @LastEditDate          : 2023-03-30 10:57:08                              *
  ****************************************************************************/
 
 import { NgModule } from '@angular/core';
@@ -21,10 +21,10 @@ import { TicketComponent } from './ticket/ticket.component';
 
 import { DirectivesModule } from '../directives/directives.module';
 import { AssignComponent } from './assign/assign.component';
+import { AdminComponent } from './admin/admin.component';
+import { AdminUsersComponent } from './admin/admin-users/admin-users.component';
+
 import { PipeModule } from '../pipe/pipe.module';
-
-
-
 
 @NgModule({
   declarations: [
@@ -34,7 +34,9 @@ import { PipeModule } from '../pipe/pipe.module';
     ProjectComponent,
     TaskComponent,
     TicketComponent,
-    AssignComponent
+    AssignComponent,
+    AdminComponent,
+    AdminUsersComponent
   ],
   imports: [
     CommonModule,

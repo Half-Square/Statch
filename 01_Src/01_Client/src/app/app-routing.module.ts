@@ -1,9 +1,8 @@
 /*****************************************************************************
- * @Author                : 0K00<qdouvillez@gmail.com>                       *
+ * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
  * @CreatedDate           : 2023-03-17 11:52:49                              *
- * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
- * @LastEditDate          : 2023-03-24 14:32:41                              *
- *                                                                           *
+ * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
+ * @LastEditDate          : 2023-03-30 10:10:22                              *
  ****************************************************************************/
 
 import { NgModule } from '@angular/core';
@@ -17,9 +16,12 @@ import { TaskComponent } from './views/task/task.component';
 import { TicketComponent } from './views/ticket/ticket.component';
 import { AssignComponent } from './views/assign/assign.component';
 
-import {
-  AuthGuardService as AuthGuard
-} from './services/auth/auth-guard.service';
+import { AdminComponent } from './views/admin/admin.component';
+import { AdminUsersComponent } from './views/admin/admin-users/admin-users.component';
+
+
+import { AuthGuardService as AuthGuard } from './guards/auth/auth-guard.service';
+import { IsAdminGuard } from './guards/is-admin/is-admin.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: '/projects', pathMatch: 'full' },
@@ -32,9 +34,10 @@ const routes: Routes = [
 
   { path: 'project/:id', component: ProjectComponent, canActivate: [AuthGuard]  },
   { path: 'task/:id', component: TaskComponent, canActivate: [AuthGuard]  },
-  { path: 'ticket/:id', component: TicketComponent, canActivate: [AuthGuard]  }
+  { path: 'ticket/:id', component: TicketComponent, canActivate: [AuthGuard]  },
 
-  // { path: 'new/:type', component: NewElemComponent }
+  { path: 'admin', component: AdminComponent, canActivate: [IsAdminGuard]  },
+  { path: 'admin/users', component: AdminUsersComponent, canActivate: [IsAdminGuard]  }
 ];
 
 

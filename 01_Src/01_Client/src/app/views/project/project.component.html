@@ -1,8 +1,8 @@
 <!--
-* @Author                : 0K00<qdouvillez@gmail.com>
+* @Author                : Adrien Lanco<adrienlanco0@gmail.com>
 * @CreatedDate           : 2023-03-17 16:48:00
-* @LastEditors           : 0K00<qdouvillez@gmail.com>
-* @LastEditDate          : 2023-03-29 20:04:17
+* @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>
+* @LastEditDate          : 2023-03-30 11:18:12
 -->
 
 <div id="project">
@@ -74,7 +74,11 @@
         </div>
         <div class="container">
           <h4>No. of tasks</h4>
-          <div><a href="/create">{{ project.tasks ? project.tasks.length : '0' }} {{ project.tasks.length > 1 ? "tasks" : "task"}} <i class="icon arrowright"></i></a></div>
+          <div><a href="/create">
+            {{ project && project.tasks ? project.tasks.length : '0' }}
+            {{ project && project.tasks && project.tasks.length > 1 ? "tasks" : "task"}}
+            <i class="icon arrowright"></i>
+          </a></div>
         </div>
         <div class="container">
           <h4>Created</h4>

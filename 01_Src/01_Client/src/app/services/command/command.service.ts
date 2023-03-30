@@ -2,7 +2,7 @@
  * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
  * @CreatedDate           : 2023-03-17 22:34:38                              *
  * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
- * @LastEditDate          : 2023-03-29 15:59:39                              *
+ * @LastEditDate          : 2023-03-30 11:19:03                              *
  ****************************************************************************/
 
 import { Injectable } from '@angular/core';
@@ -341,9 +341,10 @@ export class CommandService {
     public async assignMySelf(type: string, data: ProjectInterface | TaskInterface | TicketInterface) {
       return new Promise<void>(async (resolve, reject) => {
         let user = UserService.getUser();
-        delete user.token
+        let toPush = structuredClone(user)
+        delete toPush.token
         if (!data.assignments) data.assignments = []
-        data.assignments.push(user)
+        data.assignments.push(toPush)
         try {
           if (type == "project" && data) await this.editProject(data as ProjectInterface);
           if (type == "task" && data) await this.editTask(data as TaskInterface);
@@ -359,7 +360,7 @@ export class CommandService {
     public async getMyProject(): Promise<any> {
       return new Promise<any>((resolve, reject) => {
         let user = UserService.getUser();
-        this.api.request("GET", "users/"+user.id+"/project", {})
+        this.api.request("GET", "users/"+user.id+"/project")
         .then((ret: any) => {
           return resolve(ret)
         }).catch((error: any) => {

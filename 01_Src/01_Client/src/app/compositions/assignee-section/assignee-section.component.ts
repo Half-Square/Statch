@@ -1,16 +1,12 @@
-/******************************************************************************
- * @Author                : AdrienLanco0<adrienlanco0@gmail.com>              *
- * @CreatedDate           : 2023-03-28 16:26:44                               *
- * @LastEditors           : AdrienLanco0<adrienlanco0@gmail.com>              *
- * @LastEditDate          : 2023-03-28 17:55:11                               *
- *****************************************************************************/
+/*****************************************************************************
+ * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
+ * @CreatedDate           : 2023-03-28 16:26:44                              *
+ * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
+ * @LastEditDate          : 2023-03-30 11:11:50                              *
+ ****************************************************************************/
 
 import { Component, EventEmitter, Input, Output, AfterContentChecked } from '@angular/core';
 import { UserInterface, UserService } from 'src/app/services/user/user.service';
-
-import {
-  ProjectListService
-} from 'src/app/services/project-list/project-list.service';
 
 @Component({
   selector: 'app-assignee-section',
@@ -38,15 +34,14 @@ export class AssigneeSectionComponent implements AfterContentChecked {
   }
 
   public setAssign() {
-    console.log(this.assignees);
-
-    if (this.assignees)
+    if (this.assignees) {
       for (let i = 0; i < this.assignees.length; i++) {
         if (this.assignees[i].id == this.user_id) {
           this.isAssignee = true;
           return
         }
       }
-      this.isAssignee = false;
+    }
+    this.isAssignee = false;
   }
 }

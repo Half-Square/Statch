@@ -1,0 +1,40 @@
+/*****************************************************************************
+ * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
+ * @CreatedDate           : 2023-03-30 10:29:09                              *
+ * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
+ * @LastEditDate          : 2023-03-30 10:37:49                              *
+ ****************************************************************************/
+
+#admin-users {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: rgba(34, 34, 34, 1);
+  min-height: 100%;
+
+  .users {
+    max-width: 1000px;
+    margin-top: 100px;
+    .user {
+      display: grid;
+      grid-template-columns: 1fr 200px;
+      margin-bottom: 30px;
+
+      .user-info {
+        display: flex;
+
+        p {
+          width: 150px;
+          margin-right: 50px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+      }
+
+      .user-actions {
+        display: flex;
+        justify-content: space-around;
+      }
+    }
+  }
+}

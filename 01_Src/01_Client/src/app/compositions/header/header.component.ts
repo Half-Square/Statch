@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : 0K00<qdouvillez@gmail.com>                       *
+ * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
  * @CreatedDate           : 2023-03-20 18:16:48                              *
- * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
- * @LastEditDate          : 2023-03-29 15:38:08                              *
+ * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
+ * @LastEditDate          : 2023-03-30 11:00:29                              *
  ****************************************************************************/
 
 import { Component, HostListener, ElementRef } from '@angular/core';
@@ -41,7 +41,7 @@ export class HeaderComponent {
   constructor(private router: Router, private ref: ElementRef) {}
   public showModal: boolean = false;
   public showOption: boolean = false;
-
+  public isAdmin: boolean = UserService.getUser().isAdmin;
   /**
   * @name disconnect
   * @descr call UserService disconnect

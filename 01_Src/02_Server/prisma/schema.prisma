@@ -18,6 +18,7 @@ model User {
   password        String
   email           String          @unique
   validate        Boolean         @default(false)
+  isAdmin         Boolean         @default(false)
   comments        Comment[]
   projects        Project[]
   tasks           Task[]
