@@ -2,7 +2,7 @@
 * @Author                : 0K00<qdouvillez@gmail.com>
 * @CreatedDate           : 2023-03-17 12:58:00
 * @LastEditors           : 0K00<qdouvillez@gmail.com>
-* @LastEditDate          : 2023-03-29 20:33:36
+* @LastEditDate          : 2023-03-31 11:52:21
 -->
 
 <div class="collapse" [ngClass]="{ 'open': show(), 'close': !show() }">
@@ -17,7 +17,7 @@
         <i *ngIf="!show()" class="icon open"></i>
         <i *ngIf="show()" class="icon close"></i>
       </div>
-      <nav [routerLink]="[ type+(id? '/'+id : '') ]">
+      <nav class="nav" [routerLink]="[ type+(id? '/'+id : '') ]">
           <div class="link" [ngStyle]="indent()">
               <app-level *ngIf="level" [degree]="level" />
               <div *ngIf="version" class="version">{{ version }}</div>

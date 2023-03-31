@@ -1,8 +1,8 @@
 <!--
-* @Author                : Adrien Lanco<adrienlanco0@gmail.com>
+* @Author                : 0K00<qdouvillez@gmail.com>
 * @CreatedDate           : 2023-03-17 14:41:00
-* @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>
-* @LastEditDate          : 2023-03-30 11:22:54
+* @LastEditors           : 0K00<qdouvillez@gmail.com>
+* @LastEditDate          : 2023-03-31 12:00:26
 -->
 
 <div id="nav">
@@ -25,36 +25,36 @@
                 [routerLink]="['/extension']"  />
   </nav>
   <div class="menu">
-
-    <app-collapse *ngFor="let project of projects"
-                  [label]="project.name"
-                  [id]="project.id"
-                  [type]="'project'"
-                  [status]="project.status"
-                  [isOpen]="project.id == projectId"
-                  [isActive]="project.id == projectId && !taskId && !ticketId"
-                  (onOpen)="command.getProject(project.id)"
-                  [depth]="0">
-      <app-collapse *ngFor="let task of project.tasks"
-                    [label]="task.name"
-                    [id]="task.id"
-                    [type]="'task'"
-                    [status]="task.status"
-                    [isOpen]="task.id == taskId"
-                    [isActive]="task.id == taskId && !ticketId"
-                    (onOpen)="command.getTask(task.id)"
-                    [depth]="1">
-        <app-collapse *ngFor="let ticket of task.tickets"
-                      [label]="ticket.name"
-                      [id]="ticket.id"
-                      [type]="'ticket'"
-                      [status]="ticket.status"
-                      [noContent]="true"
-                      [isActive]="ticket.id == ticketId"
-                      [depth]="3">
+    <div class="collapses">
+      <app-collapse *ngFor="let project of projects"
+        [label]="project.name"
+        [id]="project.id"
+        [type]="'project'"
+        [status]="project.status"
+        [isOpen]="project.id == projectId"
+        [isActive]="project.id == projectId && !taskId && !ticketId"
+        (onOpen)="command.getProject(project.id)"
+        [depth]="0">
+        <app-collapse *ngFor="let task of project.tasks"
+          [label]="task.name"
+          [id]="task.id"
+          [type]="'task'"
+          [status]="task.status"
+          [isOpen]="task.id == taskId"
+          [isActive]="task.id == taskId && !ticketId"
+          (onOpen)="command.getTask(task.id)"
+          [depth]="1">
+          <app-collapse *ngFor="let ticket of task.tickets"
+            [label]="ticket.name"
+            [id]="ticket.id"
+            [type]="'ticket'"
+            [status]="ticket.status"
+            [noContent]="true"
+            [isActive]="ticket.id == ticketId"
+            [depth]="3">
+          </app-collapse>
         </app-collapse>
       </app-collapse>
-    </app-collapse>
-
+    </div>
   </div>
 </div>
