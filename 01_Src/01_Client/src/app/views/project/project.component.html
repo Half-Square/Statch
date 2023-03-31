@@ -2,7 +2,7 @@
 * @Author                : Adrien Lanco<adrienlanco0@gmail.com>
 * @CreatedDate           : 2023-03-17 16:48:00
 * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>
-* @LastEditDate          : 2023-03-31 16:53:46
+* @LastEditDate          : 2023-03-31 17:11:39
 -->
 
 <div id="project">
@@ -20,9 +20,9 @@
       </header>
       <div class="advancement">
         <app-progress-bar id="test" [value]="advancement" />
-        <div class="tasks">
-          <app-button id="showAll" type="prm" size="sm" icon="eye" (click)='showAll = !showAll; triggerShow()' />
+        <app-button id="showAll" [type]="showAll ? 'prm' : 'trd'" size="sm" icon="eye" (click)='showAll = !showAll; triggerShow()' />
 
+        <div class="tasks">
           <a class="task" *ngFor="let task of advancementTasks" [href]="'/task/'+task.id">
             <div class="block">
               <div class="status"><app-status [status]="task.status" /></div>

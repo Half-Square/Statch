@@ -2,7 +2,7 @@
  * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
  * @CreatedDate           : 2023-03-17 16:49:59                              *
  * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
- * @LastEditDate          : 2023-03-31 16:59:27                              *
+ * @LastEditDate          : 2023-03-31 17:10:49                              *
  ****************************************************************************/
 
 import { Component, OnInit } from '@angular/core';
@@ -134,7 +134,7 @@ export class ProjectComponent implements OnInit {
   }
 
   public triggerShow(): void {
-    if (this.showAll)
+    if (!this.showAll)
       this.advancementTasks = this.filteredAdvancementTasks
     else
       this.advancementTasks = this.project.tasks
