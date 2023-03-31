@@ -1,14 +1,14 @@
 /*****************************************************************************
- * @Author                : AdrienLanco0<adrienlanco0@gmail.com>             *
+ * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
  * @CreatedDate           : 2023-03-17 16:49:59                              *
- * @LastEditors           : AdrienLanco0<adrienlanco0@gmail.com>             *
- * @LastEditDate          : 2023-03-28 16:33:43                              *
+ * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
+ * @LastEditDate          : 2023-03-31 16:59:27                              *
  ****************************************************************************/
 
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommandService } from 'src/app/services/command/command.service';
-import { ProjectInterface, ProjectListService, VersionInterface } from 'src/app/services/project-list/project-list.service';
+import { ProjectInterface, ProjectListService, TaskInterface, VersionInterface } from 'src/app/services/project-list/project-list.service';
 
 @Component({
   selector: 'app-project',
@@ -32,12 +32,15 @@ export class ProjectComponent implements OnInit {
   }
 
   public onEdit: boolean = false;
+  public showAll: boolean = false;
 
   public id: string = "";
   public project: ProjectInterface = {} as ProjectInterface;
 
   public nbTicket: number = 0;
   public advancement: number = 0;
+  public filteredAdvancementTasks: Array<TaskInterface> = [];
+  public advancementTasks: Array<TaskInterface> = [];
 
   public activity : any = [
     {img: "0", alt: "oui", name: "Randy", action: "created", id: "dc5c7a1", url: "/create", time: "10 min"},
@@ -111,14 +114,29 @@ export class ProjectComponent implements OnInit {
     let rej = 0;
     let done = 0
     if (this.project.tasks)
+      this.filteredAdvancementTasks = [];
       this.project.tasks.forEach(task => {
-        if (task.status == "rejected")
-          rej++
-        if (task.status == "done")
-          done++
-        cpt++
+        if (!this.project.actualVersion || (task.targetVersion
+          && task.targetVersion.name == this.project.actualVersion)) {
+          this.filteredAdvancementTasks.push(task)
+
+          if (task.status == "reject")
+            rej++
+          if (task.status == "done")
+            done++
+          cpt++
+        }
       });
     if (!cpt) this.advancement = 0
-    else this.advancement = Math.trunc(done / (cpt - rej)  * 100)
+    else this.advancement = Math.trunc(done / (cpt - rej)  * 100);
+
+    this.triggerShow();
+  }
+
+  public triggerShow(): void {
+    if (this.showAll)
+      this.advancementTasks = this.filteredAdvancementTasks
+    else
+      this.advancementTasks = this.project.tasks
   }
 }

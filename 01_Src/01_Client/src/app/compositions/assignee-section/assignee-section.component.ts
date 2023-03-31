@@ -2,7 +2,7 @@
  * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
  * @CreatedDate           : 2023-03-28 16:26:44                              *
  * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
- * @LastEditDate          : 2023-03-31 16:27:30                              *
+ * @LastEditDate          : 2023-03-31 17:01:26                              *
  ****************************************************************************/
 
 import { Component, EventEmitter, Input, Output, AfterContentChecked } from '@angular/core';
@@ -86,7 +86,7 @@ export class AssigneeSectionComponent implements AfterContentChecked {
     if (this.assignees) {
       this.nonAssigned = this.userList.filter(el =>{
         return this.assignees.every((f) => {
-          return el.id === this.user_id ? false : f.id !== el.id;
+          return f.id !== el.id;
         });
       })
       for (let i = 0; i < this.assignees.length; i++) {
