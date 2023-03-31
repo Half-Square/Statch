@@ -15,7 +15,7 @@ import {
  * @Author                : Adrien Lanco<adrienlanco0@gmail.com>              *
  * @CreatedDate           : 2023-03-29 15:51:17                               *
  * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>              *
- * @LastEditDate          : 2023-03-30 12:49:41                               *
+ * @LastEditDate          : 2023-03-31 15:32:39                               *
  *****************************************************************************/
 
 /* Dto */
@@ -47,18 +47,29 @@ export class AssignmentsController {
           where: {id: id },
           include: {
             assignment: {
-              include: { project: true } 
+              include: { 
+                project: true,
+                task: true,
+                ticket: { include: { task: { select: { projectId: true } } } }
+              } 
             }
           }
         });
-        let toSend = [];
-        console.log(res.assignment);
-        
+        let toSearch = [], ticketProject = [], taskProject = [], tabProject = [];
         res.assignment.map((el) => {
-          if (el.project) 
-            toSend.push(new projectsDto.PublicOutput(el.project))
+          if (el.ticket) 
+            ticketProject.push(el.ticket.task.projectId)
+          if (el.task) 
+            taskProject.push(el.task.projectId)
+          if (el.project)
+            tabProject.push(el.project.id)
         });
-        return toSend
+        toSearch = ticketProject.concat(taskProject.filter((item) => ticketProject.indexOf(item) < 0))
+        toSearch = toSearch.concat(tabProject.filter((item) => toSearch.indexOf(item) < 0))
+        const projects = await this.prisma.project.findMany({
+          where: {id: { in: toSearch } }
+        });
+        return projects.map((el) => new projectsDto.PublicOutput(el));
       } catch (err) {
         console.error(`${new Date().toISOString()} - ${err}`);
         throw err;
@@ -78,16 +89,25 @@ export class AssignmentsController {
           where: {id: id },
           include: {
             assignment: {
-              include: { task: true } 
+              include: { 
+                task: true,
+                ticket: { include: { task: { select: { projectId: true } } } }
+              } 
             }
           }
         });
-        let toSend = [];
+        let toSearch = [], ticketProject = [], taskProject = [];
         res.assignment.map((el) => {
+          if (el.ticket && el.ticket.task.projectId == projectId) 
+            ticketProject.push(el.ticket.taskId)
           if (el.task && el.task.projectId == projectId) 
-            toSend.push(new tasksDto.PublicOutput(el.task))
+            taskProject.push(el.task.id)
         });
-        return toSend
+        toSearch = ticketProject.concat(taskProject.filter((item) => ticketProject.indexOf(item) < 0))
+        const tasks = await this.prisma.task.findMany({
+          where: {id: { in: toSearch } }
+        });
+        return tasks.map((el) => new tasksDto.PublicOutput(el));
       } catch (err) {
         console.error(`${new Date().toISOString()} - ${err}`);
         throw err;
