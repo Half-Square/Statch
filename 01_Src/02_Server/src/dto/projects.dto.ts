@@ -1,8 +1,8 @@
 /******************************************************************************
- * @Author                : Adrien Lanco<adrienlanco0@gmail.com>              *
+ * @Author                : AdrienLanco0<adrienlanco0@gmail.com>              *
  * @CreatedDate           : 2023-02-21 14:13:59                               *
- * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>              *
- * @LastEditDate          : 2023-03-31 14:56:04                               *
+ * @LastEditors           : AdrienLanco0<adrienlanco0@gmail.com>              *
+ * @LastEditDate          : 2023-03-28 12:25:49                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -22,8 +22,7 @@ import {
   IsArray,
   IsObject,
   IsNumber,
-  IsIn,
-  IsBoolean
+  IsIn
 } from "class-validator";
 import * as commentsDto from "./comments.dto";
 import * as versionsDto from "./versions.dto";
@@ -171,9 +170,6 @@ class DetailsOutput {
   @IsArray()
     assignments: usersDto.PublicOutput;
 
-  @IsBoolean()
-    isAssigned: boolean;
-
   @IsNumber()
     progress: number;
 
@@ -193,7 +189,6 @@ class DetailsOutput {
       this.assignments = data.assignments.map((el) => {
         return new usersDto.PublicOutput(el.user);
       });
-      this.isAssigned = data.isAssigned;
 
       this.progress =  Math.floor(this.tasks.filter((el) => el.status === "done").length * 100 / this.tasks.length) || 0;
     }
