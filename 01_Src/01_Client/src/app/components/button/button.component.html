@@ -1,11 +1,12 @@
 <!--
-* @Author                : 0K00<qdouvillez@gmail.com>
+* @Author                : Adrien Lanco<adrienlanco0@gmail.com>
 * @CreatedDate           : 2023-03-17 12:29:00
-* @LastEditors           : 0K00<qdouvillez@gmail.com>
-* @LastEditDate          : 2023-03-29 20:03:57
+* @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>
+* @LastEditDate          : 2023-03-31 16:34:19
 -->
 
 <button (click)="callback" [disabled]="disabled" class="{{ 'btn '+classes }}" [ngClass]="other" routerLinkActive="active" >
   <p *ngIf="iconPosition != 'only'">{{ label }}</p>
   <i *ngIf="iconPosition != 'none' && icon" class="{{ 'icon '+icon }}"></i>
+  <ng-content></ng-content>
 </button>
