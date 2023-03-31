@@ -2,7 +2,7 @@
 * @Author                : Adrien Lanco<adrienlanco0@gmail.com>
 * @CreatedDate           : 2023-03-17 16:48:00
 * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>
-* @LastEditDate          : 2023-03-30 11:18:12
+* @LastEditDate          : 2023-03-31 15:52:25
 -->
 
 <div id="project">
@@ -58,7 +58,7 @@
           <h4>Assignee</h4>
           <div class="text">
             <app-assignee-section [assignees]="project ? project.assignments : []"
-                                  (onAssign)="command.assignMySelf('project', project)" />
+                                  [data]="project" [dataType]="'project'"/>
           </div>
         </div>
         <div class="container">

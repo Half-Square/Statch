@@ -2,7 +2,7 @@
  * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
  * @CreatedDate           : 2023-03-17 22:34:38                              *
  * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
- * @LastEditDate          : 2023-03-30 11:19:03                              *
+ * @LastEditDate          : 2023-03-31 16:29:19                              *
  ****************************************************************************/
 
 import { Injectable } from '@angular/core';
@@ -352,6 +352,77 @@ export class CommandService {
           return resolve()
         } catch(error: any) {
           console.error("assignMySelf error >> "+error)
+          return reject()
+        }
+      });
+    }
+    public async unassignMySelf(type: string, data: ProjectInterface | TaskInterface | TicketInterface) {
+      return new Promise<void>(async (resolve, reject) => {
+        let user = UserService.getUser();
+        let removed = false;
+        if (!data.assignments) data.assignments = []
+        console.log(data.assignments );
+        console.log(user);
+
+        for (let i = 0; i < data.assignments.length; i++) {
+
+          if (data.assignments[i].id == user.id) {
+            data.assignments.splice(i, 1)
+            removed = true;
+            break
+          }
+        }
+        console.log(data.assignments);
+
+        if (!removed) return resolve()
+        try {
+          if (type == "project" && data) await this.editProject(data as ProjectInterface);
+          if (type == "task" && data) await this.editTask(data as TaskInterface);
+          if (type == "ticket" && data) await this.editTicket(data as TicketInterface);
+          return resolve()
+        } catch(error: any) {
+          console.error("assignMySelf error >> "+error)
+          return reject()
+        }
+      });
+    }
+
+    public async assignSomeOne(type: string, data: ProjectInterface | TaskInterface | TicketInterface, user: UsersInterface) {
+      return new Promise<void>(async (resolve, reject) => {
+        let toPush = structuredClone(user)
+        if (!data.assignments) data.assignments = []
+        data.assignments.push(toPush)
+        try {
+          if (type == "project" && data) await this.editProject(data as ProjectInterface);
+          if (type == "task" && data) await this.editTask(data as TaskInterface);
+          if (type == "ticket" && data) await this.editTicket(data as TicketInterface);
+          return resolve()
+        } catch(error: any) {
+          console.error("assignSomeOne error >> "+error)
+          return reject()
+        }
+      });
+    }
+
+    public async unassignSomeOne(type: string, data: ProjectInterface | TaskInterface | TicketInterface, user: UsersInterface) {
+      return new Promise<void>(async (resolve, reject) => {
+        let removed = false;
+        if (!data.assignments) data.assignments = []
+        for (let i = 0; i < data.assignments.length; i++) {
+          if (data.assignments[i].id == user.id) {
+            data.assignments.splice(i, 1)
+            removed = true;
+            break
+          }
+        }
+        if (!removed) return resolve()
+        try {
+          if (type == "project" && data) await this.editProject(data as ProjectInterface);
+          if (type == "task" && data) await this.editTask(data as TaskInterface);
+          if (type == "ticket" && data) await this.editTicket(data as TicketInterface);
+          return resolve()
+        } catch(error: any) {
+          console.error("assignSomeOne error >> "+error)
           return reject()
         }
       });

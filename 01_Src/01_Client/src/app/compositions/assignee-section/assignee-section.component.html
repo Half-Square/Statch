@@ -2,7 +2,7 @@
 * @Author                : Adrien Lanco<adrienlanco0@gmail.com>
 * @CreatedDate           : 2023-03-28 16:17:00
 * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>
-* @LastEditDate          : 2023-03-30 11:07:23
+* @LastEditDate          : 2023-03-31 16:23:48
 -->
 
 <div class="assignees">
@@ -22,8 +22,28 @@
     <p>{{assignees.length - 2}} {{ assignees.length - 2 > 1 ? "others" : "other"}}</p>
   </div>
 
-  <div *ngIf="!isAssignee">
-    <app-button id="assign" type="trd" size="sm" icon="plus" iconPosition="only" (click)="assignMySelf()"></app-button>
-  </div>
+  <app-button id='openOption' type='trd' size='l'
+                (click)='showOption = !showOption'
+                icon='plus' iconPosition='only'
+                [other]="(showOption) ? 'active' : '' " />
+  <ng-container *ngIf="showOption">
+    <div @nested class="menuOption">
+      <div class="assignee" *ngFor="let user of assignees" >
+        <app-avatar [userName]="user.name" />
+        <p>{{user.name}}</p>
+        <app-button id="assign" type="trd" size="sm" icon="minus"
+                    iconPosition="only" (click)="unassignSomeOne(user)"></app-button>
+      </div>
+      <div class="assignee" *ngFor="let user of nonAssigned">
+        <app-avatar [userName]="user.name" />
+        <p>{{user.name}}</p>
+        <app-button id="assign" type="trd" size="sm" icon="plus"
+                    iconPosition="only" (click)="assignSomeOne(user)"></app-button>
+      </div>
+    </div>
+  </ng-container>
+
+  <app-button *ngIf="!isAssignee" id="assign" type="trd" size="sm" icon="plus" iconPosition="only" (click)="assignMySelf()"></app-button>
+  <app-button *ngIf="isAssignee" id="assign" type="trd" size="sm" icon="minus" iconPosition="only" (click)="unassignMySelf()"></app-button>
 </div>
 
