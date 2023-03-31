@@ -1,15 +1,15 @@
 <!--
-* @Author                : Adrien Lanco<adrienlanco0@gmail.com>
+* @Author                : 0K00<qdouvillez@gmail.com>
 * @CreatedDate           : 2023-03-28 16:17:00
-* @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>
-* @LastEditDate          : 2023-03-30 11:07:23
+* @LastEditors           : 0K00<qdouvillez@gmail.com>
+* @LastEditDate          : 2023-03-31 14:57:23
 -->
 
 <div class="assignees">
   <ng-container *ngIf="assignees && (assignees.length < 1 || assignees.length == 1)" >
     <div class="assignee" *ngFor="let assignee of assignees">
       <app-avatar [userName]="assignee.name" />
-      <p>{{assignee.name}}</p>
+      <p>{{assignee.name | capFL }}</p>
     </div>
   </ng-container>
 

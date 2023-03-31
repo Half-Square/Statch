@@ -5,6 +5,10 @@
  * @LastEditDate          : 2023-03-22 11:12:21                              *
  ****************************************************************************/
 
+:host {
+  grid-area: comment;
+}
+
 .comments {
   display: flex;
   flex-direction: column;

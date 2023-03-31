@@ -2,12 +2,21 @@
  * @Author                : AdrienLanco0<121338518+AdrienLanco0@users.noreply.github.com>*
  * @CreatedDate           : 2023-02-22 12:07:19                              *
  * @LastEditors           : AdrienLanco0<121338518+AdrienLanco0@users.noreply.github.com>*
- * @LastEditDate          : 2023-03-22 11:32:45                              *
+ * @LastEditDate          : 2023-03-22 11:12:17                              *
  ****************************************************************************/
 
  #task {
   display: flex;
   flex-direction: column;
+
+  .edit {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+  }
 }
 
 .header {
@@ -23,7 +32,7 @@
 
 .task {
   display: grid;
-  grid-template-columns: 1fr 0.5fr;
+  grid-template-columns: 1.5fr 0.5fr;
   background: rgba(34, 34, 34, 1);
   grid-template-areas:
   "main aside";
@@ -35,31 +44,33 @@
   grid-area: main;
   height: calc(100vh - 81px);
   overflow: auto;
-      /* width */
-      &::-webkit-scrollbar {
-        width: 4px;
-        height: 4px;
-      }
+        /* width */
+        &::-webkit-scrollbar {
+          width: 4px;
+          height: 4px;
+        }
 
-      /* Track */
-      &::-webkit-scrollbar-track {
-        background: transparent;
-      }
+        /* Track */
+        &::-webkit-scrollbar-track {
+          background: transparent;
+        }
 
-      /* Handle */
-      &::-webkit-scrollbar-thumb {
-        background: #9C9C9C;
-        border-radius: 999px;
-      }
+        /* Handle */
+        &::-webkit-scrollbar-thumb {
+          background: #9C9C9C;
+          border-radius: 999px;
+        }
 
-      /* Handle on hover */
-      &::-webkit-scrollbar-thumb:hover {
-        background: #b8b8b8;
-      }
+        /* Handle on hover */
+        &::-webkit-scrollbar-thumb:hover {
+          background: #b8b8b8;
+        }
+
   header {
     padding: 1rem;
     border-bottom: 1px solid rgba(56, 56, 56, 1);
     overflow-wrap: anywhere;
+    position: relative;
 
     p {
       overflow-wrap: anywhere;
@@ -97,6 +108,7 @@
     .ticket {
       display: flex;
       justify-content: space-between;
+      gap: 8px;
       align-items: center;
       padding: 1rem;
       text-decoration: none;
@@ -119,25 +131,43 @@
         font-size: 12px;
         line-height: 16px;
 
+        .right {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          justify-content: flex-start;
+          gap: 8px;
+        }
+
         .icon {
           font-size: 16px;
         }
       }
 
+      .block:first-child {
+        display: grid;
+        grid-template-columns: 0.5fr 1.5fr;
+        width: 100%;
+      }
+
       .block .name {
-        color:rgba(236, 236, 236, 1);
+        color:rgba(255, 255, 255, 0.96);
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        max-width: 200px;
       }
 
       .block .id {
-        color:rgba(0, 108, 255, 1);
+        color:rgba(255, 255, 255, 0.32);
       }
 
       .block .version {
-        color:rgba(125, 125, 125, 1);
+        color:rgba(255, 255, 255, 0.32);
       }
 
       .block .description {
-        color:rgba(125, 125, 125, 1);
+        color:rgba(255, 255, 255, 0.32);
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
@@ -154,6 +184,7 @@
     line-height: 56px;
     color: rgba(236, 236, 236, 1);
     margin-bottom: 2rem;
+    max-width: calc(100% - 150px - 16px);
   }
 
   h2 {
@@ -173,11 +204,13 @@
   }
 }
 
-.task aside {
-  grid-area: aside;
-  display: flex;
-  flex-direction: column;
-  border-left: 1px solid rgba(56, 56, 56, 1);
+.task {
+  aside {
+    grid-area: aside;
+    display: flex;
+    flex-direction: column;
+    border-left: 1px solid rgba(56, 56, 56, 1);
+  }
 
   .activity, .details {
     display: flex;
@@ -221,7 +254,7 @@
       font-size: 12px;
       line-height: 16px;
       text-decoration: none;
-      color: rgba(91, 130, 250, 1);
+      color: rgba(0, 108, 255, 1);
 
       .icon {
         font-size: 12px;
@@ -249,7 +282,7 @@
 
     a {
       text-decoration: none;
-      color: rgba(91, 130, 250, 1);
+      color: rgba(0, 108, 255, 1);
 
       &:hover {
         text-decoration: underline;
@@ -267,6 +300,33 @@
     line-height: 24px;
     color: rgba(200, 200, 200, 1);
     min-height: 28px;
+    width: max-content;
   }
 
 }
+
+
+@media (max-width: 1024px) {
+  .task {
+    grid-template-columns: 1.5fr 0fr;
+
+    .details {
+      padding: 16px;
+
+    }
+    .elements {
+      display: flex;
+      flex-direction: row;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+    .activity {
+      border-bottom: 1px solid rgba(56, 56, 56, 1);
+    }
+
+    .details h3, .activity h3 {
+      color: rgba(125, 125, 125, 1);
+    }
+  }
+ }

@@ -2,7 +2,7 @@
 * @Author                : 0K00<qdouvillez@gmail.com>
 * @CreatedDate           : 2023-03-17 17:17:00
 * @LastEditors           : 0K00<qdouvillez@gmail.com>
-* @LastEditDate          : 2023-03-29 20:10:58
+* @LastEditDate          : 2023-03-31 14:59:39
 -->
 
 <div id="projects" class="main">
@@ -18,7 +18,7 @@
           <div class="right">
               <div class="status"><app-status [status]="project.status" /></div>
               <div class="version">{{ project.actualVersion }}</div>
-              <div class="name">{{ project.name }}</div>
+              <div class="name">{{ project.name | capFL }}</div>
           </div>
           <div class="date">{{ project.created | dateDifference }}</div>
       </a>

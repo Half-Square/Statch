@@ -2,36 +2,85 @@
 * @Author                : 0K00<qdouvillez@gmail.com>
 * @CreatedDate           : 2023-03-17 16:48:00
 * @LastEditors           : 0K00<qdouvillez@gmail.com>
-* @LastEditDate          : 2023-03-30 11:54:53
+* @LastEditDate          : 2023-03-31 19:01:49
 -->
 
 <div id="task">
   <div class="header">
-    <app-button id="editProj" type="trd" size="sm" label="Edit" *ngIf="!onEdit" (click)="redirectToEdit()" />
-    <app-button id="deleteProj" type="del" size="sm" label="Delete" *ngIf="onEdit" (click)='command.deleteTask(task)' />
-    <app-button id="saveProj" type="prm" size="sm" label="Publish" *ngIf="onEdit" (click)='saveTask()' />
   </div>
   <div class="task">
     <div class="main">
       <header>
+        <div class="edit">
+          <app-button id="editProj" type="trd" size="md" label="Edit" *ngIf="!onEdit" (click)="redirectToEdit()" />
+          <app-button id="deleteProj" type="del" size="md" label="Delete" *ngIf="onEdit" (click)='command.deleteTask(task)' />
+          <app-button id="saveProj" type="prm" size="md" label="Publish" *ngIf="onEdit" (click)='saveTask()' />
+        </div>
         <h1 edtTxt [isEdit]="onEdit" [(value)]="task.name"></h1>
         <h2>Description</h2>
-        <p edtTxt [isEdit]="onEdit" [(value)]="task.description"></p>
+        <p edtTxt [isEdit]="onEdit" [(value)]="task.description"> </p>
       </header>
+      <ng-container *ngIf="!windowWidth">
+        <div class="details">
+          <h3>Details</h3>
+          <div class="elements">
+            <div class="container">
+              <h4>Owner</h4>
+              <div class="text">
+                <app-avatar id="madelyn" [userName]="task && task.owner ? task.owner.name : ''" />
+                {{ task.owner ? task.owner.name : "" }}
+              </div>
+            </div>
+            <div class="container">
+              <h4>Assignee</h4>
+              <div class="text">
+                <app-assignee-section [assignees]="task ? task.assignments : []"
+                                      (onAssign)="command.assignMySelf('task', task)" />
+              </div>
+            </div>
+            <div class="container">
+              <h4>Target version</h4>
+              <app-versions-section [isEdit]="true"
+                  [version]="getTaskVersion()" (versionNameChange)="changeTaskVersion($event)" />
+            </div>
+            <div class="container">
+              <h4>Status</h4>
+              <div class="text">
+                <app-status-labeled [isEdit]="true" [(status)]="task.status" (statusChange)="command.editTask(this.task)"/>
+              </div>
+            </div>
+            <div class="container">
+              <h4>No. of tickets</h4>
+              <div><a href="/create">
+                {{ task && task.tickets ? task.tickets.length : '0' }}
+                {{ task && task.tickets && task.tickets.length > 1 ? "tickets" : "task"}}
+                <i class="icon arrowright"></i>
+              </a></div>
+            </div>
+            <div class="container">
+              <h4>Created</h4>
+              <div class="text">{{ task.created | dateDifference }}</div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
       <div class="advancement">
         <app-progress-bar id="test" [value]="advancement" />
         <div class="tickets">
+
           <a class="ticket" *ngFor="let ticket of task.tickets" [href]="'/ticket/'+ticket.id">
             <div class="block">
-              <div class="status"><app-status [status]="ticket.status" /></div>
-              <div *ngIf="ticket.targetVersion && ticket.targetVersion.name" class="version">{{ ticket.targetVersion.name }}</div>
-              <div class="name">{{ ticket.name }}</div>
-              <div class="id">{{ ticket.id }}</div>
+              <div class="right">
+                <div class="status"><app-status [status]="ticket.status" /></div>
+                <div *ngIf="ticket.targetVersion && ticket.targetVersion.name" class="version">{{ ticket.targetVersion.name }}</div>
+                <div class="name">{{ ticket.name }}</div>
+              </div>
               <div class="description">{{ ticket.description }}</div>
             </div>
             <div class="block">
-              <!-- <app-label :level="task.level" />
-              <app-avatar :id="task.name" /> -->
+              <div class="id">{{ ticket.id }}</div>
+              <app-level [degree]="ticket.level" />
+              <app-avatar [userId]="ticket.owner.id" [userName]="ticket.owner.name" />
             </div>
           </a>
 
@@ -41,9 +90,19 @@
           </a>
         </div>
       </div>
+      <ng-container *ngIf="!windowWidth">
+        <div class="activity">
+          <h3>Last activity</h3>
+          <div class="content" *ngFor="let item of activity">
+            <div class="img"><app-avatar [id]="item.name" [userName]="item.name" /></div>
+            <div class="name">{{ item.name }}</div>
+            <div class="desc">{{ item.action }} <a [href]="item.url">{{ item.id }}</a>, {{ item.time | dateDifference }}</div>
+          </div>
+        </div>
+      </ng-container>
       <app-comments-section targetType="tasks" [targetId]="task.id" [comments]="task.comments" />
     </div>
-    <aside>
+    <aside *ngIf="windowWidth">
       <div class="details">
         <h3>Details</h3>
         <div class="container">
@@ -57,7 +116,7 @@
           <h4>Assignee</h4>
           <div class="text">
             <app-assignee-section [assignees]="task ? task.assignments : []"
-            (onAssign)="command.assignMySelf('task', task)" />
+                                  (onAssign)="command.assignMySelf('task', task)" />
           </div>
         </div>
         <div class="container">
@@ -67,7 +126,9 @@
         </div>
         <div class="container">
           <h4>Status</h4>
-          <app-status-labeled [isEdit]="true" [(status)]="task.status" (statusChange)="command.editTask(this.task)"/>
+          <div class="text">
+            <app-status-labeled [isEdit]="true" [(status)]="task.status" (statusChange)="command.editTask(this.task)"/>
+          </div>
         </div>
         <div class="container">
           <h4>Level</h4>
@@ -88,14 +149,14 @@
           <div class="text">{{ task.created | dateDifference }}</div>
         </div>
       </div>
-      <!-- <div class="activity">
+      <div class="activity">
         <h3>Last activity</h3>
         <div class="content" *ngFor="let item of activity">
-          <div class="img"><app-avatar [id]="item.name" /></div>
+          <div class="img"><app-avatar [id]="item.name" [userName]="item.name" /></div>
           <div class="name">{{ item.name }}</div>
           <div class="desc">{{ item.action }} <a [href]="item.url">{{ item.id }}</a>, {{ item.time | dateDifference }}</div>
         </div>
-      </div> -->
+      </div>
     </aside>
   </div>
 </div>

@@ -8,6 +8,15 @@
  #project {
   display: flex;
   flex-direction: column;
+
+  .edit {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+  }
 }
 
 .header {
@@ -23,7 +32,7 @@
 
 .project {
   display: grid;
-  grid-template-columns: 1fr 0.5fr;
+  grid-template-columns: 1.5fr 0.5fr;
   background: rgba(34, 34, 34, 1);
   grid-template-areas:
   "main aside";
@@ -61,6 +70,7 @@
     padding: 1rem;
     border-bottom: 1px solid rgba(56, 56, 56, 1);
     overflow-wrap: anywhere;
+    position: relative;
 
     p {
       overflow-wrap: anywhere;
@@ -98,6 +108,7 @@
     .task {
       display: flex;
       justify-content: space-between;
+      gap: 8px;
       align-items: center;
       padding: 1rem;
       text-decoration: none;
@@ -120,25 +131,43 @@
         font-size: 12px;
         line-height: 16px;
 
+        .right {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          justify-content: flex-start;
+          gap: 8px;
+        }
+
         .icon {
           font-size: 16px;
         }
       }
 
+      .block:first-child {
+        display: grid;
+        grid-template-columns: 0.5fr 1.5fr;
+        width: 100%;
+      }
+
       .block .name {
-        color:rgba(236, 236, 236, 1);
+        color:rgba(255, 255, 255, 0.96);
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        max-width: 200px;
       }
 
       .block .id {
-        color:rgba(0, 108, 255, 1);
+        color:rgba(255, 255, 255, 0.32);
       }
 
       .block .version {
-        color:rgba(125, 125, 125, 1);
+        color:rgba(255, 255, 255, 0.32);
       }
 
       .block .description {
-        color:rgba(125, 125, 125, 1);
+        color:rgba(255, 255, 255, 0.32);
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
@@ -155,6 +184,7 @@
     line-height: 56px;
     color: rgba(236, 236, 236, 1);
     margin-bottom: 2rem;
+    max-width: calc(100% - 150px - 16px);
   }
 
   h2 {
@@ -174,11 +204,13 @@
   }
 }
 
-.project aside {
-  grid-area: aside;
-  display: flex;
-  flex-direction: column;
-  border-left: 1px solid rgba(56, 56, 56, 1);
+.project {
+  aside {
+    grid-area: aside;
+    display: flex;
+    flex-direction: column;
+    border-left: 1px solid rgba(56, 56, 56, 1);
+  }
 
   .activity, .details {
     display: flex;
@@ -272,3 +304,29 @@
   }
 
 }
+
+
+@media (max-width: 1024px) {
+  .project {
+    grid-template-columns: 1.5fr 0fr;
+
+    .details {
+      padding: 16px;
+
+    }
+    .elements {
+      display: flex;
+      flex-direction: row;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+    .activity {
+      border-bottom: 1px solid rgba(56, 56, 56, 1);
+    }
+
+    .details h3, .activity h3 {
+      color: rgba(125, 125, 125, 1);
+    }
+  }
+ }
