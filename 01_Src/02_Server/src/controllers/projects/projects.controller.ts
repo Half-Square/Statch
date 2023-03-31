@@ -2,7 +2,7 @@
  * @Author                : Adrien Lanco<adrienlanco0@gmail.com>              *
  * @CreatedDate           : 2023-02-21 14:21:24                               *
  * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>              *
- * @LastEditDate          : 2023-03-30 12:50:05                               *
+ * @LastEditDate          : 2023-03-31 15:02:49                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -68,8 +68,12 @@ export class ProjectsController {
    * @returns - Project details
    */
   @Get("/:id")
-  async getOne(@Param("id") id: string): Promise<projectsDto.DetailsOutput> {
+  async getOne(@Param("id") id: string,
+               @Headers("x-token") token: string
+  ): Promise<projectsDto.DetailsOutput> {
     try {     
+      let user = jwt.verify(token, process.env.SALT);
+
       const res = await this.prisma.project.findUnique({
         where: {
           id: id
@@ -94,7 +98,7 @@ export class ProjectsController {
           }
         }
       });      
-      if (res) return new projectsDto.DetailsOutput(res);
+      if (res) return new projectsDto.DetailsOutput({ ...res, isAssigned: this.isAssigned(res, user) });
       else throw new HttpException("Not Found", HttpStatus.NOT_FOUND);
     } catch (err) {
       console.error(`${new Date().toISOString()} - ${err}`);
@@ -113,8 +117,11 @@ export class ProjectsController {
   async update(
     @Param("id") id: string,
     @Body() body: projectsDto.UpdateInput,
+    @Headers("x-token") token: string
   ): Promise<projectsDto.DetailsOutput> {
     try {
+      let user = jwt.verify(token, process.env.SALT);
+
       let res = await this.prisma.project.update({
         where: {
           id: id
@@ -151,7 +158,8 @@ export class ProjectsController {
           }
         }
       });
-      return new projectsDto.DetailsOutput(res);
+      
+      return new projectsDto.DetailsOutput({ ...res, isAssigned: this.isAssigned(res, user) });
     } catch (err) {
       if (err.code === "P2025") {
         throw new HttpException("Not Found", HttpStatus.NOT_FOUND);
@@ -205,7 +213,7 @@ export class ProjectsController {
           }
         }
       });
-      return new projectsDto.DetailsOutput(res);
+      return new projectsDto.DetailsOutput({ ...res, isAssigned: this.isAssigned(res, user) });
     } catch (err) {
       console.error(`${new Date().toISOString()} - ${err}`);
       throw err;
@@ -232,4 +240,28 @@ export class ProjectsController {
     return {id: ""};
   }
   /***/
+
+
+  private isAssigned(res, user): boolean {
+    if (res.owner.id == user.id) return true;
+
+    if (res.assignments)
+      for (let i = 0; i < res.assignments.length; i++) {
+        if (res.assignments[i].user && res.assignments[i].user.id == user.id) {
+          return true
+        }
+      }
+
+    if (res.tasks)
+      for (let j = 0; j < res.tasks.length; j++) {
+        if (res.tasks[j].assignments)
+          for (let i = 0; i < res.tasks[j].assignments.length; i++) {
+            if (res.tasks[j].assignments[i].user && res.tasks[j].assignments[i].user.id == user.id) {
+              return true
+            }
+          }
+      }
+      
+    return false;
+  }
 }
