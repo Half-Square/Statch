@@ -2,7 +2,7 @@
  * @Author                : 0K00<qdouvillez@gmail.com>                       *
  * @CreatedDate           : 2023-03-24 15:23:15                              *
  * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
- * @LastEditDate          : 2023-03-29 16:39:48                              *
+ * @LastEditDate          : 2023-03-31 14:53:55                              *
  ****************************************************************************/
 
 import { NgModule } from '@angular/core';
@@ -19,6 +19,8 @@ import { ProgressBarComponent } from './progress-bar/progress-bar.component';
 import { StatusComponent } from './status/status.component';
 import { LevelComponent } from './level/level.component';
 
+import { PipeModule } from '../pipe/pipe.module';
+
 
 @NgModule({
   declarations: [
@@ -34,7 +36,8 @@ import { LevelComponent } from './level/level.component';
   imports: [
     CommonModule,
     RouterModule,
-    FormsModule
+    FormsModule,
+    PipeModule
   ],
   exports: [
     BreadcrumbsComponent,

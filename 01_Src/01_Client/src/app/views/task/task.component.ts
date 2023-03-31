@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : AdrienLanco0<adrienlanco0@gmail.com>             *
+ * @Author                : 0K00<qdouvillez@gmail.com>                       *
  * @CreatedDate           : 2023-03-18 17:03:31                              *
- * @LastEditors           : AdrienLanco0<adrienlanco0@gmail.com>             *
- * @LastEditDate          : 2023-03-28 12:42:03                              *
+ * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
+ * @LastEditDate          : 2023-03-31 18:59:39                              *
  ****************************************************************************/
 
 import { Component } from '@angular/core';
@@ -31,6 +31,7 @@ export class TaskComponent {
   }
 
   public onEdit: boolean = false;
+  public windowWidth: boolean = true;
 
   public id: string = "";
   public task: TaskInterface = {} as TaskInterface;
@@ -48,6 +49,10 @@ export class TaskComponent {
 
   async ngOnInit() {
     this.id = this.route.snapshot.paramMap.get('id') || "";
+    if(window.innerWidth <= 1024) {
+      this.windowWidth = false;
+    }
+    window.onresize = () => this.windowWidth = window.innerWidth >= 1024;
   }
 
   public saveTask() {

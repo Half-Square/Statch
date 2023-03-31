@@ -2,27 +2,27 @@
 * @Author                : 0K00<qdouvillez@gmail.com>
 * @CreatedDate           : 2023-03-17 12:58:00
 * @LastEditors           : 0K00<qdouvillez@gmail.com>
-* @LastEditDate          : 2023-03-29 20:33:36
+* @LastEditDate          : 2023-03-31 19:06:42
 -->
 
 <div class="collapse" [ngClass]="{ 'open': show(), 'close': !show() }">
-  <div *ngIf="!other" class="label" [ngClass]="{ 'active': isActive }">
-      <div *ngIf="!noContent && !other" class="icons" [ngStyle]="indent()" (click)="toggleCollapse()"
+  <div *ngIf="!other" [ngStyle]="indent()" class="label" [ngClass]="{ 'active': isActive }">
+      <div *ngIf="!noContent && !other" class="icons" (click)="toggleCollapse()"
             [ngClass]="{ 'less': show(), 'more': !show() }" >
           <i *ngIf="!show()" class="icon chevron-right"></i>
           <i *ngIf="show()" class="icon chevron-down"></i>
       </div>
-      <div *ngIf="!noContent && other" class="icons" [ngStyle]="indent()" (click)="toggleCollapse()"
+      <div *ngIf="!noContent && other" class="icons" (click)="toggleCollapse()"
           [ngClass]="{ 'less': show(), 'more': !show() }" >
         <i *ngIf="!show()" class="icon open"></i>
         <i *ngIf="show()" class="icon close"></i>
       </div>
-      <nav [routerLink]="[ type+(id? '/'+id : '') ]">
-          <div class="link" [ngStyle]="indent()">
+      <nav class="nav" [routerLink]="[ type+(id? '/'+id : '') ]">
+          <div class="link">
               <app-level *ngIf="level" [degree]="level" />
               <div *ngIf="version" class="version">{{ version }}</div>
               <app-status [status]="status"></app-status>
-              <div class="text">{{ label }}</div>
+              <div class="text">{{ label | capFL }}</div>
           </div>
       </nav>
   </div>
@@ -38,7 +38,7 @@
             <app-level *ngIf="level" [degree]="level" />
             <div *ngIf="version" class="version">{{ version }}</div>
             <app-status [status]="status"></app-status>
-            <div class="text">{{ label }}</div>
+            <div class="text">{{ label | capFL }}</div>
         </div>
     </nav>
 </div>

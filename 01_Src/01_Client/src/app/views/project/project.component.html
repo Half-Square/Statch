@@ -1,38 +1,86 @@
 <!--
-* @Author                : Adrien Lanco<adrienlanco0@gmail.com>
+* @Author                : 0K00<qdouvillez@gmail.com>
 * @CreatedDate           : 2023-03-17 16:48:00
-* @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>
-* @LastEditDate          : 2023-03-30 11:18:12
+* @LastEditors           : 0K00<qdouvillez@gmail.com>
+* @LastEditDate          : 2023-03-31 18:41:15
 -->
 
 <div id="project">
   <div class="header">
-    <app-button id="editProj" type="trd" size="sm" label="Edit" *ngIf="!onEdit" (click)="redirectToEdit()" />
-    <app-button id="deleteProj" type="del" size="sm" label="Delete" *ngIf="onEdit" (click)='command.deleteProject(project.id)' />
-    <app-button id="saveProj" type="prm" size="sm" label="Publish" *ngIf="onEdit" (click)='saveProject()' />
   </div>
   <div class="project">
     <div class="main">
       <header>
+        <div class="edit">
+          <app-button id="editProj" type="trd" size="md" label="Edit" *ngIf="!onEdit" (click)="redirectToEdit()" />
+          <app-button id="deleteProj" type="del" size="md" label="Delete" *ngIf="onEdit" (click)='command.deleteProject(project.id)' />
+          <app-button id="saveProj" type="prm" size="md" label="Publish" *ngIf="onEdit" (click)='saveProject()' />
+        </div>
         <h1 edtTxt [isEdit]="onEdit" [(value)]="project.name"></h1>
         <h2>Description</h2>
         <p edtTxt [isEdit]="onEdit" [(value)]="project.description"> </p>
       </header>
+      <ng-container *ngIf="!windowWidth">
+        <div class="details">
+          <h3>Details</h3>
+          <div class="elements">
+            <div class="container">
+              <h4>Owner</h4>
+              <div class="text">
+                <app-avatar id="madelyn" [userName]="project && project.owner ? project.owner.name : ''" />
+                {{ project.owner ? project.owner.name : "" }}
+              </div>
+            </div>
+            <div class="container">
+              <h4>Assignee</h4>
+              <div class="text">
+                <app-assignee-section [assignees]="project ? project.assignments : []"
+                                      (onAssign)="command.assignMySelf('project', project)" />
+              </div>
+            </div>
+            <div class="container">
+              <h4>Version</h4>
+              <app-versions-section [isEdit]="true" [isProject]="true"
+                  [version]="getProjectVersion()" (versionNameChange)="changeProjectVersion($event)" />
+            </div>
+            <div class="container">
+              <h4>Status</h4>
+              <div class="text">
+                <app-status-labeled [isEdit]="true" [(status)]="project.status" (statusChange)="command.editProject(this.project)"/>
+              </div>
+            </div>
+            <div class="container">
+              <h4>No. of tasks</h4>
+              <div><a href="/create">
+                {{ project && project.tasks ? project.tasks.length : '0' }}
+                {{ project && project.tasks && project.tasks.length > 1 ? "tasks" : "task"}}
+                <i class="icon arrowright"></i>
+              </a></div>
+            </div>
+            <div class="container">
+              <h4>Created</h4>
+              <div class="text">{{ project.created | dateDifference }}</div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
       <div class="advancement">
         <app-progress-bar id="test" [value]="advancement" />
         <div class="tasks">
 
           <a class="task" *ngFor="let task of project.tasks" [href]="'/task/'+task.id">
             <div class="block">
-              <div class="status"><app-status [status]="task.status" /></div>
-              <div *ngIf="task.targetVersion && task.targetVersion.name" class="version">{{ task.targetVersion.name }}</div>
-              <div class="name">{{ task.name }}</div>
-              <div class="id">{{ task.id }}</div>
+              <div class="right">
+                <div class="status"><app-status [status]="task.status" /></div>
+                <div *ngIf="task.targetVersion && task.targetVersion.name" class="version">{{ task.targetVersion.name }}</div>
+                <div class="name">{{ task.name }}</div>
+              </div>
               <div class="description">{{ task.description }}</div>
             </div>
             <div class="block">
-              <!-- <app-label :level="task.level" />
-              <app-avatar :id="task.name" /> -->
+              <div class="id">{{ task.id }}</div>
+              <app-level [degree]="task.level" />
+              <app-avatar [userId]="task.owner.id" [userName]="task.owner.name" />
             </div>
           </a>
 
@@ -42,9 +90,19 @@
           </a>
         </div>
       </div>
+      <ng-container *ngIf="!windowWidth">
+        <div class="activity">
+          <h3>Last activity</h3>
+          <div class="content" *ngFor="let item of activity">
+            <div class="img"><app-avatar [id]="item.name" [userName]="item.name" /></div>
+            <div class="name">{{ item.name }}</div>
+            <div class="desc">{{ item.action }} <a [href]="item.url">{{ item.id }}</a>, {{ item.time | dateDifference }}</div>
+          </div>
+        </div>
+      </ng-container>
       <app-comments-section targetType="projects" [targetId]="project.id" [comments]="project.comments" />
     </div>
-    <aside>
+    <aside *ngIf="windowWidth">
       <div class="details">
         <h3>Details</h3>
         <div class="container">
@@ -85,14 +143,14 @@
           <div class="text">{{ project.created | dateDifference }}</div>
         </div>
       </div>
-      <!-- <div class="activity">
+      <div class="activity">
         <h3>Last activity</h3>
         <div class="content" *ngFor="let item of activity">
           <div class="img"><app-avatar [id]="item.name" [userName]="item.name" /></div>
           <div class="name">{{ item.name }}</div>
           <div class="desc">{{ item.action }} <a [href]="item.url">{{ item.id }}</a>, {{ item.time | dateDifference }}</div>
         </div>
-      </div> -->
+      </div>
     </aside>
   </div>
 </div>

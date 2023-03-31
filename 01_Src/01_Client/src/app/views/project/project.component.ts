@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : AdrienLanco0<adrienlanco0@gmail.com>             *
+ * @Author                : 0K00<qdouvillez@gmail.com>                       *
  * @CreatedDate           : 2023-03-17 16:49:59                              *
- * @LastEditors           : AdrienLanco0<adrienlanco0@gmail.com>             *
- * @LastEditDate          : 2023-03-28 16:33:43                              *
+ * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
+ * @LastEditDate          : 2023-03-31 18:04:06                              *
  ****************************************************************************/
 
 import { Component, OnInit } from '@angular/core';
@@ -32,6 +32,7 @@ export class ProjectComponent implements OnInit {
   }
 
   public onEdit: boolean = false;
+  public windowWidth: boolean = true;
 
   public id: string = "";
   public project: ProjectInterface = {} as ProjectInterface;
@@ -73,10 +74,13 @@ export class ProjectComponent implements OnInit {
     },
   ];
 
-  async ngOnInit() {
+  ngOnInit() {
     this.id = this.route.snapshot.paramMap.get('id') || "";
     console.log(this.getProjectVersion());
-
+    if(window.innerWidth <= 1024) {
+      this.windowWidth = false;
+    }
+    window.onresize = () => this.windowWidth = window.innerWidth >= 1024;
   }
 
   public saveProject() {

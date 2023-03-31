@@ -1,14 +1,14 @@
 <!--
-* @Author                : Adrien Lanco<adrienlanco0@gmail.com>
+* @Author                : 0K00<qdouvillez@gmail.com>
 * @CreatedDate           : 2023-03-17 12:19:00
-* @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>
-* @LastEditDate          : 2023-03-18 15:44:51
+* @LastEditors           : 0K00<qdouvillez@gmail.com>
+* @LastEditDate          : 2023-03-31 14:54:55
 -->
 
 <nav>
   <ol class="breadcrumb">
       <li class="item" *ngFor="let crumb of crumbs; let index = index">
-          <a [href]="crumb.path">{{ crumb.name }}</a>
+          <a [href]="crumb.path">{{ crumb.name | capFL }}</a>
       </li>
   </ol>
 </nav>
