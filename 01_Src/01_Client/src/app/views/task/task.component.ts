@@ -1,14 +1,14 @@
 /*****************************************************************************
- * @Author                : 0K00<qdouvillez@gmail.com>                       *
+ * @Author                : AdrienLanco0<adrienlanco0@gmail.com>             *
  * @CreatedDate           : 2023-03-18 17:03:31                              *
- * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
- * @LastEditDate          : 2023-03-31 18:59:39                              *
+ * @LastEditors           : AdrienLanco0<adrienlanco0@gmail.com>             *
+ * @LastEditDate          : 2023-04-11 14:54:57                              *
  ****************************************************************************/
 
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommandService } from 'src/app/services/command/command.service';
-import { ProjectInterface, ProjectListService, TaskInterface, VersionInterface } from 'src/app/services/project-list/project-list.service';
+import { ProjectInterface, ProjectListService, TaskInterface, TicketInterface, VersionInterface } from 'src/app/services/project-list/project-list.service';
 
 @Component({
   selector: 'app-task',
@@ -39,6 +39,10 @@ export class TaskComponent {
   public nbTicket: number = 0;
 
   public advancement: number = 0;
+
+  public showAll: boolean = false;
+  public filteredAdvancementTickets: Array<TicketInterface> = [];
+  public advancementTickets: Array<TicketInterface> = [];
 
   public activity : any = [
   {img: "0", alt: "oui", name: "Randy", action: "created", id: "dc5c7a1", url: "/create", time: "10 min"},
@@ -89,14 +93,26 @@ export class TaskComponent {
     let done = 0
     if (this.task.tickets)
       this.task.tickets.forEach(ticket => {
-        if (ticket.status == "rejected")
-          rej++
-        if (ticket.status == "done")
-          done++
-        cpt++
+        if (!this.task.targetVersion || (ticket.targetVersion
+          && this.task.targetVersion.name == ticket.targetVersion.name)) {
+          this.filteredAdvancementTickets.push(ticket)
+          if (ticket.status == "reject")
+            rej++
+          if (ticket.status == "done")
+            done++
+          cpt++
+        }
       });
     if (!cpt) this.advancement = 0
     else this.advancement = Math.trunc(done / (cpt - rej)  * 100)
+
+    this.triggerShow();
   }
 
+  public triggerShow(): void {
+    if (this.showAll)
+      this.advancementTickets = this.filteredAdvancementTickets
+    else
+      this.advancementTickets = this.task.tickets
+  }
 }

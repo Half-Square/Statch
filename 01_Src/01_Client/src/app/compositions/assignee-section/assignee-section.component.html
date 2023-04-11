@@ -1,15 +1,15 @@
 <!--
-* @Author                : 0K00<qdouvillez@gmail.com>
+* @Author                : Adrien Lanco<adrienlanco0@gmail.com>
 * @CreatedDate           : 2023-03-28 16:17:00
-* @LastEditors           : 0K00<qdouvillez@gmail.com>
-* @LastEditDate          : 2023-03-31 14:57:23
+* @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>
+* @LastEditDate          : 2023-03-31 16:37:03
 -->
 
 <div class="assignees">
   <ng-container *ngIf="assignees && (assignees.length < 1 || assignees.length == 1)" >
     <div class="assignee" *ngFor="let assignee of assignees">
       <app-avatar [userName]="assignee.name" />
-      <p>{{assignee.name | capFL }}</p>
+      <p>{{assignee.name}}</p>
     </div>
   </ng-container>
 
@@ -22,8 +22,31 @@
     <p>{{assignees.length - 2}} {{ assignees.length - 2 > 1 ? "others" : "other"}}</p>
   </div>
 
-  <div *ngIf="!isAssignee">
-    <app-button id="assign" type="trd" size="sm" icon="plus" iconPosition="only" (click)="assignMySelf()"></app-button>
+  <div id='openOption'>
+    <app-button type='trd' size='l'
+    (click)='showOption = !showOption'
+    icon='plus' iconPosition='only'
+    [other]="(showOption) ? 'active' : '' " />
+    <ng-container *ngIf="showOption">
+    <div @nested class="menuOption">
+      <div class="assignee" *ngFor="let user of assignees" >
+        <app-avatar [userName]="user.name" />
+        <p>{{user.name}}</p>
+        <app-button id="assign" type="trd" size="sm" icon="minus"
+                iconPosition="only" (click)="unassignSomeOne(user)"></app-button>
+      </div>
+      <div class="assignee" *ngFor="let user of nonAssigned">
+        <app-avatar [userName]="user.name" />
+        <p>{{user.name}}</p>
+        <app-button id="assign" type="trd" size="sm" icon="plus"
+                iconPosition="only" (click)="assignSomeOne(user)"></app-button>
+      </div>
+    </div>
+    </ng-container>
   </div>
+
+
+  <app-button *ngIf="!isAssignee" id="assign" type="trd" size="sm" icon="bell" iconPosition="only" (click)="assignMySelf()"></app-button>
+  <app-button *ngIf="isAssignee" id="assign" type="prm" size="sm" icon="bell" iconPosition="only" (click)="unassignMySelf()"></app-button>
 </div>
 

@@ -1,11 +1,11 @@
 <!--
-* @Author                : 0K00<qdouvillez@gmail.com>
+* @Author                : Adrien Lanco<adrienlanco0@gmail.com>
 * @CreatedDate           : 2023-03-17 12:29:00
-* @LastEditors           : 0K00<qdouvillez@gmail.com>
-* @LastEditDate          : 2023-03-31 14:54:45
+* @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>
+* @LastEditDate          : 2023-03-31 17:14:45
 -->
 
-<button (click)="callback" [disabled]="disabled" class="{{ 'btn '+classes }}" [ngClass]="other" routerLinkActive="active" >
-  <p *ngIf="iconPosition != 'only'">{{ label | capFL }}</p>
+<button (click)="callback" [disabled]="disabled" class="{{ 'btn '+type+' '+size }}" [ngClass]="other" routerLinkActive="active" >
+  <p *ngIf="iconPosition != 'only'">{{ label }}</p>
   <i *ngIf="iconPosition != 'none' && icon" class="{{ 'icon '+icon }}"></i>
 </button>
