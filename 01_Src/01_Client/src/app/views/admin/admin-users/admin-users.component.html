@@ -1,8 +1,8 @@
 <!--
-* @Author                : Adrien Lanco<adrienlanco0@gmail.com>
+* @Author                : 0K00<qdouvillez@gmail.com>
 * @CreatedDate           : 2023-03-30 10:20:00
-* @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>
-* @LastEditDate          : 2023-03-30 10:40:58
+* @LastEditors           : 0K00<qdouvillez@gmail.com>
+* @LastEditDate          : 2023-03-31 14:58:42
 -->
 
 <div id="admin-users" class="main">
@@ -11,7 +11,7 @@
     <div *ngFor="let user of users" class="user">
       <div class="user-info">
         <p>{{ user.id }}</p>
-        <p>{{ user.name }}</p>
+        <p>{{ user.name | capFL }}</p>
         <p>{{ user.email }}</p>
       </div>
       <div class="user-actions">

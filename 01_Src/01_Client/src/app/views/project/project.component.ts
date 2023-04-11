@@ -1,14 +1,14 @@
 /*****************************************************************************
- * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
+ * @Author                : 0K00<qdouvillez@gmail.com>                       *
  * @CreatedDate           : 2023-03-17 16:49:59                              *
- * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
- * @LastEditDate          : 2023-03-31 17:10:49                              *
+ * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
+ * @LastEditDate          : 2023-03-31 18:04:06                              *
  ****************************************************************************/
 
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommandService } from 'src/app/services/command/command.service';
-import { ProjectInterface, ProjectListService, TaskInterface, VersionInterface } from 'src/app/services/project-list/project-list.service';
+import { ProjectInterface, ProjectListService, VersionInterface } from 'src/app/services/project-list/project-list.service';
 
 @Component({
   selector: 'app-project',
@@ -32,15 +32,13 @@ export class ProjectComponent implements OnInit {
   }
 
   public onEdit: boolean = false;
-  public showAll: boolean = false;
+  public windowWidth: boolean = true;
 
   public id: string = "";
   public project: ProjectInterface = {} as ProjectInterface;
 
   public nbTicket: number = 0;
   public advancement: number = 0;
-  public filteredAdvancementTasks: Array<TaskInterface> = [];
-  public advancementTasks: Array<TaskInterface> = [];
 
   public activity : any = [
     {img: "0", alt: "oui", name: "Randy", action: "created", id: "dc5c7a1", url: "/create", time: "10 min"},
@@ -76,10 +74,13 @@ export class ProjectComponent implements OnInit {
     },
   ];
 
-  async ngOnInit() {
+  ngOnInit() {
     this.id = this.route.snapshot.paramMap.get('id') || "";
     console.log(this.getProjectVersion());
-
+    if(window.innerWidth <= 1024) {
+      this.windowWidth = false;
+    }
+    window.onresize = () => this.windowWidth = window.innerWidth >= 1024;
   }
 
   public saveProject() {
@@ -114,29 +115,14 @@ export class ProjectComponent implements OnInit {
     let rej = 0;
     let done = 0
     if (this.project.tasks)
-      this.filteredAdvancementTasks = [];
       this.project.tasks.forEach(task => {
-        if (!this.project.actualVersion || (task.targetVersion
-          && task.targetVersion.name == this.project.actualVersion)) {
-          this.filteredAdvancementTasks.push(task)
-
-          if (task.status == "reject")
-            rej++
-          if (task.status == "done")
-            done++
-          cpt++
-        }
+        if (task.status == "rejected")
+          rej++
+        if (task.status == "done")
+          done++
+        cpt++
       });
     if (!cpt) this.advancement = 0
-    else this.advancement = Math.trunc(done / (cpt - rej)  * 100);
-
-    this.triggerShow();
-  }
-
-  public triggerShow(): void {
-    if (!this.showAll)
-      this.advancementTasks = this.filteredAdvancementTasks
-    else
-      this.advancementTasks = this.project.tasks
+    else this.advancement = Math.trunc(done / (cpt - rej)  * 100)
   }
 }

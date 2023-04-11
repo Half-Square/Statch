@@ -1,8 +1,8 @@
 <!--
-* @Author                : AdrienLanco0<adrienlanco0@gmail.com>
+* @Author                : 0K00<qdouvillez@gmail.com>
 * @CreatedDate           : 2023-03-17 13:39:00
-* @LastEditors           : AdrienLanco0<adrienlanco0@gmail.com>
-* @LastEditDate          : 2023-03-27 13:13:08
+* @LastEditors           : 0K00<qdouvillez@gmail.com>
+* @LastEditDate          : 2023-03-31 14:58:08
 -->
 
 <ng-container *ngIf="isEdit">
@@ -11,5 +11,5 @@
 
 <ng-container *ngIf="!isEdit">
   <app-status [status]="status"></app-status>
-  <p>{{ status }}</p>
+  <p>{{ status | capFL }}</p>
 </ng-container>

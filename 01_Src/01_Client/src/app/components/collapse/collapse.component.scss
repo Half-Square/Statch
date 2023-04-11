@@ -9,6 +9,7 @@
      padding: 0.5rem;
  }
 
+
  .collapse {
      position: relative;
      font-size: 12px;
@@ -23,6 +24,7 @@
      .label {
          display: flex;
          align-items: center;
+         overflow: hidden;
          gap: 0.25rem;
          cursor: pointer;
          padding: 0.25rem 16px;
@@ -40,10 +42,14 @@
          &:hover {
              background: rgba(255, 255, 255, 0.1);
          }
+          .nav {
+            width: 100%;
+          }
          .link {
              cursor: pointer;
              display: flex;
              align-items: center;
+             width: calc(100% - 16px);
              gap: 0.5rem;
              &:hover .text {
                  text-decoration: underline;
@@ -53,6 +59,11 @@
                  font-size: 16px;
              }
          }
+         .text {
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
      }
      .label.active {
          background: rgba(0, 108, 255, 1);
@@ -71,6 +82,10 @@
   color: rgba(255, 255, 255, 0.96);
   border-bottom: 1px solid rgb(34 34 34);
   margin-bottom: 1px;
+
+  nav {
+    width: 100%;
+  }
 
   .icons .icon {
     font-size: 16px;
@@ -102,6 +117,10 @@
   color: rgba(255, 255, 255, 0.96);
   margin-bottom: 0;
 
+  nav {
+    width: 100%;
+  }
+
   .icons .icon {
     font-size: 16px;
     color: rgba(255, 255, 255, 0.64);
@@ -130,6 +149,10 @@
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   color: rgba(255, 255, 255, 0.96);
   margin-bottom: 0;
+
+  nav {
+    width: 100%;
+  }
 
   .icons .icon {
     font-size: 16px;
