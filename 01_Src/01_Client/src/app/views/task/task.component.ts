@@ -2,7 +2,7 @@
  * @Author                : AdrienLanco0<adrienlanco0@gmail.com>             *
  * @CreatedDate           : 2023-03-18 17:03:31                              *
  * @LastEditors           : AdrienLanco0<adrienlanco0@gmail.com>             *
- * @LastEditDate          : 2023-03-28 12:42:03                              *
+ * @LastEditDate          : 2023-04-03 12:54:59                              *
  ****************************************************************************/
 
 import { Component } from '@angular/core';
@@ -84,7 +84,7 @@ export class TaskComponent {
     let done = 0
     if (this.task.tickets)
       this.task.tickets.forEach(ticket => {
-        if (ticket.status == "rejected")
+        if (ticket.status == "reject")
           rej++
         if (ticket.status == "done")
           done++

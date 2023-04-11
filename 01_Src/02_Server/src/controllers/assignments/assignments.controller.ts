@@ -1,3 +1,10 @@
+/******************************************************************************
+ * @Author                : AdrienLanco0<adrienlanco0@gmail.com>              *
+ * @CreatedDate           : 2023-03-29 15:51:17                               *
+ * @LastEditors           : AdrienLanco0<adrienlanco0@gmail.com>              *
+ * @LastEditDate          : 2023-04-03 13:06:02                               *
+ *****************************************************************************/
+
 /* Imports */
 import {
   Controller,
@@ -11,12 +18,6 @@ import {
   UseGuards,
   Delete
 } from "@nestjs/common";
-/******************************************************************************
- * @Author                : Adrien Lanco<adrienlanco0@gmail.com>              *
- * @CreatedDate           : 2023-03-29 15:51:17                               *
- * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>              *
- * @LastEditDate          : 2023-03-31 15:32:39                               *
- *****************************************************************************/
 
 /* Dto */
 import * as projectsDto from "../../dto/projects.dto";
