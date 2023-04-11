@@ -1,9 +1,9 @@
-/*****************************************************************************
- * @Author                : 0K00<qdouvillez@gmail.com>                       *
- * @CreatedDate           : 2023-03-24 15:23:15                              *
- * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
- * @LastEditDate          : 2023-03-31 14:53:55                              *
- ****************************************************************************/
+/******************************************************************************
+ * @Author                : 0K00<qdouvillez@gmail.com>                        *
+ * @CreatedDate           : 2023-03-24 15:23:15                               *
+ * @LastEditors           : 0K00<qdouvillez@gmail.com>                        *
+ * @LastEditDate          : 2023-04-11 16:15:57                               *
+ *****************************************************************************/
 
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -20,6 +20,7 @@ import { StatusComponent } from './status/status.component';
 import { LevelComponent } from './level/level.component';
 
 import { PipeModule } from '../pipe/pipe.module';
+import { BadgesComponent } from './badges/badges.component';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { PipeModule } from '../pipe/pipe.module';
     InputComponent,
     ProgressBarComponent,
     StatusComponent,
-    LevelComponent
+    LevelComponent,
+    BadgesComponent
   ],
   imports: [
     CommonModule,
@@ -47,7 +49,8 @@ import { PipeModule } from '../pipe/pipe.module';
     InputComponent,
     ProgressBarComponent,
     StatusComponent,
-    LevelComponent
+    LevelComponent,
+    BadgesComponent
   ]
 })
 export class ComponentsModule { }
