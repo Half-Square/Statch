@@ -25,6 +25,7 @@ import { AdminComponent } from './admin/admin.component';
 import { AdminUsersComponent } from './admin/admin-users/admin-users.component';
 
 import { PipeModule } from '../pipe/pipe.module';
+import { ActivityComponent } from './activity/activity.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { PipeModule } from '../pipe/pipe.module';
     TicketComponent,
     AssignComponent,
     AdminComponent,
-    AdminUsersComponent
+    AdminUsersComponent,
+    ActivityComponent
   ],
   imports: [
     CommonModule,
