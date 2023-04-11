@@ -1,9 +1,9 @@
 
 /*****************************************************************************
- * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
+ * @Author                : AdrienLanco0<adrienlanco0@gmail.com>             *
  * @CreatedDate           : 2023-03-02 13:57:55                              *
- * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
- * @LastEditDate          : 2023-03-30 12:03:06                              *
+ * @LastEditors           : AdrienLanco0<adrienlanco0@gmail.com>             *
+ * @LastEditDate          : 2023-04-11 14:56:10                              *
  ****************************************************************************/
 
 import { Injectable } from '@angular/core';
@@ -78,8 +78,6 @@ export class ApiService {
         return new Promise((resolve, reject) => {
           let api_url = environment.API_URL;
           let token = UserService.isConnected() ? UserService.getUser().token : "";
-          console.log(UserService.isConnected());
-          console.log(token, UserService.getUser());
 
           let requestHeaders: HeadersInit = new Headers();
           requestHeaders.set('Content-Type', 'application/json');

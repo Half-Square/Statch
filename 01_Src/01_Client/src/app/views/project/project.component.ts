@@ -1,14 +1,14 @@
 /*****************************************************************************
- * @Author                : 0K00<qdouvillez@gmail.com>                       *
+ * @Author                : AdrienLanco0<adrienlanco0@gmail.com>             *
  * @CreatedDate           : 2023-03-17 16:49:59                              *
- * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
- * @LastEditDate          : 2023-03-31 18:04:06                              *
+ * @LastEditors           : AdrienLanco0<adrienlanco0@gmail.com>             *
+ * @LastEditDate          : 2023-04-11 14:57:20                              *
  ****************************************************************************/
 
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommandService } from 'src/app/services/command/command.service';
-import { ProjectInterface, ProjectListService, VersionInterface } from 'src/app/services/project-list/project-list.service';
+import { ProjectInterface, ProjectListService, TaskInterface, VersionInterface } from 'src/app/services/project-list/project-list.service';
 
 @Component({
   selector: 'app-project',
@@ -39,6 +39,10 @@ export class ProjectComponent implements OnInit {
 
   public nbTicket: number = 0;
   public advancement: number = 0;
+
+  public showAll: boolean = false;
+  public filteredAdvancementTasks: Array<TaskInterface> = [];
+  public advancementTasks: Array<TaskInterface> = [];
 
   public activity : any = [
     {img: "0", alt: "oui", name: "Randy", action: "created", id: "dc5c7a1", url: "/create", time: "10 min"},
@@ -76,7 +80,6 @@ export class ProjectComponent implements OnInit {
 
   ngOnInit() {
     this.id = this.route.snapshot.paramMap.get('id') || "";
-    console.log(this.getProjectVersion());
     if(window.innerWidth <= 1024) {
       this.windowWidth = false;
     }
@@ -116,13 +119,27 @@ export class ProjectComponent implements OnInit {
     let done = 0
     if (this.project.tasks)
       this.project.tasks.forEach(task => {
-        if (task.status == "rejected")
-          rej++
-        if (task.status == "done")
-          done++
-        cpt++
+        if (!this.project.actualVersion || (task.targetVersion
+          && task.targetVersion.name == this.project.actualVersion)) {
+          this.filteredAdvancementTasks.push(task)
+
+          if (task.status == "reject")
+            rej++
+          if (task.status == "done")
+            done++
+          cpt++
+        }
       });
     if (!cpt) this.advancement = 0
     else this.advancement = Math.trunc(done / (cpt - rej)  * 100)
+
+    this.triggerShow();
+  }
+
+  public triggerShow(): void {
+    if (this.showAll)
+      this.advancementTasks = this.filteredAdvancementTasks
+    else
+      this.advancementTasks = this.project.tasks
   }
 }

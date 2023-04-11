@@ -1,9 +1,9 @@
-/******************************************************************************
- * @Author                : 0K00<qdouvillez@gmail.com>                        *
- * @CreatedDate           : 2023-03-29 19:07:23                               *
- * @LastEditors           : 0K00<qdouvillez@gmail.com>                        *
- * @LastEditDate          : 2023-03-29 19:07:23                               *
- *****************************************************************************/
+/*****************************************************************************
+ * @Author                : AdrienLanco0<adrienlanco0@gmail.com>             *
+ * @CreatedDate           : 2023-03-29 19:07:23                              *
+ * @LastEditors           : AdrienLanco0<adrienlanco0@gmail.com>             *
+ * @LastEditDate          : 2023-04-11 14:56:39                              *
+ ****************************************************************************/
 
 import { Pipe, PipeTransform } from '@angular/core';
 
@@ -13,7 +13,10 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class CapFLPipe implements PipeTransform {
 
   transform(string: string): string {
-    return string.charAt(0).toUpperCase() + string.slice(1);
+    if (string)
+      return string.charAt(0).toUpperCase() + string.slice(1);
+    else
+      return ""
   }
 
 }
