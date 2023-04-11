@@ -1,0 +1,10 @@
+<!--
+* @Author                : 0K00<qdouvillez@gmail.com>
+* @CreatedDate           : 2023-04-11 16:09:00
+* @LastEditors           : 0K00<qdouvillez@gmail.com>
+* @LastEditDate          : 2023-04-11 16:39:37
+-->
+
+<div *ngIf="number > 0" class="{{'badge ' + classes }}" [ngStyle]="position()" >
+  <span class="number" *ngIf="size === 'md'">{{ number }}</span>
+</div>

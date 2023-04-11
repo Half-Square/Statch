@@ -1,9 +1,9 @@
-/*****************************************************************************
- * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
- * @CreatedDate           : 2023-03-17 11:52:49                              *
- * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
- * @LastEditDate          : 2023-03-30 10:10:22                              *
- ****************************************************************************/
+/******************************************************************************
+ * @Author                : 0K00<qdouvillez@gmail.com>                        *
+ * @CreatedDate           : 2023-03-17 11:52:49                               *
+ * @LastEditors           : 0K00<qdouvillez@gmail.com>                        *
+ * @LastEditDate          : 2023-04-11 12:49:02                               *
+ *****************************************************************************/
 
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
@@ -15,6 +15,7 @@ import { SignupComponent } from './views/signup/signup.component';
 import { TaskComponent } from './views/task/task.component';
 import { TicketComponent } from './views/ticket/ticket.component';
 import { AssignComponent } from './views/assign/assign.component';
+import { ActivityComponent } from './views/activity/activity.component';
 
 import { AdminComponent } from './views/admin/admin.component';
 import { AdminUsersComponent } from './views/admin/admin-users/admin-users.component';
@@ -31,6 +32,7 @@ const routes: Routes = [
 
   { path: 'projects', component: ProjectsComponent, canActivate: [AuthGuard]  },
   { path: 'assign', component: AssignComponent, canActivate: [AuthGuard] },
+  { path: 'activity', component: ActivityComponent, canActivate: [AuthGuard] },
 
   { path: 'project/:id', component: ProjectComponent, canActivate: [AuthGuard]  },
   { path: 'task/:id', component: TaskComponent, canActivate: [AuthGuard]  },
