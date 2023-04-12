@@ -1,8 +1,8 @@
 <!--
-* @Author                : AdrienLanco0<adrienlanco0@gmail.com>
+* @Author                : 0K00<qdouvillez@gmail.com>
 * @CreatedDate           : 2023-03-17 16:48:00
-* @LastEditors           : AdrienLanco0<adrienlanco0@gmail.com>
-* @LastEditDate          : 2023-04-11 14:51:50
+* @LastEditors           : 0K00<qdouvillez@gmail.com>
+* @LastEditDate          : 2023-04-12 14:56:56
 -->
 
 <div id="task">
@@ -54,7 +54,7 @@
               <div><a href="/create">
                 {{ task && task.tickets ? task.tickets.length : '0' }}
                 {{ task && task.tickets && task.tickets.length > 1 ? "tickets" : "task"}}
-                <i class="icon arrowright"></i>
+                <app-icons [ngClass]="'icon'" icon="arrowright" />
               </a></div>
             </div>
             <div class="container">
@@ -86,7 +86,7 @@
           </a>
 
           <a class="ticket add" (click)="command.openNewTicket(task.id)">
-            <i class="icon plus"></i>
+            <app-icons [ngClass]="'icon'" icon="plus" />
             Create new Ticket
           </a>
         </div>
@@ -142,7 +142,7 @@
           <div><a href="/create">
             {{ task && task.tickets ? task.tickets.length : '0' }}
             {{ task && task.tickets && task.tickets.length > 1 ? "tickets" : "ticket"}}
-            <i class="icon arrowright"></i>
+            <app-icons [ngClass]="'icon'" icon="arrowright" />
           </a></div>
         </div>
         <div class="container">

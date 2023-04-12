@@ -9,13 +9,13 @@
   <div *ngIf="!other" [ngStyle]="indent()" class="label" [ngClass]="{ 'active': isActive }">
       <div *ngIf="!noContent && !other" class="icons" (click)="toggleCollapse()"
             [ngClass]="{ 'less': show(), 'more': !show() }" >
-          <i *ngIf="!show()" class="icon chevron-right"></i>
-          <i *ngIf="show()" class="icon chevron-down"></i>
+          <app-icons *ngIf="!show()" [ngClass]="'icon'" icon="chevron-right" />
+          <app-icons *ngIf="show()" [ngClass]="'icon'" icon="chevron-down" />
       </div>
       <div *ngIf="!noContent && other" class="icons" (click)="toggleCollapse()"
           [ngClass]="{ 'less': show(), 'more': !show() }" >
-        <i *ngIf="!show()" class="icon open"></i>
-        <i *ngIf="show()" class="icon close"></i>
+        <app-icons *ngIf="!show()" [ngClass]="'icon'" icon="open" />
+        <app-icons *ngIf="show()" [ngClass]="'icon'" icon="close" />
       </div>
       <nav class="nav" [routerLink]="[ type+(id? '/'+id : '') ]">
           <div class="link">
@@ -30,8 +30,8 @@
   <div *ngIf="other" class="label" [ngClass]="{ 'active': isActive }" [ngClass]="[other]" (click)="toggleCollapse()">
     <div *ngIf="!noContent && other" class="icons" [ngStyle]="indent()"
         [ngClass]="{ 'less': show(), 'more': !show() }" >
-      <i *ngIf="!show()" class="icon open"></i>
-      <i *ngIf="show()" class="icon close"></i>
+      <app-icons *ngIf="!show()" [ngClass]="'icon'" icon="open" />
+      <app-icons *ngIf="show()" [ngClass]="'icon'" icon="close" />
     </div>
     <nav [routerLink]="[ '/' + type+(id? '/'+id : '') ]">
         <div class="link" [ngStyle]="indent()">

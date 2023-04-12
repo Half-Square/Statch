@@ -1,8 +1,8 @@
 <!--
-* @Author                : AdrienLanco0<adrienlanco0@gmail.com>
+* @Author                : 0K00<qdouvillez@gmail.com>
 * @CreatedDate           : 2023-03-17 16:48:00
-* @LastEditors           : AdrienLanco0<adrienlanco0@gmail.com>
-* @LastEditDate          : 2023-04-11 14:51:23
+* @LastEditors           : 0K00<qdouvillez@gmail.com>
+* @LastEditDate          : 2023-04-12 14:56:14
 -->
 
 <div id="project">
@@ -54,7 +54,7 @@
               <div><a href="/create">
                 {{ project && project.tasks ? project.tasks.length : '0' }}
                 {{ project && project.tasks && project.tasks.length > 1 ? "tasks" : "task"}}
-                <i class="icon arrowright"></i>
+                <app-icons [ngClass]="'icon'" icon="arrowright" />
               </a></div>
             </div>
             <div class="container">
@@ -86,7 +86,7 @@
           </a>
 
           <a class="task add" (click)="command.openNewTask(project.id)">
-            <i class="icon plus"></i>
+            <app-icons [ngClass]="'icon'" icon="plus" />
             Create new Task
           </a>
         </div>
@@ -136,7 +136,7 @@
           <div><a href="/create">
             {{ project && project.tasks ? project.tasks.length : '0' }}
             {{ project && project.tasks && project.tasks.length > 1 ? "tasks" : "task"}}
-            <i class="icon arrowright"></i>
+            <app-icons [ngClass]="'icon'" icon="arrowright" />
           </a></div>
         </div>
         <div class="container">
