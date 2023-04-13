@@ -1,8 +1,8 @@
 /******************************************************************************
- * @Author                : AdrienLanco0<adrienlanco0@gmail.com>              *
+ * @Author                : 0K00<qdouvillez@gmail.com>                        *
  * @CreatedDate           : 2023-02-21 14:13:59                               *
- * @LastEditors           : AdrienLanco0<adrienlanco0@gmail.com>              *
- * @LastEditDate          : 2023-03-28 12:25:49                               *
+ * @LastEditors           : 0K00<qdouvillez@gmail.com>                        *
+ * @LastEditDate          : 2023-04-13 13:07:37                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -26,6 +26,7 @@ import {
 } from "class-validator";
 import * as commentsDto from "./comments.dto";
 import * as versionsDto from "./versions.dto";
+import * as labelsDto from "./labels.dto";
 
 import * as tasksDto from "./tasks.dto";
 /***/
@@ -82,6 +83,10 @@ class UpdateInput {
 
   @IsArray()
     assignments: usersDto.PublicOutput[];
+
+  @IsArray()
+  @IsOptional()
+    labels: labelsDto.PublicOutput[];
 }
 /***/
 
@@ -107,6 +112,10 @@ class PublicOutput {
   @IsOptional()
     versionList: versionsDto.PublicOutput;
 
+  @IsArray()
+  @IsOptional()
+    labels: labelsDto.PublicOutput[];
+
   @IsString()
     created: Date;
 
@@ -122,6 +131,7 @@ class PublicOutput {
       this.name = data.name;
       this.status = data.status;
       this.actualVersion = data.actualVersion;
+      this.labels = data.labels;
       this.created = data.created;
       this.description = data.description;
       this.owner = new usersDto.PublicOutput(data.owner);
@@ -170,6 +180,10 @@ class DetailsOutput {
   @IsArray()
     assignments: usersDto.PublicOutput;
 
+  @IsArray()
+  @IsOptional()
+    labels: labelsDto.PublicOutput[];
+
   @IsNumber()
     progress: number;
 
@@ -179,6 +193,7 @@ class DetailsOutput {
       this.name = data.name;
       this.status = data.status;
       this.actualVersion = data.actualVersion;
+      this.labels = data.labels;
       if (data.versionList)
         this.versionList = data.versionList.map((el) => new versionsDto.PublicOutput(el));
       this.created = data.created;

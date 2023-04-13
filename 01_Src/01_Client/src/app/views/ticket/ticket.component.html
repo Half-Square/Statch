@@ -2,7 +2,7 @@
 * @Author                : 0K00<qdouvillez@gmail.com>
 * @CreatedDate           : 2023-03-17 16:48:00
 * @LastEditors           : 0K00<qdouvillez@gmail.com>
-* @LastEditDate          : 2023-03-31 19:17:19
+* @LastEditDate          : 2023-04-13 10:56:29
 -->
 
 <div id="ticket">
@@ -35,7 +35,7 @@
               <h4>Assignee</h4>
               <div class="text">
                 <app-assignee-section [assignees]="ticket ? ticket.assignments : []"
-                                      (onAssign)="command.assignMySelf('ticket', ticket)" />
+                                      [data]="ticket" [dataType]="'ticket'" />
               </div>
             </div>
             <div class="container">
@@ -82,7 +82,7 @@
           <h4>Assignee</h4>
           <div class="text">
             <app-assignee-section [assignees]="ticket ? ticket.assignments : []"
-                                  (onAssign)="command.assignMySelf('ticket', ticket)" />
+                                  [data]="ticket" [dataType]="'ticket'" />
           </div>
         </div>
         <div class="container">

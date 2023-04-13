@@ -1,8 +1,8 @@
 /******************************************************************************
- * @Author                : Adrien Lanco<adrienlanco0@gmail.com>              *
+ * @Author                : 0K00<qdouvillez@gmail.com>                        *
  * @CreatedDate           : 2023-02-21 14:18:25                               *
- * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>              *
- * @LastEditDate          : 2023-03-29 17:31:17                               *
+ * @LastEditors           : 0K00<qdouvillez@gmail.com>                        *
+ * @LastEditDate          : 2023-04-13 12:55:26                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -21,6 +21,7 @@ import {IsArray, IsIn, IsObject, IsOptional, IsString} from "class-validator";
 import * as commentsDto from "../dto/comments.dto";
 import * as usersDto from "../dto/users.dto";
 import * as versionsDto from "../dto/versions.dto";
+import * as labelsDto from "./labels.dto";
 /***/
 
 /**
@@ -63,6 +64,10 @@ class UpdateInput {
   @IsObject()
   @IsOptional()
     targetVersion: versionsDto.PublicOutput;
+
+  @IsArray()
+  @IsOptional()
+    labels: labelsDto.PublicOutput[];
 }
 /***/
 
@@ -103,6 +108,10 @@ class PublicOutput {
   @IsObject()
     targetVersion: versionsDto.PublicOutput;
 
+  @IsArray()
+  @IsOptional()
+    labels: labelsDto.PublicOutput[];
+
   constructor(data) {
     if (data) {
       this.id = data.id;
@@ -115,6 +124,7 @@ class PublicOutput {
       this.taskId = data.taskId;
       this.targetVersion = data.targetVersion;
       this.owner = new usersDto.PublicOutput(data.owner);
+      this.labels = data.labels;
     }
   }
 }
@@ -163,6 +173,10 @@ class DetailsOutput {
   @IsArray()
     assignments: usersDto.PublicOutput[];
 
+  @IsArray()
+  @IsOptional()
+    labels: labelsDto.PublicOutput[];
+
   constructor(data) {
     if (data) {
       this.id = data.id;
@@ -175,6 +189,7 @@ class DetailsOutput {
       this.taskId = data.taskId;
       this.owner = new usersDto.PublicOutput(data.owner);
       this.targetVersion = data.targetVersion;
+      this.labels = data.labels;
       this.assignments = data.assignments.map((el) => {
         return new usersDto.PublicOutput(el.user);
       });      

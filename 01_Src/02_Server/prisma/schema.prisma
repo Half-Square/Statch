@@ -39,6 +39,7 @@ model Project {
 
   actualVersion   String?
   versionList     Version[]
+  labels          Label[]
 }
 
 model Task {
@@ -57,6 +58,8 @@ model Task {
   assignments     Assignment[]
   targetVersion   Version?        @relation(fields: [targetVersionId], references: [id])
   targetVersionId String?
+
+  labels       Label[]
 }
 
 model Ticket {
@@ -74,6 +77,8 @@ model Ticket {
   assignments     Assignment[]
   targetVersion   Version?        @relation(fields: [targetVersionId], references: [id])
   targetVersionId String?
+
+  labels       Label[]
 }
 
 model Comment {
@@ -111,4 +116,16 @@ model Version {
 
   tasks          Task[]
   tickets        Ticket[]
+}
+
+model Label {
+  id              String          @default(nanoid(8)) @id
+  name            String
+  description     String
+  
+  projects        Project[]         
+  tasks           Task[]           
+  tickets         Ticket[]         
+
+  color           String
 }

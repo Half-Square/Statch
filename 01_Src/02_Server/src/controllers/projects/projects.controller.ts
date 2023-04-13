@@ -1,8 +1,8 @@
 /******************************************************************************
- * @Author                : Adrien Lanco<adrienlanco0@gmail.com>              *
+ * @Author                : 0K00<qdouvillez@gmail.com>                        *
  * @CreatedDate           : 2023-02-21 14:21:24                               *
- * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>              *
- * @LastEditDate          : 2023-03-30 12:50:05                               *
+ * @LastEditors           : 0K00<qdouvillez@gmail.com>                        *
+ * @LastEditDate          : 2023-04-13 13:07:43                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -76,7 +76,7 @@ export class ProjectsController {
         },
         include: {
           comments: {
-            include: {author: true}, orderBy: { created: 'asc'},
+            include: {author: true}, orderBy: { created: "asc"}
           },
           versionList: true,
           tasks: {
@@ -91,7 +91,8 @@ export class ProjectsController {
           owner: true,
           assignments: {
             include: {user: true}
-          }
+          },
+          labels: true
         }
       });      
       if (res) return new projectsDto.DetailsOutput(res);
@@ -129,6 +130,12 @@ export class ProjectsController {
             create: body.assignments.map((el) => {
               return {userId: el.id};
             })
+          },
+          labels: {
+            deleteMany: {},
+            connect: body.labels.map((el) => {
+              return {id: el.id};
+            })
           }
         },
         include: {
@@ -143,12 +150,13 @@ export class ProjectsController {
             }
           },
           comments: {
-            include: {author: true}, orderBy: { created: 'asc'},          
+            include: {author: true}, orderBy: { created: "asc"}        
           },
           owner: true,
           assignments: {
             include: {user: true}
-          }
+          },
+          labels: true
         }
       });
       return new projectsDto.DetailsOutput(res);
@@ -188,7 +196,7 @@ export class ProjectsController {
         },
         include: {
           comments: {
-            include: {author: true}, orderBy: { created: 'asc'},
+            include: {author: true}, orderBy: { created: "asc"}
           },
           tasks: {
             orderBy: {
@@ -202,7 +210,8 @@ export class ProjectsController {
           owner: true,
           assignments: {
             include: {user: true}
-          }
+          },
+          labels: true
         }
       });
       return new projectsDto.DetailsOutput(res);

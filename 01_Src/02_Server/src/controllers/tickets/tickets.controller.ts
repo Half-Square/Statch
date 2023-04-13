@@ -1,8 +1,8 @@
 /******************************************************************************
- * @Author                : Adrien Lanco<adrienlanco0@gmail.com>              *
+ * @Author                : 0K00<qdouvillez@gmail.com>                        *
  * @CreatedDate           : 2023-02-21 14:22:05                               *
- * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>              *
- * @LastEditDate          : 2023-03-30 12:50:19                               *
+ * @LastEditors           : 0K00<qdouvillez@gmail.com>                        *
+ * @LastEditDate          : 2023-04-13 13:03:44                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -83,12 +83,13 @@ export class TicketsController {
             }
           },
           comments: {
-            include: {author: true}, orderBy: { created: 'asc'},
+            include: {author: true}, orderBy: { created: "asc"}
           },
           owner: true,
           assignments: {
             include: {user: true}
-          }
+          },
+          labels: true
         }
       });
       
@@ -127,6 +128,12 @@ export class TicketsController {
             create: body.assignments.map((el) => {
               return {userId: el.id};
             }) 
+          },
+          labels: {
+            deleteMany: {},
+            connect: body.labels.map((el) => {
+              return {id: el.id};
+            })
           }
         },
         include: {
@@ -137,14 +144,15 @@ export class TicketsController {
             }
           },
           comments: {
-            include: {author: true}, orderBy: { created: 'asc'},
+            include: {author: true}, orderBy: { created: "asc"}
           },
           owner: true,
           assignments: {
             include: {user: true}
-          }
+          },
+          labels: true
         }
-      })
+      });
       return new ticketsDto.DetailsOutput(res);
     } catch (err) {
       console.error(`${new Date().toISOString()} - ${err}`);
@@ -216,12 +224,13 @@ export class TicketsController {
           },
           targetVersion: true,
           comments: {
-            include: {author: true}, orderBy: { created: 'asc'},
+            include: {author: true}, orderBy: { created: "asc"}
           },
           owner: true,
           assignments: {
             include: {user: true}
-          }
+          },
+          labels: true
         }
       });
       return new ticketsDto.DetailsOutput(res);

@@ -1,8 +1,8 @@
 /******************************************************************************
- * @Author                : Adrien Lanco<adrienlanco0@gmail.com>              *
+ * @Author                : 0K00<qdouvillez@gmail.com>                        *
  * @CreatedDate           : 2023-02-21 14:21:47                               *
- * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>              *
- * @LastEditDate          : 2023-03-30 12:50:16                               *
+ * @LastEditors           : 0K00<qdouvillez@gmail.com>                        *
+ * @LastEditDate          : 2023-04-13 13:25:59                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -80,7 +80,7 @@ export class TasksController {
             orderBy: {
               targetVersion: {
                 name: "desc"
-              },
+              }
             },
             include: {
               owner: true,
@@ -88,12 +88,13 @@ export class TasksController {
             }
           },
           comments: {
-            include: {author: true}, orderBy: { created: 'asc'},
+            include: {author: true}, orderBy: { created: "asc"}
           },
           owner: true,
           assignments: {
             include: {user: true}
-          }
+          },
+          labels: true
         }
       });
 
@@ -133,6 +134,12 @@ export class TasksController {
             create: body.assignments.map((el) => {
               return {userId: el.id};
             }) 
+          },
+          labels: {
+            deleteMany: {},
+            connect: body.labels.map((el) => {
+              return { id: el.id };
+            })
           }
         },
         include: {
@@ -147,12 +154,13 @@ export class TasksController {
             }
           },
           comments: {
-            include: {author: true}, orderBy: { created: 'asc'},
+            include: {author: true}, orderBy: { created: "asc"}
           },
           owner: true,
           assignments: {
             include: {user: true}
-          }
+          },
+          labels: true
         }
       });
       return new tasksDto.DetailsOutput(res);
@@ -214,7 +222,7 @@ export class TasksController {
         include: {
           targetVersion: true,
           comments: {
-            include: {author: true}, orderBy: { created: 'asc'},
+            include: {author: true}, orderBy: { created: "asc"}
           },
           tickets: {
             orderBy: {
@@ -228,7 +236,8 @@ export class TasksController {
           owner: true,
           assignments: {
             include: {user: true}
-          }
+          },
+          labels: true
         }
       });
       return new tasksDto.DetailsOutput(res);
