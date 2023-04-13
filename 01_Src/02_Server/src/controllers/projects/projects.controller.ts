@@ -2,7 +2,7 @@
  * @Author                : 0K00<qdouvillez@gmail.com>                        *
  * @CreatedDate           : 2023-02-21 14:21:24                               *
  * @LastEditors           : 0K00<qdouvillez@gmail.com>                        *
- * @LastEditDate          : 2023-04-13 15:18:17                               *
+ * @LastEditDate          : 2023-04-13 16:43:48                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -92,7 +92,9 @@ export class ProjectsController {
           assignments: {
             include: {user: true}
           },
-          labels: true
+          labels: {
+            include: {label: true}
+          }
         }
       });      
       if (res) return new projectsDto.DetailsOutput(res);
@@ -133,9 +135,13 @@ export class ProjectsController {
           },
           labels: {
             deleteMany: {},
-            connect: body.labels.map((el) => {
-              return {id: el.id};
-            })
+            create: body.labels?.map(label => ({
+              label: {
+                connect: {
+                  id: body.labels.find(t => t.id === label.id).id
+                }
+              }
+            }))
           }
         },
         include: {
@@ -156,9 +162,13 @@ export class ProjectsController {
           assignments: {
             include: {user: true}
           },
-          labels: true
+          labels: {
+            include: {label: true}
+          }
         }
       });
+      console.log(res);
+      
       return new projectsDto.DetailsOutput(res);
     } catch (err) {
       if (err.code === "P2025") {
@@ -211,7 +221,9 @@ export class ProjectsController {
           assignments: {
             include: {user: true}
           },
-          labels: true
+          labels: {
+            include: {label: true}
+          }
         }
       });
       return new projectsDto.DetailsOutput(res);

@@ -2,7 +2,7 @@
  * @Author                : 0K00<qdouvillez@gmail.com>                        *
  * @CreatedDate           : 2023-02-21 14:21:47                               *
  * @LastEditors           : 0K00<qdouvillez@gmail.com>                        *
- * @LastEditDate          : 2023-04-13 13:25:59                               *
+ * @LastEditDate          : 2023-04-13 16:44:29                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -94,7 +94,9 @@ export class TasksController {
           assignments: {
             include: {user: true}
           },
-          labels: true
+          labels: {
+            include: {label: true}
+          }
         }
       });
 
@@ -137,9 +139,13 @@ export class TasksController {
           },
           labels: {
             deleteMany: {},
-            connect: body.labels.map((el) => {
-              return { id: el.id };
-            })
+            create: body.labels?.map(label => ({
+              label: {
+                connect: {
+                  id: body.labels.find(t => t.id === label.id).id
+                }
+              }
+            }))
           }
         },
         include: {
@@ -160,7 +166,9 @@ export class TasksController {
           assignments: {
             include: {user: true}
           },
-          labels: true
+          labels: {
+            include: {label: true}
+          }
         }
       });
       return new tasksDto.DetailsOutput(res);
@@ -237,7 +245,9 @@ export class TasksController {
           assignments: {
             include: {user: true}
           },
-          labels: true
+          labels: {
+            include: {label: true}
+          }
         }
       });
       return new tasksDto.DetailsOutput(res);
