@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : AdrienLanco0<121338518+AdrienLanco0@users.noreply.github.com>*
+ * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
  * @CreatedDate           : 2023-02-22 12:07:19                              *
- * @LastEditors           : AdrienLanco0<121338518+AdrienLanco0@users.noreply.github.com>*
- * @LastEditDate          : 2023-03-22 11:12:17                              *
+ * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
+ * @LastEditDate          : 2023-04-14 19:08:01                              *
  ****************************************************************************/
 
  #project {
@@ -287,6 +287,12 @@
       &:hover {
         text-decoration: underline;
       }
+    }
+
+    .desc {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
     }
   }
 

@@ -1,8 +1,8 @@
 /******************************************************************************
- * @Author                : 0K00<qdouvillez@gmail.com>                        *
+ * @Author                : Adrien Lanco<adrienlanco0@gmail.com>              *
  * @CreatedDate           : 2023-02-21 14:18:25                               *
- * @LastEditors           : 0K00<qdouvillez@gmail.com>                        *
- * @LastEditDate          : 2023-04-13 17:00:39                               *
+ * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>              *
+ * @LastEditDate          : 2023-04-14 19:28:57                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -22,6 +22,7 @@ import * as commentsDto from "../dto/comments.dto";
 import * as usersDto from "../dto/users.dto";
 import * as versionsDto from "../dto/versions.dto";
 import * as labelsDto from "./labels.dto";
+import * as activitysDto from "../dto/activitys.dto";
 /***/
 
 /**
@@ -179,6 +180,8 @@ class DetailsOutput {
   @IsOptional()
     labels: labelsDto.PublicOutput[];
 
+  @IsArray()
+    activitys: activitysDto.TicketOutput[];
   constructor(data) {
     if (data) {
       this.id = data.id;
@@ -200,6 +203,9 @@ class DetailsOutput {
       if (data.comments) {
         this.comments = data.comments.map((el) => new commentsDto.PublicOutput(el));
       }
+      this.activitys = data.activitys.map((el) => {
+        return new activitysDto.TaskOutput(el);
+      });
     }
   }
 }

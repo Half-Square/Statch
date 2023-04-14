@@ -1,9 +1,9 @@
-/******************************************************************************
- * @Author                : 0K00<qdouvillez@gmail.com>                        *
- * @CreatedDate           : 2023-03-17 14:25:08                               *
- * @LastEditors           : 0K00<qdouvillez@gmail.com>                        *
- * @LastEditDate          : 2023-04-13 14:41:34                               *
- *****************************************************************************/
+/*****************************************************************************
+ * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
+ * @CreatedDate           : 2023-03-17 14:25:08                              *
+ * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
+ * @LastEditDate          : 2023-04-14 19:23:51                              *
+ ****************************************************************************/
 
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
@@ -351,7 +351,8 @@ export interface ProjectInterface {
   owner: UsersInterface,
   assignments: Array<UsersInterface>,
   tasks: Array<TaskInterface>,
-  labels: Array<LabelsInterface>
+  labels: Array<LabelsInterface>,
+  activitys: any
 }
 
 export interface TaskInterface {
@@ -366,7 +367,8 @@ export interface TaskInterface {
   comments: Array<CommentInterface>,
   owner: UsersInterface,
   assignments: Array<UsersInterface>,
-  tickets: Array<TicketInterface>
+  tickets: Array<TicketInterface>,
+  activitys: any
 }
 
 export interface TicketInterface {
@@ -381,7 +383,8 @@ export interface TicketInterface {
   targetVersion?: VersionInterface,
   comments: Array<CommentInterface>,
   assignments: Array<UsersInterface>,
-  owner: UsersInterface
+  owner: UsersInterface,
+  activitys: any
 }
 
 export interface UsersInterface {

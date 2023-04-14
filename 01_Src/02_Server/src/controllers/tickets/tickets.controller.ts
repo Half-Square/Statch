@@ -1,8 +1,8 @@
 /******************************************************************************
- * @Author                : 0K00<qdouvillez@gmail.com>                        *
+ * @Author                : Adrien Lanco<adrienlanco0@gmail.com>              *
  * @CreatedDate           : 2023-02-21 14:22:05                               *
- * @LastEditors           : 0K00<qdouvillez@gmail.com>                        *
- * @LastEditDate          : 2023-04-13 16:44:36                               *
+ * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>              *
+ * @LastEditDate          : 2023-04-14 19:31:03                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -41,12 +41,15 @@ import * as ticketsDto from "../../dto/tickets.dto";
 
 /* Guards */
 import { ConnectedGuard } from "../../guards/connected/connected.guard";
+import { Prisma } from "@prisma/client";
+import { ActivityService } from "src/services/activity/activity.service";
 /***/
 
 @Controller("api")
 @UseGuards(ConnectedGuard)
 export class TicketsController {
-  constructor(private prisma: PrismaService) {}
+  constructor(private prisma: PrismaService,
+              private activityService: ActivityService) {}
 
   /**
    * Get all tickets
@@ -91,7 +94,8 @@ export class TicketsController {
           },
           labels: {
             include: {label: true}
-          }
+          },
+          activitys: { orderBy: {created:  "desc" }, take: 8, include: {author: true, target: true, project: true, task: true, ticket: true} }
         }
       });
       
@@ -112,9 +116,30 @@ export class TicketsController {
   @Put("tickets/:id")
   async update(
     @Param("id") id: string, 
-    @Body() body: ticketsDto.UpdateInput
+    @Body() body: ticketsDto.UpdateInput,
+    @Headers("x-token") token: string
   ): Promise<ticketsDto.DetailsOutput> {
     try {
+      let user = jwt.verify(token, process.env.SALT);
+      
+      let includeQuery = {
+        targetVersion: true,
+        task: { select: { id: true, projectId: true } },
+        comments: {
+          include: {author: true}, orderBy: { created: "asc"}
+        },
+        owner: true,
+        assignments: { include: {user: true} },
+        labels: { include: {label: true} },
+        activitys: { orderBy: {created:  "desc" }, take: 8, include: {author: true, target: true, project: true, task: true, ticket: true} }
+      } as Prisma.TicketInclude;
+
+      let ticket = await this.prisma.ticket.findUnique({
+        where: { id: id}, include: includeQuery
+      });
+
+      let activities = this.activityService.getPttActivitiesOnEdit(user,'ticket', ticket, body)
+
       let res = await this.prisma.ticket.update({
         where: {id: id},
         data: {
@@ -125,41 +150,29 @@ export class TicketsController {
           targetVersion: body.targetVersion ?{
             connect: { id: body.targetVersion.id }
           } : {},
-          assignments: {
-            deleteMany: {},
+          assignments: { deleteMany: {},
             create: body.assignments.map((el) => {
               return {userId: el.id};
             }) 
           },
-          labels: {
-            deleteMany: {},
+          labels: { deleteMany: {},
             create: body.labels?.map(label => ({
-              label: {
-                connect: {
+              label: { connect: {
                   id: body.labels.find(t => t.id === label.id).id
-                }
-              }
+              }}
+            }))
+          },
+          activitys: {
+            create: activities?.map(act =>  ({
+              authorId: user.id,
+              action: act.txt,
+              targetId: act.target,
+              taskId: ticket.task.id,
+              projectId: ticket.task.projectId,
             }))
           }
         },
-        include: {
-          targetVersion: true,
-          task: {
-            select: {
-              projectId: true
-            }
-          },
-          comments: {
-            include: {author: true}, orderBy: { created: "asc"}
-          },
-          owner: true,
-          assignments: {
-            include: {user: true}
-          },
-          labels: {
-            include: {label: true}
-          }
-        }
+        include: includeQuery
       });
       return new ticketsDto.DetailsOutput(res);
     } catch (err) {
@@ -182,11 +195,7 @@ export class TicketsController {
       let res = await this.prisma.ticket.findMany({
         where: {taskId: id},
         include: {
-          task: {
-            select: {
-              projectId: true
-            }
-          },
+          task: { select: { projectId: true } },
           owner: true
         }
       });
@@ -218,31 +227,30 @@ export class TicketsController {
           description: body.description,
           taskId: id,
           ownerId: user.id,
-          assignments: {
-            create: [{
-              userId: user.id
-            }]
-          }
+          assignments: { create: [{ userId: user.id }] }
         },
         include: {
-          task: {
-            select: {
-              projectId: true
-            }
-          },
+          task: { select: { projectId: true } },
           targetVersion: true,
           comments: {
             include: {author: true}, orderBy: { created: "asc"}
           },
           owner: true,
-          assignments: {
-            include: {user: true}
-          },
-          labels: {
-            include: {label: true}
-          }
+          assignments: { include: {user: true} },
+          labels: { include: {label: true} },
+          activitys: { orderBy: {created:  "desc" }, take: 8, include: {author: true, target: true, project: true, task: true, ticket: true} }
         }
       });
+
+      await this.prisma.activity.create({ 
+        data: {
+          authorId: user.id,
+          action: "create ticket",
+          ticketId: res.id,
+          taskId: id,
+          projectId: res.task.projectId
+        }
+      })
       return new ticketsDto.DetailsOutput(res);
     } catch (err) {
       console.error(`${new Date().toISOString()} - ${err}`);

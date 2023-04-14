@@ -1,8 +1,8 @@
 /******************************************************************************
- * @Author                : 0K00<qdouvillez@gmail.com>                        *
+ * @Author                : Adrien Lanco<adrienlanco0@gmail.com>              *
  * @CreatedDate           : 2023-02-21 14:13:59                               *
- * @LastEditors           : 0K00<qdouvillez@gmail.com>                        *
- * @LastEditDate          : 2023-04-13 16:59:36                               *
+ * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>              *
+ * @LastEditDate          : 2023-04-14 18:39:04                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -33,6 +33,7 @@ import * as tasksDto from "./tasks.dto";
 
 /* Dto */
 import * as usersDto from "../dto/users.dto";
+import * as activitysDto from "../dto/activitys.dto";
 /***/
 
 /**
@@ -186,8 +187,8 @@ class DetailsOutput {
   @IsOptional()
     labels: labelsDto.PublicOutput[];
 
-  @IsNumber()
-    progress: number;
+  @IsArray()
+    activitys: activitysDto.ProjectOutput[];
 
   constructor(data) {
     if (data) {
@@ -208,8 +209,9 @@ class DetailsOutput {
       this.assignments = data.assignments.map((el) => {
         return new usersDto.PublicOutput(el.user);
       });
-
-      this.progress =  Math.floor(this.tasks.filter((el) => el.status === "done").length * 100 / this.tasks.length) || 0;
+      this.activitys = data.activitys.map((el) => {
+        return new activitysDto.ProjectOutput(el);
+      });
     }
   }
 }

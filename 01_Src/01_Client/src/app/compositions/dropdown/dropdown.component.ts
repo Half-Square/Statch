@@ -1,9 +1,9 @@
-/******************************************************************************
- * @Author                : 0K00<qdouvillez@gmail.com>                        *
- * @CreatedDate           : 2023-03-25 14:53:07                               *
- * @LastEditors           : 0K00<qdouvillez@gmail.com>                        *
- * @LastEditDate          : 2023-04-13 15:09:02                               *
- *****************************************************************************/
+/*****************************************************************************
+ * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
+ * @CreatedDate           : 2023-03-25 14:53:07                              *
+ * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
+ * @LastEditDate          : 2023-04-14 13:39:14                              *
+ ****************************************************************************/
 
 import { Component, Input, Output, EventEmitter, HostListener, ElementRef } from '@angular/core';
 import {
@@ -99,7 +99,6 @@ export class DropdownComponent {
         this.values = [obj];
         this.toggleDropdown();
       }
-      this.valuesChange.emit(this.values);
     }
   }
 

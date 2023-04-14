@@ -1,8 +1,8 @@
 /******************************************************************************
- * @Author                : 0K00<qdouvillez@gmail.com>                        *
+ * @Author                : Adrien Lanco<adrienlanco0@gmail.com>              *
  * @CreatedDate           : 2023-02-21 14:21:47                               *
- * @LastEditors           : 0K00<qdouvillez@gmail.com>                        *
- * @LastEditDate          : 2023-04-13 16:44:29                               *
+ * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>              *
+ * @LastEditDate          : 2023-04-14 19:31:14                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -41,12 +41,15 @@ import * as tasksDto from "../../dto/tasks.dto";
 
 /* Guards */
 import { ConnectedGuard } from "../../guards/connected/connected.guard";
+import { Prisma } from "@prisma/client";
+import { ActivityService } from "src/services/activity/activity.service";
 /***/
 
 @Controller("api")
 @UseGuards(ConnectedGuard)
 export class TasksController {
-  constructor(private prisma: PrismaService) {}
+  constructor(private prisma: PrismaService,
+              private activityService: ActivityService) {}
 
   /**
   * Get all tasks in database
@@ -96,7 +99,8 @@ export class TasksController {
           },
           labels: {
             include: {label: true}
-          }
+          },
+          activitys: { orderBy: {created:  "desc" }, take: 8, include: {author: true, target: true, project: true, task: true, ticket: true} }
         }
       });
 
@@ -119,8 +123,35 @@ export class TasksController {
   async update(
     @Param("id") id: string,
     @Body() body: tasksDto.UpdateInput,
+    @Headers("x-token") token: string
   ): Promise<tasksDto.DetailsOutput> {
     try {    
+      let user = jwt.verify(token, process.env.SALT);
+
+      let includeQuery = {
+        targetVersion: true,
+        tickets: {
+          orderBy: { targetVersion: { name: "desc" } },
+          include: {
+            owner: true,
+            targetVersion: true
+          }
+        },
+        comments: {
+          include: {author: true}, orderBy: { created: "asc"}
+        },
+        owner: true,
+        assignments: { include: {user: true} },
+        labels: { include: {label: true} },
+        activitys: { orderBy: {created:  "desc" }, take: 8, include: {author: true, target: true, project: true, task: true, ticket: true} }
+      } as Prisma.TaskInclude;
+
+      let task = await this.prisma.task.findUnique({
+        where: { id: id}, include: includeQuery
+      })
+
+      let activities = this.activityService.getPttActivitiesOnEdit(user,'task', task, body)
+
       let res = await this.prisma.task.update({
         where: {id: id},
         data: {
@@ -146,30 +177,17 @@ export class TasksController {
                 }
               }
             }))
+          },
+          activitys: {
+            create: activities?.map(act =>  ({
+              authorId: user.id,
+              action: act.txt,
+              targetId: act.target,
+              projectId: task.projectId
+            }))
           }
         },
-        include: {
-          targetVersion: true,
-          tickets: {
-            orderBy: {
-              targetVersion: { name: "desc" }
-            },
-            include: {
-              owner: true,
-              targetVersion: true
-            }
-          },
-          comments: {
-            include: {author: true}, orderBy: { created: "asc"}
-          },
-          owner: true,
-          assignments: {
-            include: {user: true}
-          },
-          labels: {
-            include: {label: true}
-          }
-        }
+        include: includeQuery
       });
       return new tasksDto.DetailsOutput(res);
     } catch (err) {
@@ -247,9 +265,19 @@ export class TasksController {
           },
           labels: {
             include: {label: true}
-          }
+          },
+          activitys: { orderBy: {created:  "desc" }, take: 8, include: {author: true, target: true, project: true, task: true, ticket: true} }
         }
       });
+
+      await this.prisma.activity.create({ 
+        data: {
+          authorId: user.id,
+          action: "create task",
+          taskId: res.id,
+          projectId: id
+        }
+      })
       return new tasksDto.DetailsOutput(res);
     } catch (err) {
       console.error(`${new Date().toISOString()} - ${err}`);
