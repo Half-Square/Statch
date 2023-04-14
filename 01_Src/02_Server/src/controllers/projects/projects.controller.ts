@@ -1,8 +1,8 @@
 /******************************************************************************
- * @Author                : Adrien Lanco<adrienlanco0@gmail.com>              *
+ * @Author                : 0K00<qdouvillez@gmail.com>                        *
  * @CreatedDate           : 2023-02-21 14:21:24                               *
- * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>              *
- * @LastEditDate          : 2023-03-30 12:50:05                               *
+ * @LastEditors           : 0K00<qdouvillez@gmail.com>                        *
+ * @LastEditDate          : 2023-04-13 16:43:48                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -76,7 +76,7 @@ export class ProjectsController {
         },
         include: {
           comments: {
-            include: {author: true}, orderBy: { created: 'asc'},
+            include: {author: true}, orderBy: { created: "asc"}
           },
           versionList: true,
           tasks: {
@@ -91,6 +91,9 @@ export class ProjectsController {
           owner: true,
           assignments: {
             include: {user: true}
+          },
+          labels: {
+            include: {label: true}
           }
         }
       });      
@@ -129,6 +132,16 @@ export class ProjectsController {
             create: body.assignments.map((el) => {
               return {userId: el.id};
             })
+          },
+          labels: {
+            deleteMany: {},
+            create: body.labels?.map(label => ({
+              label: {
+                connect: {
+                  id: body.labels.find(t => t.id === label.id).id
+                }
+              }
+            }))
           }
         },
         include: {
@@ -143,14 +156,19 @@ export class ProjectsController {
             }
           },
           comments: {
-            include: {author: true}, orderBy: { created: 'asc'},          
+            include: {author: true}, orderBy: { created: "asc"}        
           },
           owner: true,
           assignments: {
             include: {user: true}
+          },
+          labels: {
+            include: {label: true}
           }
         }
       });
+      console.log(res);
+      
       return new projectsDto.DetailsOutput(res);
     } catch (err) {
       if (err.code === "P2025") {
@@ -188,7 +206,7 @@ export class ProjectsController {
         },
         include: {
           comments: {
-            include: {author: true}, orderBy: { created: 'asc'},
+            include: {author: true}, orderBy: { created: "asc"}
           },
           tasks: {
             orderBy: {
@@ -202,6 +220,9 @@ export class ProjectsController {
           owner: true,
           assignments: {
             include: {user: true}
+          },
+          labels: {
+            include: {label: true}
           }
         }
       });

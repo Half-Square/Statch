@@ -1,9 +1,9 @@
-/*****************************************************************************
- * @Author                : 0K00<qdouvillez@gmail.com>                       *
- * @CreatedDate           : 2023-03-25 14:53:07                              *
- * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
- * @LastEditDate          : 2023-03-29 19:06:05                              *
- ****************************************************************************/
+/******************************************************************************
+ * @Author                : 0K00<qdouvillez@gmail.com>                        *
+ * @CreatedDate           : 2023-03-25 14:53:07                               *
+ * @LastEditors           : 0K00<qdouvillez@gmail.com>                        *
+ * @LastEditDate          : 2023-04-13 15:09:02                               *
+ *****************************************************************************/
 
 import { Component, Input, Output, EventEmitter, HostListener, ElementRef } from '@angular/core';
 import {
@@ -53,7 +53,7 @@ export class DropdownComponent {
 
   @Input() multi: boolean = false;
   @Input() search: boolean = false;
-  @Input() options: Array<{text: string, icon?: string}>;
+  @Input() options: Array<{text: string, icon?: string}> | Array<any>;
   @Input() contentOnly: boolean = false;
   @Input() placeholder: string = "Test";
 
@@ -104,7 +104,8 @@ export class DropdownComponent {
   }
 
   filterOptions() {
-    this.filteredOptions = this.options.filter(option => option.text.toLowerCase().includes(this.searchText.toLowerCase()));
+    if(this.options[0].text)
+      this.filteredOptions = this.options.filter(option => option.text.toLowerCase().includes(this.searchText.toLowerCase()));
   }
 
   public isAddable(): boolean {

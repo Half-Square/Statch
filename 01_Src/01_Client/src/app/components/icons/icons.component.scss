@@ -1,11 +1,30 @@
 :host {
   display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+:host.sm svg {
+  height: 16px;
+  width: 16px;
+}
+:host.md svg {
+  height: 16px;
+  width: 16px;
+}
+:host.l svg {
+  height: 24px;
+  width: 24px;
+}
+:host.xl svg {
+  height: 24px;
+  width: 24px;
 }
 
 .icon {
   display: inline-block;
-  height: 1em;
-  width: 1em;
+  height: 16px;
+  width: 16px;
   line-height: 1;
   flex-shrink: 0;
   max-width: initial;

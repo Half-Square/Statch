@@ -1,9 +1,9 @@
-/*****************************************************************************
- * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
- * @CreatedDate           : 2023-03-17 14:25:08                              *
- * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
- * @LastEditDate          : 2023-03-30 10:24:29                              *
- ****************************************************************************/
+/******************************************************************************
+ * @Author                : 0K00<qdouvillez@gmail.com>                        *
+ * @CreatedDate           : 2023-03-17 14:25:08                               *
+ * @LastEditors           : 0K00<qdouvillez@gmail.com>                        *
+ * @LastEditDate          : 2023-04-13 14:41:34                               *
+ *****************************************************************************/
 
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
@@ -350,7 +350,8 @@ export interface ProjectInterface {
   comments: Array<CommentInterface>,
   owner: UsersInterface,
   assignments: Array<UsersInterface>,
-  tasks: Array<TaskInterface>
+  tasks: Array<TaskInterface>,
+  labels: Array<LabelsInterface>
 }
 
 export interface TaskInterface {
@@ -412,4 +413,11 @@ export interface SearchResponseInterface {
   name: string,
   type: string,
   icon: string,
+}
+
+export interface LabelsInterface {
+  id: string,
+  name: string,
+  color: string,
+  description: string
 }
