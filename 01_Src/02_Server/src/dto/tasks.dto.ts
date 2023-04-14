@@ -2,7 +2,7 @@
  * @Author                : 0K00<qdouvillez@gmail.com>                        *
  * @CreatedDate           : 2023-02-21 14:16:22                               *
  * @LastEditors           : 0K00<qdouvillez@gmail.com>                        *
- * @LastEditDate          : 2023-04-13 13:25:36                               *
+ * @LastEditDate          : 2023-04-13 17:00:12                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -122,7 +122,9 @@ class PublicOutput {
       this.created = data.created;
       this.owner = new usersDto.PublicOutput(data.owner);
       this.targetVersion = new versionsDto.PublicOutput(data.targetVersion);
-      this.labels = data.labels;
+      this.labels = data.labels?.map((el) => { 
+        return el.label;
+      });
     }
   }
 }
@@ -187,7 +189,9 @@ class DetailsOutput {
       this.level = data.level;
       this.projectId = data.projectId;
       this.owner = new usersDto.PublicOutput(data.owner);
-      this.labels = data.labels;
+      this.labels = data.labels?.map((el) => { 
+        return el.label;
+      });
       this.assignments = data.assignments.map((el) => {
         return new usersDto.PublicOutput(el.user);
       });

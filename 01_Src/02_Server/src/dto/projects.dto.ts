@@ -2,7 +2,7 @@
  * @Author                : 0K00<qdouvillez@gmail.com>                        *
  * @CreatedDate           : 2023-02-21 14:13:59                               *
  * @LastEditors           : 0K00<qdouvillez@gmail.com>                        *
- * @LastEditDate          : 2023-04-13 16:46:47                               *
+ * @LastEditDate          : 2023-04-13 16:59:36                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -131,7 +131,7 @@ class PublicOutput {
       this.name = data.name;
       this.status = data.status;
       this.actualVersion = data.actualVersion;
-      this.labels = data.labels.map((el) => { 
+      this.labels = data.labels?.map((el) => { 
         return el.label;
       });
       this.created = data.created;
@@ -195,7 +195,7 @@ class DetailsOutput {
       this.name = data.name;
       this.status = data.status;
       this.actualVersion = data.actualVersion;
-      this.labels = data.labels.map((el) => { 
+      this.labels = data.labels?.map((el) => { 
         return el.label;
       });
       if (data.versionList)
