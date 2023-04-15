@@ -1,0 +1,74 @@
+<!--
+* @Author                : 0K00<qdouvillez@gmail.com>
+* @CreatedDate           : 2023-04-14 16:39:00
+* @LastEditors           : 0K00<qdouvillez@gmail.com>
+* @LastEditDate          : 2023-04-15 16:06:49
+-->
+
+<div class="dropdown">
+  <div class="control" (click)="toggleDropdown()">
+    <ng-container *ngIf="labels ? labels.length == 0 : ''">
+      <div class="ellipsis">{{ placeholder | capFL }}</div>
+    </ng-container>
+    <ng-container *ngIf="labels ? labels.length < 3 && labels.length > 0 : ''">
+      <div class="selected" *ngFor="let option of labels">
+        <app-labels name="{{option.name}}" color="{{option.color}}" ></app-labels>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="labels ? labels.length > 2 : ''">
+      <div class="selected">
+        <app-labels name="{{labels[labels.length - 1].name}}" color="{{labels[labels.length - 1].color}}" ></app-labels> + {{ labels.length - 1 }}</div>
+    </ng-container>
+    <div class="chevron">
+      <app-icons [ngClass]="'icon'" icon="{{isDropdownOpen ? 'chevron-up' : 'chevron-down'}}" />
+    </div>
+  </div>
+  <div @nested #dropdown class="menu" [ngClass]="adjustPosition ? 'right' : ''" *ngIf="isDropdownOpen">
+    <div class="options">
+      <div>
+        <div class="toggle" *ngIf="!searchText && labels.length > 0">
+          <div class="noResult">
+            Selected
+          </div>
+          <div class="option multi" *ngFor="let option of labels" (click)="toggleSelectedOption(option)" [class.selected]="labels.indexOf(option) !== -1">
+            <div class="label">
+              <app-labels name="{{option.name}}" color="{{option.color}}" ></app-labels>
+            </div>
+            <app-icons [class.checked]="labels.indexOf(option) !== -1" [ngClass]="'icon'" icon="{{labels.indexOf(option) !== -1 ? 'minus' : 'plus'}}" />
+          </div>
+        </div>
+        <ng-container *ngIf="!searchText">
+          <div class="option multi" *ngFor="let option of options | filter:labels" (click)="toggleSelectedOption(option)">
+            <div class="label">
+              <app-labels name="{{option.name}}" color="{{option.color}}" ></app-labels>
+            </div>
+            <app-icons [class.checked]="labels.indexOf(option) !== -1" [ngClass]="'icon'" icon="{{labels.indexOf(option) !== -1 ? 'minus' : 'plus'}}" />
+          </div>
+        </ng-container>
+        <ng-container *ngIf="searchText && filteredOptions.length == 0">
+          <ng-container>
+            <div class="noResult">
+              No result
+            </div>
+          </ng-container>
+        </ng-container>
+        <ng-container *ngIf="!searchText && noOptions == true">
+          <div class="noResult">
+            No more choice
+          </div>
+        </ng-container>
+        <ng-container *ngIf="searchText">
+          <div class="option multi" *ngFor="let option of filteredOptions" (click)="toggleSelectedOption(option)" [class.selected]="(option | isIdenticalArray:labels)">
+            <div class="label">
+              <app-labels name="{{option.name}}" color="{{option.color}}" ></app-labels>
+            </div>
+            <app-icons [ngClass]="'icon'" icon="{{(option | isIdenticalArray:labels) ? 'minus' : 'plus'}}" />
+          </div>
+        </ng-container>
+      </div>
+    </div>
+
+      <app-input [(value)]="searchText" (valueChange)="searchTextChange.emit(searchText)"
+                  type="scnd" (input)="filterOptions()" [placeholder]="'Search...'"></app-input>
+  </div>
+</div>

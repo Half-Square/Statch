@@ -100,6 +100,108 @@
       border-bottom: 2px solid rgba(40, 40, 40, 1);
     }
 
+    .filter {
+      padding: 8px 16px;
+      border-bottom: 1px solid rgba(40, 40, 40, 1);
+      justify-content: flex-end;
+    }
+
+    .tabs {
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 4px;
+      gap: 2px;
+    }
+
+    .tab.selected {
+      background: rgba(255, 255, 255, 0.08);
+      color: rgba(255, 255, 255, 0.96);
+    }
+
+    .tab {
+      padding: 4px;
+      border-radius: 4px;
+      position: relative;
+      color: rgba(255, 255, 255, 0.40);
+      cursor: pointer;
+    }
+
+    .options {
+      position: absolute;
+      display: flex;
+      border-radius: 4px;
+      top: calc(24px + 4px);
+      right: 0;
+      background: rgba(46, 46, 46, 1);
+      color: rgba(255, 255, 255, 0.96);
+      font-style: normal;
+      font-weight: 400;
+      font-size: 12px;
+      line-height: 16px;
+      padding: 4px;
+      width: 100px;
+      max-height: 80px;
+      overflow: hidden;
+
+      .container {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+        width: 100%;
+        height: 80px;
+        overflow-x: auto;
+        /* width */
+        &::-webkit-scrollbar {
+          width: 4px;
+          height: 4px;
+        }
+
+        /* Track */
+        &::-webkit-scrollbar-track {
+          background: transparent;
+        }
+
+        /* Handle */
+        &::-webkit-scrollbar-thumb {
+          background: #9C9C9C;
+          border-radius: 999px;
+        }
+
+        /* Handle on hover */
+        &::-webkit-scrollbar-thumb:hover {
+          background: #b8b8b8;
+        }
+      }
+
+      .option {
+        cursor: pointer;
+        padding: 4px 8px;
+        border-radius: 4px;
+        width: calc(100% - 16px);
+
+        &:hover {
+          background:rgba(255, 255, 255, 0.08);
+        }
+      }
+    }
+
+    .filter, .tabs, .tab, .control, .select {
+      display: flex;
+      flex-direction: row;
+    }
+
+    .control {
+      gap: 8px;
+    }
+
+    .select {
+      font-style: normal;
+      font-weight: 400;
+      font-size: 12px;
+      line-height: 16px;
+      gap: 4px;
+    }
+
     .task.add {
       justify-content: flex-start;
       gap: 8px;
@@ -301,6 +403,12 @@
     color: rgba(200, 200, 200, 1);
     min-height: 28px;
     width: max-content;
+
+    a {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
   }
 
 }

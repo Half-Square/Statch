@@ -2,10 +2,10 @@
  * @Author                : 0K00<qdouvillez@gmail.com>                        *
  * @CreatedDate           : 2023-03-25 14:53:07                               *
  * @LastEditors           : 0K00<qdouvillez@gmail.com>                        *
- * @LastEditDate          : 2023-04-13 15:09:02                               *
+ * @LastEditDate          : 2023-04-15 17:03:47                               *
  *****************************************************************************/
 
-import { Component, Input, Output, EventEmitter, HostListener, ElementRef } from '@angular/core';
+import { Component, Input, Output, EventEmitter, HostListener, ElementRef, AfterViewChecked, ViewChild, OnInit } from '@angular/core';
 import {
   trigger,
   state,
@@ -14,6 +14,7 @@ import {
   transition
 } from '@angular/animations';
 
+import { FunctionService } from 'src/app/services/function/function.service';
 
 @Component({
   selector: 'app-dropdown',
@@ -31,8 +32,8 @@ import {
   ]
 })
 
-export class DropdownComponent {
-  constructor(private ref: ElementRef) {
+export class DropdownComponent implements OnInit {
+  constructor(private ref: ElementRef, private func: FunctionService) {
     this.options = [
       {text: "New", icon: "new"},
       {text: "In progress", icon: "progress"},
@@ -41,9 +42,18 @@ export class DropdownComponent {
       {text: "Pending", icon: "wait"}
     ]
   }
+  @ViewChild('dropdown') dropdown: ElementRef | undefined;
+
+  ngOnInit() {
+    window.addEventListener('resize', () => {
+      if(this.isDropdownOpen)
+        this.adjustPosition = this.func.isElementOffScreen(this.dropdown?.nativeElement);
+    });
+  }
 
   public filteredOptions: Array<{text: string, icon?: string}> = [];
   public isDropdownOpen: boolean = false;
+  public adjustPosition: boolean = false;
 
   @Input() searchText: string = "";
   @Output() searchTextChange: EventEmitter<string> = new EventEmitter<string>();
@@ -67,6 +77,12 @@ export class DropdownComponent {
 
   toggleDropdown() {
     this.isDropdownOpen = !this.isDropdownOpen;
+    setTimeout(() => {
+      if(this.isDropdownOpen)
+        this.adjustPosition = this.func.isElementOffScreen(this.dropdown?.nativeElement);
+      else
+        this.adjustPosition = false;
+    }, 0);
   }
 
   selectOption(option: {text: string, icon?: string}) {

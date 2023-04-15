@@ -8,10 +8,13 @@
 .assignees {
   display: flex;
   align-items: center;
+  gap: 8px;
 
   .assignee {
     display: flex;
     gap: 8px;
+    cursor: pointer;
+    border-radius: 4px;
   }
 
   .over {
@@ -33,6 +36,10 @@
   #openOption {
     position: relative;
   }
+
+  .menuOption.right {
+    right: 0;
+  }
   .menuOption {
     position: absolute;
     overflow: hidden;
@@ -46,6 +53,7 @@
     border-radius: 8px;
     width: 136px;
     padding: 4px;
+    transition: all 250ms ease-in;
 
     .option {
       cursor: pointer;

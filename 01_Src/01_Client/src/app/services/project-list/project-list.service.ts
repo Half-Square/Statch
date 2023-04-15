@@ -2,7 +2,7 @@
  * @Author                : 0K00<qdouvillez@gmail.com>                        *
  * @CreatedDate           : 2023-03-17 14:25:08                               *
  * @LastEditors           : 0K00<qdouvillez@gmail.com>                        *
- * @LastEditDate          : 2023-04-13 14:41:34                               *
+ * @LastEditDate          : 2023-04-14 16:36:33                               *
  *****************************************************************************/
 
 import { Injectable } from '@angular/core';
@@ -416,8 +416,8 @@ export interface SearchResponseInterface {
 }
 
 export interface LabelsInterface {
-  id: string,
-  name: string,
-  color: string,
-  description: string
+  id?: string,
+  name?: string,
+  color?: string,
+  descriptio?: string
 }
