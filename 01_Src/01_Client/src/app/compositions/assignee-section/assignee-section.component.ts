@@ -2,7 +2,7 @@
  * @Author                : 0K00<qdouvillez@gmail.com>                        *
  * @CreatedDate           : 2023-03-28 16:26:44                               *
  * @LastEditors           : 0K00<qdouvillez@gmail.com>                        *
- * @LastEditDate          : 2023-04-15 17:04:03                               *
+ * @LastEditDate          : 2023-04-15 17:41:02                               *
  *****************************************************************************/
 
 import { Component, EventEmitter, Input, Output, AfterContentChecked, ElementRef, ViewChild } from '@angular/core';
@@ -47,8 +47,6 @@ export class AssigneeSectionComponent implements AfterContentChecked {
 
   }
 
-  @ViewChild('option') option: ElementRef | undefined;
-
   @Input() data: ProjectInterface | TaskInterface | TicketInterface | null = null;
   @Input() dataType: string = "";
 
@@ -61,24 +59,13 @@ export class AssigneeSectionComponent implements AfterContentChecked {
 
   public isAssignee: boolean = false;
   public showOption: boolean = false;
-  public adjustPosition: boolean = false;
 
   ngAfterContentChecked() {
     this.setAssign();
-    window.addEventListener('resize', () => {
-      if(this.showOption)
-        this.adjustPosition = this.func.isElementOffScreen(this.option?.nativeElement);
-    });
   }
 
   toggleOption() {
     this.showOption = !this.showOption;
-    setTimeout(() => {
-      if(this.showOption)
-        this.adjustPosition = this.func.isElementOffScreen(this.option?.nativeElement);
-      else
-        this.adjustPosition = false;
-    }, 0);
   }
 
   public assignMySelf(): void {

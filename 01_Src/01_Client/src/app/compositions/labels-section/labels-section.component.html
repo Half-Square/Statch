@@ -2,7 +2,7 @@
 * @Author                : 0K00<qdouvillez@gmail.com>
 * @CreatedDate           : 2023-04-14 16:39:00
 * @LastEditors           : 0K00<qdouvillez@gmail.com>
-* @LastEditDate          : 2023-04-15 16:06:49
+* @LastEditDate          : 2023-04-15 17:37:59
 -->
 
 <div class="dropdown">
@@ -10,20 +10,17 @@
     <ng-container *ngIf="labels ? labels.length == 0 : ''">
       <div class="ellipsis">{{ placeholder | capFL }}</div>
     </ng-container>
-    <ng-container *ngIf="labels ? labels.length < 3 && labels.length > 0 : ''">
+    <ng-container *ngIf="labels ? labels.length > 0 : ''">
       <div class="selected" *ngFor="let option of labels">
         <app-labels name="{{option.name}}" color="{{option.color}}" ></app-labels>
       </div>
     </ng-container>
-    <ng-container *ngIf="labels ? labels.length > 2 : ''">
+    <!-- <ng-container *ngIf="labels ? labels.length > 2 : ''">
       <div class="selected">
         <app-labels name="{{labels[labels.length - 1].name}}" color="{{labels[labels.length - 1].color}}" ></app-labels> + {{ labels.length - 1 }}</div>
-    </ng-container>
-    <div class="chevron">
-      <app-icons [ngClass]="'icon'" icon="{{isDropdownOpen ? 'chevron-up' : 'chevron-down'}}" />
-    </div>
+    </ng-container> -->
   </div>
-  <div @nested #dropdown class="menu" [ngClass]="adjustPosition ? 'right' : ''" *ngIf="isDropdownOpen">
+  <div @nested class="menu right" *ngIf="isDropdownOpen">
     <div class="options">
       <div>
         <div class="toggle" *ngIf="!searchText && labels.length > 0">

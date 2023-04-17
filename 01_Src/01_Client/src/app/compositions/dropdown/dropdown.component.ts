@@ -2,7 +2,7 @@
  * @Author                : 0K00<qdouvillez@gmail.com>                        *
  * @CreatedDate           : 2023-03-25 14:53:07                               *
  * @LastEditors           : 0K00<qdouvillez@gmail.com>                        *
- * @LastEditDate          : 2023-04-15 17:03:47                               *
+ * @LastEditDate          : 2023-04-15 17:40:00                               *
  *****************************************************************************/
 
 import { Component, Input, Output, EventEmitter, HostListener, ElementRef, AfterViewChecked, ViewChild, OnInit } from '@angular/core';
@@ -42,18 +42,13 @@ export class DropdownComponent implements OnInit {
       {text: "Pending", icon: "wait"}
     ]
   }
-  @ViewChild('dropdown') dropdown: ElementRef | undefined;
 
   ngOnInit() {
-    window.addEventListener('resize', () => {
-      if(this.isDropdownOpen)
-        this.adjustPosition = this.func.isElementOffScreen(this.dropdown?.nativeElement);
-    });
+
   }
 
   public filteredOptions: Array<{text: string, icon?: string}> = [];
   public isDropdownOpen: boolean = false;
-  public adjustPosition: boolean = false;
 
   @Input() searchText: string = "";
   @Output() searchTextChange: EventEmitter<string> = new EventEmitter<string>();
@@ -77,12 +72,6 @@ export class DropdownComponent implements OnInit {
 
   toggleDropdown() {
     this.isDropdownOpen = !this.isDropdownOpen;
-    setTimeout(() => {
-      if(this.isDropdownOpen)
-        this.adjustPosition = this.func.isElementOffScreen(this.dropdown?.nativeElement);
-      else
-        this.adjustPosition = false;
-    }, 0);
   }
 
   selectOption(option: {text: string, icon?: string}) {
