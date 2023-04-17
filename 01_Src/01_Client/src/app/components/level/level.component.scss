@@ -8,6 +8,7 @@
   line-height: 16px;
   text-transform: capitalize;
   cursor: pointer;
+  width: max-content;
 }
 
 .level.low {
@@ -28,4 +29,8 @@
 .level.high {
   background: rgba(83, 40, 40, 1);
   color: rgba(255, 124, 124, 1);
+}
+
+.level.full {
+  width: calc(100% - 16px);
 }

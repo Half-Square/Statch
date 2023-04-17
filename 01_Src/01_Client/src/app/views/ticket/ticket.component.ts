@@ -2,7 +2,7 @@
  * @Author                : 0K00<qdouvillez@gmail.com>                       *
  * @CreatedDate           : 2023-03-20 09:41:42                              *
  * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
- * @LastEditDate          : 2023-03-31 19:15:52                              *
+ * @LastEditDate          : 2023-04-17 15:33:37                              *
  ****************************************************************************/
 
 import { Component } from '@angular/core';
@@ -38,12 +38,7 @@ export class TicketComponent {
 
   public nbTicket: number = 0;
 
-  public activity : any = [
-  {img: "0", alt: "oui", name: "Randy", action: "created", id: "dc5c7a1", url: "/create", time: "10 min"},
-  {img: "0", alt: "oui", name: "Toto", action: "created", id: "dc5c7a1", url: "/create", time: "10 min"},
-  {img: "0", alt: "oui", name: "Tata", action: "created", id: "dc5c7a1", url: "/create", time: "10 min"},
-  {img: "0", alt: "oui", name: "Oui", action: "created", id: "dc5c7a1", url: "/create", time: "10 min"},
-  ];
+  public activity : any = [];
 
   public comments: any = [];
 

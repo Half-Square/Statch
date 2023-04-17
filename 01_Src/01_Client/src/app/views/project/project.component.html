@@ -2,11 +2,14 @@
 * @Author                : 0K00<qdouvillez@gmail.com>
 * @CreatedDate           : 2023-03-17 16:48:00
 * @LastEditors           : 0K00<qdouvillez@gmail.com>
-* @LastEditDate          : 2023-04-15 16:21:10
+* @LastEditDate          : 2023-04-17 15:04:21
 -->
 
 <div id="project">
   <div class="header">
+    <app-button type="fth" size="sm" icon="plus" iconPosition="only" (click)="command.openNewTask(project.id)"></app-button>
+    <app-assignee-section [buttonOnly]="true" [assignees]="project ? project.assignments : []"
+    [data]="project" [dataType]="'project'"></app-assignee-section>
   </div>
   <div class="project">
     <div class="main">
@@ -25,8 +28,14 @@
           <h3>Details</h3>
           <div class="elements">
             <div class="container">
+              <h4>Id</h4>
+              <div class="text space">
+                {{project.id}}
+              </div>
+            </div>
+            <div class="container">
               <h4>Owner</h4>
-              <div class="text">
+              <div class="text space">
                 <app-avatar id="madelyn" [userName]="project && project.owner ? project.owner.name : ''" />
                 {{ project.owner ? project.owner.name : "" }}
               </div>
@@ -40,12 +49,14 @@
             </div>
             <div class="container">
               <h4>Version</h4>
-              <app-versions-section [isEdit]="true" [isProject]="true"
-                  [version]="getProjectVersion()" (versionNameChange)="changeProjectVersion($event)" />
+              <div class="text space">
+                <app-versions-section [isEdit]="true" [isProject]="true"
+                    [version]="getProjectVersion()" (versionNameChange)="changeProjectVersion($event)" />
+              </div>
             </div>
             <div class="container">
               <h4>Status</h4>
-              <div class="text">
+              <div class="text space">
                 <app-status-labeled [isEdit]="true" [(status)]="project.status" (statusChange)="command.editProject(this.project)"/>
               </div>
             </div>
@@ -57,7 +68,7 @@
             </div>
             <div class="container">
               <h4>No. of tasks</h4>
-              <div class="text"><a href="/create">
+              <div class="text space"><a href="/create">
                 {{ project && project.tasks ? project.tasks.length : '0' }}
                 {{ project && project.tasks && project.tasks.length > 1 ? "tasks" : "task"}}
                 <app-icons [ngClass]="'icon'" icon="arrow-right" />
@@ -65,7 +76,7 @@
             </div>
             <div class="container">
               <h4>Created</h4>
-              <div class="text">{{ project.created | dateDifference }}</div>
+              <div class="text space">{{ project.created | dateDifference }}</div>
             </div>
           </div>
         </div>
@@ -91,24 +102,37 @@
                     <div class="option" *ngFor="let option of options" (click)="selectVersion = option; showSelector = false; triggerShow(option.id)">
                       {{option.name}}
                     </div>
+                    <div class="no option" *ngIf="options.length < 1">
+                      No version
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
           <a class="task" *ngFor="let task of advancementTasks" [href]="'/task/'+task.id">
-            <div class="block">
-              <div class="right">
-                <div class="status"><app-status [status]="task.status" /></div>
-                <div *ngIf="task.targetVersion && task.targetVersion.name" class="version">{{ task.targetVersion.name }}</div>
-                <div class="name">{{ task.name }}</div>
+            <div class="container">
+              <div class="block">
+                <div class="right">
+                  <div class="status"><app-status [status]="task.status" /></div>
+                  <div *ngIf="task.targetVersion && task.targetVersion.name" class="version">{{ task.targetVersion.name }}</div>
+                  <div class="name">{{ task.name }}</div>
+                </div>
               </div>
-              <div class="description">{{ task.description }}</div>
-            </div>
-            <div class="block">
-              <div class="id">{{ task.id }}</div>
-              <app-level [degree]="task.level" />
-              <app-avatar [userId]="task.owner.id" [userName]="task.owner.name" />
+              <div class="block">
+                <ng-container *ngIf="task.labels.length < 4">
+                  <div class="labels" *ngFor="let label of task.labels">
+                    <app-labels name="{{label.name}}" color="{{label.color}}"></app-labels>
+                  </div>
+                </ng-container>
+                <ng-container *ngIf="task.labels.length > 3">
+                  <div class="labels" *ngFor="let label of task.labels | slice:0:1">
+                    <app-labels name="{{label.name}}" color="{{label.color}}"></app-labels> + {{ task.labels.length - 1 }} {{(task.labels.length - 1) > 1 ? 'others' : 'other'}}
+                  </div>
+                </ng-container>
+                <app-level [degree]="task.level" />
+                <app-avatar [userId]="task.owner.id" [userName]="task.owner.name" />
+              </div>
             </div>
           </a>
 
@@ -134,8 +158,14 @@
       <div class="details">
         <h3>Details</h3>
         <div class="container">
+          <h4>Id</h4>
+          <div class="text space">
+            {{project.id}}
+          </div>
+        </div>
+        <div class="container">
           <h4>Owner</h4>
-          <div class="text">
+          <div class="text space">
             <app-avatar [userName]="project && project.owner ? project.owner.name : ''" />
             {{ project.owner ? project.owner.name : "" }}
           </div>
@@ -149,24 +179,26 @@
         </div>
         <div class="container">
           <h4>Version</h4>
-          <app-versions-section [isEdit]="true" [isProject]="true"
-              [version]="getProjectVersion()" (versionNameChange)="changeProjectVersion($event)" />
-        </div>
-        <div class="container">
-          <h4>Status</h4>
-          <div class="text">
-            <app-status-labeled [isEdit]="true" [(status)]="project.status" (statusChange)="command.editProject(this.project)"/>
+          <div class="text space">
+            <app-versions-section [isEdit]="true" [isProject]="true"
+                [version]="getProjectVersion()" (versionNameChange)="changeProjectVersion($event)" />
           </div>
         </div>
         <div class="container">
-          <h4>Labels</h4>
+          <h4>Status</h4>
+          <div class="text space">
+            <app-status-labeled [isEdit]="true" [(status)]="project.status" (statusChange)="command.editProject(this.project)"/>
+          </div>
+        </div>
+        <div class="container labels">
+          <h4 class="label">Labels</h4>
           <div class="text">
             <app-labels-section placeholder="Select label" [(labels)]="project.labels" (labelsChange)="command.editProject(this.project)" />
           </div>
         </div>
         <div class="container">
           <h4>No. of tasks</h4>
-          <div class="text"><a href="/create">
+          <div class="text space"><a href="/create">
             {{ project && project.tasks ? project.tasks.length : '0' }}
             {{ project && project.tasks && project.tasks.length > 1 ? "tasks" : "task"}}
             <app-icons [ngClass]="'icon'" icon="arrow-right" />
@@ -174,7 +206,7 @@
         </div>
         <div class="container">
           <h4>Created</h4>
-          <div class="text">{{ project.created | dateDifference }}</div>
+          <div class="text space">{{ project.created | dateDifference }}</div>
         </div>
       </div>
       <div class="activity">

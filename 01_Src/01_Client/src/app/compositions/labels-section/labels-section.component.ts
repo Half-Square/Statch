@@ -1,9 +1,9 @@
-/******************************************************************************
- * @Author                : 0K00<qdouvillez@gmail.com>                        *
- * @CreatedDate           : 2023-04-14 16:41:30                               *
- * @LastEditors           : 0K00<qdouvillez@gmail.com>                        *
- * @LastEditDate          : 2023-04-15 17:38:46                               *
- *****************************************************************************/
+/*****************************************************************************
+ * @Author                : 0K00<qdouvillez@gmail.com>                       *
+ * @CreatedDate           : 2023-04-14 16:41:30                              *
+ * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
+ * @LastEditDate          : 2023-04-17 11:18:37                              *
+ ****************************************************************************/
 
 import { Component, Input, Output, EventEmitter, ElementRef, OnInit, ViewChild } from '@angular/core';
 import {
@@ -50,13 +50,19 @@ export class LabelsSectionComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    const control = document.getElementById("controlLabels");
+    let controlHeight: number = control?.offsetHeight as number;
+    this.adjustPosition = controlHeight + 8;
+    window.addEventListener('resize', () => {
+      controlHeight = control?.offsetHeight as number;
+      this.adjustPosition = controlHeight + 8;
+    });
   }
 
   public filteredOptions: Array<LabelsInterface> = [];
   public isDropdownOpen: boolean = false;
   public noOptions: boolean = false;
-  public adjustPosition: boolean = false;
+  public adjustPosition: number = 0;
 
   @Input() searchText: string = "";
   @Output() searchTextChange: EventEmitter<string> = new EventEmitter<string>();
@@ -69,6 +75,13 @@ export class LabelsSectionComponent implements OnInit {
 
   toggleDropdown() {
     this.isDropdownOpen = !this.isDropdownOpen;
+    const control = document.getElementById("controlLabels");
+    let controlHeight: number = control?.offsetHeight as number;
+    this.adjustPosition = controlHeight + 8;
+    window.addEventListener('resize', () => {
+      controlHeight = control?.offsetHeight as number;
+      this.adjustPosition = controlHeight + 8;
+    });
   }
 
   toggleSelectedOption(option: LabelsInterface) {

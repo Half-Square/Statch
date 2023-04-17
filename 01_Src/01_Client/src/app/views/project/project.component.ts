@@ -1,9 +1,9 @@
-/******************************************************************************
- * @Author                : 0K00<qdouvillez@gmail.com>                        *
- * @CreatedDate           : 2023-03-17 16:49:59                               *
- * @LastEditors           : 0K00<qdouvillez@gmail.com>                        *
- * @LastEditDate          : 2023-04-14 15:51:15                               *
- *****************************************************************************/
+/*****************************************************************************
+ * @Author                : 0K00<qdouvillez@gmail.com>                       *
+ * @CreatedDate           : 2023-03-17 16:49:59                              *
+ * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
+ * @LastEditDate          : 2023-04-17 15:04:30                              *
+ ****************************************************************************/
 
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -64,6 +64,7 @@ export class ProjectComponent implements OnInit {
   public id: string = "";
   public project: ProjectInterface = {} as ProjectInterface;
 
+
   public nbTicket: number = 0;
   public advancement: number = 0;
 
@@ -82,6 +83,7 @@ export class ProjectComponent implements OnInit {
     this.id = this.route.snapshot.paramMap.get('id') || "";
     if(window.innerWidth <= 1024) {
       this.windowWidth = false;
+      this.getProjectVersion();
     }
     window.onresize = () => this.windowWidth = window.innerWidth >= 1024;
   }
@@ -154,6 +156,8 @@ export class ProjectComponent implements OnInit {
   }
 
   public triggerShow(version?: string): void {
+    console.log(this.project.tasks);
+
     if(this.showAll) {
       for (let i = 0; i < this.filteredAdvancementTasks.length; i++) {
         const element = this.filteredAdvancementTasks[i];

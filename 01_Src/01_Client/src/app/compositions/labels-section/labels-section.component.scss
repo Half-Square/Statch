@@ -29,6 +29,10 @@
 .dropdown {
   position: relative;
 
+  .control.active {
+    background: rgba(255, 255, 255, 0.04);
+  }
+
   .control {
     cursor: pointer;
     display: flex;
@@ -46,6 +50,10 @@
     line-height: 16px;
     padding: 6px 4px;
     user-select: none;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.04);
+    }
 
     .ellipsis {
       max-width: 100px;
@@ -75,14 +83,14 @@
   }
 
   .menu.right {
-    right: -8px;
+    right: 0;
   }
 
   .menu {
     position: absolute;
     overflow: hidden;
     z-index: 10;
-    top: calc(34px + 8px);
+    top: 2px;
     display: flex;
     flex-direction: column;
     background: #2E2E2E;

@@ -1,9 +1,9 @@
-/******************************************************************************
- * @Author                : 0K00<qdouvillez@gmail.com>                        *
- * @CreatedDate           : 2023-03-28 16:26:44                               *
- * @LastEditors           : 0K00<qdouvillez@gmail.com>                        *
- * @LastEditDate          : 2023-04-15 17:41:02                               *
- *****************************************************************************/
+/*****************************************************************************
+ * @Author                : 0K00<qdouvillez@gmail.com>                       *
+ * @CreatedDate           : 2023-03-28 16:26:44                              *
+ * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
+ * @LastEditDate          : 2023-04-17 11:25:26                              *
+ ****************************************************************************/
 
 import { Component, EventEmitter, Input, Output, AfterContentChecked, ElementRef, ViewChild } from '@angular/core';
 import { UserInterface, UserService } from 'src/app/services/user/user.service';
@@ -49,6 +49,7 @@ export class AssigneeSectionComponent implements AfterContentChecked {
 
   @Input() data: ProjectInterface | TaskInterface | TicketInterface | null = null;
   @Input() dataType: string = "";
+  @Input() buttonOnly: boolean = false;
 
   @Input() assignees: Array<UserInterface> = []
 

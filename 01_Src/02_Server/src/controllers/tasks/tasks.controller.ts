@@ -2,7 +2,7 @@
  * @Author                : 0K00<qdouvillez@gmail.com>                        *
  * @CreatedDate           : 2023-02-21 14:21:47                               *
  * @LastEditors           : 0K00<qdouvillez@gmail.com>                        *
- * @LastEditDate          : 2023-04-13 16:44:29                               *
+ * @LastEditDate          : 2023-04-17 13:30:04                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -84,7 +84,10 @@ export class TasksController {
             },
             include: {
               owner: true,
-              targetVersion: true
+              targetVersion: true,
+              labels: {
+                include: {label: true}
+              }
             }
           },
           comments: {

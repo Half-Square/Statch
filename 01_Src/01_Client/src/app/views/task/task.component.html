@@ -2,11 +2,14 @@
 * @Author                : 0K00<qdouvillez@gmail.com>
 * @CreatedDate           : 2023-03-17 16:48:00
 * @LastEditors           : 0K00<qdouvillez@gmail.com>
-* @LastEditDate          : 2023-04-13 10:56:07
+* @LastEditDate          : 2023-04-17 15:33:07
 -->
 
 <div id="task">
   <div class="header">
+    <app-button type="fth" size="sm" icon="plus" iconPosition="only" (click)="command.openNewTicket(task.id)"></app-button>
+    <app-assignee-section [buttonOnly]="true" [assignees]="task ? task.assignments : []"
+    [data]="task" [dataType]="'task'"></app-assignee-section>
   </div>
   <div class="task">
     <div class="main">
@@ -25,9 +28,15 @@
           <h3>Details</h3>
           <div class="elements">
             <div class="container">
+              <h4>Id</h4>
+              <div class="text space">
+                {{task.id}}
+              </div>
+            </div>
+            <div class="container">
               <h4>Owner</h4>
-              <div class="text">
-                <app-avatar id="madelyn" [userName]="task && task.owner ? task.owner.name : ''" />
+              <div class="text space">
+                <app-avatar [userName]="task && task.owner ? task.owner.name : ''" />
                 {{ task.owner ? task.owner.name : "" }}
               </div>
             </div>
@@ -40,26 +49,42 @@
             </div>
             <div class="container">
               <h4>Target version</h4>
-              <app-versions-section [isEdit]="true"
-                  [version]="getTaskVersion()" (versionNameChange)="changeTaskVersion($event)" />
+              <div class="text space">
+                <app-versions-section [isEdit]="true"
+                    [version]="getTaskVersion()" (versionNameChange)="changeTaskVersion($event)" />
+              </div>
             </div>
             <div class="container">
               <h4>Status</h4>
-              <div class="text">
+              <div class="text space">
                 <app-status-labeled [isEdit]="true" [(status)]="task.status" (statusChange)="command.editTask(this.task)"/>
+              </div>
+            </div>
+            <div class="container labels">
+              <h4>Labels</h4>
+              <div class="text">
+                <app-labels-section placeholder="Select label" [(labels)]="task.labels" (labelsChange)="command.editTask(this.task)" />
+              </div>
+            </div>
+            <div class="container">
+              <h4>Level</h4>
+              <div class="text space">
+                <app-level-section [(level)]="task.level" (levelChange)="command.editTask(this.task)"/>
               </div>
             </div>
             <div class="container">
               <h4>No. of tickets</h4>
-              <div><a href="/create">
+              <div class="text space">
+                <a href="/create">
                 {{ task && task.tickets ? task.tickets.length : '0' }}
                 {{ task && task.tickets && task.tickets.length > 1 ? "tickets" : "task"}}
-                <app-icons [ngClass]="'icon'" icon="arrowright" />
-              </a></div>
+                <app-icons [ngClass]="'icon'" icon="arrow-right" />
+              </a>
+            </div>
             </div>
             <div class="container">
               <h4>Created</h4>
-              <div class="text">{{ task.created | dateDifference }}</div>
+              <div class="text space">{{ task.created | dateDifference }}</div>
             </div>
           </div>
         </div>
@@ -67,21 +92,56 @@
       <div class="advancement">
         <app-progress-bar id="test" [value]="advancement" />
         <div class="tickets">
-          <app-button id="showAll" type="prm" size="sm" icon="eye" (click)='showAll = !showAll; triggerShow()' />
-
-          <a class="ticket" *ngFor="let ticket of advancementTickets" [href]="'/ticket/'+ticket.id">
-            <div class="block">
-              <div class="right">
-                <div class="status"><app-status [status]="ticket.status" /></div>
-                <div *ngIf="ticket.targetVersion && ticket.targetVersion.name" class="version">{{ ticket.targetVersion.name }}</div>
-                <div class="name">{{ ticket.name }}</div>
+                    <div class="filter">
+            <div class="tabs">
+              <div class="tab showAll" [ngClass]="!showAll ? 'selected' : ''" (click)="showAll = false; showSelector = false; triggerShow()">
+                <app-icons [ngClass]="'icon'" icon="fries"></app-icons>
               </div>
-              <div class="description">{{ ticket.description }}</div>
+              <div class="tab selector showFilter" [ngClass]="showAll ? 'selected' : ''" (click)="showAll = true; triggerShow(selectVersion.id)">
+                <div class="control">
+                  <app-icons [ngClass]="'icon'" icon="straw"></app-icons>
+                  <div class="select" (click)="showSelector = !showSelector;" @tab *ngIf="showAll">
+                    {{selectVersion.name ? selectVersion.name : "Version"}}
+                    <app-icons [ngClass]="'icon'" icon="{{showSelector ? 'chevron-up' : 'chevron-down'}}"></app-icons>
+                  </div>
+                </div>
+                <div @nested *ngIf="showSelector" class="options">
+                  <div class="container">
+                    <div class="option" *ngFor="let option of options" (click)="selectVersion = option; showSelector = false; triggerShow(option.id)">
+                      {{option.name}}
+                    </div>
+                    <div class="no option" *ngIf="options.length < 1">
+                      No version
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="block">
-              <div class="id">{{ ticket.id }}</div>
-              <app-level [degree]="ticket.level" />
-              <app-avatar [userId]="ticket.owner.id" [userName]="ticket.owner.name" />
+          </div>
+          <a class="ticket" *ngFor="let ticket of advancementTickets" [href]="'/ticket/'+ticket.id">
+            <div class="container">
+              <div class="block">
+                <div class="right">
+                  <div class="status"><app-status [status]="ticket.status" /></div>
+                  <div *ngIf="ticket.targetVersion && ticket.targetVersion.name" class="version">{{ ticket.targetVersion.name }}</div>
+                  <div class="name">{{ ticket.name }}</div>
+                </div>
+                <div class="description">{{ ticket.description }}</div>
+              </div>
+              <div class="block">
+                <ng-container *ngIf="ticket.labels.length < 4">
+                  <div class="labels" *ngFor="let label of ticket.labels">
+                    <app-labels name="{{label.name}}" color="{{label.color}}"></app-labels>
+                  </div>
+                </ng-container>
+                <ng-container *ngIf="ticket.labels.length > 3">
+                  <div class="labels" *ngFor="let label of ticket.labels | slice:0:1">
+                    <app-labels name="{{label.name}}" color="{{label.color}}"></app-labels> + {{ ticket.labels.length - 1 }} {{(ticket.labels.length - 1) > 1 ? 'others' : 'other'}}
+                  </div>
+                </ng-container>
+                <app-level [degree]="ticket.level" />
+                <app-avatar [userId]="ticket.owner.id" [userName]="ticket.owner.name" />
+              </div>
             </div>
           </a>
 
@@ -107,9 +167,15 @@
       <div class="details">
         <h3>Details</h3>
         <div class="container">
+          <h4>Id</h4>
+          <div class="text space">
+            {{task.id}}
+          </div>
+        </div>
+        <div class="container">
           <h4>Owner</h4>
-          <div class="text">
-            <app-avatar id="madelyn" [userName]="task && task.owner ? task.owner.name : ''" />
+          <div class="text space">
+            <app-avatar [userName]="task && task.owner ? task.owner.name : ''" />
             {{ task.owner ? task.owner.name : "" }}
           </div>
         </div>
@@ -122,32 +188,42 @@
         </div>
         <div class="container">
           <h4>Target version</h4>
-          <app-versions-section [isEdit]="true" [version]="getTaskVersion()"
-                                (versionChange)="changeTaskVersion($event)" />
+          <div class="text space">
+            <app-versions-section [isEdit]="true" [version]="getTaskVersion()"
+                                  (versionChange)="changeTaskVersion($event)" />
+          </div>
         </div>
         <div class="container">
           <h4>Status</h4>
-          <div class="text">
+          <div class="text space">
             <app-status-labeled [isEdit]="true" [(status)]="task.status" (statusChange)="command.editTask(this.task)"/>
+          </div>
+        </div>
+        <div class="container labels">
+          <h4 class="label">Labels</h4>
+          <div class="text">
+            <app-labels-section placeholder="Select label" [(labels)]="task.labels" (labelsChange)="command.editTask(this.task)" />
           </div>
         </div>
         <div class="container">
           <h4>Level</h4>
-          <div class="text">
+          <div class="text space">
             <app-level-section [(level)]="task.level" (levelChange)="command.editTask(this.task)"/>
           </div>
         </div>
         <div class="container">
           <h4>No. of tickets</h4>
-          <div><a href="/create">
+          <div class="text space">
+            <a href="/create">
             {{ task && task.tickets ? task.tickets.length : '0' }}
             {{ task && task.tickets && task.tickets.length > 1 ? "tickets" : "ticket"}}
-            <app-icons [ngClass]="'icon'" icon="arrowright" />
-          </a></div>
+            <app-icons [ngClass]="'icon'" icon="arrow-right" />
+          </a>
+        </div>
         </div>
         <div class="container">
           <h4>Created</h4>
-          <div class="text">{{ task.created | dateDifference }}</div>
+          <div class="text space">{{ task.created | dateDifference }}</div>
         </div>
       </div>
       <div class="activity">
