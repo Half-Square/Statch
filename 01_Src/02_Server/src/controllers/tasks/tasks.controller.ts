@@ -2,7 +2,7 @@
  * @Author                : Adrien Lanco<adrienlanco0@gmail.com>              *
  * @CreatedDate           : 2023-02-21 14:21:47                               *
  * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>              *
- * @LastEditDate          : 2023-04-18 12:44:58                               *
+ * @LastEditDate          : 2023-04-18 16:42:44                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -103,7 +103,7 @@ export class TasksController {
           labels: {
             include: {label: true}
           },
-          activitys: { orderBy: {created:  "desc" }, take: 8, include: {author: true, target: true, project: true, task: true, ticket: true} }
+          activitys: { orderBy: {created:  "desc" }, take: 8, include: {author: true, target: true, project: true, label: true, task: true, ticket: true} }
         }
       });
 
@@ -146,14 +146,14 @@ export class TasksController {
         owner: true,
         assignments: { include: {user: true} },
         labels: { include: {label: true} },
-        activitys: { orderBy: {created:  "desc" }, take: 8, include: {author: true, target: true, project: true, task: true, ticket: true} }
+        activitys: { orderBy: {created:  "desc" }, take: 8, include: {author: true, target: true, project: true, label: true, task: true, ticket: true} }
       } as Prisma.TaskInclude;
 
       let task = await this.prisma.task.findUnique({
         where: { id: id}, include: includeQuery
       })
 
-      let activities = this.activityService.getPttActivitiesOnEdit(user,'task', task, body)
+      let activities = this.activityService.getPttActivitiesOnEdit(user, new tasksDto.PublicOutput(task), body)
 
       let res = await this.prisma.task.update({
         where: {id: id},
@@ -185,11 +185,11 @@ export class TasksController {
             create: activities?.map(act =>  ({
               authorId: user.id,
               action: act.txt,
-              targetId: act.target,
-              projectId: task.projectId,
               labelId: act.label,
               type: act.type,
-              value: act.value
+              value: act.value,
+              targetId: act.target,
+              projectId: task.projectId
             }))
           }
         },
@@ -272,7 +272,7 @@ export class TasksController {
           labels: {
             include: {label: true}
           },
-          activitys: { orderBy: {created:  "desc" }, take: 8, include: {author: true, target: true, project: true, task: true, ticket: true} }
+          activitys: { orderBy: {created:  "desc" }, take: 8, include: {author: true, target: true, project: true, label: true, task: true, ticket: true} }
         }
       });
 
@@ -283,7 +283,7 @@ export class TasksController {
           taskId: res.id,
           projectId: id
         }
-      })
+      });
       return new tasksDto.DetailsOutput(res);
     } catch (err) {
       console.error(`${new Date().toISOString()} - ${err}`);

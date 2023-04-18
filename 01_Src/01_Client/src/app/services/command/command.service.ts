@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : 0K00<qdouvillez@gmail.com>                       *
+ * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
  * @CreatedDate           : 2023-03-17 22:34:38                              *
- * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
- * @LastEditDate          : 2023-04-17 16:08:04                              *
+ * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
+ * @LastEditDate          : 2023-04-18 15:30:59                              *
  ****************************************************************************/
 
 import { Injectable } from '@angular/core';
@@ -425,6 +425,19 @@ export class CommandService {
           console.error("assignSomeOne error >> "+error)
           return reject()
         }
+      });
+    }
+
+    public async getMyActivitys(): Promise<any> {
+      return new Promise<any>((resolve, reject) => {
+        let user = UserService.getUser();
+        this.api.request("GET", "users/"+user.id+"/activity")
+        .then((ret: any) => {
+          return resolve(ret)
+        }).catch((error: any) => {
+          console.error("getMyActivitys error >> "+error)
+          return reject()
+        })
       });
     }
 

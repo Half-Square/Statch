@@ -2,7 +2,7 @@
  * @Author                : Adrien Lanco<adrienlanco0@gmail.com>              *
  * @CreatedDate           : 2023-02-21 14:21:24                               *
  * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>              *
- * @LastEditDate          : 2023-04-18 12:44:45                               *
+ * @LastEditDate          : 2023-04-18 14:55:58                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -101,7 +101,7 @@ export class ProjectsController {
           labels: {
             include: {label: true}
           },
-          activitys: { orderBy: {created:  "desc" }, take: 8, include: {author: true, target: true, project: true, task: true, ticket: true} }
+          activitys: { orderBy: {created:  "desc" }, take: 8, include: {author: true, target: true, project: true, label: true, task: true, ticket: true} }
         }
       });      
       if (res) return new projectsDto.DetailsOutput(res);
@@ -140,14 +140,14 @@ export class ProjectsController {
         owner: true,
         assignments: { include: {user: true} },
         labels: { include: {label: true} },
-        activitys: { orderBy: {created:  "desc" }, take: 8, include: {author: true, target: true, project: true, task: true, ticket: true} }
+        activitys: { orderBy: {created:  "desc" }, take: 8, include: {author: true, target: true, project: true, label: true, task: true, ticket: true} }
       } as Prisma.ProjectInclude;
 
       let proj = await this.prisma.project.findUnique({
         where: { id: id}, include: includeQuery
       })
 
-      let activities = this.activityService.getPttActivitiesOnEdit(user,'project', proj, body)
+      let activities = this.activityService.getPttActivitiesOnEdit(user, new projectsDto.PublicOutput(proj), body)
       
       let res = await this.prisma.project.update({
         where: { id: id },
@@ -241,7 +241,7 @@ export class ProjectsController {
           labels: {
             include: {label: true}
           },
-          activitys: { orderBy: {created:  "desc" }, take: 8, include: {author: true, target: true, project: true, task: true, ticket: true} }
+          activitys: { orderBy: {created:  "desc" }, take: 8, include: {author: true, target: true, project: true, label: true, task: true, ticket: true} }
         }
       });
       return new projectsDto.DetailsOutput(res);

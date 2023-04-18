@@ -2,7 +2,7 @@
  * @Author                : Adrien Lanco<adrienlanco0@gmail.com>              *
  * @CreatedDate           : 2023-02-21 14:22:05                               *
  * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>              *
- * @LastEditDate          : 2023-04-18 12:45:39                               *
+ * @LastEditDate          : 2023-04-18 14:55:53                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -95,7 +95,7 @@ export class TicketsController {
           labels: {
             include: {label: true}
           },
-          activitys: { orderBy: {created:  "desc" }, take: 8, include: {author: true, target: true, project: true, task: true, ticket: true} }
+          activitys: { orderBy: {created:  "desc" }, take: 8, include: {author: true, target: true, project: true, label: true, task: true, ticket: true} }
         }
       });
       
@@ -131,14 +131,14 @@ export class TicketsController {
         owner: true,
         assignments: { include: {user: true} },
         labels: { include: {label: true} },
-        activitys: { orderBy: {created:  "desc" }, take: 8, include: {author: true, target: true, project: true, task: true, ticket: true} }
+        activitys: { orderBy: {created:  "desc" }, take: 8, include: {author: true, target: true, project: true, label: true, task: true, ticket: true} }
       } as Prisma.TicketInclude;
 
       let ticket = await this.prisma.ticket.findUnique({
         where: { id: id}, include: includeQuery
       });
 
-      let activities = this.activityService.getPttActivitiesOnEdit(user,'ticket', ticket, body)
+      let activities = this.activityService.getPttActivitiesOnEdit(user,new ticketsDto.PublicOutput(ticket), body)
 
       let res = await this.prisma.ticket.update({
         where: {id: id},
@@ -241,7 +241,7 @@ export class TicketsController {
           owner: true,
           assignments: { include: {user: true} },
           labels: { include: {label: true} },
-          activitys: { orderBy: {created:  "desc" }, take: 8, include: {author: true, target: true, project: true, task: true, ticket: true} }
+          activitys: { orderBy: {created:  "desc" }, take: 8, include: {author: true, target: true, project: true, label: true, task: true, ticket: true} }
         }
       });
 

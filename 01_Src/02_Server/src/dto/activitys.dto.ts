@@ -2,7 +2,7 @@
  * @Author                : Adrien Lanco<adrienlanco0@gmail.com>              *
  * @CreatedDate           : 2023-04-13 11:38:12                               *
  * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>              *
- * @LastEditDate          : 2023-04-14 19:06:01                               *
+ * @LastEditDate          : 2023-04-18 16:32:12                               *
  *****************************************************************************/
 
 import {IsObject, IsString, IsArray, IsOptional} from "class-validator";
@@ -28,7 +28,15 @@ class ProjectOutput {
 
   @IsString()
     action: string;
-    
+
+  @IsString()
+  @IsOptional()
+  type: string;
+
+  @IsString()
+  @IsOptional()
+  value: string;  
+  
   @IsObject()
   @IsOptional()
     target: usersDto.PublicOutput;
@@ -49,8 +57,12 @@ class ProjectOutput {
     if (data) {
       this.id = data.id;
       this.created = data.created;
-      this.author = data.author;
+      this.author = new usersDto.PublicOutput(data.author);
       this.action = data.action;
+      if (data.type)
+        this.type = data.type
+      if (data.value)
+        this.value = data.value
       if (data.task)
         this.task = data.task
       if (data.ticket)
@@ -58,7 +70,7 @@ class ProjectOutput {
       if (data.label)
         this.label = data.label
       if (data.target)
-        this.target = data.target
+        this.target = new usersDto.PublicOutput(data.target)
     }
   }
 }
@@ -75,14 +87,18 @@ class TaskOutput {
 
   @IsString()
     action: string;
+
+  @IsString()
+  @IsOptional()
+  type: string;
+
+  @IsString()
+  @IsOptional()
+  value: string;  
     
   @IsObject()
   @IsOptional()
     target: usersDto.PublicOutput;
-
-  @IsObject()
-  @IsOptional()
-    project: projectsDto.PublicOutput;
 
   @IsObject()  
   @IsOptional()
@@ -96,17 +112,18 @@ class TaskOutput {
     if (data) {
       this.id = data.id;
       this.created = data.created;
-      this.author = data.author;
+      this.author = new usersDto.PublicOutput(data.author);
       this.action = data.action;
-
-      if (data.project)
-        this.project = data.project
+      if (data.type)
+        this.type = data.type
+      if (data.value)
+        this.value = data.value
       if (data.ticket)
         this.ticket = data.ticket
       if (data.label)
         this.label = data.label
       if (data.target)
-        this.target = data.target
+        this.target = new usersDto.PublicOutput(data.target);
     }
   }
 }
@@ -123,18 +140,18 @@ class TicketOutput {
 
   @IsString()
     action: string;
+
+  @IsString()
+  @IsOptional()
+  type: string;
+
+  @IsString()
+  @IsOptional()
+  value: string;  
     
   @IsObject()
   @IsOptional()
     target: usersDto.PublicOutput;
-
-  @IsObject()
-  @IsOptional()
-    project: projectsDto.PublicOutput;
-
-  @IsObject()
-  @IsOptional()
-    task: tasksDto.PublicOutput;
 
   @IsObject()
   @IsOptional()
@@ -144,17 +161,17 @@ class TicketOutput {
     if (data) {
       this.id = data.id;
       this.created = data.created;
-      this.author = data.author;
+      this.author = new usersDto.PublicOutput(data.author);
       this.action = data.action;
 
-      if (data.project)
-        this.project = data.project
-      if (data.task)
-        this.task = data.task
+      if (data.type)
+        this.type = data.type
+      if (data.value)
+        this.value = data.value
       if (data.label)
         this.label = data.label
       if (data.target)
-        this.target = data.target
+        this.target = new usersDto.PublicOutput(data.target)
     }
   }
 }
@@ -171,6 +188,14 @@ class DetailsOutput {
 
   @IsString()
     action: string;
+
+  @IsString()
+  @IsOptional()
+  type: string;
+
+  @IsString()
+  @IsOptional()
+  value: string;  
     
   @IsObject()
   @IsOptional()
@@ -196,9 +221,13 @@ class DetailsOutput {
     if (data) {
       this.id = data.id;
       this.created = data.created;
-      this.author = data.author;
+      this.author = new usersDto.PublicOutput(data.author);
       this.action = data.action;
 
+      if (data.type)
+        this.type = data.type
+      if (data.value)
+        this.value = data.value
       if (data.project)
         this.project = data.project
       if (data.task)
@@ -208,7 +237,7 @@ class DetailsOutput {
       if (data.label)
         this.label = data.label
       if (data.target)
-        this.target = data.target
+        this.target = new usersDto.PublicOutput(data.target)
     }
   }
 }

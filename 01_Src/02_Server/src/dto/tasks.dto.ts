@@ -2,7 +2,7 @@
  * @Author                : Adrien Lanco<adrienlanco0@gmail.com>              *
  * @CreatedDate           : 2023-02-21 14:16:22                               *
  * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>              *
- * @LastEditDate          : 2023-04-14 19:27:26                               *
+ * @LastEditDate          : 2023-04-18 14:04:09                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -108,7 +108,11 @@ class PublicOutput {
 
   @IsObject()
     targetVersion: versionsDto.PublicOutput;
-  
+
+  @IsArray()
+  @IsOptional()
+    assignments: usersDto.PublicOutput[];  
+
   @IsArray()
   @IsOptional()
     labels: labelsDto.PublicOutput[];
@@ -123,6 +127,9 @@ class PublicOutput {
       this.projectId = data.projectId;
       this.created = data.created;
       this.owner = new usersDto.PublicOutput(data.owner);
+      this.assignments = data.assignments?.map((el) => {
+        return el.user;
+      });
       this.targetVersion = new versionsDto.PublicOutput(data.targetVersion);
       this.labels = data.labels?.map((el) => { 
         return el.label;

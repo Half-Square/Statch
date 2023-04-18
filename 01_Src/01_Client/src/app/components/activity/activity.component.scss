@@ -1,0 +1,133 @@
+/*****************************************************************************
+ * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
+ * @CreatedDate           : 2023-04-18 16:08:16                              *
+ * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
+ * @LastEditDate          : 2023-04-18 16:45:22                              *
+ ****************************************************************************/
+
+
+.activity {
+  display: grid;
+  grid-template-rows: 1fr;
+  justify-content: space-between;
+  grid-template-areas:
+    "element date";
+  align-items: center;
+  padding: 16px 32px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.08);
+  }
+
+  &:hover .element .ptt .name {
+    text-decoration: underline;
+  }
+
+  &.small {
+    .action, .name {
+      font-size: 12px;
+    }
+  }
+}
+
+.element {
+  display: grid;
+  grid-template-columns: 1.5fr 0.5fr auto;
+  grid-template-rows: 1fr;
+  gap: 0px 8px;
+  grid-template-areas:
+    "author action ptt";
+  grid-area: element;
+
+  .author {
+    grid-area: author;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 16px;
+    color: rgba(255, 255, 255, 0.48);
+    max-width: 100px;
+    span {
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+  }
+
+  .action {
+    grid-area: action;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    color: rgba(255, 255, 255, 0.64);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .ptt {
+    grid-area: ptt;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 4px;
+    max-width: calc(100% - 80px);
+    min-width: 200px;
+
+    .name {
+      font-style: normal;
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 24px;
+      color: rgba(255, 255, 255, 0.96);
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+  }
+}
+
+.date {
+  grid-area: date;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+  color: rgba(255, 255, 255, 0.48);
+}
+
+
+@media (max-width: 824px) {
+  .activity {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+
+    .element {
+      display: flex;
+      flex-direction: row;
+      gap: 16px;
+
+      .author span {
+        display: none;
+      }
+
+      .ptt {
+        max-width: inherit;
+        min-width: inherit;
+      }
+    }
+  }
+}
+
+@media (max-width: 376px) {
+  .activity .date {
+    display: none;
+  }
+}

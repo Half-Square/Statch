@@ -1,8 +1,8 @@
 <!--
-* @Author                : 0K00<qdouvillez@gmail.com>
+* @Author                : Adrien Lanco<adrienlanco0@gmail.com>
 * @CreatedDate           : 2023-04-11 12:51:00
-* @LastEditors           : 0K00<qdouvillez@gmail.com>
-* @LastEditDate          : 2023-04-11 13:57:01
+* @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>
+* @LastEditDate          : 2023-04-18 16:14:14
 -->
 
 <div id="activity" class="main">
@@ -12,24 +12,7 @@
           <!-- <app-button id="filter" type="fth" size="md" label="Add filter +" /> -->
       </div>
   </div>
-  <div class="content" *ngFor="let activity of activities">
-    <a class="activity" [href]="'/project/'+activity.ptt.id">
-      <div class="element">
-        <div class="author">
-          <app-avatar [userId]="activity.author.id" [userName]="activity.author.name"></app-avatar>
-          <span>{{ activity.author.name }}</span>
-        </div>
-        <div class="action">
-          {{ activity.action }}
-        </div>
-        <div class="ptt">
-          <app-status [status]="activity.ptt.status"></app-status>
-          <span class="name">{{ activity.ptt.name }}</span>
-        </div>
-      </div>
-      <div class="date">
-        {{ activity.date | dateDifference }}
-      </div>
-    </a>
+  <div class="content" *ngFor="let activity of activities ; let index = index">
+    <app-activity-comp [activity]="activity" />
   </div>
 </div>

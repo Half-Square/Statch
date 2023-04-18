@@ -2,7 +2,7 @@
  * @Author                : Adrien Lanco<adrienlanco0@gmail.com>              *
  * @CreatedDate           : 2023-02-21 14:13:59                               *
  * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>              *
- * @LastEditDate          : 2023-04-14 18:39:04                               *
+ * @LastEditDate          : 2023-04-18 14:03:27                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -111,6 +111,10 @@ class PublicOutput {
 
   @IsArray()
   @IsOptional()
+    assignments: usersDto.PublicOutput[];
+
+  @IsArray()
+  @IsOptional()
     versionList: versionsDto.PublicOutput;
 
   @IsArray()
@@ -132,6 +136,9 @@ class PublicOutput {
       this.name = data.name;
       this.status = data.status;
       this.actualVersion = data.actualVersion;
+      this.assignments = data.assignments?.map((el) => {
+        return el.user;
+      });
       this.labels = data.labels?.map((el) => { 
         return el.label;
       });
