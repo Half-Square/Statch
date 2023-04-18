@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : 0K00<qdouvillez@gmail.com>                       *
+ * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
  * @CreatedDate           : 2023-03-17 16:49:59                              *
- * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
- * @LastEditDate          : 2023-04-17 15:04:30                              *
+ * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
+ * @LastEditDate          : 2023-04-18 17:21:52                              *
  ****************************************************************************/
 
 import { Component, OnInit } from '@angular/core';
@@ -52,6 +52,7 @@ export class ProjectComponent implements OnInit {
       if (params.edit) this.onEdit = params.edit
       else this.onEdit = false
     });
+
     ProjectListService.projectChange.subscribe((value: ProjectInterface) => {
       this.project = structuredClone(value)
       this.setAdvancement()
@@ -90,6 +91,9 @@ export class ProjectComponent implements OnInit {
 
   public saveProject() {
     this.command.editProject(this.project)
+    .then((ret) => {
+      this.project = ret
+    })
   }
 
   public redirectToEdit() {

@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : 0K00<qdouvillez@gmail.com>                       *
+ * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
  * @CreatedDate           : 2023-03-18 17:03:31                              *
- * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
- * @LastEditDate          : 2023-04-17 13:10:50                              *
+ * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
+ * @LastEditDate          : 2023-04-18 17:22:42                              *
  ****************************************************************************/
 
 import { Component } from '@angular/core';
@@ -53,7 +53,10 @@ export class TaskComponent {
       if (params.edit) this.onEdit = params.edit
       else this.onEdit = false
     });
+
     ProjectListService.taskChange.subscribe((value: TaskInterface) => {
+      console.log("taskChange",value);
+
       this.task = structuredClone(value);
       this.setAdvancement()
     })
@@ -88,6 +91,9 @@ export class TaskComponent {
 
   public saveTask() {
     this.command.editTask(this.task)
+    .then((ret) => {
+      this.task = ret
+    })
   }
 
   public redirectToEdit() {

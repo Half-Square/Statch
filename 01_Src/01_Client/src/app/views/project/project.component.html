@@ -2,7 +2,7 @@
 * @Author                : Adrien Lanco<adrienlanco0@gmail.com>
 * @CreatedDate           : 2023-03-17 16:48:00
 * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>
-* @LastEditDate          : 2023-04-18 16:27:44
+* @LastEditDate          : 2023-04-18 17:23:19
 -->
 
 <div id="project">
@@ -57,13 +57,13 @@
             <div class="container">
               <h4>Status</h4>
               <div class="text space">
-                <app-status-labeled [isEdit]="true" [(status)]="project.status" (statusChange)="command.editProject(this.project)"/>
+                <app-status-labeled [isEdit]="true" [(status)]="project.status" (statusChange)="saveProject()"/>
               </div>
             </div>
             <div class="container">
               <h4>Labels</h4>
               <div class="text">
-                <app-labels-section placeholder="Select label" [(labels)]="project.labels" (labelsChange)="command.editProject(this.project)" />
+                <app-labels-section placeholder="Select label" [(labels)]="project.labels" (labelsChange)="saveProject()" />
               </div>
             </div>
             <div class="container">
@@ -185,13 +185,13 @@
         <div class="container">
           <h4>Status</h4>
           <div class="text space">
-            <app-status-labeled [isEdit]="true" [(status)]="project.status" (statusChange)="command.editProject(this.project)"/>
+            <app-status-labeled [isEdit]="true" [(status)]="project.status" (statusChange)="saveProject()"/>
           </div>
         </div>
         <div class="container labels">
           <h4 class="label">Labels</h4>
           <div class="text">
-            <app-labels-section placeholder="Select label" [(labels)]="project.labels" (labelsChange)="command.editProject(this.project)" />
+            <app-labels-section placeholder="Select label" [(labels)]="project.labels" (labelsChange)="saveProject()" />
           </div>
         </div>
         <div class="container">

@@ -2,7 +2,7 @@
  * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
  * @CreatedDate           : 2023-03-17 22:34:38                              *
  * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
- * @LastEditDate          : 2023-04-18 15:30:59                              *
+ * @LastEditDate          : 2023-04-18 17:22:21                              *
  ****************************************************************************/
 
 import { Injectable } from '@angular/core';
@@ -206,14 +206,13 @@ export class CommandService {
   *
   * @return (Promise<void>): Resolve on valid PUT project
   */
-  public async editProject(project: ProjectInterface): Promise<void> {
-    console.log("heresdf ", project);
-
-    return new Promise<void>((resolve, reject) => {
+  public async editProject(project: ProjectInterface): Promise<ProjectInterface> {
+    return new Promise<ProjectInterface>((resolve, reject) => {
       this.api.request("PUT", "projects/"+project.id, project)
       .then((ret: any) => {
         ProjectListService.addProject(ret);
         this.router.navigate(["project", project.id])
+        return resolve(ret)
       }).catch((error: any) => {
         console.error("editProject error >> "+error)
       })
@@ -231,12 +230,13 @@ export class CommandService {
   *
   * @return (Promise<void>): Resolve on valid PUT task
   */
-  public async editTask(task: TaskInterface): Promise<void> {
-    return new Promise<void>((resolve, reject) => {
+  public async editTask(task: TaskInterface): Promise<TaskInterface> {
+    return new Promise<TaskInterface>((resolve, reject) => {
       this.api.request("PUT", "tasks/"+task.id, task)
       .then((ret: any) => {
         ProjectListService.addTask(task);
         this.router.navigate(["/task/", task.id ])
+        return resolve(ret)
       }).catch((error: any) => {
         console.error("editTask error >> "+error)
       })
@@ -254,12 +254,13 @@ export class CommandService {
   *
   * @return (Promise<void>): Resolve on valid PUT ticket
   */
-  public async editTicket(ticket: TicketInterface): Promise<void> {
-    return new Promise<void>((resolve, reject) => {
+  public async editTicket(ticket: TicketInterface): Promise<TicketInterface> {
+    return new Promise<TicketInterface>((resolve, reject) => {
       this.api.request("PUT", "tickets/"+ticket.id, ticket)
       .then((ret: any) => {
         ProjectListService.addTicket(ticket);
         this.router.navigate(["/ticket/", ticket.id ])
+        return resolve(ret)
       }).catch((error: any) => {
         console.error("editTask error >> "+error)
       })

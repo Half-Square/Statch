@@ -2,7 +2,7 @@
 * @Author                : Adrien Lanco<adrienlanco0@gmail.com>
 * @CreatedDate           : 2023-03-17 16:48:00
 * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>
-* @LastEditDate          : 2023-04-18 16:28:06
+* @LastEditDate          : 2023-04-18 17:15:12
 -->
 
 <div id="task">
@@ -57,19 +57,19 @@
             <div class="container">
               <h4>Status</h4>
               <div class="text space">
-                <app-status-labeled [isEdit]="true" [(status)]="task.status" (statusChange)="command.editTask(this.task)"/>
+                <app-status-labeled [isEdit]="true" [(status)]="task.status" (statusChange)="saveTask()"/>
               </div>
             </div>
             <div class="container labels">
               <h4>Labels</h4>
               <div class="text">
-                <app-labels-section placeholder="Select label" [(labels)]="task.labels" (labelsChange)="command.editTask(this.task)" />
+                <app-labels-section placeholder="Select label" [(labels)]="task.labels" (labelsChange)="saveTask()" />
               </div>
             </div>
             <div class="container">
               <h4>Level</h4>
               <div class="text space">
-                <app-level-section [(level)]="task.level" (levelChange)="command.editTask(this.task)"/>
+                <app-level-section [(level)]="task.level" (levelChange)="saveTask()"/>
               </div>
             </div>
             <div class="container">
@@ -194,19 +194,19 @@
         <div class="container">
           <h4>Status</h4>
           <div class="text space">
-            <app-status-labeled [isEdit]="true" [(status)]="task.status" (statusChange)="command.editTask(this.task)"/>
+            <app-status-labeled [isEdit]="true" [(status)]="task.status" (statusChange)="saveTask()"/>
           </div>
         </div>
         <div class="container labels">
           <h4 class="label">Labels</h4>
           <div class="text">
-            <app-labels-section placeholder="Select label" [(labels)]="task.labels" (labelsChange)="command.editTask(this.task)" />
+            <app-labels-section placeholder="Select label" [(labels)]="task.labels" (labelsChange)="saveTask()" />
           </div>
         </div>
         <div class="container">
           <h4>Level</h4>
           <div class="text space">
-            <app-level-section [(level)]="task.level" (levelChange)="command.editTask(this.task)"/>
+            <app-level-section [(level)]="task.level" (levelChange)="saveTask()"/>
           </div>
         </div>
         <div class="container">
