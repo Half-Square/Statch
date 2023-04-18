@@ -2,7 +2,7 @@
  * @Author                : 0K00<qdouvillez@gmail.com>                        *
  * @CreatedDate           : 2023-02-21 14:21:24                               *
  * @LastEditors           : 0K00<qdouvillez@gmail.com>                        *
- * @LastEditDate          : 2023-04-17 13:35:26                               *
+ * @LastEditDate          : 2023-04-18 10:13:23                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -86,6 +86,9 @@ export class ProjectsController {
             include: {
               owner: true,
               targetVersion: true,
+              assignments: {
+                include: {user: true}
+              },
               labels: {
                 include: {label: true}
               }
