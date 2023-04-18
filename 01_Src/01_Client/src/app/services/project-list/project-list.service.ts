@@ -2,7 +2,7 @@
  * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
  * @CreatedDate           : 2023-03-17 14:25:08                              *
  * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
- * @LastEditDate          : 2023-04-14 19:23:51                              *
+ * @LastEditDate          : 2023-04-18 12:18:15                              *
  ****************************************************************************/
 
 import { Injectable } from '@angular/core';
@@ -368,7 +368,8 @@ export interface TaskInterface {
   owner: UsersInterface,
   assignments: Array<UsersInterface>,
   tickets: Array<TicketInterface>,
-  activitys: any
+  activitys: any,
+  labels: Array<LabelsInterface>
 }
 
 export interface TicketInterface {
@@ -384,7 +385,8 @@ export interface TicketInterface {
   comments: Array<CommentInterface>,
   assignments: Array<UsersInterface>,
   owner: UsersInterface,
-  activitys: any
+  activitys: any,
+  labels: Array<LabelsInterface>
 }
 
 export interface UsersInterface {
@@ -419,8 +421,8 @@ export interface SearchResponseInterface {
 }
 
 export interface LabelsInterface {
-  id: string,
-  name: string,
-  color: string,
-  description: string
+  id?: string,
+  name?: string,
+  color?: string,
+  description?: string
 }

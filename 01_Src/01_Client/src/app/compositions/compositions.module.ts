@@ -2,7 +2,7 @@
  * @Author                : 0K00<qdouvillez@gmail.com>                        *
  * @CreatedDate           : 2023-03-24 15:23:08                               *
  * @LastEditors           : 0K00<qdouvillez@gmail.com>                        *
- * @LastEditDate          : 2023-04-14 11:58:39                               *
+ * @LastEditDate          : 2023-04-14 16:40:11                               *
  *****************************************************************************/
 
 import { NgModule } from '@angular/core';
@@ -29,6 +29,7 @@ import { DropdownComponent } from './dropdown/dropdown.component';
 import { LevelSectionComponent } from './level-section/level-section.component';
 import { AssigneeSectionComponent } from './assignee-section/assignee-section.component';
 import { PipeModule } from '../pipe/pipe.module';
+import { LabelsSectionComponent } from './labels-section/labels-section.component';
 
 
 
@@ -43,7 +44,8 @@ import { PipeModule } from '../pipe/pipe.module';
     StatusLabeledComponent,
     DropdownComponent,
     LevelSectionComponent,
-    AssigneeSectionComponent
+    AssigneeSectionComponent,
+    LabelsSectionComponent
   ],
   imports: [
     CommonModule,
@@ -64,7 +66,8 @@ import { PipeModule } from '../pipe/pipe.module';
     StatusLabeledComponent,
     DropdownComponent,
     LevelSectionComponent,
-    AssigneeSectionComponent
+    AssigneeSectionComponent,
+    LabelsSectionComponent
   ],
 })
 export class CompositionsModule { }

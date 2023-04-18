@@ -2,11 +2,13 @@
 * @Author                : Adrien Lanco<adrienlanco0@gmail.com>
 * @CreatedDate           : 2023-03-17 16:48:00
 * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>
-* @LastEditDate          : 2023-04-14 19:24:55
+* @LastEditDate          : 2023-04-18 12:19:48
 -->
 
 <div id="ticket">
   <div class="header">
+    <app-assignee-section [buttonOnly]="true" [assignees]="ticket ? ticket.assignments : []"
+    [data]="ticket" [dataType]="'ticket'"></app-assignee-section>
   </div>
   <div class="ticket">
     <div class="main">
@@ -25,9 +27,15 @@
           <h3>Details</h3>
           <div class="elements">
             <div class="container">
+              <h4>Id</h4>
+              <div class="text space">
+                {{ticket.id}}
+              </div>
+            </div>
+            <div class="container">
               <h4>Owner</h4>
-              <div class="text">
-                <app-avatar id="madelyn" [userName]="ticket && ticket.owner ? ticket.owner.name : ''" />
+              <div class="text space">
+                <app-avatar [userName]="ticket && ticket.owner ? ticket.owner.name : ''" />
                 {{ ticket.owner ? ticket.owner.name : "" }}
               </div>
             </div>
@@ -40,18 +48,32 @@
             </div>
             <div class="container">
               <h4>Target version</h4>
-              <app-versions-section [isEdit]="true"
-                  [version]="getTicketVersion()" (versionNameChange)="changeTicketVersion($event)" />
+              <div class="text space">
+                <app-versions-section [isEdit]="true"
+                    [version]="getTicketVersion()" (versionNameChange)="changeTicketVersion($event)" />
+              </div>
             </div>
             <div class="container">
               <h4>Status</h4>
-              <div class="text">
+              <div class="text space">
                 <app-status-labeled [isEdit]="true" [(status)]="ticket.status" (statusChange)="command.editTicket(this.ticket)"/>
+              </div>
+            </div>
+            <div class="container labels">
+              <h4 class="label">Labels</h4>
+              <div class="text">
+                <app-labels-section placeholder="Select label" [(labels)]="ticket.labels" (labelsChange)="command.editTicket(this.ticket)" />
+              </div>
+            </div>
+            <div class="container">
+              <h4>Level</h4>
+              <div class="text space">
+                <app-level-section [(level)]="ticket.level" (levelChange)="command.editTicket(this.ticket)"/>
               </div>
             </div>
             <div class="container">
               <h4>Created</h4>
-              <div class="text">{{ ticket.created | dateDifference }}</div>
+              <div class="text space">{{ ticket.created | dateDifference }}</div>
             </div>
           </div>
         </div>
@@ -76,9 +98,15 @@
       <div class="details">
         <h3>Details</h3>
         <div class="container">
+          <h4>Id</h4>
+          <div class="text space">
+            {{ticket.id}}
+          </div>
+        </div>
+        <div class="container">
           <h4>Owner</h4>
-          <div class="text">
-            <app-avatar id="madelyn" [userName]="ticket && ticket.owner ? ticket.owner.name : ''" />
+          <div class="text space">
+            <app-avatar [userName]="ticket && ticket.owner ? ticket.owner.name : ''" />
             {{ ticket.owner ? ticket.owner.name : "" }}
           </div>
         </div>
@@ -91,24 +119,32 @@
         </div>
         <div class="container">
           <h4>Target version</h4>
-          <app-versions-section [isEdit]="true" [version]="getTicketVersion()"
-                                (versionChange)="changeTicketVersion($event)" />
+          <div class="text space">
+            <app-versions-section [isEdit]="true" [version]="getTicketVersion()"
+                                  (versionChange)="changeTicketVersion($event)" />
+          </div>
         </div>
         <div class="container">
           <h4>Status</h4>
-          <div class="text">
+          <div class="text space">
             <app-status-labeled [isEdit]="true" [(status)]="ticket.status" (statusChange)="command.editTicket(this.ticket)"/>
+          </div>
+        </div>
+        <div class="container labels">
+          <h4 class="label">Labels</h4>
+          <div class="text">
+            <app-labels-section placeholder="Select label" [(labels)]="ticket.labels" (labelsChange)="command.editTicket(this.ticket)" />
           </div>
         </div>
         <div class="container">
           <h4>Level</h4>
-          <div class="text">
+          <div class="text space">
             <app-level-section [(level)]="ticket.level" (levelChange)="command.editTicket(this.ticket)"/>
           </div>
         </div>
         <div class="container">
           <h4>Created</h4>
-          <div class="text">{{ ticket.created | dateDifference }}</div>
+          <div class="text space">{{ ticket.created | dateDifference }}</div>
         </div>
       </div>
       <div class="activity">

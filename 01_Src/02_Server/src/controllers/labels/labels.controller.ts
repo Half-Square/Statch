@@ -21,7 +21,7 @@ import {PrismaService} from "../../prisma.service";
  * @Author                : 0K00<qdouvillez@gmail.com>                        *
  * @CreatedDate           : 2023-04-13 12:02:48                               *
  * @LastEditors           : 0K00<qdouvillez@gmail.com>                        *
- * @LastEditDate          : 2023-04-13 13:38:28                               *
+ * @LastEditDate          : 2023-04-17 16:27:22                               *
  *****************************************************************************/
 
 /* Guards */
@@ -104,7 +104,7 @@ export class LabelsController {
   @Delete("/:id")
   async delete(@Param("id") id: string): Promise<void> {
     try {
-      await this.prisma.label.delete({where: {id: id}}).catch(() => {
+      await this.prisma.label.deleteMany({where: {id: id}}).catch(() => {
         throw new HttpException("Not Found", HttpStatus.NOT_FOUND);
       });
     } catch (err) {

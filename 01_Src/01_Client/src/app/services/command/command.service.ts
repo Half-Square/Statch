@@ -1,14 +1,14 @@
 /*****************************************************************************
- * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
+ * @Author                : 0K00<qdouvillez@gmail.com>                       *
  * @CreatedDate           : 2023-03-17 22:34:38                              *
- * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
- * @LastEditDate          : 2023-03-31 16:29:19                              *
+ * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
+ * @LastEditDate          : 2023-04-17 16:08:04                              *
  ****************************************************************************/
 
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApiService } from '../api/api.service';
-import { ProjectInterface, ProjectListService, TaskInterface, TicketInterface, UsersInterface } from '../project-list/project-list.service';
+import { LabelsInterface, ProjectInterface, ProjectListService, TaskInterface, TicketInterface, UsersInterface } from '../project-list/project-list.service';
 import { UserService } from '../user/user.service';
 
 @Injectable({
@@ -468,4 +468,49 @@ export class CommandService {
         })
       });
     }
+
+    public async editLabel(data: LabelsInterface): Promise<LabelsInterface | any> {
+      return new Promise<LabelsInterface | any>((resolve, reject) => {
+        this.api.request("POST", "labels/"+data.id, data)
+        .then((ret: LabelsInterface) => {
+          return resolve(ret);
+        }).catch((error: any) => {
+          console.error("Edit label error >> "+error)
+          return reject(error);
+        });
+      });
+    };
+
+    public async createLabel(data: LabelsInterface): Promise<LabelsInterface | any> {
+      return new Promise<LabelsInterface | any>((resolve, reject) => {
+        this.api.request("POST", "labels", data)
+        .then((ret: LabelsInterface) => {
+          return resolve(ret);
+        }).catch((error: any) => {
+          console.error("Create label error >> "+error)
+          return reject(error);
+        });
+      });
+    };
+
+    public async getLabels(): Promise<Array<LabelsInterface>> {
+      return new Promise<Array<LabelsInterface>>((resolve, reject) => {
+        this.api.request("GET", "labels")
+        .then((ret: Array<LabelsInterface>) => {
+          return resolve(ret);
+        }).catch((error) => { return reject(error) });
+      });
+    };
+
+    public async deleteLabel(labelId: string): Promise<void> {
+      return new Promise<void>((resolve, reject) => {
+        this.api.request("DELETE", "labels/"+labelId, {})
+        .then((ret: any) => {
+          return resolve(ret);
+        }).catch((error: any) => {
+          console.error("Delete label error >> "+error);
+          return reject(error);
+        });
+      });
+    };
 }

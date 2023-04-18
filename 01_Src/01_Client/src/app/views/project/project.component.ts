@@ -1,19 +1,46 @@
 /*****************************************************************************
- * @Author                : AdrienLanco0<adrienlanco0@gmail.com>             *
+ * @Author                : 0K00<qdouvillez@gmail.com>                       *
  * @CreatedDate           : 2023-03-17 16:49:59                              *
- * @LastEditors           : AdrienLanco0<adrienlanco0@gmail.com>             *
- * @LastEditDate          : 2023-04-11 14:57:20                              *
+ * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
+ * @LastEditDate          : 2023-04-17 15:04:30                              *
  ****************************************************************************/
 
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommandService } from 'src/app/services/command/command.service';
 import { ProjectInterface, ProjectListService, TaskInterface, VersionInterface } from 'src/app/services/project-list/project-list.service';
+import {
+  trigger,
+  state,
+  style,
+  animate,
+  transition
+} from '@angular/animations';
 
 @Component({
   selector: 'app-project',
   templateUrl: './project.component.html',
-  styleUrls: ['./project.component.scss']
+  styleUrls: ['./project.component.scss'],
+  animations: [
+    trigger('nested', [
+      transition(':enter', [
+        animate('100ms 100ms ease-in-out', style({ opacity: 1 })),
+      ]),
+      transition(':leave', [
+        animate('100ms 100ms ease-in-out', style({ opacity: 0, transform: "translateY(-16px)" }))
+      ])
+    ]),
+    trigger('tab', [
+      transition(':enter', [
+        style({ opacity: 0, transform: "translateX(16px)"}),
+        animate('100ms 100ms ease-in-out', style({ opacity: 1, transform: "translateX(0)" })),
+      ]),
+      transition(':leave', [
+        style({ opacity: 1, transform: "translateX(0)"}),
+        animate('100ms 100ms ease-in-out', style({ opacity: 0, transform: "translateX(16px)" }))
+      ])
+    ])
+  ]
 })
 export class ProjectComponent implements OnInit {
 
@@ -37,51 +64,26 @@ export class ProjectComponent implements OnInit {
   public id: string = "";
   public project: ProjectInterface = {} as ProjectInterface;
 
+
   public nbTicket: number = 0;
   public advancement: number = 0;
 
   public showAll: boolean = false;
-  public filteredAdvancementTasks: Array<TaskInterface> = [];
+  public showSelector: boolean = false;
+  public selectVersion: VersionInterface = {} as VersionInterface;
+  public options: Array<VersionInterface> = [];
+  public filteredAdvancementTasks: any = [];
   public advancementTasks: Array<TaskInterface> = [];
 
-  public activity : any = [
-    {img: "0", alt: "oui", name: "Randy", action: "created", id: "dc5c7a1", url: "/create", time: "10 min"},
-    {img: "0", alt: "oui", name: "Toto", action: "created", id: "dc5c7a1", url: "/create", time: "10 min"},
-    {img: "0", alt: "oui", name: "Tata", action: "created", id: "dc5c7a1", url: "/create", time: "10 min"},
-    {img: "0", alt: "oui", name: "Oui", action: "created", id: "dc5c7a1", url: "/create", time: "10 min"},
-  ];
+  public activity : any = [];
 
-  public comments: any = [
-    {
-      "id": "6389f8dcf9f5d32a98630c85",
-      "author": {
-        "_id": "638773e22ef2f4b210dc0fa7",
-        "name": "Jean-Baptiste",
-        "lastName": "BRISTHUILLE",
-        "email": "jbristhuille@gmail.com",
-        "image": ""
-      },
-      "created": "1669986524",
-      "content": "Hello world"
-    },
-    {
-      "id": "6389f8f48350bb19ecb8225f",
-      "author": {
-        "_id": "638773e22ef2f4b210dc0fa7",
-        "name": "Jean-Baptiste",
-        "lastName": "BRISTHUILLE",
-        "email": "jbristhuille@gmail.com",
-        "image": ""
-      },
-      "created": "1669986549",
-      "content": "Hello world"
-    },
-  ];
+  public comments: any = [];
 
   ngOnInit() {
     this.id = this.route.snapshot.paramMap.get('id') || "";
     if(window.innerWidth <= 1024) {
       this.windowWidth = false;
+      this.getProjectVersion();
     }
     window.onresize = () => this.windowWidth = window.innerWidth >= 1024;
   }
@@ -117,12 +119,29 @@ export class ProjectComponent implements OnInit {
     let cpt = 0;
     let rej = 0;
     let done = 0
+
+    console.log(this.project);
+    let ret: any = [];
+    this.options = this.project.versionList;
+
+    this.project.versionList.forEach(version => {
+      let tasks: Array<TaskInterface> = [];
+      this.project.tasks.forEach(task => {
+        if(version.id == task.targetVersion?.id) {
+          tasks.push(task)
+        }
+      })
+      ret.push({
+        version,
+        tasks
+      })
+    })
+    this.filteredAdvancementTasks = ret
+
     if (this.project.tasks)
       this.project.tasks.forEach(task => {
         if (!this.project.actualVersion || (task.targetVersion
           && task.targetVersion.name == this.project.actualVersion)) {
-          this.filteredAdvancementTasks.push(task)
-
           if (task.status == "reject")
             rej++
           if (task.status == "done")
@@ -136,10 +155,17 @@ export class ProjectComponent implements OnInit {
     this.triggerShow();
   }
 
-  public triggerShow(): void {
-    if (this.showAll)
-      this.advancementTasks = this.filteredAdvancementTasks
-    else
+  public triggerShow(version?: string): void {
+    console.log(this.project.tasks);
+
+    if(this.showAll) {
+      for (let i = 0; i < this.filteredAdvancementTasks.length; i++) {
+        const element = this.filteredAdvancementTasks[i];
+        if(element.version.id == version) {
+          this.advancementTasks = element.tasks
+        }
+      }
+    } else
       this.advancementTasks = this.project.tasks
   }
 }

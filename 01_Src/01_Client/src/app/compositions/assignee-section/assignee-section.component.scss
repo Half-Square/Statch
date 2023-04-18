@@ -5,13 +5,27 @@
  * @LastEditDate          : 2023-03-31 16:34:38                              *
  ****************************************************************************/
 
+
+#openOption {
+  width: 100%;
+}
+
 .assignees {
   display: flex;
   align-items: center;
+  gap: 8px;
 
   .assignee {
     display: flex;
     gap: 8px;
+    cursor: pointer;
+    border-radius: 4px;
+    padding: 4px;
+    width: 100%;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.04);
+    }
   }
 
   .over {
@@ -33,6 +47,10 @@
   #openOption {
     position: relative;
   }
+
+  .menuOption.right {
+    right: -8px;
+  }
   .menuOption {
     position: absolute;
     overflow: hidden;
@@ -46,6 +64,7 @@
     border-radius: 8px;
     width: 136px;
     padding: 4px;
+    transition: all 250ms ease-in;
 
     .option {
       cursor: pointer;

@@ -1,11 +1,11 @@
 /*****************************************************************************
- * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
+ * @Author                : 0K00<qdouvillez@gmail.com>                       *
  * @CreatedDate           : 2023-03-28 16:26:44                              *
- * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
- * @LastEditDate          : 2023-03-31 17:01:26                              *
+ * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
+ * @LastEditDate          : 2023-04-17 11:25:26                              *
  ****************************************************************************/
 
-import { Component, EventEmitter, Input, Output, AfterContentChecked } from '@angular/core';
+import { Component, EventEmitter, Input, Output, AfterContentChecked, ElementRef, ViewChild } from '@angular/core';
 import { UserInterface, UserService } from 'src/app/services/user/user.service';
 import {
   trigger,
@@ -17,6 +17,7 @@ import {
 import { ProjectInterface, TaskInterface, TicketInterface } from 'src/app/services/project-list/project-list.service';
 import { CommandService } from 'src/app/services/command/command.service';
 import { ApiService } from 'src/app/services/api/api.service';
+import { FunctionService } from 'src/app/services/function/function.service';
 
 @Component({
   selector: 'app-assignee-section',
@@ -36,7 +37,8 @@ import { ApiService } from 'src/app/services/api/api.service';
 export class AssigneeSectionComponent implements AfterContentChecked {
 
   constructor(private command: CommandService,
-              private api: ApiService) {
+              private api: ApiService,
+              private func: FunctionService) {
     this.user_id = UserService.getUser().id
     this.api.request("GET", "users")
     .then((ret: Array<UserInterface>) => {
@@ -47,6 +49,7 @@ export class AssigneeSectionComponent implements AfterContentChecked {
 
   @Input() data: ProjectInterface | TaskInterface | TicketInterface | null = null;
   @Input() dataType: string = "";
+  @Input() buttonOnly: boolean = false;
 
   @Input() assignees: Array<UserInterface> = []
 
@@ -59,7 +62,11 @@ export class AssigneeSectionComponent implements AfterContentChecked {
   public showOption: boolean = false;
 
   ngAfterContentChecked() {
-    this.setAssign()
+    this.setAssign();
+  }
+
+  toggleOption() {
+    this.showOption = !this.showOption;
   }
 
   public assignMySelf(): void {

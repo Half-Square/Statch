@@ -2,7 +2,7 @@
  * @Author                : Adrien Lanco<adrienlanco0@gmail.com>              *
  * @CreatedDate           : 2023-02-21 14:21:47                               *
  * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>              *
- * @LastEditDate          : 2023-04-14 19:31:14                               *
+ * @LastEditDate          : 2023-04-18 12:21:48                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -87,7 +87,10 @@ export class TasksController {
             },
             include: {
               owner: true,
-              targetVersion: true
+              targetVersion: true,
+              labels: {
+                include: {label: true}
+              }
             }
           },
           comments: {

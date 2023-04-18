@@ -1,34 +1,39 @@
 <!--
-* @Author                : Adrien Lanco<adrienlanco0@gmail.com>
+* @Author                : 0K00<qdouvillez@gmail.com>
 * @CreatedDate           : 2023-03-28 16:17:00
-* @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>
-* @LastEditDate          : 2023-03-31 16:37:03
+* @LastEditors           : 0K00<qdouvillez@gmail.com>
+* @LastEditDate          : 2023-04-17 11:36:47
 -->
 
 <div class="assignees">
-  <ng-container *ngIf="assignees && (assignees.length < 1 || assignees.length == 1)" >
-    <div class="assignee" *ngFor="let assignee of assignees">
-      <app-avatar [userName]="assignee.name" />
-      <p>{{assignee.name}}</p>
-    </div>
-  </ng-container>
+  <div *ngIf="!buttonOnly" (click)='toggleOption()' id='openOption'>
+    <ng-container *ngIf="assignees && assignees.length == 0">
+      <div class="assignee dropdown">
+        No assign
+        <app-icons [ngClass]="'icon '" icon="{{showOption ? 'close' : 'open'}}"></app-icons>
+      </div>
+    </ng-container>
 
-  <div class="over" *ngIf="assignees && assignees.length > 1">
-    <div class="assignee" *ngFor="let assignee of assignees | slice:0:2;">
-      <app-avatar [userName]="assignee.name" />
-    </div>
-  </div>
-  <div class="assignee other" *ngIf="assignees && assignees.length > 2">
-    <p>{{assignees.length - 2}} {{ assignees.length - 2 > 1 ? "others" : "other"}}</p>
-  </div>
+    <ng-container *ngIf="assignees && (assignees.length < 1 || assignees.length == 1)" >
+      <div class="assignee" *ngFor="let assignee of assignees">
+        <app-avatar [userName]="assignee.name" />
+        {{assignee.name}}
+        <app-icons [ngClass]="'icon '" icon="{{showOption ? 'close' : 'open'}}"></app-icons>
+      </div>
+    </ng-container>
 
-  <div id='openOption'>
-    <app-button type='trd' size='l'
-    (click)='showOption = !showOption'
-    icon='plus' iconPosition='only'
-    [other]="(showOption) ? 'active' : '' " />
+    <div class="over" *ngIf="assignees && assignees.length > 1">
+      <div class="assignee" *ngFor="let assignee of assignees | slice:0:2;">
+        <app-avatar [userName]="assignee.name" />
+      </div>
+    </div>
+    <div class="assignee other" *ngIf="assignees && assignees.length > 2">
+      <p>{{assignees.length - 2}} {{ assignees.length - 2 > 1 ? "others" : "other"}}</p>
+      <app-icons [ngClass]="'icon '" icon="{{showOption ? 'close' : 'open'}}"></app-icons>
+    </div>
+
     <ng-container *ngIf="showOption">
-    <div @nested class="menuOption">
+    <div @nested class="menuOption right">
       <div class="assignee" *ngFor="let user of assignees" >
         <app-avatar [userName]="user.name" />
         <p>{{user.name}}</p>
@@ -45,8 +50,9 @@
     </ng-container>
   </div>
 
-
-  <app-button *ngIf="!isAssignee" id="assign" type="trd" size="sm" icon="bell" iconPosition="only" (click)="assignMySelf()"></app-button>
-  <app-button *ngIf="isAssignee" id="assign" type="prm" size="sm" icon="bell" iconPosition="only" (click)="unassignMySelf()"></app-button>
+  <ng-container *ngIf="buttonOnly">
+    <app-button *ngIf="!isAssignee" id="assign" type="trd" size="sm" icon="heart" iconPosition="only" (click)="assignMySelf()"></app-button>
+    <app-button *ngIf="isAssignee" id="assign" type="prm" size="sm" icon="heart--fill" iconPosition="only" (click)="unassignMySelf()"></app-button>
+  </ng-container>
 </div>
 

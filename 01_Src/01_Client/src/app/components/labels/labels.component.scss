@@ -1,0 +1,18 @@
+.label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2px 4px;
+  border-radius: 99px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+  min-width: 32px;
+}
+
+.label.red {
+  background: rgba(83, 40, 40, 1);
+  color: rgba(255, 124, 124, 1);
+  border: 1px solid rgba(255, 124, 124, 1);
+}

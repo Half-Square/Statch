@@ -1,0 +1,16 @@
+.label-details {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  gap: 8px;
+
+  .bull {
+    width: 16px;
+    height: 16px;
+    border-radius: 99px;
+  }
+
+  .bull.red {
+    background: red;
+  }
+}
