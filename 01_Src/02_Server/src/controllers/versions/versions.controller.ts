@@ -2,7 +2,7 @@
  * @Author                : Adrien Lanco<adrienlanco0@gmail.com>              *
  * @CreatedDate           : 2023-03-23 15:19:55                               *
  * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>              *
- * @LastEditDate          : 2023-03-30 12:50:23                               *
+ * @LastEditDate          : 2023-04-14 13:44:32                               *
  *****************************************************************************/
 
 /* Imports */
@@ -111,7 +111,6 @@ export class VersionsController {
       if (!params.projectId) {
         throw new HttpException("Not Found", HttpStatus.NOT_FOUND);
       }
-
       let user = jwt.verify(token, process.env.SALT);
 
       let toSave = {name: body.name, projectId: params.projectId};
@@ -120,6 +119,19 @@ export class VersionsController {
         data: toSave,
         include: {tasks: true, tickets: true}
       });
+      
+      await this.prisma.project.update({
+        where: { id: params.projectId },
+        data: {
+          activitys: {
+            create: {
+              authorId: user.id,
+              action: "creating version "+body.name
+            }
+          }
+        }
+      });     
+
       return new versionsDto.DetailsOutput(res);
     } catch (err) {
       if (err.code == "P2003")
@@ -133,11 +145,29 @@ export class VersionsController {
    * Delete version by id 
    */
   @Delete("versions/:id")
-  async delete(@Param("id") id: string): Promise<void> {
+  async delete(
+    @Param("id") id: string,
+    @Headers("x-token") token: string
+  ): Promise<{id : string}> {
     try {
-      await this.prisma.version.delete({where: {id: id}}).catch(() => {
+      let user = jwt.verify(token, process.env.SALT);
+
+      let res = await this.prisma.version.delete({where: {id: id}, select: { id: true, name: true, projectId: true }}).catch(() => {
         throw new HttpException("Not Found", HttpStatus.NOT_FOUND);
       });
+
+      await this.prisma.project.update({
+        where: { id: res.projectId },
+        data: {
+          activitys: {
+            create: {
+              authorId: user.id,
+              action: "deleting version "+res.name
+            }
+          }
+        }
+      });  
+      return {id: res.id}
     } catch (err) {
       console.error(`${new Date().toISOString()} - ${err}`);
       throw err;

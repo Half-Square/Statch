@@ -1,11 +1,13 @@
-/******************************************************************************
- * @Author                : 0K00<qdouvillez@gmail.com>                        *
- * @CreatedDate           : 2023-04-11 13:11:28                               *
- * @LastEditors           : 0K00<qdouvillez@gmail.com>                        *
- * @LastEditDate          : 2023-04-11 13:14:32                               *
- *****************************************************************************/
+/*****************************************************************************
+ * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
+ * @CreatedDate           : 2023-04-11 13:11:28                              *
+ * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
+ * @LastEditDate          : 2023-04-18 15:47:37                              *
+ ****************************************************************************/
 
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { CommandService } from 'src/app/services/command/command.service';
 
 import {
   ProjectListService,
@@ -15,47 +17,24 @@ import {
 } from 'src/app/services/project-list/project-list.service';
 import { UserInterface, UserService } from 'src/app/services/user/user.service';
 
-interface ActivityInteface {
-  "author": UserInterface;
-  "action": string;
-  "ptt": PttInterface;
-  "date": string;
-}
-
-interface PttInterface {
-  "name": string;
-  "description": string;
-  "id": string;
-  "status": string;
-  "created": string;
-}
-
 @Component({
   selector: 'app-activity',
   templateUrl: './activity.component.html',
   styleUrls: ['./activity.component.scss']
 })
-export class ActivityComponent {
+export class ActivityComponent implements OnInit {
 
-  public activities: Array<ActivityInteface> = [
-    {
-      author: {id: "000", name: "Quentin", email: "quentin@hs.com", validate: true, isAdmin: true},
-      action: "Assigned",
-      ptt: {name: "Cooking app", description: "", id: "b0499de", status: "progress", created: "Cooper"},
-      date: "2023-04-11T11:14:17+0000"
-    },
-    {
-      author: {id: "000", name: "Quentin", email: "quentin@hs.com", validate: true, isAdmin: true},
-      action: "Assigned",
-      ptt: {name: "Cooking app", description: "", id: "b0499de", status: "progress", created: "Cooper"},
-      date: "2023-04-11T11:14:17+0000"
-    },
-    {
-      author: {id: "000", name: "Quentin", email: "quentin@hs.com", validate: true, isAdmin: true},
-      action: "Assigned",
-      ptt: {name: "Cooking app", description: "", id: "b0499de", status: "progress", created: "Cooper"},
-      date: "2023-04-11T11:14:17+0000"
-    }
-  ]
+  constructor(private router: Router,
+              public command: CommandService) {
+                console.log(this.activities);
+
+  }
+
+  async ngOnInit() {
+    this.activities = await this.command.getMyActivitys()
+      console.log("this.activities", await this.command.getMyActivitys());
+  }
+
+  public activities: any = []
 
 }

@@ -1,8 +1,8 @@
 /******************************************************************************
- * @Author                : 0K00<qdouvillez@gmail.com>                        *
+ * @Author                : Adrien Lanco<adrienlanco0@gmail.com>              *
  * @CreatedDate           : 2023-02-21 14:16:22                               *
- * @LastEditors           : 0K00<qdouvillez@gmail.com>                        *
- * @LastEditDate          : 2023-04-18 11:06:00                               *
+ * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>              *
+ * @LastEditDate          : 2023-04-18 14:04:09                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -24,7 +24,9 @@ import * as commentsDto from "./comments.dto";
 /* Dto */
 import * as usersDto from "../dto/users.dto";
 import * as versionsDto from "../dto/users.dto";
-import * as labelsDto from "./labels.dto";
+import * as labelsDto from "../dto/labels.dto";
+import * as activitysDto from "../dto/activitys.dto";
+
 /***/
 
 /**
@@ -110,7 +112,7 @@ class PublicOutput {
   @IsArray()
   @IsOptional()
     assignments: usersDto.PublicOutput[];  
-  
+
   @IsArray()
   @IsOptional()
     labels: labelsDto.PublicOutput[];
@@ -175,9 +177,6 @@ class DetailsOutput {
 
   @IsArray()
     assignments: usersDto.PublicOutput;
-
-  @IsNumber()
-    progress: number;
     
   @IsObject()
     targetVersion: versionsDto.PublicOutput;
@@ -186,6 +185,8 @@ class DetailsOutput {
   @IsOptional()
     labels: labelsDto.PublicOutput[];
 
+  @IsArray()
+    activitys: activitysDto.TaskOutput[];
   constructor(data) {
     if (data) {
       this.id = data.id;
@@ -202,21 +203,19 @@ class DetailsOutput {
       this.assignments = data.assignments.map((el) => {
         return new usersDto.PublicOutput(el.user);
       });
-
       if (data.tickets) {
         this.tickets = data.tickets.map((el) => {
           el.task = { projectId: data.projectId };
           return new ticketsDto.PublicOutput(el);
         });
       }
-
       if (data.comments) {
         this.comments  = data.comments.map((el) => new commentsDto.PublicOutput(el));
       }
-      
       this.targetVersion = new versionsDto.PublicOutput(data.targetVersion);
-      
-      this.progress =  Math.floor(this.tickets.filter((el) => el.status === "done").length * 100 / this.tickets.length) || 0;
+      this.activitys = data.activitys.map((el) => {
+        return new activitysDto.TaskOutput(el);
+      });
     }
   }
 }

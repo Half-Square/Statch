@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : 0K00<qdouvillez@gmail.com>                       *
+ * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
  * @CreatedDate           : 2023-03-20 09:41:42                              *
- * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
- * @LastEditDate          : 2023-04-17 15:33:37                              *
+ * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
+ * @LastEditDate          : 2023-04-18 17:22:53                              *
  ****************************************************************************/
 
 import { Component } from '@angular/core';
@@ -52,6 +52,9 @@ export class TicketComponent {
 
   public saveTicket() {
     this.command.editTicket(this.ticket)
+    .then((ret) => {
+      this.ticket = ret
+    })
   }
 
   public redirectToEdit() {
