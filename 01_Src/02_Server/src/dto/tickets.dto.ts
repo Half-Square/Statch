@@ -112,7 +112,7 @@ class PublicOutput {
   @IsArray()
   @IsOptional()
     assignments: usersDto.PublicOutput[];
-  
+
   @IsArray()
   @IsOptional()
     labels: labelsDto.PublicOutput[];

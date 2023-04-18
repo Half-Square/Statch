@@ -86,7 +86,7 @@
         <div class="tasks">
           <div class="filter">
             <div class="tabs">
-              <div class="tab showAll" [ngClass]="!showAll ? 'selected' : ''" (click)="showAll = false; showSelector = false; triggerShow()">
+              <div class="tab showAll" [ngClass]="!showAll ? 'selected' : ''" (click)="showAll = false; showSelector = false; triggerShow('')">
                 <app-icons [ngClass]="'icon'" icon="fries"></app-icons>
               </div>
               <div class="tab selector showFilter" [ngClass]="showAll ? 'selected' : ''" (click)="showAll = true; triggerShow(selectVersion.id)">
@@ -131,7 +131,11 @@
                   </div>
                 </ng-container>
                 <app-level [degree]="task.level" />
-                <app-avatar [userId]="task.owner.id" [userName]="task.owner.name" />
+                <div class="assignee" ngClass="{{task.assignments.length > 1 ? 'over' : ''}}">
+                  <div class="assign" *ngFor="let assignee of task.assignments | slice:0:2">
+                    <app-avatar [userName]="assignee.name" />
+                  </div>
+                </div>
               </div>
             </div>
           </a>

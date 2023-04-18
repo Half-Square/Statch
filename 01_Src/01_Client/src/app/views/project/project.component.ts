@@ -49,14 +49,14 @@ export class ProjectComponent implements OnInit {
               public command: CommandService) {
     this.route.queryParams
     .subscribe((params: any) => {
-      if (params.edit) this.onEdit = params.edit
-      else this.onEdit = false
+      if (params.edit) this.onEdit = params.edit;
+      else this.onEdit = false;
     });
 
     ProjectListService.projectChange.subscribe((value: ProjectInterface) => {
       this.project = structuredClone(value)
-      this.setAdvancement()
-    })
+      this.triggerShow();
+    });
   }
 
   public onEdit: boolean = false;
@@ -124,7 +124,6 @@ export class ProjectComponent implements OnInit {
     let rej = 0;
     let done = 0
 
-    console.log(this.project);
     let ret: any = [];
     this.options = this.project.versionList;
 
@@ -144,8 +143,8 @@ export class ProjectComponent implements OnInit {
 
     if (this.project.tasks)
       this.project.tasks.forEach(task => {
-        if (!this.project.actualVersion || (task.targetVersion
-          && task.targetVersion.name == this.project.actualVersion)) {
+        if ((task.targetVersion
+          && (this.showAll ? task.targetVersion.id : task.targetVersion.name) === (this.showAll ? this.selectVersion.id : this.project.actualVersion))) {
           if (task.status == "reject")
             rej++
           if (task.status == "done")
@@ -155,13 +154,9 @@ export class ProjectComponent implements OnInit {
       });
     if (!cpt) this.advancement = 0
     else this.advancement = Math.trunc(done / (cpt - rej)  * 100)
-
-    this.triggerShow();
   }
 
   public triggerShow(version?: string): void {
-    console.log(this.project.tasks);
-
     if(this.showAll) {
       for (let i = 0; i < this.filteredAdvancementTasks.length; i++) {
         const element = this.filteredAdvancementTasks[i];
@@ -171,5 +166,7 @@ export class ProjectComponent implements OnInit {
       }
     } else
       this.advancementTasks = this.project.tasks
+
+    this.setAdvancement();
   }
 }

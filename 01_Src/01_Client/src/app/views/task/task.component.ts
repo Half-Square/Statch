@@ -50,16 +50,16 @@ export class TaskComponent {
               private api: ApiService) {
     this.route.queryParams
     .subscribe((params: any) => {
-      if (params.edit) this.onEdit = params.edit
-      else this.onEdit = false
+      if (params.edit) this.onEdit = params.edit;
+      else this.onEdit = false;
     });
 
     ProjectListService.taskChange.subscribe((value: TaskInterface) => {
       console.log("taskChange",value);
 
       this.task = structuredClone(value);
-      this.setAdvancement()
-    })
+      this.triggerShow();
+    });
   }
 
   public onEdit: boolean = false;
@@ -145,12 +145,10 @@ export class TaskComponent {
       this.filteredAdvancementTickets = obj;
     })
 
-
     if (this.task.tickets)
       this.task.tickets.forEach(ticket => {
-        if (!this.task.targetVersion || (ticket.targetVersion
-          && this.task.targetVersion.name == ticket.targetVersion.name)) {
-          this.filteredAdvancementTickets.push(ticket)
+        if ((ticket.targetVersion
+          && (this.showAll ? ticket.targetVersion.id : ticket.targetVersion.name) == (this.showAll ? this.selectVersion.id : this.task.targetVersion))) {
           if (ticket.status == "reject")
             rej++
           if (ticket.status == "done")
@@ -160,8 +158,6 @@ export class TaskComponent {
       });
     if (!cpt) this.advancement = 0
     else this.advancement = Math.trunc(done / (cpt - rej)  * 100)
-
-    this.triggerShow();
   }
 
   public triggerShow(version?: string): void {
@@ -174,5 +170,7 @@ export class TaskComponent {
       }
     } else
         this.advancementTickets = this.task.tickets
+
+    this.setAdvancement();
   }
 }

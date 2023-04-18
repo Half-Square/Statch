@@ -89,6 +89,9 @@ export class ProjectsController {
             include: {
               owner: true,
               targetVersion: true,
+              assignments: {
+                include: {user: true}
+              },
               labels: {
                 include: {label: true}
               }

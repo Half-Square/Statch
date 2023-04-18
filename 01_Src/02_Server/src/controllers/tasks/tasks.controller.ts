@@ -88,6 +88,9 @@ export class TasksController {
             include: {
               owner: true,
               targetVersion: true,
+              assignments: {
+                include: {user: true}
+              },
               labels: {
                 include: {label: true}
               }

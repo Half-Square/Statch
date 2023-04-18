@@ -126,7 +126,6 @@
                   <div *ngIf="ticket.targetVersion && ticket.targetVersion.name" class="version">{{ ticket.targetVersion.name }}</div>
                   <div class="name">{{ ticket.name }}</div>
                 </div>
-                <div class="description">{{ ticket.description }}</div>
               </div>
               <div class="block">
                 <ng-container *ngIf="ticket.labels.length < 4">
@@ -140,7 +139,11 @@
                   </div>
                 </ng-container>
                 <app-level [degree]="ticket.level" />
-                <app-avatar [userId]="ticket.owner.id" [userName]="ticket.owner.name" />
+                <div class="assignee" ngClass="{{ticket.assignments.length > 1 ? 'over' : ''}}">
+                  <div class="assign" *ngFor="let assignee of ticket.assignments | slice:0:2">
+                    <app-avatar [userName]="assignee.name" />
+                  </div>
+                </div>
               </div>
             </div>
           </a>

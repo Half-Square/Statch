@@ -2,7 +2,7 @@
 * @Author                : 0K00<qdouvillez@gmail.com>
 * @CreatedDate           : 2023-03-28 16:17:00
 * @LastEditors           : 0K00<qdouvillez@gmail.com>
-* @LastEditDate          : 2023-04-17 11:36:47
+* @LastEditDate          : 2023-04-18 11:17:11
 -->
 
 <div class="assignees">
@@ -28,7 +28,7 @@
       </div>
     </div>
     <div class="assignee other" *ngIf="assignees && assignees.length > 2">
-      <p>{{assignees.length - 2}} {{ assignees.length - 2 > 1 ? "others" : "other"}}</p>
+      <p> + {{assignees.length - 2}}</p>
       <app-icons [ngClass]="'icon '" icon="{{showOption ? 'close' : 'open'}}"></app-icons>
     </div>
 
