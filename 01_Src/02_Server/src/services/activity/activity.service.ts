@@ -2,7 +2,7 @@
  * @Author                : Adrien Lanco<adrienlanco0@gmail.com>              *
  * @CreatedDate           : 2023-04-14 16:25:32                               *
  * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>              *
- * @LastEditDate          : 2023-04-14 19:22:35                               *
+ * @LastEditDate          : 2023-04-18 12:43:35                               *
  *****************************************************************************/
 
 import { Injectable } from '@nestjs/common';
@@ -13,28 +13,28 @@ export class ActivityService {
   getPttActivitiesOnEdit(user: any, type: string, proj: any, body: any) {
     let activities = []
     if (proj.name != body.name)
-      activities.push({ txt: "set name to "+body.name})
+      activities.push({ txt: "set", type: "name", value: body.name })
     if (proj.description != body.description)
       activities.push({ txt: "edit description"})
     if (proj.status != body.status)
-      activities.push({ txt: "set status to "+body.status})
+      activities.push({ txt: "set", type: "status", value: body.status})
 
     if (type == "project") {
       if (proj.actualVersion != body.actualVersion)
-        activities.push({ txt: "set version to "+body.actualVersion})
+        activities.push({ txt: "set", type: "version", value: body.actualVersion})
     }
 
     if (type != "project") {
       if (proj.level != body.level)
-        activities.push({ txt: "set level to "+body.level})
+        activities.push({ txt: "set", type: "level", value: body.level})
       if (proj.targetVersion && (!body.targetVersion))
-        activities.push({  txt: "removing version"})
+        activities.push({ txt: "removing version"})
       else if (!proj.targetVersion && body.targetVersion && body.targetVersion.name)
-        activities.push({ txt: "set version to "+body.targetVersion.name})
+        activities.push({ txt: "set", type: "version", value: body.targetVersion.name})
       else if (proj.targetVersion && proj.targetVersion.name &&
              body.targetVersion && body.targetVersion.name && 
              proj.targetVersion.name != body.targetVersion.name)
-             activities.push({ txt: "set version to "+body.targetVersion.name})
+             activities.push({ txt: "set", type: "version", value: body.targetVersion.name})
     }
     
     let assignments = proj.assignments.map((el) => el.user)
@@ -51,10 +51,10 @@ export class ActivityService {
     let labels = proj.labels.map((el) => el.label)
     if (labels?.length < body.labels?.length) {
       let newLabel = body.labels.filter(({ id: id1 }) => !labels.some(({ id: id2 }) => id2 === id1));
-      activities.push({ txt: "label "+newLabel[0].name+" added" })        
+      activities.push({ txt: "add", label: newLabel[0].id })        
     } else if (labels?.length > body.labels?.length) {
       let delLabel = labels.filter(({ id: id1 }) => !body.labels.some(({ id: id2 }) => id2 === id1));
-      activities.push({ txt: "label "+delLabel[0].name+" deleted" })        
+      activities.push({ txt: "remove", label: delLabel[0].id })        
     }
 
     return activities;

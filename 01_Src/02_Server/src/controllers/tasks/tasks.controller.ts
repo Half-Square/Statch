@@ -2,7 +2,7 @@
  * @Author                : Adrien Lanco<adrienlanco0@gmail.com>              *
  * @CreatedDate           : 2023-02-21 14:21:47                               *
  * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>              *
- * @LastEditDate          : 2023-04-18 12:21:48                               *
+ * @LastEditDate          : 2023-04-18 12:44:58                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -186,7 +186,10 @@ export class TasksController {
               authorId: user.id,
               action: act.txt,
               targetId: act.target,
-              projectId: task.projectId
+              projectId: task.projectId,
+              labelId: act.label,
+              type: act.type,
+              value: act.value
             }))
           }
         },

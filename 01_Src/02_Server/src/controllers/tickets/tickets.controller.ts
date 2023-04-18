@@ -2,7 +2,7 @@
  * @Author                : Adrien Lanco<adrienlanco0@gmail.com>              *
  * @CreatedDate           : 2023-02-21 14:22:05                               *
  * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>              *
- * @LastEditDate          : 2023-04-14 19:31:03                               *
+ * @LastEditDate          : 2023-04-18 12:45:39                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -166,9 +166,12 @@ export class TicketsController {
             create: activities?.map(act =>  ({
               authorId: user.id,
               action: act.txt,
-              targetId: act.target,
               taskId: ticket.task.id,
               projectId: ticket.task.projectId,
+              labelId: act.label,
+              targetId: act.target,
+              type: act.type,
+              value: act.value
             }))
           }
         },
