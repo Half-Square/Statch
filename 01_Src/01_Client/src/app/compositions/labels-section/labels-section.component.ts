@@ -2,7 +2,7 @@
  * @Author                : 0K00<qdouvillez@gmail.com>                       *
  * @CreatedDate           : 2023-04-14 16:41:30                              *
  * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
- * @LastEditDate          : 2023-04-17 11:18:37                              *
+ * @LastEditDate          : 2023-04-18 11:43:07                              *
  ****************************************************************************/
 
 import { Component, Input, Output, EventEmitter, ElementRef, OnInit, ViewChild } from '@angular/core';
@@ -41,7 +41,7 @@ export class LabelsSectionComponent implements OnInit {
     api.request("GET", "labels").then((res) => {
       this.options = res;
 
-      if(res.length == this.labels.length)
+      if(this.labels && res.length == this.labels.length)
         this.noOptions = true
       else
         this.noOptions = false

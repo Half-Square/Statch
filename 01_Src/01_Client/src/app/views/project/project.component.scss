@@ -94,7 +94,6 @@
     flex-direction: column;
     border: 2px solid rgba(40, 40, 40, 1);
     border-radius: 0.5rem;
-    overflow: hidden;
 
     .container {
       overflow: auto;
@@ -269,6 +268,10 @@
         background: rgba(40, 40, 40, 1);
       }
 
+      &:hover .block .assignee.over .assign:not(:first-child) {
+        border-color: rgba(40, 40, 40, 1);
+      }
+
       .block {
         display: flex;
         align-items: center;
@@ -321,6 +324,25 @@
         align-items: center;
         gap: 4px;
         color: rgba(255, 255, 255, 0.32);
+      }
+
+      .block .assignee {
+        display: flex;
+        gap: 4px;
+      }
+
+      .block .assignee.over {
+        display: flex;
+        align-items: center;
+      }
+
+      .block .assignee.over .assign:first-child {
+        margin-right: -8px;
+      }
+
+      .block .assignee.over .assign:not(:first-child) {
+        border: 2px solid rgba(34, 34, 34, 1);
+        border-radius: 99px;
       }
     }
 
