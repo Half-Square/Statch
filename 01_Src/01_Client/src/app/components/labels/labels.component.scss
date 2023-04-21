@@ -1,0 +1,53 @@
+.label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: 99px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+  min-width: 32px;
+}
+
+.label.white {
+  background: rgba(88, 88, 88, 1);
+  color: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.72);
+}
+.label.blue {
+  background: rgba(26, 42, 96, 1);
+  color: rgba(66, 146, 255, 1);
+  border: 1px solid rgba(66, 146, 255, 1);
+}
+.label.green {
+  background: rgba(40, 83, 47, 1);
+  color: rgba(124, 255, 137, 1);
+  border: 1px solid rgba(124, 255, 137, 1);
+}
+.label.yellow {
+  background: rgba(83, 79, 40, 1);
+  color: rgba(255, 242, 124, 1);
+  border: 1px solid rgba(255, 242, 124, 1);
+}
+.label.orange {
+  background: rgba(83, 66, 40, 1);
+  color: rgba(255, 135, 98, 1);
+  border: 1px solid rgba(255, 135, 98, 1);
+}
+.label.red {
+  background: rgba(83, 40, 40, 1);
+  color: rgba(255, 124, 124, 1);
+  border: 1px solid rgba(255, 124, 124, 1);
+}
+.label.pink {
+  background: rgba(83, 40, 79, 1);
+  color: rgba(255, 98, 211, 1);
+  border: 1px solid rgba(255, 98, 211, 1);
+}
+.label.purple {
+  background: rgba(67, 40, 83, 1);
+  color: rgba(186, 98, 255, 1);
+  border: 1px solid rgba(186, 98, 255, 1);
+}

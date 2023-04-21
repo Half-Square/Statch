@@ -1,0 +1,31 @@
+<!--
+* @Author                : 0K00<qdouvillez@gmail.com>
+* @CreatedDate           : 2023-04-21 11:57:53
+* @LastEditors           : 0K00<qdouvillez@gmail.com>
+* @LastEditDate          : 2023-04-21 11:57:54
+-->
+
+<div id="admin-users" class="main">
+  <div class="users">
+
+    <div *ngFor="let user of users" class="user">
+      <div class="user-info">
+        <p>{{ user.id }}</p>
+        <p>{{ user.name | capFL }}</p>
+        <p>{{ user.email }}</p>
+      </div>
+      <div class="user-actions">
+        <label>
+          Validate
+          <input [(ngModel)]="user.validate" (ngModelChange)="setUserRight(user)" type="checkbox">
+        </label>
+
+        <label>
+          Admin
+          <input [(ngModel)]="user.isAdmin" (ngModelChange)="setUserRight(user)" type="checkbox">
+        </label>
+      </div>
+    </div>
+  </div>
+
+</div>

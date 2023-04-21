@@ -1,0 +1,63 @@
+/*****************************************************************************
+ * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
+ * @CreatedDate           : 2023-04-18 16:16:24                              *
+ * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
+ * @LastEditDate          : 2023-04-18 16:16:24                              *
+ ****************************************************************************/
+
+:host {
+  overflow: hidden;
+  height: calc(100vh - 40px);
+  display: block;
+}
+
+ #activity {
+  display: flex;
+  flex-direction: column;
+  background: rgba(34, 34, 34, 1);
+  height: 100%;
+  overflow: auto;
+  /* width */
+  &::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+  }
+
+  /* Track */
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  /* Handle */
+  &::-webkit-scrollbar-thumb {
+    background: #9C9C9C;
+    border-radius: 999px;
+  }
+
+  /* Handle on hover */
+  &::-webkit-scrollbar-thumb:hover {
+    background: #b8b8b8;
+  }
+}
+
+#activity .header {
+  display: flex;
+  justify-content: flex-end;
+  padding: 1.5rem 2rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+
+  .right {
+    margin-right: auto;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  h2 {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    color: rgba(255, 255, 255, 0.64);
+  }
+}

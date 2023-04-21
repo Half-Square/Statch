@@ -1,8 +1,8 @@
 /******************************************************************************
- * @Author                : AdrienLanco0<adrienlanco0@gmail.com>              *
+ * @Author                : Adrien Lanco<adrienlanco0@gmail.com>              *
  * @CreatedDate           : 2023-02-21 14:13:59                               *
- * @LastEditors           : AdrienLanco0<adrienlanco0@gmail.com>              *
- * @LastEditDate          : 2023-03-28 12:25:49                               *
+ * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>              *
+ * @LastEditDate          : 2023-04-18 14:03:27                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -26,12 +26,14 @@ import {
 } from "class-validator";
 import * as commentsDto from "./comments.dto";
 import * as versionsDto from "./versions.dto";
+import * as labelsDto from "./labels.dto";
 
 import * as tasksDto from "./tasks.dto";
 /***/
 
 /* Dto */
 import * as usersDto from "../dto/users.dto";
+import * as activitysDto from "../dto/activitys.dto";
 /***/
 
 /**
@@ -82,6 +84,10 @@ class UpdateInput {
 
   @IsArray()
     assignments: usersDto.PublicOutput[];
+
+  @IsArray()
+  @IsOptional()
+    labels: labelsDto.PublicOutput[];
 }
 /***/
 
@@ -105,7 +111,15 @@ class PublicOutput {
 
   @IsArray()
   @IsOptional()
+    assignments: usersDto.PublicOutput[];
+
+  @IsArray()
+  @IsOptional()
     versionList: versionsDto.PublicOutput;
+
+  @IsArray()
+  @IsOptional()
+    labels: labelsDto.PublicOutput[];
 
   @IsString()
     created: Date;
@@ -122,6 +136,12 @@ class PublicOutput {
       this.name = data.name;
       this.status = data.status;
       this.actualVersion = data.actualVersion;
+      this.assignments = data.assignments?.map((el) => {
+        return el.user;
+      });
+      this.labels = data.labels?.map((el) => { 
+        return el.label;
+      });
       this.created = data.created;
       this.description = data.description;
       this.owner = new usersDto.PublicOutput(data.owner);
@@ -170,8 +190,12 @@ class DetailsOutput {
   @IsArray()
     assignments: usersDto.PublicOutput;
 
-  @IsNumber()
-    progress: number;
+  @IsArray()
+  @IsOptional()
+    labels: labelsDto.PublicOutput[];
+
+  @IsArray()
+    activitys: activitysDto.ProjectOutput[];
 
   constructor(data) {
     if (data) {
@@ -179,6 +203,9 @@ class DetailsOutput {
       this.name = data.name;
       this.status = data.status;
       this.actualVersion = data.actualVersion;
+      this.labels = data.labels?.map((el) => { 
+        return el.label;
+      });
       if (data.versionList)
         this.versionList = data.versionList.map((el) => new versionsDto.PublicOutput(el));
       this.created = data.created;
@@ -189,8 +216,9 @@ class DetailsOutput {
       this.assignments = data.assignments.map((el) => {
         return new usersDto.PublicOutput(el.user);
       });
-
-      this.progress =  Math.floor(this.tasks.filter((el) => el.status === "done").length * 100 / this.tasks.length) || 0;
+      this.activitys = data.activitys.map((el) => {
+        return new activitysDto.ProjectOutput(el);
+      });
     }
   }
 }

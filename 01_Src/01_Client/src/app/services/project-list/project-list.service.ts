@@ -2,7 +2,7 @@
  * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
  * @CreatedDate           : 2023-03-17 14:25:08                              *
  * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
- * @LastEditDate          : 2023-03-30 10:24:29                              *
+ * @LastEditDate          : 2023-04-18 17:09:33                              *
  ****************************************************************************/
 
 import { Injectable } from '@angular/core';
@@ -350,7 +350,9 @@ export interface ProjectInterface {
   comments: Array<CommentInterface>,
   owner: UsersInterface,
   assignments: Array<UsersInterface>,
-  tasks: Array<TaskInterface>
+  tasks: Array<TaskInterface>,
+  labels: Array<LabelsInterface>,
+  activitys: Array<ActivitysInterface>
 }
 
 export interface TaskInterface {
@@ -365,7 +367,9 @@ export interface TaskInterface {
   comments: Array<CommentInterface>,
   owner: UsersInterface,
   assignments: Array<UsersInterface>,
-  tickets: Array<TicketInterface>
+  tickets: Array<TicketInterface>,
+  activitys: Array<ActivitysInterface>,
+  labels: Array<LabelsInterface>
 }
 
 export interface TicketInterface {
@@ -380,7 +384,9 @@ export interface TicketInterface {
   targetVersion?: VersionInterface,
   comments: Array<CommentInterface>,
   assignments: Array<UsersInterface>,
-  owner: UsersInterface
+  owner: UsersInterface,
+  activitys: Array<ActivitysInterface>,
+  labels: Array<LabelsInterface>
 }
 
 export interface UsersInterface {
@@ -412,4 +418,27 @@ export interface SearchResponseInterface {
   name: string,
   type: string,
   icon: string,
+}
+
+export interface LabelsInterface {
+  id?: string,
+  name?: string,
+  color?: string,
+  description?: string
+}
+
+export interface ActivitysInterface {
+  id: string,
+  created: string,
+  author: UsersInterface,
+  action: string,
+
+  type?: string,
+  value?: string,
+
+  target?: UsersInterface,
+  label?: LabelsInterface,
+  project?: ProjectInterface,
+  task?: TaskInterface,
+  ticket?: TicketInterface
 }

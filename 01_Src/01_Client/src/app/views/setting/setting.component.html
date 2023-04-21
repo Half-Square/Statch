@@ -1,0 +1,25 @@
+<!--
+* @Author                : 0K00<qdouvillez@gmail.com>
+* @CreatedDate           : 2023-04-17 16:13:00
+* @LastEditors           : 0K00<qdouvillez@gmail.com>
+* @LastEditDate          : 2023-04-21 12:05:17
+-->
+
+<!--
+* @Author                : 0K00<qdouvillez@gmail.com>
+* @CreatedDate           : 2023-03-17 16:48:00
+* @LastEditors           : 0K00<qdouvillez@gmail.com>
+* @LastEditDate          : 2023-04-18 11:45:45
+-->
+
+<div id="setting">
+  <div class="header">
+    <a class="link" routerLink="labels" routerLinkActive="active">Labels</a>
+    <a class="link" *ngIf="isAdmin" routerLink="admin" routerLinkActive="active">Admin</a>
+  </div>
+  <div class="setting">
+    <div class="main">
+      <router-outlet></router-outlet>
+  </div>
+</div>
+

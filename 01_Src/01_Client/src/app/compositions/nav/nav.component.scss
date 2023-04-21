@@ -6,7 +6,7 @@
  ****************************************************************************/
 
  #nav {
-  width: 300px;
+  width: 250px;
   height: 100%;
   background: rgba(54, 54, 54, 1);
   box-shadow: inset -1px 0px 0px #000000;
@@ -28,6 +28,36 @@
 
   .menu {
     padding: 8px;
+    overflow: hidden;
+    height: calc(100vh - 96px);
+
+    .collapses {
+      overflow-x: hidden;
+      overflow-y: auto;
+      height: 100%;
+      display: block;
+      /* width */
+      &::-webkit-scrollbar {
+        width: 4px;
+        height: 4px;
+      }
+
+      /* Track */
+      &::-webkit-scrollbar-track {
+        background: transparent;
+      }
+
+      /* Handle */
+      &::-webkit-scrollbar-thumb {
+        background: #9C9C9C;
+        border-radius: 999px;
+      }
+
+      /* Handle on hover */
+      &::-webkit-scrollbar-thumb:hover {
+        background: #b8b8b8;
+      }
+    }
   }
 
   nav {

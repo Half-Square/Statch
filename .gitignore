@@ -1,3 +1,4 @@
 /.vscode
 /01_Src/02_Server/.env
-/01_Src/03_Dist/
+/03_Dist/
+01_Src/02_Server/prisma/databases/statch.db

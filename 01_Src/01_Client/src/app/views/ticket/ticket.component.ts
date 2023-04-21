@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : 0K00<qdouvillez@gmail.com>                       *
+ * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
  * @CreatedDate           : 2023-03-20 09:41:42                              *
- * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
- * @LastEditDate          : 2023-03-29 17:18:34                              *
+ * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
+ * @LastEditDate          : 2023-04-18 17:22:53                              *
  ****************************************************************************/
 
 import { Component } from '@angular/core';
@@ -31,52 +31,30 @@ export class TicketComponent {
   }
 
   public onEdit: boolean = false;
+  public windowWidth: boolean = true;
 
   public id: string = "";
   public ticket: TicketInterface = {} as TicketInterface;
 
   public nbTicket: number = 0;
 
-  public activity : any = [
-  {img: "0", alt: "oui", name: "Randy", action: "created", id: "dc5c7a1", url: "/create", time: "10 min"},
-  {img: "0", alt: "oui", name: "Toto", action: "created", id: "dc5c7a1", url: "/create", time: "10 min"},
-  {img: "0", alt: "oui", name: "Tata", action: "created", id: "dc5c7a1", url: "/create", time: "10 min"},
-  {img: "0", alt: "oui", name: "Oui", action: "created", id: "dc5c7a1", url: "/create", time: "10 min"},
-  ];
+  public activity : any = [];
 
-  public comments: any = [
-  {
-  "id": "6389f8dcf9f5d32a98630c85",
-  "author": {
-  "_id": "638773e22ef2f4b210dc0fa7",
-  "name": "Jean-Baptiste",
-  "lastName": "BRISTHUILLE",
-  "email": "jbristhuille@gmail.com",
-  "image": ""
-  },
-  "created": "1669986524",
-  "content": "Hello world"
-  },
-  {
-  "id": "6389f8f48350bb19ecb8225f",
-  "author": {
-  "_id": "638773e22ef2f4b210dc0fa7",
-  "name": "Jean-Baptiste",
-  "lastName": "BRISTHUILLE",
-  "email": "jbristhuille@gmail.com",
-  "image": ""
-  },
-  "created": "1669986549",
-  "content": "Hello world"
-  },
-  ];
+  public comments: any = [];
 
   async ngOnInit() {
     this.id = this.route.snapshot.paramMap.get('id') || "";
+    if(window.innerWidth <= 1024) {
+      this.windowWidth = false;
+    }
+    window.onresize = () => this.windowWidth = window.innerWidth >= 1024;
   }
 
   public saveTicket() {
     this.command.editTicket(this.ticket)
+    .then((ret) => {
+      this.ticket = ret
+    })
   }
 
   public redirectToEdit() {

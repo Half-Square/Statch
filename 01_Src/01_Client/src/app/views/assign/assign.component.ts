@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : 0K00<qdouvillez@gmail.com>                       *
+ * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
  * @CreatedDate           : 2023-03-24 15:14:47                              *
- * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
- * @LastEditDate          : 2023-03-29 20:31:46                              *
+ * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
+ * @LastEditDate          : 2023-03-31 15:36:47                              *
  ****************************************************************************/
 
 import { Component, EventEmitter, Output, Input, OnInit } from '@angular/core';
@@ -75,13 +75,12 @@ export class AssignComponent implements OnInit {
   /***/
 
   public getTasks(projectId: string) {
-    console.log("projectId", projectId);
     this.command.getMyTask(projectId)
     .then((tasks: Array<TaskInterface>) => {
       if (tasks.length > 0)
         for (let i = 0; i < this.projects.length; i++) {
           if (this.projects[i].id == projectId) {
-            this.projects[i].tasks = tasks
+            this.projects[i].tasks = Object.assign(tasks, this.projects[i].tasks);
             return
           }
         }

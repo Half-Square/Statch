@@ -1,0 +1,20 @@
+<!--
+* @Author                : 0K00<qdouvillez@gmail.com>
+* @CreatedDate           : 2023-04-11 12:51:00
+* @LastEditors           : 0K00<qdouvillez@gmail.com>
+* @LastEditDate          : 2023-04-21 13:33:20
+-->
+
+<div id="activity" class="main">
+  <div class="header">
+      <div class="right">
+          <h2>Activity</h2>
+          <!-- <app-button id="filter" type="fth" size="md" label="Add filter +" /> -->
+      </div>
+  </div>
+  <div class="container">
+    <div class="content" *ngFor="let activity of activities ; let index = index">
+      <app-activity-comp [activity]="activity" />
+    </div>
+  </div>
+</div>

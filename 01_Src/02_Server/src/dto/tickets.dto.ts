@@ -2,7 +2,7 @@
  * @Author                : Adrien Lanco<adrienlanco0@gmail.com>              *
  * @CreatedDate           : 2023-02-21 14:18:25                               *
  * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>              *
- * @LastEditDate          : 2023-03-29 17:31:17                               *
+ * @LastEditDate          : 2023-04-18 14:04:41                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -21,6 +21,8 @@ import {IsArray, IsIn, IsObject, IsOptional, IsString} from "class-validator";
 import * as commentsDto from "../dto/comments.dto";
 import * as usersDto from "../dto/users.dto";
 import * as versionsDto from "../dto/versions.dto";
+import * as labelsDto from "./labels.dto";
+import * as activitysDto from "../dto/activitys.dto";
 /***/
 
 /**
@@ -63,6 +65,10 @@ class UpdateInput {
   @IsObject()
   @IsOptional()
     targetVersion: versionsDto.PublicOutput;
+
+  @IsArray()
+  @IsOptional()
+    labels: labelsDto.PublicOutput[];
 }
 /***/
 
@@ -103,6 +109,14 @@ class PublicOutput {
   @IsObject()
     targetVersion: versionsDto.PublicOutput;
 
+  @IsArray()
+  @IsOptional()
+    assignments: usersDto.PublicOutput[];
+
+  @IsArray()
+  @IsOptional()
+    labels: labelsDto.PublicOutput[];
+
   constructor(data) {
     if (data) {
       this.id = data.id;
@@ -114,7 +128,13 @@ class PublicOutput {
       this.projectId = data.task.projectId;
       this.taskId = data.taskId;
       this.targetVersion = data.targetVersion;
+      this.assignments = data.assignments?.map((el) => {
+        return el.user;
+      });
       this.owner = new usersDto.PublicOutput(data.owner);
+      this.labels = data.labels?.map((el) => { 
+        return el.label;
+      });
     }
   }
 }
@@ -163,6 +183,12 @@ class DetailsOutput {
   @IsArray()
     assignments: usersDto.PublicOutput[];
 
+  @IsArray()
+  @IsOptional()
+    labels: labelsDto.PublicOutput[];
+
+  @IsArray()
+    activitys: activitysDto.TicketOutput[];
   constructor(data) {
     if (data) {
       this.id = data.id;
@@ -175,12 +201,18 @@ class DetailsOutput {
       this.taskId = data.taskId;
       this.owner = new usersDto.PublicOutput(data.owner);
       this.targetVersion = data.targetVersion;
+      this.labels = data.labels?.map((el) => { 
+        return el.label;
+      });
       this.assignments = data.assignments.map((el) => {
         return new usersDto.PublicOutput(el.user);
       });      
       if (data.comments) {
         this.comments = data.comments.map((el) => new commentsDto.PublicOutput(el));
       }
+      this.activitys = data.activitys.map((el) => {
+        return new activitysDto.TaskOutput(el);
+      });
     }
   }
 }

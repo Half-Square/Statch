@@ -1,9 +1,9 @@
-/*****************************************************************************
- * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
- * @CreatedDate           : 2023-03-17 14:41:39                              *
- * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
- * @LastEditDate          : 2023-03-29 17:16:31                              *
- ****************************************************************************/
+/******************************************************************************
+ * @Author                : 0K00<qdouvillez@gmail.com>                        *
+ * @CreatedDate           : 2023-03-17 14:41:39                               *
+ * @LastEditors           : 0K00<qdouvillez@gmail.com>                        *
+ * @LastEditDate          : 2023-04-11 16:52:43                               *
+ *****************************************************************************/
 
 import { Component } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
@@ -38,6 +38,7 @@ export class NavComponent {
   public projectId: string = "";
   public taskId: string = "";
   public ticketId: string = "";
+  public activities: number = 3;
 
   /**
   * @name initData

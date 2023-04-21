@@ -1,32 +1,106 @@
 <!--
-* @Author                : 0K00<qdouvillez@gmail.com>
+* @Author                : Adrien Lanco<adrienlanco0@gmail.com>
 * @CreatedDate           : 2023-03-17 16:48:00
-* @LastEditors           : 0K00<qdouvillez@gmail.com>
-* @LastEditDate          : 2023-03-30 11:55:09
+* @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>
+* @LastEditDate          : 2023-04-18 17:23:06
 -->
 
 <div id="ticket">
   <div class="header">
-    <app-button id="editProj" type="trd" size="sm" label="Edit" *ngIf="!onEdit" (click)="redirectToEdit()" />
-    <app-button id="deleteProj" type="del" size="sm" label="Delete" *ngIf="onEdit" (click)='command.deleteTicket(ticket)' />
-    <app-button id="saveProj" type="prm" size="sm" label="Publish" *ngIf="onEdit" (click)='saveTicket()' />
+    <app-assignee-section [buttonOnly]="true" [assignees]="ticket ? ticket.assignments : []"
+    [data]="ticket" [dataType]="'ticket'"></app-assignee-section>
   </div>
   <div class="ticket">
     <div class="main">
       <header>
+        <div class="edit">
+          <app-button id="editProj" type="trd" size="md" label="Edit" *ngIf="!onEdit" (click)="redirectToEdit()" />
+          <app-button id="deleteProj" type="del" size="md" label="Delete" *ngIf="onEdit" (click)='command.deleteTicket(ticket)' />
+          <app-button id="saveProj" type="prm" size="md" label="Publish" *ngIf="onEdit" (click)='saveTicket()' />
+        </div>
         <h1 edtTxt [isEdit]="onEdit" [(value)]="ticket.name"></h1>
         <h2>Description</h2>
         <p edtTxt [isEdit]="onEdit" [(value)]="ticket.description"> </p>
       </header>
+      <ng-container *ngIf="!windowWidth">
+        <div class="details">
+          <h3>Details</h3>
+          <div class="elements">
+            <div class="container">
+              <h4>Id</h4>
+              <div class="text space">
+                {{ticket.id}}
+              </div>
+            </div>
+            <div class="container">
+              <h4>Owner</h4>
+              <div class="text space">
+                <app-avatar [userName]="ticket && ticket.owner ? ticket.owner.name : ''" />
+                {{ ticket.owner ? ticket.owner.name : "" }}
+              </div>
+            </div>
+            <div class="container">
+              <h4>Assignee</h4>
+              <div class="text">
+                <app-assignee-section [assignees]="ticket ? ticket.assignments : []"
+                                      [data]="ticket" [dataType]="'ticket'" />
+              </div>
+            </div>
+            <div class="container">
+              <h4>Target version</h4>
+              <div class="text space">
+                <app-versions-section [isEdit]="true"
+                    [version]="getTicketVersion()" (versionNameChange)="changeTicketVersion($event)" />
+              </div>
+            </div>
+            <div class="container">
+              <h4>Status</h4>
+              <div class="text space">
+                <app-status-labeled [isEdit]="true" [(status)]="ticket.status" (statusChange)="saveTicket()"/>
+              </div>
+            </div>
+            <div class="container labels">
+              <h4 class="label">Labels</h4>
+              <div class="text">
+                <app-labels-section placeholder="Select label" [(labels)]="ticket.labels" (labelsChange)="saveTicket()" />
+              </div>
+            </div>
+            <div class="container">
+              <h4>Level</h4>
+              <div class="text space">
+                <app-level-section [(level)]="ticket.level" (levelChange)="saveTicket()"/>
+              </div>
+            </div>
+            <div class="container">
+              <h4>Created</h4>
+              <div class="text space">{{ ticket.created | dateDifference }}</div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="!windowWidth">
+        <div class="activity">
+          <h3>Last activity</h3>
+          <div class="content" *ngFor="let item of ticket.activitys">
+            <app-activity-comp [activity]="item" [small]="true" />
+          </div>
+        </div>
+      </ng-container>
       <app-comments-section targetType="tickets" [targetId]="ticket.id" [comments]="ticket.comments" />
     </div>
-    <aside>
+    <aside *ngIf="windowWidth">
       <div class="details">
         <h3>Details</h3>
         <div class="container">
+          <h4>Id</h4>
+          <div class="text space">
+            {{ticket.id}}
+          </div>
+        </div>
+        <div class="container">
           <h4>Owner</h4>
-          <div class="text">
-            <app-avatar id="madelyn" [userName]="ticket && ticket.owner ? ticket.owner.name : ''" />
+          <div class="text space">
+            <app-avatar [userName]="ticket && ticket.owner ? ticket.owner.name : ''" />
             {{ ticket.owner ? ticket.owner.name : "" }}
           </div>
         </div>
@@ -34,39 +108,45 @@
           <h4>Assignee</h4>
           <div class="text">
             <app-assignee-section [assignees]="ticket ? ticket.assignments : []"
-            (onAssign)="command.assignMySelf('ticket', ticket)" />
+                                  [data]="ticket" [dataType]="'ticket'" />
           </div>
         </div>
         <div class="container">
           <h4>Target version</h4>
-          <app-versions-section [isEdit]="true" [version]="getTicketVersion()"
-            (versionChange)="changeTicketVersion($event)" />
+          <div class="text space">
+            <app-versions-section [isEdit]="true" [version]="getTicketVersion()"
+                                  (versionChange)="changeTicketVersion($event)" />
+          </div>
         </div>
         <div class="container">
           <h4>Status</h4>
+          <div class="text space">
+            <app-status-labeled [isEdit]="true" [(status)]="ticket.status" (statusChange)="saveTicket()"/>
+          </div>
+        </div>
+        <div class="container labels">
+          <h4 class="label">Labels</h4>
           <div class="text">
-            <app-status-labeled [isEdit]="true" [(status)]="ticket.status" (statusChange)="command.editTicket(this.ticket)"/>
+            <app-labels-section placeholder="Select label" [(labels)]="ticket.labels" (labelsChange)="saveTicket()" />
           </div>
         </div>
         <div class="container">
           <h4>Level</h4>
-          <div class="text">
-            <app-level-section [(level)]="ticket.level" (levelChange)="command.editTicket(this.ticket)"/>
+          <div class="text space">
+            <app-level-section [(level)]="ticket.level" (levelChange)="saveTicket()"/>
           </div>
         </div>
         <div class="container">
           <h4>Created</h4>
-          <div class="text">{{ ticket.created | dateDifference }}</div>
+          <div class="text space">{{ ticket.created | dateDifference }}</div>
         </div>
       </div>
-      <!-- <div class="activity">
+      <div class="activity">
         <h3>Last activity</h3>
-        <div class="content" *ngFor="let item of activity">
-          <div class="img"><app-avatar [id]="item.name" /></div>
-          <div class="name">{{ item.name }}</div>
-          <div class="desc">{{ item.action }} <a [href]="item.url">{{ item.id }}</a>, {{ item.time | dateDifference }}</div>
+        <div class="content" *ngFor="let item of ticket.activitys">
+          <app-activity-comp [activity]="item" [small]="true" />
         </div>
-      </div> -->
+      </div>
     </aside>
   </div>
 </div>

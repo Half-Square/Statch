@@ -1,0 +1,100 @@
+:host {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+:host.sm svg {
+  height: 16px;
+  width: 16px;
+}
+:host.md svg {
+  height: 16px;
+  width: 16px;
+}
+:host.l svg {
+  height: 24px;
+  width: 24px;
+}
+:host.xl svg {
+  height: 24px;
+  width: 24px;
+}
+
+.icon {
+  display: inline-block;
+  height: 16px;
+  width: 16px;
+  line-height: 1;
+  flex-shrink: 0;
+  max-width: initial;
+}
+
+:root {
+  --icon-sm: 0.8em;
+  --icon-lg: 1.2em;
+}
+
+/* relative units */
+.icon--sm {
+  font-size: var(--icon-sm);
+}
+
+.icon--lg {
+  font-size: var(--icon-lg);
+}
+
+/* absolute units */
+.icon--16 {
+  font-size: 16px;
+}
+
+.icon--32 {
+  font-size: 32px;
+}
+
+.icon use {
+  --icon-stroke-linecap-butt: butt;
+  stroke-miterlimit: 10;
+  stroke-linecap: square;
+  stroke-linejoin: miter;
+}
+
+.stroke-round use {
+  --icon-stroke-linecap-butt: round;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.icon--rotate-90 {
+  transform: rotate(90deg);
+}
+
+.icon--rotate-180 {
+  transform: rotate(180deg);
+}
+
+.icon--rotate-270 {
+  transform: rotate(270deg);
+}
+
+.icon--flip-y {
+  transform: scaleY(-1);
+}
+
+.icon--flip-x {
+  transform: scaleX(-1);
+}
+
+.icon--is-spinning {
+  animation: icon-spin 1s infinite linear;
+}
+
+@keyframes icon-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

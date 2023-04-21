@@ -1,0 +1,220 @@
+:host {
+  display: block;
+  width: 100%;
+
+      /* width */
+      ::-webkit-scrollbar {
+        width: 4px;
+        height: 4px;
+      }
+
+      /* Track */
+      ::-webkit-scrollbar-track {
+        background: transparent;
+      }
+
+      /* Handle */
+      ::-webkit-scrollbar-thumb {
+        background: #9C9C9C;
+        border-radius: 999px;
+      }
+
+      /* Handle on hover */
+      ::-webkit-scrollbar-thumb:hover {
+        background: #b8b8b8;
+      }
+
+}
+
+.dropdown {
+  position: relative;
+
+  .control.active {
+    background: rgba(255, 255, 255, 0.04);
+  }
+
+  .control {
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 4px;
+    flex-wrap: wrap;
+    align-items: center;
+    border-radius: 4px;
+    max-width: 100%;
+    color: rgba(255, 255, 255, 0.96);
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 16px;
+    padding: 6px 4px;
+    user-select: none;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .ellipsis {
+      max-width: 100px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      display: inline-block;
+    }
+
+    .icon {
+      font-size: 16px;
+    }
+
+    .selected {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .chevron {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: rgba(255, 255, 255, 0.64);;
+    }
+  }
+
+  .menu.right {
+    right: 0;
+  }
+
+  .menu {
+    position: absolute;
+    overflow: hidden;
+    z-index: 10;
+    top: 2px;
+    display: flex;
+    flex-direction: column;
+    background: #2E2E2E;
+    box-shadow: 0px 10px 36px rgba(0, 0, 0, 0.16), 0px 0px 0px 1px #424242;
+    border-radius: 8px;
+    width: 200px;
+
+    .ngContent {
+      padding: 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .ngContent > * {
+      cursor: pointer;
+    }
+
+    .toggle {
+      padding-bottom: 8px;
+      margin-bottom: 8px;
+      border-bottom: 1px solid rgba(66, 66, 66, 1);
+    }
+
+    .options {
+      list-style: none;
+      user-select: none;
+      max-height: 200px;
+      overflow: auto;
+      margin: 4px;
+      margin-bottom: 0;
+      padding-bottom: 4px;
+    }
+
+    .option {
+      cursor: pointer;
+      font-style: normal;
+      font-weight: 400;
+      font-size: 12px;
+      line-height: 14px;
+      display: flex;
+      gap: 4px;
+      align-items: center;
+      color: rgba(255, 255, 255, 0.96);
+      border-radius: 4px;
+      padding: 6px 4px;
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.04);
+      }
+    }
+
+    .option.selected {
+      background: rgba(55, 117, 202, 1);
+    }
+
+    .option.selectedInvisible {
+      display: none;
+    }
+
+    .option.multi {
+      justify-content: space-between;
+
+      .label {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+    }
+    .option.multitoggle {
+      justify-content: space-between;
+
+      .label {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+    }
+
+
+
+    .option.selected:not(:last-child) {
+      margin-bottom: 2px;
+    }
+    .option.selected:not(:first-child) {
+      margin-top: 2px;
+    }
+
+    .noResult {
+      font-style: normal;
+      font-weight: 400;
+      font-size: 12px;
+      line-height: 14px;
+      color: rgba(255, 255, 255, 0.96);
+      padding: 6px 4px;
+    }
+
+    .add {
+      cursor: pointer;
+      font-style: normal;
+      font-weight: 400;
+      font-size: 12px;
+      line-height: 14px;
+      color: rgba(255, 255, 255, 0.96);
+      padding: 6px 4px;
+      border-radius: 4px;
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.04);
+
+        .colored {
+          background: transparent;
+        }
+      }
+
+      .colored {
+        font-style: normal;
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 14px;
+        color: rgba(255, 255, 255, 0.96);
+        background: rgba(255, 255, 255, 0.04);
+        padding: 6px 4px;
+        border-radius: 4px;
+      }
+    }
+  }
+}

@@ -1,11 +1,12 @@
 /*****************************************************************************
- * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
+ * @Author                : 0K00<qdouvillez@gmail.com>                       *
  * @CreatedDate           : 2023-03-17 11:51:44                              *
- * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
- * @LastEditDate          : 2023-03-30 10:57:08                              *
+ * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
+ * @LastEditDate          : 2023-04-21 12:01:40                              *
  ****************************************************************************/
 
 import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -21,10 +22,12 @@ import { TicketComponent } from './ticket/ticket.component';
 
 import { DirectivesModule } from '../directives/directives.module';
 import { AssignComponent } from './assign/assign.component';
-import { AdminComponent } from './admin/admin.component';
-import { AdminUsersComponent } from './admin/admin-users/admin-users.component';
 
 import { PipeModule } from '../pipe/pipe.module';
+import { ActivityComponent } from './activity/activity.component';
+import { SettingComponent } from './setting/setting.component';
+import { LabelsSettingComponent } from './setting/labels-setting/labels-setting.component';
+import { AdminSettingComponent } from './setting/admin-setting/admin-setting.component';
 
 @NgModule({
   declarations: [
@@ -35,8 +38,10 @@ import { PipeModule } from '../pipe/pipe.module';
     TaskComponent,
     TicketComponent,
     AssignComponent,
-    AdminComponent,
-    AdminUsersComponent
+    ActivityComponent,
+    SettingComponent,
+    LabelsSettingComponent,
+    AdminSettingComponent
   ],
   imports: [
     CommonModule,
@@ -44,7 +49,8 @@ import { PipeModule } from '../pipe/pipe.module';
     DirectivesModule,
     ComponentsModule,
     CompositionsModule,
-    PipeModule
+    PipeModule,
+    RouterModule
   ],
   exports: [
     LoginComponent,
@@ -53,7 +59,8 @@ import { PipeModule } from '../pipe/pipe.module';
     ProjectComponent,
     TaskComponent,
     TicketComponent,
-    AssignComponent
+    AssignComponent,
+    SettingComponent
   ],
 })
 export class ViewsModule { }

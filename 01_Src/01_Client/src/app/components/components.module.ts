@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : 0K00<qdouvillez@gmail.com>                       *
+ * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
  * @CreatedDate           : 2023-03-24 15:23:15                              *
- * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
- * @LastEditDate          : 2023-03-29 16:39:48                              *
+ * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
+ * @LastEditDate          : 2023-04-18 16:09:38                              *
  ****************************************************************************/
 
 import { NgModule } from '@angular/core';
@@ -19,6 +19,13 @@ import { ProgressBarComponent } from './progress-bar/progress-bar.component';
 import { StatusComponent } from './status/status.component';
 import { LevelComponent } from './level/level.component';
 
+import { PipeModule } from '../pipe/pipe.module';
+import { BadgesComponent } from './badges/badges.component';
+import { IconsComponent } from './icons/icons.component';
+import { LabelsComponent } from './labels/labels.component';
+import { LabelsDetailsComponent } from './labels-details/labels-details.component';
+import { ActivityComponent } from './activity/activity.component';
+
 
 @NgModule({
   declarations: [
@@ -29,12 +36,18 @@ import { LevelComponent } from './level/level.component';
     InputComponent,
     ProgressBarComponent,
     StatusComponent,
-    LevelComponent
+    LevelComponent,
+    BadgesComponent,
+    IconsComponent,
+    LabelsComponent,
+    LabelsDetailsComponent,
+    ActivityComponent
   ],
   imports: [
     CommonModule,
     RouterModule,
-    FormsModule
+    FormsModule,
+    PipeModule
   ],
   exports: [
     BreadcrumbsComponent,
@@ -44,7 +57,12 @@ import { LevelComponent } from './level/level.component';
     InputComponent,
     ProgressBarComponent,
     StatusComponent,
-    LevelComponent
+    LevelComponent,
+    BadgesComponent,
+    IconsComponent,
+    LabelsComponent,
+    LabelsDetailsComponent,
+    ActivityComponent
   ]
 })
 export class ComponentsModule { }

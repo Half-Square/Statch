@@ -7,9 +7,7 @@
 
  :host {
   display: block;
- }
- .test {
-   max-width: 50vw;
+  position: relative;
  }
 
  .btn {
@@ -31,7 +29,8 @@
    padding: 0.25rem 0.5rem;
 
    .icon {
-       font-size: 16px;
+      width: 16px;
+      height: 16px;
    }
  }
  .btn.md {
@@ -43,7 +42,8 @@
    gap: 0.5rem;
 
    .icon {
-       font-size: 16px;
+       width: 16px;
+       height: 16px;
    }
  }
  .btn.l {
@@ -52,7 +52,9 @@
    padding: 0.25rem 0.5rem;
 
    .icon {
-       font-size: 24px;
+      width: 24px;
+      height: 24px;
+
    }
  }
  .btn.xl {
@@ -61,7 +63,9 @@
    padding: 1rem 1.5rem;
 
    .icon {
-       font-size: 24px;
+      width: 24px;
+      height: 24px;
+
    }
  }
 

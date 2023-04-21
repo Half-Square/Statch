@@ -2,13 +2,13 @@
  * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
  * @CreatedDate           : 2023-03-17 22:34:38                              *
  * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
- * @LastEditDate          : 2023-03-30 11:19:03                              *
+ * @LastEditDate          : 2023-04-18 17:22:21                              *
  ****************************************************************************/
 
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApiService } from '../api/api.service';
-import { ProjectInterface, ProjectListService, TaskInterface, TicketInterface, UsersInterface } from '../project-list/project-list.service';
+import { LabelsInterface, ProjectInterface, ProjectListService, TaskInterface, TicketInterface, UsersInterface } from '../project-list/project-list.service';
 import { UserService } from '../user/user.service';
 
 @Injectable({
@@ -206,14 +206,13 @@ export class CommandService {
   *
   * @return (Promise<void>): Resolve on valid PUT project
   */
-  public async editProject(project: ProjectInterface): Promise<void> {
-    console.log("heresdf ", project);
-
-    return new Promise<void>((resolve, reject) => {
+  public async editProject(project: ProjectInterface): Promise<ProjectInterface> {
+    return new Promise<ProjectInterface>((resolve, reject) => {
       this.api.request("PUT", "projects/"+project.id, project)
       .then((ret: any) => {
         ProjectListService.addProject(ret);
         this.router.navigate(["project", project.id])
+        return resolve(ret)
       }).catch((error: any) => {
         console.error("editProject error >> "+error)
       })
@@ -231,12 +230,13 @@ export class CommandService {
   *
   * @return (Promise<void>): Resolve on valid PUT task
   */
-  public async editTask(task: TaskInterface): Promise<void> {
-    return new Promise<void>((resolve, reject) => {
+  public async editTask(task: TaskInterface): Promise<TaskInterface> {
+    return new Promise<TaskInterface>((resolve, reject) => {
       this.api.request("PUT", "tasks/"+task.id, task)
       .then((ret: any) => {
         ProjectListService.addTask(task);
         this.router.navigate(["/task/", task.id ])
+        return resolve(ret)
       }).catch((error: any) => {
         console.error("editTask error >> "+error)
       })
@@ -254,12 +254,13 @@ export class CommandService {
   *
   * @return (Promise<void>): Resolve on valid PUT ticket
   */
-  public async editTicket(ticket: TicketInterface): Promise<void> {
-    return new Promise<void>((resolve, reject) => {
+  public async editTicket(ticket: TicketInterface): Promise<TicketInterface> {
+    return new Promise<TicketInterface>((resolve, reject) => {
       this.api.request("PUT", "tickets/"+ticket.id, ticket)
       .then((ret: any) => {
         ProjectListService.addTicket(ticket);
         this.router.navigate(["/ticket/", ticket.id ])
+        return resolve(ret)
       }).catch((error: any) => {
         console.error("editTask error >> "+error)
       })
@@ -356,6 +357,90 @@ export class CommandService {
         }
       });
     }
+    public async unassignMySelf(type: string, data: ProjectInterface | TaskInterface | TicketInterface) {
+      return new Promise<void>(async (resolve, reject) => {
+        let user = UserService.getUser();
+        let removed = false;
+        if (!data.assignments) data.assignments = []
+        console.log(data.assignments );
+        console.log(user);
+
+        for (let i = 0; i < data.assignments.length; i++) {
+
+          if (data.assignments[i].id == user.id) {
+            data.assignments.splice(i, 1)
+            removed = true;
+            break
+          }
+        }
+        console.log(data.assignments);
+
+        if (!removed) return resolve()
+        try {
+          if (type == "project" && data) await this.editProject(data as ProjectInterface);
+          if (type == "task" && data) await this.editTask(data as TaskInterface);
+          if (type == "ticket" && data) await this.editTicket(data as TicketInterface);
+          return resolve()
+        } catch(error: any) {
+          console.error("assignMySelf error >> "+error)
+          return reject()
+        }
+      });
+    }
+
+    public async assignSomeOne(type: string, data: ProjectInterface | TaskInterface | TicketInterface, user: UsersInterface) {
+      return new Promise<void>(async (resolve, reject) => {
+        let toPush = structuredClone(user)
+        if (!data.assignments) data.assignments = []
+        data.assignments.push(toPush)
+        try {
+          if (type == "project" && data) await this.editProject(data as ProjectInterface);
+          if (type == "task" && data) await this.editTask(data as TaskInterface);
+          if (type == "ticket" && data) await this.editTicket(data as TicketInterface);
+          return resolve()
+        } catch(error: any) {
+          console.error("assignSomeOne error >> "+error)
+          return reject()
+        }
+      });
+    }
+
+    public async unassignSomeOne(type: string, data: ProjectInterface | TaskInterface | TicketInterface, user: UsersInterface) {
+      return new Promise<void>(async (resolve, reject) => {
+        let removed = false;
+        if (!data.assignments) data.assignments = []
+        for (let i = 0; i < data.assignments.length; i++) {
+          if (data.assignments[i].id == user.id) {
+            data.assignments.splice(i, 1)
+            removed = true;
+            break
+          }
+        }
+        if (!removed) return resolve()
+        try {
+          if (type == "project" && data) await this.editProject(data as ProjectInterface);
+          if (type == "task" && data) await this.editTask(data as TaskInterface);
+          if (type == "ticket" && data) await this.editTicket(data as TicketInterface);
+          return resolve()
+        } catch(error: any) {
+          console.error("assignSomeOne error >> "+error)
+          return reject()
+        }
+      });
+    }
+
+    public async getMyActivitys(): Promise<any> {
+      return new Promise<any>((resolve, reject) => {
+        let user = UserService.getUser();
+        this.api.request("GET", "users/"+user.id+"/activity")
+        .then((ret: any) => {
+          return resolve(ret)
+        }).catch((error: any) => {
+          console.error("getMyActivitys error >> "+error)
+          return reject()
+        })
+      });
+    }
 
     public async getMyProject(): Promise<any> {
       return new Promise<any>((resolve, reject) => {
@@ -397,4 +482,49 @@ export class CommandService {
         })
       });
     }
+
+    public async editLabel(data: LabelsInterface): Promise<LabelsInterface | any> {
+      return new Promise<LabelsInterface | any>((resolve, reject) => {
+        this.api.request("PUT", "labels/"+data.id, data)
+        .then((ret: LabelsInterface) => {
+          return resolve(ret);
+        }).catch((error: any) => {
+          console.error("Edit label error >> "+error)
+          return reject(error);
+        });
+      });
+    };
+
+    public async createLabel(data: LabelsInterface): Promise<LabelsInterface | any> {
+      return new Promise<LabelsInterface | any>((resolve, reject) => {
+        this.api.request("POST", "labels", data)
+        .then((ret: LabelsInterface) => {
+          return resolve(ret);
+        }).catch((error: any) => {
+          console.error("Create label error >> "+error)
+          return reject(error);
+        });
+      });
+    };
+
+    public async getLabels(): Promise<Array<LabelsInterface>> {
+      return new Promise<Array<LabelsInterface>>((resolve, reject) => {
+        this.api.request("GET", "labels")
+        .then((ret: Array<LabelsInterface>) => {
+          return resolve(ret);
+        }).catch((error) => { return reject(error) });
+      });
+    };
+
+    public async deleteLabel(labelId: string): Promise<void> {
+      return new Promise<void>((resolve, reject) => {
+        this.api.request("DELETE", "labels/"+labelId, {})
+        .then((ret: any) => {
+          return resolve(ret);
+        }).catch((error: any) => {
+          console.error("Delete label error >> "+error);
+          return reject(error);
+        });
+      });
+    };
 }

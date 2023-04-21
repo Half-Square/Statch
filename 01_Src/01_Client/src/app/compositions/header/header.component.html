@@ -1,8 +1,8 @@
 <!--
-* @Author                : Adrien Lanco<adrienlanco0@gmail.com>
+* @Author                : 0K00<qdouvillez@gmail.com>
 * @CreatedDate           : 2023-03-17 13:48:00
-* @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>
-* @LastEditDate          : 2023-03-30 11:01:00
+* @LastEditors           : 0K00<qdouvillez@gmail.com>
+* @LastEditDate          : 2023-04-21 12:00:36
 -->
 
 <div id="header">
@@ -17,11 +17,10 @@
                 [other]="(showModal) ? 'active' : '' " />
     <app-button id='openOption' type='trd' size='l'
                 (click)='showOption = !showOption'
-                icon='dotshorizontal' iconPosition='only'
+                icon='dots-horizontal' iconPosition='only'
                 [other]="(showOption) ? 'active' : '' " />
     <ng-container *ngIf="showOption">
       <div @nested class="menuOption">
-        <div *ngIf="isAdmin" class="option setting" [routerLink]="['/admin']">Admin</div>
         <div class="option setting" [routerLink]="['/settings']">Settings</div>
         <div class="option disconnect" (click)="disconnect()">Disconnect</div>
       </div>
