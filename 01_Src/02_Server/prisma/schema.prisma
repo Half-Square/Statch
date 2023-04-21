@@ -23,6 +23,9 @@ model User {
   tasks           Task[]
   tickets         Ticket[]
   assignment      Assignment[]
+
+  activitys       Activity[]     @relation(name: "author")
+  activitysTarget Activity[]     @relation(name: "target")
 }
 
 model Project {
@@ -40,6 +43,8 @@ model Project {
   actualVersion   String?
   versionList     Version[]
   labels          LabelsOnProject[]
+
+  activitys       Activity[] 
 }
 
 model Task {
@@ -56,10 +61,12 @@ model Task {
   owner           User            @relation(fields: [ownerId], references: [id], onDelete: Cascade)
   ownerId         String
   assignments     Assignment[]
-  targetVersion   Version?        @relation(fields: [targetVersionId], references: [id])
+  targetVersion   Version?        @relation(fields: [targetVersionId], references: [id], onDelete: SetNull)
   targetVersionId String?
 
   labels          LabelsOnTask[]
+
+  activitys       Activity[] 
 }
 
 model Ticket {
@@ -75,10 +82,12 @@ model Ticket {
   owner           User            @relation(fields: [ownerId], references: [id], onDelete: Cascade)
   ownerId         String
   assignments     Assignment[]
-  targetVersion   Version?        @relation(fields: [targetVersionId], references: [id])
+  targetVersion   Version?        @relation(fields: [targetVersionId], references: [id], onDelete: SetNull)
   targetVersionId String?
 
   labels          LabelsOnTicket[]
+
+  activitys       Activity[] 
 }
 
 model Comment {
@@ -128,10 +137,37 @@ model Label {
   tickets         LabelsOnTicket[]         
 
   color           String
+
+  activitys       Activity[] 
+}
+
+model Activity {
+  id              String          @default(nanoid(8)) @id
+  created         DateTime        @default(now())
+
+  author          User            @relation(name: "author", fields: [authorId], references: [id])
+  authorId        String
+
+  action          String
+  
+  type            String?
+  value           String?
+  
+  target          User?           @relation(name: "target", fields: [targetId], references: [id])
+  targetId        String?
+
+  label           Label?          @relation(fields: [labelId], references: [id])
+  labelId         String?
+
+  project         Project?        @relation(fields: [projectId], references: [id])
+  projectId       String?
+  task            Task?           @relation(fields: [taskId], references: [id])
+  taskId          String?
+  ticket          Ticket?         @relation(fields: [ticketId], references: [id])
+  ticketId        String?
 }
 
 model LabelsOnProject {
-
   project         Project       @relation(fields: [projectId], references: [id], onDelete: Cascade)
   projectId       String
   label           Label         @relation(fields: [labelId], references: [id], onDelete: Cascade)
@@ -141,7 +177,6 @@ model LabelsOnProject {
 }
 
 model LabelsOnTask {
-
   task         Task            @relation(fields: [taskId], references: [id], onDelete: Cascade)
   taskId       String
   label        Label           @relation(fields: [labelId], references: [id], onDelete: Cascade)
@@ -151,7 +186,6 @@ model LabelsOnTask {
 }
 
 model LabelsOnTicket {
-
   ticket         Ticket        @relation(fields: [ticketId], references: [id], onDelete: Cascade)
   ticketId       String
   label          Label         @relation(fields: [labelId], references: [id], onDelete: Cascade)

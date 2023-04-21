@@ -18,10 +18,10 @@ import * as labelsDto from "../../dto/labels.dto";
 /* Services */
 import {PrismaService} from "../../prisma.service";
 /******************************************************************************
- * @Author                : 0K00<qdouvillez@gmail.com>                        *
+ * @Author                : Adrien Lanco<adrienlanco0@gmail.com>              *
  * @CreatedDate           : 2023-04-13 12:02:48                               *
- * @LastEditors           : 0K00<qdouvillez@gmail.com>                        *
- * @LastEditDate          : 2023-04-17 16:27:22                               *
+ * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>              *
+ * @LastEditDate          : 2023-04-18 16:50:04                               *
  *****************************************************************************/
 
 /* Guards */
@@ -60,8 +60,11 @@ export class LabelsController {
   async update(
     @Param("id") id: string,
     @Body() body: labelsDto.UpdateInput,
+    @Headers("x-token") token: string,
   ) : Promise<labelsDto.DetailsOutput> {
     try {
+      let user = jwt.verify(token, process.env.SALT);
+
       let res = await this.prisma.label.update({
         where: {
           id: id
@@ -69,7 +72,13 @@ export class LabelsController {
         data: {
           name: body.name,
           color: body.color,
-          description: body.description
+          description: body.description, 
+          activitys: {
+            create: {
+              authorId: user.id,
+              action: "edited"
+            }
+          }
         }
       });
       return new labelsDto.DetailsOutput(res);
@@ -88,7 +97,16 @@ export class LabelsController {
     @Headers("x-token") token: string,
   ) : Promise<labelsDto.DetailsOutput> {
     try {
-      let toSave = { name: body.name, color: body.color, description: body.description };
+      let user = jwt.verify(token, process.env.SALT);
+
+      let toSave = { name: body.name, color: body.color, description: body.description, 
+        activitys: {
+        create: {
+          authorId: user.id,
+          action: "create"
+        }
+      }
+     };
 
       const res = await this.prisma.label.create({
         data: toSave

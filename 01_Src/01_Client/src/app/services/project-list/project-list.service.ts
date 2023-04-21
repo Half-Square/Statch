@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : 0K00<qdouvillez@gmail.com>                       *
+ * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
  * @CreatedDate           : 2023-03-17 14:25:08                              *
- * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
- * @LastEditDate          : 2023-04-17 16:31:53                              *
+ * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
+ * @LastEditDate          : 2023-04-18 17:09:33                              *
  ****************************************************************************/
 
 import { Injectable } from '@angular/core';
@@ -351,7 +351,8 @@ export interface ProjectInterface {
   owner: UsersInterface,
   assignments: Array<UsersInterface>,
   tasks: Array<TaskInterface>,
-  labels: Array<LabelsInterface>
+  labels: Array<LabelsInterface>,
+  activitys: Array<ActivitysInterface>
 }
 
 export interface TaskInterface {
@@ -367,6 +368,7 @@ export interface TaskInterface {
   owner: UsersInterface,
   assignments: Array<UsersInterface>,
   tickets: Array<TicketInterface>,
+  activitys: Array<ActivitysInterface>,
   labels: Array<LabelsInterface>
 }
 
@@ -383,6 +385,7 @@ export interface TicketInterface {
   comments: Array<CommentInterface>,
   assignments: Array<UsersInterface>,
   owner: UsersInterface,
+  activitys: Array<ActivitysInterface>,
   labels: Array<LabelsInterface>
 }
 
@@ -422,4 +425,20 @@ export interface LabelsInterface {
   name?: string,
   color?: string,
   description?: string
+}
+
+export interface ActivitysInterface {
+  id: string,
+  created: string,
+  author: UsersInterface,
+  action: string,
+
+  type?: string,
+  value?: string,
+
+  target?: UsersInterface,
+  label?: LabelsInterface,
+  project?: ProjectInterface,
+  task?: TaskInterface,
+  ticket?: TicketInterface
 }

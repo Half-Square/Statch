@@ -1,9 +1,9 @@
-/******************************************************************************
- * @Author                : 0K00<qdouvillez@gmail.com>                        *
- * @CreatedDate           : 2023-03-24 15:23:15                               *
- * @LastEditors           : 0K00<qdouvillez@gmail.com>                        *
- * @LastEditDate          : 2023-04-13 13:50:59                               *
- *****************************************************************************/
+/*****************************************************************************
+ * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
+ * @CreatedDate           : 2023-03-24 15:23:15                              *
+ * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
+ * @LastEditDate          : 2023-04-18 16:09:38                              *
+ ****************************************************************************/
 
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -24,6 +24,7 @@ import { BadgesComponent } from './badges/badges.component';
 import { IconsComponent } from './icons/icons.component';
 import { LabelsComponent } from './labels/labels.component';
 import { LabelsDetailsComponent } from './labels-details/labels-details.component';
+import { ActivityComponent } from './activity/activity.component';
 
 
 @NgModule({
@@ -39,7 +40,8 @@ import { LabelsDetailsComponent } from './labels-details/labels-details.componen
     BadgesComponent,
     IconsComponent,
     LabelsComponent,
-    LabelsDetailsComponent
+    LabelsDetailsComponent,
+    ActivityComponent
   ],
   imports: [
     CommonModule,
@@ -59,7 +61,8 @@ import { LabelsDetailsComponent } from './labels-details/labels-details.componen
     BadgesComponent,
     IconsComponent,
     LabelsComponent,
-    LabelsDetailsComponent
+    LabelsDetailsComponent,
+    ActivityComponent
   ]
 })
 export class ComponentsModule { }

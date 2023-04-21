@@ -1,8 +1,8 @@
 /******************************************************************************
- * @Author                : AdrienLanco0<adrienlanco0@gmail.com>              *
+ * @Author                : Adrien Lanco<adrienlanco0@gmail.com>              *
  * @CreatedDate           : 2023-03-29 15:51:17                               *
- * @LastEditors           : AdrienLanco0<adrienlanco0@gmail.com>              *
- * @LastEditDate          : 2023-04-03 13:06:02                               *
+ * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>              *
+ * @LastEditDate          : 2023-04-18 15:27:08                               *
  *****************************************************************************/
 
 /* Imports */
@@ -23,6 +23,8 @@ import {
 import * as projectsDto from "../../dto/projects.dto";
 import * as tasksDto from "../../dto/tasks.dto";
 import * as ticketsDto from "../../dto/tickets.dto";
+import * as activitysDto from "../../dto/activitys.dto";
+
 
 import { ConnectedGuard } from "../../guards/connected/connected.guard";
 /***/
@@ -154,5 +156,53 @@ export class AssignmentsController {
     }
     /***/
 
+    /**
+    * Get one user
+    * @returns - User's details
+    */
+    @Get("users/:id/activity")
+    @UseGuards(ConnectedGuard)
+    async getAllActivity(@Param("id") id: string): Promise<activitysDto.DetailsOutput[]> {
+      try {
+        const res = await this.prisma.user.findUnique({
+          where: {id: id },
+          include: {
+            assignment: {
+              include: { 
+                project: true,
+                task: true,
+                ticket: { include: { task: { select: { projectId: true } } } }
+              } 
+            }
+          }
+        });
+        let ticket = [], task = [], project = [];
+        res.assignment.map((el) => {
+          if (el.ticket) 
+            ticket.push(el.ticket.id)
+          if (el.task) 
+            task.push(el.task.id)
+          if (el.project)
+            project.push(el.project.id)
+        });
+
+        const act = await this.prisma.activity.findMany({
+          where: {
+            OR: [
+            { projectId: { in: project }, },
+            { taskId: { in: task } },
+            { ticketId: { in: ticket } },
+          ]},
+          orderBy: {created:  "desc" }, take: 50, 
+          include: {author: true, target: true, project: true, label: true, task: true, ticket: true}
+        });
+
+        return act.map((el) => new activitysDto.DetailsOutput(el));
+      } catch (err) {
+        console.error(`${new Date().toISOString()} - ${err}`);
+        throw err;
+      }
+    }
+    /***/
   
 }

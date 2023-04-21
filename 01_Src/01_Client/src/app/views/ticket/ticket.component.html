@@ -1,8 +1,8 @@
 <!--
-* @Author                : 0K00<qdouvillez@gmail.com>
+* @Author                : Adrien Lanco<adrienlanco0@gmail.com>
 * @CreatedDate           : 2023-03-17 16:48:00
-* @LastEditors           : 0K00<qdouvillez@gmail.com>
-* @LastEditDate          : 2023-04-17 15:32:57
+* @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>
+* @LastEditDate          : 2023-04-18 17:23:06
 -->
 
 <div id="ticket">
@@ -56,19 +56,19 @@
             <div class="container">
               <h4>Status</h4>
               <div class="text space">
-                <app-status-labeled [isEdit]="true" [(status)]="ticket.status" (statusChange)="command.editTicket(this.ticket)"/>
+                <app-status-labeled [isEdit]="true" [(status)]="ticket.status" (statusChange)="saveTicket()"/>
               </div>
             </div>
             <div class="container labels">
               <h4 class="label">Labels</h4>
               <div class="text">
-                <app-labels-section placeholder="Select label" [(labels)]="ticket.labels" (labelsChange)="command.editTicket(this.ticket)" />
+                <app-labels-section placeholder="Select label" [(labels)]="ticket.labels" (labelsChange)="saveTicket()" />
               </div>
             </div>
             <div class="container">
               <h4>Level</h4>
               <div class="text space">
-                <app-level-section [(level)]="ticket.level" (levelChange)="command.editTicket(this.ticket)"/>
+                <app-level-section [(level)]="ticket.level" (levelChange)="saveTicket()"/>
               </div>
             </div>
             <div class="container">
@@ -81,10 +81,8 @@
       <ng-container *ngIf="!windowWidth">
         <div class="activity">
           <h3>Last activity</h3>
-          <div class="content" *ngFor="let item of activity">
-            <div class="img"><app-avatar [id]="item.name" [userName]="item.name" /></div>
-            <div class="name">{{ item.name }}</div>
-            <div class="desc">{{ item.action }} <a [href]="item.url">{{ item.id }}</a>, {{ item.time | dateDifference }}</div>
+          <div class="content" *ngFor="let item of ticket.activitys">
+            <app-activity-comp [activity]="item" [small]="true" />
           </div>
         </div>
       </ng-container>
@@ -123,19 +121,19 @@
         <div class="container">
           <h4>Status</h4>
           <div class="text space">
-            <app-status-labeled [isEdit]="true" [(status)]="ticket.status" (statusChange)="command.editTicket(this.ticket)"/>
+            <app-status-labeled [isEdit]="true" [(status)]="ticket.status" (statusChange)="saveTicket()"/>
           </div>
         </div>
         <div class="container labels">
           <h4 class="label">Labels</h4>
           <div class="text">
-            <app-labels-section placeholder="Select label" [(labels)]="ticket.labels" (labelsChange)="command.editTicket(this.ticket)" />
+            <app-labels-section placeholder="Select label" [(labels)]="ticket.labels" (labelsChange)="saveTicket()" />
           </div>
         </div>
         <div class="container">
           <h4>Level</h4>
           <div class="text space">
-            <app-level-section [(level)]="ticket.level" (levelChange)="command.editTicket(this.ticket)"/>
+            <app-level-section [(level)]="ticket.level" (levelChange)="saveTicket()"/>
           </div>
         </div>
         <div class="container">
@@ -145,10 +143,8 @@
       </div>
       <div class="activity">
         <h3>Last activity</h3>
-        <div class="content" *ngFor="let item of activity">
-          <div class="img"><app-avatar [id]="item.name" [userName]="item.name" /></div>
-          <div class="name">{{ item.name }}</div>
-          <div class="desc">{{ item.action }} <a [href]="item.url">{{ item.id }}</a>, {{ item.time | dateDifference }}</div>
+        <div class="content" *ngFor="let item of ticket.activitys">
+          <app-activity-comp [activity]="item" [small]="true" />
         </div>
       </div>
     </aside>

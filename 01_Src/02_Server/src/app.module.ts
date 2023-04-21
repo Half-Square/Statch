@@ -1,8 +1,8 @@
 /******************************************************************************
- * @Author                : 0K00<qdouvillez@gmail.com>                        *
+ * @Author                : Adrien Lanco<adrienlanco0@gmail.com>              *
  * @CreatedDate           : 2023-02-21 14:10:37                               *
- * @LastEditors           : 0K00<qdouvillez@gmail.com>                        *
- * @LastEditDate          : 2023-04-13 11:33:26                               *
+ * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>              *
+ * @LastEditDate          : 2023-04-14 14:36:56                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -26,6 +26,7 @@ import { LabelsController } from './controllers/labels/labels.controller';
 
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
+import { ActivityService } from './services/activity/activity.service';
 /***/
 
 @Module({
@@ -46,6 +47,6 @@ import { join } from 'path';
     AssignmentsController,
     LabelsController
   ],
-  providers: [PrismaService, SearchFilterService]
+  providers: [PrismaService, SearchFilterService, ActivityService]
 })
 export class AppModule {}
