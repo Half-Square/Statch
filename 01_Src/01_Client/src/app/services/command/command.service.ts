@@ -2,7 +2,7 @@
  * @Author                : 0K00<qdouvillez@gmail.com>                       *
  * @CreatedDate           : 2023-03-17 22:34:38                              *
  * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
- * @LastEditDate          : 2023-04-17 16:08:04                              *
+ * @LastEditDate          : 2023-04-18 16:58:48                              *
  ****************************************************************************/
 
 import { Injectable } from '@angular/core';
@@ -471,7 +471,7 @@ export class CommandService {
 
     public async editLabel(data: LabelsInterface): Promise<LabelsInterface | any> {
       return new Promise<LabelsInterface | any>((resolve, reject) => {
-        this.api.request("POST", "labels/"+data.id, data)
+        this.api.request("PUT", "labels/"+data.id, data)
         .then((ret: LabelsInterface) => {
           return resolve(ret);
         }).catch((error: any) => {

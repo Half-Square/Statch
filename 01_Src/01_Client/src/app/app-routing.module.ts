@@ -2,7 +2,7 @@
  * @Author                : 0K00<qdouvillez@gmail.com>                       *
  * @CreatedDate           : 2023-03-17 11:52:49                              *
  * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
- * @LastEditDate          : 2023-04-17 15:40:28                              *
+ * @LastEditDate          : 2023-04-21 12:01:24                              *
  ****************************************************************************/
 
 import { NgModule } from '@angular/core';
@@ -20,10 +20,8 @@ import { TaskComponent } from './views/task/task.component';
 import { TicketComponent } from './views/ticket/ticket.component';
 
 import { SettingComponent } from './views/setting/setting.component';
-
-import { AdminComponent } from './views/admin/admin.component';
-import { AdminUsersComponent } from './views/admin/admin-users/admin-users.component';
-
+  import { LabelsSettingComponent } from './views/setting/labels-setting/labels-setting.component';
+  import { AdminSettingComponent } from './views/setting/admin-setting/admin-setting.component';
 
 import { AuthGuardService as AuthGuard } from './guards/auth/auth-guard.service';
 import { IsAdminGuard } from './guards/is-admin/is-admin.guard';
@@ -42,10 +40,13 @@ const routes: Routes = [
   { path: 'task/:id', component: TaskComponent, canActivate: [AuthGuard]  },
   { path: 'ticket/:id', component: TicketComponent, canActivate: [AuthGuard]  },
 
-  { path: 'settings', component: SettingComponent, canActivate: [AuthGuard] },
+  { path: 'settings', component: SettingComponent, canActivate: [AuthGuard],
+    children: [
+      { path: 'labels', component: LabelsSettingComponent, canActivate: [AuthGuard] },
+      { path: 'admin', component: AdminSettingComponent, canActivate: [IsAdminGuard]  }
+    ]
+  },
 
-  { path: 'admin', component: AdminComponent, canActivate: [IsAdminGuard]  },
-  { path: 'admin/users', component: AdminUsersComponent, canActivate: [IsAdminGuard]  }
 ];
 
 

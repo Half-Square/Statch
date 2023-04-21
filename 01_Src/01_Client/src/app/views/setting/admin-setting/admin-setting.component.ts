@@ -1,8 +1,8 @@
 /******************************************************************************
- * @Author                : Adrien Lanco<adrienlanco0@gmail.com>              *
- * @CreatedDate           : 2023-03-30 10:22:13                               *
- * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>              *
- * @LastEditDate          : 2023-03-30 10:42:03                               *
+ * @Author                : 0K00<qdouvillez@gmail.com>                        *
+ * @CreatedDate           : 2023-04-21 11:57:48                               *
+ * @LastEditors           : 0K00<qdouvillez@gmail.com>                        *
+ * @LastEditDate          : 2023-04-21 11:57:48                               *
  *****************************************************************************/
 
 import { Component, OnInit } from '@angular/core';
@@ -10,12 +10,11 @@ import { ApiService } from 'src/app/services/api/api.service';
 import { UsersInterface } from 'src/app/services/project-list/project-list.service';
 
 @Component({
-  selector: 'app-admin-users',
-  templateUrl: './admin-users.component.html',
-  styleUrls: ['./admin-users.component.scss']
+  selector: 'app-admin-setting',
+  templateUrl: './admin-setting.component.html',
+  styleUrls: ['./admin-setting.component.scss']
 })
-export class AdminUsersComponent implements OnInit {
-
+export class AdminSettingComponent {
   constructor(private api: ApiService) {}
 
   public users: Array<UsersInterface> = [];

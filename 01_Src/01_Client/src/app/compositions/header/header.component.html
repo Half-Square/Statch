@@ -2,7 +2,7 @@
 * @Author                : 0K00<qdouvillez@gmail.com>
 * @CreatedDate           : 2023-03-17 13:48:00
 * @LastEditors           : 0K00<qdouvillez@gmail.com>
-* @LastEditDate          : 2023-04-17 15:40:25
+* @LastEditDate          : 2023-04-21 12:00:36
 -->
 
 <div id="header">
@@ -21,7 +21,6 @@
                 [other]="(showOption) ? 'active' : '' " />
     <ng-container *ngIf="showOption">
       <div @nested class="menuOption">
-        <div *ngIf="isAdmin" class="option setting" [routerLink]="['/admin']">Admin</div>
         <div class="option setting" [routerLink]="['/settings']">Settings</div>
         <div class="option disconnect" (click)="disconnect()">Disconnect</div>
       </div>
