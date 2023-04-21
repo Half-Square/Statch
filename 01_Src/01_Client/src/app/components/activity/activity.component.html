@@ -1,8 +1,8 @@
 <!--
-* @Author                : Adrien Lanco<adrienlanco0@gmail.com>
+* @Author                : 0K00<qdouvillez@gmail.com>
 * @CreatedDate           : 2023-04-18 16:14:00
-* @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>
-* @LastEditDate          : 2023-04-18 16:44:25
+* @LastEditors           : 0K00<qdouvillez@gmail.com>
+* @LastEditDate          : 2023-04-21 12:26:42
 -->
 
 <div class="activity" [ngClass]="{ small: small }">
@@ -29,15 +29,12 @@
     </div>
     <div class="ptt">
       <a *ngIf="activity.project && !activity.task && !activity.ticket" [href]="'project/'+activity.project.id">
-        <app-status *ngIf="!small" [status]="activity.project.status"></app-status>
         <span class="name">{{ activity.project.name }}</span>
       </a>
       <a *ngIf="activity.task && !activity.ticket" [href]="'task/'+activity.task.id">
-        <app-status *ngIf="!small" [status]="activity.task.status"></app-status>
         <span class="name">{{ activity.task.name }}</span>
       </a>
       <a *ngIf="activity.ticket" [href]="'ticket/'+activity.ticket.id">
-        <app-status *ngIf="!small" [status]="activity.ticket.status"></app-status>
         <span class="name">{{ activity.ticket.name }}</span>
       </a>
     </div>
