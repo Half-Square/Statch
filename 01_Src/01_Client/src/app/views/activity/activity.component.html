@@ -1,8 +1,8 @@
 <!--
-* @Author                : Adrien Lanco<adrienlanco0@gmail.com>
+* @Author                : 0K00<qdouvillez@gmail.com>
 * @CreatedDate           : 2023-04-11 12:51:00
-* @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>
-* @LastEditDate          : 2023-04-18 16:14:14
+* @LastEditors           : 0K00<qdouvillez@gmail.com>
+* @LastEditDate          : 2023-04-21 13:33:20
 -->
 
 <div id="activity" class="main">
@@ -12,7 +12,9 @@
           <!-- <app-button id="filter" type="fth" size="md" label="Add filter +" /> -->
       </div>
   </div>
-  <div class="content" *ngFor="let activity of activities ; let index = index">
-    <app-activity-comp [activity]="activity" />
+  <div class="container">
+    <div class="content" *ngFor="let activity of activities ; let index = index">
+      <app-activity-comp [activity]="activity" />
+    </div>
   </div>
 </div>
