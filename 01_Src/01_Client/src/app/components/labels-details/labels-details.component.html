@@ -2,13 +2,10 @@
 * @Author                : 0K00<qdouvillez@gmail.com>
 * @CreatedDate           : 2023-04-13 13:48:00
 * @LastEditors           : 0K00<qdouvillez@gmail.com>
-* @LastEditDate          : 2023-04-17 16:33:46
+* @LastEditDate          : 2023-04-18 12:36:01
 -->
 
-<div class="{{ 'label-details ' + color }}">
-  <div class="{{'bull ' + color}}"></div>
-  <div class="content">
-    <h3 class="name">{{ name }}</h3>
-    <p class="desc">{{ desc }}</p>
-  </div>
+<div class="label-details">
+  <app-labels name="{{name}}" color="{{color}}" ></app-labels>
+  <p class="desc">{{ desc }}</p>
 </div>

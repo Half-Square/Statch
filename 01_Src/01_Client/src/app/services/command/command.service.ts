@@ -485,7 +485,7 @@ export class CommandService {
 
     public async editLabel(data: LabelsInterface): Promise<LabelsInterface | any> {
       return new Promise<LabelsInterface | any>((resolve, reject) => {
-        this.api.request("POST", "labels/"+data.id, data)
+        this.api.request("PUT", "labels/"+data.id, data)
         .then((ret: LabelsInterface) => {
           return resolve(ret);
         }).catch((error: any) => {
