@@ -1,39 +1,48 @@
 /******************************************************************************
- * @Author                : Adrien Lanco<adrienlanco0@gmail.com>              *
+ * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-02-21 14:10:37                               *
- * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>              *
- * @LastEditDate          : 2023-04-14 14:36:56                               *
+ * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
+ * @LastEditDate          : 2023-05-02 15:27:10                               *
  *****************************************************************************/
 
 /* SUMMARY
   * Imports
+  * Controllers
+  * Services
 */
 
 /* Imports */
 import {Module} from "@nestjs/common";
-import {AppController} from "./app.controller";
-import {PrismaService} from "./prisma.service";
-import {ProjectsController} from "./controllers/projects/projects.controller";
-import {TasksController} from "./controllers/tasks/tasks.controller";
-import {CommentsController} from "./controllers/comments/comments.controller";
-import {TicketsController} from "./controllers/tickets/tickets.controller";
-import { AuthController } from "./controllers/auth/auth.controller";
-import { VersionsController } from './controllers/versions/versions.controller';
-import { SearchController } from './controllers/search/search.controller';
-import { SearchFilterService } from './controllers/search/services/search-filter/search-filter.service';
-import { AssignmentsController } from './controllers/assignments/assignments.controller';
-import { LabelsController } from './controllers/labels/labels.controller';
+import { ServeStaticModule } from "@nestjs/serve-static";
+import { join } from "path";
+/***/
 
-import { ServeStaticModule } from '@nestjs/serve-static';
-import { join } from 'path';
-import { ActivityService } from './services/activity/activity.service';
+/* Controllers */
+import { AppController } from "./app.controller";
+import { ProjectsController } from "./controllers/projects/projects.controller";
+import { TasksController } from "./controllers/tasks/tasks.controller";
+import { CommentsController } from "./controllers/comments/comments.controller";
+import { TicketsController } from "./controllers/tickets/tickets.controller";
+import { AuthController } from "./controllers/auth/auth.controller";
+import { VersionsController } from "./controllers/versions/versions.controller";
+import { SearchController } from "./controllers/search/search.controller";
+import { AssignmentsController } from "./controllers/assignments/assignments.controller";
+import { LabelsController } from "./controllers/labels/labels.controller";
+import { SmtpController } from "./controllers/smtp/smtp.controller";
+/***/
+
+/* Services */
+import { PrismaService } from "./prisma.service";
+import { SearchFilterService } from "./controllers/search/services/search-filter/search-filter.service";
+import { ActivityService } from "./services/activity/activity.service";
+import { SmtpService } from "./services/smtp/smtp.service";
 /***/
 
 @Module({
   imports: [
     ServeStaticModule.forRoot({
-      rootPath: join(__dirname, 'statch'),
-    }),
+      rootPath: join(__dirname, "statch")
+    })
   ],
   controllers: [
     AppController,
@@ -45,8 +54,9 @@ import { ActivityService } from './services/activity/activity.service';
     VersionsController,
     SearchController,
     AssignmentsController,
-    LabelsController
+    LabelsController,
+    SmtpController
   ],
-  providers: [PrismaService, SearchFilterService, ActivityService]
+  providers: [PrismaService, SearchFilterService, ActivityService, SmtpService]
 })
 export class AppModule {}

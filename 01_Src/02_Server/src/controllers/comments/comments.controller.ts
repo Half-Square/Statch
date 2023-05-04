@@ -74,7 +74,7 @@ export class CommentsController {
         where: toFind,
         include: {author: true}
       });
-      return res.map((el) => new commentsDto.PublicOutput(el)).sort((a,b) => a.created.getTime() - b.created.getTime() );
+      return res.map((el) => new commentsDto.PublicOutput(el)).sort((a, b) => a.created.getTime() - b.created.getTime() );
     } catch (err) {
       console.error(`${new Date().toISOString()} - ${err}`);
       throw err;

@@ -148,9 +148,9 @@ export class ProjectsController {
 
       let proj = await this.prisma.project.findUnique({
         where: { id: id}, include: includeQuery
-      })
+      });
 
-      let activities = this.activityService.getPttActivitiesOnEdit(user, new projectsDto.PublicOutput(proj), body)
+      let activities = this.activityService.getPttActivitiesOnEdit(user, new projectsDto.PublicOutput(proj), body);
       
       let res = await this.prisma.project.update({
         where: { id: id },
@@ -262,11 +262,11 @@ export class ProjectsController {
   async delete(@Param("id") id: string): Promise<Object> {
     try {
       this.prisma.project.delete({where: {id: id}})
-      .then(()=>{
-        return {id: id};
-      }).catch(() => {
-        throw new HttpException("Not Found", HttpStatus.NOT_FOUND);
-      });
+        .then(()=>{
+          return {id: id};
+        }).catch(() => {
+          throw new HttpException("Not Found", HttpStatus.NOT_FOUND);
+        });
     } catch (err) {
       console.error(`${new Date().toISOString()} - ${err}`);
       throw err;

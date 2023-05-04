@@ -33,7 +33,7 @@ import { ConnectedGuard } from "../../guards/connected/connected.guard";
 import { PrismaService } from "../../prisma.service";
 /***/
 
-@Controller('api')
+@Controller("api")
 export class AssignmentsController {
   constructor(private prisma: PrismaService) { 
   }
@@ -44,40 +44,40 @@ export class AssignmentsController {
     */
     @Get("users/:id/project")
     @UseGuards(ConnectedGuard)
-    async getMyProject(@Param("id") id: string): Promise<projectsDto.PublicOutput[]> {
-      try {
-        const res = await this.prisma.user.findUnique({
-          where: {id: id },
-          include: {
-            assignment: {
-              include: { 
-                project: true,
-                task: true,
-                ticket: { include: { task: { select: { projectId: true } } } }
-              } 
-            }
+  async getMyProject(@Param("id") id: string): Promise<projectsDto.PublicOutput[]> {
+    try {
+      const res = await this.prisma.user.findUnique({
+        where: {id: id },
+        include: {
+          assignment: {
+            include: { 
+              project: true,
+              task: true,
+              ticket: { include: { task: { select: { projectId: true } } } }
+            } 
           }
-        });
-        let toSearch = [], ticketProject = [], taskProject = [], tabProject = [];
-        res.assignment.map((el) => {
-          if (el.ticket) 
-            ticketProject.push(el.ticket.task.projectId)
-          if (el.task) 
-            taskProject.push(el.task.projectId)
-          if (el.project)
-            tabProject.push(el.project.id)
-        });
-        toSearch = ticketProject.concat(taskProject.filter((item) => ticketProject.indexOf(item) < 0))
-        toSearch = toSearch.concat(tabProject.filter((item) => toSearch.indexOf(item) < 0))
-        const projects = await this.prisma.project.findMany({
-          where: {id: { in: toSearch } }
-        });
-        return projects.map((el) => new projectsDto.PublicOutput(el));
-      } catch (err) {
-        console.error(`${new Date().toISOString()} - ${err}`);
-        throw err;
-      }
+        }
+      });
+      let toSearch = [], ticketProject = [], taskProject = [], tabProject = [];
+      res.assignment.map((el) => {
+        if (el.ticket) 
+          ticketProject.push(el.ticket.task.projectId);
+        if (el.task) 
+          taskProject.push(el.task.projectId);
+        if (el.project)
+          tabProject.push(el.project.id);
+      });
+      toSearch = ticketProject.concat(taskProject.filter((item) => ticketProject.indexOf(item) < 0));
+      toSearch = toSearch.concat(tabProject.filter((item) => toSearch.indexOf(item) < 0));
+      const projects = await this.prisma.project.findMany({
+        where: {id: { in: toSearch } }
+      });
+      return projects.map((el) => new projectsDto.PublicOutput(el));
+    } catch (err) {
+      console.error(`${new Date().toISOString()} - ${err}`);
+      throw err;
     }
+  }
     /***/
 
     /**
@@ -102,11 +102,11 @@ export class AssignmentsController {
         let toSearch = [], ticketProject = [], taskProject = [];
         res.assignment.map((el) => {
           if (el.ticket && el.ticket.task.projectId == projectId) 
-            ticketProject.push(el.ticket.taskId)
+            ticketProject.push(el.ticket.taskId);
           if (el.task && el.task.projectId == projectId) 
-            taskProject.push(el.task.id)
+            taskProject.push(el.task.id);
         });
-        toSearch = ticketProject.concat(taskProject.filter((item) => ticketProject.indexOf(item) < 0))
+        toSearch = ticketProject.concat(taskProject.filter((item) => ticketProject.indexOf(item) < 0));
         const tasks = await this.prisma.task.findMany({
           where: {id: { in: toSearch } }
         });
@@ -146,9 +146,9 @@ export class AssignmentsController {
         let toSend = [];
         res.assignment.map((el) => {
           if (el.ticket && el.ticket.taskId == task_id) 
-            toSend.push(new ticketsDto.PublicOutput(el.ticket))
+            toSend.push(new ticketsDto.PublicOutput(el.ticket));
         });
-        return toSend
+        return toSend;
       } catch (err) {
         console.error(`${new Date().toISOString()} - ${err}`);
         throw err;
@@ -179,20 +179,20 @@ export class AssignmentsController {
         let ticket = [], task = [], project = [];
         res.assignment.map((el) => {
           if (el.ticket) 
-            ticket.push(el.ticket.id)
+            ticket.push(el.ticket.id);
           if (el.task) 
-            task.push(el.task.id)
+            task.push(el.task.id);
           if (el.project)
-            project.push(el.project.id)
+            project.push(el.project.id);
         });
 
         const act = await this.prisma.activity.findMany({
           where: {
             OR: [
-            { projectId: { in: project }, },
-            { taskId: { in: task } },
-            { ticketId: { in: ticket } },
-          ]},
+              { projectId: { in: project } },
+              { taskId: { in: task } },
+              { ticketId: { in: ticket } }
+            ]},
           orderBy: {created:  "desc" }, take: 50, 
           include: {author: true, target: true, project: true, label: true, task: true, ticket: true}
         });
