@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-05-02 15:07:14                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-05-04 15:43:25                               *
+ * @LastEditDate          : 2023-05-04 16:51:16                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -83,11 +83,15 @@ export class SmtpController {
     @Body() body: smtpDto.ConfigInput
   ): Promise<smtpDto.ConfigOuput> {
     try {
+      let data = {
+        ...body,
+        password: body.password ? String(sha256(body.password)) : null
+      };
+
+      if (!body.password) delete data.password;
+
       let ret = await this.prisma.smtp.updateMany({
-        data: {
-          ...body,
-          password: String(sha256(body.password))
-        }
+        data: data
       });
 
       if (ret.count === 1) return new smtpDto.ConfigOuput(body);

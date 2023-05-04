@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-05-03 15:37:13                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-05-04 15:40:55                               *
+ * @LastEditDate          : 2023-05-04 16:51:37                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -13,7 +13,7 @@
 
 /* Imports */
 import { Smtp } from "@prisma/client";
-import { IsBoolean, IsNumber, IsString } from "class-validator";
+import { IsBoolean, IsNumber, IsOptional, IsString } from "class-validator";
 /***/
 
 /**
@@ -33,6 +33,7 @@ class ConfigInput {
     user: string;
 
   @IsString()
+  @IsOptional()
     password: string;
 }
 /***/

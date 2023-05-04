@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : 0K00<qdouvillez@gmail.com>                       *
+ * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-03-17 11:52:49                              *
- * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
- * @LastEditDate          : 2023-04-21 12:01:24                              *
+ * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @LastEditDate          : 2023-05-04 15:59:52                              *
  ****************************************************************************/
 
 import { NgModule } from '@angular/core';
@@ -25,6 +25,7 @@ import { SettingComponent } from './views/setting/setting.component';
 
 import { AuthGuardService as AuthGuard } from './guards/auth/auth-guard.service';
 import { IsAdminGuard } from './guards/is-admin/is-admin.guard';
+import { SmtpSettingComponent } from './views/setting/smtp-setting/smtp-setting.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/projects', pathMatch: 'full' },
@@ -43,7 +44,8 @@ const routes: Routes = [
   { path: 'settings', component: SettingComponent, canActivate: [AuthGuard],
     children: [
       { path: 'labels', component: LabelsSettingComponent, canActivate: [AuthGuard] },
-      { path: 'admin', component: AdminSettingComponent, canActivate: [IsAdminGuard]  }
+      { path: 'admin', component: AdminSettingComponent, canActivate: [IsAdminGuard] },
+      { path: 'smtp', component: SmtpSettingComponent, canActivate: [IsAdminGuard] }
     ]
   },
 

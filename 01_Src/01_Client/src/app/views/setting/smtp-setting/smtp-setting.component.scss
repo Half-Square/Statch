@@ -1,0 +1,36 @@
+/*****************************************************************************
+ * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @CreatedDate           : 2023-05-04 16:01:37                              *
+ * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @LastEditDate          : 2023-05-04 16:42:44                              *
+ ****************************************************************************/
+
+#smtp-config-container {
+  padding: 20px;
+
+  .smtp-config-form {
+    display: grid;
+    grid-gap: 15px;
+
+    .smtp-secure-checkbox {
+      display: flex;
+      align-items: center;
+
+      input[type=checkbox] {
+        cursor: pointer;
+      }
+
+      label {
+        margin-right: 10px;
+      }
+    }
+  }
+
+  .smtp-config-buttons {
+    margin-top: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 20px;
+  }
+}
