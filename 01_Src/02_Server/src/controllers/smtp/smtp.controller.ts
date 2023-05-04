@@ -2,13 +2,14 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-05-02 15:07:14                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-05-04 16:51:16                               *
+ * @LastEditDate          : 2023-05-04 18:13:04                               *
  *****************************************************************************/
 
 /* SUMMARY
   * Imports
   * Services
   * Dto
+  * Guards
   * Test email sending, throw error on fail
   * Get SMTP configuration 
 */
@@ -20,9 +21,11 @@ import {
   HttpException,
   HttpStatus,
   Body,
-  Put
+  Put,
+  Headers,
+  UseGuards
 } from "@nestjs/common";
-import { sha256 } from "js-sha256";
+import * as jwt from "jsonwebtoken";
 /***/
 
 /* Services */
@@ -34,7 +37,12 @@ import { PrismaService } from "src/prisma.service";
 import * as smtpDto from "../../dto/smtp.dto";
 /***/
 
+/* Guards */
+import { ConnectedGuard } from "src/guards/connected/connected.guard";
+/***/
+
 @Controller("api/smtp")
+@UseGuards(ConnectedGuard)
 export class SmtpController {
   constructor(private smtp: SmtpService,
               private prisma: PrismaService) {
@@ -43,11 +51,14 @@ export class SmtpController {
 
   /**
   * Test email sending, throw error on fail
+  * @param token - User token
   */
   @Get("test")
-  public async test(): Promise<{message: string}> {
+  public async test(@Headers("x-token") token: string): Promise<{message: string}> {
     try {
-      await this.smtp.sendMail("test@test.fr", "Hello world", "This is a test");
+      let user = jwt.verify(token, process.env.SALT);
+
+      await this.smtp.sendMail(user.email, "Hello world", "This is a test");
       return {message: "Configuration is valid"};
     } catch (err) {
       console.error(`${new Date().toISOString()} - ${err}`);
@@ -85,14 +96,16 @@ export class SmtpController {
     try {
       let data = {
         ...body,
-        password: body.password ? String(sha256(body.password)) : null
+        password: body.password ? String(jwt.sign(body.password, process.env.SALT)) : null // Save password as ciphered token
       };
 
-      if (!body.password) delete data.password;
+      if (!body.password) delete data.password; // Prevent empty password overwrite
 
       let ret = await this.prisma.smtp.updateMany({
         data: data
       });
+
+      this.smtp.init();
 
       if (ret.count === 1) return new smtpDto.ConfigOuput(body);
       else throw "No smtp configuration found";

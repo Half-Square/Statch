@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-05-04 16:01:37                              *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-05-04 16:42:44                              *
+ * @LastEditDate          : 2023-05-04 18:02:42                              *
  ****************************************************************************/
 
 #smtp-config-container {
@@ -11,19 +11,6 @@
   .smtp-config-form {
     display: grid;
     grid-gap: 15px;
-
-    .smtp-secure-checkbox {
-      display: flex;
-      align-items: center;
-
-      input[type=checkbox] {
-        cursor: pointer;
-      }
-
-      label {
-        margin-right: 10px;
-      }
-    }
   }
 
   .smtp-config-buttons {

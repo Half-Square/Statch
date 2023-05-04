@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-05-03 15:37:13                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-05-04 16:51:37                               *
+ * @LastEditDate          : 2023-05-04 18:02:21                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -12,8 +12,7 @@
 */
 
 /* Imports */
-import { Smtp } from "@prisma/client";
-import { IsBoolean, IsNumber, IsOptional, IsString } from "class-validator";
+import { IsNumber, IsOptional, IsString } from "class-validator";
 /***/
 
 /**
@@ -25,9 +24,6 @@ class ConfigInput {
   
   @IsNumber()
     port: number;
-
-  @IsBoolean()
-    secure: boolean;
 
   @IsString()
     user: string;
@@ -48,9 +44,6 @@ class ConfigOuput {
   @IsNumber()
     port: number;
 
-  @IsBoolean()
-    secure: boolean;
-
   @IsString()
     user: string;
 
@@ -59,7 +52,6 @@ class ConfigOuput {
       this.host = data.host;
       this.port = data.port;
       this.user = data.user;
-      this.secure = data.secure;
     }
   }
 }

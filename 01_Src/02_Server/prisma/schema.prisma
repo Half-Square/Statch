@@ -205,5 +205,4 @@ model Smtp {
   port          Int
   user          String
   password      String
-  secure        Boolean       @default(true)
 }

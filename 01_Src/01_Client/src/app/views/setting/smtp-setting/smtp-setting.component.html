@@ -2,7 +2,7 @@
 * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>
 * @CreatedDate           : 2023-05-04 16:01:00
 * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>
-* @LastEditDate          : 2023-05-04 16:55:19
+* @LastEditDate          : 2023-05-04 18:02:34
 -->
 
 <div id="smtp-config-container">
@@ -32,15 +32,10 @@
                 [placeholder]="'ex: mYp@ssw0rd'"
                 [(value)]="config.password"
                 [is]="'password'" />
-
-    <div class="smtp-secure-checkbox">
-      <label for="is-secure">Secure</label>
-      <input name="is-secure" id="is-secure" type="checkbox" [checked]="config.secure">
-    </div>
   </div>
 
   <div class="smtp-config-buttons">
     <app-button [label]="'Save'" (click)="saveConfig()" />
-    <app-button [type]="'scnd'" [label]="'Test'" (click)="testConfig()" />
+    <app-button [disabled]="disableTest" [type]="'scnd'" [label]="'Test'" (click)="testConfig()" />
   </div>
 </div>
