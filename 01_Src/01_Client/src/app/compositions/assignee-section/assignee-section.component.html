@@ -1,8 +1,8 @@
 <!--
-* @Author                : 0K00<qdouvillez@gmail.com>
+* @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>
 * @CreatedDate           : 2023-03-28 16:17:00
-* @LastEditors           : 0K00<qdouvillez@gmail.com>
-* @LastEditDate          : 2023-04-18 11:17:11
+* @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>
+* @LastEditDate          : 2023-05-05 10:42:54
 -->
 
 <div class="assignees">
@@ -33,20 +33,27 @@
     </div>
 
     <ng-container *ngIf="showOption">
-    <div @nested class="menuOption right">
-      <div class="assignee" *ngFor="let user of assignees" >
-        <app-avatar [userName]="user.name" />
-        <p>{{user.name}}</p>
-        <app-button id="assign" type="trd" size="sm" icon="minus"
-                iconPosition="only" (click)="unassignSomeOne(user)"></app-button>
+      <div @nested class="menuOption right">
+        <div class="assignee" *ngFor="let user of assignees" (click)="unassignSomeOne(user)">
+          <app-avatar [userName]="user.name" />
+          <p>{{user.name}}</p>
+          <app-button id="assign"
+                      type="trd"
+                      size="sm"
+                      icon="minus"
+                      iconPosition="only" />
+        </div>
+
+        <div class="assignee" *ngFor="let user of nonAssigned" (click)="assignSomeOne(user)">
+          <app-avatar [userName]="user.name" />
+          <p>{{user.name}}</p>
+          <app-button id="assign"
+                      type="trd"
+                      size="sm"
+                      icon="plus"
+                      iconPosition="only"></app-button>
+        </div>
       </div>
-      <div class="assignee" *ngFor="let user of nonAssigned">
-        <app-avatar [userName]="user.name" />
-        <p>{{user.name}}</p>
-        <app-button id="assign" type="trd" size="sm" icon="plus"
-                iconPosition="only" (click)="assignSomeOne(user)"></app-button>
-      </div>
-    </div>
     </ng-container>
   </div>
 
