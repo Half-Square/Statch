@@ -69,7 +69,7 @@ export class ContextPrismaClient extends PrismaClient {
     });
   }
   
-  private consumeContextMiddleware: Prisma.Middleware = async (params, next) => {
+  private consumeContextMiddleware: Prisma.Middleware = async(params, next) => {
     let findTab = [ "findFirst", "findMany", "findRaw",  "findUnique"];
     console.log(params, next);
     

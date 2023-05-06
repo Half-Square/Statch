@@ -28,6 +28,7 @@ import { ActivityComponent } from './activity/activity.component';
 import { SettingComponent } from './setting/setting.component';
 import { LabelsSettingComponent } from './setting/labels-setting/labels-setting.component';
 import { AdminSettingComponent } from './setting/admin-setting/admin-setting.component';
+import { SmtpSettingComponent } from './setting/smtp-setting/smtp-setting.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { AdminSettingComponent } from './setting/admin-setting/admin-setting.com
     ActivityComponent,
     SettingComponent,
     LabelsSettingComponent,
-    AdminSettingComponent
+    AdminSettingComponent,
+    SmtpSettingComponent
   ],
   imports: [
     CommonModule,

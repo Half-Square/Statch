@@ -138,7 +138,7 @@ export class TicketsController {
         where: { id: id}, include: includeQuery
       });
 
-      let activities = this.activityService.getPttActivitiesOnEdit(user,new ticketsDto.PublicOutput(ticket), body)
+      let activities = this.activityService.getPttActivitiesOnEdit(user, new ticketsDto.PublicOutput(ticket), body);
 
       let res = await this.prisma.ticket.update({
         where: {id: id},
@@ -158,7 +158,7 @@ export class TicketsController {
           labels: { deleteMany: {},
             create: body.labels?.map(label => ({
               label: { connect: {
-                  id: body.labels.find(t => t.id === label.id).id
+                id: body.labels.find(t => t.id === label.id).id
               }}
             }))
           },
@@ -253,7 +253,7 @@ export class TicketsController {
           taskId: id,
           projectId: res.task.projectId
         }
-      })
+      });
       return new ticketsDto.DetailsOutput(res);
     } catch (err) {
       console.error(`${new Date().toISOString()} - ${err}`);
@@ -270,9 +270,9 @@ export class TicketsController {
   async delete(@Param("id") id: string): Promise<Object> {
     try {
       this.prisma.ticket.delete({where: {id: id}})
-      .then(()=>{
-        return {id: id};
-      });
+        .then(()=>{
+          return {id: id};
+        });
     } catch (err) {
       console.error(`${new Date().toISOString()} - ${err}`);
       throw err;

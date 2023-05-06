@@ -5,7 +5,7 @@
  * @LastEditDate          : 2023-03-28 11:11:01                               *
  *****************************************************************************/
 
-import { Injectable } from '@nestjs/common';
+import { Injectable } from "@nestjs/common";
 
 @Injectable()
 export class SearchFilterService {
