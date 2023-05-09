@@ -2,12 +2,14 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-05-09 12:30:43                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-05-09 15:31:55                               *
+ * @LastEditDate          : 2023-05-09 15:34:48                               *
  *****************************************************************************/
 
 /* SUMMARY
   * Imports
   * Services
+  * Dto
+  * Guards
   * Get all saved file
   * Get one file by id
   * Upload files
@@ -24,7 +26,8 @@ import {
   UseInterceptors,
   UploadedFile,
   HttpException,
-  HttpStatus
+  HttpStatus,
+  UseGuards
 } from "@nestjs/common";
 import * as fs from "fs";
 import { FileInterceptor } from "@nestjs/platform-express";
@@ -39,7 +42,12 @@ import { PrismaService } from "src/prisma.service";
 import * as filesDto from "../../dto/files.dto";
 /***/
 
+/* Guards */
+import { ConnectedGuard } from "src/guards/connected/connected.guard";
+/***/
+
 @Controller("api/files")
+@UseGuards(ConnectedGuard)
 export class FilesController {
   constructor(private prisma: PrismaService) {
   }
