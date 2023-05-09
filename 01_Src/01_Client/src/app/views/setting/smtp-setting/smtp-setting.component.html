@@ -1,0 +1,41 @@
+<!--
+* @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>
+* @CreatedDate           : 2023-05-04 16:01:00
+* @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>
+* @LastEditDate          : 2023-05-04 18:02:34
+-->
+
+<div id="smtp-config-container">
+  <div class="smtp-config-form" *ngIf="config">
+    <app-input  [id]="'host'"
+                [isLabel]="true"
+                [label]="'Host'"
+                [placeholder]="'ex: gmail.smtp.com'"
+                [(value)]="config.host" />
+
+    <app-input  [id]="'port'"
+                [isLabel]="true"
+                [label]="'Port'"
+                [placeholder]="'ex: 584'"
+                [(value)]="config.port"
+                [is]="'number'" />
+
+    <app-input  [id]="'user'"
+                [isLabel]="true"
+                [label]="'User'"
+                [placeholder]="'ex: test@mail.fr'"
+                [(value)]="config.user" />
+
+    <app-input  [id]="'password'"
+                [isLabel]="true"
+                [label]="'Password'"
+                [placeholder]="'ex: mYp@ssw0rd'"
+                [(value)]="config.password"
+                [is]="'password'" />
+  </div>
+
+  <div class="smtp-config-buttons">
+    <app-button [label]="'Save'" (click)="saveConfig()" />
+    <app-button [disabled]="disableTest" [type]="'scnd'" [label]="'Test'" (click)="testConfig()" />
+  </div>
+</div>

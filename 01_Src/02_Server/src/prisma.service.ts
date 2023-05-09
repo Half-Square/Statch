@@ -12,7 +12,7 @@
 /* Imports */
 import {INestApplication, Injectable, NestMiddleware, OnModuleInit} from "@nestjs/common";
 import { PrismaClient } from "@prisma/client";
-import {ContextPrismaClient} from "./context-prisma-client"
+import {ContextPrismaClient} from "./context-prisma-client";
 /***/
 
 @Injectable()

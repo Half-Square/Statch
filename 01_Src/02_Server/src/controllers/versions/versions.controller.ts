@@ -167,7 +167,7 @@ export class VersionsController {
           }
         }
       });  
-      return {id: res.id}
+      return {id: res.id};
     } catch (err) {
       console.error(`${new Date().toISOString()} - ${err}`);
       throw err;

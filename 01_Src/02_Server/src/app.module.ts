@@ -7,27 +7,36 @@
 
 /* SUMMARY
   * Imports
+  * Controllers
+  * Services
 */
 
 /* Imports */
 import {Module} from "@nestjs/common";
-import {AppController} from "./app.controller";
-import {PrismaService} from "./prisma.service";
-import {ProjectsController} from "./controllers/projects/projects.controller";
-import {TasksController} from "./controllers/tasks/tasks.controller";
-import {CommentsController} from "./controllers/comments/comments.controller";
-import {TicketsController} from "./controllers/tickets/tickets.controller";
-import { AuthController } from "./controllers/auth/auth.controller";
-import { VersionsController } from './controllers/versions/versions.controller';
-import { SearchController } from './controllers/search/search.controller';
-import { SearchFilterService } from './controllers/search/services/search-filter/search-filter.service';
-import { AssignmentsController } from './controllers/assignments/assignments.controller';
-import { LabelsController } from './controllers/labels/labels.controller';
+import { ServeStaticModule } from "@nestjs/serve-static";
+import { join, resolve } from "path";
+/***/
 
-import { ServeStaticModule } from '@nestjs/serve-static';
-import { join, resolve } from 'path';
-import { ActivityService } from './services/activity/activity.service';
+/* Controllers */
+import { AppController } from "./app.controller";
+import { ProjectsController } from "./controllers/projects/projects.controller";
+import { TasksController } from "./controllers/tasks/tasks.controller";
+import { CommentsController } from "./controllers/comments/comments.controller";
+import { TicketsController } from "./controllers/tickets/tickets.controller";
+import { AuthController } from "./controllers/auth/auth.controller";
+import { VersionsController } from "./controllers/versions/versions.controller";
+import { SearchController } from "./controllers/search/search.controller";
+import { AssignmentsController } from "./controllers/assignments/assignments.controller";
+import { LabelsController } from "./controllers/labels/labels.controller";
+import { SmtpController } from "./controllers/smtp/smtp.controller";
 import { FilesController } from './controllers/files/files.controller';
+/***/
+
+/* Services */
+import { PrismaService } from "./prisma.service";
+import { SearchFilterService } from "./controllers/search/services/search-filter/search-filter.service";
+import { ActivityService } from "./services/activity/activity.service";
+import { SmtpService } from "./services/smtp/smtp.service";
 /***/
 
 @Module({
@@ -36,7 +45,7 @@ import { FilesController } from './controllers/files/files.controller';
       rootPath: resolve("upload")
     }),
     ServeStaticModule.forRoot({
-      rootPath: join(__dirname, 'statch'),
+      rootPath: join(__dirname, "statch")
     })
   ],
   controllers: [
@@ -50,8 +59,9 @@ import { FilesController } from './controllers/files/files.controller';
     SearchController,
     AssignmentsController,
     LabelsController,
-    FilesController
+    FilesController,
+    SmtpController
   ],
-  providers: [PrismaService, SearchFilterService, ActivityService]
+  providers: [PrismaService, SearchFilterService, ActivityService, SmtpService]
 })
 export class AppModule {}

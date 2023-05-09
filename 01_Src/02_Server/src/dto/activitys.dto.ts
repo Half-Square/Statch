@@ -31,11 +31,11 @@ class ProjectOutput {
 
   @IsString()
   @IsOptional()
-  type: string;
+    type: string;
 
   @IsString()
   @IsOptional()
-  value: string;  
+    value: string;  
   
   @IsObject()
   @IsOptional()
@@ -60,17 +60,17 @@ class ProjectOutput {
       this.author = new usersDto.PublicOutput(data.author);
       this.action = data.action;
       if (data.type)
-        this.type = data.type
+        this.type = data.type;
       if (data.value)
-        this.value = data.value
+        this.value = data.value;
       if (data.task)
-        this.task = data.task
+        this.task = data.task;
       if (data.ticket)
-        this.ticket = data.ticket
+        this.ticket = data.ticket;
       if (data.label)
-        this.label = data.label
+        this.label = data.label;
       if (data.target)
-        this.target = new usersDto.PublicOutput(data.target)
+        this.target = new usersDto.PublicOutput(data.target);
     }
   }
 }
@@ -90,11 +90,11 @@ class TaskOutput {
 
   @IsString()
   @IsOptional()
-  type: string;
+    type: string;
 
   @IsString()
   @IsOptional()
-  value: string;  
+    value: string;  
     
   @IsObject()
   @IsOptional()
@@ -115,13 +115,13 @@ class TaskOutput {
       this.author = new usersDto.PublicOutput(data.author);
       this.action = data.action;
       if (data.type)
-        this.type = data.type
+        this.type = data.type;
       if (data.value)
-        this.value = data.value
+        this.value = data.value;
       if (data.ticket)
-        this.ticket = data.ticket
+        this.ticket = data.ticket;
       if (data.label)
-        this.label = data.label
+        this.label = data.label;
       if (data.target)
         this.target = new usersDto.PublicOutput(data.target);
     }
@@ -143,11 +143,11 @@ class TicketOutput {
 
   @IsString()
   @IsOptional()
-  type: string;
+    type: string;
 
   @IsString()
   @IsOptional()
-  value: string;  
+    value: string;  
     
   @IsObject()
   @IsOptional()
@@ -165,13 +165,13 @@ class TicketOutput {
       this.action = data.action;
 
       if (data.type)
-        this.type = data.type
+        this.type = data.type;
       if (data.value)
-        this.value = data.value
+        this.value = data.value;
       if (data.label)
-        this.label = data.label
+        this.label = data.label;
       if (data.target)
-        this.target = new usersDto.PublicOutput(data.target)
+        this.target = new usersDto.PublicOutput(data.target);
     }
   }
 }
@@ -191,11 +191,11 @@ class DetailsOutput {
 
   @IsString()
   @IsOptional()
-  type: string;
+    type: string;
 
   @IsString()
   @IsOptional()
-  value: string;  
+    value: string;  
     
   @IsObject()
   @IsOptional()
@@ -225,20 +225,20 @@ class DetailsOutput {
       this.action = data.action;
 
       if (data.type)
-        this.type = data.type
+        this.type = data.type;
       if (data.value)
-        this.value = data.value
+        this.value = data.value;
       if (data.project)
-        this.project = data.project
+        this.project = data.project;
       if (data.task)
-        this.task = data.task
+        this.task = data.task;
       if (data.ticket)
-        this.ticket = data.ticket
+        this.ticket = data.ticket;
       if (data.label)
-        this.label = data.label
+        this.label = data.label;
       if (data.target)
-        this.target = new usersDto.PublicOutput(data.target)
+        this.target = new usersDto.PublicOutput(data.target);
     }
   }
 }
-export {DetailsOutput,ProjectOutput,TaskOutput,TicketOutput};
+export {DetailsOutput, ProjectOutput, TaskOutput, TicketOutput};

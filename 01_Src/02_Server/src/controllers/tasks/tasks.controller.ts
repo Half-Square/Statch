@@ -154,9 +154,9 @@ export class TasksController {
 
       let task = await this.prisma.task.findUnique({
         where: { id: id}, include: includeQuery
-      })
+      });
 
-      let activities = this.activityService.getPttActivitiesOnEdit(user, new tasksDto.PublicOutput(task), body)
+      let activities = this.activityService.getPttActivitiesOnEdit(user, new tasksDto.PublicOutput(task), body);
 
       let res = await this.prisma.task.update({
         where: {id: id},

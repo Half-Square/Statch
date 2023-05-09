@@ -101,12 +101,12 @@ export class LabelsController {
 
       let toSave = { name: body.name, color: body.color, description: body.description, 
         activitys: {
-        create: {
-          authorId: user.id,
-          action: "create"
+          create: {
+            authorId: user.id,
+            action: "create"
+          }
         }
-      }
-     };
+      };
 
       const res = await this.prisma.label.create({
         data: toSave

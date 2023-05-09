@@ -10,7 +10,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
 model User {
   id              String          @default(nanoid(8)) @id
   name            String
@@ -199,4 +198,18 @@ model File {
   name           String
   path           String
   date           DateTime       @default(now())
+}
+
+model System {
+  id            String        @default(nanoid(8)) @id
+  smtp          Smtp?
+}
+
+model Smtp {
+  system        System        @relation(fields: [systemId], references: [id], onDelete: Cascade)
+  systemId      String        @unique
+  host          String
+  port          Int
+  user          String
+  password      String
 }

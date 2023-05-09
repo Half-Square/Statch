@@ -82,14 +82,14 @@ export class AuthController {
   }
   /***/
 
-   /**
+  /**
   * Get one user
   * @returns - User's details
   */
   @Get("isadmin")
   @UseGuards(IsAdminGuard)
   async isAdmin(): Promise<boolean> {
-      return true
+    return true;
   }
   /***/
 
@@ -104,7 +104,7 @@ export class AuthController {
   async register(@Body() body: usersDto.RegisterInput): Promise<usersDto.DetailsOutput> {
     try {
       let passwd = String(sha256(body.password));
-      let count = await (await this.prisma.user.findMany()).length
+      let count = await (await this.prisma.user.findMany()).length;
       
       const res = await this.prisma.user.create({
         data: {
