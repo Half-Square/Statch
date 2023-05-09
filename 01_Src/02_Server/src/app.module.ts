@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-02-21 14:10:37                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-05-02 15:27:10                               *
+ * @LastEditDate          : 2023-05-09 15:41:07                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -14,7 +14,7 @@
 /* Imports */
 import {Module} from "@nestjs/common";
 import { ServeStaticModule } from "@nestjs/serve-static";
-import { join } from "path";
+import { join, resolve } from "path";
 /***/
 
 /* Controllers */
@@ -29,6 +29,7 @@ import { SearchController } from "./controllers/search/search.controller";
 import { AssignmentsController } from "./controllers/assignments/assignments.controller";
 import { LabelsController } from "./controllers/labels/labels.controller";
 import { SmtpController } from "./controllers/smtp/smtp.controller";
+import { FilesController } from './controllers/files/files.controller';
 /***/
 
 /* Services */
@@ -40,6 +41,9 @@ import { SmtpService } from "./services/smtp/smtp.service";
 
 @Module({
   imports: [
+    ServeStaticModule.forRoot({
+      rootPath: resolve("upload")
+    }),
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, "statch")
     })
@@ -55,6 +59,7 @@ import { SmtpService } from "./services/smtp/smtp.service";
     SearchController,
     AssignmentsController,
     LabelsController,
+    FilesController,
     SmtpController
   ],
   providers: [PrismaService, SearchFilterService, ActivityService, SmtpService]

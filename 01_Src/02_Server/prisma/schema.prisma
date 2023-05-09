@@ -193,6 +193,13 @@ model LabelsOnTicket {
   @@id([ticketId, labelId])
 }
 
+model File {
+  id             String         @default(nanoid(8)) @id
+  name           String
+  path           String
+  date           DateTime       @default(now())
+}
+
 model System {
   id            String        @default(nanoid(8)) @id
   smtp          Smtp?
