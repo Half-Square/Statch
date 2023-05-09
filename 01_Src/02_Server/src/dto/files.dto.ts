@@ -2,12 +2,12 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-05-09 12:57:20                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-05-09 13:04:34                               *
+ * @LastEditDate          : 2023-05-09 15:24:47                               *
  *****************************************************************************/
 
 /* SUMMARY
   * Imports
-  * Upload output
+  * Files output
 */
 
 /* Imports */
@@ -16,9 +16,9 @@ import { IsString } from "class-validator";
 /***/
 
 /**
-* Upload output 
+* Files output 
 */
-class UploadOutput {
+class FilesOutput {
   @IsString()
     id: string;
 
@@ -43,5 +43,5 @@ class UploadOutput {
 /***/
 
 export {
-  UploadOutput
+  FilesOutput
 };

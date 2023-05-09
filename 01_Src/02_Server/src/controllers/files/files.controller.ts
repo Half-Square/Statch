@@ -1,0 +1,125 @@
+/******************************************************************************
+ * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
+ * @CreatedDate           : 2023-05-09 12:30:43                               *
+ * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
+ * @LastEditDate          : 2023-05-09 15:31:55                               *
+ *****************************************************************************/
+
+/* SUMMARY
+  * Imports
+  * Services
+  * Get all saved file
+  * Get one file by id
+  * Upload files
+  * Delete file by id
+*/
+
+/* Imports */
+import {
+  Controller,
+  Post,
+  Get,
+  Delete,
+  Param,
+  UseInterceptors,
+  UploadedFile,
+  HttpException,
+  HttpStatus
+} from "@nestjs/common";
+import * as fs from "fs";
+import { FileInterceptor } from "@nestjs/platform-express";
+import { sha256 } from "js-sha256";
+/***/
+
+/* Services */
+import { PrismaService } from "src/prisma.service";
+/***/
+
+/* Dto */
+import * as filesDto from "../../dto/files.dto";
+/***/
+
+@Controller("api/files")
+export class FilesController {
+  constructor(private prisma: PrismaService) {
+  }
+
+  /*
+  * Get all saved file
+  */
+  @Get()
+  async getFiles(): Promise<filesDto.FilesOutput[]> {
+    try {
+      const ret = await this.prisma.file.findMany();
+      return ret.map((el) => new filesDto.FilesOutput(el));
+    } catch (err) {
+      throw err;
+    }
+  }
+  /***/
+
+  /**
+  * Get one file by id
+  * @param id - File's id to get
+  */
+  @Get(":id")
+  async getFile(@Param("id") id: string): Promise<filesDto.FilesOutput> {
+    try {
+      const ret = await this.prisma.file.findUnique({where: {id: id}});
+      
+      if (ret) return new filesDto.FilesOutput(ret);
+      else throw new HttpException("Not Found", HttpStatus.NOT_FOUND);
+    } catch (err) {
+      throw err;
+    }
+  }
+  /***/
+
+  /**
+  * Upload files
+  * @param file - Uploaded file
+  */
+  @Post()
+  @UseInterceptors(FileInterceptor("file"))
+  async upload0(
+    @UploadedFile() file: Express.Multer.File
+  ): Promise<filesDto.FilesOutput> {
+    try {
+      const hash = sha256(file.originalname + Date.now()).substring(0, 8);
+      fs.writeFileSync(`./upload/${hash}-${file.originalname}`, file.buffer);
+
+      const ret = await this.prisma.file.create({
+        data: {
+          name: file.originalname,
+          path: `upload/${hash}-${file.originalname}`
+        }
+      });
+
+      return new filesDto.FilesOutput(ret);
+    } catch (err) {
+      throw err;
+    }
+  }
+  /***/
+
+  /**
+  * Delete file by id
+  * @param id - File's id to remove 
+  */
+  @Delete(":id")
+  async deleteFile(@Param("id") id: string): Promise<void> {
+    try {
+      const ret = await this.prisma.file.findUnique({where: {id: id}});
+
+      if (!ret) throw new HttpException("File not found", HttpStatus.NOT_FOUND);
+      else {
+        fs.unlinkSync(ret.path);
+        await this.prisma.file.delete({where: {id: id}});
+        return;
+      }
+    } catch (err) {
+      throw err;
+    }
+  }
+  /***/
+}

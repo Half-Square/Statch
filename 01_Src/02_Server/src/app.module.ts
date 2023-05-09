@@ -1,8 +1,8 @@
 /******************************************************************************
- * @Author                : Adrien Lanco<adrienlanco0@gmail.com>              *
+ * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-02-21 14:10:37                               *
- * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>              *
- * @LastEditDate          : 2023-04-14 14:36:56                               *
+ * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
+ * @LastEditDate          : 2023-05-09 15:10:42                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -27,7 +27,7 @@ import { LabelsController } from './controllers/labels/labels.controller';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 import { ActivityService } from './services/activity/activity.service';
-import { UploadController } from './controllers/upload/upload.controller';
+import { FilesController } from './controllers/files/files.controller';
 /***/
 
 @Module({
@@ -47,7 +47,7 @@ import { UploadController } from './controllers/upload/upload.controller';
     SearchController,
     AssignmentsController,
     LabelsController,
-    UploadController
+    FilesController
   ],
   providers: [PrismaService, SearchFilterService, ActivityService]
 })
