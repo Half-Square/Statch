@@ -27,6 +27,7 @@ import { LabelsController } from './controllers/labels/labels.controller';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 import { ActivityService } from './services/activity/activity.service';
+import { UploadController } from './controllers/upload/upload.controller';
 /***/
 
 @Module({
@@ -45,7 +46,8 @@ import { ActivityService } from './services/activity/activity.service';
     VersionsController,
     SearchController,
     AssignmentsController,
-    LabelsController
+    LabelsController,
+    UploadController
   ],
   providers: [PrismaService, SearchFilterService, ActivityService]
 })
