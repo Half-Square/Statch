@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-02-21 14:10:37                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-05-09 15:10:42                               *
+ * @LastEditDate          : 2023-05-09 15:41:07                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -25,7 +25,7 @@ import { AssignmentsController } from './controllers/assignments/assignments.con
 import { LabelsController } from './controllers/labels/labels.controller';
 
 import { ServeStaticModule } from '@nestjs/serve-static';
-import { join } from 'path';
+import { join, resolve } from 'path';
 import { ActivityService } from './services/activity/activity.service';
 import { FilesController } from './controllers/files/files.controller';
 /***/
@@ -33,8 +33,11 @@ import { FilesController } from './controllers/files/files.controller';
 @Module({
   imports: [
     ServeStaticModule.forRoot({
-      rootPath: join(__dirname, 'statch'),
+      rootPath: resolve("upload")
     }),
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, 'statch'),
+    })
   ],
   controllers: [
     AppController,
