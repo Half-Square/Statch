@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-03-17 17:24:53                              *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-05-11 15:44:08                              *
+ * @LastEditDate          : 2023-05-11 16:29:07                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -40,8 +40,9 @@ export class TasksComponent implements OnInit {
 
   ngOnInit() {
     this.route.queryParams.subscribe((query) => {
-      this.parentId = query["id"] || ""
-      this.api.request("GET", `tasks?id=${this.parentId}`).then((ret) => {
+      this.parentId = query["id"] || "";
+      let prefix = this.parentId ? `projects/${this.parentId}/` : "";
+      this.api.request("GET", `${prefix}tasks?id=${this.parentId}`).then((ret) => {
         this.taskList = ret;
       }).catch((err) => {
         console.error(err);
