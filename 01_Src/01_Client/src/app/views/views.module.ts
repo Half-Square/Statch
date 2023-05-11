@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : 0K00<qdouvillez@gmail.com>                       *
+ * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-03-17 11:51:44                              *
- * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
- * @LastEditDate          : 2023-04-21 12:01:40                              *
+ * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @LastEditDate          : 2023-05-11 15:36:00                              *
  ****************************************************************************/
 
 import { NgModule } from '@angular/core';
@@ -29,6 +29,7 @@ import { SettingComponent } from './setting/setting.component';
 import { LabelsSettingComponent } from './setting/labels-setting/labels-setting.component';
 import { AdminSettingComponent } from './setting/admin-setting/admin-setting.component';
 import { SmtpSettingComponent } from './setting/smtp-setting/smtp-setting.component';
+import { TasksComponent } from './tasks/tasks.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { SmtpSettingComponent } from './setting/smtp-setting/smtp-setting.compon
     ProjectsComponent,
     ProjectComponent,
     TaskComponent,
+    TasksComponent,
     TicketComponent,
     AssignComponent,
     ActivityComponent,

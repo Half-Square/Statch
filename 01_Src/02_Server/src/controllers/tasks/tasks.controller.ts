@@ -1,8 +1,8 @@
 /******************************************************************************
- * @Author                : Adrien Lanco<adrienlanco0@gmail.com>              *
+ * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-02-21 14:21:47                               *
- * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>              *
- * @LastEditDate          : 2023-04-18 16:42:44                               *
+ * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
+ * @LastEditDate          : 2023-05-11 15:43:21                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -58,7 +58,12 @@ export class TasksController {
   @Get("tasks")
   async getAll(): Promise<tasksDto.PublicOutput[]> {
     try {
-      let res = await this.prisma.task.findMany({include: {owner: true}});
+      let res = await this.prisma.task.findMany({
+        include: {
+          owner: true,
+          targetVersion: true
+        }
+      });
       return res.map((el) => new tasksDto.PublicOutput(el));
     } catch (err) {
       console.error(`${new Date().toISOString()} - ${err}`);
@@ -299,7 +304,7 @@ export class TasksController {
   * Delete task by id 
   */
   @Delete("tasks/:id")
-  async delete(@Param("id") id: string): Promise<Object> {
+  async delete(@Param("id") id: string): Promise<{id: string}> {
     try {
       this.prisma.task.delete({where: {id: id}}).then(()=>{
         return {id: id};
