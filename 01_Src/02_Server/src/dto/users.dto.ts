@@ -1,8 +1,8 @@
 /******************************************************************************
- * @Author                : Adrien Lanco<adrienlanco0@gmail.com>              *
+ * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-02-21 13:03:45                               *
- * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>              *
- * @LastEditDate          : 2023-03-30 10:00:40                               *
+ * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
+ * @LastEditDate          : 2023-05-11 11:16:26                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -48,11 +48,10 @@ class ConnectInput {
 */
 class UpdateInput {
   @IsString()
-    img: string;
+    email: string;
 
   @IsString()
-    description: string;
-    //TODO dto for update user
+    name: string;
 }
 /***/
 
@@ -166,6 +165,7 @@ class ConnectOutput {
 export {
   RegisterInput,
   ConnectInput,
+  UpdateInput,
   RightInput,
   PublicOutput,
   DetailsOutput,
