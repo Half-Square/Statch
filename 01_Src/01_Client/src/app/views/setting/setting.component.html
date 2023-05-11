@@ -2,13 +2,13 @@
 * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>
 * @CreatedDate           : 2023-04-17 16:13:00
 * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>
-* @LastEditDate          : 2023-05-04 16:00:37
+* @LastEditDate          : 2023-05-11 15:12:21
 -->
 
 <div id="setting">
   <div class="header">
     <a class="link" routerLink="labels" routerLinkActive="active">Labels</a>
-    <a class="link" routerLink="smtp" routerLinkActive="active">Smtp</a>
+    <a class="link" *ngIf="isAdmin" routerLink="smtp" routerLinkActive="active">Smtp</a>
     <a class="link" *ngIf="isAdmin" routerLink="admin" routerLinkActive="active">Admin</a>
   </div>
   <div class="setting">
