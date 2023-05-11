@@ -1,8 +1,8 @@
 /******************************************************************************
- * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
+ * @Author                : 0K00<qdouvillez@gmail.com>                        *
  * @CreatedDate           : 2023-05-09 12:30:43                               *
- * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-05-09 15:34:48                               *
+ * @LastEditors           : 0K00<qdouvillez@gmail.com>                        *
+ * @LastEditDate          : 2023-05-09 17:54:58                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -10,6 +10,7 @@
   * Services
   * Dto
   * Guards
+  * Create upload if not exist
   * Get all saved file
   * Get one file by id
   * Upload files
@@ -44,6 +45,19 @@ import * as filesDto from "../../dto/files.dto";
 
 /* Guards */
 import { ConnectedGuard } from "src/guards/connected/connected.guard";
+/***/
+
+
+/**
+* Create upload if not exist
+*/
+const createFolder = (): void => {
+  try {
+    fs.mkdirSync("./upload");
+  } finally {
+    return;
+  }
+};
 /***/
 
 @Controller("api/files")
@@ -94,12 +108,13 @@ export class FilesController {
   ): Promise<filesDto.FilesOutput> {
     try {
       const hash = sha256(file.originalname + Date.now()).substring(0, 8);
+      createFolder();
       fs.writeFileSync(`./upload/${hash}-${file.originalname}`, file.buffer);
 
       const ret = await this.prisma.file.create({
         data: {
           name: file.originalname,
-          path: `upload/${hash}-${file.originalname}`
+          path: `${hash}-${file.originalname}`
         }
       });
 
