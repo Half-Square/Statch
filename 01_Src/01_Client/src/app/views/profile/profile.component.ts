@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-05-09 16:12:52                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-05-11 11:52:00                               *
+ * @LastEditDate          : 2023-05-11 14:55:53                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -15,6 +15,7 @@
 /* Imports */
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 /***/
 
 /* Services */
@@ -33,6 +34,7 @@ import { UserInterface } from 'src/app/services/user/user.service';
 })
 export class ProfileComponent implements OnInit {
   public user: UserInterface | null = null;
+  public picturePath: string = "";
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -43,7 +45,10 @@ export class ProfileComponent implements OnInit {
     this.route.params.subscribe(({id}) => {
       this.api.request("GET", `users/${id}`).then((ret) => {
         if (!ret.id) throw "User not found";
-        else this.user = ret;
+        else {
+          this.user = ret;
+          this.picturePath = this.user ? this.user.picture : "";
+        }
       }).catch((err) => {
         console.error(err);
         this.router.navigate(["/"]);
@@ -69,6 +74,44 @@ export class ProfileComponent implements OnInit {
       }).catch((err) => {
         console.error(err);
       });
+    }
+  }
+  /***/
+
+  /**
+  * Upload user avatar
+  * @param e - File input event
+  */
+  public uploadAvatar(e: Event): void {
+    try {
+      const target = e.target as HTMLInputElement;
+      const files = target.files;
+
+      if (files && files[0]) {
+        let form = new FormData();
+        form.append("file", files[0]);
+
+        let requestHeaders: HeadersInit = new Headers();
+        requestHeaders.set('x-token', UserService.getUser().token || '');
+
+        fetch(`${environment.API_URL}/files`, {
+          method: "POST",
+          headers: requestHeaders,
+          body: form
+        }).then(async (ret) => {
+          let json = await ret.json();
+          this.user = await this.api.request("PUT", `users/${this.user ? this.user.id : '0'}/avatar`, {
+            id: this.user?.id,
+            picture: json.path
+          });
+
+          this.picturePath = this.user ? this.user.picture : "";
+        });
+      } else {
+        throw "File not found";
+      }
+    } catch (err) {
+      console.error(err);
     }
   }
   /***/

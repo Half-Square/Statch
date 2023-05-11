@@ -17,12 +17,12 @@ model User {
   email           String          @unique
   validate        Boolean         @default(false)
   isAdmin         Boolean         @default(false)
+  picture         String          @default("")
   comments        Comment[]
   projects        Project[]
   tasks           Task[]
   tickets         Ticket[]
   assignment      Assignment[]
-
   activitys       Activity[]     @relation(name: "author")
   activitysTarget Activity[]     @relation(name: "target")
 }

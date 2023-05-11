@@ -2,25 +2,20 @@
 * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>
 * @CreatedDate           : 2023-05-09 16:12:00
 * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>
-* @LastEditDate          : 2023-05-09 17:14:46
--->
-
-<!--
-  @Input() label: string = "";
-
-  @Input() type: string = "prm";
-  @Input() size: string = "md";
-  @Input() other: string = "";
-
-  @Input() icon: string = "";
-  @Input() iconPosition: string = "";
-  @Input() disabled: boolean = false;
-
-  @Output() callback: EventEmitter<any> = new EventEmitter();
+* @LastEditDate          : 2023-05-11 14:59:55
 -->
 
 <div id="profile-container">
   <div class="profile-form-container" *ngIf="user">
+    <div class="avatar-upload" title="Upload avatar">
+      <input type="file" accept="image/png, image/jpeg" (change)="uploadAvatar($event)">
+      <app-avatar [userId]="user.id"
+                  alt="User avatar"
+                  [imgPath]="picturePath"
+                  classes="big"
+                  [userName]="user.name" />
+    </div>
+
     <app-input  id="name"
                 [isLabel]="true"
                 label="Name"

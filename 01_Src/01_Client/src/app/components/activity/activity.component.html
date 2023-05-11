@@ -1,20 +1,20 @@
 <!--
-* @Author                : 0K00<qdouvillez@gmail.com>
+* @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>
 * @CreatedDate           : 2023-04-18 16:14:00
-* @LastEditors           : 0K00<qdouvillez@gmail.com>
-* @LastEditDate          : 2023-04-21 12:26:42
+* @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>
+* @LastEditDate          : 2023-05-11 14:58:08
 -->
 
 <div class="activity" [ngClass]="{ small: small }">
   <div class="element">
     <div class="author">
-      <app-avatar [userId]="activity.author.id" [userName]="activity.author.name"></app-avatar>
+      <app-avatar [userId]="activity.author.id" [userName]="activity.author.name" [imgPath]="activity.author.picture"></app-avatar>
       <span *ngIf="!small">{{ activity.author.name }}</span>
     </div>
     <div class="action">
       <p>{{ activity.action }}</p>
       <ng-container *ngIf="activity.target">
-        <div *ngIf="activity.target" class="img"><app-avatar [id]="activity.target.name" [userName]="activity.target.name" /></div>
+        <div *ngIf="activity.target" class="img"><app-avatar [id]="activity.target.name" [imgPath]="activity.target.picture" [userName]="activity.target.name" /></div>
       </ng-container>
       <ng-container *ngIf="activity.label">
         <app-labels name="{{activity.label.name}}" color="{{activity.label.color}}"></app-labels>

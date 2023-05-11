@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-02-21 13:01:19                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-05-11 11:47:13                               *
+ * @LastEditDate          : 2023-05-11 13:08:48                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -158,6 +158,30 @@ export class AuthController {
       });
 
       return new usersDto.ConnectOutput(res);
+    } catch (err) {
+      console.error(`${new Date().toISOString()} - ${err}`);
+      throw err;
+    }
+  }
+  /***/
+
+  /**
+  * Update avatar
+  * @param id - User id
+  * @param picture - User avatar path
+  * @return - User details
+  */
+  @Put("users/:id/avatar")
+  @UseGuards(ConnectedGuard)
+  @UseGuards(IsSelfGuard)
+  async editAvatar(@Param("id") id: string, @Body("picture") picture: string): Promise<usersDto.DetailsOutput> {
+    try {
+      const ret = await this.prisma.user.update({
+        data: {picture: picture},
+        where: {id: id} 
+      });
+
+      return new usersDto.DetailsOutput(ret);
     } catch (err) {
       console.error(`${new Date().toISOString()} - ${err}`);
       throw err;

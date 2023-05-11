@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
+ * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-03-17 14:25:08                              *
- * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
- * @LastEditDate          : 2023-04-18 17:09:33                              *
+ * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @LastEditDate          : 2023-05-11 12:46:07                              *
  ****************************************************************************/
 
 import { Injectable } from '@angular/core';
@@ -390,11 +390,12 @@ export interface TicketInterface {
 }
 
 export interface UsersInterface {
-  email: string,
-  name: string,
-  id: string,
-  validate: boolean
+  email: string;
+  name: string;
+  id: string;
+  validate: boolean;
   isAdmin: boolean;
+  picture: string;
 }
 
 export interface CommentInterface {

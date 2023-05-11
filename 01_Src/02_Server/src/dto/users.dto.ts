@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-02-21 13:03:45                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-05-11 11:47:42                               *
+ * @LastEditDate          : 2023-05-11 12:49:40                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -91,6 +91,9 @@ class PublicOutput {
   @IsBoolean()
     isAdmin: boolean;
 
+  @IsString()
+    picture: string;
+
   constructor(data) {
     if (data) {
       this.id = data.id;
@@ -98,6 +101,7 @@ class PublicOutput {
       this.email = data.email;
       this.validate = data.validate;
       this.isAdmin = data.isAdmin;
+      this.picture = data.picture;
     }
   }
 }
@@ -122,6 +126,9 @@ class DetailsOutput {
   @IsBoolean()
     isAdmin: boolean;
 
+  @IsString()
+    picture: string;
+
   constructor(data) {
     if (data) {
       this.id = data.id;
@@ -129,6 +136,7 @@ class DetailsOutput {
       this.email = data.email;
       this.validate = data.validate;
       this.isAdmin = data.isAdmin;
+      this.picture = data.picture;
     }
   }
 }
@@ -153,6 +161,9 @@ class ConnectOutput {
   @IsBoolean()
     isAdmin: boolean;
 
+  @IsString()
+    picture: string;
+
   constructor(data) {
     if (data) {
       this.id = data.id;
@@ -160,6 +171,7 @@ class ConnectOutput {
       this.email = data.email;
       this.token = data.token;
       this.isAdmin = data.isAdmin;
+      this.picture = data.picture;
     }
   }
 }
