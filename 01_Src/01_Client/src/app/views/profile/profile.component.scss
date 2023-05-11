@@ -1,0 +1,22 @@
+/*****************************************************************************
+ * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @CreatedDate           : 2023-05-09 16:12:48                              *
+ * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @LastEditDate          : 2023-05-09 17:14:02                              *
+ ****************************************************************************/
+
+#profile-container {
+  background: rgba(34, 34, 34, 1);
+  width: 100%;
+  min-height: 100%;
+
+  .profile-form-container {
+    display: grid;
+    grid-gap: 15px;
+    padding: 20px;
+
+    .save-button {
+      justify-self: end;
+    }
+  }
+}

@@ -1,0 +1,43 @@
+<!--
+* @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>
+* @CreatedDate           : 2023-05-09 16:12:00
+* @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>
+* @LastEditDate          : 2023-05-09 17:14:46
+-->
+
+<!--
+  @Input() label: string = "";
+
+  @Input() type: string = "prm";
+  @Input() size: string = "md";
+  @Input() other: string = "";
+
+  @Input() icon: string = "";
+  @Input() iconPosition: string = "";
+  @Input() disabled: boolean = false;
+
+  @Output() callback: EventEmitter<any> = new EventEmitter();
+-->
+
+<div id="profile-container">
+  <div class="profile-form-container" *ngIf="user">
+    <app-input  id="name"
+                [isLabel]="true"
+                label="Name"
+                placeholder="ex: Jean-jacque"
+                [(value)]="user.name"
+                [disabled]="!isSelf()" />
+
+    <app-input  id="email"
+                [isLabel]="true"
+                label="Email"
+                placeholder="ex: Jean-jacque@mail.fr"
+                [(value)]="user.email"
+                [disabled]="!isSelf()" />
+
+    <app-button *ngIf="user && isSelf()"
+                class="save-button"
+                label="Save"
+                (click)="saveUser()"/>
+  </div>
+</div>
