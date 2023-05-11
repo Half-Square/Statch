@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-03-17 11:51:44                              *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-05-11 15:36:00                              *
+ * @LastEditDate          : 2023-05-11 16:39:25                              *
  ****************************************************************************/
 
 import { NgModule } from '@angular/core';
@@ -30,6 +30,7 @@ import { LabelsSettingComponent } from './setting/labels-setting/labels-setting.
 import { AdminSettingComponent } from './setting/admin-setting/admin-setting.component';
 import { SmtpSettingComponent } from './setting/smtp-setting/smtp-setting.component';
 import { TasksComponent } from './tasks/tasks.component';
+import { TicketsComponent } from './tickets/tickets.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { TasksComponent } from './tasks/tasks.component';
     TaskComponent,
     TasksComponent,
     TicketComponent,
+    TicketsComponent,
     AssignComponent,
     ActivityComponent,
     SettingComponent,

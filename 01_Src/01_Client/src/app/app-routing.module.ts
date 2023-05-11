@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-03-17 11:52:49                              *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-05-11 15:35:30                              *
+ * @LastEditDate          : 2023-05-11 16:38:52                              *
  ****************************************************************************/
 
 import { NgModule } from '@angular/core';
@@ -27,6 +27,7 @@ import { AuthGuardService as AuthGuard } from './guards/auth/auth-guard.service'
 import { IsAdminGuard } from './guards/is-admin/is-admin.guard';
 import { SmtpSettingComponent } from './views/setting/smtp-setting/smtp-setting.component';
 import { TasksComponent } from './views/tasks/tasks.component';
+import { TicketsComponent } from './views/tickets/tickets.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/projects', pathMatch: 'full' },
@@ -36,6 +37,7 @@ const routes: Routes = [
 
   { path: 'projects', component: ProjectsComponent, canActivate: [AuthGuard]  },
   { path: 'tasks', component: TasksComponent, canActivate: [AuthGuard] },
+  { path: 'tickets', component: TicketsComponent, canActivate: [AuthGuard] },
   { path: 'assign', component: AssignComponent, canActivate: [AuthGuard] },
   { path: 'activity', component: ActivityComponent, canActivate: [AuthGuard] },
 
