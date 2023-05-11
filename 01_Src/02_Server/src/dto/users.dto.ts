@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-02-21 13:03:45                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-05-11 11:16:26                               *
+ * @LastEditDate          : 2023-05-11 11:47:42                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -47,6 +47,9 @@ class ConnectInput {
 * UpdateInput
 */
 class UpdateInput {
+  @IsString()
+    id: string;
+
   @IsString()
     email: string;
 

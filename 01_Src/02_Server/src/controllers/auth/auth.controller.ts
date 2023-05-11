@@ -2,13 +2,14 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-02-21 13:01:19                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-05-11 11:18:06                               *
+ * @LastEditDate          : 2023-05-11 11:47:13                               *
  *****************************************************************************/
 
 /* SUMMARY
   * Imports
   * Dto
   * Services
+  * Guards
   * getAll
   * getOne
   * register
@@ -35,12 +36,16 @@ import * as jwt from "jsonwebtoken";
 
 /* Dto */
 import * as usersDto from "../../dto/users.dto";
-import { ConnectedGuard } from "../../guards/connected/connected.guard";
-import { IsAdminGuard } from "../../guards/is-admin/is-admin.guard";
 /***/
 
 /* Services */
 import { PrismaService } from "../../prisma.service";
+/***/
+
+/* Guards */
+import { ConnectedGuard } from "../../guards/connected/connected.guard";
+import { IsAdminGuard } from "../../guards/is-admin/is-admin.guard";
+import { IsSelfGuard } from "src/guards/is-self/is-self.guard";
 /***/
 
 @Controller("api")
@@ -168,6 +173,7 @@ export class AuthController {
   */
   @Put("users/:id")
   @UseGuards(ConnectedGuard)
+  @UseGuards(IsSelfGuard)
   async editUser(@Param("id") id: string, @Body() body: usersDto.UpdateInput): Promise<usersDto.ConnectOutput> {
     try {
       const res = await this.prisma.user.update({

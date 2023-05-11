@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-05-09 16:12:52                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-05-11 11:24:58                               *
+ * @LastEditDate          : 2023-05-11 11:52:00                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -33,7 +33,6 @@ import { UserInterface } from 'src/app/services/user/user.service';
 })
 export class ProfileComponent implements OnInit {
   public user: UserInterface | null = null;
-  private id: string | null = this.route.snapshot.paramMap.get('id');
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -41,12 +40,14 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.api.request("GET", `users/${this.id}`).then((ret) => {
-      if (!ret.id) throw "User not found";
-      else this.user = ret;
-    }).catch((err) => {
-      console.error(err);
-      this.router.navigate(["/"]);
+    this.route.params.subscribe(({id}) => {
+      this.api.request("GET", `users/${id}`).then((ret) => {
+        if (!ret.id) throw "User not found";
+        else this.user = ret;
+      }).catch((err) => {
+        console.error(err);
+        this.router.navigate(["/"]);
+      });
     });
   }
 
@@ -54,7 +55,7 @@ export class ProfileComponent implements OnInit {
   * Check if target is the connected user
   */
   public isSelf(): boolean {
-    return this.user ? this.user.id === this.id : false;
+    return this.user ? UserService.getUser().id === this.user.id : false;
   }
   /***/
 
