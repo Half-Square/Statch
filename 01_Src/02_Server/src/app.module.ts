@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-02-21 14:10:37                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-05-09 15:41:07                               *
+ * @LastEditDate          : 2023-05-11 11:12:01                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -29,7 +29,7 @@ import { SearchController } from "./controllers/search/search.controller";
 import { AssignmentsController } from "./controllers/assignments/assignments.controller";
 import { LabelsController } from "./controllers/labels/labels.controller";
 import { SmtpController } from "./controllers/smtp/smtp.controller";
-import { FilesController } from './controllers/files/files.controller';
+import { FilesController } from "./controllers/files/files.controller";
 /***/
 
 /* Services */

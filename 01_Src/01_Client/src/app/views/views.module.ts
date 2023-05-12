@@ -29,6 +29,7 @@ import { SettingComponent } from './setting/setting.component';
 import { LabelsSettingComponent } from './setting/labels-setting/labels-setting.component';
 import { AdminSettingComponent } from './setting/admin-setting/admin-setting.component';
 import { SmtpSettingComponent } from './setting/smtp-setting/smtp-setting.component';
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { SmtpSettingComponent } from './setting/smtp-setting/smtp-setting.compon
     SettingComponent,
     LabelsSettingComponent,
     AdminSettingComponent,
-    SmtpSettingComponent
+    SmtpSettingComponent,
+    ProfileComponent
   ],
   imports: [
     CommonModule,

@@ -1,8 +1,8 @@
 <!--
-* @Author                : Adrien Lanco<adrienlanco0@gmail.com>
+* @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>
 * @CreatedDate           : 2023-03-17 16:48:00
-* @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>
-* @LastEditDate          : 2023-04-18 17:23:19
+* @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>
+* @LastEditDate          : 2023-05-11 15:02:36
 -->
 
 <div id="project">
@@ -36,7 +36,7 @@
             <div class="container">
               <h4>Owner</h4>
               <div class="text space">
-                <app-avatar id="madelyn" [userName]="project && project.owner ? project.owner.name : ''" />
+                <app-avatar id="madelyn" [imgPath]="project.owner.picture" [userName]="project && project.owner ? project.owner.name : ''" />
                 {{ project.owner ? project.owner.name : "" }}
               </div>
             </div>
@@ -133,7 +133,7 @@
                 <app-level [degree]="task.level" />
                 <div class="assignee" ngClass="{{task.assignments.length > 1 ? 'over' : ''}}">
                   <div class="assign" *ngFor="let assignee of task.assignments | slice:0:2">
-                    <app-avatar [userName]="assignee.name" />
+                    <app-avatar [userName]="assignee.name" [imgPath]="assignee.picture" />
                   </div>
                 </div>
               </div>
@@ -168,7 +168,8 @@
         <div class="container">
           <h4>Owner</h4>
           <div class="text space">
-            <app-avatar [userName]="project && project.owner ? project.owner.name : ''" />
+            <app-avatar [imgPath]="project && project.owner ? project.owner.picture : ''"
+                        [userName]="project && project.owner ? project.owner.name : ''" />
             {{ project.owner ? project.owner.name : "" }}
           </div>
         </div>
