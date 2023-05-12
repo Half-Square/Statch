@@ -1,0 +1,31 @@
+<!--
+* @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>
+* @CreatedDate           : 2023-03-17 17:17:00
+* @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>
+* @LastEditDate          : 2023-05-11 16:33:01
+-->
+
+<div id="tickets" class="main">
+  <div class="header">
+      <div class="right">
+          <h2>Tickets</h2>
+          <!-- <app-button id="filter" type="fth" size="md" label="Add filter +" /> -->
+      </div>
+      <app-button *ngIf="parentId"
+                  id="newTicket"
+                  type="scnd"
+                  size="md"
+                  label="New task (Alt + P)"
+                  (click)='openNewTicket()' />
+  </div>
+  <div class="content" >
+      <a *ngFor="let ticket of ticketList" [href]="'ticket/'+ticket.id">
+          <div class="right">
+              <div class="status"><app-status [status]="ticket.status" /></div>
+              <div class="version">{{ ticket.targetVersion && ticket.targetVersion.name ? ticket.targetVersion.name : '' }}</div>
+              <div class="name">{{ ticket.name | capFL }}</div>
+          </div>
+          <div class="date">{{ ticket.created | dateDifference }}</div>
+      </a>
+  </div>
+</div>

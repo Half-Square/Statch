@@ -1,0 +1,31 @@
+<!--
+* @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>
+* @CreatedDate           : 2023-03-17 17:17:00
+* @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>
+* @LastEditDate          : 2023-05-11 15:42:58
+-->
+
+<div id="tasks" class="main">
+  <div class="header">
+      <div class="right">
+          <h2>Tasks</h2>
+          <!-- <app-button id="filter" type="fth" size="md" label="Add filter +" /> -->
+      </div>
+      <app-button *ngIf="parentId"
+                  id="newTask"
+                  type="scnd"
+                  size="md"
+                  label="New task (Alt + P)"
+                  (click)='openNewTask()' />
+  </div>
+  <div class="content" >
+      <a *ngFor="let task of taskList" [href]="'task/'+task.id">
+          <div class="right">
+              <div class="status"><app-status [status]="task.status" /></div>
+              <div class="version">{{ task.targetVersion && task.targetVersion.name ? task.targetVersion.name : '' }}</div>
+              <div class="name">{{ task.name | capFL }}</div>
+          </div>
+          <div class="date">{{ task.created | dateDifference }}</div>
+      </a>
+  </div>
+</div>

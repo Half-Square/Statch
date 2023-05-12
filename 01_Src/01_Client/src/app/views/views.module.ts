@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : 0K00<qdouvillez@gmail.com>                       *
+ * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-03-17 11:51:44                              *
- * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
- * @LastEditDate          : 2023-04-21 12:01:40                              *
+ * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @LastEditDate          : 2023-05-11 16:39:25                              *
  ****************************************************************************/
 
 import { NgModule } from '@angular/core';
@@ -17,7 +17,9 @@ import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { ProjectsComponent } from './projects/projects.component';
 import { ProjectComponent } from './project/project.component';
+  import { TasksComponent } from './tasks/tasks.component';
 import { TaskComponent } from './task/task.component';
+  import { TicketsComponent } from './tickets/tickets.component';
 import { TicketComponent } from './ticket/ticket.component';
 
 import { DirectivesModule } from '../directives/directives.module';
@@ -26,9 +28,11 @@ import { AssignComponent } from './assign/assign.component';
 import { PipeModule } from '../pipe/pipe.module';
 import { ActivityComponent } from './activity/activity.component';
 import { SettingComponent } from './setting/setting.component';
-import { LabelsSettingComponent } from './setting/labels-setting/labels-setting.component';
-import { AdminSettingComponent } from './setting/admin-setting/admin-setting.component';
-import { SmtpSettingComponent } from './setting/smtp-setting/smtp-setting.component';
+  import { LabelsSettingComponent } from './setting/labels-setting/labels-setting.component';
+  import { AdminSettingComponent } from './setting/admin-setting/admin-setting.component';
+  import { SmtpSettingComponent } from './setting/smtp-setting/smtp-setting.component';
+
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -37,13 +41,16 @@ import { SmtpSettingComponent } from './setting/smtp-setting/smtp-setting.compon
     ProjectsComponent,
     ProjectComponent,
     TaskComponent,
+    TasksComponent,
     TicketComponent,
+    TicketsComponent,
     AssignComponent,
     ActivityComponent,
     SettingComponent,
     LabelsSettingComponent,
     AdminSettingComponent,
-    SmtpSettingComponent
+    SmtpSettingComponent,
+    ProfileComponent
   ],
   imports: [
     CommonModule,

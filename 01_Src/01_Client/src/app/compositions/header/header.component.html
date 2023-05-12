@@ -1,8 +1,8 @@
 <!--
-* @Author                : 0K00<qdouvillez@gmail.com>
+* @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>
 * @CreatedDate           : 2023-03-17 13:48:00
-* @LastEditors           : 0K00<qdouvillez@gmail.com>
-* @LastEditDate          : 2023-04-21 12:00:36
+* @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>
+* @LastEditDate          : 2023-05-09 16:39:05
 -->
 
 <div id="header">
@@ -21,6 +21,7 @@
                 [other]="(showOption) ? 'active' : '' " />
     <ng-container *ngIf="showOption">
       <div @nested class="menuOption">
+        <div class="option profile" [routerLink]="['/profile/'+id]">Profile</div>
         <div class="option setting" [routerLink]="['/settings']">Settings</div>
         <div class="option disconnect" (click)="disconnect()">Disconnect</div>
       </div>
