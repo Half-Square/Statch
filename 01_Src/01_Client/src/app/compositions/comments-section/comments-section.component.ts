@@ -2,7 +2,7 @@
  * @Author                : 0K00<qdouvillez@gmail.com>                       *
  * @CreatedDate           : 2023-03-22 11:15:20                              *
  * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
- * @LastEditDate          : 2023-05-11 15:33:33                              *
+ * @LastEditDate          : 2023-05-12 15:48:10                              *
  ****************************************************************************/
 
 import { Component, Input } from '@angular/core';
@@ -46,7 +46,7 @@ export class CommentsSectionComponent {
   constructor(private api: ApiService) {
     this.editor = new EditorJS( {
       holder: 'editor-js',
-      placeholder: 'Let`s write an awesome story!',
+      placeholder: 'Write your comment...',
       inlineToolbar: ['bold', 'italic', 'underline', 'inlineCode'],
       tools: {
         header: Header,
