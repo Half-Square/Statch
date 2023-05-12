@@ -10,6 +10,7 @@
 }
 
 .comments {
+
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
@@ -37,3 +38,14 @@
   }
 }
 
+
+.ce-block__content, .ce-toolbar__content { max-width:calc(100% - 80px) !important; } .cdx-block { max-width: 100% !important; }
+
+.publish {
+  background-color: rgba(0, 0, 0, 0.32);
+  padding: 8px 16px 16px 16px;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}

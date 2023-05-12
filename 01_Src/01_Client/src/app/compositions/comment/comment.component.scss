@@ -6,14 +6,22 @@
  ****************************************************************************/
 
 .comment {
-  display: grid;
-  grid-template-columns: 0fr 1fr;
-  grid-template-rows: 1fr 1fr;
+  display: flex;
+  flex-direction: column;
   gap: 0.25rem 0.5rem;
-  align-items: center;
-  grid-template-areas:
-    "img info"
-    ". content";
+
+  .header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .user {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+  }
 
   .img {
     grid-area: img;
@@ -29,12 +37,6 @@
   }
 
   .content {
-    grid-area: content;
-    font-style: normal;
-    font-weight: 400;
-    font-size: 12px;
-    line-height: 16px;
     color: rgba(200, 200, 200, 1);
-    overflow-wrap: anywhere;
   }
 }
