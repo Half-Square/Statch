@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-03-17 11:52:49                              *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-05-09 16:36:26                              *
+ * @LastEditDate          : 2023-05-11 16:38:52                              *
  ****************************************************************************/
 
 import { NgModule } from '@angular/core';
@@ -16,16 +16,19 @@ import { AssignComponent } from './views/assign/assign.component';
 import { ActivityComponent } from './views/activity/activity.component';
 
 import { ProjectComponent } from './views/project/project.component';
+  import { TasksComponent } from './views/tasks/tasks.component';
 import { TaskComponent } from './views/task/task.component';
+  import { TicketsComponent } from './views/tickets/tickets.component';
 import { TicketComponent } from './views/ticket/ticket.component';
 
 import { SettingComponent } from './views/setting/setting.component';
   import { LabelsSettingComponent } from './views/setting/labels-setting/labels-setting.component';
   import { AdminSettingComponent } from './views/setting/admin-setting/admin-setting.component';
+  import { SmtpSettingComponent } from './views/setting/smtp-setting/smtp-setting.component';
 
 import { AuthGuardService as AuthGuard } from './guards/auth/auth-guard.service';
 import { IsAdminGuard } from './guards/is-admin/is-admin.guard';
-import { SmtpSettingComponent } from './views/setting/smtp-setting/smtp-setting.component';
+
 import { ProfileComponent } from './views/profile/profile.component';
 
 const routes: Routes = [
@@ -35,6 +38,8 @@ const routes: Routes = [
   { path: 'signup', component: SignupComponent },
 
   { path: 'projects', component: ProjectsComponent, canActivate: [AuthGuard]  },
+  { path: 'tasks', component: TasksComponent, canActivate: [AuthGuard] },
+  { path: 'tickets', component: TicketsComponent, canActivate: [AuthGuard] },
   { path: 'assign', component: AssignComponent, canActivate: [AuthGuard] },
   { path: 'activity', component: ActivityComponent, canActivate: [AuthGuard] },
 

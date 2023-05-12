@@ -1,0 +1,75 @@
+/*****************************************************************************
+ * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @CreatedDate           : 2023-02-22 10:04:43                              *
+ * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @LastEditDate          : 2023-05-11 16:33:15                              *
+ ****************************************************************************/
+
+ #tickets {
+  display: flex;
+  flex-direction: column;
+  background: rgba(34, 34, 34, 1);
+  min-height: 100%;
+}
+
+#tickets .header {
+  display: flex;
+  justify-content: flex-end;
+  padding: 1.5rem 2rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+
+  .right {
+    margin-right: auto;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  h2 {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    color: rgba(255, 255, 255, 0.64);
+  }
+}
+
+#tickets .content {
+  display: flex;
+  flex-direction: column;
+}
+
+#tickets .content a {
+  display: flex;
+  justify-content: flex-end;
+  padding: 1rem 2rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  text-decoration: none;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  .version, .date {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 24px;
+    color: rgba(255, 255, 255, 0.32);
+  }
+
+  .name {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    color: rgba(255, 255, 255, 0.96);
+  }
+
+  .right {
+    margin-right: auto;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+}

@@ -2,7 +2,7 @@
 * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>
 * @CreatedDate           : 2023-03-17 16:48:00
 * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>
-* @LastEditDate          : 2023-05-11 15:02:58
+* @LastEditDate          : 2023-05-11 16:38:12
 -->
 
 <div id="task">
@@ -216,12 +216,12 @@
         <div class="container">
           <h4>No. of tickets</h4>
           <div class="text space">
-            <a href="/create">
-            {{ task && task.tickets ? task.tickets.length : '0' }}
-            {{ task && task.tickets && task.tickets.length > 1 ? "tickets" : "ticket"}}
-            <app-icons [ngClass]="'icon'" icon="arrow-right" />
-          </a>
-        </div>
+            <a [routerLink]="['/tickets']" [queryParams]="{id: task.id}">
+              {{ task && task.tickets ? task.tickets.length : '0' }}
+              {{ task && task.tickets && task.tickets.length > 1 ? "tickets" : "ticket"}}
+              <app-icons [ngClass]="'icon'" icon="arrow-right" />
+            </a>
+          </div>
         </div>
         <div class="container">
           <h4>Created</h4>

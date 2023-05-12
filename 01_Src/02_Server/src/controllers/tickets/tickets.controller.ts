@@ -1,8 +1,8 @@
 /******************************************************************************
- * @Author                : Adrien Lanco<adrienlanco0@gmail.com>              *
+ * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-02-21 14:22:05                               *
- * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>              *
- * @LastEditDate          : 2023-04-18 14:55:53                               *
+ * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
+ * @LastEditDate          : 2023-05-11 16:42:51                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -58,7 +58,13 @@ export class TicketsController {
   @Get("tickets")
   async getAll(): Promise<ticketsDto.PublicOutput[]> {
     try {
-      let res = await this.prisma.ticket.findMany({include: {owner: true}});
+      let res = await this.prisma.ticket.findMany({
+        include: {
+          task: { select: { projectId: true } },
+          targetVersion: true,
+          owner: true
+        }
+      });
       return res.map((el) => new ticketsDto.PublicOutput(el));
     } catch (err) {
       console.error(`${new Date().toISOString()} - ${err}`);

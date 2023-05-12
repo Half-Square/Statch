@@ -2,7 +2,7 @@
 * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>
 * @CreatedDate           : 2023-03-17 16:48:00
 * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>
-* @LastEditDate          : 2023-05-11 15:02:36
+* @LastEditDate          : 2023-05-11 16:22:36
 -->
 
 <div id="project">
@@ -201,11 +201,13 @@
         </div>
         <div class="container">
           <h4>No. of tasks</h4>
-          <div class="text space"><a href="/create">
-            {{ project && project.tasks ? project.tasks.length : '0' }}
-            {{ project && project.tasks && project.tasks.length > 1 ? "tasks" : "task"}}
-            <app-icons [ngClass]="'icon'" icon="arrow-right" />
-          </a></div>
+          <div class="text space">
+            <a [routerLink]="['/tasks']" [queryParams]="{id: project.id}">
+              {{ project && project.tasks ? project.tasks.length : '0' }}
+              {{ project && project.tasks && project.tasks.length > 1 ? "tasks" : "task"}}
+              <app-icons [ngClass]="'icon'" icon="arrow-right" />
+            </a>
+          </div>
         </div>
         <div class="container">
           <h4>Created</h4>
