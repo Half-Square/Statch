@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-05-09 12:30:43                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-05-09 15:34:48                               *
+ * @LastEditDate          : 2023-05-11 12:33:57                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -99,7 +99,7 @@ export class FilesController {
       const ret = await this.prisma.file.create({
         data: {
           name: file.originalname,
-          path: `upload/${hash}-${file.originalname}`
+          path: `${hash}-${file.originalname}`
         }
       });
 

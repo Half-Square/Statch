@@ -17,7 +17,9 @@ import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { ProjectsComponent } from './projects/projects.component';
 import { ProjectComponent } from './project/project.component';
+  import { TasksComponent } from './tasks/tasks.component';
 import { TaskComponent } from './task/task.component';
+  import { TicketsComponent } from './tickets/tickets.component';
 import { TicketComponent } from './ticket/ticket.component';
 
 import { DirectivesModule } from '../directives/directives.module';
@@ -26,11 +28,11 @@ import { AssignComponent } from './assign/assign.component';
 import { PipeModule } from '../pipe/pipe.module';
 import { ActivityComponent } from './activity/activity.component';
 import { SettingComponent } from './setting/setting.component';
-import { LabelsSettingComponent } from './setting/labels-setting/labels-setting.component';
-import { AdminSettingComponent } from './setting/admin-setting/admin-setting.component';
-import { SmtpSettingComponent } from './setting/smtp-setting/smtp-setting.component';
-import { TasksComponent } from './tasks/tasks.component';
-import { TicketsComponent } from './tickets/tickets.component';
+  import { LabelsSettingComponent } from './setting/labels-setting/labels-setting.component';
+  import { AdminSettingComponent } from './setting/admin-setting/admin-setting.component';
+  import { SmtpSettingComponent } from './setting/smtp-setting/smtp-setting.component';
+
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +49,8 @@ import { TicketsComponent } from './tickets/tickets.component';
     SettingComponent,
     LabelsSettingComponent,
     AdminSettingComponent,
-    SmtpSettingComponent
+    SmtpSettingComponent,
+    ProfileComponent
   ],
   imports: [
     CommonModule,

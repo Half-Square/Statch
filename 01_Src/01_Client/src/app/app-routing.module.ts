@@ -16,18 +16,20 @@ import { AssignComponent } from './views/assign/assign.component';
 import { ActivityComponent } from './views/activity/activity.component';
 
 import { ProjectComponent } from './views/project/project.component';
+  import { TasksComponent } from './views/tasks/tasks.component';
 import { TaskComponent } from './views/task/task.component';
+  import { TicketsComponent } from './views/tickets/tickets.component';
 import { TicketComponent } from './views/ticket/ticket.component';
 
 import { SettingComponent } from './views/setting/setting.component';
   import { LabelsSettingComponent } from './views/setting/labels-setting/labels-setting.component';
   import { AdminSettingComponent } from './views/setting/admin-setting/admin-setting.component';
+  import { SmtpSettingComponent } from './views/setting/smtp-setting/smtp-setting.component';
 
 import { AuthGuardService as AuthGuard } from './guards/auth/auth-guard.service';
 import { IsAdminGuard } from './guards/is-admin/is-admin.guard';
-import { SmtpSettingComponent } from './views/setting/smtp-setting/smtp-setting.component';
-import { TasksComponent } from './views/tasks/tasks.component';
-import { TicketsComponent } from './views/tickets/tickets.component';
+
+import { ProfileComponent } from './views/profile/profile.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/projects', pathMatch: 'full' },
@@ -44,6 +46,8 @@ const routes: Routes = [
   { path: 'project/:id', component: ProjectComponent, canActivate: [AuthGuard]  },
   { path: 'task/:id', component: TaskComponent, canActivate: [AuthGuard]  },
   { path: 'ticket/:id', component: TicketComponent, canActivate: [AuthGuard]  },
+
+  { path: "profile/:id", component: ProfileComponent, canActivate: [AuthGuard] },
 
   { path: 'settings', component: SettingComponent, canActivate: [AuthGuard],
     children: [

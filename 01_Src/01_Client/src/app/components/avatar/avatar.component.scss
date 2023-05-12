@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
+ * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-03-17 12:03:13                              *
- * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
- * @LastEditDate          : 2023-03-17 12:03:13                              *
+ * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @LastEditDate          : 2023-05-11 12:43:15                              *
  ****************************************************************************/
 
 .avatar {
@@ -11,13 +11,24 @@
   border-radius: 999px;
   background: rgba(0, 108, 255, 1);
   color: white;
-}
+  overflow: hidden;
 
-.avatar.noImg {
+  &.no-img {
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 12px;
     font-weight: 300;
     text-transform: capitalize;
+  }
+
+  &.big {
+    width: 150px;
+    height: 150px;
+    font-size: 32px;
+  }
+
+  img {
+    width: 100%;
+  }
 }
