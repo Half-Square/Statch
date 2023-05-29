@@ -5,8 +5,8 @@
  * @LastEditDate          : 2023-03-30 09:57:02                               *
  *****************************************************************************/
 
-import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
-import { Observable } from 'rxjs';
+import { CanActivate, ExecutionContext, Injectable } from "@nestjs/common";
+import { Observable } from "rxjs";
 import * as jwt from "jsonwebtoken";
 
 @Injectable()

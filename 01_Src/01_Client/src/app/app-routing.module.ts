@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : 0K00<qdouvillez@gmail.com>                       *
+ * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-03-17 11:52:49                              *
- * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
- * @LastEditDate          : 2023-04-21 12:01:24                              *
+ * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @LastEditDate          : 2023-05-11 16:38:52                              *
  ****************************************************************************/
 
 import { NgModule } from '@angular/core';
@@ -16,15 +16,20 @@ import { AssignComponent } from './views/assign/assign.component';
 import { ActivityComponent } from './views/activity/activity.component';
 
 import { ProjectComponent } from './views/project/project.component';
+  import { TasksComponent } from './views/tasks/tasks.component';
 import { TaskComponent } from './views/task/task.component';
+  import { TicketsComponent } from './views/tickets/tickets.component';
 import { TicketComponent } from './views/ticket/ticket.component';
 
 import { SettingComponent } from './views/setting/setting.component';
   import { LabelsSettingComponent } from './views/setting/labels-setting/labels-setting.component';
   import { AdminSettingComponent } from './views/setting/admin-setting/admin-setting.component';
+  import { SmtpSettingComponent } from './views/setting/smtp-setting/smtp-setting.component';
 
 import { AuthGuardService as AuthGuard } from './guards/auth/auth-guard.service';
 import { IsAdminGuard } from './guards/is-admin/is-admin.guard';
+
+import { ProfileComponent } from './views/profile/profile.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/projects', pathMatch: 'full' },
@@ -33,6 +38,8 @@ const routes: Routes = [
   { path: 'signup', component: SignupComponent },
 
   { path: 'projects', component: ProjectsComponent, canActivate: [AuthGuard]  },
+  { path: 'tasks', component: TasksComponent, canActivate: [AuthGuard] },
+  { path: 'tickets', component: TicketsComponent, canActivate: [AuthGuard] },
   { path: 'assign', component: AssignComponent, canActivate: [AuthGuard] },
   { path: 'activity', component: ActivityComponent, canActivate: [AuthGuard] },
 
@@ -40,10 +47,13 @@ const routes: Routes = [
   { path: 'task/:id', component: TaskComponent, canActivate: [AuthGuard]  },
   { path: 'ticket/:id', component: TicketComponent, canActivate: [AuthGuard]  },
 
+  { path: "profile/:id", component: ProfileComponent, canActivate: [AuthGuard] },
+
   { path: 'settings', component: SettingComponent, canActivate: [AuthGuard],
     children: [
       { path: 'labels', component: LabelsSettingComponent, canActivate: [AuthGuard] },
-      { path: 'admin', component: AdminSettingComponent, canActivate: [IsAdminGuard]  }
+      { path: 'admin', component: AdminSettingComponent, canActivate: [IsAdminGuard] },
+      { path: 'smtp', component: SmtpSettingComponent, canActivate: [IsAdminGuard] }
     ]
   },
 

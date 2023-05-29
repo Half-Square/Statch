@@ -1,14 +1,15 @@
 /******************************************************************************
- * @Author                : Adrien Lanco<adrienlanco0@gmail.com>              *
+ * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-02-21 13:01:19                               *
- * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>              *
- * @LastEditDate          : 2023-03-30 12:49:49                               *
+ * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
+ * @LastEditDate          : 2023-05-11 13:08:48                               *
  *****************************************************************************/
 
 /* SUMMARY
   * Imports
   * Dto
   * Services
+  * Guards
   * getAll
   * getOne
   * register
@@ -35,12 +36,16 @@ import * as jwt from "jsonwebtoken";
 
 /* Dto */
 import * as usersDto from "../../dto/users.dto";
-import { ConnectedGuard } from "../../guards/connected/connected.guard";
-import { IsAdminGuard } from "../../guards/is-admin/is-admin.guard";
 /***/
 
 /* Services */
 import { PrismaService } from "../../prisma.service";
+/***/
+
+/* Guards */
+import { ConnectedGuard } from "../../guards/connected/connected.guard";
+import { IsAdminGuard } from "../../guards/is-admin/is-admin.guard";
+import { IsSelfGuard } from "src/guards/is-self/is-self.guard";
 /***/
 
 @Controller("api")
@@ -82,14 +87,13 @@ export class AuthController {
   }
   /***/
 
-   /**
-  * Get one user
-  * @returns - User's details
+  /**
+  * ???
   */
   @Get("isadmin")
   @UseGuards(IsAdminGuard)
   async isAdmin(): Promise<boolean> {
-      return true
+    return true;
   }
   /***/
 
@@ -104,7 +108,7 @@ export class AuthController {
   async register(@Body() body: usersDto.RegisterInput): Promise<usersDto.DetailsOutput> {
     try {
       let passwd = String(sha256(body.password));
-      let count = await (await this.prisma.user.findMany()).length
+      let count = await (await this.prisma.user.findMany()).length;
       
       const res = await this.prisma.user.create({
         data: {
@@ -161,34 +165,68 @@ export class AuthController {
   }
   /***/
 
-  // /**
-  // * Edit user
-  // * @returns - User's details
-  // */
-  // @Put("users/:id")
-  // @UseGuards(ConnectedGuard)
-  // async editUser(@Param("id") id: string, @Body() body: usersDto.UpdateInput,): Promise<usersDto.DetailsOutput> {
-  //   try {
-  //     const res = await this.prisma.user.update({
-  //       data: {validate: true},
-  //       where: {id: id} 
-  //     });
+  /**
+  * Update avatar
+  * @param id - User id
+  * @param picture - User avatar path
+  * @return - User details
+  */
+  @Put("users/:id/avatar")
+  @UseGuards(ConnectedGuard)
+  @UseGuards(IsSelfGuard)
+  async editAvatar(@Param("id") id: string, @Body("picture") picture: string): Promise<usersDto.DetailsOutput> {
+    try {
+      const ret = await this.prisma.user.update({
+        data: {picture: picture},
+        where: {id: id} 
+      });
 
-  //     return new usersDto.DetailsOutput(res);
-  //   } catch (err) {
-  //     console.error(`${new Date().toISOString()} - ${err}`);
-  //     throw err;
-  //   }
-  // }
-  // /***/
+      return new usersDto.DetailsOutput(ret);
+    } catch (err) {
+      console.error(`${new Date().toISOString()} - ${err}`);
+      throw err;
+    }
+  }
+  /***/
+
+  /**
+  * Edit user
+  * @param id - User's id
+  * @param body - User's details to update
+  * @returns - User's details with new token
+  */
+  @Put("users/:id")
+  @UseGuards(ConnectedGuard)
+  @UseGuards(IsSelfGuard)
+  async editUser(@Param("id") id: string, @Body() body: usersDto.UpdateInput): Promise<usersDto.ConnectOutput> {
+    try {
+      const res = await this.prisma.user.update({
+        data: body,
+        where: {id: id} 
+      });
+
+      res["token"] = jwt.sign(res, process.env.SALT, { // Regenerate token on email change
+        algorithm: "HS256",
+        expiresIn: process.env.SESSION_TIME
+      });
+
+      return new usersDto.ConnectOutput(res);
+    } catch (err) {
+      console.error(`${new Date().toISOString()} - ${err}`);
+      throw err;
+    }
+  }
+  /***/
 
   /**
   * Activate user
+  * @param id - User's id
+  * @param body - Activation and isAdmin boolean
   * @returns - User's details
   */
   @Put("users/:id/right")
   @UseGuards(IsAdminGuard)
-  async activate(@Param("id") id: string,  @Body() body: usersDto.RightInput,): Promise<usersDto.DetailsOutput> {
+  async activate(@Param("id") id: string,  @Body() body: usersDto.RightInput): Promise<usersDto.DetailsOutput> {
     try {
       const res = await this.prisma.user.update({
         where: {id: id},

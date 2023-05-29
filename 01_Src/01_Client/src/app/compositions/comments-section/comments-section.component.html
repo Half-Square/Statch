@@ -1,19 +1,20 @@
 <!--
-* @Author                : AdrienLanco0<121338518+AdrienLanco0@users.noreply.github.com>
+* @Author                : 0K00<qdouvillez@gmail.com>
 * @CreatedDate           : 2023-03-22 11:12:00
-* @LastEditors           : AdrienLanco0<121338518+AdrienLanco0@users.noreply.github.com>
-* @LastEditDate          : 2023-03-22 11:34:19
+* @LastEditors           : 0K00<qdouvillez@gmail.com>
+* @LastEditDate          : 2023-05-12 15:59:31
 -->
 
 <div class="comments">
   <h2>Comments</h2>
   <app-comment  *ngFor="let comment of comments"
                 [id]="comment.id"
+                [userId]="comment.author.id"
                 [name]="comment.author.name"
                 [content]="comment.content"
                 [created]="comment.created"/>
-  <div class="commentInput">
-    <app-input id="newCommentContent" [(value)]="newCommentContent" placeholder="Add comment..." />
-    <app-button id='newComment' type='scnd' size='md' label='Post' (click)='newComment()' />
+  <div class="publish">
+    <div id="editor-js"></div>
+    <app-button [ngStyle]="{'align-self': 'end'}" (click)="onSave()" size="md" type="prm" label="Publish" />
   </div>
 </div>

@@ -1,8 +1,8 @@
 /******************************************************************************
- * @Author                : Adrien Lanco<adrienlanco0@gmail.com>              *
+ * @Author                : 0K00<qdouvillez@gmail.com>                        *
  * @CreatedDate           : 2023-02-21 14:20:59                               *
- * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>              *
- * @LastEditDate          : 2023-03-30 12:49:55                               *
+ * @LastEditors           : 0K00<qdouvillez@gmail.com>                        *
+ * @LastEditDate          : 2023-05-11 15:45:25                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -74,7 +74,7 @@ export class CommentsController {
         where: toFind,
         include: {author: true}
       });
-      return res.map((el) => new commentsDto.PublicOutput(el)).sort((a,b) => a.created.getTime() - b.created.getTime() );
+      return res.map((el) => new commentsDto.PublicOutput(el)).sort((a, b) => a.created.getTime() - b.created.getTime() );
     } catch (err) {
       console.error(`${new Date().toISOString()} - ${err}`);
       throw err;

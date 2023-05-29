@@ -1,20 +1,14 @@
 <!--
-* @Author                : 0K00<qdouvillez@gmail.com>
+* @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>
 * @CreatedDate           : 2023-04-17 16:13:00
-* @LastEditors           : 0K00<qdouvillez@gmail.com>
-* @LastEditDate          : 2023-04-21 12:05:17
--->
-
-<!--
-* @Author                : 0K00<qdouvillez@gmail.com>
-* @CreatedDate           : 2023-03-17 16:48:00
-* @LastEditors           : 0K00<qdouvillez@gmail.com>
-* @LastEditDate          : 2023-04-18 11:45:45
+* @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>
+* @LastEditDate          : 2023-05-11 15:12:21
 -->
 
 <div id="setting">
   <div class="header">
     <a class="link" routerLink="labels" routerLinkActive="active">Labels</a>
+    <a class="link" *ngIf="isAdmin" routerLink="smtp" routerLinkActive="active">Smtp</a>
     <a class="link" *ngIf="isAdmin" routerLink="admin" routerLinkActive="active">Admin</a>
   </div>
   <div class="setting">

@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : Adrien Lanco<adrienlanco0@gmail.com>             *
+ * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-03-20 18:16:48                              *
- * @LastEditors           : Adrien Lanco<adrienlanco0@gmail.com>             *
- * @LastEditDate          : 2023-03-30 11:00:29                              *
+ * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @LastEditDate          : 2023-05-09 16:39:02                              *
  ****************************************************************************/
 
 import { Component, HostListener, ElementRef } from '@angular/core';
@@ -38,10 +38,14 @@ export class HeaderComponent {
     if(!this.ref.nativeElement.contains(event.target)) this.showOption = false;
   }
 
-  constructor(private router: Router, private ref: ElementRef) {}
+  constructor(private router: Router, private ref: ElementRef) {
+  }
+
   public showModal: boolean = false;
   public showOption: boolean = false;
   public isAdmin: boolean = UserService.getUser().isAdmin;
+  public id: string = UserService.getUser().id;
+
   /**
   * @name disconnect
   * @descr call UserService disconnect
