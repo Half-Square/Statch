@@ -2,11 +2,12 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-05-30 11:58:09                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-05-30 11:58:50                               *
+ * @LastEditDate          : 2023-05-31 15:03:26                               *
  *****************************************************************************/
 
 /* SUMMARY
   * Imports
+  * Modules
   * Components
 */
 
@@ -16,19 +17,22 @@ import { BrowserModule } from "@angular/platform-browser";
 import { AppRoutingModule } from "./app-routing.module";
 /***/
 
+/* Modules */
+import { DataModule } from "./modules/data/data.module";
+/***/
+
 /* Components */
 import { AppComponent } from "./app.component";
-import { TestComponent } from "./test/test.component";
 /***/
 
 @NgModule({
   declarations: [
-    AppComponent,
-    TestComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    DataModule
   ],
   providers: [],
   bootstrap: [AppComponent]

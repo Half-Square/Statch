@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-02-21 13:04:59                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-05-30 12:12:51                               *
+ * @LastEditDate          : 2023-05-31 15:00:51                               *
  *****************************************************************************/
 
 module.exports = {
