@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-05-31 12:56:22                              *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-05-31 15:01:03                              *
+ * @LastEditDate          : 2023-06-02 15:49:38                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -43,8 +43,8 @@ export class RecoveryService {
   private options: IServerOptions | undefined;
 
   constructor(
-    private cycleSocket: SocketService,
-    private cycleReq: RequestService,
+    private mySocket: SocketService,
+    private api: RequestService,
   ) {}
 
   /**
@@ -53,7 +53,7 @@ export class RecoveryService {
   */
   public init(options: IServerOptions): void {
     this.options = options;
-    this.socket = this.cycleSocket.connect(this.options.url, this.options.socketOpt); // Connect socket
+    this.socket = this.mySocket.connect(this.options.url, this.options.socketOpt); // Connect socket
   }
   /***/
 
@@ -84,7 +84,7 @@ export class RecoveryService {
   public get(name: string): Observable<any[]> {
     return new Observable((observer) => {
       if (!this.data[name]) {
-        this.cycleReq.get(`${this.options?.url}/${name}`).then(() => {
+        this.api.get(`${this.options?.url}/${name}`).then(() => {
           observer.next(this.data[name]);
         });
       } else {
