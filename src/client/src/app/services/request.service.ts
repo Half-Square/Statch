@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-05-30 16:14:10                              *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-05-31 14:57:43                              *
+ * @LastEditDate          : 2023-06-02 15:19:36                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -15,6 +15,7 @@
 
 /* Imports */
 import { Injectable } from "@angular/core";
+import { environment } from "src/environment/environment";
 /***/
 
 @Injectable({
@@ -36,7 +37,7 @@ export class RequestService {
       let headers: HeadersInit = {"Content-Type": "application/json"};
       if (token) headers["x-token"] = token;
 
-      fetch(url, {
+      fetch(`${environment.serverUrl}/${url}`, {
         method: method,
         headers: headers,
         body: body ? JSON.stringify(body) : null

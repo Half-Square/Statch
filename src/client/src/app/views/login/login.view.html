@@ -1,0 +1,33 @@
+<!--
+* @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>
+* @CreatedDate           : 2023-06-01 16:16:00
+* @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>
+* @LastEditDate          : 2023-06-02 14:48:53
+-->
+
+<div id="login">
+  <img src="/assets/logotype.svg" alt="Statch logotype" width="204" height="56">
+
+  <div class="container">
+    <input  type="text"
+            id="mail"
+            [(ngModel)]="email"
+            placeholder="Enter your email...">
+
+    <input  id="pwd"
+            [(ngModel)]="password"
+            type="password"
+            placeholder="Enter your password..."/>
+
+    <input  id="btnLogin"
+            type="button"
+            (click)="login()"
+            value="submit"/>
+
+    <a href="/signup">
+      <div>
+        Create your account<app-icons [ngClass]="'icon'" icon="arrow-right" />
+      </div>
+    </a>
+  </div>
+</div>
