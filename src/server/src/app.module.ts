@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-05-30 12:07:51                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-06-01 15:27:05                               *
+ * @LastEditDate          : 2023-06-13 17:22:28                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -16,7 +16,8 @@ import { Module } from "@nestjs/common";
 /***/
 
 /* Controllers */
-import { UsersController } from "./controllers/users/users.controller";
+import { UsersController } from "./users/users.controller";
+import { ProjectsController } from "./projects/projects.controller";
 /***/
 
 /* Services */
@@ -26,7 +27,8 @@ import { PrismaService } from "./prisma.service";
 @Module({
   imports: [],
   controllers: [
-    UsersController
+    UsersController,
+    ProjectsController
   ],
   providers: [
     PrismaService
