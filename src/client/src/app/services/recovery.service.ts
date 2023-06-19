@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-05-31 12:56:22                              *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-06-02 15:49:38                              *
+ * @LastEditDate          : 2023-06-19 16:24:14                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -28,8 +28,9 @@ import { RequestService } from "./request.service";
 
 /* Interfaces */
 interface IServerOptions {
-  url: string,
-  socketOpt: SocketOptions
+  apiUrl: string,
+  socketUrl: string,
+  socketOpt?: SocketOptions
 }
 /***/
 
@@ -53,7 +54,8 @@ export class RecoveryService {
   */
   public init(options: IServerOptions): void {
     this.options = options;
-    this.socket = this.mySocket.connect(this.options.url, this.options.socketOpt); // Connect socket
+    this.socket = this.mySocket.connect(this.options.socketUrl,
+      this.options.socketOpt || {}); // Connect socket
   }
   /***/
 
@@ -83,8 +85,9 @@ export class RecoveryService {
   */
   public get(name: string): Observable<any[]> {
     return new Observable((observer) => {
+
       if (!this.data[name]) {
-        this.api.get(`${this.options?.url}/${name}`).then(() => {
+        this.api.get(`api/${name}`).then(() => {
           observer.next(this.data[name]);
         });
       } else {

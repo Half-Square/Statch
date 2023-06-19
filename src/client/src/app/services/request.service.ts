@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-05-30 16:14:10                              *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-06-02 15:19:36                              *
+ * @LastEditDate          : 2023-06-19 16:23:41                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -25,11 +25,13 @@ export class RequestService {
   /**
   * Generic request function
   * @param method - Request method (GET, POST, PUT, DELETE)
-  * @param url - Request url
+  * @param path - Request url
+  * @param body - Request body
+  * @param token - User token
   */
   private request(
     method: string,
-    url: string,
+    path: string,
     body?: unknown,
     token?: string
   ): Promise<unknown> {
@@ -37,7 +39,7 @@ export class RequestService {
       let headers: HeadersInit = {"Content-Type": "application/json"};
       if (token) headers["x-token"] = token;
 
-      fetch(`${environment.serverUrl}/${url}`, {
+      fetch(`${environment.serverUrl}/${path}`, {
         method: method,
         headers: headers,
         body: body ? JSON.stringify(body) : null

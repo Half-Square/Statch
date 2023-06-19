@@ -2,15 +2,24 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-05-30 12:09:38                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-06-13 17:10:37                               *
+ * @LastEditDate          : 2023-06-19 16:29:37                               *
  *****************************************************************************/
 
+/* SUMMARY
+  * Imports
+*/
+
+/* Imports */
 import { NestFactory } from "@nestjs/core";
 import { AppModule } from "./app.module";
+import { Logger } from "@nestjs/common";
+/***/
 
 async function bootstrap(): Promise<void> {
   const app = await NestFactory.create(AppModule);
   app.enableCors();
-  await app.listen(process.env.PORT);
+
+  await app.listen(process.env.PORT); // Start API server
+  Logger.log(`Server start on port ${process.env.PORT}`);
 }
 bootstrap();
