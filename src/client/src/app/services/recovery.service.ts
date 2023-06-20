@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-05-31 12:56:22                              *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-06-19 17:47:55                              *
+ * @LastEditDate          : 2023-06-20 14:11:41                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -43,6 +43,7 @@ export class RecoveryService {
   private data: any = {};
   private socket: Socket | undefined;
   private options: IServerOptions | undefined;
+  private socketEvt: string[] = []; // Manage socket listener
 
   constructor(
     private mySocket: SocketService,
@@ -68,9 +69,11 @@ export class RecoveryService {
   * @param name - Ressource name
   */
   private handleSocketEvents(observer: Subscriber<any[]>, name: string): void {
-    if (this.socket) {
+    if (this.socket && !_.find(this.socketEvt, (el) => el === name)) { // Avoid listener duplication
+      this.socketEvt.push(name); // Save socket listener
+
       this.socket.on(name, (data) => {
-        let el = _.find(this.data[name], data);
+        let el = _.find(this.data[name], {id: data.id});
 
         if (!el) {
           this.data[name] ? this.data[name].push(data) : this.data[name] = [data];
@@ -92,7 +95,7 @@ export class RecoveryService {
     name: string): void {
     if (this.socket) {
       this.socket.on(name, (data) => {
-        let index = _.findIndex(this.data[name], data);
+        let index = _.findIndex(this.data[name], {id: data.id});
 
         if (index == -1) {
           this.data[name] ? this.data[name].push(data) : this.data[name] = [data];
@@ -101,7 +104,6 @@ export class RecoveryService {
           this.data[name][index] = data;
           observer.next(this.data[name][index]);
         }
-
       });
     }
   }
@@ -146,6 +148,10 @@ export class RecoveryService {
       }
 
       this.handleSingleSocketEvents(observer, collection);
+
+      return (() => {
+        this.socket?.removeAllListeners(collection);
+      });
     });
   }
   /***/

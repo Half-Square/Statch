@@ -2,10 +2,11 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-06-02 14:56:07                              *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-06-02 15:19:24                              *
+ * @LastEditDate          : 2023-06-20 13:33:22                              *
  ****************************************************************************/
 
 export const environment = {
   production: false,
-  serverUrl: "http://localhost:5000"
+  serverUrl: "http://localhost:5000",
+  socketUrl: "http://localhost:5001"
 };
