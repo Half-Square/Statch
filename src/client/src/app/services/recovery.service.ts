@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-05-31 12:56:22                              *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-06-19 16:24:14                              *
+ * @LastEditDate          : 2023-06-19 17:47:55                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -12,6 +12,7 @@
   * Init socket for data recovery
   * Handle socket events
   * Catch data change and allow subcription
+  * Subscribe to single ressource
 */
 
 /* Imports */
@@ -54,8 +55,10 @@ export class RecoveryService {
   */
   public init(options: IServerOptions): void {
     this.options = options;
-    this.socket = this.mySocket.connect(this.options.socketUrl,
-      this.options.socketOpt || {}); // Connect socket
+    this.socket = this.mySocket.connect(
+      this.options.socketUrl,
+      this.options.socketOpt || {}
+    ); // Connect socket
   }
   /***/
 
@@ -79,15 +82,41 @@ export class RecoveryService {
   /***/
 
   /**
+  * Handle socket events
+  * @param observer - Data subscriber
+  * @param name - Ressource name
+  * @param id - Ressource id
+  */
+  private handleSingleSocketEvents(
+    observer: Subscriber<any[]>,
+    name: string): void {
+    if (this.socket) {
+      this.socket.on(name, (data) => {
+        let index = _.findIndex(this.data[name], data);
+
+        if (index == -1) {
+          this.data[name] ? this.data[name].push(data) : this.data[name] = [data];
+          observer.next(data);
+        } else {
+          this.data[name][index] = data;
+          observer.next(this.data[name][index]);
+        }
+
+      });
+    }
+  }
+  /***/
+
+  /**
   * Catch data change and allow subcription
   * @param name - Ressource name to observe
   * @return - Data observable
   */
   public get(name: string): Observable<any[]> {
     return new Observable((observer) => {
-
       if (!this.data[name]) {
-        this.api.get(`api/${name}`).then(() => {
+        this.api.get(`api/${name}`).then((data) => {
+          this.data[name] = data;
           observer.next(this.data[name]);
         });
       } else {
@@ -95,6 +124,28 @@ export class RecoveryService {
       }
 
       this.handleSocketEvents(observer, name);
+    });
+  }
+  /***/
+
+  /**
+  * Subscribe to single ressource
+  * @param collection - Collection name
+  * @param id - Ressource id
+  * @return - Data observable
+  */
+  public getSingle(collection: string, id: string): Observable<any> {
+    return new Observable((observer) => {
+      if (!this.data[collection]) {
+        this.api.get(`api/${collection}`).then((data) => {
+          this.data[collection] = data;
+          observer.next(_.find(this.data[collection], {id: id}));
+        });
+      } else {
+        observer.next(_.find(this.data[collection], {id: id}));
+      }
+
+      this.handleSingleSocketEvents(observer, collection);
     });
   }
   /***/
