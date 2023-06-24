@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-05-30 12:07:51                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-06-24 14:24:45                               *
+ * @LastEditDate          : 2023-06-24 17:12:04                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -20,6 +20,7 @@ import { UsersController } from "./users/users.controller";
 import { ProjectsController } from "./projects/projects.controller";
 import { TasksController } from "./tasks/tasks.controller";
 import { TicketsController } from "./tickets/tickets.controller";
+import { CommentsController } from "./comments/comments.controller";
 /***/
 
 /* Services */
@@ -33,7 +34,8 @@ import { SocketService } from "./services/socket/socket.service";
     UsersController,
     ProjectsController,
     TasksController,
-    TicketsController
+    TicketsController,
+    CommentsController
   ],
   providers: [
     PrismaService,
