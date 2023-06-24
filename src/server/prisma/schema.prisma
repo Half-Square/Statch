@@ -6,8 +6,8 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = env("DATABASE_URL")
+  provider        = "sqlite"
+  url             = env("DATABASE_URL")
 }
 
 model User {
@@ -33,16 +33,16 @@ model Project {
   status          String          @default("new")
   created         DateTime        @default(now())
   description     String          
-  tasks           Task[]
-  comments        Comment[]
   owner           User            @relation(fields: [ownerId], references: [id], onDelete: Cascade)
   ownerId         String
+  actualVersion   String?
+
+  tasks           Task[]
+  comments        Comment[]
   assignments     Assignment[]
 
-  actualVersion   String?
   versionList     Version[]
   labels          LabelsOnProject[]
-
   activitys       Activity[] 
 }
 

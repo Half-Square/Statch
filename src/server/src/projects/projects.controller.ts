@@ -2,13 +2,14 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-06-13 14:10:50                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-06-19 17:43:24                               *
+ * @LastEditDate          : 2023-06-24 13:35:50                               *
  *****************************************************************************/
 
 /* SUMMARY
   * Imports
   * Dto
   * Services
+  * Guards
   * Get all projects
   * Get on project by id
   * Create new project
@@ -24,7 +25,8 @@ import {
   Param,
   Body,
   HttpException,
-  HttpStatus
+  HttpStatus,
+  UseGuards
 } from "@nestjs/common";
 import { Project } from "@prisma/client";
 /***/
@@ -38,7 +40,12 @@ import { PrismaService } from "src/prisma.service";
 import { SocketService } from "src/services/socket/socket.service";
 /***/
 
+/* Guards */
+import { IsConnectedGuard } from "src/guards/is-connected/is-connected.guard";
+/***/
+
 @Controller("api/projects")
+@UseGuards(IsConnectedGuard)
 export class ProjectsController {
   constructor(private prisma: PrismaService,
               private socket: SocketService) {
