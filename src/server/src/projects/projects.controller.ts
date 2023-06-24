@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-06-13 14:10:50                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-06-24 13:35:50                               *
+ * @LastEditDate          : 2023-06-24 13:40:49                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -24,11 +24,13 @@ import {
   Put,
   Param,
   Body,
+  Headers,
   HttpException,
   HttpStatus,
   UseGuards
 } from "@nestjs/common";
 import { Project } from "@prisma/client";
+import * as jwt from "jsonwebtoken";
 /***/
 
 /* Dto */
@@ -87,12 +89,14 @@ export class ProjectsController {
   * @param data - New project data 
   */
   @Post()
-  async create(@Body() body: projectsDto.CreateInput): Promise<Project> {
+  async create(
+    @Body() body: projectsDto.CreateInput,
+    @Headers("x-token") token: string): Promise<Project> {
     try {
-      let newProject = await this.prisma.project.create({
+      const newProject = await this.prisma.project.create({
         data: {
           ...body,
-          ownerId: "Mv7chynw"
+          ownerId: jwt.verify(token, process.env.SALT).id
         }
       });
 
@@ -114,7 +118,7 @@ export class ProjectsController {
     @Param("id") id: string,
     @Body() body: projectsDto.UpdateInput): Promise<Project> {
     try {
-      let project = await this.prisma.project.update({
+      const project = await this.prisma.project.update({
         where: {id: id},
         data: body
       });
