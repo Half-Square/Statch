@@ -1,8 +1,8 @@
 /******************************************************************************
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @CreatedDate           : 2023-06-24 13:47:35                               *
+ * @CreatedDate           : 2023-06-24 13:45:04                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-06-24 14:19:24                               *
+ * @LastEditDate          : 2023-06-24 14:22:24                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -10,10 +10,10 @@
   * Dto
   * Services
   * Guards
-  * Get all tasks
-  * Get on task by id
-  * Create new task
-  * Update tasks
+  * Get all tickets
+  * Get one ticket by id
+  * Create new tasks
+  * Update ticket
 */
 
 /* Imports */
@@ -22,19 +22,19 @@ import {
   Get,
   Post,
   Put,
-  Headers,
+  Param,
   Body,
+  Headers,
   HttpException,
   HttpStatus,
-  Param,
   UseGuards
 } from "@nestjs/common";
-import { Task } from "@prisma/client";
+import { Ticket } from "@prisma/client";
 import * as jwt from "jsonwebtoken";
 /***/
 
 /* Dto */
-import * as tasksDto from "./tasks.dto";
+import * as ticketsDto from "./tickets.dto";
 /***/
 
 /* Services */
@@ -48,19 +48,19 @@ import { IsConnectedGuard } from "src/guards/is-connected/is-connected.guard";
 
 @Controller("api")
 @UseGuards(IsConnectedGuard)
-export class TasksController {
+export class TicketsController {
   constructor(private socket: SocketService,
               private prisma: PrismaService) {
   }
 
   /**
-  * Get all tasks
-  * @return - Tasks list
+  * Get all tickets
+  * @return - Tickets list 
   */
-  @Get("tasks")
-  async getAll(): Promise<Task[]> {
+  @Get("tickets")
+  async getAll(): Promise<Ticket[]> {
     try {
-      return await this.prisma.task.findMany();
+      return await this.prisma.ticket.findMany();
     } catch (err) {
       throw err;
     }
@@ -68,15 +68,15 @@ export class TasksController {
   /***/
 
   /**
-  * Get on task by id
-  * @param id - Task's id to get
-  * @return - Task's data 
+  * Get one ticket by id
+  * @param id - Ticket's id to get
+  * @return - Ticket's details 
   */
-  @Get("tasks/:id")
-  async getById(@Param("id") id: string): Promise<Task> {
+  @Get("tickets/:id")
+  async getById(@Param("id") id: string): Promise<Ticket> {
     try {
-      const task = await this.prisma.task.findUnique({where: {id: id}});
-      if (task) return task;
+      const ticket = await this.prisma.ticket.findUnique({where: {id: id}});
+      if (ticket) return ticket;
       else throw new HttpException("Not Found", HttpStatus.NOT_FOUND);
     } catch (err) {
       throw err;
@@ -85,23 +85,23 @@ export class TasksController {
   /***/
 
   /**
-  * Create new task
-  * @param id - Project's ID where create task
+  * Create new ticket
+  * @param id - task's ID where create ticket
   * @param body - Creation data
-  * @returns - Task's details
+  * @returns - Ticket's details
   */
-  @Post("projects/:id/tasks")
+  @Post("tasks/:id/tickets")
   async create(
     @Param("id") id: string,
     @Headers("x-token") token: string,
-    @Body() body: tasksDto.CreateInput,
-  ): Promise<Task> {
+    @Body() body: ticketsDto.CreateInput,
+  ): Promise<Ticket> {
     try {
       const user = jwt.verify(token, process.env.SALT);
-      const newTask = await this.prisma.task.create({
+      const newTask = await this.prisma.ticket.create({
         data: {
           ...body,
-          projectId: id,
+          taskId: id,
           ownerId: user.id,
           assignments: {
             create: [{
@@ -111,7 +111,7 @@ export class TasksController {
         }
       });
 
-      this.socket.broadcast("tasks", newTask);
+      this.socket.broadcast("tickets", newTask);
       return newTask;
     } catch (err) {
       throw err;
@@ -120,24 +120,24 @@ export class TasksController {
   /***/
 
   /**
-  * Update tasks
-  * @param id - Task's ID to update
+  * Update ticket
+  * @param id - ticket's ID to update
   * @param body - Data to update 
-  * @returns - Updated task's details
+  * @returns - Updated ticket's details
   */
-  @Put("tasks/:id")
+  @Put("tickets/:id")
   async update(
     @Param("id") id: string,
-    @Body() body: tasksDto.UpdateInput
-  ): Promise<Task> {
+    @Body() body: ticketsDto.UpdateInput
+  ): Promise<Ticket> {
     try {
-      const task = await this.prisma.task.update({
+      const ticket = await this.prisma.ticket.update({
         where: {id: id},
         data: body
       });
 
-      this.socket.broadcast("tasks", task);
-      return task;
+      this.socket.broadcast("tickets", ticket);
+      return ticket;
     } catch (err) {
       throw err;
     }
