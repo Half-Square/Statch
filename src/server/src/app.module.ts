@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-05-30 12:07:51                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-06-24 17:12:04                               *
+ * @LastEditDate          : 2023-06-24 17:38:23                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -16,11 +16,12 @@ import { Module } from "@nestjs/common";
 /***/
 
 /* Controllers */
-import { UsersController } from "./users/users.controller";
-import { ProjectsController } from "./projects/projects.controller";
-import { TasksController } from "./tasks/tasks.controller";
-import { TicketsController } from "./tickets/tickets.controller";
-import { CommentsController } from "./comments/comments.controller";
+import { UsersController } from "./controllers/users/users.controller";
+import { ProjectsController } from "./controllers/projects/projects.controller";
+import { TasksController } from "./controllers/tasks/tasks.controller";
+import { TicketsController } from "./controllers/tickets/tickets.controller";
+import { CommentsController } from "./controllers/comments/comments.controller";
+import { AssignmentsController } from "./controllers/assignments/assignments.controller";
 /***/
 
 /* Services */
@@ -35,7 +36,8 @@ import { SocketService } from "./services/socket/socket.service";
     ProjectsController,
     TasksController,
     TicketsController,
-    CommentsController
+    CommentsController,
+    AssignmentsController
   ],
   providers: [
     PrismaService,
