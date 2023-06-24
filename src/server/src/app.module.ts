@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-05-30 12:07:51                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-06-19 16:19:32                               *
+ * @LastEditDate          : 2023-06-24 13:55:04                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -23,13 +23,15 @@ import { ProjectsController } from "./projects/projects.controller";
 /* Services */
 import { PrismaService } from "./prisma.service";
 import { SocketService } from "./services/socket/socket.service";
+import { TasksController } from "./tasks/tasks.controller";
 /***/
 
 @Module({
   imports: [],
   controllers: [
     UsersController,
-    ProjectsController
+    ProjectsController,
+    TasksController
   ],
   providers: [
     PrismaService,

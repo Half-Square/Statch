@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-06-13 14:10:50                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-06-24 13:40:49                               *
+ * @LastEditDate          : 2023-06-24 14:09:49                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -93,10 +93,16 @@ export class ProjectsController {
     @Body() body: projectsDto.CreateInput,
     @Headers("x-token") token: string): Promise<Project> {
     try {
+      const user = jwt.verify(token, process.env.SALT);
       const newProject = await this.prisma.project.create({
         data: {
           ...body,
-          ownerId: jwt.verify(token, process.env.SALT).id
+          ownerId: user.id,
+          assignments: {
+            create: [{
+              userId: user.id
+            }]
+          }
         }
       });
 
