@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-06-24 13:45:04                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-06-24 14:22:24                               *
+ * @LastEditDate          : 2023-06-26 14:20:28                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -14,6 +14,7 @@
   * Get one ticket by id
   * Create new tasks
   * Update ticket
+  * Delete ticket
 */
 
 /* Imports */
@@ -22,6 +23,7 @@ import {
   Get,
   Post,
   Put,
+  Delete,
   Param,
   Body,
   Headers,
@@ -138,6 +140,24 @@ export class TicketsController {
 
       this.socket.broadcast("tickets", ticket);
       return ticket;
+    } catch (err) {
+      throw err;
+    }
+  }
+  /***/
+
+  /**
+  * Delete ticket
+  * @param id - Ticket's id to delete
+  * @return - Success message 
+  */
+  @Delete("tickets/:id")
+  async deleteById(@Param("id") id: string): Promise<{message: string}> {
+    try {
+      await this.prisma.ticket.delete({where: {id: id}});
+      this.socket.broadcast("tickets", {id: id}, true);
+
+      return {message: `Ticket ${id} deleted`};
     } catch (err) {
       throw err;
     }

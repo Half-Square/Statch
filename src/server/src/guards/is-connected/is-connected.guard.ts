@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-06-24 13:31:26                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-06-24 13:37:39                               *
+ * @LastEditDate          : 2023-06-26 13:58:27                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -20,6 +20,8 @@ export class IsConnectedGuard implements CanActivate {
     context: ExecutionContext,
   ): boolean {
     try {
+      if (process.env.DISABLE_GUARDS) return true; // Ignore guard
+
       const token = context.switchToHttp().getRequest().headers["x-token"];
       jwt.verify(token, process.env.SALT);
       return true;

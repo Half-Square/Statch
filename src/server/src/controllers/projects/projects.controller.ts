@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-06-13 14:10:50                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-06-24 17:38:10                               *
+ * @LastEditDate          : 2023-06-26 14:10:07                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -14,6 +14,7 @@
   * Get on project by id
   * Create new project
   * Update project
+  * Delete project
 */
 
 /* Imports */
@@ -22,6 +23,7 @@ import {
   Get,
   Post,
   Put,
+  Delete,
   Param,
   Body,
   Headers,
@@ -131,6 +133,24 @@ export class ProjectsController {
 
       this.socket.broadcast("projects", project);
       return project;
+    } catch (err) {
+      throw err;
+    }
+  }
+  /***/
+
+  /**
+  * Delete project
+  * @param id - Project to delete
+  * @return - Message success 
+  */
+  @Delete(":id")
+  async deleteById(@Param("id") id: string): Promise<{message: string}> {
+    try {
+      await this.prisma.project.delete({where: {id: id}});
+      this.socket.broadcast("projects", {id: id}, true);
+      
+      return {message: `Project ${id} deleted`};
     } catch (err) {
       throw err;
     }

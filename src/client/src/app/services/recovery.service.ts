@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-05-31 12:56:22                              *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-06-20 14:11:41                              *
+ * @LastEditDate          : 2023-06-26 14:06:53                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -73,12 +73,19 @@ export class RecoveryService {
       this.socketEvt.push(name); // Save socket listener
 
       this.socket.on(name, (data) => {
-        let el = _.find(this.data[name], {id: data.id});
+        let index = _.findIndex(this.data[name], {id: data.id});
 
-        if (!el) {
-          this.data[name] ? this.data[name].push(data) : this.data[name] = [data];
-          observer.next(this.data[name]);
+        if (data["deleted"] && index != -1) {
+          this.data[name].splice(index, 1);
+        } else {
+          if (index == -1) {
+            this.data[name] ? this.data[name].push(data) : this.data[name] = [data];
+          } else {
+            this.data[name][index] = data;
+          }
         }
+
+        observer.next(this.data[name]);
       });
     }
   }
@@ -97,13 +104,18 @@ export class RecoveryService {
       this.socket.on(name, (data) => {
         let index = _.findIndex(this.data[name], {id: data.id});
 
-        if (index == -1) {
-          this.data[name] ? this.data[name].push(data) : this.data[name] = [data];
-          observer.next(data);
+        if (data["deletec"] && index != -1) {
+          this.data[name].splice(index, 1);
         } else {
-          this.data[name][index] = data;
-          observer.next(this.data[name][index]);
+          if (index == -1) {
+            this.data[name] ? this.data[name].push(data) : this.data[name] = [data];
+            observer.next(data);
+          } else {
+            this.data[name][index] = data;
+          }
         }
+
+        observer.next(this.data[name][index]);
       });
     }
   }

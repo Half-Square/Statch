@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-06-24 13:47:35                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-06-24 14:19:24                               *
+ * @LastEditDate          : 2023-06-26 14:18:20                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -14,6 +14,7 @@
   * Get on task by id
   * Create new task
   * Update tasks
+  * Delete task
 */
 
 /* Imports */
@@ -22,6 +23,7 @@ import {
   Get,
   Post,
   Put,
+  Delete,
   Headers,
   Body,
   HttpException,
@@ -138,6 +140,24 @@ export class TasksController {
 
       this.socket.broadcast("tasks", task);
       return task;
+    } catch (err) {
+      throw err;
+    }
+  }
+  /***/
+
+  /**
+  * Delete task
+  * @param id - Task's id to remove
+  * @return - Success message 
+  */
+  @Delete("tasks/:id")
+  async deleteById(@Param("id") id: string): Promise<{message: string}> {
+    try {
+      await this.prisma.task.delete({where: {id: id}});
+      this.socket.broadcast("tasks", {id: id}, true);
+
+      return {message: `Task ${id} deleted`};
     } catch (err) {
       throw err;
     }

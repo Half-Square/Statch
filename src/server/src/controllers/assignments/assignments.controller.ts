@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-06-24 17:32:20                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-06-24 18:14:56                               *
+ * @LastEditDate          : 2023-06-26 14:25:25                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -82,7 +82,10 @@ export class AssignmentsController {
       let toFound = {};
       toFound[this.parents[parent]] = id;
 
-      // Todo: broadcast remove
+      let oldAssign = await this.prisma.assignment.findMany({where: toFound});
+      oldAssign.forEach((el) => {
+        this.socket.broadcast("assignments", {id: el.id}, true);
+      }); 
       
       await this.prisma.assignment.deleteMany({where: toFound});
       let assignments = [];

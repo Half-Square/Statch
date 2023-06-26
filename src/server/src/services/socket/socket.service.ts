@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-06-16 10:35:39                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-06-19 16:30:02                               *
+ * @LastEditDate          : 2023-06-26 13:53:55                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -42,7 +42,8 @@ export class SocketService {
   * @param name - Event name
   * @param data - Event data
   */
-  broadcast(name: string, data: unknown): void {
+  broadcast(name: string, data: unknown, deleted?: boolean): void {
+    if (deleted) data["deleted"] = true;
     this.io.emit(name, data);
   }
   /***/

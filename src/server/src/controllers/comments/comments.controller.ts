@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-06-24 17:11:00                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-06-24 17:26:17                               *
+ * @LastEditDate          : 2023-06-26 14:23:45                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -12,6 +12,7 @@
   * Guards
   * Get comments from parent
   * Create new comment for parent
+  * Delete comment
 */
 
 /* Imports */
@@ -19,6 +20,7 @@ import {
   Controller,
   Get,
   Post,
+  Delete,
   Param,
   Headers,
   Body,
@@ -121,6 +123,24 @@ export class CommentsController {
       if (err.code == "P2003")
         throw new HttpException("Bad Request", HttpStatus.BAD_REQUEST);
       else throw err;
+    }
+  }
+  /***/
+
+  /**
+  * Delete comment
+  * @param id - Comment to delete
+  * @return - Success message 
+  */
+  @Delete("comments/:id")
+  async deleteById(@Param("id") id: string): Promise<{message: string}> {
+    try {
+      await this.prisma.comment.delete({where: {id: id}});
+      this.socket.broadcast("comments", {id: id}, true);
+
+      return {message: `Comment ${id} deleted`};
+    } catch (err) {
+      throw err;
     }
   }
   /***/
