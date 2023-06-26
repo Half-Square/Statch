@@ -167,47 +167,47 @@ model Activity {
 }
 
 model LabelsOnProject {
-  project         Project       @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  project         Project         @relation(fields: [projectId], references: [id], onDelete: Cascade)
   projectId       String
-  label           Label         @relation(fields: [labelId], references: [id], onDelete: Cascade)
+  label           Label           @relation(fields: [labelId], references: [id], onDelete: Cascade)
   labelId         String
 
   @@id([projectId, labelId])
 }
 
 model LabelsOnTask {
-  task         Task            @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  task         Task               @relation(fields: [taskId], references: [id], onDelete: Cascade)
   taskId       String
-  label        Label           @relation(fields: [labelId], references: [id], onDelete: Cascade)
+  label        Label              @relation(fields: [labelId], references: [id], onDelete: Cascade)
   labelId      String
 
   @@id([taskId, labelId])
 }
 
 model LabelsOnTicket {
-  ticket         Ticket        @relation(fields: [ticketId], references: [id], onDelete: Cascade)
+  ticket         Ticket           @relation(fields: [ticketId], references: [id], onDelete: Cascade)
   ticketId       String
-  label          Label         @relation(fields: [labelId], references: [id], onDelete: Cascade)
+  label          Label            @relation(fields: [labelId], references: [id], onDelete: Cascade)
   labelId        String
 
   @@id([ticketId, labelId])
 }
 
 model File {
-  id             String         @default(nanoid(8)) @id
+  id             String           @default(nanoid(8)) @id
   name           String
   path           String
-  date           DateTime       @default(now())
+  date           DateTime         @default(now())
 }
 
 model System {
-  id            String        @default(nanoid(8)) @id
+  id            String            @default(nanoid(8)) @id
   smtp          Smtp?
 }
 
 model Smtp {
-  system        System        @relation(fields: [systemId], references: [id], onDelete: Cascade)
-  systemId      String        @unique
+  system        System            @relation(fields: [systemId], references: [id], onDelete: Cascade)
+  systemId      String            @unique
   host          String
   port          Int
   user          String
