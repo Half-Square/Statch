@@ -45,7 +45,7 @@ import { SocketService } from "src/services/socket/socket.service";
 /***/
 
 /* Guards */
-import { IsConnectedGuard } from "src/guards/is-connected/is-connected.guard";
+import { IsConnectedGuard } from "src/guards/is-connected.guard";
 /***/
 
 @Controller("api/projects")

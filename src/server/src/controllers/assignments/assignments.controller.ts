@@ -30,7 +30,7 @@ import * as assignmentsDto from "./assignments.dto";
 /***/
 
 /* Guards */
-import { IsConnectedGuard } from "src/guards/is-connected/is-connected.guard";
+import { IsConnectedGuard } from "src/guards/is-connected.guard";
 /***/
 
 /* Services */

@@ -45,7 +45,7 @@ import { PrismaService } from "src/prisma.service";
 /***/
 
 /* Guards */
-import { IsConnectedGuard } from "src/guards/is-connected/is-connected.guard";
+import { IsConnectedGuard } from "src/guards/is-connected.guard";
 /***/
 
 @Controller("api")
