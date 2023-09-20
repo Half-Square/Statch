@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-05-30 16:14:10                              *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-06-19 16:23:41                              *
+ * @LastEditDate          : 2023-09-20 16:43:14                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -15,7 +15,7 @@
 
 /* Imports */
 import { Injectable } from "@angular/core";
-import { environment } from "src/environment/environment";
+import { environment } from "src/environments/environment";
 /***/
 
 @Injectable({

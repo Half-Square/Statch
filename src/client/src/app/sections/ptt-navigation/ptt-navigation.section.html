@@ -1,0 +1,26 @@
+<!--
+* @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>
+* @CreatedDate           : 2023-09-20 16:09:00
+* @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>
+* @LastEditDate          : 2023-09-20 16:48:47
+-->
+
+<div class="section-ptt-navigation">
+  <ul>
+    <li *ngFor="let project of projects">
+      <div>{{project.name}}</div>
+
+      <ul>
+        <li *ngFor="let task of _.filter(tasks, {projectId: project.id})">
+          <div>{{task.name}}</div>
+
+          <ul>
+            <li *ngFor="let ticket of _.filter(tickets, {taskId: task.id})">
+              <div>{{ticket.name}}</div>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
