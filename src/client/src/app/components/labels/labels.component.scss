@@ -1,0 +1,50 @@
+.labels {
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  gap: 4px;
+  padding: 4px 8px;
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 500;
+  user-select: none;
+}
+
+.labels.white {
+  background: #202020;
+  color: #d0d0d0;
+  border: 1px solid #3d3d3d;
+}
+
+.labels.yellow {
+  background: #3b3a16;
+  color: #fffb00;
+  border: 1px solid #615f00;
+}
+
+.labels.green {
+  background: #163313;
+  color: #15ff00;
+  border: 1px solid #327A2B;
+}
+
+.labels.red {
+  background: #2b1313;
+  color: #fe3232;
+  border: 1px solid #4d1f1f;
+}
+
+.labels.blue {
+  background: #0a1e48;
+  color: #0055ff;
+  border: 1px solid #16346e;
+}
+
+.labels.purple {
+  background: #5b1f5d;
+  color: #f700ff;
+  border: 1px solid #811f85;
+}

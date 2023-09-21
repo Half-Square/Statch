@@ -22,6 +22,7 @@ import { TreeComponent } from "./tree/tree.component";
 import { BreadcrumbsComponent } from "./breadcrumbs/breadcrumbs.component";
 import { LevelComponent } from "./level/level.component";
 import { ToastComponent } from "./toast/toast.component";
+import { LabelsComponent } from './labels/labels.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { ToastComponent } from "./toast/toast.component";
     TreeComponent,
     BreadcrumbsComponent,
     LevelComponent,
-    ToastComponent
+    ToastComponent,
+    LabelsComponent
   ],
   imports: [
     CommonModule,
@@ -54,7 +56,8 @@ import { ToastComponent } from "./toast/toast.component";
     TreeComponent,
     BreadcrumbsComponent,
     LevelComponent,
-    ToastComponent
+    ToastComponent,
+    LabelsComponent
   ]
 })
 
