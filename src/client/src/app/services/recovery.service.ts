@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @Author                : 0K00<qdouvillez@gmail.com>                       *
  * @CreatedDate           : 2023-05-31 12:56:22                              *
- * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-09-20 17:05:16                              *
+ * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
+ * @LastEditDate          : 2023-09-21 16:16:54                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -167,4 +167,13 @@ export class RecoveryService {
     });
   }
   /***/
+
+  public async getSingleSync(collection: string, id: string): Promise<unknown> {
+
+    if(!this.data[collection]) {
+      this.data[collection] = await this.api.get(`api/${collection}`);
+    }
+
+    return _.find(this.data[collection], {id: id});
+  }
 }
