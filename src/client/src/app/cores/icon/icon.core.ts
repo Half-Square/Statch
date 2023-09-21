@@ -5,7 +5,7 @@
  * @LastEditDate          : 2023-09-06 12:56:38                              *
  ****************************************************************************/
 
-import { Component, Input } from '@angular/core';
+import { Component, Input } from "@angular/core";
 
 /**
  * Icon component
@@ -13,14 +13,14 @@ import { Component, Input } from '@angular/core';
  * ``hs ng core icon``
  */
 @Component({
-  selector: 'core-icon',
-  templateUrl: './icon.core.html',
-  styleUrls: ['./icon.core.scss']
+  selector: "core-icon",
+  templateUrl: "./icon.core.html",
+  styleUrls: ["./icon.core.scss"]
 })
 export class IconCore {
   /**
    * Name of icon to display
    */
   @Input()
-  icon: string = '';
+    icon: string = "";
 }

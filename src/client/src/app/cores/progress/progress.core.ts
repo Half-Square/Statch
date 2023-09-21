@@ -5,22 +5,22 @@
  * @LastEditDate          : 2023-06-06 13:04:29                               *
  *****************************************************************************/
 
-import { Component, Input } from '@angular/core';
+import { Component, Input } from "@angular/core";
 
 /**
  * Represents a progress component.
  */
 @Component({
-  selector: 'core-progress',
-  templateUrl: './progress.core.html',
-  styleUrls: ['./progress.core.scss']
+  selector: "core-progress",
+  templateUrl: "./progress.core.html",
+  styleUrls: ["./progress.core.scss"]
 })
 export class ProgressCore {
   /**
    * The unique identifier for the progress component.
    */
   @Input()
-  id: string = '';
+    id: string = "";
 
   /**
    * The value to set.
@@ -54,17 +54,17 @@ export class ProgressCore {
    * Indicates whether to show the value of the progress component.
    */
   @Input()
-  showValue: boolean = true;
+    showValue: boolean = true;
 
   /**
    * The label for the progress component.
    */
   @Input()
-  label: string = 'Label';
+    label: string = "Label";
 
   /**
    * Indicates whether the label is displayed.
    */
   @Input()
-  isLabel: boolean = false;
+    isLabel: boolean = false;
 }

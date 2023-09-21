@@ -5,15 +5,15 @@
  * @LastEditDate          : 2023-09-15 14:24:41                               *
  *****************************************************************************/
 
-import { Component, Input, TemplateRef, ContentChild, ViewChild, ElementRef, Renderer2, Output, EventEmitter } from '@angular/core';
+import { Component, Input, TemplateRef, ContentChild, ViewChild, ElementRef, Renderer2, Output, EventEmitter } from "@angular/core";
 
 /**
  * Custom select component
  */
 @Component({
-  selector: 'component-select',
-  templateUrl: './select.component.html',
-  styleUrls: ['./select.component.scss'],
+  selector: "component-select",
+  templateUrl: "./select.component.html",
+  styleUrls: ["./select.component.scss"]
 })
 export class SelectComponent {
 
@@ -22,11 +22,11 @@ export class SelectComponent {
    * @param renderer - Angular Renderer2 for DOM manipulation
    */
   constructor(private renderer: Renderer2) {
-     // Listen for click events on the window to close the menu when clicking outside
-    this.renderer.listen('window', 'click', (e: Event) => {
+    // Listen for click events on the window to close the menu when clicking outside
+    this.renderer.listen("window", "click", (e: Event) => {
       if(!this.selector.nativeElement.contains(e.target)) {
         this.showMenu = false;
-      };
+      }
     });
   }
 
@@ -34,43 +34,43 @@ export class SelectComponent {
    * Input property to hold the search text
    */
   @Input()
-  searchText: string = '';
+    searchText: string = "";
 
   /**
    * Input property to hold data
    */
   @Input()
-  data :any;
+    data :any;
 
   /**
    * Input property to hold the selected options
    */
   @Input()
-  selection: any[] = [];
+    selection: any[] = [];
 
   /**
    * Input property to set the placeholder text
    */
   @Input()
-  placeholder: string = 'Select...';
+    placeholder: string = "Select...";
 
   /**
    * Input property to determine if it's a multi-select
    */
   @Input()
-  multi: boolean = false;
+    multi: boolean = false;
 
   /**
    * Input property to determine if search functionality is enabled
    */
   @Input()
-  hasSearch: boolean = true;
+    hasSearch: boolean = true;
 
   /**
    * Output property to emit callback events
    */
   @Output()
-  callback: EventEmitter<any> = new EventEmitter<any>();
+    callback: EventEmitter<any> = new EventEmitter<any>();
 
   /**
    * Property to track whether the menu is shown or hidden
@@ -80,32 +80,32 @@ export class SelectComponent {
   /**
    * ViewChild decorator to get a reference to the 'selected' template
    */
-  @ContentChild('selected',{static: false})
-  selectedTemplateRef!: TemplateRef<any>;
+  @ContentChild("selected", {static: false})
+    selectedTemplateRef!: TemplateRef<any>;
 
   /**
    * ViewChild decorator to get a reference to the 'items' template
    */
-  @ContentChild('items',{static: false})
-  itemsTemplateRef!: TemplateRef<any>;
+  @ContentChild("items", {static: false})
+    itemsTemplateRef!: TemplateRef<any>;
 
   /**
    * ViewChild decorator to get a reference to the 'selector' element
    */
-  @ViewChild('selector')
-  selector!: ElementRef;
+  @ViewChild("selector")
+    selector!: ElementRef;
 
   /**
    * ViewChild decorator to get a reference to the 'search' element
    */
-  @ViewChild('search')
-  search!: ElementRef;
+  @ViewChild("search")
+    search!: ElementRef;
 
   /**
    * Event handler for changes in the search text
    * @param text - Event value
    */
-  public onSearchChange(text: any) {
+  public onSearchChange(text: any): void {
     this.searchText = text.value;
   }
 
@@ -113,7 +113,7 @@ export class SelectComponent {
    * Function to handle the selection of an option and reset the search input
    * @param option - Option value
    */
-  public selectedOption(option: any) {
+  public selectedOption(option: any): void {
     if(this.multi)
       this.callback.emit(this.onMultiSelect(option));
     else
@@ -125,7 +125,7 @@ export class SelectComponent {
    * @param option - Option value
    * @returns - Updated selection
    */
-  private onSelect (option: any): any {
+  private onSelect(option: any): any {
     let ret = this.selection ? this.selection : [];
     const index = ret.findIndex((item: any) => item.id === option.id);
     if (index !== -1) {
@@ -134,14 +134,14 @@ export class SelectComponent {
       ret = [option];
     }
     return ret;
-   }
+  }
 
   /**
    * Function to handle multi-option selection
    * @param option - Option value
    * @returns - Updated selection
    */
-   private onMultiSelect (option: any): any {
+  private onMultiSelect(option: any): any {
     let ret = this.selection ? this.selection : [];
     if(!ret.some((item: any) => item.id === option.id)) {
       ret.push(option);
@@ -150,9 +150,9 @@ export class SelectComponent {
       if (index !== -1) {
         ret.splice(index, 1);
       }
-    };
+    }
     return ret;
-   }
+  }
 
   /**
    * Function to check if a checkmark should be applied to an option
@@ -167,7 +167,7 @@ export class SelectComponent {
    * Function to toggle the visibility of the menu
    * @param e - Click event
    */
-  public toggleMenu(e: Event) {
+  public toggleMenu(e: Event): void {
     if(this.search && this.search.nativeElement === e.target) {
       this.showMenu = true;
     } else {

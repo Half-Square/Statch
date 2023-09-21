@@ -5,23 +5,23 @@
  * @LastEditDate          : 2023-09-19 16:08:20                              *
  ****************************************************************************/
 
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { RouterModule } from "@angular/router";
 
-import { CoresModule } from '../cores/cores.module';
-import { SearchPipe } from '../pipe/search/search.pipe';
-import { SelectComponent } from './select/select.component';
-import { CardComponent } from './card/card.component';
-import { CollapseComponent } from './collapse/collapse.component';
-import { PaginatorComponent } from './paginator/paginator.component';
-import { StatusComponent } from './status/status.component';
-import { TabsComponent } from './tabs/tabs.component';
-import { TabComponent } from './tab/tab.component';
-import { TreeComponent } from './tree/tree.component';
-import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
-import { LevelComponent } from './level/level.component';
-import { ToastComponent } from './toast/toast.component';
+import { CoresModule } from "../cores/cores.module";
+import { SearchPipe } from "../pipe/search/search.pipe";
+import { SelectComponent } from "./select/select.component";
+import { CardComponent } from "./card/card.component";
+import { CollapseComponent } from "./collapse/collapse.component";
+import { PaginatorComponent } from "./paginator/paginator.component";
+import { StatusComponent } from "./status/status.component";
+import { TabsComponent } from "./tabs/tabs.component";
+import { TabComponent } from "./tab/tab.component";
+import { TreeComponent } from "./tree/tree.component";
+import { BreadcrumbsComponent } from "./breadcrumbs/breadcrumbs.component";
+import { LevelComponent } from "./level/level.component";
+import { ToastComponent } from "./toast/toast.component";
 
 @NgModule({
   declarations: [
@@ -41,7 +41,7 @@ import { ToastComponent } from './toast/toast.component';
   imports: [
     CommonModule,
     RouterModule,
-    CoresModule,
+    CoresModule
   ],
   exports: [
     SelectComponent,

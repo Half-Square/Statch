@@ -5,16 +5,16 @@
  * @LastEditDate          : 2023-09-19 12:39:22                               *
  *****************************************************************************/
 
-import { Component, ContentChildren, QueryList } from '@angular/core';
-import { TabComponent } from '../tab/tab.component';
+import { Component, ContentChildren, QueryList } from "@angular/core";
+import { TabComponent } from "../tab/tab.component";
 
 /**
  * Tabs component
  */
 @Component({
-  selector: 'component-tabs',
-  templateUrl: './tabs.component.html',
-  styleUrls: ['./tabs.component.scss']
+  selector: "component-tabs",
+  templateUrl: "./tabs.component.html",
+  styleUrls: ["./tabs.component.scss"]
 })
 export class TabsComponent {
   /**
@@ -27,7 +27,7 @@ export class TabsComponent {
    * Function to select a tab
    * @param selectedTab The TabComponent to be selected
    */
-  selectTab(selectedTab: TabComponent) {
+  selectTab(selectedTab: TabComponent): void {
     this.tabs.forEach((tab) => {
       tab.active = tab === selectedTab;
     });

@@ -5,38 +5,38 @@
  * @LastEditDate          : 2023-09-06 12:54:36                               *
  *****************************************************************************/
 
-import { Component, Input } from '@angular/core';
+import { Component, Input } from "@angular/core";
 
 /**
  * Custom link component
  */
 @Component({
-  selector: 'core-link',
-  templateUrl: './link.core.html',
-  styleUrls: ['./link.core.scss']
+  selector: "core-link",
+  templateUrl: "./link.core.html",
+  styleUrls: ["./link.core.scss"]
 })
 export class LinkCore {
   /**
    * Label text.
    */
   @Input()
-  label: string = 'Label';
+    label: string = "Label";
 
   /**
    * Style of the link.
    */
   @Input()
-  style: 'default' | 'primary' | 'accent' | 'warn' = 'default';
+    style: "default" | "primary" | "accent" | "warn" = "default";
 
   /**
    * Other CSS classes to apply to the link.
    */
   @Input()
-  other: string = '';
+    other: string = "";
 
   /**
    * Href of link.
    */
   @Input()
-  link: string = '';
+    link: string = "";
 }
