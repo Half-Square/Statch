@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-05-30 12:07:51                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-06-24 17:38:23                               *
+ * @LastEditDate          : 2023-09-21 12:33:09                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -13,6 +13,7 @@
 
 /* Imports */
 import { Module } from "@nestjs/common";
+import { ConfigModule } from "@nestjs/config";
 /***/
 
 /* Controllers */
@@ -28,10 +29,13 @@ import { AssignmentsController } from "./controllers/assignments/assignments.con
 import { PrismaService } from "./prisma.service";
 import { SocketService } from "./services/socket/socket.service";
 import { LabelsController } from "./controllers/labels/labels.controller";
+import { VersionsController } from "./controllers/versions/versions.controller";
 /***/
 
 @Module({
-  imports: [],
+  imports: [
+    ConfigModule.forRoot()
+  ],
   controllers: [
     UsersController,
     ProjectsController,
@@ -39,7 +43,8 @@ import { LabelsController } from "./controllers/labels/labels.controller";
     TicketsController,
     CommentsController,
     AssignmentsController,
-    LabelsController
+    LabelsController,
+    VersionsController
   ],
   providers: [
     PrismaService,
