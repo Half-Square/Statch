@@ -20,13 +20,15 @@ import { FormsModule } from "@angular/forms";
 import { LoginView } from "./login/login.view";
 import { SignupView } from "./signup/signup.view";
 import { PttView } from "./ptt/ptt.view";
+import { NotFoundView } from './not-found/not-found.view';
 /***/
 
 @NgModule({
   declarations: [
     LoginView,
     SignupView,
-    PttView
+    PttView,
+    NotFoundView
   ],
   imports: [
     CommonModule,
@@ -35,7 +37,8 @@ import { PttView } from "./ptt/ptt.view";
   exports: [
     LoginView,
     SignupView,
-    PttView
+    PttView,
+    NotFoundView
   ]
 })
 export class ViewsModule {}
