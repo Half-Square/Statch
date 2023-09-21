@@ -28,6 +28,7 @@ import { AssignmentsController } from "./controllers/assignments/assignments.con
 import { PrismaService } from "./prisma.service";
 import { SocketService } from "./services/socket/socket.service";
 import { LabelsController } from "./controllers/labels/labels.controller";
+import { VersionsController } from "./controllers/versions/versions.controller";
 /***/
 
 @Module({
@@ -39,7 +40,8 @@ import { LabelsController } from "./controllers/labels/labels.controller";
     TicketsController,
     CommentsController,
     AssignmentsController,
-    LabelsController
+    LabelsController,
+    VersionsController
   ],
   providers: [
     PrismaService,
