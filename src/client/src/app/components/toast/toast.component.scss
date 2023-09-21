@@ -1,0 +1,43 @@
+.toast {
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  position: absolute;
+  z-index: 100;
+  padding: 8px 16px;
+  border-radius: 8px;
+  left: 50%;
+  top: -100px;
+  transform: translateX(-50%);
+  transition: top ease 400ms;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+
+  &.printed {
+    top: 24px;
+  }
+}
+
+.toast.error {
+  background: #4d1f1f;
+  color: #fe3232;
+}
+
+.toast.warn {
+  background: #7A792B;
+  color: #fffb00;
+}
+
+.toast.info {
+  background: #2B4D7A;
+  color: #00ccff;
+}
+
+.toast.success {
+  background: #327A2B;
+  color: #15ff00;
+}

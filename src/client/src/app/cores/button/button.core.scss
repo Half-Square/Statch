@@ -1,0 +1,185 @@
+.button {
+  all: unset;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+}
+
+.button.small {
+  gap: 4px;
+  padding: 2px 6px;
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 500;
+  border: 1px solid transparent;
+}
+
+.button.medium {
+  gap: 4px;
+  padding: 4px 12px;
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 500;
+  border: 1px solid transparent;
+}
+
+.button.large {
+  gap: 4px;
+  padding: 4px 16px;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 500;
+  border: 1px solid transparent;
+}
+
+.button.basic.default {
+  color: #eaeaea;
+}
+.button.basic.default:hover:enabled {
+  background: #303030;
+}
+.button.basic.default:focus:enabled {
+  box-shadow: 0 0 0 2px #1e1e1e;
+}
+
+.button.basic.primary {
+  color: #0055ff;
+}
+.button.basic.primary:hover:enabled {
+  background: #0a1e48;
+}
+.button.basic.primary:focus:enabled {
+  box-shadow: 0 0 0 2px #16346e;
+}
+
+.button.basic.accent {
+  color: #15ff00;
+}
+.button.basic.accent:hover:enabled {
+  background: #327A2B;
+}
+.button.basic.accent:focus:enabled {
+  box-shadow: 0 0 0 2px #23571e;
+}
+
+.button.basic.warn {
+  color: #fe3232;
+}
+.button.basic.warn:hover:enabled {
+  background: #4d1f1f;
+}
+.button.basic.warn:focus:enabled {
+  box-shadow: 0 0 0 2px #341515;
+}
+
+.button.basic:disabled {
+  cursor: not-allowed;
+  color: #a7a7a7;
+}
+
+
+.button.flat.default {
+  color: #303030;
+  background: #eaeaea;
+}
+.button.flat.default:hover:enabled {
+  background: #f2f2f2;
+}
+.button.flat.default:focus:enabled {
+  box-shadow: 0 0 0 2px #1e1e1e;
+}
+
+.button.flat.primary {
+  color: #e1e5ee;
+  background: #0055ff;
+}
+.button.flat.primary:hover:enabled {
+  background: #1b67ff;
+}
+.button.flat.primary:focus:enabled {
+  box-shadow: 0 0 0 2px #16346e;
+}
+
+.button.flat.accent {
+  color: #21531d;
+  background: #15ff00;
+}
+.button.flat.accent:hover:enabled {
+  background: #6cff5f;
+}
+.button.flat.accent:focus:enabled {
+  box-shadow: 0 0 0 2px #23571e;
+}
+
+.button.flat.warn {
+  color: #3e1919;
+  background: #fe3232;
+}
+.button.flat.warn:hover:enabled {
+  background: #ff4b4b;
+}
+.button.flat.warn:focus:enabled {
+  box-shadow: 0 0 0 2px #341515;
+}
+
+.button.flat:disabled {
+  cursor: not-allowed;
+  color: #a7a7a7;
+  background: #303030;
+}
+
+
+.button.stroked.default {
+  color: #eaeaea;
+  border-color: #eaeaea;
+}
+.button.stroked.default:hover:enabled {
+  background: #303030;
+}
+.button.stroked.default:focus:enabled {
+  box-shadow: 0 0 0 2px #1e1e1e;
+}
+
+.button.stroked.primary {
+  color: #0055ff;
+  border-color: #0055ff;
+}
+.button.stroked.primary:hover:enabled {
+  background: #0a1e48;
+}
+.button.stroked.primary:focus:enabled {
+  box-shadow: 0 0 0 2px #16346e;
+}
+
+.button.stroked.accent {
+  color: #15ff00;
+  border-color: #15ff00;
+}
+.button.stroked.accent:hover:enabled {
+  background: #327A2B;
+}
+.button.stroked.accent:focus:enabled {
+  box-shadow: 0 0 0 2px #23571e;
+}
+
+.button.stroked.warn {
+  color: #fe3232;
+  border-color: #fe3232;
+}
+.button.stroked.warn:hover:enabled {
+  background: #4d1f1f;
+}
+.button.stroked.warn:focus:enabled {
+  box-shadow: 0 0 0 2px #341515;
+}
+
+.button.stroked:disabled {
+  cursor: not-allowed;
+  color: #a7a7a7;
+  border-color: #a7a7a7;
+  background: #303030;
+}

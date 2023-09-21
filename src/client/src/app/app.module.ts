@@ -29,6 +29,8 @@ import { SocketService } from "./services/socket.service";
 /* Modules */
 import { ViewsModule } from "./views/views.module";
 import { SectionsModule } from "./sections/sections.module";
+import { CoresModule } from './cores/cores.module';
+import { ComponentsModule } from './components/components.module';
 /***/
 
 @NgModule({
@@ -40,7 +42,9 @@ import { SectionsModule } from "./sections/sections.module";
     AppRoutingModule,
     FormsModule,
     ViewsModule,
-    SectionsModule
+    SectionsModule,
+    CoresModule,
+    ComponentsModule
   ],
   providers: [
     UserService,

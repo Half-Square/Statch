@@ -1,0 +1,94 @@
+.tag {
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+}
+
+.tag.small {
+  gap: 4px;
+  padding: 2px 4px;
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 500;
+}
+
+
+.tag.medium {
+  gap: 4px;
+  padding: 4px 8px;
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 500;
+}
+
+.tag.large {
+  gap: 4px;
+  padding: 4px 16px;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 500;
+}
+
+
+.tag.default {
+  background: #5b1f5d;
+  color: #f700ff;
+}
+
+.tag.default .dot {
+  background: #f700ff;
+}
+
+.tag.positive {
+  background: #327A2B;
+  color: #15ff00;
+}
+
+.tag.positive .dot {
+  background: #15ff00;
+}
+
+.tag.informative {
+  background: #2B4D7A;
+  color: #00ccff;
+}
+
+.tag.informative .dot {
+  background: #00ccff;
+}
+
+.tag.warn {
+  background: #7A792B;
+  color: #fffb00;
+}
+
+.tag.warn .dot {
+  background: #fffb00;
+}
+
+.tag.error {
+  background: #4d1f1f;
+  color: #fe3232;
+}
+
+.tag.error .dot {
+  background: #fe3232;
+}
+
+.tag.passive {
+  background: #303030;
+  color: #d0d0d0;
+}
+
+.tag.passive .dot {
+  background: #d0d0d0;
+}
+
+.tag .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+}

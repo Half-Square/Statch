@@ -1,0 +1,26 @@
+<!--
+* @Author                : Quentin<quentin@halfsquare.fr>
+* @CreatedDate           : 2023-09-05 10:15:00
+* @LastEditors           : Quentin<quentin@halfsquare.fr>
+* @LastEditDate          : 2023-09-05 10:33:58
+-->
+
+<div [ngClass]="['avatar', size, other]">
+
+  <div class="content">
+
+    <span *ngIf="imgLink" class="img">
+      <img [src]="imgLink" [alt]="label + ' profil picture'">
+    </span>
+
+    <span *ngIf="!imgLink" class="img">
+      {{getFirstLetter(label)}}
+    </span>
+
+  </div>
+
+  <div *ngIf="showLabel" class="label">
+    {{label}}
+  </div>
+
+</div>

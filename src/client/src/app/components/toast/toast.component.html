@@ -1,0 +1,11 @@
+<!--
+* @Author                : 0K00<qdouvillez@gmail.com>
+* @CreatedDate           : 2023-09-20 15:37:00
+* @LastEditors           : 0K00<qdouvillez@gmail.com>
+* @LastEditDate          : 2023-09-20 16:18:42
+-->
+
+<div [ngClass]="['toast', message != '' ? 'printed' : '', type]">
+  <core-icon [icon]="icon"></core-icon>
+  <span class="message">{{message}}</span>
+</div>

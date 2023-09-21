@@ -1,0 +1,27 @@
+.link {
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+.link.default {
+  color: #eaeaea;
+}
+
+.link.primary {
+  color: #0055ff;
+}
+
+.link.accent {
+  color: #15ff00;
+}
+
+.link.warn {
+  color: #fe3232;
+}

@@ -1,30 +1,61 @@
-/******************************************************************************
- * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @CreatedDate           : 2023-09-20 16:07:32                               *
- * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-09-20 16:08:43                               *
- *****************************************************************************/
+/*****************************************************************************
+ * @Author                : Quentin<quentin@halfsquare.fr>                   *
+ * @CreatedDate           : 2023-09-19 16:08:01                              *
+ * @LastEditors           : Quentin<quentin@halfsquare.fr>                   *
+ * @LastEditDate          : 2023-09-19 16:08:20                              *
+ ****************************************************************************/
 
-/* SUMMARY
-  * Imports
-  * Components
-*/
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
-/* Imports */
-import { NgModule } from "@angular/core";
-import { CommonModule } from "@angular/common";
-/***/
-
-/* Components */
-/***/
+import { CoresModule } from '../cores/cores.module';
+import { SearchPipe } from '../pipe/search/search.pipe';
+import { SelectComponent } from './select/select.component';
+import { CardComponent } from './card/card.component';
+import { CollapseComponent } from './collapse/collapse.component';
+import { PaginatorComponent } from './paginator/paginator.component';
+import { StatusComponent } from './status/status.component';
+import { TabsComponent } from './tabs/tabs.component';
+import { TabComponent } from './tab/tab.component';
+import { TreeComponent } from './tree/tree.component';
+import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
+import { LevelComponent } from './level/level.component';
+import { ToastComponent } from './toast/toast.component';
 
 @NgModule({
   declarations: [
+    SearchPipe,
+    SelectComponent,
+    CardComponent,
+    CollapseComponent,
+    PaginatorComponent,
+    StatusComponent,
+    TabsComponent,
+    TabComponent,
+    TreeComponent,
+    BreadcrumbsComponent,
+    LevelComponent,
+    ToastComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    RouterModule,
+    CoresModule,
   ],
   exports: [
+    SelectComponent,
+    CardComponent,
+    CollapseComponent,
+    PaginatorComponent,
+    StatusComponent,
+    TabsComponent,
+    TabComponent,
+    TreeComponent,
+    BreadcrumbsComponent,
+    LevelComponent,
+    ToastComponent
   ]
 })
+
 export class ComponentsModule { }

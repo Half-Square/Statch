@@ -1,0 +1,11 @@
+<!--
+* @Author                : Quentin<quentin@halfsquare.fr>
+* @CreatedDate           : 2023-09-15 15:24:00
+* @LastEditors           : Quentin<quentin@halfsquare.fr>
+* @LastEditDate          : 2023-09-15 15:31:06
+-->
+
+<div [ngClass]="['status', status]">
+  <core-icon [icon]="status"></core-icon>
+  <span class="label" *ngIf="size === 'medium'">{{ label }}</span>
+</div>
