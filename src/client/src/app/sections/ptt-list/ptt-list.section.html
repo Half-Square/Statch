@@ -1,0 +1,47 @@
+<!--
+* @Author                : 0K00<qdouvillez@gmail.com>
+* @CreatedDate           : 2023-09-21 15:40:00
+* @LastEditors           : 0K00<qdouvillez@gmail.com>
+* @LastEditDate          : 2023-09-21 16:59:59
+-->
+
+<div class="ptt-list">
+  <component-card>
+    <div class="sort">
+      <ng-content select="[sort]"></ng-content>
+    </div>
+
+    <a *ngFor="let element in elements" [routerLink]="'/' + type + '/' + element.id" class="element">
+      <div class="container">
+        <div class="block">
+          <div class="status">
+            {{ element.status }}
+          </div>
+
+          <div class="version">
+            {{ getVersion(element.targetVersionId) | async }}
+          </div>
+
+          <div class="name">
+            {{ element.name }}
+          </div>
+        </div>
+        <div class="block">
+          <div class="label" *ngFor="let label of element.labels">
+            <component-labels [name]="label.name" [color]="label.color"></component-labels>
+          </div>
+
+          <div class="level">
+            {{ element.level }}
+          </div>
+
+          <div class="assignee">
+            <div class="label" *ngFor="let label of getAssignee(element.id) | async">
+              <core-avatar [showLabel]="false" [size]="'medium'" [imgLink]="label.imgLink"></core-avatar>
+            </div>
+          </div>
+        </div>
+      </div>
+    </a>
+  </component-card>
+</div>
