@@ -5,3 +5,13 @@
  * @LastEditDate          : 2023-05-30 11:59:23                               *
  *****************************************************************************/
 
+ *, *::before, *::after {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  background: #17161a;
+  color: #eaeaea;
+}
