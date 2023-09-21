@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-05-30 11:58:09                              *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-09-20 16:02:46                              *
+ * @LastEditDate          : 2023-09-21 13:53:28                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -42,8 +42,8 @@ import { ComponentsModule } from "./components/components.module";
     AppRoutingModule,
     FormsModule,
     ViewsModule,
-    SectionsModule,
     CoresModule,
+    SectionsModule,
     ComponentsModule
   ],
   providers: [
