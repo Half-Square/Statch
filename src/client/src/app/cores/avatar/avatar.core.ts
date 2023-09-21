@@ -5,43 +5,43 @@
  * @LastEditDate          : 2023-09-06 12:58:02                               *
  *****************************************************************************/
 
-import { Component, Input } from '@angular/core';
+import { Component, Input } from "@angular/core";
 
 @Component({
-  selector: 'core-avatar',
-  templateUrl: './avatar.core.html',
-  styleUrls: ['./avatar.core.scss']
+  selector: "core-avatar",
+  templateUrl: "./avatar.core.html",
+  styleUrls: ["./avatar.core.scss"]
 })
 export class AvatarCore {
   /**
    * Label text.
    */
   @Input()
-  label: string = 'Label';
+    label: string = "Label";
 
   /**
    * Show label or not.
    */
   @Input()
-  showLabel: boolean = true;
+    showLabel: boolean = true;
 
   /**
    * Size of the avatar.
    */
   @Input()
-  size: 'small' | 'medium' | 'large' = 'medium';
+    size: "small" | "medium" | "large" = "medium";
 
   /**
    * Image's link of the avatar
    */
   @Input()
-  imgLink: string = '';
+    imgLink: string = "";
 
   /**
    * Other CSS classes to apply to the avatar.
    */
   @Input()
-  other: string = '';
+    other: string = "";
 
   /**
    * Function who return first letter of string

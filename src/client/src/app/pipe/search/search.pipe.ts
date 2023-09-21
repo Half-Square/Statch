@@ -5,10 +5,10 @@
  * @LastEditDate          : 2023-09-15 12:52:21                               *
  *****************************************************************************/
 
-import { Pipe, PipeTransform } from '@angular/core';
+import { Pipe, PipeTransform } from "@angular/core";
 
 @Pipe({
-  name: 'search',
+  name: "search",
   pure: false
 })
 export class SearchPipe implements PipeTransform {
@@ -20,7 +20,7 @@ export class SearchPipe implements PipeTransform {
    * @returns
    */
   transform(data: any[], query: string): any[] {
-    if (!query || query.trim() === '') {
+    if (!query || query.trim() === "") {
       return data;
     }
 
@@ -32,7 +32,7 @@ export class SearchPipe implements PipeTransform {
     });
 
     if (filteredData.length === 0) {
-      return [{ name: 'No result' }];
+      return [{ name: "No result" }];
     }
 
     return filteredData;

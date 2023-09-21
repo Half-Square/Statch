@@ -5,15 +5,15 @@
  * @LastEditDate          : 2023-09-15 15:42:03                               *
  *****************************************************************************/
 
-import { Component } from '@angular/core';
+import { Component } from "@angular/core";
 
 /**
  * Card component
  */
 @Component({
-  selector: 'component-card',
-  templateUrl: './card.component.html',
-  styleUrls: ['./card.component.scss']
+  selector: "component-card",
+  templateUrl: "./card.component.html",
+  styleUrls: ["./card.component.scss"]
 })
 export class CardComponent {
 

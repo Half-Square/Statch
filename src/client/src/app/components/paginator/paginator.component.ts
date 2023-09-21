@@ -5,35 +5,35 @@
  * @LastEditDate          : 2023-09-14 17:14:13                               *
  *****************************************************************************/
 
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from "@angular/core";
 
 /**
  * Paginator component.
  */
 @Component({
-  selector: 'component-paginator',
-  templateUrl: './paginator.component.html',
-  styleUrls: ['./paginator.component.scss']
+  selector: "component-paginator",
+  templateUrl: "./paginator.component.html",
+  styleUrls: ["./paginator.component.scss"]
 })
 export class PaginatorComponent {
   /**
    * Number of current page.
    */
   @Input()
-  currentPage: number = 0;
+    currentPage: number = 0;
 
   /**
    * Total page for the paginator.
    */
   @Input()
-  totalPages: number = 0;
+    totalPages: number = 0;
 
   /**
    * Event emitter triggered when the page is changed.
    * It emits the updated current page value.
    */
   @Output()
-  pageChange = new EventEmitter<number>();
+    pageChange = new EventEmitter<number>();
 
   /**
    * Create an array of number for each pages.
@@ -49,7 +49,7 @@ export class PaginatorComponent {
    */
   public visiblePages(): (number | string)[] {
     const visibleCount = 2; // Number of pages visible around the current page
-    const ellipsis = '...';
+    const ellipsis = "...";
     let start: number;
     let end: number;
 
@@ -92,20 +92,20 @@ export class PaginatorComponent {
    * Function that manages the page change and the next and previous.
    * @param page
    */
-  public changePage(page: number | string) {
-    if (page === 'prev') {
+  public changePage(page: number | string): void {
+    if (page === "prev") {
       // Manage previous.
       if (this.currentPage > 1) {
         this.currentPage--;
         this.pageChange.emit(this.currentPage);
       }
-    } else if (page === 'next') {
+    } else if (page === "next") {
       // Manage next.
       if (this.currentPage < this.totalPages) {
         this.currentPage++;
         this.pageChange.emit(this.currentPage);
       }
-    } else if (typeof page === 'number') {
+    } else if (typeof page === "number") {
       // Manage page change.
       this.currentPage = page;
       this.pageChange.emit(page);

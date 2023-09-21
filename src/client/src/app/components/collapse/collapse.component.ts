@@ -5,15 +5,15 @@
  * @LastEditDate          : 2023-09-19 13:06:06                               *
  *****************************************************************************/
 
-import { Component } from '@angular/core';
+import { Component } from "@angular/core";
 
 /**
  * Collapse component
  */
 @Component({
-  selector: 'component-collapse',
-  templateUrl: './collapse.component.html',
-  styleUrls: ['./collapse.component.scss']
+  selector: "component-collapse",
+  templateUrl: "./collapse.component.html",
+  styleUrls: ["./collapse.component.scss"]
 })
 export class CollapseComponent {
   /**

@@ -19,7 +19,7 @@ import { Observable, Subscriber } from "rxjs";
 
 interface ToastInterface {
   message: string,
-  type: 'error' | 'warn' | 'info' | 'success'
+  type: "error" | "warn" | "info" | "success"
 }
 
 @Injectable({
@@ -28,7 +28,7 @@ interface ToastInterface {
 export class ToastService {
   private readonly time: number = 4000; // 4 sec
   private message: string = "";
-  private type: 'error' | 'warn' | 'info' | 'success' = "info";
+  private type: "error" | "warn" | "info" | "success" = "info";
   private observer?: Subscriber<ToastInterface>;
   private tempo?: ReturnType<typeof setTimeout> | null;
 
@@ -48,7 +48,7 @@ export class ToastService {
   * Print message
   * @param message - Message to print
   */
-  public print(message: string, type: 'error' | 'warn' | 'info' | 'success' = 'info'): void {
+  public print(message: string, type: "error" | "warn" | "info" | "success" = "info"): void {
     this.clear();
 
     this.message = message;
