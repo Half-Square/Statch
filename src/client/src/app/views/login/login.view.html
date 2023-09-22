@@ -2,32 +2,38 @@
 * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>
 * @CreatedDate           : 2023-06-01 16:16:00
 * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>
-* @LastEditDate          : 2023-06-02 14:48:53
+* @LastEditDate          : 2023-09-22 17:25:28
 -->
 
-<div id="login">
+<div class="view-login">
   <img src="/assets/logotype.svg" alt="Statch logotype" width="204" height="56">
 
   <div class="container">
-    <input  type="text"
-            id="mail"
-            [(ngModel)]="email"
-            placeholder="Enter your email...">
+    <core-input [(value)]="email"
+                id="mail"
+                is="text"
+                placeholder="Enter your email..."
+                (keydown.enter)="login()"/>
 
-    <input  id="pwd"
-            [(ngModel)]="password"
-            type="password"
-            placeholder="Enter your password..."/>
+    <core-input-pwd [(value)]="password"
+                    id="password"
+                    is="text"
+                    placeholder="Enter your password..."
+                    (keydown.enter)="login()"/>
 
-    <input  id="btnLogin"
-            type="button"
-            (click)="login()"
-            value="submit"/>
+    <core-button  id="submit"
+                  label="Login"
+                  [style]="'primary'"
+                  type="flat"
+                  size="medium"
+                  other="full bold space-between"
+                  (click)="login()">
+      <core-icon icon="enter"/>
+    </core-button>
 
-    <a href="/signup">
-      <div>
-        Create your account<app-icons [ngClass]="'icon'" icon="arrow-right" />
-      </div>
+    <a href="/signup" class="register">
+      <div>Create your account</div>
+      <core-icon icon="arrow-right" />
     </a>
   </div>
 </div>

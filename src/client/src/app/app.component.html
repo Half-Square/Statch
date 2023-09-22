@@ -2,8 +2,10 @@
 * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>
 * @CreatedDate           : 2023-05-30 11:57:00
 * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>
-* @LastEditDate          : 2023-09-20 16:10:55
+* @LastEditDate          : 2023-09-22 16:59:25
 -->
 
-<section-navigation/>
+<section-navigation *ngIf="user.isConnected()"/>
 <router-outlet></router-outlet>
+
+<component-toast/>

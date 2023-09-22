@@ -1,9 +1,9 @@
-/******************************************************************************
- * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @CreatedDate           : 2023-06-01 16:16:44                               *
- * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-06-02 15:26:06                               *
- *****************************************************************************/
+/*****************************************************************************
+ * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @CreatedDate           : 2023-06-01 16:16:44                              *
+ * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @LastEditDate          : 2023-09-22 18:28:16                              *
+ ****************************************************************************/
 
 /* SUMMARY
   * Imports
@@ -17,6 +17,7 @@ import { Router } from "@angular/router";
 
 /* Services */
 import { RequestService } from "src/app/services/request.service";
+import { ToastService } from "src/app/services/toast.service";
 import { ILoggedUser, UserService } from "src/app/services/user.service";
 /***/
 
@@ -31,7 +32,8 @@ export class LoginView {
 
   constructor(private router: Router,
               private api: RequestService,
-              private userService: UserService) {
+              private userService: UserService,
+              private toast: ToastService) {
   }
 
   /**
@@ -43,9 +45,11 @@ export class LoginView {
       password: this.password
     }).then((ret) => {
       this.userService.setUser(ret as ILoggedUser);
+      this.toast.print("Connected !", "success");
       this.router.navigate(["/projects"]);
     }).catch((error) => {
-      console.error("Login error >> "+error);
+      console.error(error);
+      this.toast.print(`Login error >> ${error.message || error.statusText}`, "error");
     });
   }
   /***/

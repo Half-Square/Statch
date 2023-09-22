@@ -1,20 +1,20 @@
 /*****************************************************************************
- * @Author                : 0K00<qdouvillez@gmail.com>                       *
+ * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-05-31 15:03:46                              *
- * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
- * @LastEditDate          : 2023-09-21 12:40:37                              *
+ * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @LastEditDate          : 2023-09-22 18:38:38                              *
  ****************************************************************************/
 
 /* SUMMARY
   * Imports
   * Routes
   * Views
+  * Guards
 */
 
 /* Imports */
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
-import { TypeGuard } from "./services/guards/type-guard.service";
 /***/
 
 /* Views */
@@ -24,14 +24,22 @@ import { PttView } from "./views/ptt/ptt.view";
 import { SignupView } from "./views/signup/signup.view";
 /***/
 
+/* Guards */
+import { TypeGuard } from "./guards/type-guard.service";
+import { IsConnectedGuard } from "./guards/is-connected.guard";
+import { IsNotConnectedGuard } from "./guards/is-not-connected.guard";
+/***/
+
 /* Routes */
 const routes: Routes = [
-  { path: "login", component: LoginView },
-  { path: "signup", component: SignupView },
+  { path: "login", component: LoginView, canActivate: [IsNotConnectedGuard] },
+  { path: "signup", component: SignupView, canActivate: [IsNotConnectedGuard] },
 
-  { path: ":type/:id", component: PttView, canActivate: [TypeGuard] },
+  { path: ":type/:id", component: PttView, canActivate: [TypeGuard, IsConnectedGuard] },
 
   { path: "not-found", component: NotFoundView },
+
+  { path: "", pathMatch: "full", data: {title: ""}, redirectTo: "/home" },
   { path: "*", redirectTo: "not-found" }
 ];
 /***/

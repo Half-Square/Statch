@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-05-30 16:14:10                              *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-09-20 16:43:14                              *
+ * @LastEditDate          : 2023-09-22 18:29:11                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -45,7 +45,10 @@ export class RequestService {
         body: body ? JSON.stringify(body) : null
       }).then((ret) => {
         ret.json().then((data: unknown) => {
+          if (!(/2[0-9]{2}/g).test(String(ret.status))) throw data;
           return resolve(data);
+        }).catch((err) => {
+          return reject(err);
         });
       }).catch((err: Error) => {
         return reject(err);

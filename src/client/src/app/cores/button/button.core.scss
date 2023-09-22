@@ -1,3 +1,10 @@
+/*****************************************************************************
+ * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @CreatedDate           : 2023-09-22 17:15:37                              *
+ * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @LastEditDate          : 2023-09-22 17:18:58                              *
+ ****************************************************************************/
+
 .button {
   all: unset;
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
@@ -34,6 +41,19 @@
   line-height: 24px;
   font-weight: 500;
   border: 1px solid transparent;
+}
+
+.button.full {
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.button.bold {
+  font-weight: bold;
+}
+
+.button.space-between {
+  justify-content: space-between;
 }
 
 .button.basic.default {
