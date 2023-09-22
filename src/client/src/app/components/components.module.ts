@@ -22,7 +22,7 @@ import { TreeComponent } from "./tree/tree.component";
 import { BreadcrumbsComponent } from "./breadcrumbs/breadcrumbs.component";
 import { LevelComponent } from "./level/level.component";
 import { ToastComponent } from "./toast/toast.component";
-import { LabelsComponent } from './labels/labels.component';
+import { LabelsComponent } from "./labels/labels.component";
 
 @NgModule({
   declarations: [

@@ -1,0 +1,27 @@
+<!--
+* @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>
+* @CreatedDate           : 2023-09-22 18:44:00
+* @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>
+* @LastEditDate          : 2023-09-22 19:26:11
+-->
+
+<div class="view-projects">
+  <ng-template [ngIf]="projects" [ngIfElse]="loading">
+    <h3>Projects</h3>
+
+    <div class="projects-list">
+      <a  class="project-item"
+          *ngFor="let project of projects"
+          [routerLink]="['/projects/'+project.id]">
+        <core-icon [icon]="project.status"/>
+        <div>{{project.name}}</div>
+      </a>
+    </div>
+  </ng-template>
+
+  <ng-template #loading>
+    <div class="loading">
+      <core-loading/>
+    </div>
+  </ng-template>
+</div>

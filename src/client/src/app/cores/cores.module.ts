@@ -12,6 +12,7 @@ import { LinkCore } from "./link/link.core";
 import { ProgressCore } from "./progress/progress.core";
 import { RadioCore } from "./radio/radio.core";
 import { TagCore } from "./tag/tag.core";
+import { LoadingCore } from "./loading/loading.core";
 
 
 
@@ -27,7 +28,8 @@ import { TagCore } from "./tag/tag.core";
     LinkCore,
     ProgressCore,
     RadioCore,
-    TagCore
+    TagCore,
+    LoadingCore
   ],
   imports: [
     CommonModule,
@@ -44,7 +46,8 @@ import { TagCore } from "./tag/tag.core";
     LinkCore,
     ProgressCore,
     RadioCore,
-    TagCore
+    TagCore,
+    LoadingCore
   ]
 })
 export class CoresModule { }

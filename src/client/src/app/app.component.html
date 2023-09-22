@@ -2,10 +2,15 @@
 * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>
 * @CreatedDate           : 2023-05-30 11:57:00
 * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>
-* @LastEditDate          : 2023-09-22 16:59:25
+* @LastEditDate          : 2023-09-22 19:01:19
 -->
 
-<section-navigation *ngIf="user.isConnected()"/>
-<router-outlet></router-outlet>
+<div class="app">
+  <section-navigation *ngIf="user.getUser()"/>
+
+  <div class="views-container">
+    <router-outlet></router-outlet>
+  </div>
+</div>
 
 <component-toast/>

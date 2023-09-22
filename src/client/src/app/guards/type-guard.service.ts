@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : 0K00<qdouvillez@gmail.com>                       *
+ * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-09-21 12:37:03                              *
- * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
- * @LastEditDate          : 2023-09-21 12:42:10                              *
+ * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @LastEditDate          : 2023-09-22 19:00:32                              *
  ****************************************************************************/
 
 import { Injectable } from "@angular/core";
@@ -27,7 +27,7 @@ export class TypeGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
   ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
-    const allowedTypes = ["project", "task", "ticket"];
+    const allowedTypes = ["projects", "tasks", "tickets"];
     const typeParam = route.paramMap.get("type");
 
     if (typeParam && allowedTypes.includes(typeParam)) {
