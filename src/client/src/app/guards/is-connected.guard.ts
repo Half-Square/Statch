@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-09-22 18:17:29                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-09-22 18:35:59                               *
+ * @LastEditDate          : 2023-09-22 18:39:31                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -28,7 +28,7 @@ export class IsConnectedGuard {
   }
 
   canActivate(): boolean | UrlTree {
-    if (!this.user.isConnected()) this.router.navigateByUrl("/login");
+    if (!this.user.getUser()) this.router.navigateByUrl("/login");
     return true;
   }
 }

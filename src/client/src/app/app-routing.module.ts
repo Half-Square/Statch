@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-05-31 15:03:46                              *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-09-22 18:25:40                              *
+ * @LastEditDate          : 2023-09-22 18:38:38                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -25,7 +25,7 @@ import { SignupView } from "./views/signup/signup.view";
 /***/
 
 /* Guards */
-import { TypeGuard } from "./services/guards/type-guard.service";
+import { TypeGuard } from "./guards/type-guard.service";
 import { IsConnectedGuard } from "./guards/is-connected.guard";
 import { IsNotConnectedGuard } from "./guards/is-not-connected.guard";
 /***/
