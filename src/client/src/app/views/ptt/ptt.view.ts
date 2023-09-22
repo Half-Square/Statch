@@ -1,11 +1,14 @@
-/******************************************************************************
- * @Author                : 0K00<qdouvillez@gmail.com>                        *
- * @CreatedDate           : 2023-09-21 12:45:58                               *
- * @LastEditors           : 0K00<qdouvillez@gmail.com>                        *
- * @LastEditDate          : 2023-09-21 14:14:06                               *
- *****************************************************************************/
+/*****************************************************************************
+ * @Author                : Quentin<quentin@halfsquare.fr>                   *
+ * @CreatedDate           : 2023-09-21 12:45:58                              *
+ * @LastEditors           : Quentin<quentin@halfsquare.fr>                   *
+ * @LastEditDate          : 2023-09-22 18:24:56                              *
+ ****************************************************************************/
 
 import { Component } from "@angular/core";
+import { ActivatedRoute } from "@angular/router";
+import { ITasks, ITickets } from "src/app/interfaces";
+import { RecoveryService } from "src/app/services/recovery.service";
 
 @Component({
   selector: "view-ptt",
@@ -23,6 +26,12 @@ export class PttView {
 
   public progressValue: number = 50;
 
+  public elements: ITickets[] = [];
+
+  public type: string = "";
+
+  public id: any = "";
+
   public assigneeSelf(): void {
     this.isAssignee = !this.isAssignee;
   }
@@ -39,7 +48,19 @@ export class PttView {
     this.onEdit = !this.onEdit;
   }
 
-  ngOnInit(): void {
+  constructor(private route: ActivatedRoute, public recovery: RecoveryService) {}
+
+  async ngOnInit(): Promise<void> {
+
+    this.route.params.subscribe( async params => {
+      this.type = params["type"] === "project" ? "tasks" : "tickets";
+      this.id = params["id"];
+
+    });
+
+    // this.elements = await this.recovery.getSingleSync(this.type, this.id) as ITickets[];
+
+
     // this.route.subcribe if (project | task | ticket) this.recovery.sub type & id get one pass type & id if err unscribe => 404 var private
     // sub => url
     // sub => data

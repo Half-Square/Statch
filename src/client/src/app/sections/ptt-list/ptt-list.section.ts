@@ -1,9 +1,9 @@
-/******************************************************************************
- * @Author                : 0K00<qdouvillez@gmail.com>                        *
- * @CreatedDate           : 2023-09-21 15:40:44                               *
- * @LastEditors           : 0K00<qdouvillez@gmail.com>                        *
- * @LastEditDate          : 2023-09-21 16:23:16                               *
- *****************************************************************************/
+/*****************************************************************************
+ * @Author                : Quentin<quentin@halfsquare.fr>                   *
+ * @CreatedDate           : 2023-09-21 15:40:44                              *
+ * @LastEditors           : Quentin<quentin@halfsquare.fr>                   *
+ * @LastEditDate          : 2023-09-22 18:05:55                              *
+ ****************************************************************************/
 
 import { Component, OnInit, Input, OnDestroy } from "@angular/core";
 import { RecoveryService } from "src/app/services/recovery.service";
@@ -19,7 +19,7 @@ export class PttListSection {
     link: string = "";
 
   @Input()
-    elements: ITasks[] | ITickets[] = [];
+    elements: ITickets[] = [];
 
   @Input()
     type: string = "";
