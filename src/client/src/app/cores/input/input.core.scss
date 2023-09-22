@@ -232,8 +232,11 @@
  * Other CSS classes to apply to the input.
  */
 .input.full {
+  width: 100%;
+
   input {
     width: 100%;
+    box-sizing: border-box;
   }
 }
 
