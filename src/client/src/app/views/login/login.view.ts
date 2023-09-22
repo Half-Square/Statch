@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-06-01 16:16:44                              *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-09-22 16:59:14                              *
+ * @LastEditDate          : 2023-09-22 18:28:16                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -48,8 +48,8 @@ export class LoginView {
       this.toast.print("Connected !", "success");
       this.router.navigate(["/projects"]);
     }).catch((error) => {
-      console.error("Login error >> "+error);
-      this.toast.print(`Login error >> ${error}`, "error");
+      console.error(error);
+      this.toast.print(`Login error >> ${error.message || error.statusText}`, "error");
     });
   }
   /***/
