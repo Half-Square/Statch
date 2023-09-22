@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : 0K00<qdouvillez@gmail.com>                       *
+ * @Author                : Quentin<quentin@halfsquare.fr>                   *
  * @CreatedDate           : 2023-05-31 12:56:22                              *
- * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
- * @LastEditDate          : 2023-09-21 16:16:54                              *
+ * @LastEditors           : Quentin<quentin@halfsquare.fr>                   *
+ * @LastEditDate          : 2023-09-22 18:22:16                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -168,12 +168,20 @@ export class RecoveryService {
   }
   /***/
 
+  /**
+   * Get data in collection
+   * @param collection - Collection name
+   * @param id - Ressource id
+   * @returns - Raw data
+   */
   public async getSingleSync(collection: string, id: string): Promise<unknown> {
 
     if(!this.data[collection]) {
       this.data[collection] = await this.api.get(`api/${collection}`);
+      return this.data[collection];
     }
 
     return _.find(this.data[collection], {id: id});
   }
+  /***/
 }
