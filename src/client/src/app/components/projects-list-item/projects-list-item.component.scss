@@ -1,0 +1,37 @@
+/*****************************************************************************
+ * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @CreatedDate           : 2023-09-25 10:51:13                              *
+ * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @LastEditDate          : 2023-09-25 11:19:52                              *
+ ****************************************************************************/
+
+.projects-list-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+  border-bottom: 1px solid rgba(255,255,255,.08);
+  cursor: pointer;
+  color: #eaeaea;
+  text-decoration: none;
+
+  &:hover {
+    background-color: #3d3d3d;
+  }
+
+  .start {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+  }
+
+  .version, .date {
+    opacity: 0.5;
+    font-size: 12px;
+  }
+
+  .date {
+    justify-self: flex-end;
+  }
+}

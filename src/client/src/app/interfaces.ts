@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-09-20 16:13:37                              *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-09-20 16:53:05                              *
+ * @LastEditDate          : 2023-09-25 10:59:44                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -56,8 +56,19 @@ interface ITickets {
 }
 /***/
 
+/**
+* IVersions
+*/
+interface IVersions {
+  id: string,
+  name: string,
+  projectId: string
+}
+/***/
+
 export {
   IProjects,
   ITasks,
-  ITickets
+  ITickets,
+  IVersions
 };
