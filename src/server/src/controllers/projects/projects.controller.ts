@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-06-13 14:10:50                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-06-26 14:10:07                               *
+ * @LastEditDate          : 2023-09-25 10:15:06                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -62,7 +62,11 @@ export class ProjectsController {
   @Get()
   async getAll(): Promise<Project[]> {
     try {
-      return await this.prisma.project.findMany();
+      return await this.prisma.project.findMany({
+        include: {
+          labels: true
+        }
+      });
     } catch (err) {
       throw err;
     }
@@ -77,7 +81,12 @@ export class ProjectsController {
   @Get(":id")
   async getById(@Param("id") id: string): Promise<Project> {
     try {
-      const ret = await this.prisma.project.findUnique({where: {id: id}});
+      const ret = await this.prisma.project.findUnique({
+        where: {id: id},
+        include: {
+          labels: true
+        }
+      });
       if (ret) return ret;
       else throw new HttpException(`Project ${id} Not Found`, HttpStatus.NOT_FOUND);
     } catch (err) {
@@ -105,6 +114,9 @@ export class ProjectsController {
               userId: user.id
             }]
           }
+        },
+        include: {
+          labels: true
         }
       });
 
@@ -128,7 +140,10 @@ export class ProjectsController {
     try {
       const project = await this.prisma.project.update({
         where: {id: id},
-        data: body
+        data: body,
+        include: {
+          labels: true
+        }
       });
 
       this.socket.broadcast("projects", project);

@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-06-24 13:45:04                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-06-26 14:20:28                               *
+ * @LastEditDate          : 2023-09-25 10:17:00                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -62,7 +62,11 @@ export class TicketsController {
   @Get("tickets")
   async getAll(): Promise<Ticket[]> {
     try {
-      return await this.prisma.ticket.findMany();
+      return await this.prisma.ticket.findMany({
+        include: {
+          labels: true
+        }
+      });
     } catch (err) {
       throw err;
     }
@@ -77,7 +81,12 @@ export class TicketsController {
   @Get("tickets/:id")
   async getById(@Param("id") id: string): Promise<Ticket> {
     try {
-      const ticket = await this.prisma.ticket.findUnique({where: {id: id}});
+      const ticket = await this.prisma.ticket.findUnique({
+        where: {id: id},
+        include: {
+          labels: true
+        }
+      });
       if (ticket) return ticket;
       else throw new HttpException("Not Found", HttpStatus.NOT_FOUND);
     } catch (err) {
@@ -110,6 +119,9 @@ export class TicketsController {
               userId: user.id
             }]
           }
+        },
+        include: {
+          labels: true
         }
       });
 
@@ -135,7 +147,10 @@ export class TicketsController {
     try {
       const ticket = await this.prisma.ticket.update({
         where: {id: id},
-        data: body
+        data: body,
+        include: {
+          labels: true
+        }
       });
 
       this.socket.broadcast("tickets", ticket);

@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-06-24 13:47:35                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-06-26 14:18:20                               *
+ * @LastEditDate          : 2023-09-25 10:16:27                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -62,7 +62,11 @@ export class TasksController {
   @Get("tasks")
   async getAll(): Promise<Task[]> {
     try {
-      return await this.prisma.task.findMany();
+      return await this.prisma.task.findMany({
+        include: {
+          labels: true
+        }
+      });
     } catch (err) {
       throw err;
     }
@@ -77,7 +81,12 @@ export class TasksController {
   @Get("tasks/:id")
   async getById(@Param("id") id: string): Promise<Task> {
     try {
-      const task = await this.prisma.task.findUnique({where: {id: id}});
+      const task = await this.prisma.task.findUnique({
+        where: {id: id},
+        include: {
+          labels: true
+        }
+      });
       if (task) return task;
       else throw new HttpException("Not Found", HttpStatus.NOT_FOUND);
     } catch (err) {
@@ -110,6 +119,9 @@ export class TasksController {
               userId: user.id
             }]
           }
+        },
+        include: {
+          labels: true
         }
       });
 
@@ -135,7 +147,10 @@ export class TasksController {
     try {
       const task = await this.prisma.task.update({
         where: {id: id},
-        data: body
+        data: body,
+        include: {
+          labels: true
+        }
       });
 
       this.socket.broadcast("tasks", task);

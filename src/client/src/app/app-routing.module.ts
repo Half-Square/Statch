@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-05-31 15:03:46                              *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-09-22 18:52:33                              *
+ * @LastEditDate          : 2023-09-25 10:01:43                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -41,7 +41,7 @@ const routes: Routes = [
 
   { path: "not-found", component: NotFoundView },
 
-  { path: "", pathMatch: "full", data: {title: ""}, redirectTo: "/home" },
+  { path: "", pathMatch: "full", data: {title: ""}, redirectTo: "/projects" },
   { path: "**", redirectTo: "not-found" }
 ];
 /***/
