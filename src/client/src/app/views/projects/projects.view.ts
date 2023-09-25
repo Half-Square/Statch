@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-09-22 18:44:16                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-09-25 13:28:09                               *
+ * @LastEditDate          : 2023-09-25 13:29:42                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -62,7 +62,7 @@ export class ProjectsView implements OnInit, OnDestroy {
         this.router.navigate([`/projects/${(ret as IProjects).id}`]);
       }).catch((err) => {
         console.error(err);
-        this.toast.print(`Login error >> ${err.message || err.statusText}`, "error");
+        this.toast.print(`Error >> ${err.message || err.statusText}`, "error");
       });
   }
   /***/
