@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-09-20 16:03:27                              *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-09-25 15:33:03                              *
+ * @LastEditDate          : 2023-09-25 17:57:10                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -32,6 +32,7 @@ import { PttCommentSection } from "./ptt-comment/ptt-comment.section";
 import { PttDetailsSection } from "./ptt-details/ptt-details.section";
 import { ToolsNavSection } from "./tools-nav/tools-nav.section";
 import { ProjectsListSection } from "./projects-list/projects-list.section";
+import { PipeModule } from "../pipe/pipe.module";
 /***/
 
 @NgModule({
@@ -50,7 +51,8 @@ import { ProjectsListSection } from "./projects-list/projects-list.section";
     CommonModule,
     RouterModule,
     CoresModule,
-    ComponentsModule
+    ComponentsModule,
+    PipeModule
   ],
   exports: [
     NavigationSection,

@@ -2,20 +2,22 @@
  * @Author                : Quentin<quentin@halfsquare.fr>                   *
  * @CreatedDate           : 2023-09-21 12:45:58                              *
  * @LastEditors           : Quentin<quentin@halfsquare.fr>                   *
- * @LastEditDate          : 2023-09-22 18:24:56                              *
+ * @LastEditDate          : 2023-09-25 17:23:19                              *
  ****************************************************************************/
 
-import { Component } from "@angular/core";
+import { Component, OnChanges, OnDestroy, OnInit, SimpleChanges } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
-import { ITasks, ITickets } from "src/app/interfaces";
+import { IProjects, ITasks, ITickets } from "src/app/interfaces";
 import { RecoveryService } from "src/app/services/recovery.service";
+import { Subscription } from "rxjs";
+import * as _ from "lodash";
 
 @Component({
   selector: "view-ptt",
   templateUrl: "./ptt.view.html",
   styleUrls: ["./ptt.view.scss"]
 })
-export class PttView {
+export class PttView implements OnInit, OnDestroy, OnChanges {
   public isAssignee: boolean = true;
 
   public onEdit: boolean = false;
@@ -28,9 +30,23 @@ export class PttView {
 
   public elements: ITickets[] = [];
 
+  public projects: any = {};
+
+  public currentElement: any;
+
+  public toggleVersion: any;
+
+  public versions: any = [];
+
+  public _ = _;
+
   public type: string = "";
 
-  public id: any = "";
+  public typeChild: string = "";
+
+  public id: string = "";
+
+  private subsciption: Subscription[] | null = null;
 
   public assigneeSelf(): void {
     this.isAssignee = !this.isAssignee;
@@ -50,26 +66,68 @@ export class PttView {
 
   constructor(private route: ActivatedRoute, public recovery: RecoveryService) {}
 
-  async ngOnInit(): Promise<void> {
+  ngOnInit(): void {
 
-    this.route.params.subscribe( async params => {
-      this.type = params["type"] === "project" ? "tasks" : "tickets";
-      this.id = params["id"];
+    this.subsciption = [
 
+      this.route.params.subscribe(params => {
+        this.type = params["type"];
+        this.typeChild = params["type"] === "projects" ? "tasks" : "tickets";
+        this.id = params["id"];
+      }),
+
+      this.recovery.get("projects").subscribe((projects) => this.projects = projects), // single
+
+      this.recovery.get(this.typeChild).subscribe((elements) => this.elements = elements)
+
+    ];
+
+
+    this.recovery.getSingleSync(this.type, this.id).then((element) => {
+      this.currentElement = element;
+      this.toggleVersion = this.type === "projects" ? this.currentElement.actualVersion : this.currentElement.targetVersionId;
     });
 
-    // this.elements = await this.recovery.getSingleSync(this.type, this.id) as ITickets[];
+    this.recovery.getSingleSync("versions", this.id).then((version) => {
+      console.log(version);
+    });
 
+    this.progressValue = this.setAdvancement();
 
-    // this.route.subcribe if (project | task | ticket) this.recovery.sub type & id get one pass type & id if err unscribe => 404 var private
-    // sub => url
-    // sub => data
-    // unsub no use
-    // header bar nav => add, sub
-    // Header => Title, Description
-    // Advancement => Progress, List task | ticket
-    // Comments
-    // Details => id, owner, assignee, version, status, labels, tt list, created
-    // activity
+    console.log(this.versions);
+
   }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log("t");
+
+  }
+
+  /**
+   * Unsubscribe when view's destroyed.
+   */
+  ngOnDestroy(): void {
+    if (this.subsciption) this.subsciption.forEach((s) => s.unsubscribe());
+  }
+
+  private setAdvancement(): number {
+    let cpt = 0;
+    let rej = 0;
+    let done = 0;
+
+    this.elements.forEach(element => {
+      if ((element.targetVersionId
+        && (this.type === "projects" ? element.targetVersionId === this.currentElement.actualVersion : element.targetVersionId === this.currentElement.targetVersionId))) {
+        if (element.status == "reject")
+          rej++;
+        if (element.status == "done")
+          done++;
+        cpt++;
+      }
+    });
+
+    if (!cpt) return 0;
+    else return Math.trunc(done / (cpt - rej) * 100);
+  }
+
 }

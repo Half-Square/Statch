@@ -2,7 +2,7 @@
 * @Author                : Quentin<quentin@halfsquare.fr>
 * @CreatedDate           : 2023-09-21 13:14:00
 * @LastEditors           : Quentin<quentin@halfsquare.fr>
-* @LastEditDate          : 2023-09-22 18:08:04
+* @LastEditDate          : 2023-09-25 17:24:11
 -->
 
 <div class="ptt">
@@ -19,9 +19,8 @@
   </div>
   <div class="advancement">
     <section-ptt-advancement [value]="progressValue"></section-ptt-advancement>
-    <section-ptt-list [elements]="elements">
+    <section-ptt-list [elements]="_.filter(elements, {projectId: id})" [type]="typeChild">
       <div sort>
-        Hello
       </div>
     </section-ptt-list>
   </div>

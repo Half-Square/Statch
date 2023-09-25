@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @Author                : Quentin<quentin@halfsquare.fr>                   *
  * @CreatedDate           : 2023-05-30 11:58:09                              *
- * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-09-21 13:53:28                              *
+ * @LastEditors           : Quentin<quentin@halfsquare.fr>                   *
+ * @LastEditDate          : 2023-09-25 15:34:49                              *
  ****************************************************************************/
 
 /* SUMMARY
