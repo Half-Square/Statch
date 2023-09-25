@@ -1,23 +1,23 @@
-/******************************************************************************
- * @Author                : Quentin<quentin@halfsquare.fr>                    *
- * @CreatedDate           : 2023-09-05 10:17:26                               *
- * @LastEditors           : Quentin<quentin@halfsquare.fr>                    *
- * @LastEditDate          : 2023-09-06 12:58:02                               *
- *****************************************************************************/
+/*****************************************************************************
+ * @Author                : Quentin<quentin@halfsquare.fr>                   *
+ * @CreatedDate           : 2023-09-05 10:17:26                              *
+ * @LastEditors           : Quentin<quentin@halfsquare.fr>                   *
+ * @LastEditDate          : 2023-09-25 16:18:16                              *
+ ****************************************************************************/
 
-import { Component, Input } from "@angular/core";
+import { Component, Input, OnChanges, SimpleChanges } from "@angular/core";
 
 @Component({
   selector: "core-avatar",
   templateUrl: "./avatar.core.html",
   styleUrls: ["./avatar.core.scss"]
 })
-export class AvatarCore {
+export class AvatarCore implements OnChanges {
   /**
    * Label text.
    */
   @Input()
-    label: string = "Label";
+    label: any = "Label";
 
   /**
    * Show label or not.
@@ -43,12 +43,24 @@ export class AvatarCore {
   @Input()
     other: string = "";
 
+  public printLabel: string = "";
+
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log(changes);
+    if(!this.imgLink && changes["label"].currentValue) this.printLabel = this.getFirstLetter(changes["label"].currentValue);
+  }
+
   /**
    * Function who return first letter of string
    * @param name Label string
    * @returns - First letter of string
    */
   public getFirstLetter(name: string): string {
-    return Array.from(name)[0];
+    console.log(name);
+
+    if(name && name != "")
+      return Array.from(name)[0];
+    return "";
   }
+
 }

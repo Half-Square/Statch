@@ -2,7 +2,7 @@
 * @Author                : Quentin<quentin@halfsquare.fr>
 * @CreatedDate           : 2023-09-05 10:15:00
 * @LastEditors           : Quentin<quentin@halfsquare.fr>
-* @LastEditDate          : 2023-09-05 10:33:58
+* @LastEditDate          : 2023-09-25 16:02:47
 -->
 
 <div [ngClass]="['avatar', size, other]">
@@ -14,13 +14,13 @@
     </span>
 
     <span *ngIf="!imgLink" class="img">
-      {{getFirstLetter(label)}}
+      {{printLabel}}
     </span>
 
   </div>
 
   <div *ngIf="showLabel" class="label">
-    {{label}}
+    {{printLabel}}
   </div>
 
 </div>

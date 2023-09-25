@@ -2,7 +2,7 @@
 * @Author                : Quentin<quentin@halfsquare.fr>
 * @CreatedDate           : 2023-09-21 15:40:00
 * @LastEditors           : Quentin<quentin@halfsquare.fr>
-* @LastEditDate          : 2023-09-22 18:06:33
+* @LastEditDate          : 2023-09-25 16:36:20
 -->
 
 <div class="ptt-list">
@@ -14,11 +14,11 @@
       <div class="container">
         <div class="block">
           <div class="status">
-            {{ element.status }}
+            <core-icon [icon]="element.status"></core-icon>
           </div>
 
           <div class="version">
-            {{ getVersion(element.targetVersionId) | async }}
+            {{ element.targetVersionId | recovery:"name":"versions" | async }}
           </div>
 
           <div class="name">
@@ -26,17 +26,17 @@
           </div>
         </div>
         <div class="block">
-          <!-- <div class="label" *ngFor="let label of element.labels">
+          <div class="label" *ngFor="let label of element.labels">
             <component-labels [name]="label.name" [color]="label.color"></component-labels>
-          </div> -->
+          </div>
 
           <div class="level">
-            {{ element.level }}
+            <component-level [level]="element.level"></component-level>
           </div>
 
           <div class="assignee">
-            <div class="label" *ngFor="let label of getAssignee(element.id) | async">
-              <core-avatar [showLabel]="false" [size]="'medium'" [imgLink]="label.imgLink"></core-avatar>
+            <div class="label" *ngFor="let assignee of element.assignments">
+              <core-avatar [showLabel]="false" [size]="'medium'" [imgLink]="assignee.imgLink" [label]="assignee.userId | recovery:'name':'users' | async"></core-avatar>
             </div>
           </div>
         </div>
