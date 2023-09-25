@@ -23,4 +23,10 @@ export class IconCore {
    */
   @Input()
     icon: string = "";
+
+  /**
+  * Other class to add
+  */
+  @Input()
+    other: string = "";
 }

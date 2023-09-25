@@ -2,7 +2,7 @@
 * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>
 * @CreatedDate           : 2023-09-20 16:09:00
 * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>
-* @LastEditDate          : 2023-09-21 16:00:32
+* @LastEditDate          : 2023-09-25 10:32:16
 -->
 
 <div class="section-ptt-navigation">
@@ -16,7 +16,7 @@
           <core-icon [icon]="isOpen(project.id) ? 'chevron-down' : 'chevron-right'"></core-icon>
         </div>
 
-        <a routerLink="/projects/{{project.id}}" class="link">
+        <a routerLink="/projects/{{project.id}}" routerLinkActive="active" class="link">
           <core-icon [icon]="project.status"></core-icon>
           <div class="ellipsis">{{project.name}}</div>
         </a>
@@ -32,7 +32,7 @@
               <core-icon [icon]="isOpen(task.id) ? 'chevron-down' : 'chevron-right'"></core-icon>
             </div>
 
-            <a routerLink="/tasks/{{task.id}}" class="link">
+            <a routerLink="/tasks/{{task.id}}" routerLinkActive="active" class="link">
               <core-icon [icon]="task.status"></core-icon>
               <div class="ellipsis">{{task.name}}</div>
             </a>
@@ -42,7 +42,7 @@
             <li class="item depth"
                 *ngFor="let ticket of _.filter(tickets, {taskId: task.id})">
               <div class="head">
-                <a routerLink="tickets/{{ticket.id}}" class="link">
+                <a routerLink="tickets/{{ticket.id}}" routerLinkActive="active" class="link">
                   <core-icon [icon]="ticket.status"></core-icon>
                   <div class="ellipsis">{{ticket.name}}</div>
                 </a>

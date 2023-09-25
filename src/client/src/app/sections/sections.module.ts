@@ -30,6 +30,7 @@ import { PttAdvancementSection } from "./ptt-advancement/ptt-advancement.section
 import { PttListSection } from "./ptt-list/ptt-list.section";
 import { PttCommentSection } from "./ptt-comment/ptt-comment.section";
 import { PttDetailsSection } from "./ptt-details/ptt-details.section";
+import { ToolsNavSection } from "./tools-nav/tools-nav.section";
 /***/
 
 @NgModule({
@@ -40,7 +41,8 @@ import { PttDetailsSection } from "./ptt-details/ptt-details.section";
     PttAdvancementSection,
     PttListSection,
     PttCommentSection,
-    PttDetailsSection
+    PttDetailsSection,
+    ToolsNavSection
   ],
   imports: [
     CommonModule,
@@ -55,7 +57,8 @@ import { PttDetailsSection } from "./ptt-details/ptt-details.section";
     PttAdvancementSection,
     PttListSection,
     PttCommentSection,
-    PttDetailsSection
+    PttDetailsSection,
+    ToolsNavSection
   ]
 })
 export class SectionsModule { }

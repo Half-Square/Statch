@@ -1,9 +1,9 @@
-/******************************************************************************
- * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @CreatedDate           : 2023-05-30 11:59:22                               *
- * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-05-30 11:59:23                               *
- *****************************************************************************/
+/*****************************************************************************
+ * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @CreatedDate           : 2023-05-30 11:59:22                              *
+ * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @LastEditDate          : 2023-09-25 10:31:46                              *
+ ****************************************************************************/
 
  *, *::before, *::after {
   margin: 0;
@@ -14,4 +14,13 @@ html {
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   background: #17161a;
   color: #eaeaea;
+}
+
+a {
+  color: #eaeaea;
+  text-decoration: none;
+
+  &.active {
+    color: #0055ff
+  }
 }
