@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-06-01 15:15:39                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-09-25 13:57:52                               *
+ * @LastEditDate          : 2023-09-25 15:52:20                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -28,7 +28,7 @@ import {
 } from "@nestjs/common";
 import { sha256 } from "js-sha256";
 import * as jwt from "jsonwebtoken";
-import { Assignment } from "@prisma/client";
+import { Assignment, User } from "@prisma/client";
 /***/
 
 /* Services */
@@ -124,6 +124,17 @@ export class UsersController {
   @UseGuards(IsSelfGuard)
   async getAssignments(@Param("id") id: string): Promise<Assignment[]> {
     return await this.prisma.assignment.findMany({where: {userId: id}});
+  }
+  /***/
+
+  /**
+  * Get all users
+  * @return - User list 
+  */
+  @Get("users")
+  @UseGuards(IsConnectedGuard)
+  async getAll(): Promise<User[]> {
+    return this.prisma.user.findMany();
   }
   /***/
 }
