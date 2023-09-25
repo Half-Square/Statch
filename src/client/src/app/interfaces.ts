@@ -2,12 +2,15 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-09-20 16:13:37                              *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-09-25 10:59:44                              *
+ * @LastEditDate          : 2023-09-25 14:08:40                              *
  ****************************************************************************/
 
 /* SUMMARY
   * IProjects
   * ITasks
+  * ITickets
+  * IVersions
+  * IAssignments
 */
 
 /**
@@ -66,9 +69,22 @@ interface IVersions {
 }
 /***/
 
+/**
+* IAssignments
+*/
+interface IAssignments {
+  id: string,
+  userId: string,
+  projectId: string | null,
+  taskId: string | null,
+  ticketId: string | null
+}
+/***/
+
 export {
   IProjects,
   ITasks,
   ITickets,
-  IVersions
+  IVersions,
+  IAssignments
 };

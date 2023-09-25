@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-06-01 15:15:39                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-09-25 16:17:12                               *
+ * @LastEditDate          : 2023-09-25 16:51:52                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -123,7 +123,9 @@ export class UsersController {
   @UseGuards(IsConnectedGuard)
   @UseGuards(IsSelfGuard)
   async getAssignments(@Param("id") id: string): Promise<Assignment[]> {
-    return await this.prisma.assignment.findMany({where: {userId: id}});
+    return await this.prisma.assignment.findMany({
+      where: {userId: id}
+    });
   }
   /***/
 

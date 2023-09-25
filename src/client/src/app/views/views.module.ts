@@ -29,6 +29,7 @@ import { SignupView } from "./signup/signup.view";
 import { PttView } from "./ptt/ptt.view";
 import { NotFoundView } from "./not-found/not-found.view";
 import { ProjectsView } from "./projects/projects.view";
+import { MyTasksView } from "./my-tasks/my-tasks.view";
 /***/
 
 @NgModule({
@@ -37,7 +38,8 @@ import { ProjectsView } from "./projects/projects.view";
     SignupView,
     PttView,
     NotFoundView,
-    ProjectsView
+    ProjectsView,
+    MyTasksView
   ],
   imports: [
     CommonModule,
@@ -52,7 +54,8 @@ import { ProjectsView } from "./projects/projects.view";
     SignupView,
     PttView,
     NotFoundView,
-    ProjectsView
+    ProjectsView,
+    MyTasksView
   ]
 })
 export class ViewsModule {}

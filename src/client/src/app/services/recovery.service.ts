@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-05-31 12:56:22                              *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-09-25 11:41:12                              *
+ * @LastEditDate          : 2023-09-25 16:54:46                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -13,6 +13,8 @@
   * Handle socket events
   * Catch data change and allow subcription
   * Subscribe to single ressource
+  * Get collection sync
+  * Get data in collection
 */
 
 /* Imports */
@@ -25,6 +27,7 @@ import { Socket, SocketOptions } from "socket.io-client";
 /* Services */
 import { SocketService } from "./socket.service";
 import { RequestService } from "./request.service";
+import { UserService } from "./user.service";
 /***/
 
 /* Interfaces */
@@ -48,6 +51,7 @@ export class RecoveryService {
   constructor(
     private mySocket: SocketService,
     private api: RequestService,
+    private user: UserService
   ) {}
 
   /**
@@ -135,7 +139,8 @@ export class RecoveryService {
   public get(name: string): Observable<any[]> {
     return new Observable((observer) => {
       if (!this.data[name]) {
-        this.api.get(`api/${name}`).then((data) => {
+        const user = this.user.getUser();
+        this.api.get(`api/${name}`, user?.token).then((data) => {
           this.data[name] = data;
           observer.next(this.data[name]);
         });
@@ -157,7 +162,8 @@ export class RecoveryService {
   public getSingle(collection: string, id: string): Observable<any> {
     return new Observable((observer) => {
       if (!this.data[collection]) {
-        this.api.get(`api/${collection}`).then((data) => {
+        const user = this.user.getUser();
+        this.api.get(`api/${collection}`, user?.token).then((data) => {
           this.data[collection] = data;
           observer.next(_.find(this.data[collection], {id: id}));
         });
@@ -175,6 +181,22 @@ export class RecoveryService {
   /***/
 
   /**
+  * Get collection sync
+  * @param collection - Collection name
+  * @return - Raw data
+  */
+  public async getSync(collection: string): Promise<unknown[]> {
+    if(!this.data[collection]) {
+      const user = this.user.getUser();
+      this.data[collection] = [];
+      this.data[collection] = await this.api.get(`api/${collection}`, user?.token);
+    }
+
+    return this.data[collection];
+  }
+  /***/
+
+  /**
    * Get data in collection
    * @param collection - Collection name
    * @param id - Ressource id
@@ -182,8 +204,9 @@ export class RecoveryService {
    */
   public async getSingleSync(collection: string, id: string): Promise<unknown> {
     if(!this.data[collection]) {
+      const user = this.user.getUser();
       this.data[collection] = [];
-      this.data[collection] = await this.api.get(`api/${collection}`);
+      this.data[collection] = await this.api.get(`api/${collection}`, user?.token);
     }
 
     return _.find(this.data[collection], {id: id}) || null;

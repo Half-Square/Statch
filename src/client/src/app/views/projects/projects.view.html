@@ -6,14 +6,15 @@
 -->
 
 <div class="view-projects">
-  <ng-template [ngIf]="projects" [ngIfElse]="loading">
-    <div class="header">
-      <h3>Projects</h3>
+  <div class="header">
+    <h3>Projects</h3>
 
-      <core-button  type="flat"
-                    label="New project (Alt + P)"
-                    (click)="createProject()"/>
-    </div>
+    <core-button  type="flat"
+                  label="New project (Alt + P)"
+                  (click)="createProject()"/>
+  </div>
+
+  <ng-template [ngIf]="projects" [ngIfElse]="loading">
 
     <section-projects-list [projects]="projects"/>
   </ng-template>

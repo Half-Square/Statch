@@ -37,6 +37,7 @@ import { ProjectsListItemComponent } from "./projects-list-item/projects-list-it
 /* Pipe */
 import { SearchPipe } from "../pipe/search.pipe";
 import { DateDifferencePipe } from "../pipe/date-difference.pipe";
+import { MyTasksItemComponent } from "./my-tasks-item/my-tasks-item.component";
 /***/
 
 @NgModule({
@@ -55,7 +56,8 @@ import { DateDifferencePipe } from "../pipe/date-difference.pipe";
     LevelComponent,
     ToastComponent,
     LabelsComponent,
-    ProjectsListItemComponent
+    ProjectsListItemComponent,
+    MyTasksItemComponent
   ],
   imports: [
     CommonModule,
@@ -75,7 +77,8 @@ import { DateDifferencePipe } from "../pipe/date-difference.pipe";
     LevelComponent,
     ToastComponent,
     LabelsComponent,
-    ProjectsListItemComponent
+    ProjectsListItemComponent,
+    MyTasksItemComponent
   ]
 })
 
