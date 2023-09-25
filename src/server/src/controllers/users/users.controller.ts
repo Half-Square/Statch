@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-06-01 15:15:39                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-09-25 16:15:24                               *
+ * @LastEditDate          : 2023-09-25 16:17:12                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -135,7 +135,7 @@ export class UsersController {
   @UseGuards(IsConnectedGuard)
   async getAll(): Promise<usersDto.PublicOutput[]> {
     let users = await this.prisma.user.findMany();
-    return users.map((el) => new usersDto.PublicOutput(el.password));
+    return users.map((el) => new usersDto.PublicOutput(el));
   }
   /***/
 }
