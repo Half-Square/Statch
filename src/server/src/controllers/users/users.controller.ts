@@ -2,27 +2,33 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-06-01 15:15:39                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-06-01 15:31:57                               *
+ * @LastEditDate          : 2023-09-25 13:57:52                               *
  *****************************************************************************/
 
 /* SUMMARY
   * Imports
   * Services
   * Dto
+  * Guards
   * Register new user 
   * Connect user
+  * Get user's assignments
 */
 
 /* Imports */
 import {
   Controller,
   Post,
+  Get,
+  Param,
   Body,
   HttpException,
-  HttpStatus
+  HttpStatus,
+  UseGuards
 } from "@nestjs/common";
 import { sha256 } from "js-sha256";
 import * as jwt from "jsonwebtoken";
+import { Assignment } from "@prisma/client";
 /***/
 
 /* Services */
@@ -31,6 +37,11 @@ import { PrismaService } from "src/prisma.service";
 
 /* Dto */
 import * as usersDto from "./users.dto";
+/***/
+
+/* Guards */
+import { IsConnectedGuard } from "src/guards/is-connected.guard";
+import { IsSelfGuard } from "src/guards/is-self.guard";
 /***/
 
 @Controller("api")
@@ -101,6 +112,18 @@ export class UsersController {
       console.error(`${new Date().toISOString()} - ${err}`);
       throw err;
     }
+  }
+  /***/
+
+  /**
+  * Get user's assignments
+  * @return - User assignments list
+  */
+  @Get("/users/:id/assignments")
+  @UseGuards(IsConnectedGuard)
+  @UseGuards(IsSelfGuard)
+  async getAssignments(@Param("id") id: string): Promise<Assignment[]> {
+    return await this.prisma.assignment.findMany({where: {userId: id}});
   }
   /***/
 }

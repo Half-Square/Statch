@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-06-24 13:47:35                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-09-25 10:16:27                               *
+ * @LastEditDate          : 2023-09-25 13:37:06                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -64,7 +64,8 @@ export class TasksController {
     try {
       return await this.prisma.task.findMany({
         include: {
-          labels: true
+          labels: true,
+          assignments: true
         }
       });
     } catch (err) {
@@ -84,7 +85,8 @@ export class TasksController {
       const task = await this.prisma.task.findUnique({
         where: {id: id},
         include: {
-          labels: true
+          labels: true,
+          assignments: true
         }
       });
       if (task) return task;
@@ -121,7 +123,8 @@ export class TasksController {
           }
         },
         include: {
-          labels: true
+          labels: true,
+          assignments: true
         }
       });
 
@@ -149,7 +152,8 @@ export class TasksController {
         where: {id: id},
         data: body,
         include: {
-          labels: true
+          labels: true,
+          assignments: true
         }
       });
 

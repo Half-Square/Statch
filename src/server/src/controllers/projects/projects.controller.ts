@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-06-13 14:10:50                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-09-25 10:15:06                               *
+ * @LastEditDate          : 2023-09-25 13:36:51                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -64,7 +64,8 @@ export class ProjectsController {
     try {
       return await this.prisma.project.findMany({
         include: {
-          labels: true
+          labels: true,
+          assignments: true
         }
       });
     } catch (err) {
@@ -116,7 +117,8 @@ export class ProjectsController {
           }
         },
         include: {
-          labels: true
+          labels: true,
+          assignments: true
         }
       });
 
@@ -142,7 +144,8 @@ export class ProjectsController {
         where: {id: id},
         data: body,
         include: {
-          labels: true
+          labels: true,
+          assignments: true
         }
       });
 
