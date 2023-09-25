@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : Quentin<quentin@halfsquare.fr>                   *
+ * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-05-31 12:56:22                              *
- * @LastEditors           : Quentin<quentin@halfsquare.fr>                   *
- * @LastEditDate          : 2023-09-22 18:22:16                              *
+ * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @LastEditDate          : 2023-09-25 11:12:57                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -175,13 +175,12 @@ export class RecoveryService {
    * @returns - Raw data
    */
   public async getSingleSync(collection: string, id: string): Promise<unknown> {
-
     if(!this.data[collection]) {
+      this.data[collection] = [];
       this.data[collection] = await this.api.get(`api/${collection}`);
-      return this.data[collection];
     }
 
-    return _.find(this.data[collection], {id: id});
+    return _.find(this.data[collection], {id: id}) || null;
   }
   /***/
 }
