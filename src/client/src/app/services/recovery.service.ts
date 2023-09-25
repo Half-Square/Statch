@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-05-31 12:56:22                              *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-09-25 11:12:57                              *
+ * @LastEditDate          : 2023-09-25 11:41:12                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -69,7 +69,13 @@ export class RecoveryService {
   * @param name - Ressource name
   */
   private handleSocketEvents(observer: Subscriber<any[]>, name: string): void {
-    if (this.socket && !_.find(this.socketEvt, (el) => el === name)) { // Avoid listener duplication
+    let evtIndex = _.findIndex(this.socketEvt, (el) => el === name);
+
+    const send = (): void => {
+      observer.next(this.data[name]);
+    };
+
+    if (this.socket && evtIndex === -1) { // Avoid listener duplication
       this.socketEvt.push(name); // Save socket listener
 
       this.socket.on(name, (data) => {
@@ -85,7 +91,7 @@ export class RecoveryService {
           }
         }
 
-        observer.next(this.data[name]);
+        send();
       });
     }
   }
