@@ -80,6 +80,10 @@
             text-overflow: ellipsis;
           }
         }
+
+        .link.active {
+          color: #0055ff;
+        }
       }
 
       &.item.depth {

@@ -1,16 +1,17 @@
 /*****************************************************************************
- * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @Author                : Quentin<quentin@halfsquare.fr>                   *
  * @CreatedDate           : 2023-09-21 12:45:58                              *
- * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-09-26 11:06:32                              *
+ * @LastEditors           : Quentin<quentin@halfsquare.fr>                   *
+ * @LastEditDate          : 2023-09-26 19:53:16                              *
  ****************************************************************************/
 
-import { Component, OnChanges, OnDestroy, OnInit } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
+import { Component, OnDestroy, OnInit } from "@angular/core";
+import { ActivatedRoute, Router, NavigationEnd } from "@angular/router";
 import { IProjects, ITasks, ITickets } from "src/app/interfaces";
 import { RecoveryService } from "src/app/services/recovery.service";
 import { Subscription } from "rxjs";
 import * as _ from "lodash";
+import { UserService } from "src/app/services/user.service";
 
 @Component({
   selector: "view-ptt",
@@ -18,16 +19,19 @@ import * as _ from "lodash";
   styleUrls: ["./ptt.view.scss"]
 })
 export class PttView implements OnInit, OnDestroy {
-  public isAssignee: boolean = true;
+
+  public isAssignee: boolean = false;
   public onEdit: boolean = false;
-  public title: string = "Dogme";
-  public description: string = "Hello";
-  public progressValue: number = 50;
-  public elements: ITickets[] = [];
+  public progressValue: number = 0;
   public projects: any = {};
+  public tasks: any = {};
+  public printTasks: any = {};
+  public tickets: any = {};
+  public printTickets: any = {};
   public currentElement: any;
   public toggleVersion: any;
   public versions: any = [];
+  public currentUser: any = [];
   public _ = _;
   public type: string = "";
   public typeChild: string = "";
@@ -35,26 +39,52 @@ export class PttView implements OnInit, OnDestroy {
   private subsciption: Subscription[] | null = null;
 
   constructor(private route: ActivatedRoute,
-              public recovery: RecoveryService) {
+              public recovery: RecoveryService,
+              private router: Router,
+              private user: UserService) {
   }
 
   ngOnInit(): void {
     this.subsciption = [
+
       this.route.params.subscribe(params => {
         this.type = params["type"];
         this.typeChild = params["type"] === "projects" ? "tasks" : "tickets";
         this.id = params["id"];
+        this.currentUser = this.user.getUser();
       }),
-      this.recovery.get("projects").subscribe((projects) => this.projects = projects), // single
-      this.recovery.get(this.typeChild).subscribe((elements) => this.elements = elements)
+
+      this.recovery.get("projects").subscribe((projects) => this.projects = projects),
+
+      this.recovery.get("tasks").subscribe((tasks) =>  {
+        this.tasks = tasks;
+        this.printTasks = tasks;
+      }),
+
+      this.recovery.get("tickets").subscribe((tickets) => {
+        this.tickets = tickets;
+        this.printTickets = tickets;
+      }),
+
+      this.recovery.get("versions").subscribe((versions) => {
+        this.versions = versions;
+        this.currentElement = this.getCurrentElement();
+        console.log(this.getComments());
+        this.isAssignee = this.checkAssignee();
+        this.progressValue = this.setAdvancement();
+      }),
+
+      this.router.events.subscribe((event) => {
+        if (event instanceof NavigationEnd) {
+          this.currentElement = this.getCurrentElement();
+          console.log(this.getComments());
+          this.isAssignee = this.checkAssignee();
+          this.progressValue = this.setAdvancement();
+          this.toggleVersion = this.type === "projects" ? this.currentElement.actualVersion : this.currentElement.targetVersionId;
+        }
+      })
+
     ];
-
-    this.recovery.getSingleSync(this.type, this.id).then((element) => {
-      this.currentElement = element;
-      this.toggleVersion = this.type === "projects" ? this.currentElement.actualVersion : this.currentElement.targetVersionId;
-    });
-
-    this.progressValue = this.setAdvancement();
   }
 
   /**
@@ -64,21 +94,24 @@ export class PttView implements OnInit, OnDestroy {
     if (this.subsciption) this.subsciption.forEach((s) => s.unsubscribe());
   }
 
+
   private setAdvancement(): number {
+    const elements = this.type === "projects" ? this.printTasks : this.printTickets;
+
     let cpt = 0;
     let rej = 0;
     let done = 0;
 
-    this.elements.forEach(element => {
-      if ((element.targetVersionId
-        && (this.type === "projects" ? element.targetVersionId === this.currentElement.actualVersion : element.targetVersionId === this.currentElement.targetVersionId))) {
-        if (element.status == "reject")
+    for (let i = 0; i < elements.length; i++) {
+      if ((elements[i].targetVersionId
+        && (elements[i].targetVersionId === _.find(this.type === "projects" ? this.projects : this.tasks, {id: this.id}).targetVersionId ))) {
+        if (elements[i].status == "reject")
           rej++;
-        if (element.status == "done")
+        if (elements[i].status == "done")
           done++;
         cpt++;
       }
-    });
+    }
 
     if (!cpt) return 0;
     else return Math.trunc(done / (cpt - rej) * 100);
@@ -86,6 +119,23 @@ export class PttView implements OnInit, OnDestroy {
 
   public assigneeSelf(): void {
     this.isAssignee = !this.isAssignee;
+  }
+
+  public checkAssignee(): boolean {
+    if(_.find(this.currentElement.assignments, {userId: this.currentUser.id}))
+      return true;
+    else
+      return false;
+  }
+
+  public getCurrentElement(): any {
+    return _.find(this.type == "tickets" ? this.tickets : (this.type == "projects" ? this.projects : this.tasks), {id: this.id});
+  }
+
+  public getComments(): any {
+    this.recovery.getSingleSync(this.type + this.id + "comments", this.id).then(res => {
+      return res;
+    });
   }
 
   public edit(): void {
@@ -98,5 +148,34 @@ export class PttView implements OnInit, OnDestroy {
 
   public save(): void {
     this.onEdit = !this.onEdit;
+  }
+
+  public headerSave(event: Event): void {
+    console.log(event);
+  }
+
+  public sortElement(option: any): void {
+    const elements = this.type === "projects" ? this.tasks : this.tickets;
+
+    let obj: any = [];
+
+    elements.forEach((element: any) => {
+      if(element.targetVersionId === option.id)
+        obj.push(element);
+    });
+
+    if(option.length > 0) {
+      if(this.type === "projects")
+        this.printTasks = obj;
+      else
+        this.printTickets = obj;
+    } else {
+      if(this.type === "projects")
+        this.printTasks = _.filter(elements, {projectId: this.id});
+      else
+        this.printTickets = _.filter(elements, {projectId: this.id});
+    }
+
+    this.setAdvancement();
   }
 }

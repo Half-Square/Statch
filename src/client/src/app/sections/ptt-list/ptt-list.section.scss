@@ -1,10 +1,20 @@
 .ptt-list {
   .sort {
-    color: red;
+    display: flex;
+    justify-content: flex-end;
+    padding: 16px;
+  }
+
+  .element:nth-child(2) {
+    border-top: 1px solid #3d3d3d;
   }
 
   .element:not(:last-child) {
     border-bottom: 1px solid #3d3d3d;
+  }
+
+  .element:last-child {
+    border-radius: 0 0 6px 6px;
   }
 
   .element {
