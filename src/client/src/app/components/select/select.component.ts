@@ -174,8 +174,6 @@ export class SelectComponent {
       this.showMenu = !this.showMenu;
     }
 
-    if(this.search && this.search.nativeElement)
-      this.showMenu ?
-        this.search.nativeElement.focus() : this.search.nativeElement.blur();
+    this.showMenu ? this.search.nativeElement.focus() : this.search.nativeElement.blur();
   }
 }
