@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-05-31 12:56:22                              *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-09-26 11:40:13                              *
+ * @LastEditDate          : 2023-09-26 12:06:20                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -14,6 +14,7 @@
   * Catch data change and allow subcription
   * Subscribe to single ressource
   * Get collection sync
+  * Wait collection
   * Get data in collection
 */
 
@@ -197,7 +198,7 @@ export class RecoveryService {
   /***/
 
   /**
-  * Wait ressource
+  * Wait collection
   * @param collection - Collection to wait
   * @param time - Loop watch time
   * @return - Promise when ressource is avaible
@@ -215,11 +216,11 @@ export class RecoveryService {
   /***/
 
   /**
-   * Get data in collection
-   * @param collection - Collection name
-   * @param id - Ressource id
-   * @returns - Raw data
-   */
+  * Get data in collection
+  * @param collection - Collection name
+  * @param id - Ressource id
+  * @returns - Raw data
+  */
   public getSingleSync(collection: string, id: string): Promise<any> {
     return new Promise((resolve) => {
       if (!this.data[collection]) {
