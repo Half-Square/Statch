@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-06-24 13:45:04                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-09-25 13:37:25                               *
+ * @LastEditDate          : 2023-09-26 12:01:54                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -150,7 +150,15 @@ export class TicketsController {
     try {
       const ticket = await this.prisma.ticket.update({
         where: {id: id},
-        data: body,
+        data: {
+          ...body,
+          assignments: body.assignments ? {
+            deleteMany: {},
+            create: body.assignments.map((el) => {
+              return {userId: el.userId};
+            })
+          } : undefined
+        },
         include: {
           labels: true,
           assignments: true

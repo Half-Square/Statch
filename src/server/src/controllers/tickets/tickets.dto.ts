@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-06-24 13:45:39                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-06-24 14:20:32                               *
+ * @LastEditDate          : 2023-09-26 12:02:09                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -12,7 +12,7 @@
 */
 
 /* Imports */
-import { IsString, IsOptional, IsIn } from "class-validator";
+import { IsString, IsOptional, IsIn, IsArray } from "class-validator";
 /***/
 
 /**
@@ -48,6 +48,10 @@ class UpdateInput {
   @IsString()
   @IsOptional()
     description: string;
+  
+  @IsArray()
+  @IsOptional()
+    assignments: [{userId: string}];
 }
 /***/
 

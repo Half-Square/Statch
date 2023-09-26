@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-06-24 13:47:35                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-09-25 13:37:06                               *
+ * @LastEditDate          : 2023-09-26 12:01:45                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -150,7 +150,15 @@ export class TasksController {
     try {
       const task = await this.prisma.task.update({
         where: {id: id},
-        data: body,
+        data: {
+          ...body,
+          assignments: body.assignments ? {
+            deleteMany: {},
+            create: body.assignments.map((el) => {
+              return {userId: el.userId};
+            })
+          } : undefined
+        },
         include: {
           labels: true,
           assignments: true
