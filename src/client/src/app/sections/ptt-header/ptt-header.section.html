@@ -1,8 +1,8 @@
 <!--
-* @Author                : Quentin<quentin@halfsquare.fr>
-* @CreatedDate           : 2023-09-21 13:37:00
-* @LastEditors           : Quentin<quentin@halfsquare.fr>
-* @LastEditDate          : 2023-09-26 19:17:20
+* @Author                : 0K00<qdouvillez@gmail.com>
+* @CreatedDate           : 2023-09-21 13:37:43
+* @LastEditors           : 0K00<qdouvillez@gmail.com>
+* @LastEditDate          : 2023-09-21 13:37:43
 -->
 
 <header class="ptt-header">
@@ -10,11 +10,11 @@
     <ng-content></ng-content>
   </div>
 
-  <h1 class="title" (input)="content($event)" (dblclick)="toggleEdit()" [attr.contenteditable]="edit" #titleEl>{{ title }}</h1>
+  <h1 class="title" [attr.contenteditable]="edit">{{ title }}</h1>
 
   <div class="description">
     <h2 class="subtitle">Description</h2>
 
-    <p class="content" (input)="content($event)" (dblclick)="toggleEdit()" [attr.contenteditable]="edit" #descriptionEl>{{ description }}</p>
+    <p class="content" [attr.contenteditable]="edit">{{ description }}</p>
   </div>
 </header>
