@@ -1,8 +1,8 @@
 <!--
-* @Author                : Quentin<quentin@halfsquare.fr>
+* @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>
 * @CreatedDate           : 2023-09-21 13:14:00
-* @LastEditors           : Quentin<quentin@halfsquare.fr>
-* @LastEditDate          : 2023-09-26 19:30:45
+* @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>
+* @LastEditDate          : 2023-09-26 11:00:43
 -->
 
 <div class="ptt">
@@ -17,44 +17,17 @@
   </div>
 
   <div class="header">
-    <section-ptt-header
-      *ngIf="_.find(type == 'tickets' ? tickets : (type == 'projects' ? projects : tasks), {id: id})"
-      [edit]="onEdit"
-      (callback)="headerSave($event)"
-      [title]="_.find(type == 'tickets' ? tickets : (type == 'projects' ? projects : tasks), {id: id}).name"
-      [description]="_.find(type == 'tickets' ? tickets : (type == 'projects' ? projects : tasks), {id: id}).description">
-
-      <!-- <core-button *ngIf="!onEdit" (click)="edit()" [type]="'basic'" [style]="'default'" [size]="'medium'" [label]="'Edit'"/>
+    <section-ptt-header [edit]="onEdit" [title]="title" [description]="description">
+      <core-button *ngIf="!onEdit" (click)="edit()" [type]="'basic'" [style]="'default'" [size]="'medium'" [label]="'Edit'"/>
       <core-button *ngIf="onEdit" (click)="delete()" [type]="'stroked'" [style]="'warn'" [size]="'medium'" [label]="'Delete'"/>
-      <core-button *ngIf="onEdit" (click)="save()" [type]="'flat'" [style]="'primary'" [size]="'medium'" [label]="'Save'"/> -->
-
+      <core-button *ngIf="onEdit" (click)="save()" [type]="'flat'" [style]="'primary'" [size]="'medium'" [label]="'Save'"/>
     </section-ptt-header>
   </div>
 
-  <div *ngIf="type != 'tickets'" class="advancement">
-
+  <div class="advancement">
     <section-ptt-advancement [value]="progressValue"></section-ptt-advancement>
-
-    <section-ptt-list
-      [elements]="_.filter(type === 'projects' ? printTasks : printTickets, type === 'projects' ? {projectId: id} : {taskId: id})"
-      [type]="typeChild">
-
-      <div sort>
-        <component-select
-          *ngIf="type === 'projects' ? id :  _.find(tasks, {id: id})"
-          [data]="_.filter(versions, {projectId: type === 'projects' ? id : _.find(tasks, {id: id}).projectId})"
-          [placeholder]="'Select verions to sort...'"
-          [multi]="true"
-          [hasSearch]="false"
-          (callback)="sortElement($event)">
-        </component-select>
-      </div>
-
-      <div class="add" add>
-        <core-icon icon="plus"></core-icon>
-        Create new {{type === "projects" ? "task" : "ticket"}}
-      </div>
-
+    <section-ptt-list [elements]="_.filter(elements, {projectId: id})" [type]="typeChild">
+      <div sort></div>
     </section-ptt-list>
   </div>
 
