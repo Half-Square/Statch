@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-05-31 12:56:22                              *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-09-25 16:54:46                              *
+ * @LastEditDate          : 2023-09-26 11:40:13                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -197,19 +197,42 @@ export class RecoveryService {
   /***/
 
   /**
+  * Wait ressource
+  * @param collection - Collection to wait
+  * @param time - Loop watch time
+  * @return - Promise when ressource is avaible
+  */
+  private wait(collection: string, time: number): Promise<void> {
+    return new Promise((resolve) => {
+      let inter = setInterval(() => {
+        if (this.data[collection]) {
+          clearInterval(inter);
+          return resolve();
+        }
+      }, time);
+    });
+  }
+  /***/
+
+  /**
    * Get data in collection
    * @param collection - Collection name
    * @param id - Ressource id
    * @returns - Raw data
    */
-  public async getSingleSync(collection: string, id: string): Promise<unknown> {
-    if(!this.data[collection]) {
-      const user = this.user.getUser();
-      this.data[collection] = [];
-      this.data[collection] = await this.api.get(`api/${collection}`, user?.token);
-    }
+  public getSingleSync(collection: string, id: string): Promise<any> {
+    return new Promise((resolve) => {
+      if (!this.data[collection]) {
+        let user = this.user.getUser();
+        this.api.get(`api/${collection}`, user?.token).then((data) => {
+          this.data[collection] = data;
+        });
+      }
 
-    return _.find(this.data[collection], {id: id}) || null;
+      this.wait(collection, 10).then(() => {
+        return resolve(_.find(this.data[collection], {id: id}) || null);
+      });
+    });
   }
   /***/
 }

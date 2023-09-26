@@ -1,11 +1,18 @@
 /*****************************************************************************
- * @Author                : Quentin<quentin@halfsquare.fr>                   *
+ * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-09-05 10:17:26                              *
- * @LastEditors           : Quentin<quentin@halfsquare.fr>                   *
- * @LastEditDate          : 2023-09-25 16:18:16                              *
+ * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @LastEditDate          : 2023-09-26 11:09:07                              *
  ****************************************************************************/
 
+/* SUMMARY
+  * Imports
+  * Function who return first letter of string
+*/
+
+/* Imports */
 import { Component, Input, OnChanges, SimpleChanges } from "@angular/core";
+/***/
 
 @Component({
   selector: "core-avatar",
@@ -17,7 +24,7 @@ export class AvatarCore implements OnChanges {
    * Label text.
    */
   @Input()
-    label: any = "Label";
+    label: string | null = "Label";
 
   /**
    * Show label or not.
@@ -46,8 +53,9 @@ export class AvatarCore implements OnChanges {
   public printLabel: string = "";
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes);
-    if(!this.imgLink && changes["label"].currentValue) this.printLabel = this.getFirstLetter(changes["label"].currentValue);
+    if(!this.imgLink && changes["label"].currentValue) {
+      this.printLabel = this.getFirstLetter(changes["label"].currentValue);
+    }
   }
 
   /**
@@ -56,11 +64,9 @@ export class AvatarCore implements OnChanges {
    * @returns - First letter of string
    */
   public getFirstLetter(name: string): string {
-    console.log(name);
-
     if(name && name != "")
       return Array.from(name)[0];
     return "";
   }
-
+  /***/
 }

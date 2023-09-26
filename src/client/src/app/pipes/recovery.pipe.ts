@@ -1,9 +1,9 @@
-/******************************************************************************
- * @Author                : Quentin<quentin@halfsquare.fr>                    *
- * @CreatedDate           : 2023-09-25 15:20:21                               *
- * @LastEditors           : Quentin<quentin@halfsquare.fr>                    *
- * @LastEditDate          : 2023-09-25 16:18:24                               *
- *****************************************************************************/
+/*****************************************************************************
+ * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @CreatedDate           : 2023-09-25 15:20:21                              *
+ * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @LastEditDate          : 2023-09-26 11:40:30                              *
+ ****************************************************************************/
 
 import { Pipe, PipeTransform, Inject } from "@angular/core";
 import { RecoveryService } from "src/app/services/recovery.service";
@@ -18,18 +18,11 @@ export class RecoveryPipe implements PipeTransform {
   }
 
   transform(id: string, key: string, collection: string): Promise<string> {
-    return new Promise((resolve, reject) => {
+    return new Promise(async(resolve) => {
       if(!id) return resolve("");
-      console.log("1");
 
-      this.recovery.getSingleSync(collection, id).then((el: any) => {
-        console.log(el, id);
-        console.log("2");
-
-        return resolve(el ? el[key] : "");
-      });
-      console.log("3");
-
+      let el: any = await this.recovery.getSingleSync(collection, id);
+      return resolve(el ? el[key] : "");
     });
   }
 

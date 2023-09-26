@@ -1,11 +1,11 @@
 /*****************************************************************************
- * @Author                : Quentin<quentin@halfsquare.fr>                   *
+ * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-09-21 12:45:58                              *
- * @LastEditors           : Quentin<quentin@halfsquare.fr>                   *
- * @LastEditDate          : 2023-09-25 17:23:19                              *
+ * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @LastEditDate          : 2023-09-26 11:06:32                              *
  ****************************************************************************/
 
-import { Component, OnChanges, OnDestroy, OnInit, SimpleChanges } from "@angular/core";
+import { Component, OnChanges, OnDestroy, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { IProjects, ITasks, ITickets } from "src/app/interfaces";
 import { RecoveryService } from "src/app/services/recovery.service";
@@ -17,90 +17,44 @@ import * as _ from "lodash";
   templateUrl: "./ptt.view.html",
   styleUrls: ["./ptt.view.scss"]
 })
-export class PttView implements OnInit, OnDestroy, OnChanges {
+export class PttView implements OnInit, OnDestroy {
   public isAssignee: boolean = true;
-
   public onEdit: boolean = false;
-
   public title: string = "Dogme";
-
   public description: string = "Hello";
-
   public progressValue: number = 50;
-
   public elements: ITickets[] = [];
-
   public projects: any = {};
-
   public currentElement: any;
-
   public toggleVersion: any;
-
   public versions: any = [];
-
   public _ = _;
-
   public type: string = "";
-
   public typeChild: string = "";
-
   public id: string = "";
-
   private subsciption: Subscription[] | null = null;
 
-  public assigneeSelf(): void {
-    this.isAssignee = !this.isAssignee;
+  constructor(private route: ActivatedRoute,
+              public recovery: RecoveryService) {
   }
-
-  public edit(): void {
-    this.onEdit = !this.onEdit;
-  }
-
-  public delete(): void {
-    this.onEdit = !this.onEdit;
-  }
-
-  public save(): void {
-    this.onEdit = !this.onEdit;
-  }
-
-  constructor(private route: ActivatedRoute, public recovery: RecoveryService) {}
 
   ngOnInit(): void {
-
     this.subsciption = [
-
       this.route.params.subscribe(params => {
         this.type = params["type"];
         this.typeChild = params["type"] === "projects" ? "tasks" : "tickets";
         this.id = params["id"];
       }),
-
       this.recovery.get("projects").subscribe((projects) => this.projects = projects), // single
-
       this.recovery.get(this.typeChild).subscribe((elements) => this.elements = elements)
-
     ];
-
 
     this.recovery.getSingleSync(this.type, this.id).then((element) => {
       this.currentElement = element;
       this.toggleVersion = this.type === "projects" ? this.currentElement.actualVersion : this.currentElement.targetVersionId;
     });
 
-    this.recovery.getSingleSync("versions", this.id).then((version) => {
-      console.log(version);
-    });
-
     this.progressValue = this.setAdvancement();
-
-    console.log(this.versions);
-
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    console.log("t");
-
   }
 
   /**
@@ -130,4 +84,19 @@ export class PttView implements OnInit, OnDestroy, OnChanges {
     else return Math.trunc(done / (cpt - rej) * 100);
   }
 
+  public assigneeSelf(): void {
+    this.isAssignee = !this.isAssignee;
+  }
+
+  public edit(): void {
+    this.onEdit = !this.onEdit;
+  }
+
+  public delete(): void {
+    this.onEdit = !this.onEdit;
+  }
+
+  public save(): void {
+    this.onEdit = !this.onEdit;
+  }
 }
