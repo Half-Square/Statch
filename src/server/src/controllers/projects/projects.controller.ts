@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-06-13 14:10:50                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-09-25 13:36:51                               *
+ * @LastEditDate          : 2023-09-26 11:53:01                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -140,9 +140,19 @@ export class ProjectsController {
     @Param("id") id: string,
     @Body() body: projectsDto.UpdateInput): Promise<Project> {
     try {
+      if (body.assignments) {}
+
       const project = await this.prisma.project.update({
         where: {id: id},
-        data: body,
+        data: {
+          ...body,
+          assignments: body.assignments ? {
+            deleteMany: {},
+            create: body.assignments.map((el) => {
+              return {userId: el.userId};
+            })
+          } : undefined
+        },
         include: {
           labels: true,
           assignments: true
