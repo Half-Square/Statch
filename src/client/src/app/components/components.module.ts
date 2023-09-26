@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-09-19 16:08:01                              *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-09-25 11:28:13                              *
+ * @LastEditDate          : 2023-09-26 10:42:45                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -17,8 +17,12 @@ import { CommonModule } from "@angular/common";
 import { RouterModule } from "@angular/router";
 /***/
 
-/* Components */
+/* Modules */
+import { PipesModule } from "../pipes/pipes.module";
 import { CoresModule } from "../cores/cores.module";
+/***/
+
+/* Components */
 import { SelectComponent } from "./select/select.component";
 import { CardComponent } from "./card/card.component";
 import { CollapseComponent } from "./collapse/collapse.component";
@@ -32,18 +36,11 @@ import { LevelComponent } from "./level/level.component";
 import { ToastComponent } from "./toast/toast.component";
 import { LabelsComponent } from "./labels/labels.component";
 import { ProjectsListItemComponent } from "./projects-list-item/projects-list-item.component";
-/***/
-
-/* Pipe */
-import { SearchPipe } from "../pipe/search.pipe";
-import { DateDifferencePipe } from "../pipe/date-difference.pipe";
 import { MyTasksItemComponent } from "./my-tasks-item/my-tasks-item.component";
 /***/
 
 @NgModule({
   declarations: [
-    SearchPipe,
-    DateDifferencePipe,
     SelectComponent,
     CardComponent,
     CollapseComponent,
@@ -62,7 +59,8 @@ import { MyTasksItemComponent } from "./my-tasks-item/my-tasks-item.component";
   imports: [
     CommonModule,
     RouterModule,
-    CoresModule
+    CoresModule,
+    PipesModule
   ],
   exports: [
     SelectComponent,

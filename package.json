@@ -9,5 +9,9 @@
     "type": "git",
     "url": "https://github.com/Half-Square/Statch"
   },
+  "scripts": {
+    "start:client": "npm run start --prefix src/client",
+    "start:server": "npm run start:dev --prefix src/server"
+  },
   "license": "MIT"
 }
