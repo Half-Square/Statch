@@ -1,1 +1,30 @@
-<p>ptt-comment works!</p>
+<!--
+* @Author                : 0K00<qdouvillez@gmail.com>
+* @CreatedDate           : 2023-09-27 15:26:00
+* @LastEditors           : 0K00<qdouvillez@gmail.com>
+* @LastEditDate          : 2023-09-27 16:06:20
+-->
+
+<div class="ptt-comment">
+
+  <h2 class="subtitle">Comments</h2>
+
+  <div class="comment" *ngFor="let comment of comments">
+
+    <div class="header">
+      <core-avatar [imgLink]="comment.authorId | recovery:'imgLink':'users' | async" [label]="comment.authorId | recovery:'name':'users' | async"></core-avatar>
+      <span class="date">{{ comment.created | dateDifference }}</span>
+    </div>
+
+    <div class="content">
+      {{ comment.content }}
+    </div>
+
+  </div>
+
+  <div class="input">
+    <textarea class="area" name="" id="" rows="5"></textarea>
+    <core-button  [type]="'flat'" [style]="'primary'" [size]="'medium'" [label]="'Publish'"></core-button>
+  </div>
+
+</div>
