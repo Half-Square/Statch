@@ -1,1 +1,89 @@
-<p>ptt-details works!</p>
+<!--
+* @Author                : 0K00<qdouvillez@gmail.com>
+* @CreatedDate           : 2023-09-27 16:52:00
+* @LastEditors           : 0K00<qdouvillez@gmail.com>
+* @LastEditDate          : 2023-09-27 18:30:56
+-->
+
+<div class="ptt-details">
+  <h2 class="subtitle">Details</h2>
+
+  <div class="container">
+
+    <div class="block">
+      <div class="heading">Id</div>
+      <div class="content">{{ id }}</div>
+    </div>
+
+    <div class="block">
+      <div class="heading">Owner</div>
+      <div class="content">
+        <core-avatar [imgLink]="owner | recovery:'imgLink':'users' | async" [label]="owner | recovery:'name':'users' | async"></core-avatar>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="heading">Assignee</div>
+      <div class="content">
+        <component-select [data]="users" [selection]="replaceAssignee()" [multi]="true"></component-select>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="heading">{{ versionTitle }}</div>
+      <div class="content">
+        <component-select [data]="versions"></component-select>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="heading">Status</div>
+      <div class="content">
+        <component-select [data]="status" [selection]="currentStatus" [hasSearch]="false" [multi]="false">
+          <ng-template let-select #selected>
+            <component-status [status]="select.status"></component-status>
+          </ng-template>
+          <ng-template let-option #items>
+            <component-status [status]="option.status"></component-status>
+          </ng-template>
+        </component-select>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="heading">Labels</div>
+      <div class="content">
+        <component-select [data]="labels" [selection]="currentLabels" [hasSearch]="true" [multi]="true">
+          <ng-template let-select #selected>
+            <component-labels [name]="select.name" [color]="select.color"></component-labels>
+          </ng-template>
+          <ng-template let-option #items>
+            <component-labels [name]="option.name" [color]="option.color"></component-labels>
+          </ng-template>
+        </component-select>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="heading">Level</div>
+      <div class="content">
+        <component-select [data]="levels"></component-select>
+      </div>
+    </div>
+
+    <div *ngIf="type != 'tickets'" class="block">
+      <div class="heading">No. of {{ listTitle }}</div>
+      <div class="content">
+        <a [routerLink]="'/' + listLink">{{ nbList }} {{ listTitle }} <core-icon icon="arrow-right"></core-icon></a>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="heading">Created</div>
+      <div class="content">
+        {{ created | dateDifference }}
+      </div>
+    </div>
+
+  </div>
+</div>

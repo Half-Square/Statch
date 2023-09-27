@@ -2,7 +2,7 @@
 * @Author                : 0K00<qdouvillez@gmail.com>
 * @CreatedDate           : 2023-09-21 13:14:00
 * @LastEditors           : 0K00<qdouvillez@gmail.com>
-* @LastEditDate          : 2023-09-27 14:35:29
+* @LastEditDate          : 2023-09-27 18:24:44
 -->
 
 <div class="ptt">
@@ -35,8 +35,13 @@
       [type]="typeChild">
 
       <div sort>
+        {{type === "projects" ? "Tasks" : "Tickets"}}
         <component-select
-          *ngIf="type === 'projects' ? id :  _.find(tasks, {id: id})"
+          *ngIf="type === 'projects' ? _.find(versions, {projectId: id}) :
+                _.find(tasks, {id: id}) &&
+                _.find(tasks, {id: id}).projectId &&
+                _.find(versions, {projectId: _.find(tasks, {id: id}).projectId})"
+
           [data]="_.filter(versions, {projectId: type === 'projects' ? id : _.find(tasks, {id: id}).projectId})"
           [placeholder]="'Select verions to sort...'"
           [multi]="true"
@@ -54,9 +59,17 @@
   </div>
 
   <div class="comment">
-    <section-ptt-comment></section-ptt-comment>
+    <section-ptt-comment [comments]="comments"></section-ptt-comment>
   </div>
   <div class="details">
-    <section-ptt-details></section-ptt-details>
+    <section-ptt-details
+      [id]="id"
+      [owner]="currentElement.ownerId"
+      [assignee]="currentElement.assignments"
+      [versionTitle]="type === 'projects' ? 'Version' : 'Target version'"
+      [versions]="versions"
+      [status]="[{id:'new', status: 'new'}, {id:'progress', status: 'progress'}, {id:'done', status: 'done'}, {id:'reject', status: 'reject'}, {id:'wait', status: 'wait'}]"
+      [currentStatus]="[{id: currentElement.status, status: currentElement.status}]"
+    ></section-ptt-details>
   </div>
 </div>

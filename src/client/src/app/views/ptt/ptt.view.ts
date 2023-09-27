@@ -2,7 +2,7 @@
  * @Author                : 0K00<qdouvillez@gmail.com>                       *
  * @CreatedDate           : 2023-09-21 12:45:58                              *
  * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
- * @LastEditDate          : 2023-09-27 14:37:46                              *
+ * @LastEditDate          : 2023-09-27 15:14:03                              *
  ****************************************************************************/
 
 import { Component, OnDestroy, OnInit } from "@angular/core";
@@ -32,6 +32,7 @@ export class PttView implements OnInit, OnDestroy {
   public toggleVersion: any;
   public versions: any = [];
   public currentUser: any = [];
+  public comments: any = [];
   public _ = _;
   public type: string = "";
   public typeChild: string = "";
@@ -69,15 +70,16 @@ export class PttView implements OnInit, OnDestroy {
       this.recovery.get("versions").subscribe((versions) => {
         this.versions = versions;
         this.currentElement = this.getCurrentElement();
-        console.log(this.getComments());
         this.isAssignee = this.checkAssignee();
         this.progressValue = this.setAdvancement();
       }),
 
+      this.recovery.get(this.type + "/" + this.id + "/" + "comments").subscribe((comments) => this.comments = comments),
+
       this.router.events.subscribe((event) => {
         if (event instanceof NavigationEnd) {
           this.currentElement = this.getCurrentElement();
-          console.log(this.getComments());
+          this.recovery.get(this.type + "/" + this.id + "/" + "comments").subscribe((comments) => this.comments = comments);
           this.isAssignee = this.checkAssignee();
           this.progressValue = this.setAdvancement();
           this.toggleVersion = this.type === "projects" ? this.currentElement.actualVersion : this.currentElement.targetVersionId;
@@ -125,13 +127,6 @@ export class PttView implements OnInit, OnDestroy {
       return true;
     else
       return false;
-  }
-
-  public getComments(): any {
-    // this.recovery.getSingleSync(this.type + this.id + "comments", this.id).then(res => {
-    //   return res;
-    // });
-    return "";
   }
 
   public assigneeSelf(): void {

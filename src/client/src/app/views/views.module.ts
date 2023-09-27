@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : Quentin<quentin@halfsquare.fr>                   *
+ * @Author                : 0K00<qdouvillez@gmail.com>                       *
  * @CreatedDate           : 2023-06-01 15:46:03                              *
- * @LastEditors           : Quentin<quentin@halfsquare.fr>                   *
- * @LastEditDate          : 2023-09-25 15:28:11                              *
+ * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
+ * @LastEditDate          : 2023-09-27 16:54:43                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -30,6 +30,7 @@ import { PttView } from "./ptt/ptt.view";
 import { NotFoundView } from "./not-found/not-found.view";
 import { ProjectsView } from "./projects/projects.view";
 import { MyTasksView } from "./my-tasks/my-tasks.view";
+import { PipesModule } from "../pipes/pipes.module";
 /***/
 
 @NgModule({
@@ -47,7 +48,8 @@ import { MyTasksView } from "./my-tasks/my-tasks.view";
     RouterModule,
     CoresModule,
     ComponentsModule,
-    SectionsModule
+    SectionsModule,
+    PipesModule
   ],
   exports: [
     LoginView,
