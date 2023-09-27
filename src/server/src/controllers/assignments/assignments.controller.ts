@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-06-24 17:32:20                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-06-26 14:25:25                               *
+ * @LastEditDate          : 2023-09-27 11:57:52                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -10,6 +10,7 @@
   * Dto
   * Guards
   * Services
+  * Interceptors
   * Get all assignments
 */
 
@@ -20,7 +21,8 @@ import {
   Get,
   Put,
   Body,
-  Param
+  Param,
+  UseInterceptors
 } from "@nestjs/common";
 import { Assignment } from "@prisma/client";
 /***/
@@ -36,6 +38,10 @@ import { IsConnectedGuard } from "src/guards/is-connected.guard";
 /* Services */
 import { PrismaService } from "src/prisma.service";
 import { SocketService } from "src/services/socket/socket.service";
+/***/
+
+/* Interceptors */
+import { ActivitiesInterceptor } from "../activities/activities.interceptor";
 /***/
 
 @Controller("api")
@@ -73,6 +79,7 @@ export class AssignmentsController {
   * @return - New assignments in parent
   */
   @Put(":parent/:id/assignments")
+  @UseInterceptors(ActivitiesInterceptor)
   async updateAssignments(
     @Param("parent") parent: string,
     @Param("id") id: string,

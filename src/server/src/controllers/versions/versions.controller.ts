@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-09-21 12:01:16                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-09-27 11:00:34                               *
+ * @LastEditDate          : 2023-09-27 11:56:34                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -10,6 +10,7 @@
   * Services
   * Guards
   * Dto
+  * Interceptors
   * Get all
   * Get by id
   * Create new version
@@ -28,7 +29,8 @@ import {
   Put,
   Delete,
   Param,
-  Body
+  Body,
+  UseInterceptors
 } from "@nestjs/common";
 /***/
 
@@ -44,6 +46,10 @@ import { IsConnectedGuard } from "src/guards/is-connected.guard";
 /* Dto */
 import * as versionsDto from "./versions.dto";
 import { Version } from "@prisma/client";
+/***/
+
+/* Interceptors */
+import { ActivitiesInterceptor } from "../activities/activities.interceptor";
 /***/
 
 @Controller("api")
@@ -82,6 +88,7 @@ export class VersionsController {
   * @param projectId - Project Id 
   */
   @Post("projects/:projectId/versions")
+  @UseInterceptors(ActivitiesInterceptor)
   async create( @Param("projectId") projectId: string,
                 @Body() body: versionsDto.CreateInput): Promise<Version> {
     let version = await this.prisma.version.create({
@@ -96,10 +103,12 @@ export class VersionsController {
   /**
   * Edit version
   * @param id - Version to update
+  * @param projectId - Parent id
   * @param body - Data to update
   * @return - Updated version 
   */
-  @Put("versions/:id")
+  @Put("projects/:projectId/versions/:id")
+  @UseInterceptors(ActivitiesInterceptor)
   async update(@Param("id") id: string, @Body() body: versionsDto.UpdateInput): Promise<Version> {
     let version = await this.prisma.version.update({
       where: {id: id},
@@ -114,9 +123,11 @@ export class VersionsController {
   /**
   * Remove version
   * @param id - Version to remove
+  * @param projectId - Parent id
   * @return - Message 
   */
-  @Delete("versions/:id")
+  @Delete("projects/:projectId/versions/:id")
+  @UseInterceptors(ActivitiesInterceptor)
   async deleteById(@Param("id") id: string): Promise<{message: string}> {
     await this.prisma.version.delete({where: {id: id}});
 

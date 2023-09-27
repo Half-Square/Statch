@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-06-24 13:45:04                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-09-26 12:01:54                               *
+ * @LastEditDate          : 2023-09-27 11:53:19                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -10,6 +10,7 @@
   * Dto
   * Services
   * Guards
+  * Interceptors
   * Get all tickets
   * Get one ticket by id
   * Create new tasks
@@ -29,7 +30,8 @@ import {
   Headers,
   HttpException,
   HttpStatus,
-  UseGuards
+  UseGuards,
+  UseInterceptors
 } from "@nestjs/common";
 import { Ticket } from "@prisma/client";
 import * as jwt from "jsonwebtoken";
@@ -46,6 +48,10 @@ import { PrismaService } from "src/prisma.service";
 
 /* Guards */
 import { IsConnectedGuard } from "src/guards/is-connected.guard";
+/***/
+
+/* Interceptors */
+import { ActivitiesInterceptor } from "../activities/activities.interceptor";
 /***/
 
 @Controller("api")
@@ -104,6 +110,7 @@ export class TicketsController {
   * @returns - Ticket's details
   */
   @Post("tasks/:id/tickets")
+  @UseInterceptors(ActivitiesInterceptor)
   async create(
     @Param("id") id: string,
     @Headers("x-token") token: string,
@@ -143,6 +150,7 @@ export class TicketsController {
   * @returns - Updated ticket's details
   */
   @Put("tickets/:id")
+  @UseInterceptors(ActivitiesInterceptor)
   async update(
     @Param("id") id: string,
     @Body() body: ticketsDto.UpdateInput
@@ -179,6 +187,7 @@ export class TicketsController {
   * @return - Success message 
   */
   @Delete("tickets/:id")
+  @UseInterceptors(ActivitiesInterceptor)
   async deleteById(@Param("id") id: string): Promise<{message: string}> {
     try {
       await this.prisma.ticket.delete({where: {id: id}});

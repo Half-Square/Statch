@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-06-24 17:11:00                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-06-26 14:23:45                               *
+ * @LastEditDate          : 2023-09-27 11:59:07                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -10,6 +10,7 @@
   * Dto
   * Services
   * Guards
+  * Interceptors
   * Get comments from parent
   * Create new comment for parent
   * Delete comment
@@ -26,7 +27,8 @@ import {
   Body,
   UseGuards,
   HttpException,
-  HttpStatus
+  HttpStatus,
+  UseInterceptors
 } from "@nestjs/common";
 import { Comment } from "@prisma/client";
 import * as jwt from "jsonwebtoken";
@@ -43,6 +45,10 @@ import { PrismaService } from "src/prisma.service";
 
 /* Guards */
 import { IsConnectedGuard } from "src/guards/is-connected.guard";
+/***/
+
+/* Interceptors */
+import { ActivitiesInterceptor } from "../activities/activities.interceptor";
 /***/
 
 @Controller("api")
@@ -93,6 +99,7 @@ export class CommentsController {
   * @returns - Created comment
   */
   @Post(":parent/:id/comments")
+  @UseInterceptors(ActivitiesInterceptor)
   async addComment(
     @Param("parent") parent: string,
     @Param("id") id: string,
@@ -129,10 +136,13 @@ export class CommentsController {
 
   /**
   * Delete comment
+  * @param parent - Parent endpoints name
+  * @param parentId - Parent's ID
   * @param id - Comment to delete
   * @return - Success message 
   */
-  @Delete("comments/:id")
+  @Delete(":parent/:parentId/comments/:id")
+  @UseInterceptors(ActivitiesInterceptor)
   async deleteById(@Param("id") id: string): Promise<{message: string}> {
     try {
       await this.prisma.comment.delete({where: {id: id}});
