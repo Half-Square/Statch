@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-06-24 17:11:00                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-09-27 11:59:07                               *
+ * @LastEditDate          : 2023-09-27 15:08:26                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -103,6 +103,7 @@ export class CommentsController {
   async addComment(
     @Param("parent") parent: string,
     @Param("id") id: string,
+    @Param("parentId") parentId: string,
     @Headers("x-token") token: string,
     @Body() body: commentsDto.CreateInput,
   ): Promise<Comment> {
@@ -124,7 +125,7 @@ export class CommentsController {
         data: toSave
       });
 
-      this.socket.broadcast("comments", comment);
+      this.socket.broadcast(`${parent}/${parentId}/comments`, {id: id}, true);
       return comment;
     } catch (err) {
       if (err.code == "P2003")
@@ -143,10 +144,10 @@ export class CommentsController {
   */
   @Delete(":parent/:parentId/comments/:id")
   @UseInterceptors(ActivitiesInterceptor)
-  async deleteById(@Param("id") id: string): Promise<{message: string}> {
+  async deleteById(@Param("id") id: string, @Param("parentId") parentId: string): Promise<{message: string}> {
     try {
       await this.prisma.comment.delete({where: {id: id}});
-      this.socket.broadcast("comments", {id: id}, true);
+      this.socket.broadcast(`${parent}/${parentId}/comments`, {id: id}, true);
 
       return {message: `Comment ${id} deleted`};
     } catch (err) {
