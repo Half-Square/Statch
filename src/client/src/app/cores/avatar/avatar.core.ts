@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @Author                : 0K00<qdouvillez@gmail.com>                       *
  * @CreatedDate           : 2023-09-05 10:17:26                              *
- * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-09-26 11:09:07                              *
+ * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
+ * @LastEditDate          : 2023-09-27 15:44:07                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -42,7 +42,7 @@ export class AvatarCore implements OnChanges {
    * Image's link of the avatar
    */
   @Input()
-    imgLink: string = "";
+    imgLink: string | null = "";
 
   /**
    * Other CSS classes to apply to the avatar.
@@ -53,7 +53,7 @@ export class AvatarCore implements OnChanges {
   public printLabel: string = "";
 
   ngOnChanges(changes: SimpleChanges): void {
-    if(!this.imgLink && changes["label"].currentValue) {
+    if(!this.imgLink && changes["label"] && changes["label"].currentValue) {
       this.printLabel = this.getFirstLetter(changes["label"].currentValue);
     }
   }
