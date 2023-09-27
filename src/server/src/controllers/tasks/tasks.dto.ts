@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-06-24 13:48:40                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-09-26 12:01:25                               *
+ * @LastEditDate          : 2023-09-27 14:31:32                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -52,6 +52,10 @@ class UpdateInput {
   @IsArray()
   @IsOptional()
     assignments: [{userId: string}];
+
+  @IsArray()
+  @IsOptional()
+    labels: [{labelId: string}];
 }
 /***/
 

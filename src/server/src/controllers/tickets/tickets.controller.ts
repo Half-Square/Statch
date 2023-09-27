@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-06-24 13:45:04                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-09-27 11:53:19                               *
+ * @LastEditDate          : 2023-09-27 14:32:03                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -164,6 +164,12 @@ export class TicketsController {
             deleteMany: {},
             create: body.assignments.map((el) => {
               return {userId: el.userId};
+            })
+          } : undefined,
+          labels: body.labels ? {
+            deleteMany: {},
+            create: body.labels.map((el) => {
+              return {labelId: el.labelId};
             })
           } : undefined
         },
