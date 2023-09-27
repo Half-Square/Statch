@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-05-30 11:59:22                              *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-09-25 10:31:46                              *
+ * @LastEditDate          : 2023-09-27 18:07:01                              *
  ****************************************************************************/
 
  *, *::before, *::after {
@@ -16,11 +16,15 @@ html {
   color: #eaeaea;
 }
 
-a {
+a, .btn {
   color: #eaeaea;
   text-decoration: none;
 
   &.active {
-    color: #0055ff
+    color: #0055ff;
+
+    * {
+      color: #0055ff;
+    }
   }
 }
