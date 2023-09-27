@@ -2,7 +2,7 @@
 * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>
 * @CreatedDate           : 2023-09-27 14:35:00
 * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>
-* @LastEditDate          : 2023-09-27 15:56:45
+* @LastEditDate          : 2023-09-27 16:50:13
 -->
 
 <div class="section-tool-bar">
@@ -17,8 +17,10 @@
       <core-icon class="icon" icon="search" other="icon--24"/>
     </core-button>
 
-    <core-button>
+    <core-button (click)="menuOptions = !menuOptions">
       <core-icon class="icon" icon="dots-horizontal" other="icon--24"/>
     </core-button>
+
+    <component-menu-options *ngIf="menuOptions" (onClose)="menuOptions = false"/>
   </div>
 </div>

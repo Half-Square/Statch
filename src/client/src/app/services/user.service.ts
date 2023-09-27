@@ -16,6 +16,7 @@
 
 /* Imports */
 import { Injectable } from "@angular/core";
+import { Router } from "@angular/router";
 /***/
 
 /* Interfaces */
@@ -34,6 +35,9 @@ export interface ILoggedUser {
 })
 export class UserService {
   private user: ILoggedUser | null = null;
+
+  constructor(private router: Router) {
+  }
 
   /**
   * Check if user is connected
@@ -73,6 +77,15 @@ export class UserService {
   public clearUser(): void {
     this.user = null;
     sessionStorage.removeItem("user");
+  }
+  /***/
+
+  /**
+  * Logout
+  */
+  public logout(): void {
+    this.clearUser();
+    this.router.navigate(["/login"]);
   }
   /***/
 }

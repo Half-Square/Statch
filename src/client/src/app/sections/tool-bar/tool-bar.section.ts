@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-09-27 14:35:32                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-09-27 15:48:53                               *
+ * @LastEditDate          : 2023-09-27 16:50:35                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -22,6 +22,7 @@ import { Subscription } from "rxjs";
 })
 export class ToolBarSection implements OnInit, OnDestroy {
   public routes: {name: string, path: string}[] = [];
+  public menuOptions: boolean = false;
   private sub: Subscription;
 
   constructor(private router: Router) {
