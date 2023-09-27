@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-09-21 12:01:16                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-09-25 11:04:50                               *
+ * @LastEditDate          : 2023-09-27 11:00:34                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -81,7 +81,7 @@ export class VersionsController {
   * @param body - Version data
   * @param projectId - Project Id 
   */
-  @Post(":projectId/versions")
+  @Post("projects/:projectId/versions")
   async create( @Param("projectId") projectId: string,
                 @Body() body: versionsDto.CreateInput): Promise<Version> {
     let version = await this.prisma.version.create({

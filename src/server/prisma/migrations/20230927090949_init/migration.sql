@@ -101,21 +101,9 @@ CREATE TABLE "Label" (
 CREATE TABLE "Activity" (
     "id" TEXT NOT NULL PRIMARY KEY,
     "created" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "authorId" TEXT NOT NULL,
+    "actor" TEXT NOT NULL,
     "action" TEXT NOT NULL,
-    "type" TEXT,
-    "value" TEXT,
-    "targetId" TEXT,
-    "labelId" TEXT,
-    "projectId" TEXT,
-    "taskId" TEXT,
-    "ticketId" TEXT,
-    CONSTRAINT "Activity_authorId_fkey" FOREIGN KEY ("authorId") REFERENCES "User" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
-    CONSTRAINT "Activity_targetId_fkey" FOREIGN KEY ("targetId") REFERENCES "User" ("id") ON DELETE SET NULL ON UPDATE CASCADE,
-    CONSTRAINT "Activity_labelId_fkey" FOREIGN KEY ("labelId") REFERENCES "Label" ("id") ON DELETE SET NULL ON UPDATE CASCADE,
-    CONSTRAINT "Activity_projectId_fkey" FOREIGN KEY ("projectId") REFERENCES "Project" ("id") ON DELETE SET NULL ON UPDATE CASCADE,
-    CONSTRAINT "Activity_taskId_fkey" FOREIGN KEY ("taskId") REFERENCES "Task" ("id") ON DELETE SET NULL ON UPDATE CASCADE,
-    CONSTRAINT "Activity_ticketId_fkey" FOREIGN KEY ("ticketId") REFERENCES "Ticket" ("id") ON DELETE SET NULL ON UPDATE CASCADE
+    "target" TEXT NOT NULL
 );
 
 -- CreateTable

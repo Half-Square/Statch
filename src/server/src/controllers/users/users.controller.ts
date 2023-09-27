@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-06-01 15:15:39                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-09-25 16:51:52                               *
+ * @LastEditDate          : 2023-09-27 09:48:25                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -28,7 +28,7 @@ import {
 } from "@nestjs/common";
 import { sha256 } from "js-sha256";
 import * as jwt from "jsonwebtoken";
-import { Assignment, User } from "@prisma/client";
+import { Assignment } from "@prisma/client";
 /***/
 
 /* Services */

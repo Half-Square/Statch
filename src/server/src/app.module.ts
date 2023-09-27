@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-05-30 12:07:51                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-09-21 12:33:09                               *
+ * @LastEditDate          : 2023-09-27 10:13:38                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -23,14 +23,16 @@ import { TasksController } from "./controllers/tasks/tasks.controller";
 import { TicketsController } from "./controllers/tickets/tickets.controller";
 import { CommentsController } from "./controllers/comments/comments.controller";
 import { AssignmentsController } from "./controllers/assignments/assignments.controller";
+import { LabelsController } from "./controllers/labels/labels.controller";
+import { VersionsController } from "./controllers/versions/versions.controller";
+import { SettingsController } from "./controllers/settings/settings.controller";
+import { ActivitiesController } from "./controllers/activities/activities.controller";
 /***/
 
 /* Services */
 import { PrismaService } from "./prisma.service";
 import { SocketService } from "./services/socket/socket.service";
-import { LabelsController } from "./controllers/labels/labels.controller";
-import { VersionsController } from "./controllers/versions/versions.controller";
-import { SettingsController } from "./controllers/settings/settings.controller";
+import { ActivitiesService } from "./controllers/activities/activities.service";
 /***/
 
 @Module({
@@ -46,11 +48,13 @@ import { SettingsController } from "./controllers/settings/settings.controller";
     AssignmentsController,
     LabelsController,
     VersionsController,
-    SettingsController
+    SettingsController,
+    ActivitiesController
   ],
   providers: [
     PrismaService,
-    SocketService
+    SocketService,
+    ActivitiesService
   ]
 })
 export class AppModule {}

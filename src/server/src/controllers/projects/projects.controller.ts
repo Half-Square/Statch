@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-06-13 14:10:50                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-09-26 12:01:39                               *
+ * @LastEditDate          : 2023-09-27 11:14:45                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -29,7 +29,8 @@ import {
   Headers,
   HttpException,
   HttpStatus,
-  UseGuards
+  UseGuards,
+  UseInterceptors
 } from "@nestjs/common";
 import { Project } from "@prisma/client";
 import * as jwt from "jsonwebtoken";
@@ -46,6 +47,10 @@ import { SocketService } from "src/services/socket/socket.service";
 
 /* Guards */
 import { IsConnectedGuard } from "src/guards/is-connected.guard";
+/***/
+
+/* Interceptors */
+import { ActivitiesInterceptor } from "../activities/activities.interceptor";
 /***/
 
 @Controller("api/projects")
@@ -101,6 +106,7 @@ export class ProjectsController {
   * @param data - New project data 
   */
   @Post()
+  @UseInterceptors(ActivitiesInterceptor)
   async create(
     @Body() body: projectsDto.CreateInput,
     @Headers("x-token") token: string): Promise<Project> {
@@ -136,6 +142,7 @@ export class ProjectsController {
   * @param body - Data to update 
   */
   @Put(":id")
+  @UseInterceptors(ActivitiesInterceptor)
   async update(
     @Param("id") id: string,
     @Body() body: projectsDto.UpdateInput): Promise<Project> {
@@ -171,6 +178,7 @@ export class ProjectsController {
   * @return - Message success 
   */
   @Delete(":id")
+  @UseInterceptors(ActivitiesInterceptor)
   async deleteById(@Param("id") id: string): Promise<{message: string}> {
     try {
       await this.prisma.project.delete({where: {id: id}});
