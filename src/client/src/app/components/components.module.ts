@@ -37,6 +37,7 @@ import { ToastComponent } from "./toast/toast.component";
 import { LabelsComponent } from "./labels/labels.component";
 import { ProjectsListItemComponent } from "./projects-list-item/projects-list-item.component";
 import { MyTasksItemComponent } from "./my-tasks-item/my-tasks-item.component";
+import { MenuOptionsComponent } from "./menu-options/menu-options.component";
 /***/
 
 @NgModule({
@@ -54,7 +55,8 @@ import { MyTasksItemComponent } from "./my-tasks-item/my-tasks-item.component";
     ToastComponent,
     LabelsComponent,
     ProjectsListItemComponent,
-    MyTasksItemComponent
+    MyTasksItemComponent,
+    MenuOptionsComponent
   ],
   imports: [
     CommonModule,
@@ -76,7 +78,8 @@ import { MyTasksItemComponent } from "./my-tasks-item/my-tasks-item.component";
     ToastComponent,
     LabelsComponent,
     ProjectsListItemComponent,
-    MyTasksItemComponent
+    MyTasksItemComponent,
+    MenuOptionsComponent
   ]
 })
 

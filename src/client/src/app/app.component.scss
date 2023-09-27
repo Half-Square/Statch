@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-09-22 18:55:47                              *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-09-25 17:59:02                              *
+ * @LastEditDate          : 2023-09-27 17:18:21                              *
  ****************************************************************************/
 
 .app {
@@ -10,10 +10,23 @@
   height: 100vh;
   display: flex;
   gap: 1px;
+  overflow: hidden;
 
   .views-container {
+    display: flex;
+    flex-direction: column;
     width: 100%;
-    height: 100vh;
+    max-height: 100vh;
     overflow-y: auto;
+  }
+
+  .nav {
+    width: 250px;
+    transition: width ease 0.4s, transform ease 0.4s;
+
+    &.close {
+      transform: translateX(-250px);
+      width: 0;
+    }
   }
 }
