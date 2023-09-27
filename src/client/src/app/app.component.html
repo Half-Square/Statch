@@ -2,11 +2,11 @@
 * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>
 * @CreatedDate           : 2023-05-30 11:57:00
 * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>
-* @LastEditDate          : 2023-09-27 15:57:58
+* @LastEditDate          : 2023-09-27 17:11:02
 -->
 
 <div class="app">
-  <section-navigation *ngIf="user.getUser()"/>
+  <section-navigation [ngClass]="{'nav': true, 'close': !nav.getState()}" *ngIf="user.getUser()"/>
 
   <div class="views-container">
     <section-tool-bar *ngIf="user.getUser()"/>

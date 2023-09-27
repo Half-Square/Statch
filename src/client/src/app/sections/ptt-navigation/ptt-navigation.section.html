@@ -2,7 +2,7 @@
 * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>
 * @CreatedDate           : 2023-09-20 16:09:00
 * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>
-* @LastEditDate          : 2023-09-25 10:32:16
+* @LastEditDate          : 2023-09-27 17:33:56
 -->
 
 <div class="section-ptt-navigation">
@@ -22,7 +22,7 @@
         </a>
       </div>
 
-      <ul *ngIf="isOpen(project.id)">
+      <ul *ngIf="isOpen(project.id)" class="child">
         <li [ngClass]="{'item': true, 'depth': !hasChild(tickets, {taskId: task.id})}"
             *ngFor="let task of _.filter(tasks, {projectId: project.id})">
           <div class="head">
@@ -38,7 +38,7 @@
             </a>
           </div>
 
-          <ul *ngIf="isOpen(task.id)">
+          <ul *ngIf="isOpen(task.id)" class="child">
             <li class="item depth"
                 *ngFor="let ticket of _.filter(tickets, {taskId: task.id})">
               <div class="head">

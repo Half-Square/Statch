@@ -2,17 +2,22 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-09-27 14:35:32                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-09-27 17:01:46                               *
+ * @LastEditDate          : 2023-09-27 17:10:05                               *
  *****************************************************************************/
 
 /* SUMMARY
   * Imports
+  * Services
 */
 
 /* Imports */
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { NavigationEnd, Router } from "@angular/router";
 import { Subscription } from "rxjs";
+/***/
+
+/* Services */
+import { NavService } from "../navigation/nav.service";
 /***/
 
 @Component({
@@ -25,7 +30,8 @@ export class ToolBarSection implements OnInit, OnDestroy {
   public menuOptions: boolean = false;
   private sub: Subscription;
 
-  constructor(private router: Router) {
+  constructor(private router: Router,
+              public nav: NavService) {
   }
 
   ngOnInit(): void {

@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-09-22 18:55:47                              *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-09-27 16:56:47                              *
+ * @LastEditDate          : 2023-09-27 17:18:21                              *
  ****************************************************************************/
 
 .app {
@@ -18,5 +18,15 @@
     width: 100%;
     max-height: 100vh;
     overflow-y: auto;
+  }
+
+  .nav {
+    width: 250px;
+    transition: width ease 0.4s, transform ease 0.4s;
+
+    &.close {
+      transform: translateX(-250px);
+      width: 0;
+    }
   }
 }

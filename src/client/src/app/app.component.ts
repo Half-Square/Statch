@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-05-30 11:58:04                              *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-09-22 16:57:03                              *
+ * @LastEditDate          : 2023-09-27 17:08:51                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -18,6 +18,7 @@ import { environment as env } from "./../environments/environment";
 /* Services */
 import { RecoveryService } from "./services/recovery.service";
 import { UserService } from "./services/user.service";
+import { NavService } from "./sections/navigation/nav.service";
 /***/
 
 @Component({
@@ -27,7 +28,8 @@ import { UserService } from "./services/user.service";
 })
 export class AppComponent implements OnInit {
   constructor(private recovery: RecoveryService,
-              public user: UserService) {
+              public user: UserService,
+              public nav: NavService) {
   }
 
   ngOnInit(): void {
