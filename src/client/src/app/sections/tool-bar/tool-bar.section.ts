@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-09-27 14:35:32                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-09-27 16:50:35                               *
+ * @LastEditDate          : 2023-09-27 17:01:46                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -29,6 +29,8 @@ export class ToolBarSection implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.setCrumbs(this.router.url);
+
     this.sub = this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this.setCrumbs(event.url);
