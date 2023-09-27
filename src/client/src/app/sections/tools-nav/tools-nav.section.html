@@ -2,15 +2,19 @@
 * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>
 * @CreatedDate           : 2023-09-25 10:28:00
 * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>
-* @LastEditDate          : 2023-09-25 13:41:33
+* @LastEditDate          : 2023-09-27 18:10:11
 -->
 
 <div class="section-tools-nav">
-  <a routerLink="/projects" title="Projects" routerLinkActive="active">
+  <core-button class="btn" routerLink="/projects" title="Projects" routerLinkActive="active">
     <core-icon icon="dashboard" other="icon--24"/>
-  </a>
+  </core-button>
 
-  <a routerLink="/my-tasks" title="My Tasks" routerLinkActive="active">
+  <core-button (click)="newPttItem()">
+    <core-icon icon="plus" other="icon--24"/>
+  </core-button>
+
+  <core-button class="btn" routerLink="/my-tasks" title="My Tasks" routerLinkActive="active">
     <core-icon icon="flag" other="icon--24"/>
-  </a>
+  </core-button>
 </div>
