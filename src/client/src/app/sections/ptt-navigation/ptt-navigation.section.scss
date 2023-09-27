@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-09-20 16:09:21                              *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-09-27 17:34:35                              *
+ * @LastEditDate          : 2023-09-27 17:42:56                              *
  ****************************************************************************/
 
 .section-ptt-navigation {
@@ -21,7 +21,7 @@
     list-style: none;
 
     &.child {
-      padding-inline-start: 5px;
+      padding-inline-start: 24px;
     }
 
     .item {
@@ -91,8 +91,8 @@
         }
       }
 
-      &.item.depth {
-        margin-left: calc(24px + 4px);
+      &.item.depth .head {
+        padding-left: calc(24px + 4px + 8px);
       }
     }
   }
