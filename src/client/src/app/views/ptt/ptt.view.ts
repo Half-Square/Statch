@@ -2,7 +2,7 @@
  * @Author                : 0K00<qdouvillez@gmail.com>                       *
  * @CreatedDate           : 2023-09-21 12:45:58                              *
  * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
- * @LastEditDate          : 2023-09-27 12:29:49                              *
+ * @LastEditDate          : 2023-09-27 14:37:46                              *
  ****************************************************************************/
 
 import { Component, OnDestroy, OnInit } from "@angular/core";
@@ -116,6 +116,10 @@ export class PttView implements OnInit, OnDestroy {
     else return Math.trunc(done / (cpt - rej) * 100);
   }
 
+  public getCurrentElement(): any {
+    return _.find(this.type == "tickets" ? this.tickets : (this.type == "projects" ? this.projects : this.tasks), {id: this.id});
+  }
+
   public checkAssignee(): boolean {
     if(_.find(this.currentElement.assignments, {userId: this.currentUser.id}))
       return true;
@@ -123,14 +127,11 @@ export class PttView implements OnInit, OnDestroy {
       return false;
   }
 
-  public getCurrentElement(): any {
-    return _.find(this.type == "tickets" ? this.tickets : (this.type == "projects" ? this.projects : this.tasks), {id: this.id});
-  }
-
   public getComments(): any {
-    this.recovery.getSingleSync(this.type + this.id + "comments", this.id).then(res => {
-      return res;
-    });
+    // this.recovery.getSingleSync(this.type + this.id + "comments", this.id).then(res => {
+    //   return res;
+    // });
+    return "";
   }
 
   public assigneeSelf(): void {
@@ -150,7 +151,7 @@ export class PttView implements OnInit, OnDestroy {
   }
 
   public headerSave(event: Event): void {
-    console.log(event);
+    // console.log(event);
   }
 
   public sortElement(option: any): void {

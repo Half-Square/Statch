@@ -2,10 +2,13 @@
 * @Author                : 0K00<qdouvillez@gmail.com>
 * @CreatedDate           : 2023-09-21 13:14:00
 * @LastEditors           : 0K00<qdouvillez@gmail.com>
-* @LastEditDate          : 2023-09-27 12:24:28
+* @LastEditDate          : 2023-09-27 14:35:29
 -->
 
 <div class="ptt">
+  <div class="bar">
+    <core-button [type]="'basic'" [style]="'default'" [size]="'medium'" ><core-icon icon="plus"></core-icon></core-button>
+    <core-button (click)="assigneeSelf()" [type]="isAssignee ? 'flat' : 'basic'" [style]="'primary'" [size]="'medium'"><core-icon [icon]="isAssignee ? 'heart--fill' : 'heart'"></core-icon></core-button>
   </div>
 
   <div class="header">
@@ -49,3 +52,11 @@
 
     </section-ptt-list>
   </div>
+
+  <div class="comment">
+    <section-ptt-comment></section-ptt-comment>
+  </div>
+  <div class="details">
+    <section-ptt-details></section-ptt-details>
+  </div>
+</div>
