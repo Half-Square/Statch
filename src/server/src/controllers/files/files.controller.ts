@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-05-09 12:30:43                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-09-28 19:17:02                               *
+ * @LastEditDate          : 2023-09-28 19:43:05                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -11,6 +11,7 @@
   * Dto
   * Guards
   * Get all saved file
+  * Get raw file
   * Get one file by id
   * Upload files
   * Delete file by id
@@ -72,7 +73,7 @@ export class FilesController {
   * Get raw file
   * @param filename - File to get
   */
-  @Get(":filename")
+  @Get("raw/:filename")
   async getRawFile(@Param("filename") filename: string): Promise<StreamableFile> {
     const file = fs.createReadStream(join(resolve("upload"), filename));
     return new StreamableFile(file);
