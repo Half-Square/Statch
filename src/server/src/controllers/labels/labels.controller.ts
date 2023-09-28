@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-09-20 15:37:10                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-09-22 19:30:59                               *
+ * @LastEditDate          : 2023-09-28 16:32:38                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -117,7 +117,7 @@ export class LabelsController {
   */
   @Delete("/:id")
   async delete(@Param("id") id: string): Promise<{message: string}> {
-    this.prisma.label.delete({where: {id: id}});
+    await this.prisma.label.delete({where: {id: id}});
     this.socket.broadcast("labels", {id: id}, true);
     return {message: `Label ${id} has been removed`};
   }

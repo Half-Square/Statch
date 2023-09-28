@@ -1,0 +1,20 @@
+<!--
+* @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>
+* @CreatedDate           : 2023-09-28 16:43:00
+* @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>
+* @LastEditDate          : 2023-09-28 17:31:17
+-->
+
+<div class="component-color-select">
+  <div class="control" (click)="showMenu = !showMenu">
+    <div class="bull" *ngIf="value == ''" [ngStyle]="{'border': 'unset'}">-</div>
+    <div *ngIf="value != ''" class="bull" [ngStyle]="{'background': value+'50', 'color': value, 'border-color': value}"></div>
+    <core-icon icon="{{showMenu ? 'chevron-up' : 'chevron-down'}}"></core-icon>
+  </div>
+
+  <div *ngIf="showMenu" class="menu">
+    <div class="option" *ngFor="let option of colorOptions" (click)="valueChange.emit(option); showMenu = !showMenu">
+      <div class="bull" [ngStyle]="{'background': option+'50', 'color': option, 'border-color': option}"></div>
+    </div>
+  </div>
+</div>

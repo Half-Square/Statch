@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-09-28 14:50:42                              *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-09-28 15:19:27                              *
+ * @LastEditDate          : 2023-09-28 16:01:59                              *
  ****************************************************************************/
 
 .view-settings {
@@ -13,13 +13,13 @@
   .settings-nav {
     width: 100%;
     border-bottom: solid 1px rgba(234, 234, 234, 0.1254901961);
-    padding-left: 28px;
-    height: 56px;
+    padding: 8px 28px;
+    flex-shrink: 0;
     box-sizing: border-box;
     display: flex;
     align-items: center;
     gap: 15px;
-    margin-top: 1px;
+    margin-top: 1;
 
     a:hover {
       text-decoration: underline;
