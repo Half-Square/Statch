@@ -1,0 +1,27 @@
+/*****************************************************************************
+ * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @CreatedDate           : 2023-09-28 16:23:33                              *
+ * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @LastEditDate          : 2023-09-28 17:10:19                              *
+ ****************************************************************************/
+
+.section-labels-editor {
+  border: 1px solid #3d3d3d;
+  border-radius: 8px;
+
+  .head {
+    display: flex;
+    align-items: center;
+    border-bottom: solid 1px #3d3d3d;
+    padding-right: 15px;
+
+    .edit {
+      flex-grow: 1;
+    }
+  }
+
+  .labels-list {
+    display: grid;
+    padding: 8px;
+  }
+}

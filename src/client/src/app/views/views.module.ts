@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-06-01 15:46:03                              *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-09-28 15:01:59                              *
+ * @LastEditDate          : 2023-09-28 15:52:27                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -34,6 +34,7 @@ import { PipesModule } from "../pipes/pipes.module";
 import { ProfileView } from "./profile/profile.view";
 import { SettingsView } from "./settings/settings.view";
 import { SmtpSettingsView } from "./settings/smtp/smtp-settings.view";
+import { LabelsSettingsView } from "./settings/labels-settings/labels-settings.view";
 /***/
 
 @NgModule({
@@ -46,7 +47,8 @@ import { SmtpSettingsView } from "./settings/smtp/smtp-settings.view";
     MyTasksView,
     ProfileView,
     SettingsView,
-    SmtpSettingsView
+    SmtpSettingsView,
+    LabelsSettingsView
   ],
   imports: [
     CommonModule,
@@ -66,7 +68,8 @@ import { SmtpSettingsView } from "./settings/smtp/smtp-settings.view";
     MyTasksView,
     ProfileView,
     SettingsView,
-    SmtpSettingsView
+    SmtpSettingsView,
+    LabelsSettingsView
   ]
 })
 export class ViewsModule {}

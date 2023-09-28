@@ -81,10 +81,22 @@ interface IAssignments {
 }
 /***/
 
+/**
+* ILabels
+*/
+interface ILabels {
+  id: string,
+  name: string,
+  description: string,
+  color: string
+}
+/***/
+
 export {
   IProjects,
   ITasks,
   ITickets,
   IVersions,
-  IAssignments
+  IAssignments,
+  ILabels
 };

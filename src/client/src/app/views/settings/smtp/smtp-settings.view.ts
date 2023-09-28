@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-09-28 15:01:19                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-09-28 15:33:46                               *
+ * @LastEditDate          : 2023-09-28 15:34:44                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -59,7 +59,7 @@ export class SmtpSettingsView implements OnInit {
       .then((ret) => {
         this.smtp = ret as IStmpSettings;
         this.toast.print("Smtp settings saved !", "success");
-      }).catch((err) => {
+      }).catch(() => {
         this.toast.print("An error occured...", "error");
       });
   }

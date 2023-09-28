@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-05-30 16:14:10                              *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-09-22 18:29:11                              *
+ * @LastEditDate          : 2023-09-28 16:33:18                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -95,7 +95,7 @@ export class RequestService {
   * @param token - User token, if necessary
   */
   public delete(url: string, token?: string): Promise<unknown> {
-    return this.request("POST", url, null, token);
+    return this.request("DELETE", url, null, token);
   }
   /***/
 }

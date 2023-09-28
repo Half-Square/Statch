@@ -38,6 +38,9 @@ import { LabelsComponent } from "./labels/labels.component";
 import { ProjectsListItemComponent } from "./projects-list-item/projects-list-item.component";
 import { MyTasksItemComponent } from "./my-tasks-item/my-tasks-item.component";
 import { MenuOptionsComponent } from "./menu-options/menu-options.component";
+import { LabelsSettinsItemsComponent } from "./labels-settins-items/labels-settins-items.component";
+import { LabelsEditComponent } from "./labels-edit/labels-edit.component";
+import { ColorSelectComponent } from "./color-select/color-select.component";
 /***/
 
 @NgModule({
@@ -56,7 +59,10 @@ import { MenuOptionsComponent } from "./menu-options/menu-options.component";
     LabelsComponent,
     ProjectsListItemComponent,
     MyTasksItemComponent,
-    MenuOptionsComponent
+    MenuOptionsComponent,
+    LabelsSettinsItemsComponent,
+    LabelsEditComponent,
+    ColorSelectComponent
   ],
   imports: [
     CommonModule,
@@ -79,7 +85,10 @@ import { MenuOptionsComponent } from "./menu-options/menu-options.component";
     LabelsComponent,
     ProjectsListItemComponent,
     MyTasksItemComponent,
-    MenuOptionsComponent
+    MenuOptionsComponent,
+    LabelsSettinsItemsComponent,
+    LabelsEditComponent,
+    ColorSelectComponent
   ]
 })
 

@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-05-31 15:03:46                              *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-09-28 15:11:09                              *
+ * @LastEditDate          : 2023-09-28 15:52:50                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -34,6 +34,7 @@ import { MyTasksView } from "./views/my-tasks/my-tasks.view";
 import { ProfileView } from "./views/profile/profile.view";
 import { SettingsView } from "./views/settings/settings.view";
 import { SmtpSettingsView } from "./views/settings/smtp/smtp-settings.view";
+import { LabelsSettingsView } from "./views/settings/labels-settings/labels-settings.view";
 /***/
 
 /* Routes */
@@ -44,8 +45,9 @@ const routes: Routes = [
   { path: "profile", component: ProfileView, canActivate: [IsConnectedGuard] },
   { path: "settings", component: SettingsView, canActivate: [IsConnectedGuard],
     children: [
+      { path: "labels", component: LabelsSettingsView, canActivate: [IsConnectedGuard ]},
       { path: "smtp", component: SmtpSettingsView, canActivate: [IsConnectedGuard, IsAdminGuard] },
-      { path: "", pathMatch: "full", redirectTo: "/settings/smtp"}
+      { path: "", pathMatch: "full", redirectTo: "/settings/labels"}
     ]
   },
 
