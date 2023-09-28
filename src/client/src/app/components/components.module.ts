@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-09-19 16:08:01                              *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-09-26 10:42:45                              *
+ * @LastEditDate          : 2023-09-28 17:58:50                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -38,7 +38,7 @@ import { LabelsComponent } from "./labels/labels.component";
 import { ProjectsListItemComponent } from "./projects-list-item/projects-list-item.component";
 import { MyTasksItemComponent } from "./my-tasks-item/my-tasks-item.component";
 import { MenuOptionsComponent } from "./menu-options/menu-options.component";
-import { LabelsSettinsItemsComponent } from "./labels-settins-items/labels-settins-items.component";
+import { LabelsSettingsItemsComponent } from "./labels-settings-items/labels-settings-items.component";
 import { LabelsEditComponent } from "./labels-edit/labels-edit.component";
 import { ColorSelectComponent } from "./color-select/color-select.component";
 /***/
@@ -60,7 +60,7 @@ import { ColorSelectComponent } from "./color-select/color-select.component";
     ProjectsListItemComponent,
     MyTasksItemComponent,
     MenuOptionsComponent,
-    LabelsSettinsItemsComponent,
+    LabelsSettingsItemsComponent,
     LabelsEditComponent,
     ColorSelectComponent
   ],
@@ -86,7 +86,7 @@ import { ColorSelectComponent } from "./color-select/color-select.component";
     ProjectsListItemComponent,
     MyTasksItemComponent,
     MenuOptionsComponent,
-    LabelsSettinsItemsComponent,
+    LabelsSettingsItemsComponent,
     LabelsEditComponent,
     ColorSelectComponent
   ]

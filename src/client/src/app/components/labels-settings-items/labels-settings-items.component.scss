@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-09-28 16:16:58                              *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-09-28 17:10:43                              *
+ * @LastEditDate          : 2023-09-28 18:01:16                              *
  ****************************************************************************/
 
 .component-labels-settings-items {
@@ -17,14 +17,6 @@
     align-items: center;
     gap: 16px;
     color: #eaeaea80;
-
-    .label-tag {
-      border-radius: 32px;
-      border: solid 1px;
-      padding: 2px 16px;
-      font-size: 12px;
-      font-weight: 400;
-    }
   }
 
   .actions {
@@ -35,5 +27,20 @@
 
   &:hover {
     background-color: #2E2E2E;
+  }
+
+  .edit-mode {
+    display: flex;
+    align-items: center;
+    width: 100%;
+
+    .edit {
+      flex-grow: 1;
+    }
+
+    .buttons {
+      display: flex;
+      align-items: center;
+    }
   }
 }

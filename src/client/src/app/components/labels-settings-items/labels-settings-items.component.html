@@ -1,0 +1,33 @@
+<!--
+* @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>
+* @CreatedDate           : 2023-09-28 16:17:00
+* @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>
+* @LastEditDate          : 2023-09-28 18:01:51
+-->
+
+<div  class="component-labels-settings-items">
+  <ng-template [ngIf]="!onEdit" [ngIfElse]="editMode">
+    <div class="label-details">
+      <component-labels [name]="label.name" [color]="label.color"/>
+      <div>{{label.description}}</div>
+    </div>
+
+    <div class="actions">
+      <core-button label="Edit" (click)="enableEditMode()"/>
+      <core-button (click)="remove()" [style]="'warn'">
+        <core-icon icon="minus"/>
+      </core-button>
+    </div>
+  </ng-template>
+
+  <ng-template #editMode>
+    <div class="edit-mode">
+      <component-labels-edit class="edit" [(label)]="label" (callback)="save()"/>
+
+      <div class="buttons">
+        <core-button label="Cancel" (click)="revert()"/>
+        <core-button label="Save" type="flat" [style]="'primary'" (click)="save()"/>
+      </div>
+    </div>
+  </ng-template>
+</div>

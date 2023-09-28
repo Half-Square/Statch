@@ -1,9 +1,9 @@
-/******************************************************************************
- * @Author                : 0K00<qdouvillez@gmail.com>                        *
- * @CreatedDate           : 2023-09-21 16:47:10                               *
- * @LastEditors           : 0K00<qdouvillez@gmail.com>                        *
- * @LastEditDate          : 2023-09-21 16:47:10                               *
- *****************************************************************************/
+/*****************************************************************************
+ * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @CreatedDate           : 2023-09-21 16:47:10                              *
+ * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @LastEditDate          : 2023-09-28 17:47:48                              *
+ ****************************************************************************/
 
 import { Component, Input } from "@angular/core";
 
@@ -17,5 +17,5 @@ export class LabelsComponent {
     name: string = "";
 
   @Input()
-    color: "white" | "yellow" | "green" | "red" | "blue" | "purple" = "white";
+    color: string;
 }
