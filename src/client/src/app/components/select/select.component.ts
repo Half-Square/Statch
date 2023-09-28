@@ -1,9 +1,9 @@
-/******************************************************************************
- * @Author                : Quentin<quentin@halfsquare.fr>                    *
- * @CreatedDate           : 2023-09-15 13:05:58                               *
- * @LastEditors           : Quentin<quentin@halfsquare.fr>                    *
- * @LastEditDate          : 2023-09-15 14:24:41                               *
- *****************************************************************************/
+/*****************************************************************************
+ * @Author                : Quentin<quentin@halfsquare.fr>                   *
+ * @CreatedDate           : 2023-09-15 13:05:58                              *
+ * @LastEditors           : Quentin<quentin@halfsquare.fr>                   *
+ * @LastEditDate          : 2023-09-28 16:56:40                              *
+ ****************************************************************************/
 
 import { Component, Input, TemplateRef, ContentChild, ViewChild, ElementRef, Renderer2, Output, EventEmitter } from "@angular/core";
 
@@ -65,6 +65,12 @@ export class SelectComponent {
    */
   @Input()
     hasSearch: boolean = true;
+
+  @Input()
+    noResult: boolean = false;
+
+  @Input()
+    noOption: string = "No option";
 
   /**
    * Output property to emit callback events
