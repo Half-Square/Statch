@@ -1,8 +1,8 @@
 <!--
-* @Author                : 0K00<qdouvillez@gmail.com>
+* @Author                : Quentin<quentin@halfsquare.fr>
 * @CreatedDate           : 2023-09-21 13:14:00
-* @LastEditors           : 0K00<qdouvillez@gmail.com>
-* @LastEditDate          : 2023-09-27 18:24:44
+* @LastEditors           : Quentin<quentin@halfsquare.fr>
+* @LastEditDate          : 2023-09-28 16:35:42
 -->
 
 <div class="ptt">
@@ -11,65 +11,81 @@
     <core-button (click)="assigneeSelf()" [type]="isAssignee ? 'flat' : 'basic'" [style]="'primary'" [size]="'medium'"><core-icon [icon]="isAssignee ? 'heart--fill' : 'heart'"></core-icon></core-button>
   </div>
 
-  <div class="header">
-    <section-ptt-header
-      *ngIf="_.find(type == 'tickets' ? tickets : (type == 'projects' ? projects : tasks), {id: id})"
-      [edit]="onEdit"
-      (callback)="headerSave($event)"
-      [title]="_.find(type == 'tickets' ? tickets : (type == 'projects' ? projects : tasks), {id: id}).name"
-      [description]="_.find(type == 'tickets' ? tickets : (type == 'projects' ? projects : tasks), {id: id}).description">
+  <div class="container">
+    <div class="main">
+      <div class="header">
+        <section-ptt-header
+          *ngIf="_.find(type == 'tickets' ? tickets : (type == 'projects' ? projects : tasks), {id: id})"
+          [edit]="onEdit"
+          (callback)="headerSave($event)"
+          [title]="_.find(type == 'tickets' ? tickets : (type == 'projects' ? projects : tasks), {id: id}).name"
+          [description]="_.find(type == 'tickets' ? tickets : (type == 'projects' ? projects : tasks), {id: id}).description">
 
-      <!-- <core-button *ngIf="!onEdit" (click)="edit()" [type]="'basic'" [style]="'default'" [size]="'medium'" [label]="'Edit'"/>
-      <core-button *ngIf="onEdit" (click)="delete()" [type]="'stroked'" [style]="'warn'" [size]="'medium'" [label]="'Delete'"/>
-      <core-button *ngIf="onEdit" (click)="save()" [type]="'flat'" [style]="'primary'" [size]="'medium'" [label]="'Save'"/> -->
+          <!-- <core-button *ngIf="!onEdit" (click)="edit()" [type]="'basic'" [style]="'default'" [size]="'medium'" [label]="'Edit'"/>
+          <core-button *ngIf="onEdit" (click)="delete()" [type]="'stroked'" [style]="'warn'" [size]="'medium'" [label]="'Delete'"/>
+          <core-button *ngIf="onEdit" (click)="save()" [type]="'flat'" [style]="'primary'" [size]="'medium'" [label]="'Save'"/> -->
 
-    </section-ptt-header>
-  </div>
-
-  <div *ngIf="type != 'tickets'" class="advancement">
-
-    <section-ptt-advancement [value]="progressValue"></section-ptt-advancement>
-
-    <section-ptt-list
-      [elements]="_.filter(type === 'projects' ? printTasks : printTickets, type === 'projects' ? {projectId: id} : {taskId: id})"
-      [type]="typeChild">
-
-      <div sort>
-        {{type === "projects" ? "Tasks" : "Tickets"}}
-        <component-select
-          *ngIf="type === 'projects' ? _.find(versions, {projectId: id}) :
-                _.find(tasks, {id: id}) &&
-                _.find(tasks, {id: id}).projectId &&
-                _.find(versions, {projectId: _.find(tasks, {id: id}).projectId})"
-
-          [data]="_.filter(versions, {projectId: type === 'projects' ? id : _.find(tasks, {id: id}).projectId})"
-          [placeholder]="'Select verions to sort...'"
-          [multi]="true"
-          [hasSearch]="false"
-          (callback)="sortElement($event)">
-        </component-select>
+        </section-ptt-header>
       </div>
 
-      <div class="add" add>
-        <core-icon icon="plus"></core-icon>
-        Create new {{type === "projects" ? "task" : "ticket"}}
+      <div *ngIf="type != 'tickets'" class="advancement">
+
+        <section-ptt-advancement [value]="progressValue"></section-ptt-advancement>
+
+        <section-ptt-list
+          [elements]="_.filter(type === 'projects' ? printTasks : printTickets, type === 'projects' ? {projectId: id} : {taskId: id})"
+          [type]="typeChild">
+
+          <div sort>
+            {{type === "projects" ? "Tasks" : "Tickets"}}
+            <component-select
+              *ngIf="type === 'projects' ? _.find(versions, {projectId: id}) :
+                    _.find(tasks, {id: id}) &&
+                    _.find(tasks, {id: id}).projectId &&
+                    _.find(versions, {projectId: _.find(tasks, {id: id}).projectId})"
+
+              [data]="_.filter(versions, {projectId: type === 'projects' ? id : _.find(tasks, {id: id}).projectId})"
+              [placeholder]="'Select verions to sort...'"
+              [multi]="true"
+              [hasSearch]="false"
+              (callback)="sortElement($event)">
+            </component-select>
+          </div>
+
+          <div class="add" add>
+            <core-icon icon="plus"></core-icon>
+            Create new {{type === "projects" ? "task" : "ticket"}}
+          </div>
+
+        </section-ptt-list>
       </div>
 
-    </section-ptt-list>
+      <div class="comment">
+        <section-ptt-comment [comments]="comments"></section-ptt-comment>
+      </div>
+    </div>
+
+    <aside class="aside">
+      <div class="details">
+        <section-ptt-details
+          [id]="id"
+          [type]="type"
+          [owner]="currentElement.ownerId"
+          [assignee]="currentElement.assignments"
+          [versionTitle]="type === 'projects' ? 'Version' : 'Target version'"
+          [versions]="versions"
+          [status]="[{id:'new', status: 'new'}, {id:'progress', status: 'progress'}, {id:'done', status: 'done'}, {id:'reject', status: 'reject'}, {id:'wait', status: 'wait'}]"
+          [currentStatus]="[{id: currentElement.status, status: currentElement.status}]"
+          [currentLabels]="currentElement.labels"
+          [levels]="[{id: 'low', level:'low'}, {id: 'normal', level:'normal'}, {id: 'moderate', level:'moderate'}, {id: 'high', level:'high'}]"
+          [currentLevel]="[{id: currentElement.level, level: currentElement.level}]"
+          [listTitle]="type === 'projects' ? 'tasks' : 'tickets'"
+          [nbList]="_.filter(type === 'projects' ? printTasks : printTickets, type === 'projects' ? {projectId: id} : {taskId: id}).length"
+          [created]="currentElement.created"
+        ></section-ptt-details>
+      </div>
+    </aside>
   </div>
 
-  <div class="comment">
-    <section-ptt-comment [comments]="comments"></section-ptt-comment>
-  </div>
-  <div class="details">
-    <section-ptt-details
-      [id]="id"
-      [owner]="currentElement.ownerId"
-      [assignee]="currentElement.assignments"
-      [versionTitle]="type === 'projects' ? 'Version' : 'Target version'"
-      [versions]="versions"
-      [status]="[{id:'new', status: 'new'}, {id:'progress', status: 'progress'}, {id:'done', status: 'done'}, {id:'reject', status: 'reject'}, {id:'wait', status: 'wait'}]"
-      [currentStatus]="[{id: currentElement.status, status: currentElement.status}]"
-    ></section-ptt-details>
-  </div>
+
 </div>
