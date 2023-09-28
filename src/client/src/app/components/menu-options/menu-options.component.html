@@ -2,13 +2,18 @@
 * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>
 * @CreatedDate           : 2023-09-27 16:33:00
 * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>
-* @LastEditDate          : 2023-09-27 16:51:47
+* @LastEditDate          : 2023-09-28 14:13:52
 -->
 
 <div class="component-menu-options">
-  <core-button [style]="'warn'" (click)="user.logout()">
+  <core-button other="full" size="large" routerLink="/profile" (click)="onClose.emit()">
+    <div>Profile</div>
+    <core-icon icon="human" other="icon--16"/>
+  </core-button>
+
+  <core-button [style]="'warn'" size="large" (click)="user.logout()" other="full">
     <div>Logout</div>
-    <core-icon icon="logout"/>
+    <core-icon icon="logout" other="icon--16"/>
   </core-button>
 </div>
 

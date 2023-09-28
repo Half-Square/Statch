@@ -31,6 +31,7 @@ import { NotFoundView } from "./not-found/not-found.view";
 import { ProjectsView } from "./projects/projects.view";
 import { MyTasksView } from "./my-tasks/my-tasks.view";
 import { PipesModule } from "../pipes/pipes.module";
+import { ProfileView } from "./profile/profile.view";
 /***/
 
 @NgModule({
@@ -40,7 +41,8 @@ import { PipesModule } from "../pipes/pipes.module";
     PttView,
     NotFoundView,
     ProjectsView,
-    MyTasksView
+    MyTasksView,
+    ProfileView
   ],
   imports: [
     CommonModule,
@@ -57,7 +59,8 @@ import { PipesModule } from "../pipes/pipes.module";
     PttView,
     NotFoundView,
     ProjectsView,
-    MyTasksView
+    MyTasksView,
+    ProfileView
   ]
 })
 export class ViewsModule {}

@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-06-01 15:15:39                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-09-27 09:48:25                               *
+ * @LastEditDate          : 2023-09-28 14:38:06                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -13,6 +13,7 @@
   * Register new user 
   * Connect user
   * Get user's assignments
+  * Update profile
 */
 
 /* Imports */
@@ -24,7 +25,8 @@ import {
   Body,
   HttpException,
   HttpStatus,
-  UseGuards
+  UseGuards,
+  Put
 } from "@nestjs/common";
 import { sha256 } from "js-sha256";
 import * as jwt from "jsonwebtoken";
@@ -138,6 +140,28 @@ export class UsersController {
   async getAll(): Promise<usersDto.PublicOutput[]> {
     let users = await this.prisma.user.findMany();
     return users.map((el) => new usersDto.PublicOutput(el));
+  }
+  /***/
+
+  /**
+  * Update profile
+  * @param id - User id
+  * @param body - data to update 
+  */
+  @Put("users/:id")
+  @UseGuards(IsSelfGuard)
+  async updateProfile(@Param("id") id: string, @Body() body: usersDto.UpdateInput): Promise<usersDto.ConnectOutput> {
+    let user = await this.prisma.user.update({
+      where: {id: id},
+      data: body
+    });
+
+    user["token"] = jwt.sign(user, process.env.SALT, {
+      algorithm: "HS256",
+      expiresIn: process.env.SESSION_TIME
+    });
+
+    return new usersDto.ConnectOutput(user);
   }
   /***/
 }

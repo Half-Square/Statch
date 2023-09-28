@@ -1,3 +1,10 @@
+/*****************************************************************************
+ * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @CreatedDate           : 2023-09-28 14:23:54                              *
+ * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @LastEditDate          : 2023-09-28 14:24:21                              *
+ ****************************************************************************/
+
 .avatar {
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   display: flex;
@@ -45,6 +52,14 @@
   }
 }
 
+.avatar.profile {
+  font-size: 32px;
+
+  .content {
+    width: 120px;
+    height: 120px;
+  }
+}
 
 .avatar .content .img {
   display: flex;
