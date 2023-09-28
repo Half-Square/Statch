@@ -33,6 +33,7 @@ import { ActivitiesController } from "./controllers/activities/activities.contro
 import { PrismaService } from "./prisma.service";
 import { SocketService } from "./services/socket/socket.service";
 import { ActivitiesService } from "./controllers/activities/activities.service";
+import { FilesController } from './controllers/files/files.controller';
 /***/
 
 @Module({
@@ -49,7 +50,8 @@ import { ActivitiesService } from "./controllers/activities/activities.service";
     LabelsController,
     VersionsController,
     SettingsController,
-    ActivitiesController
+    ActivitiesController,
+    FilesController
   ],
   providers: [
     PrismaService,

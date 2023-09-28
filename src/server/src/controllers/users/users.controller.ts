@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-06-01 15:15:39                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-09-28 14:38:06                               *
+ * @LastEditDate          : 2023-09-28 19:20:48                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -14,6 +14,7 @@
   * Connect user
   * Get user's assignments
   * Update profile
+  * Update user avatar
 */
 
 /* Imports */
@@ -31,6 +32,7 @@ import {
 import { sha256 } from "js-sha256";
 import * as jwt from "jsonwebtoken";
 import { Assignment } from "@prisma/client";
+import * as fs from "fs";
 /***/
 
 /* Services */
@@ -44,6 +46,7 @@ import * as usersDto from "./users.dto";
 /* Guards */
 import { IsConnectedGuard } from "src/guards/is-connected.guard";
 import { IsSelfGuard } from "src/guards/is-self.guard";
+import { resolve } from "path";
 /***/
 
 @Controller("api")
@@ -151,6 +154,10 @@ export class UsersController {
   @Put("users/:id")
   @UseGuards(IsSelfGuard)
   async updateProfile(@Param("id") id: string, @Body() body: usersDto.UpdateInput): Promise<usersDto.ConnectOutput> {
+    if (body.oldPicture) fs.unlinkSync(resolve("upload")+"/"+body.oldPicture);
+
+    delete body.oldPicture;
+
     let user = await this.prisma.user.update({
       where: {id: id},
       data: body

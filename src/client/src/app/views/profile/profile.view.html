@@ -2,13 +2,18 @@
 * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>
 * @CreatedDate           : 2023-09-28 13:52:00
 * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>
-* @LastEditDate          : 2023-09-28 14:40:17
+* @LastEditDate          : 2023-09-28 19:22:00
 -->
 
 <div class="view-profile">
   <ng-template [ngIf]="profile" [ngIfElse]="loading">
     <div class="profile-card">
-      <core-avatar [label]="profile.name" [showLabel]="false" other="profile"/>
+      <div>
+        <label for="avatarIcon">
+          <core-avatar [label]="profile.name" [showLabel]="false" other="profile" [imgLink]="profile.picture !== '' ? url+profile.picture : null"/>
+        </label>
+        <input type="file" id="avatarIcon" (change)="uploadAvatar($event)" hidden/>
+      </div>
 
       <div class="inputs">
         <core-input [isLabel]="true"
