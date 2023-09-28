@@ -2,7 +2,7 @@
  * @Author                : Quentin<quentin@halfsquare.fr>                   *
  * @CreatedDate           : 2023-09-15 13:05:58                              *
  * @LastEditors           : Quentin<quentin@halfsquare.fr>                   *
- * @LastEditDate          : 2023-09-28 18:59:06                              *
+ * @LastEditDate          : 2023-09-28 19:10:01                              *
  ****************************************************************************/
 
 import { Component, Input, TemplateRef, ContentChild, ViewChild, ElementRef, Renderer2, Output, EventEmitter } from "@angular/core";
@@ -24,7 +24,8 @@ export class SelectComponent {
   constructor(private renderer: Renderer2) {
     // Listen for click events on the window to close the menu when clicking outside
     this.renderer.listen("window", "click", (e: Event) => {
-      if(!this.selector.nativeElement.contains(e.target))
+      if(this.selector && this.selector.nativeElement &&
+        !this.selector.nativeElement.contains(e.target))
         this.showMenu = false;
     });
   }

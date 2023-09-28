@@ -1,9 +1,9 @@
-/******************************************************************************
- * @Author                : 0K00<qdouvillez@gmail.com>                        *
- * @CreatedDate           : 2023-09-27 14:08:53                               *
- * @LastEditors           : 0K00<qdouvillez@gmail.com>                        *
- * @LastEditDate          : 2023-09-27 14:08:53                               *
- *****************************************************************************/
+/*****************************************************************************
+ * @Author                : Quentin<quentin@halfsquare.fr>                   *
+ * @CreatedDate           : 2023-09-27 14:08:53                              *
+ * @LastEditors           : Quentin<quentin@halfsquare.fr>                   *
+ * @LastEditDate          : 2023-09-28 19:09:04                              *
+ ****************************************************************************/
 
 import { Component, ElementRef, EventEmitter, Input, Output, Renderer2, ViewChild } from "@angular/core";
 
@@ -16,7 +16,9 @@ export class PttHeaderSection {
 
   constructor(private renderer: Renderer2) {
     this.renderer.listen("window", "click", (e: Event) => {
-      if(!this.titleEl.nativeElement.contains(e.target) &&
+      if(this.titleEl && this.descriptionEl &&
+        this.titleEl.nativeElement && this.descriptionEl.nativeElement &&
+        !this.titleEl.nativeElement.contains(e.target) &&
          !this.descriptionEl.nativeElement.contains(e.target)) {
         this.edit = false;
         this.callback.emit(this.content(this.contentEl));
