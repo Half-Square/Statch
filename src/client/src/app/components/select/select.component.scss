@@ -73,6 +73,7 @@
 // Menu
 .select .menu {
   position: absolute;
+  z-index: 2;
   max-height: 150px;
   max-width: 190px;
   width: 100%;
