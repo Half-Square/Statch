@@ -1,2 +1,5 @@
 .vscode
 /src/server/prisma/databases
+
+/src/server/upload/*
+!/src/server/upload/.gitkeep
