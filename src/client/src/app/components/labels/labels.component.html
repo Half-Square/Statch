@@ -1,10 +1,10 @@
 <!--
-* @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>
+* @Author                : Quentin<quentin@halfsquare.fr>
 * @CreatedDate           : 2023-09-21 16:47:00
-* @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>
-* @LastEditDate          : 2023-09-28 17:48:13
+* @LastEditors           : Quentin<quentin@halfsquare.fr>
+* @LastEditDate          : 2023-09-28 18:47:59
 -->
 
-<div class="labels" [ngStyle]="{'background': color+'30', 'color': color, 'border-color': color}">
+<div class="labels" [ngStyle]="color ? {'background': color+'30', 'color': color, 'border': '1px solid' + color} : {}">
   {{ name }}
 </div>
