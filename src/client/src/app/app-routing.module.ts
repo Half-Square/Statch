@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-05-31 15:03:46                              *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-09-28 13:51:48                              *
+ * @LastEditDate          : 2023-09-28 15:11:09                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -21,6 +21,7 @@ import { RouterModule, Routes } from "@angular/router";
 import { TypeGuard } from "./guards/type-guard.service";
 import { IsConnectedGuard } from "./guards/is-connected.guard";
 import { IsNotConnectedGuard } from "./guards/is-not-connected.guard";
+import { IsAdminGuard } from "./guards/is-admin.guard";
 /***/
 
 /* Views */
@@ -31,6 +32,8 @@ import { SignupView } from "./views/signup/signup.view";
 import { ProjectsView } from "./views/projects/projects.view";
 import { MyTasksView } from "./views/my-tasks/my-tasks.view";
 import { ProfileView } from "./views/profile/profile.view";
+import { SettingsView } from "./views/settings/settings.view";
+import { SmtpSettingsView } from "./views/settings/smtp/smtp-settings.view";
 /***/
 
 /* Routes */
@@ -38,15 +41,21 @@ const routes: Routes = [
   { path: "login", component: LoginView, canActivate: [IsNotConnectedGuard] },
   { path: "signup", component: SignupView, canActivate: [IsNotConnectedGuard] },
 
+  { path: "profile", component: ProfileView, canActivate: [IsConnectedGuard] },
+  { path: "settings", component: SettingsView, canActivate: [IsConnectedGuard],
+    children: [
+      { path: "smtp", component: SmtpSettingsView, canActivate: [IsConnectedGuard, IsAdminGuard] },
+      { path: "", pathMatch: "full", redirectTo: "/settings/smtp"}
+    ]
+  },
+
   { path: "projects", component: ProjectsView, canActivate: [IsConnectedGuard] },
   { path: "my-tasks", component: MyTasksView, canActivate: [IsConnectedGuard] },
   { path: ":type/:id", component: PttView, canActivate: [TypeGuard, IsConnectedGuard] },
 
-  { path: "profile", component: ProfileView, canActivate: [IsConnectedGuard] },
-
   { path: "not-found", component: NotFoundView },
 
-  { path: "", pathMatch: "full", data: {title: ""}, redirectTo: "/projects" },
+  { path: "", pathMatch: "full", redirectTo: "/projects" },
   { path: "**", redirectTo: "not-found" }
 ];
 /***/

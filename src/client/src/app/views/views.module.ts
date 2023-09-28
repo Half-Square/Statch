@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : 0K00<qdouvillez@gmail.com>                       *
+ * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-06-01 15:46:03                              *
- * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
- * @LastEditDate          : 2023-09-27 16:54:43                              *
+ * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @LastEditDate          : 2023-09-28 15:01:59                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -32,6 +32,8 @@ import { ProjectsView } from "./projects/projects.view";
 import { MyTasksView } from "./my-tasks/my-tasks.view";
 import { PipesModule } from "../pipes/pipes.module";
 import { ProfileView } from "./profile/profile.view";
+import { SettingsView } from "./settings/settings.view";
+import { SmtpSettingsView } from "./settings/smtp/smtp-settings.view";
 /***/
 
 @NgModule({
@@ -42,7 +44,9 @@ import { ProfileView } from "./profile/profile.view";
     NotFoundView,
     ProjectsView,
     MyTasksView,
-    ProfileView
+    ProfileView,
+    SettingsView,
+    SmtpSettingsView
   ],
   imports: [
     CommonModule,
@@ -60,7 +64,9 @@ import { ProfileView } from "./profile/profile.view";
     NotFoundView,
     ProjectsView,
     MyTasksView,
-    ProfileView
+    ProfileView,
+    SettingsView,
+    SmtpSettingsView
   ]
 })
 export class ViewsModule {}

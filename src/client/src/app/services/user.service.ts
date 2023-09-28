@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-06-02 14:59:51                              *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-09-22 18:39:14                              *
+ * @LastEditDate          : 2023-09-28 14:49:21                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -12,6 +12,7 @@
   * Get logged user
   * Set logged user
   * Clear user
+  * Check if user is admin
 */
 
 /* Imports */
@@ -86,6 +87,15 @@ export class UserService {
   public logout(): void {
     this.clearUser();
     this.router.navigate(["/login"]);
+  }
+  /***/
+
+  /**
+  * Check if user is admin
+  * @return - Boolean, admin or not
+  */
+  public isAdmin(): boolean {
+    return this.user?.isAdmin || false;
   }
   /***/
 }
