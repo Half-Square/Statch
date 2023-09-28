@@ -2,7 +2,7 @@
  * @Author                : Quentin<quentin@halfsquare.fr>                   *
  * @CreatedDate           : 2023-09-15 12:52:21                              *
  * @LastEditors           : Quentin<quentin@halfsquare.fr>                   *
- * @LastEditDate          : 2023-09-28 17:12:45                              *
+ * @LastEditDate          : 2023-09-28 18:54:12                              *
  ****************************************************************************/
 
 import { Pipe, PipeTransform } from "@angular/core";
@@ -40,7 +40,7 @@ export class SearchPipe implements PipeTransform {
     }
 
     if (filteredData.length === 0) {
-      return [{ name: "No result" }];
+      return [{ name: "No result", fromSearch: true }];
     }
 
     return filteredData;
