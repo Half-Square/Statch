@@ -58,6 +58,9 @@ export class PttDetailsSection implements OnInit, OnDestroy {
     levels: any = [];
 
   @Input()
+    currentLevel: any = [];
+
+  @Input()
     type: string = "";
 
   @Input()

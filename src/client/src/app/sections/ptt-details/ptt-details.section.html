@@ -1,8 +1,8 @@
 <!--
-* @Author                : 0K00<qdouvillez@gmail.com>
+* @Author                : Quentin<quentin@halfsquare.fr>
 * @CreatedDate           : 2023-09-27 16:52:00
-* @LastEditors           : 0K00<qdouvillez@gmail.com>
-* @LastEditDate          : 2023-09-27 18:30:56
+* @LastEditors           : Quentin<quentin@halfsquare.fr>
+* @LastEditDate          : 2023-09-28 19:04:18
 -->
 
 <div class="ptt-details">
@@ -32,7 +32,8 @@
     <div class="block">
       <div class="heading">{{ versionTitle }}</div>
       <div class="content">
-        <component-select [data]="versions"></component-select>
+        <component-select [data]="versions" [noResult]="true" [noOption]="'No version for the moment'">
+        </component-select>
       </div>
     </div>
 
@@ -64,16 +65,23 @@
       </div>
     </div>
 
-    <div class="block">
+    <div *ngIf="type != 'projects'" class="block">
       <div class="heading">Level</div>
       <div class="content">
-        <component-select [data]="levels"></component-select>
+        <component-select [data]="levels" [selection]="currentLevel" [hasSearch]="false" [multi]="false">
+          <ng-template let-select #selected>
+            <component-level [level]="select.level"></component-level>
+          </ng-template>
+          <ng-template let-option #items>
+            <component-level [level]="option.level"></component-level>
+          </ng-template>
+        </component-select>
       </div>
     </div>
 
     <div *ngIf="type != 'tickets'" class="block">
       <div class="heading">No. of {{ listTitle }}</div>
-      <div class="content">
+      <div class="content list">
         <a [routerLink]="'/' + listLink">{{ nbList }} {{ listTitle }} <core-icon icon="arrow-right"></core-icon></a>
       </div>
     </div>
