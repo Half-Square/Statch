@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-09-27 09:48:39                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-09-27 11:49:48                               *
+ * @LastEditDate          : 2023-09-29 11:07:01                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -15,6 +15,7 @@
 /* Imports */
 import { Controller, Get, Param, UseGuards } from "@nestjs/common";
 import { Activity } from "@prisma/client";
+import * as _ from "lodash";
 /***/
 
 /* Guards */
@@ -32,17 +33,31 @@ export class ActivitiesController {
   }
 
   /**
-  * Get by user
+  * Get by user subscription
   * @param id - User's id 
   * @return - List of activities
   */
   @Get("users/:id/activities")
   async getByUser(@Param("id") id: string): Promise<Activity[]> {
-    console.log(id);
-    let act = await this.prisma.activity.findMany({
-      where: {actor: JSON.stringify({type: "user", id: id})}
-    });
+    let ret = await this.prisma.assignment.findMany({where: {userId: id}});
 
+    let queries = ret.map((el) => {
+      let tmp = {projectId: el.projectId, tasksId: el.taskId, ticketId: el.ticketId};
+      let ret = {type: "", id: ""};
+
+      if (tmp.projectId) ret = {type: "projects", id: tmp.projectId};
+      else if (tmp.tasksId) ret = {type: "tasks", id: tmp.tasksId};
+      else if (tmp.ticketId) ret = {type: "tickets", id: tmp.ticketId};
+
+      return {target: JSON.stringify(ret)};
+    });
+    
+    let act = await this.prisma.activity.findMany({
+      where: {
+        OR: queries
+      }
+    });
+  
     return act.map((el) => ({
       ...el,
       actor: JSON.parse(el.actor),
