@@ -2,7 +2,7 @@
 * @Author                : 0K00<qdouvillez@gmail.com>
 * @CreatedDate           : 2023-09-27 16:52:00
 * @LastEditors           : 0K00<qdouvillez@gmail.com>
-* @LastEditDate          : 2023-09-29 16:06:02
+* @LastEditDate          : 2023-09-29 17:46:22
 -->
 
 <div class="ptt-details">
@@ -54,7 +54,7 @@
     <div class="block">
       <div class="heading">Labels</div>
       <div class="content">
-        <component-select [data]="labels" [selection]="currentLabels" [hasSearch]="true" [multi]="true">
+        <component-select [data]="labels" (callback)="labelsCB($event)" [selection]="replaceLabels()" [hasSearch]="true" [multi]="true">
           <ng-template let-select #selected>
             <component-labels [name]="select.name" [color]="select.color"></component-labels>
           </ng-template>
@@ -68,7 +68,7 @@
     <div *ngIf="type != 'projects'" class="block">
       <div class="heading">Level</div>
       <div class="content">
-        <component-select [data]="levels" [selection]="currentLevel" [hasSearch]="false" [multi]="false">
+        <component-select [data]="levels" (callback)="levelCB($event)" [selection]="currentLevel" [hasSearch]="false" [multi]="false">
           <ng-template let-select #selected>
             <component-level [level]="select.level"></component-level>
           </ng-template>

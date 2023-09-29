@@ -2,7 +2,7 @@
  * @Author                : 0K00<qdouvillez@gmail.com>                       *
  * @CreatedDate           : 2023-09-21 12:45:58                              *
  * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
- * @LastEditDate          : 2023-09-29 15:59:01                              *
+ * @LastEditDate          : 2023-09-29 17:48:13                              *
  ****************************************************************************/
 
 import { Component, OnDestroy, OnInit } from "@angular/core";
@@ -156,6 +156,7 @@ export class PttView implements OnInit, OnDestroy {
       .then((ret) => {
         this.currentElement.assignments = ret;
         this.isAssignee = this.checkAssignee();
+        this.toast.print(`Succes : Assignments updated`, "success");
       })
       .catch(() => {
         this.toast.print("An error occured...", "error");
@@ -168,6 +169,37 @@ export class PttView implements OnInit, OnDestroy {
       .then((ret) => {
         this.currentElement = ret;
         this.toast.print(`Succes : ${this.type} status changed`, "success");
+      })
+      .catch(() => {
+        this.toast.print("An error occured...", "error");
+      });
+  }
+
+  public changeLabels(labels: any): void {
+    let obj: any[] = [];
+
+    labels.forEach((el: any) => {
+      obj.push({labelId: el.id});
+    });
+
+    this.api.put(`api/${this.type}/${this.id}`,
+      {labels: obj}, this.user.getUser()?.token)
+      .then((ret) => {
+        this.currentElement = ret;
+        this.isAssignee = this.checkAssignee();
+        this.toast.print(`Succes : Labels updated`, "success");
+      })
+      .catch(() => {
+        this.toast.print("An error occured...", "error");
+      });
+  }
+
+  public changeLevel(event: any): void {
+    this.api.put(`api/${this.type}/${this.id}`,
+      {level: event[0].level}, this.user.getUser()?.token)
+      .then((ret) => {
+        this.currentElement = ret;
+        this.toast.print(`Succes : ${this.type} level changed`, "success");
       })
       .catch(() => {
         this.toast.print("An error occured...", "error");
