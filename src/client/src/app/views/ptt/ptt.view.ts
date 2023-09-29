@@ -2,7 +2,7 @@
  * @Author                : 0K00<qdouvillez@gmail.com>                       *
  * @CreatedDate           : 2023-09-21 12:45:58                              *
  * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
- * @LastEditDate          : 2023-09-29 12:38:32                              *
+ * @LastEditDate          : 2023-09-29 13:09:52                              *
  ****************************************************************************/
 
 import { Component, OnDestroy, OnInit } from "@angular/core";
@@ -44,7 +44,7 @@ export class PttView implements OnInit, OnDestroy {
   constructor(private route: ActivatedRoute,
               public recovery: RecoveryService,
               private router: Router,
-              private user: UserService,
+              public user: UserService,
               private api: RequestService,
               private toast: ToastService) {
   }
@@ -133,8 +133,23 @@ export class PttView implements OnInit, OnDestroy {
       return false;
   }
 
-  public assigneeSelf(): void { // to do
-    this.isAssignee = !this.isAssignee;
+  public assigneeUser(user: any): void { // to do
+    let obj = this.currentElement.assignments;
+
+    if(!obj.some((assignee: any) => assignee.userId === user.id))
+      obj.push({id: user.id});
+    else
+      obj = obj.filter((assignee: any) => assignee.userId !== user.id);
+
+    this.api.put(`api/${this.type}/${this.id}/assignments`,
+      {users: obj}, this.user.getUser()?.token)
+      .then((ret) => {
+        this.currentElement.assignments = ret;
+        this.isAssignee = !this.isAssignee;
+      })
+      .catch(() => {
+        this.toast.print("An error occured...", "error");
+      });
   }
 
   public headerSave(event: {name: string, description: string}): void {
@@ -146,6 +161,7 @@ export class PttView implements OnInit, OnDestroy {
       this.api.put(`api/${this.type}/${this.id}`,
         event, this.user.getUser()?.token)
         .then((ret) => {
+          this.currentElement = ret;
           this.toast.print(`Succes : ${this.type} saved`, "success");
         })
         .catch(() => {
