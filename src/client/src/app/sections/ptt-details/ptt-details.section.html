@@ -1,8 +1,8 @@
 <!--
-* @Author                : Quentin<quentin@halfsquare.fr>
+* @Author                : 0K00<qdouvillez@gmail.com>
 * @CreatedDate           : 2023-09-27 16:52:00
-* @LastEditors           : Quentin<quentin@halfsquare.fr>
-* @LastEditDate          : 2023-09-28 19:04:18
+* @LastEditors           : 0K00<qdouvillez@gmail.com>
+* @LastEditDate          : 2023-09-29 15:21:15
 -->
 
 <div class="ptt-details">
@@ -25,7 +25,7 @@
     <div class="block">
       <div class="heading">Assignee</div>
       <div class="content">
-        <component-select [data]="users" [selection]="replaceAssignee()" [multi]="true"></component-select>
+        <component-select [data]="users" (callback)="assigneeCB($event)" [selection]="replaceAssignee()" [multi]="true"></component-select>
       </div>
     </div>
 
@@ -40,7 +40,7 @@
     <div class="block">
       <div class="heading">Status</div>
       <div class="content">
-        <component-select [data]="status" [selection]="currentStatus" [hasSearch]="false" [multi]="false">
+        <component-select [data]="status" (callback)="statusCB($event)" [selection]="currentStatus" [hasSearch]="false" [multi]="false">
           <ng-template let-select #selected>
             <component-status [status]="select.status"></component-status>
           </ng-template>

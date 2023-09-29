@@ -22,6 +22,7 @@
       grid-template-columns: minmax(80px,max-content) minmax(104px,100%);
       align-items: center;
       gap: 16px;
+      min-height: 36px;
 
       .heading {
         font-style: normal;

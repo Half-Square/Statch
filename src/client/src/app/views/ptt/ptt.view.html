@@ -2,13 +2,13 @@
 * @Author                : 0K00<qdouvillez@gmail.com>
 * @CreatedDate           : 2023-09-21 13:14:00
 * @LastEditors           : 0K00<qdouvillez@gmail.com>
-* @LastEditDate          : 2023-09-29 12:58:09
+* @LastEditDate          : 2023-09-29 15:51:18
 -->
 
 <div class="ptt">
   <div class="bar">
     <core-button [type]="'basic'" [style]="'default'" [size]="'medium'" ><core-icon icon="plus"></core-icon></core-button>
-    <core-button (click)="assigneeUser(user.getUser())" [type]="isAssignee ? 'flat' : 'basic'" [style]="'primary'" [size]="'medium'"><core-icon [icon]="isAssignee ? 'heart--fill' : 'heart'"></core-icon></core-button>
+    <core-button (click)="assigneeUser(user.getUser(), true)" [type]="isAssignee ? 'flat' : 'basic'" [style]="'primary'" [size]="'medium'"><core-icon [icon]="isAssignee ? 'heart--fill' : 'heart'"></core-icon></core-button>
   </div>
 
   <div class="container">
@@ -67,9 +67,11 @@
           [type]="type"
           [owner]="currentElement.ownerId"
           [assignee]="currentElement.assignments"
+          (cbAssignee)="assigneeUser($event, false)"
           [versionTitle]="type === 'projects' ? 'Version' : 'Target version'"
           [versions]="versions"
           [status]="[{id:'new', status: 'new'}, {id:'progress', status: 'progress'}, {id:'done', status: 'done'}, {id:'reject', status: 'reject'}, {id:'wait', status: 'wait'}]"
+          (cbStatus)="changeStatus($event)"
           [currentStatus]="[{id: currentElement.status, status: currentElement.status}]"
           [currentLabels]="currentElement.labels"
           [levels]="[{id: 'low', level:'low'}, {id: 'normal', level:'normal'}, {id: 'moderate', level:'moderate'}, {id: 'high', level:'high'}]"

@@ -2,7 +2,7 @@
  * @Author                : 0K00<qdouvillez@gmail.com>                       *
  * @CreatedDate           : 2023-09-21 12:45:58                              *
  * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
- * @LastEditDate          : 2023-09-29 13:09:52                              *
+ * @LastEditDate          : 2023-09-29 15:59:01                              *
  ****************************************************************************/
 
 import { Component, OnDestroy, OnInit } from "@angular/core";
@@ -133,19 +133,41 @@ export class PttView implements OnInit, OnDestroy {
       return false;
   }
 
-  public assigneeUser(user: any): void { // to do
-    let obj = this.currentElement.assignments;
+  public assigneeUser(user: any, self: boolean): void {
+    let obj: any[] = [];
 
-    if(!obj.some((assignee: any) => assignee.userId === user.id))
-      obj.push({id: user.id});
-    else
-      obj = obj.filter((assignee: any) => assignee.userId !== user.id);
+    if(!self) {
+      user.forEach((el: any) => {
+        obj.push({id: el.id});
+      });
+    } else {
+      this.currentElement.assignments.forEach((element: any) => {
+        obj.push({id: element.userId});
+      });
+      const index = _.findIndex(obj, {id: user.id});
+      if(index !== -1)
+        obj.splice(index, 1);
+      else
+        obj.push({id: user.id});
+    }
 
     this.api.put(`api/${this.type}/${this.id}/assignments`,
       {users: obj}, this.user.getUser()?.token)
       .then((ret) => {
         this.currentElement.assignments = ret;
-        this.isAssignee = !this.isAssignee;
+        this.isAssignee = this.checkAssignee();
+      })
+      .catch(() => {
+        this.toast.print("An error occured...", "error");
+      });
+  }
+
+  public changeStatus(event: any): void {
+    this.api.put(`api/${this.type}/${this.id}`,
+      {status: event[0].status}, this.user.getUser()?.token)
+      .then((ret) => {
+        this.currentElement = ret;
+        this.toast.print(`Succes : ${this.type} status changed`, "success");
       })
       .catch(() => {
         this.toast.print("An error occured...", "error");

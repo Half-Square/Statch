@@ -2,10 +2,10 @@
  * @Author                : 0K00<qdouvillez@gmail.com>                       *
  * @CreatedDate           : 2023-09-27 16:52:14                              *
  * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
- * @LastEditDate          : 2023-09-29 12:38:06                              *
+ * @LastEditDate          : 2023-09-29 15:20:58                              *
  ****************************************************************************/
 
-import { Component, Input, OnDestroy, OnInit } from "@angular/core";
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from "@angular/core";
 import { RecoveryService } from "src/app/services/recovery.service";
 import { Subscription } from "rxjs";
 import * as _ from "lodash";
@@ -75,6 +75,12 @@ export class PttDetailsSection implements OnDestroy {
   @Input()
     created: any = "";
 
+  @Output()
+    cbAssignee: EventEmitter<any> = new EventEmitter<any>();
+
+  @Output()
+    cbStatus: EventEmitter<any> = new EventEmitter<any>();
+
   private subsciption: Subscription[] | null = null;
 
   public _ = _;
@@ -89,5 +95,13 @@ export class PttDetailsSection implements OnDestroy {
       ret.push(_.find(this.users, {id: s.userId}));
     });
     return ret;
+  }
+
+  public assigneeCB(event: Event): void {
+    this.cbAssignee.emit(event);
+  }
+
+  public statusCB(event: Event): void {
+    this.cbStatus.emit(event);
   }
 }
