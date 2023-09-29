@@ -1,9 +1,9 @@
-/******************************************************************************
- * @Author                : Quentin<quentin@halfsquare.fr>                    *
- * @CreatedDate           : 2023-09-15 15:36:37                               *
- * @LastEditors           : Quentin<quentin@halfsquare.fr>                    *
- * @LastEditDate          : 2023-09-15 15:41:53                               *
- *****************************************************************************/
+/*****************************************************************************
+ * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @CreatedDate           : 2023-09-15 15:36:37                              *
+ * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @LastEditDate          : 2023-09-29 12:29:04                              *
+ ****************************************************************************/
 
 import { Component, Input, OnInit } from "@angular/core";
 
@@ -20,7 +20,7 @@ export class StatusComponent implements OnInit {
    * The state of an element.
    */
   @Input()
-    status: "new" | "progress" | "done" | "reject" | "wait" = "new";
+    status: "new" | "progress" | "done" | "reject" | "wait" | string | null = "new";
 
   /**
    * Size of the status component

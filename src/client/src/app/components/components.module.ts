@@ -41,6 +41,8 @@ import { MenuOptionsComponent } from "./menu-options/menu-options.component";
 import { LabelsSettingsItemsComponent } from "./labels-settings-items/labels-settings-items.component";
 import { LabelsEditComponent } from "./labels-edit/labels-edit.component";
 import { ColorSelectComponent } from "./color-select/color-select.component";
+import { ActivityItemComponent } from "./activity-item/activity-item.component";
+import { ActivityActionStateComponent } from "./activity-action-state/activity-action-state.component";
 /***/
 
 @NgModule({
@@ -62,7 +64,9 @@ import { ColorSelectComponent } from "./color-select/color-select.component";
     MenuOptionsComponent,
     LabelsSettingsItemsComponent,
     LabelsEditComponent,
-    ColorSelectComponent
+    ColorSelectComponent,
+    ActivityItemComponent,
+    ActivityActionStateComponent
   ],
   imports: [
     CommonModule,
@@ -88,7 +92,9 @@ import { ColorSelectComponent } from "./color-select/color-select.component";
     MenuOptionsComponent,
     LabelsSettingsItemsComponent,
     LabelsEditComponent,
-    ColorSelectComponent
+    ColorSelectComponent,
+    ActivityItemComponent,
+    ActivityActionStateComponent
   ]
 })
 

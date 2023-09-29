@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-09-20 16:13:37                              *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-09-29 09:38:44                              *
+ * @LastEditDate          : 2023-09-29 12:05:56                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -13,6 +13,7 @@
   * IAssignments
   * ILabels
   * IUsers
+  * IActivities
 */
 
 /**
@@ -107,6 +108,29 @@ interface IUsers {
 }
 /***/
 
+/**
+* IActivities
+*/
+interface IActivities {
+  id: string,
+  created: string,
+  actor: {
+      type: string,
+      id: string
+  },
+  action: {
+      type: string,
+      prev: string | null,
+      curr: string | null,
+      field: string | undefined
+  },
+  target: {
+      type: string,
+      id: string
+  }
+}
+/***/
+
 export {
   IProjects,
   ITasks,
@@ -114,5 +138,6 @@ export {
   IVersions,
   IAssignments,
   ILabels,
-  IUsers
+  IUsers,
+  IActivities
 };

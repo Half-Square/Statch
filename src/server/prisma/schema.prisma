@@ -29,6 +29,7 @@ model Project {
   id              String          @default(nanoid(8)) @id
   name            String
   status          String          @default("new")
+  level           String          @default("normal")
   created         DateTime        @default(now())
   description     String          
   owner           User            @relation(fields: [ownerId], references: [id], onDelete: Cascade)

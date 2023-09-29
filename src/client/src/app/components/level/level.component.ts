@@ -1,9 +1,9 @@
-/******************************************************************************
- * @Author                : Quentin<quentin@halfsquare.fr>                    *
- * @CreatedDate           : 2023-09-06 14:42:34                               *
- * @LastEditors           : Quentin<quentin@halfsquare.fr>                    *
- * @LastEditDate          : 2023-09-12 13:50:42                               *
- *****************************************************************************/
+/*****************************************************************************
+ * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @CreatedDate           : 2023-09-06 14:42:34                              *
+ * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @LastEditDate          : 2023-09-29 12:39:33                              *
+ ****************************************************************************/
 
 import { Component, Input, OnInit } from "@angular/core";
 
@@ -21,7 +21,7 @@ export class LevelComponent implements OnInit {
    * The level of importance.
    */
   @Input()
-    level: "low" | "normal" | "moderate" | "high" = "low";
+    level: "low" | "normal" | "moderate" | "high" | string = "low";
 
   /**
    * Label text of component.

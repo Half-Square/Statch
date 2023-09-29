@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-06-19 17:06:36                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-09-27 14:29:20                               *
+ * @LastEditDate          : 2023-09-29 12:35:39                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -48,6 +48,11 @@ class UpdateInput {
   @IsIn(["new", "done", "reject", "progress", "wait"])
   @IsOptional()
     status: string;
+
+  @IsString()
+  @IsIn(["low", "normal", "moderate", "high"])
+  @IsOptional()
+    level: string;
   
   @IsString()
   @IsOptional()

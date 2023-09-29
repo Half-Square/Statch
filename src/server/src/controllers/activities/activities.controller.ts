@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-09-27 09:48:39                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-09-29 11:07:01                               *
+ * @LastEditDate          : 2023-09-29 11:11:30                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -15,7 +15,6 @@
 /* Imports */
 import { Controller, Get, Param, UseGuards } from "@nestjs/common";
 import { Activity } from "@prisma/client";
-import * as _ from "lodash";
 /***/
 
 /* Guards */
