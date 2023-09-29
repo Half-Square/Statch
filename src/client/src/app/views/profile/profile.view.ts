@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-09-28 13:52:36                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-09-28 19:19:14                               *
+ * @LastEditDate          : 2023-09-29 09:29:56                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -30,7 +30,7 @@ import { ToastService } from "src/app/services/toast.service";
 })
 export class ProfileView implements OnInit {
   public profile: ILoggedUser;
-  public url: string = `${env.serverUrl}/api/files/`;
+  public url: string = `${env.serverUrl}/api/files/raw/`;
 
   constructor(private user: UserService,
               private api: RequestService,
