@@ -2,11 +2,17 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-09-29 11:17:49                              *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-09-29 11:57:15                              *
+ * @LastEditDate          : 2023-09-29 13:02:26                              *
  ****************************************************************************/
 
 .component-activity-item {
   display: flex;
   align-items: center;
+  justify-content: flex-start;
   gap: 16px;
+
+  .date {
+    margin-left: auto;
+    opacity: 0.5;
+  }
 }
