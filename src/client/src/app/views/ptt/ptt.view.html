@@ -2,7 +2,7 @@
 * @Author                : 0K00<qdouvillez@gmail.com>
 * @CreatedDate           : 2023-09-21 13:14:00
 * @LastEditors           : 0K00<qdouvillez@gmail.com>
-* @LastEditDate          : 2023-09-29 15:51:18
+* @LastEditDate          : 2023-09-29 17:00:32
 -->
 
 <div class="ptt">
@@ -16,7 +16,8 @@
       <div class="header">
         <section-ptt-header
           *ngIf="_.find(type == 'tickets' ? tickets : (type == 'projects' ? projects : tasks), {id: id})"
-          [edit]="onEdit"
+          [editTitle]="onEdit"
+          [editDescription]="onEdit"
           (callback)="headerSave($event)"
           [title]="_.find(type == 'tickets' ? tickets : (type == 'projects' ? projects : tasks), {id: id}).name"
           [description]="_.find(type == 'tickets' ? tickets : (type == 'projects' ? projects : tasks), {id: id}).description">
