@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-09-25 10:35:31                              *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-09-25 10:36:56                              *
+ * @LastEditDate          : 2023-09-29 16:22:38                              *
  ****************************************************************************/
 
 :host {
@@ -38,23 +38,23 @@
 }
 
 .icon.new {
-  color: #d0d0d0;
+  color: #d0d0d0 !important;
 }
 
 .icon.progress {
-  color: #fffb00;
+  color: #fffb00 !important;
 }
 
 .icon.done {
-  color: #15ff00;
+  color: #15ff00 !important;
 }
 
 .icon.reject {
-  color: #fe3232;
+  color: #fe3232 !important;
 }
 
 .icon.wait {
-  color: #575757;
+  color: #575757 !important;
 }
 
 :root {
