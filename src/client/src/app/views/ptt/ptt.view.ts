@@ -2,7 +2,7 @@
  * @Author                : 0K00<qdouvillez@gmail.com>                       *
  * @CreatedDate           : 2023-09-21 12:45:58                              *
  * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
- * @LastEditDate          : 2023-09-29 17:48:13                              *
+ * @LastEditDate          : 2023-09-29 17:53:17                              *
  ****************************************************************************/
 
 import { Component, OnDestroy, OnInit } from "@angular/core";
@@ -259,5 +259,14 @@ export class PttView implements OnInit, OnDestroy {
     }
 
     this.setAdvancement();
+  }
+
+  public newItem(): void {
+    this.api.post(`api/${this.type}/${this.id}/${this.typeChild}`, {
+      name: `New ${this.typeChild.slice(0, -1)}`,
+      description: `New empty ${this.typeChild.slice(0, -1)}`
+    }, this.user.getUser()?.token).then((ret) => {
+      this.router.navigateByUrl(`${this.typeChild}/${(ret as {id: string}).id}`);
+    });
   }
 }
