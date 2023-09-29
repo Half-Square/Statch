@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-09-20 16:13:37                              *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-09-25 14:08:40                              *
+ * @LastEditDate          : 2023-09-29 09:38:44                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -11,6 +11,8 @@
   * ITickets
   * IVersions
   * IAssignments
+  * ILabels
+  * IUsers
 */
 
 /**
@@ -92,11 +94,25 @@ interface ILabels {
 }
 /***/
 
+/**
+* IUsers
+*/
+interface IUsers {
+  id: string,
+  email: string,
+  isAdmin: boolean,
+  name: string,
+  picture: string,
+  validate: boolean
+}
+/***/
+
 export {
   IProjects,
   ITasks,
   ITickets,
   IVersions,
   IAssignments,
-  ILabels
+  ILabels,
+  IUsers
 };

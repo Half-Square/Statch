@@ -2,13 +2,14 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-02-21 13:03:45                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-09-28 19:18:44                               *
+ * @LastEditDate          : 2023-09-29 09:51:49                               *
  *****************************************************************************/
 
 /* SUMMARY
   * RegisterInput
   * ConnectInput
   * UpdateInput
+  * AdminInput 
   * PublicOuput
   * DetailsOutput
   * ConnectOutput
@@ -75,6 +76,18 @@ class RightInput {
   @IsBoolean()
   @IsOptional()
     isAdmin: boolean;
+}
+/***/
+
+/**
+* AdminInput 
+*/
+class AdminInput {
+  @IsBoolean()
+    isAdmin: boolean;
+
+  @IsBoolean()
+    validate: boolean;
 }
 /***/
 
@@ -188,6 +201,7 @@ export {
   ConnectInput,
   UpdateInput,
   RightInput,
+  AdminInput,
   PublicOutput,
   DetailsOutput,
   ConnectOutput

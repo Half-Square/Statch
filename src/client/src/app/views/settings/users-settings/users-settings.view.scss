@@ -1,0 +1,34 @@
+/*****************************************************************************
+ * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @CreatedDate           : 2023-09-29 09:39:15                              *
+ * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @LastEditDate          : 2023-09-29 09:46:03                              *
+ ****************************************************************************/
+
+.view-users-settings {
+  position: relative;
+  height: 100%;
+  padding: 24px;
+  box-sizing: border-box;
+
+  .loading {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .users-list {
+    display: grid;
+    grid-gap: 8px;
+    align-items: center;
+    justify-content: center;
+
+    .user-item {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      align-items: center;
+      gap: 16px;
+    }
+  }
+}

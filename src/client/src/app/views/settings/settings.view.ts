@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-09-28 14:50:46                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-09-28 15:59:25                               *
+ * @LastEditDate          : 2023-09-29 09:32:20                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -31,6 +31,10 @@ export class SettingsView {
   }, {
     label: "Smtp",
     link: "smtp",
+    admin: true
+  }, {
+    label: "Users",
+    link: "users",
     admin: true
   }];
 

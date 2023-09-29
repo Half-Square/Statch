@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-06-01 15:15:39                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-09-28 19:20:48                               *
+ * @LastEditDate          : 2023-09-29 09:56:30                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -47,6 +47,7 @@ import * as usersDto from "./users.dto";
 import { IsConnectedGuard } from "src/guards/is-connected.guard";
 import { IsSelfGuard } from "src/guards/is-self.guard";
 import { resolve } from "path";
+import { IsAdminGuard } from "src/guards/is-admin.guard";
 /***/
 
 @Controller("api")
@@ -169,6 +170,24 @@ export class UsersController {
     });
 
     return new usersDto.ConnectOutput(user);
+  }
+  /***/
+
+  /**
+  * Validate user or grant admin
+  * @param id - User to update
+  * @param body - IsAdmin state or IsValidated
+  * @return - Updated user
+  */
+  @Put("users/:id/admin")
+  @UseGuards(IsAdminGuard)
+  async validate(@Param("id") id: string, @Body() body: usersDto.AdminInput): Promise<usersDto.PublicOutput> {
+    let user = await this.prisma.user.update({
+      where: {id: id},
+      data: body
+    });
+
+    return new usersDto.PublicOutput(user);
   }
   /***/
 }
