@@ -1,8 +1,8 @@
 <!--
-* @Author                : Quentin<quentin@halfsquare.fr>
+* @Author                : 0K00<qdouvillez@gmail.com>
 * @CreatedDate           : 2023-09-21 13:14:00
-* @LastEditors           : Quentin<quentin@halfsquare.fr>
-* @LastEditDate          : 2023-09-28 16:35:42
+* @LastEditors           : 0K00<qdouvillez@gmail.com>
+* @LastEditDate          : 2023-09-29 12:18:42
 -->
 
 <div class="ptt">
@@ -20,11 +20,6 @@
           (callback)="headerSave($event)"
           [title]="_.find(type == 'tickets' ? tickets : (type == 'projects' ? projects : tasks), {id: id}).name"
           [description]="_.find(type == 'tickets' ? tickets : (type == 'projects' ? projects : tasks), {id: id}).description">
-
-          <!-- <core-button *ngIf="!onEdit" (click)="edit()" [type]="'basic'" [style]="'default'" [size]="'medium'" [label]="'Edit'"/>
-          <core-button *ngIf="onEdit" (click)="delete()" [type]="'stroked'" [style]="'warn'" [size]="'medium'" [label]="'Delete'"/>
-          <core-button *ngIf="onEdit" (click)="save()" [type]="'flat'" [style]="'primary'" [size]="'medium'" [label]="'Save'"/> -->
-
         </section-ptt-header>
       </div>
 
@@ -61,7 +56,7 @@
       </div>
 
       <div class="comment">
-        <section-ptt-comment [comments]="comments"></section-ptt-comment>
+        <section-ptt-comment (callback)="commentPublish($event)" [comments]="comments"></section-ptt-comment>
       </div>
     </div>
 

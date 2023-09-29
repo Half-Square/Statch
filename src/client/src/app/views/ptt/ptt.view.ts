@@ -2,7 +2,7 @@
  * @Author                : 0K00<qdouvillez@gmail.com>                       *
  * @CreatedDate           : 2023-09-21 12:45:58                              *
  * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
- * @LastEditDate          : 2023-09-27 15:14:03                              *
+ * @LastEditDate          : 2023-09-29 12:23:48                              *
  ****************************************************************************/
 
 import { Component, OnDestroy, OnInit } from "@angular/core";
@@ -12,6 +12,8 @@ import { RecoveryService } from "src/app/services/recovery.service";
 import { Subscription } from "rxjs";
 import * as _ from "lodash";
 import { UserService } from "src/app/services/user.service";
+import { RequestService } from "src/app/services/request.service";
+import { ToastService } from "src/app/services/toast.service";
 
 @Component({
   selector: "view-ptt",
@@ -42,7 +44,9 @@ export class PttView implements OnInit, OnDestroy {
   constructor(private route: ActivatedRoute,
               public recovery: RecoveryService,
               private router: Router,
-              private user: UserService) {
+              private user: UserService,
+              private api: RequestService,
+              private toast: ToastService) {
   }
 
   ngOnInit(): void {
@@ -129,24 +133,24 @@ export class PttView implements OnInit, OnDestroy {
       return false;
   }
 
-  public assigneeSelf(): void {
+  public assigneeSelf(): void { // to do
     this.isAssignee = !this.isAssignee;
   }
 
-  public edit(): void {
-    this.onEdit = !this.onEdit;
+  public headerSave(event: Event): void { // to do
+    console.log(event);
   }
 
-  public delete(): void {
-    this.onEdit = !this.onEdit;
-  }
-
-  public save(): void {
-    this.onEdit = !this.onEdit;
-  }
-
-  public headerSave(event: Event): void {
-    // console.log(event);
+  public commentPublish(event: Event): void { // to do
+    this.api.post(`api/${this.type}/${this.id}/comments`,
+      {content: event}, this.user.getUser()?.token)
+      .then((ret) => {
+        this.comments.push(ret);
+        this.toast.print("Comment publish", "success");
+      })
+      .catch(() => {
+        this.toast.print("An error occured...", "error");
+      });
   }
 
   public sortElement(option: any): void {

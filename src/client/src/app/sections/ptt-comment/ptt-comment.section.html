@@ -2,7 +2,7 @@
 * @Author                : 0K00<qdouvillez@gmail.com>
 * @CreatedDate           : 2023-09-27 15:26:00
 * @LastEditors           : 0K00<qdouvillez@gmail.com>
-* @LastEditDate          : 2023-09-27 16:06:20
+* @LastEditDate          : 2023-09-29 12:01:41
 -->
 
 <div class="ptt-comment">
@@ -23,8 +23,8 @@
   </div>
 
   <div class="input">
-    <textarea class="area" name="" id="" rows="5"></textarea>
-    <core-button  [type]="'flat'" [style]="'primary'" [size]="'medium'" [label]="'Publish'"></core-button>
+    <textarea (input)="content($event)" class="area" name="" id="" rows="5" #contentEl></textarea>
+    <core-button (click)="publish()" [type]="'flat'" [style]="'primary'" [size]="'medium'" [label]="'Publish'"></core-button>
   </div>
 
 </div>
