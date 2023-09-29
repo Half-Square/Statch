@@ -1,0 +1,28 @@
+<!--
+* @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>
+* @CreatedDate           : 2023-09-29 11:17:00
+* @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>
+* @LastEditDate          : 2023-09-29 12:33:37
+-->
+
+<div class="component-activity-item">
+  <core-avatar *ngIf="actor" [label]="actor.name" [imgLink]="actor.picture"/>
+  <div>{{activity.action.type}}</div>
+  <div *ngIf="!activity.action.field">{{activity.target.type.slice(0, -1)}}</div>
+  <div *ngIf="activity.action.field">{{activity.action.field}}</div>
+  <div *ngIf="activity.action.prev && activity.action.curr">from</div>
+
+  <component-activity-action-state  *ngIf="activity.action.prev && activity.action.type != 'CREATE' && activity.action.type != 'DELETE'"
+                                    [activity]="activity"
+                                    [state]="activity.action.prev"/>
+
+  <div *ngIf="activity.action.prev && activity.action.curr">to</div>
+
+  <component-activity-action-state  *ngIf="activity.action.curr && activity.action.type != 'CREATE' && activity.action.type != 'DELETE'"
+                                    [activity]="activity"
+                                    [state]="activity.action.curr"/>
+
+  <a [routerLink]="['/'+activity.target.type+'/'+activity.target.id]" class="active">
+    {{activity.target.id | recovery:'name':activity.target.type | async}}
+  </a>
+</div>

@@ -36,6 +36,7 @@ import { SettingsView } from "./settings/settings.view";
 import { SmtpSettingsView } from "./settings/smtp/smtp-settings.view";
 import { LabelsSettingsView } from "./settings/labels-settings/labels-settings.view";
 import { UsersSettingsView } from "./settings/users-settings/users-settings.view";
+import { MyActivitiesView } from "./my-activities/my-activities.view";
 /***/
 
 @NgModule({
@@ -50,7 +51,8 @@ import { UsersSettingsView } from "./settings/users-settings/users-settings.view
     SettingsView,
     SmtpSettingsView,
     LabelsSettingsView,
-    UsersSettingsView
+    UsersSettingsView,
+    MyActivitiesView
   ],
   imports: [
     CommonModule,
@@ -72,7 +74,8 @@ import { UsersSettingsView } from "./settings/users-settings/users-settings.view
     SettingsView,
     SmtpSettingsView,
     LabelsSettingsView,
-    UsersSettingsView
+    UsersSettingsView,
+    MyActivitiesView
   ]
 })
 export class ViewsModule {}
