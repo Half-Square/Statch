@@ -2,14 +2,14 @@
 * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>
 * @CreatedDate           : 2023-05-30 11:57:00
 * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>
-* @LastEditDate          : 2023-09-28 14:11:06
+* @LastEditDate          : 2023-09-29 15:30:35
 -->
 
 <div class="app">
-  <section-navigation [ngClass]="{'nav': true, 'close': !nav.getState()}" *ngIf="user.getUser()"/>
+  <section-navigation [ngClass]="{'nav': true, 'close': !nav.getState()}" *ngIf="user.isConnected()"/>
 
   <div class="views-container">
-    <section-tool-bar *ngIf="user.getUser()"/>
+    <section-tool-bar *ngIf="user.isConnected()" [(onSearch)]="onSearch"/>
 
     <div class="view">
       <router-outlet></router-outlet>
@@ -18,3 +18,7 @@
 </div>
 
 <component-toast/>
+
+<component-modal [(isOpen)]="onSearch">
+  <component-search-bar *ngIf="user.isConnected() && onSearch" [(onSearch)]="onSearch"/>
+</component-modal>

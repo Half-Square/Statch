@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-08-30 16:39:39                              *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-09-29 12:53:23                              *
+ * @LastEditDate          : 2023-09-29 15:52:59                              *
  ****************************************************************************/
 
 import { Component, Input } from "@angular/core";
@@ -20,7 +20,7 @@ export class LinkCore {
    * Label text.
    */
   @Input()
-    label: string = "Label";
+    label: string;
 
   /**
    * Style of the link.

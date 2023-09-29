@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-09-22 18:55:47                              *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-09-28 14:13:17                              *
+ * @LastEditDate          : 2023-09-29 15:44:29                              *
  ****************************************************************************/
 
 .app {
@@ -10,6 +10,7 @@
   height: 100vh;
   display: flex;
   gap: 1px;
+  overflow-x: hidden;
 
   .views-container {
     width: 100%;

@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-05-30 11:58:04                              *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-09-27 17:08:51                              *
+ * @LastEditDate          : 2023-09-29 14:55:31                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -27,6 +27,8 @@ import { NavService } from "./sections/navigation/nav.service";
   styleUrls: ["./app.component.scss"]
 })
 export class AppComponent implements OnInit {
+  public onSearch: boolean = false;
+
   constructor(private recovery: RecoveryService,
               public user: UserService,
               public nav: NavService) {

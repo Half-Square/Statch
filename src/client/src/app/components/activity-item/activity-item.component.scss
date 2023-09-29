@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-09-29 11:17:49                              *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-09-29 13:02:26                              *
+ * @LastEditDate          : 2023-09-29 15:58:14                              *
  ****************************************************************************/
 
 .component-activity-item {
@@ -10,6 +10,23 @@
   align-items: center;
   justify-content: flex-start;
   gap: 16px;
+  width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+
+  * {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 150px;
+    min-width: 0;
+  }
+
+  .avatar {
+    width: fit-content;
+    max-width: unset;
+    flex-shrink: 0;
+  }
 
   .date {
     margin-left: auto;

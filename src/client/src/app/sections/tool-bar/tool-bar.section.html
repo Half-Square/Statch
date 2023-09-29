@@ -2,7 +2,7 @@
 * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>
 * @CreatedDate           : 2023-09-27 14:35:00
 * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>
-* @LastEditDate          : 2023-09-27 17:10:39
+* @LastEditDate          : 2023-09-29 14:51:05
 -->
 
 <div class="section-tool-bar">
@@ -13,7 +13,7 @@
   <component-breadcrumbs [crumbs]="routes"/>
 
   <div class="end">
-    <core-button>
+    <core-button (click)="onSearchChange.emit(!onSearch)">
       <core-icon class="icon" icon="search" other="icon--24"/>
     </core-button>
 

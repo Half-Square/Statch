@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-09-19 16:08:01                              *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-09-28 17:58:50                              *
+ * @LastEditDate          : 2023-09-29 15:19:26                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -15,6 +15,7 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { RouterModule } from "@angular/router";
+import { FormsModule } from "@angular/forms";
 /***/
 
 /* Modules */
@@ -43,6 +44,8 @@ import { LabelsEditComponent } from "./labels-edit/labels-edit.component";
 import { ColorSelectComponent } from "./color-select/color-select.component";
 import { ActivityItemComponent } from "./activity-item/activity-item.component";
 import { ActivityActionStateComponent } from "./activity-action-state/activity-action-state.component";
+import { SearchBarComponent } from "./search-bar/search-bar.component";
+import { ModalComponent } from "./modal/modal.component";
 /***/
 
 @NgModule({
@@ -66,13 +69,16 @@ import { ActivityActionStateComponent } from "./activity-action-state/activity-a
     LabelsEditComponent,
     ColorSelectComponent,
     ActivityItemComponent,
-    ActivityActionStateComponent
+    ActivityActionStateComponent,
+    SearchBarComponent,
+    ModalComponent
   ],
   imports: [
     CommonModule,
     RouterModule,
     CoresModule,
-    PipesModule
+    PipesModule,
+    FormsModule
   ],
   exports: [
     SelectComponent,
@@ -94,7 +100,9 @@ import { ActivityActionStateComponent } from "./activity-action-state/activity-a
     LabelsEditComponent,
     ColorSelectComponent,
     ActivityItemComponent,
-    ActivityActionStateComponent
+    ActivityActionStateComponent,
+    SearchBarComponent,
+    ModalComponent
   ]
 })
 
