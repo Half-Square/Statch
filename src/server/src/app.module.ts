@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-05-30 12:07:51                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-09-27 10:13:38                               *
+ * @LastEditDate          : 2023-09-29 15:01:34                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -27,13 +27,14 @@ import { LabelsController } from "./controllers/labels/labels.controller";
 import { VersionsController } from "./controllers/versions/versions.controller";
 import { SettingsController } from "./controllers/settings/settings.controller";
 import { ActivitiesController } from "./controllers/activities/activities.controller";
+import { SearchController } from "./controllers/search/search.controller";
 /***/
 
 /* Services */
 import { PrismaService } from "./prisma.service";
 import { SocketService } from "./services/socket/socket.service";
 import { ActivitiesService } from "./controllers/activities/activities.service";
-import { FilesController } from './controllers/files/files.controller';
+import { FilesController } from "./controllers/files/files.controller";
 /***/
 
 @Module({
@@ -51,7 +52,8 @@ import { FilesController } from './controllers/files/files.controller';
     VersionsController,
     SettingsController,
     ActivitiesController,
-    FilesController
+    FilesController,
+    SearchController
   ],
   providers: [
     PrismaService,

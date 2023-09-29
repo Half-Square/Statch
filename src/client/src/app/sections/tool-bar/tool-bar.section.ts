@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-09-27 14:35:32                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-09-29 09:28:53                               *
+ * @LastEditDate          : 2023-09-29 14:52:14                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -11,7 +11,7 @@
 */
 
 /* Imports */
-import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from "@angular/core";
 import { NavigationEnd, Router } from "@angular/router";
 import { Subscription } from "rxjs";
 /***/
@@ -26,6 +26,9 @@ import { NavService } from "../navigation/nav.service";
   styleUrls: ["./tool-bar.section.scss"]
 })
 export class ToolBarSection implements OnInit, OnDestroy {
+  @Input() onSearch: boolean;
+  @Output() onSearchChange = new EventEmitter<boolean>();
+
   public routes: {name: string, path: string}[] = [];
   public menuOptions: boolean = false;
   private sub: Subscription;
