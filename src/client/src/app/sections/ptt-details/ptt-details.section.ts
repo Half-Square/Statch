@@ -2,7 +2,7 @@
  * @Author                : 0K00<qdouvillez@gmail.com>                       *
  * @CreatedDate           : 2023-09-27 16:52:14                              *
  * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
- * @LastEditDate          : 2023-09-27 18:30:53                              *
+ * @LastEditDate          : 2023-09-29 12:38:06                              *
  ****************************************************************************/
 
 import { Component, Input, OnDestroy, OnInit } from "@angular/core";
@@ -15,7 +15,7 @@ import * as _ from "lodash";
   templateUrl: "./ptt-details.section.html",
   styleUrls: ["./ptt-details.section.scss"]
 })
-export class PttDetailsSection implements OnInit, OnDestroy {
+export class PttDetailsSection implements OnDestroy {
 
   constructor(public recovery: RecoveryService) {
     this.subsciption = [
@@ -78,11 +78,6 @@ export class PttDetailsSection implements OnInit, OnDestroy {
   private subsciption: Subscription[] | null = null;
 
   public _ = _;
-
-  ngOnInit(): void {
-    console.log(this.currentStatus);
-
-  }
 
   ngOnDestroy(): void {
     if (this.subsciption) this.subsciption.forEach((s) => s.unsubscribe());

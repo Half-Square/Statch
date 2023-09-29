@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : Quentin<quentin@halfsquare.fr>                   *
+ * @Author                : 0K00<qdouvillez@gmail.com>                       *
  * @CreatedDate           : 2023-09-27 14:08:53                              *
- * @LastEditors           : Quentin<quentin@halfsquare.fr>                   *
- * @LastEditDate          : 2023-09-28 19:09:04                              *
+ * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
+ * @LastEditDate          : 2023-09-29 12:11:04                              *
  ****************************************************************************/
 
 import { Component, ElementRef, EventEmitter, Input, Output, Renderer2, ViewChild } from "@angular/core";
@@ -48,7 +48,6 @@ export class PttHeaderSection {
 
   public toggleEdit(): void {
     this.edit = true;
-    this.callback.emit(this.content(this.contentEl));
   }
 
   public content(event: Event): any {

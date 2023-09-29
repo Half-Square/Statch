@@ -2,7 +2,7 @@
  * @Author                : 0K00<qdouvillez@gmail.com>                       *
  * @CreatedDate           : 2023-09-21 12:45:58                              *
  * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
- * @LastEditDate          : 2023-09-29 12:23:48                              *
+ * @LastEditDate          : 2023-09-29 12:38:32                              *
  ****************************************************************************/
 
 import { Component, OnDestroy, OnInit } from "@angular/core";
@@ -137,11 +137,24 @@ export class PttView implements OnInit, OnDestroy {
     this.isAssignee = !this.isAssignee;
   }
 
-  public headerSave(event: Event): void { // to do
-    console.log(event);
+  public headerSave(event: {name: string, description: string}): void {
+    const cond = {
+      name: this.currentElement.name,
+      description: this.currentElement.description
+    };
+    if(JSON.stringify(event) != JSON.stringify(cond)) {
+      this.api.put(`api/${this.type}/${this.id}`,
+        event, this.user.getUser()?.token)
+        .then((ret) => {
+          this.toast.print(`Succes : ${this.type} saved`, "success");
+        })
+        .catch(() => {
+          this.toast.print("An error occured...", "error");
+        });
+    }
   }
 
-  public commentPublish(event: Event): void { // to do
+  public commentPublish(event: Event): void {
     this.api.post(`api/${this.type}/${this.id}/comments`,
       {content: event}, this.user.getUser()?.token)
       .then((ret) => {
