@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-09-25 10:29:00                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-09-27 18:31:54                               *
+ * @LastEditDate          : 2023-09-29 16:07:47                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -52,8 +52,8 @@ export class ToolsNavSection {
     console.log("Create ", type);
 
     this.api.post(`api/${path}`, {
-      name: `New ${type}`,
-      description: `New empty ${type}`
+      name: `New ${type.slice(0, -1)}`,
+      description: `New empty ${type.slice(0, -1)}`
     }, this.user.getUser()?.token).then((ret) => {
       this.router.navigateByUrl(`${type}/${(ret as {id: string}).id}`);
     });
