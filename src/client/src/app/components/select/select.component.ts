@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : Quentin<quentin@halfsquare.fr>                   *
+ * @Author                : 0K00<qdouvillez@gmail.com>                       *
  * @CreatedDate           : 2023-09-15 13:05:58                              *
- * @LastEditors           : Quentin<quentin@halfsquare.fr>                   *
- * @LastEditDate          : 2023-09-28 19:10:01                              *
+ * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
+ * @LastEditDate          : 2023-09-29 15:31:07                              *
  ****************************************************************************/
 
 import { Component, Input, TemplateRef, ContentChild, ViewChild, ElementRef, Renderer2, Output, EventEmitter } from "@angular/core";
@@ -141,6 +141,7 @@ export class SelectComponent {
     } else {
       ret = [option];
     }
+    this.showMenu = false;
     return ret;
   }
 
