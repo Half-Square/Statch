@@ -2,7 +2,7 @@
  * @Author                : 0K00<qdouvillez@gmail.com>                       *
  * @CreatedDate           : 2023-09-15 13:05:58                              *
  * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
- * @LastEditDate          : 2023-09-29 15:31:07                              *
+ * @LastEditDate          : 2023-09-29 18:01:09                              *
  ****************************************************************************/
 
 import { Component, Input, TemplateRef, ContentChild, ViewChild, ElementRef, Renderer2, Output, EventEmitter } from "@angular/core";
@@ -125,6 +125,8 @@ export class SelectComponent {
         this.callback.emit(this.onMultiSelect(option));
       else
         this.callback.emit(this.onSelect(option));
+    } else {
+      this.callback.emit(option);
     }
   }
 
