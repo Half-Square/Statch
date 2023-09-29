@@ -2,7 +2,7 @@
 * @Author                : 0K00<qdouvillez@gmail.com>
 * @CreatedDate           : 2023-09-27 16:52:00
 * @LastEditors           : 0K00<qdouvillez@gmail.com>
-* @LastEditDate          : 2023-09-29 17:46:22
+* @LastEditDate          : 2023-09-29 18:06:07
 -->
 
 <div class="ptt-details">
@@ -32,7 +32,7 @@
     <div class="block">
       <div class="heading">{{ versionTitle }}</div>
       <div class="content">
-        <component-select [data]="versions" [noResult]="true" [noOption]="'No version for the moment'">
+        <component-select [data]="versions" (callback)="versionsCB($event)" [selection]="replaceVersion()" [noResult]="true" [noOption]="'No version for the moment'">
         </component-select>
       </div>
     </div>

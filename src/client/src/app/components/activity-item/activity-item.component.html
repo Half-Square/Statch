@@ -1,22 +1,22 @@
 <!--
-* @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>
+* @Author                : 0K00<qdouvillez@gmail.com>
 * @CreatedDate           : 2023-09-29 11:17:00
-* @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>
-* @LastEditDate          : 2023-09-29 15:37:58
+* @LastEditors           : 0K00<qdouvillez@gmail.com>
+* @LastEditDate          : 2023-09-29 19:28:57
 -->
 
 <div class="component-activity-item">
-  <core-avatar class="avatar" *ngIf="actor" [label]="actor.name" [imgLink]="actor.picture"/>
+  <core-avatar class="avatar" *ngIf="actor" [showLabel]="reduce ? false : true" [label]="actor.name" [imgLink]="actor.picture"/>
   <div>{{activity.action.type}}</div>
   <div *ngIf="!activity.action.field">{{activity.target.type.slice(0, -1)}}</div>
   <div *ngIf="activity.action.field">{{activity.action.field}}</div>
-  <div *ngIf="activity.action.prev && activity.action.curr">from</div>
+  <div *ngIf="activity.action.prev && activity.action.curr && !reduce">from</div>
 
-  <component-activity-action-state  *ngIf="activity.action.prev && activity.action.type != 'CREATE' && activity.action.type != 'DELETE'"
+  <component-activity-action-state  *ngIf="activity.action.prev && activity.action.type != 'CREATE' && activity.action.type != 'DELETE' && !reduce"
                                     [activity]="activity"
                                     [state]="activity.action.prev"/>
 
-  <div *ngIf="activity.action.prev && activity.action.curr">to</div>
+  <div *ngIf="activity.action.prev && activity.action.curr && !reduce">to</div>
 
   <component-activity-action-state  *ngIf="activity.action.curr && activity.action.type != 'CREATE' && activity.action.type != 'DELETE'"
                                     [activity]="activity"
@@ -24,7 +24,7 @@
 
   <core-link  [link]="'/'+activity.target.type+'/'+activity.target.id"
               [style]="'primary'">
-    {{activity.target.id | recovery:'name':activity.target.type | async}}"
+    {{activity.target.id | recovery:'name':activity.target.type | async}}
   </core-link>
 
   <div class="date">{{activity.created | dateDifference}}</div>

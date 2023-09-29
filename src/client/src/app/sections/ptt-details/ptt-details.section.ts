@@ -2,7 +2,7 @@
  * @Author                : 0K00<qdouvillez@gmail.com>                       *
  * @CreatedDate           : 2023-09-27 16:52:14                              *
  * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
- * @LastEditDate          : 2023-09-29 17:46:24                              *
+ * @LastEditDate          : 2023-09-29 18:20:54                              *
  ****************************************************************************/
 
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from "@angular/core";
@@ -41,6 +41,9 @@ export class PttDetailsSection implements OnDestroy {
 
   @Input()
     versions: any = [];
+
+  @Input()
+    currentVersion: string = "";
 
   @Input()
     status: any = [];
@@ -87,6 +90,9 @@ export class PttDetailsSection implements OnDestroy {
   @Output()
     cbLevel: EventEmitter<any> = new EventEmitter<any>();
 
+  @Output()
+    cbVersions: EventEmitter<any> = new EventEmitter<any>();
+
   private subsciption: Subscription[] | null = null;
 
   public _ = _;
@@ -111,6 +117,13 @@ export class PttDetailsSection implements OnDestroy {
     return ret;
   }
 
+  public replaceVersion(): any[] {
+    let ret: any[] = [];
+    if(this.currentVersion)
+      ret.push(_.find(this.versions, {id: this.currentVersion}));
+    return ret;
+  }
+
   public assigneeCB(event: Event): void {
     this.cbAssignee.emit(event);
   }
@@ -125,5 +138,9 @@ export class PttDetailsSection implements OnDestroy {
 
   public levelCB(event: Event): void {
     this.cbLevel.emit(event);
+  }
+
+  public versionsCB(event: Event): void {
+    this.cbVersions.emit(event);
   }
 }

@@ -1,9 +1,9 @@
-/******************************************************************************
- * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @CreatedDate           : 2023-09-29 11:11:14                               *
- * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-09-29 11:32:46                               *
- *****************************************************************************/
+/*****************************************************************************
+ * @Author                : 0K00<qdouvillez@gmail.com>                       *
+ * @CreatedDate           : 2023-09-29 11:11:14                              *
+ * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
+ * @LastEditDate          : 2023-09-29 19:19:57                              *
+ ****************************************************************************/
 
 /* SUMMARY
   * Imports
@@ -32,6 +32,7 @@ import { RecoveryService } from "src/app/services/recovery.service";
 })
 export class ActivityItemComponent implements OnInit {
   @Input() activity: IActivities;
+  @Input() reduce: boolean = false;
   public actor: {name: string, picture: string | null};
 
   constructor(private recovery: RecoveryService) {

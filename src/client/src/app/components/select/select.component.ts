@@ -2,7 +2,7 @@
  * @Author                : 0K00<qdouvillez@gmail.com>                       *
  * @CreatedDate           : 2023-09-15 13:05:58                              *
  * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
- * @LastEditDate          : 2023-09-29 18:01:09                              *
+ * @LastEditDate          : 2023-09-29 18:49:00                              *
  ****************************************************************************/
 
 import { Component, Input, TemplateRef, ContentChild, ViewChild, ElementRef, Renderer2, Output, EventEmitter } from "@angular/core";
@@ -126,6 +126,8 @@ export class SelectComponent {
       else
         this.callback.emit(this.onSelect(option));
     } else {
+      this.search.nativeElement.value = "";
+      this.searchText = "";
       this.callback.emit(option);
     }
   }

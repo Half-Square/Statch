@@ -2,12 +2,12 @@
  * @Author                : 0K00<qdouvillez@gmail.com>                       *
  * @CreatedDate           : 2023-09-21 12:45:58                              *
  * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
- * @LastEditDate          : 2023-09-29 17:53:17                              *
+ * @LastEditDate          : 2023-09-29 19:33:59                              *
  ****************************************************************************/
 
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { ActivatedRoute, Router, NavigationEnd } from "@angular/router";
-import { IProjects, ITasks, ITickets } from "src/app/interfaces";
+import { IActivities, IProjects, ITasks, ITickets } from "src/app/interfaces";
 import { RecoveryService } from "src/app/services/recovery.service";
 import { Subscription } from "rxjs";
 import * as _ from "lodash";
@@ -35,6 +35,7 @@ export class PttView implements OnInit, OnDestroy {
   public versions: any = [];
   public currentUser: any = [];
   public comments: any = [];
+  public activities: IActivities[];
   public _ = _;
   public type: string = "";
   public typeChild: string = "";
@@ -87,10 +88,16 @@ export class PttView implements OnInit, OnDestroy {
           this.isAssignee = this.checkAssignee();
           this.progressValue = this.setAdvancement();
           this.toggleVersion = this.type === "projects" ? this.currentElement.actualVersion : this.currentElement.targetVersionId;
+          this.api.get(`api/${this.type}/${this.id}/activities`,
+            this.user.getUser()?.token)
+            .then((data) => this.activities = data as IActivities[]);
         }
       })
 
     ];
+
+    this.api.get(`api/${this.type}/${this.id}/activities`, this.user.getUser()?.token)
+      .then((data) => this.activities = data as IActivities[]);
   }
 
   /**
@@ -255,8 +262,9 @@ export class PttView implements OnInit, OnDestroy {
       if(this.type === "projects")
         this.printTasks = _.filter(elements, {projectId: this.id});
       else
-        this.printTickets = _.filter(elements, {projectId: this.id});
+        this.printTickets = _.filter(elements, {taskId: this.id});
     }
+
 
     this.setAdvancement();
   }
@@ -268,5 +276,48 @@ export class PttView implements OnInit, OnDestroy {
     }, this.user.getUser()?.token).then((ret) => {
       this.router.navigateByUrl(`${this.typeChild}/${(ret as {id: string}).id}`);
     });
+  }
+
+  public deleteItem(): void {
+    this.api.delete(`api/${this.type}/${this.id}`, this.user.getUser()?.token)
+      .then((ret) => {
+        this.router.navigateByUrl("/");
+        this.toast.print(`${this.type} deleted`, "success");
+      });
+  }
+
+  public changeVersion(event: any): void {
+    const id = this.type === "projects" ? this.id : this.currentElement.projectId;
+    if(event.fromSearch) {
+      this.api.post(`api/projects/${id}/versions`,
+        {name: event.name}, this.user.getUser()?.token)
+        .then((ret) => {
+          this.changeVersion([ret]);
+        })
+        .catch(() => {
+          this.toast.print("An error occured...", "error");
+        });
+    } else {
+      let obj: any = [];
+
+      if(event.length > 0)
+        obj = this.type === "projects" ? {actualVersion: event[0].id} : {targetVersionId: event[0].id};
+      else
+        obj = this.type === "projects" ? {actualVersion: null} : {targetVersionId: null};
+
+      console.log(obj);
+
+      this.api.put(`api/${this.type}/${this.id}`,
+        obj, this.user.getUser()?.token)
+        .then((ret) => {
+          console.log(ret);
+
+          this.currentElement = ret;
+          this.toast.print(`Succes : ${this.type} version changed`, "success");
+        })
+        .catch(() => {
+          this.toast.print("An error occured...", "error");
+        });
+    }
   }
 }

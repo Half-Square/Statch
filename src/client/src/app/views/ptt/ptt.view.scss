@@ -43,5 +43,13 @@
     .details {
       border-bottom: 1px solid #3d3d3d;
     }
+
+    .activity {
+      max-width: 400px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      padding: 16px;
+    }
   }
 }
