@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-09-30 15:55:46                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-09-30 17:06:38                               *
+ * @LastEditDate          : 2023-09-30 17:48:51                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -13,6 +13,7 @@
   * Save current item
   * Create child for item
   * Delete current item
+  * Set item advancement
 */
 
 /* Imports */
@@ -23,7 +24,7 @@ import * as _ from "lodash";
 /***/
 
 /* Interfaces */
-import { IProjects, ITasks, ITickets } from "src/app/interfaces";
+import { IProjects, ITasks, ITickets, IVersions } from "src/app/interfaces";
 /***/
 
 /* Services */
@@ -44,6 +45,7 @@ export class PttView implements OnInit, OnDestroy {
   public id: string;
   public childType: string;
   public childs: ITasks[] | ITickets[] = [];
+  public versions: IVersions[] = [];
   public _ = _;
 
   private subscriptions: Subscription[] = [];
@@ -128,6 +130,19 @@ export class PttView implements OnInit, OnDestroy {
         this.toast.print(`${_.capitalize(this.type.slice(0, -1))} ${this.id} has been removed`, "success");
         this.router.navigateByUrl("/");
       });
+  }
+  /***/
+
+  /**
+  * Set item advancement
+  * @return - Percent value of child with done state
+  */
+  public setAdvancement(): number {
+    let length = this.childs.length;
+    let completed = (_.countBy(this.childs, {status: "done"}) as {true: number | undefined}).true || 0;
+    let res = Math.floor(completed * 100 / length);
+
+    return !_.isNaN(res) ? res : 0;
   }
   /***/
 }

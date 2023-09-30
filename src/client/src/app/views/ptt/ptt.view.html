@@ -2,7 +2,7 @@
 * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>
 * @CreatedDate           : 2023-09-30 15:55:00
 * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>
-* @LastEditDate          : 2023-09-30 16:56:50
+* @LastEditDate          : 2023-09-30 17:55:46
 -->
 
 <div class="view-ptt">
@@ -13,8 +13,35 @@
                           (onCreateChild)="createChild()"/>
 
     <div class="container">
-      <section-ptt-header [(item)]="item" (itemChange)="saveItem()">
-      </section-ptt-header>
+      <div class="main">
+        <section-ptt-header [(item)]="item" (itemChange)="saveItem()"/>
+
+        <div *ngIf="type != 'tickets'" class="advancement">
+          <section-ptt-advancement [value]="setAdvancement()"/>
+
+          <section-ptt-list [elements]="childs" [type]="childType">
+            <ng-container sort>
+              {{type}}
+
+              <!--
+              <component-select [data]="versions"
+                                [placeholder]="'Select verions to sort...'"
+                                [multi]="true"
+                                [hasSearch]="false">
+                                (callback)="sortElement($event)"
+              </component-select>
+              -->
+            </ng-container>
+
+            <div class="add" add (click)="createChild()">
+              <core-icon icon="plus"></core-icon>
+              Create new {{childType}}
+            </div>
+          </section-ptt-list>
+        </div>
+      </div>
+
+
     </div>
   </ng-template>
 
