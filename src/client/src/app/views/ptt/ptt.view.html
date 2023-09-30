@@ -1,16 +1,16 @@
 <!--
-* @Author                : 0K00<qdouvillez@gmail.com>
+* @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>
 * @CreatedDate           : 2023-09-21 13:14:00
-* @LastEditors           : 0K00<qdouvillez@gmail.com>
-* @LastEditDate          : 2023-09-29 19:35:44
+* @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>
+* @LastEditDate          : 2023-09-30 15:48:38
 -->
 
 <div class="ptt">
-  <div class="bar">
-    <core-button *ngIf="type != 'tickets'" (click)="deleteItem()" [type]="'basic'" [style]="'warn'" [size]="'medium'" ><core-icon icon="minus"></core-icon></core-button>
-    <core-button *ngIf="type != 'tickets'" (click)="newItem()" [type]="'basic'" [style]="'default'" [size]="'medium'" ><core-icon icon="plus"></core-icon></core-button>
-    <core-button (click)="assigneeUser(user.getUser(), true)" [type]="isAssignee ? 'flat' : 'basic'" [style]="'primary'" [size]="'medium'"><core-icon [icon]="isAssignee ? 'heart--fill' : 'heart'"></core-icon></core-button>
-  </div>
+  <section-ptt-tool-bar [isParentOf]="type != 'tickets'"
+                        [isAssignee]="isAssignee"
+                        (onDelete)="deleteItem()"
+                        (onCreateChild)="newItem()"
+                        (onAssign)="assigneeUser(user.getUser(), true)"/>
 
   <div class="container">
     <div class="main">
