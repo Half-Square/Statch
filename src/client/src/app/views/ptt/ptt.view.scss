@@ -1,50 +1,19 @@
 /*****************************************************************************
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @CreatedDate           : 2023-09-30 15:38:17                              *
+ * @CreatedDate           : 2023-09-30 15:57:55                              *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-09-30 15:38:17                              *
+ * @LastEditDate          : 2023-09-30 15:58:22                              *
  ****************************************************************************/
 
-.ptt {
+.view-ptt {
+  height: 100%;
+  box-sizing: border-box;
   position: relative;
 
-  .container {
-    display: flex;
-    overflow: hidden;
-    height: calc(100vh - 85px);
-  }
-
-  .main {
-    overflow: auto;
-    flex-grow: 1;
-    border-right: 1px solid #3d3d3d;
-    .advancement {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      padding: 16px;
-      border-bottom: 1px solid #3d3d3d;
-
-      .add {
-        display: flex;
-        gap: 8px;
-      }
-    }
-  }
-
-  .aside {
-    overflow: auto;
-
-    .details {
-      border-bottom: 1px solid #3d3d3d;
-    }
-
-    .activity {
-      max-width: 400px;
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      padding: 16px;
-    }
+  .loading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
   }
 }
