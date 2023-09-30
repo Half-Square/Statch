@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-09-30 15:55:46                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-09-30 16:41:05                               *
+ * @LastEditDate          : 2023-09-30 17:06:38                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -10,6 +10,7 @@
   * Interfaces
   * Services
   * Get childs
+  * Save current item
   * Create child for item
   * Delete current item
 */
@@ -103,6 +104,17 @@ export class PttView implements OnInit, OnDestroy {
       .then((ret) => {
         this.router.navigateByUrl(`${this.childType}/${(ret as {id: string}).id}`);
         this.toast.print(`${_.capitalize(this.childType.slice(0, -1))} ${(ret as {id: string}).id} has been created`, "success");
+      });
+  }
+  /***/
+
+  /**
+  * Save current item
+  */
+  public saveItem(): void {
+    this.api.put(`api/${this.type}/${this.id}`, this.item, this.user.getUser()?.token)
+      .then(() => {
+        this.toast.print(`${_.capitalize(this.type.slice(0, -1))} ${this.id} has been saved`, "success");
       });
   }
   /***/
