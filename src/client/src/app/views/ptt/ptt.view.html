@@ -2,7 +2,7 @@
 * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>
 * @CreatedDate           : 2023-09-30 15:55:00
 * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>
-* @LastEditDate          : 2023-10-02 13:02:08
+* @LastEditDate          : 2023-10-02 15:06:21
 -->
 
 <div class="view-ptt">
@@ -47,6 +47,10 @@
                                 (itemChange)="saveItem()"
                                 [versions]="versions"
                                 [nbList]="childs.length"/>
+        </div>
+
+        <div class="activities-list">
+          <component-activity-item [reduce]="true" *ngFor="let activity of activities | slice:0:10" [activity]="activity"/>
         </div>
       </aside>
     </div>
