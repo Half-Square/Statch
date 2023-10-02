@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : 0K00<qdouvillez@gmail.com>                       *
+ * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-09-05 10:17:26                              *
- * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
- * @LastEditDate          : 2023-09-27 15:44:07                              *
+ * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @LastEditDate          : 2023-10-02 15:35:17                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -12,6 +12,7 @@
 
 /* Imports */
 import { Component, Input, OnChanges, SimpleChanges } from "@angular/core";
+import { environment as env } from "src/environments/environment";
 /***/
 
 @Component({
@@ -51,6 +52,7 @@ export class AvatarCore implements OnChanges {
     other: string = "";
 
   public printLabel: string = "";
+  public url: string = `${env.serverUrl}/api/files/raw/`;
 
   ngOnChanges(changes: SimpleChanges): void {
     if(!this.imgLink && changes["label"] && changes["label"].currentValue) {

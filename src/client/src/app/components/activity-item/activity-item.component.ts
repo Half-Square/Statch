@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : 0K00<qdouvillez@gmail.com>                       *
+ * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-09-29 11:11:14                              *
- * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
- * @LastEditDate          : 2023-09-29 19:19:57                              *
+ * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @LastEditDate          : 2023-10-02 15:37:37                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -49,7 +49,7 @@ export class ActivityItemComponent implements OnInit {
     let u = await this.recovery.getSingleSync("users", this.activity.actor.id);
     this.actor = {
       name: u.name,
-      picture: u.picture ? `${env.serverUrl}/api/files/raw/${u.picture}` : null
+      picture: u.picture || null
     };
   }
   /***/

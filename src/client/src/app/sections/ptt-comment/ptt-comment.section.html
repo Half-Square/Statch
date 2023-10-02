@@ -2,7 +2,7 @@
 * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>
 * @CreatedDate           : 2023-09-27 15:26:00
 * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>
-* @LastEditDate          : 2023-10-02 15:19:40
+* @LastEditDate          : 2023-10-02 15:36:13
 -->
 
 <div class="ptt-comment">
@@ -12,7 +12,7 @@
   <div class="comment" *ngFor="let comment of comments">
 
     <div class="header">
-      <core-avatar [imgLink]="comment.authorId | recovery:'imgLink':'users' | async" [label]="comment.authorId | recovery:'name':'users' | async"></core-avatar>
+      <core-avatar [imgLink]="comment.authorId | recovery:'picture':'users' | async" [label]="comment.authorId | recovery:'name':'users' | async"></core-avatar>
       <span class="date">{{ comment.created | dateDifference }}</span>
     </div>
 

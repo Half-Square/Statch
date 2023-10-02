@@ -2,7 +2,7 @@
 * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>
 * @CreatedDate           : 2023-09-28 13:52:00
 * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>
-* @LastEditDate          : 2023-09-28 19:22:00
+* @LastEditDate          : 2023-10-02 15:34:58
 -->
 
 <div class="view-profile">
@@ -10,7 +10,7 @@
     <div class="profile-card">
       <div>
         <label for="avatarIcon">
-          <core-avatar [label]="profile.name" [showLabel]="false" other="profile" [imgLink]="profile.picture !== '' ? url+profile.picture : null"/>
+          <core-avatar [label]="profile.name" [showLabel]="false" other="profile" [imgLink]="profile.picture !== '' ? profile.picture : null"/>
         </label>
         <input type="file" id="avatarIcon" (change)="uploadAvatar($event)" hidden/>
       </div>

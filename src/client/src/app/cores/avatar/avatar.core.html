@@ -1,8 +1,8 @@
 <!--
-* @Author                : 0K00<qdouvillez@gmail.com>
+* @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>
 * @CreatedDate           : 2023-09-05 10:15:00
-* @LastEditors           : 0K00<qdouvillez@gmail.com>
-* @LastEditDate          : 2023-09-27 15:31:15
+* @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>
+* @LastEditDate          : 2023-10-02 15:35:32
 -->
 
 <div [ngClass]="['avatar', size, other]">
@@ -10,7 +10,7 @@
   <div class="content">
 
     <span *ngIf="imgLink" class="img">
-      <img [src]="imgLink" [alt]="label + ' profil picture'">
+      <img [src]="url+imgLink" [alt]="label + ' profil picture'">
     </span>
 
     <span *ngIf="!imgLink" class="img">
