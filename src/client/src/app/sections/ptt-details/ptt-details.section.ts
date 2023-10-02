@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-09-27 16:52:14                              *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-10-02 13:22:38                              *
+ * @LastEditDate          : 2023-10-02 13:45:23                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -120,21 +120,32 @@ export class PttDetailsSection implements OnInit, OnDestroy {
   public onItemChange(field: string, value: Event): void {
     this.item[field] = value;
 
-    this.item = {
-      ...this.item,
-      assignments: this.item.assignments.map((u: any) => {
+    switch(field) {
+    case "assignments":
+      this.item.assignments = this.item.assignments.map((u: any) => {
         if (!u.userId) return {userId: u.id};
         else return u;
-      }),
-      actualVersion: this.type === "projects" ? this.item?.actualVersion[0]?.id : undefined,
-      targetVersionId: this.type !== "projects" ? this.item?.targetVersionId[0]?.id : undefined,
-      status: this.item.status[0].status || this.item.status,
-      labels: this.item.labels.map((l: any) => {
+      });
+      break;
+    case "actualVersion":
+      this.item.actualVersion = this.type === "projects" ? this.item?.actualVersion[0]?.id : undefined;
+      break;
+    case "targetVersionId":
+      this.item.targetVersionId = this.type !== "projects" ? this.item?.targetVersionId[0]?.id : undefined;
+      break;
+    case "status":
+      this.item.status = this.item.status[0].status || this.item.status;
+      break;
+    case "labels":
+      this.item.labels = this.item.labels.map((l: any) => {
         if (!l.labelId) return {labelId: l.id};
         else return l;
-      }),
-      level: this.item.level[0].level || this.item.level
-    };
+      });
+      break;
+    case "level":
+      this.item.level = this.item.level[0].level || this.item.level;
+      break;
+    }
 
     this.itemChange.emit(this.item);
   }
