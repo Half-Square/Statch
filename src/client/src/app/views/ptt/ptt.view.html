@@ -2,7 +2,7 @@
 * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>
 * @CreatedDate           : 2023-09-30 15:55:00
 * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>
-* @LastEditDate          : 2023-09-30 17:55:46
+* @LastEditDate          : 2023-10-02 13:02:08
 -->
 
 <div class="view-ptt">
@@ -23,14 +23,12 @@
             <ng-container sort>
               {{type}}
 
-              <!--
               <component-select [data]="versions"
                                 [placeholder]="'Select verions to sort...'"
                                 [multi]="true"
-                                [hasSearch]="false">
-                                (callback)="sortElement($event)"
+                                [hasSearch]="false"
+                                (callback)="sortElement($event)">
               </component-select>
-              -->
             </ng-container>
 
             <div class="add" add (click)="createChild()">
@@ -41,7 +39,16 @@
         </div>
       </div>
 
-
+      <aside class="right-panel">
+        <div class="details">
+          <section-ptt-details  [id]="id"
+                                [type]="type"
+                                [(item)]="item"
+                                (itemChange)="saveItem()"
+                                [versions]="versions"
+                                [nbList]="childs.length"/>
+        </div>
+      </aside>
     </div>
   </ng-template>
 

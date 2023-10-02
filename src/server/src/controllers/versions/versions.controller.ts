@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-09-21 12:01:16                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-09-27 11:56:34                               *
+ * @LastEditDate          : 2023-10-02 11:12:55                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -13,6 +13,7 @@
   * Interceptors
   * Get all
   * Get by id
+  * Get version for current project
   * Create new version
   * Edit version
   * Delete version
@@ -83,6 +84,17 @@ export class VersionsController {
   /***/
 
   /**
+  * Get version by projects
+  * @param id - Project's id
+  * @return - List of project's version
+  */
+  @Get("projects/:id/versions")
+  async getVersionsForContext(@Param("id") id: string): Promise<Version[]> {
+    return await this.prisma.version.findMany({where: {projectId: id}});
+  }
+  /***/
+
+  /**
   * Create new version
   * @param body - Version data
   * @param projectId - Project Id 
@@ -95,7 +107,7 @@ export class VersionsController {
       data: {...body, projectId}
     });
 
-    this.socket.broadcast("versions", version);
+    this.socket.broadcast(`projects/${projectId}/versions`, version);
     return version;
   }
   /***/
@@ -115,7 +127,7 @@ export class VersionsController {
       data: body
     });
 
-    this.socket.broadcast("versions", version);
+    this.socket.broadcast(`projects/${id}/versions`, version);
     return version;
   }
   /***/
@@ -131,7 +143,7 @@ export class VersionsController {
   async deleteById(@Param("id") id: string): Promise<{message: string}> {
     await this.prisma.version.delete({where: {id: id}});
 
-    this.socket.broadcast("versions", {id: id}, true);
+    this.socket.broadcast(`projects/${id}/versions`, {id: id}, true);
     return {message: `Version ${id} has been removed`};
   }
   /***/

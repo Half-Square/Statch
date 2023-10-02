@@ -1,146 +1,142 @@
 /*****************************************************************************
- * @Author                : 0K00<qdouvillez@gmail.com>                       *
+ * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-09-27 16:52:14                              *
- * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
- * @LastEditDate          : 2023-09-29 18:20:54                              *
+ * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @LastEditDate          : 2023-10-02 13:22:38                              *
  ****************************************************************************/
 
+/* SUMMARY
+  * Imports
+  * Interfaces
+  * Services
+  * Replace assignement by users
+  * Replace version id by version data
+  * Replace labels relation data by labels
+  * Item change event handler
+*/
+
+/* Imports */
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from "@angular/core";
-import { RecoveryService } from "src/app/services/recovery.service";
 import { Subscription } from "rxjs";
 import * as _ from "lodash";
+/***/
+
+/* Interfaces */
+import { ILabels, IUsers, IVersions } from "src/app/interfaces";
+/***/
+
+/* Services */
+import { RecoveryService } from "src/app/services/recovery.service";
+/***/
 
 @Component({
   selector: "section-ptt-details",
   templateUrl: "./ptt-details.section.html",
   styleUrls: ["./ptt-details.section.scss"]
 })
-export class PttDetailsSection implements OnDestroy {
+export class PttDetailsSection implements OnInit, OnDestroy {
+  @Input() id: string;
+  @Input() item: any;
+  @Input() versions: IVersions[] = [];
+  @Input() type: string;
+  @Input() nbList: number;
+  @Output() itemChange = new EventEmitter();
+
+  public labels: ILabels[] = [];
+  public users: IUsers[] = [];
+  public readonly status: {id: string, status: string}[] = [
+    {id: "new", status: "new"},
+    {id: "progress", status: "progress"},
+    {id: "done", status: "done"},
+    {id: "reject", status: "reject"},
+    {id: "wait", status: "wait"}
+  ];
+
+  public readonly levels: {id: string, level: string}[] = [
+    {id: "low", level: "low"},
+    {id: "normal", level: "normal"},
+    {id: "moderate", level: "moderate"},
+    {id: "high", level: "high"}
+  ];
 
   constructor(public recovery: RecoveryService) {
-    this.subsciption = [
+    this.subsciptions = [
       this.recovery.get("users").subscribe((users) => this.users = users),
       this.recovery.get("labels").subscribe((labels) => this.labels = labels)
     ];
   }
 
-  @Input()
-    id: string = "";
-
-  @Input()
-    owner: string = "";
-
-  @Input()
-    users: any = [];
-
-  @Input()
-    assignee: any = [];
-
-  @Input()
-    versionTitle: string = "";
-
-  @Input()
-    versions: any = [];
-
-  @Input()
-    currentVersion: string = "";
-
-  @Input()
-    status: any = [];
-
-  @Input()
-    currentStatus: any = {};
-
-  @Input()
-    labels: any = [];
-
-  @Input()
-    currentLabels: any = [];
-
-  @Input()
-    levels: any = [];
-
-  @Input()
-    currentLevel: any = [];
-
-  @Input()
-    type: string = "";
-
-  @Input()
-    listTitle: string = "";
-
-  @Input()
-    listLink: string = "";
-
-  @Input()
-    nbList: number = 0;
-
-  @Input()
-    created: any = "";
-
-  @Output()
-    cbAssignee: EventEmitter<any> = new EventEmitter<any>();
-
-  @Output()
-    cbStatus: EventEmitter<any> = new EventEmitter<any>();
-
-  @Output()
-    cbLabels: EventEmitter<any> = new EventEmitter<any>();
-
-  @Output()
-    cbLevel: EventEmitter<any> = new EventEmitter<any>();
-
-  @Output()
-    cbVersions: EventEmitter<any> = new EventEmitter<any>();
-
-  private subsciption: Subscription[] | null = null;
-
   public _ = _;
+  private subsciptions: Subscription[];
+
+  ngOnInit(): void {
+    this.subsciptions = [
+      this.recovery.get("labels").subscribe((l) => this.labels = l)
+    ];
+  }
 
   ngOnDestroy(): void {
-    if (this.subsciption) this.subsciption.forEach((s) => s.unsubscribe());
+    this.subsciptions.map((s) => s.unsubscribe());
   }
 
-  public replaceAssignee(): any[] {
-    let ret: any[] = [];
-    this.assignee.map((s: any) => {
-      ret.push(_.find(this.users, {id: s.userId}));
-    });
-    return ret;
+  /**
+  * Replace assignement by users
+  * @return - List of assigned users
+  */
+  public replaceUsers(): IUsers[] {
+    return _.compact(this.item.assignments.map((el: {userId: string}) => {
+      return _.find(this.users, {id: el.userId});
+    }));
   }
+  /***/
 
-  public replaceLabels(): any[] {
-    let ret: any[] = [];
-    this.currentLabels.map((s: any) => {
-      ret.push(_.find(this.labels, {id: s.labelId}));
-    });
-    return ret;
+  /**
+  * Replace version id by version data
+  * @return - List of versions
+  */
+  public replaceVersion(): IVersions[] {
+    return _.compact([
+      _.find(this.versions, {id: this.type === "projects" ? this.item.actualVersion : this.item.targetVersionId}) as IVersions
+    ]);
   }
+  /***/
 
-  public replaceVersion(): any[] {
-    let ret: any[] = [];
-    if(this.currentVersion)
-      ret.push(_.find(this.versions, {id: this.currentVersion}));
-    return ret;
+  /**
+  * Replace labels relation data by labels
+  * @return - List of label
+  */
+  public replaceLabels(): ILabels[] {
+    return _.compact(this.item.labels.map((el: {labelId: string}) => {
+      return _.find(this.labels, {id: el.labelId});
+    }));
   }
+  /***/
 
-  public assigneeCB(event: Event): void {
-    this.cbAssignee.emit(event);
-  }
+  /**
+  * Item change event handler
+  * @param field - On change field name
+  * @param value - New value of field
+  */
+  public onItemChange(field: string, value: Event): void {
+    this.item[field] = value;
 
-  public statusCB(event: Event): void {
-    this.cbStatus.emit(event);
-  }
+    this.item = {
+      ...this.item,
+      assignments: this.item.assignments.map((u: any) => {
+        if (!u.userId) return {userId: u.id};
+        else return u;
+      }),
+      actualVersion: this.type === "projects" ? this.item?.actualVersion[0]?.id : undefined,
+      targetVersionId: this.type !== "projects" ? this.item?.targetVersionId[0]?.id : undefined,
+      status: this.item.status[0].status || this.item.status,
+      labels: this.item.labels.map((l: any) => {
+        if (!l.labelId) return {labelId: l.id};
+        else return l;
+      }),
+      level: this.item.level[0].level || this.item.level
+    };
 
-  public labelsCB(event: Event): void {
-    this.cbLabels.emit(event);
+    this.itemChange.emit(this.item);
   }
-
-  public levelCB(event: Event): void {
-    this.cbLevel.emit(event);
-  }
-
-  public versionsCB(event: Event): void {
-    this.cbVersions.emit(event);
-  }
+  /***/
 }

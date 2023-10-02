@@ -1,8 +1,8 @@
 <!--
-* @Author                : 0K00<qdouvillez@gmail.com>
+* @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>
 * @CreatedDate           : 2023-09-27 16:52:00
-* @LastEditors           : 0K00<qdouvillez@gmail.com>
-* @LastEditDate          : 2023-09-29 18:06:07
+* @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>
+* @LastEditDate          : 2023-10-02 13:22:16
 -->
 
 <div class="ptt-details">
@@ -12,40 +12,59 @@
 
     <div class="block">
       <div class="heading">Id</div>
-      <div class="content">{{ id }}</div>
+
+      <div class="content">
+        {{item.id }}
+      </div>
     </div>
 
     <div class="block">
       <div class="heading">Owner</div>
+
       <div class="content">
-        <core-avatar [imgLink]="owner | recovery:'imgLink':'users' | async" [label]="owner | recovery:'name':'users' | async"></core-avatar>
+        <core-avatar  [imgLink]="item.ownerId | recovery:'picture':'users' | async"
+                      [label]="item.ownerId | recovery:'name':'users' | async"/>
       </div>
     </div>
 
     <div class="block">
       <div class="heading">Assignee</div>
+
       <div class="content">
-        <component-select [data]="users" (callback)="assigneeCB($event)" [selection]="replaceAssignee()" [multi]="true"></component-select>
+        <component-select [data]="users"
+                          [selection]="replaceUsers()"
+                          [multi]="true"
+                          (callback)="onItemChange('assignments', $event)"/>
       </div>
     </div>
 
     <div class="block">
-      <div class="heading">{{ versionTitle }}</div>
+      <div class="heading">{{type === "projects" ? "Version" : "Target version"}}</div>
+
       <div class="content">
-        <component-select [data]="versions" (callback)="versionsCB($event)" [selection]="replaceVersion()" [noResult]="true" [noOption]="'No version for the moment'">
-        </component-select>
+        <component-select [data]="versions"
+                          [selection]="replaceVersion()"
+                          (callback)="onItemChange(type === 'projects' ? 'actualVersion' : 'targetVersionId', $event)"
+                          [noResult]="true"
+                          [noOption]="'No version for the moment'"/>
       </div>
     </div>
 
     <div class="block">
       <div class="heading">Status</div>
+
       <div class="content">
-        <component-select [data]="status" (callback)="statusCB($event)" [selection]="currentStatus" [hasSearch]="false" [multi]="false">
+        <component-select [data]="status"
+                          [selection]="[{id: 'status', status: item.status}]"
+                          [hasSearch]="false"
+                          (callback)="onItemChange('status', $event)"
+                          [multi]="false">
           <ng-template let-select #selected>
-            <component-status [status]="select.status"></component-status>
+            <component-status [status]="select.status"/>
           </ng-template>
+
           <ng-template let-option #items>
-            <component-status [status]="option.status"></component-status>
+            <component-status [status]="option.status"/>
           </ng-template>
         </component-select>
       </div>
@@ -53,13 +72,19 @@
 
     <div class="block">
       <div class="heading">Labels</div>
+
       <div class="content">
-        <component-select [data]="labels" (callback)="labelsCB($event)" [selection]="replaceLabels()" [hasSearch]="true" [multi]="true">
+        <component-select [data]="labels"
+                          [selection]="replaceLabels()"
+                          (callback)="onItemChange('labels', $event)"
+                          [hasSearch]="true"
+                          [multi]="true">
           <ng-template let-select #selected>
-            <component-labels [name]="select.name" [color]="select.color"></component-labels>
+            <component-labels [name]="select.name" [color]="select.color"/>
           </ng-template>
+
           <ng-template let-option #items>
-            <component-labels [name]="option.name" [color]="option.color"></component-labels>
+            <component-labels [name]="option.name" [color]="option.color"/>
           </ng-template>
         </component-select>
       </div>
@@ -67,11 +92,17 @@
 
     <div *ngIf="type != 'projects'" class="block">
       <div class="heading">Level</div>
+
       <div class="content">
-        <component-select [data]="levels" (callback)="levelCB($event)" [selection]="currentLevel" [hasSearch]="false" [multi]="false">
+        <component-select [data]="levels"
+                          [selection]="[{id: 'level', level: item.level}]"
+                          (callback)="onItemChange('level', $event)"
+                          [hasSearch]="false"
+                          [multi]="false">
           <ng-template let-select #selected>
             <component-level [level]="select.level"></component-level>
           </ng-template>
+
           <ng-template let-option #items>
             <component-level [level]="option.level"></component-level>
           </ng-template>
@@ -80,16 +111,22 @@
     </div>
 
     <div *ngIf="type != 'tickets'" class="block">
-      <div class="heading">No. of {{ listTitle }}</div>
+      <div class="heading">No. of {{type === "projects" ? "tasks" : "tickets"}}</div>
+
       <div class="content list">
-        <a [routerLink]="type === 'projects' ? '/tasks' : '/tickets'" [queryParams]="{id: id}">{{ nbList }} {{ listTitle }} <core-icon icon="arrow-right"></core-icon></a>
+        <a [routerLink]="type === 'projects' ? '/tasks' : '/tickets'" [queryParams]="{id: id}">
+          {{nbList}} {{type === "projects" ? "tasks" : "tickets"}}
+
+          <core-icon icon="arrow-right"></core-icon>
+        </a>
       </div>
     </div>
 
     <div class="block">
       <div class="heading">Created</div>
+
       <div class="content">
-        {{ created | dateDifference }}
+        {{ item.created | dateDifference }}
       </div>
     </div>
 

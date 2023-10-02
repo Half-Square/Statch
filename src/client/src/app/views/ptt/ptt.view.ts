@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-09-30 15:55:46                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-09-30 17:48:51                               *
+ * @LastEditDate          : 2023-10-02 13:07:27                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -40,9 +40,9 @@ import { UserService } from "src/app/services/user.service";
   styleUrls: ["./ptt.view.scss"]
 })
 export class PttView implements OnInit, OnDestroy {
-  public item: IProjects | ITasks | ITickets;
   public type: string;
   public id: string;
+  public item: IProjects | ITasks | ITickets;
   public childType: string;
   public childs: ITasks[] | ITickets[] = [];
   public versions: IVersions[] = [];
@@ -65,15 +65,20 @@ export class PttView implements OnInit, OnDestroy {
       this.id = p.get("id") as string;
       this.childType = this.type == "projects" ? "tasks" : "tickets";
 
-      this.subscriptions.map((sub) => sub.unsubscribe()); // Clear old subscriptions
-      this.subscriptions = [
-        this.recovery.getSingle(this.type, this.id).subscribe((el) => { // Get current item
-          if (!el) this.router.navigateByUrl("/not-found");
-          this.item = el;
-        })
-      ];
+      this.getRootProject().then((root) => {
+        this.subscriptions.map((sub) => sub.unsubscribe()); // Clear old subscriptions
+        this.subscriptions = [
+          this.recovery.getSingle(this.type, this.id).subscribe((el) => { // Get current item
+            if (!el) this.router.navigateByUrl("/not-found");
+            this.item = el;
+          }),
+          this.recovery.get(`projects/${root.id}/versions`).subscribe((versions) => {
+            this.versions = versions;
+          })
+        ];
 
-      if (this.childType != this.type) this.subscriptions.push(this.getChilds());
+        if (this.childType != this.type) this.subscriptions.push(this.getChilds());
+      });
     });
   }
 
@@ -81,6 +86,23 @@ export class PttView implements OnInit, OnDestroy {
     this.routeListener.unsubscribe();
     this.subscriptions.map((sub) => sub.unsubscribe());
   }
+
+  /**
+  * Get root project
+  * @return - Root project
+  */
+  private async getRootProject(): Promise<IProjects> {
+    let item = await this.recovery.getSingleSync(this.type, this.id);
+    if (this.type == "tickets") {
+      item = await this.recovery.getSingleSync("tasks", item.taskId);
+      item = await this.recovery.getSingleSync("projects", item.projectId);
+    } else if (this.type == "tasks") {
+      item = await this.recovery.getSingleSync("projects", item.projectId);
+    }
+
+    return item as IProjects;
+  }
+  /***/
 
   /**
   * Get childs
@@ -145,4 +167,13 @@ export class PttView implements OnInit, OnDestroy {
     return !_.isNaN(res) ? res : 0;
   }
   /***/
+
+  /**
+  * Sort childs by version
+  */
+  public sortElement(option: Event): void {
+    console.log(option); // Selected versions
+    // Filter child to print
+    // New progress value
+  }
 }
