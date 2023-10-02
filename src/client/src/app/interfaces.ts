@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-09-20 16:13:37                              *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-10-02 15:18:24                              *
+ * @LastEditDate          : 2023-10-02 15:31:53                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -80,11 +80,11 @@ interface IVersions {
 * IAssignments
 */
 interface IAssignments {
-  id: string,
+  id?: string,
   userId: string,
-  projectId: string | null,
-  taskId: string | null,
-  ticketId: string | null
+  projectId?: string | null,
+  taskId?: string | null,
+  ticketId?: string | null
 }
 /***/
 

@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-09-30 15:55:46                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-10-02 15:20:44                               *
+ * @LastEditDate          : 2023-10-02 15:33:33                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -32,7 +32,7 @@ import { IActivities, IComments, IProjects, ITasks, ITickets, IVersions } from "
 import { RecoveryService } from "src/app/services/recovery.service";
 import { RequestService } from "src/app/services/request.service";
 import { ToastService } from "src/app/services/toast.service";
-import { UserService } from "src/app/services/user.service";
+import { ILoggedUser, UserService } from "src/app/services/user.service";
 /***/
 
 @Component({
@@ -82,7 +82,6 @@ export class PttView implements OnInit, OnDestroy {
             this.activities = a;
           }),
           this.recovery.get(`${this.type}/${this.id}/comments`).subscribe((c) => {
-            console.log(c);
             this.comments = c;
           })
         ];
@@ -186,4 +185,22 @@ export class PttView implements OnInit, OnDestroy {
     // Filter child to print
     // New progress value
   }
+
+
+  /**
+  * Toggle self assignment
+  */
+  public assignSelf(): void {
+    let u = this.user.getUser() as ILoggedUser;
+
+    if (u.id) {
+      let i = _.findIndex(this.item.assignments, {userId: u.id});
+
+      if (i != -1) this.item.assignments.splice(i, 1);
+      else this.item.assignments.push({userId: u.id});
+
+      this.saveItem();
+    }
+  }
+  /***/
 }

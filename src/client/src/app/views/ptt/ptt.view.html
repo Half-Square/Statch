@@ -2,7 +2,7 @@
 * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>
 * @CreatedDate           : 2023-09-30 15:55:00
 * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>
-* @LastEditDate          : 2023-10-02 15:20:24
+* @LastEditDate          : 2023-10-02 15:28:05
 -->
 
 <div class="view-ptt">
@@ -10,7 +10,8 @@
     <section-ptt-tool-bar [isParentOf]="type != 'tickets'"
                           [isAssignee]="_.find(item.assignments, {userId: user.getUser()?.id}) != null"
                           (onDelete)="deleteItem()"
-                          (onCreateChild)="createChild()"/>
+                          (onCreateChild)="createChild()"
+                          (onAssign)="assignSelf()"/>
 
     <div class="container">
       <div class="main">
