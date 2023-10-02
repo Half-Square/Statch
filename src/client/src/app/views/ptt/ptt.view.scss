@@ -2,18 +2,46 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-09-30 15:57:55                              *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-09-30 15:58:22                              *
+ * @LastEditDate          : 2023-10-02 13:32:52                              *
  ****************************************************************************/
 
 .view-ptt {
   height: 100%;
   box-sizing: border-box;
   position: relative;
+  display: flex;
+  flex-direction: column;
 
   .loading {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+  }
+
+  .container {
+    flex-grow: 1;
+    display: grid;
+    grid-template-columns: minmax(350px, 1fr) minmax(150px, 350px);
+    grid-template-rows: 1fr;
+
+    .main {
+      .advancement {
+        display: grid;
+        grid-gap: 16px;
+        padding: 16px;
+
+        .add {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          width: 100%;
+        }
+      }
+    }
+
+    aside {
+      border-left: solid 1px #3d3d3d;
+    }
   }
 }

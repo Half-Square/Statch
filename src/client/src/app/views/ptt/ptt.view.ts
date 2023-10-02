@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-09-30 15:55:46                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-10-02 13:07:27                               *
+ * @LastEditDate          : 2023-10-02 13:24:47                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -14,6 +14,7 @@
   * Create child for item
   * Delete current item
   * Set item advancement
+  * Sort childs by version
 */
 
 /* Imports */
