@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-06-24 17:11:00                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-09-27 15:08:26                               *
+ * @LastEditDate          : 2023-10-02 15:22:36                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -125,7 +125,7 @@ export class CommentsController {
         data: toSave
       });
 
-      this.socket.broadcast(`${parent}/${parentId}/comments`, {id: id}, true);
+      this.socket.broadcast(`${parent}/${id}/comments`, comment);
       return comment;
     } catch (err) {
       if (err.code == "P2003")

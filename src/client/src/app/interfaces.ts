@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-09-20 16:13:37                              *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-09-30 16:39:53                              *
+ * @LastEditDate          : 2023-10-02 15:18:24                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -14,6 +14,7 @@
   * ILabels
   * IUsers
   * IActivities
+  * IComments
 */
 
 /**
@@ -134,6 +135,20 @@ interface IActivities {
 }
 /***/
 
+/**
+* IComments
+*/
+interface IComments {
+  id: string,
+  created: string,
+  content: string,
+  projectId: string | null,
+  taskId: string | null,
+  ticketId: string | null,
+  authorId: string
+}
+/***/
+
 export {
   IProjects,
   ITasks,
@@ -142,5 +157,6 @@ export {
   IAssignments,
   ILabels,
   IUsers,
-  IActivities
+  IActivities,
+  IComments
 };

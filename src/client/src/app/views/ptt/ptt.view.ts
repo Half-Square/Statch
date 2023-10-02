@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-09-30 15:55:46                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-10-02 15:04:32                               *
+ * @LastEditDate          : 2023-10-02 15:20:44                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -25,7 +25,7 @@ import * as _ from "lodash";
 /***/
 
 /* Interfaces */
-import { IActivities, IProjects, ITasks, ITickets, IVersions } from "src/app/interfaces";
+import { IActivities, IComments, IProjects, ITasks, ITickets, IVersions } from "src/app/interfaces";
 /***/
 
 /* Services */
@@ -47,6 +47,7 @@ export class PttView implements OnInit, OnDestroy {
   public childType: string;
   public childs: ITasks[] | ITickets[] = [];
   public activities: IActivities[] = [];
+  public comments: IComments[] = [];
   public versions: IVersions[] = [];
   public _ = _;
 
@@ -79,6 +80,10 @@ export class PttView implements OnInit, OnDestroy {
           }),
           this.recovery.get(`${this.type}/${this.id}/activities`).subscribe((a) => {
             this.activities = a;
+          }),
+          this.recovery.get(`${this.type}/${this.id}/comments`).subscribe((c) => {
+            console.log(c);
+            this.comments = c;
           })
         ];
 
