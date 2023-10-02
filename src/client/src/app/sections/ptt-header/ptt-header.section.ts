@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-09-27 14:08:53                              *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-09-30 17:19:07                              *
+ * @LastEditDate          : 2023-10-02 19:27:21                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -77,30 +77,15 @@ export class PttHeaderSection {
   /**
   * Save item on press enter
   */
-  @HostListener("document:keydown", ["$event"])
-  private saveEnter(event: KeyboardEvent): void {
-    if(event.key === "Enter") {
-      if(this.descriptionEl && this.descriptionEl.nativeElement) {
-        this.descriptionEl.nativeElement.addEventListener("keypress", (evt: KeyboardEvent) => {
-          if(evt.key === "Enter" && !evt.shiftKey) {
-            evt.preventDefault();
-            this.editDescription = false;
-            this.item.description = this.content().description;
-            this.itemChange.emit(this.item);
-          }
-        });
-      }
-
-      if(this.nameEl && this.nameEl.nativeElement) {
-        this.nameEl.nativeElement.addEventListener("keypress", (evt: KeyboardEvent) => {
-          if(evt.key === "Enter") {
-            evt.preventDefault();
-            this.editName = false;
-            this.item.name = this.content().name;
-            this.itemChange.emit(this.item);
-          }
-        });
-      }
+  public saveEnter(event: KeyboardEvent, origin: string): void {
+    if (event.key === "Enter" &&
+          (origin === "name" ||
+          (origin === "description" && !event.shiftKey))) {
+      this.editDescription = false;
+      this.editName = false;
+      this.item.description = this.content().description;
+      this.item.name = this.content().name;
+      this.itemChange.emit(this.item);
     }
   }
   /***/
@@ -110,10 +95,13 @@ export class PttHeaderSection {
   * @param where - Field to toggle edit mode
   */
   public toggleEdit(where: string): void {
-    if(where === "name")
+    if(where === "name") {
       this.editName = true;
-    else
+      this.nameEl.nativeElement.focus();
+    } else {
       this.editDescription = true;
+      this.descriptionEl.nativeElement.focus();
+    }
   }
   /***/
 

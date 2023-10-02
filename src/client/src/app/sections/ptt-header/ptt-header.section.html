@@ -2,7 +2,7 @@
 * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>
 * @CreatedDate           : 2023-09-21 13:37:00
 * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>
-* @LastEditDate          : 2023-09-30 17:13:59
+* @LastEditDate          : 2023-10-02 19:18:16
 -->
 
 <header class="ptt-header">
@@ -15,7 +15,8 @@
       (input)="content()"
       (dblclick)="toggleEdit('name')"
       [attr.contenteditable]="editName"
-      [innerHTML]="item.name">
+      [innerHTML]="item.name"
+      (keydown)="saveEnter($event, 'name')">
   </h1>
 
   <div class="description">
@@ -26,7 +27,8 @@
         (input)="content()"
         (dblclick)="toggleEdit('description')"
         [attr.contenteditable]="editDescription"
-        [innerHTML]="item.description">
+        [innerHTML]="item.description"
+        (keydown)="saveEnter($event, 'description')">
     </p>
   </div>
 </header>
