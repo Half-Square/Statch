@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-09-30 15:55:46                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-10-02 15:33:33                               *
+ * @LastEditDate          : 2023-10-02 18:55:04                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -50,6 +50,7 @@ export class PttView implements OnInit, OnDestroy {
   public comments: IComments[] = [];
   public versions: IVersions[] = [];
   public _ = _;
+  public versionFilters: IVersions[];
 
   private subscriptions: Subscription[] = [];
   private routeListener: Subscription;

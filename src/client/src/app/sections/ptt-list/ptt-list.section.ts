@@ -2,15 +2,21 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-09-21 15:40:44                              *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-09-30 17:47:42                              *
+ * @LastEditDate          : 2023-10-02 18:56:57                              *
  ****************************************************************************/
 
 /* SUMMARY
   * Imports
+  * Interfaces
 */
 
 /* Imports */
 import { Component, Input } from "@angular/core";
+import * as _ from "lodash";
+/***/
+
+/* Interfaces */
+import { IVersions } from "src/app/interfaces";
 /***/
 
 @Component({
@@ -22,5 +28,16 @@ export class PttListSection {
   @Input() link: string = "";
   @Input() elements: any[] = [];
   @Input() type: string = "";
+  @Input() versions: IVersions[] | null = null;
 
+  /**
+  * Filter element by version
+  * @param el - Element to check
+  */
+  filterByVersion(el: any): boolean {
+    if (this.versions && this.versions.length > 0) {
+      return _.find(this.versions, {id: el.targetVersionId}) ? true: false;
+    } else return true;
+  }
+  /***/
 }
