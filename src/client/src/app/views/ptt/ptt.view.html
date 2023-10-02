@@ -2,7 +2,7 @@
 * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>
 * @CreatedDate           : 2023-09-30 15:55:00
 * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>
-* @LastEditDate          : 2023-10-02 15:28:05
+* @LastEditDate          : 2023-10-02 18:41:56
 -->
 
 <div class="view-ptt">
@@ -55,7 +55,7 @@
         </div>
 
         <div class="activities-list">
-          <component-activity-item [reduce]="true" *ngFor="let activity of activities | slice:0:10" [activity]="activity"/>
+          <component-activity-item [reduce]="true" *ngFor="let activity of activities | orderBy:'created':'desc' | slice:0:10" [activity]="activity"/>
         </div>
       </aside>
     </div>

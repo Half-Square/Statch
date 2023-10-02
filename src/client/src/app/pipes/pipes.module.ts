@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-09-25 15:38:06                              *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-09-26 10:43:35                              *
+ * @LastEditDate          : 2023-10-02 18:37:09                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -18,13 +18,15 @@ import { NgModule } from "@angular/core";
 import { RecoveryPipe } from "./recovery.pipe";
 import { SearchPipe } from "./search.pipe";
 import { DateDifferencePipe } from "./date-difference.pipe";
+import { OrderByPipe } from "./order-by.pipe";
 /***/
 
 @NgModule({
   declarations: [
     RecoveryPipe,
     SearchPipe,
-    DateDifferencePipe
+    DateDifferencePipe,
+    OrderByPipe
   ],
   imports: [
 
@@ -35,7 +37,8 @@ import { DateDifferencePipe } from "./date-difference.pipe";
   exports: [
     RecoveryPipe,
     SearchPipe,
-    DateDifferencePipe
+    DateDifferencePipe,
+    OrderByPipe
   ]
 })
 export class PipesModule { }
