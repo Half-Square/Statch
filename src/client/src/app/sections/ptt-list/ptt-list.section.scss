@@ -1,4 +1,16 @@
+/*****************************************************************************
+ * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @CreatedDate           : 2023-10-03 11:28:33                              *
+ * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @LastEditDate          : 2023-10-03 11:33:24                              *
+ ****************************************************************************/
+
 .ptt-list {
+  &.no-container {
+    .sort {display: none;}
+    .add-item {display: none;}
+  }
+
   .sort {
     display: flex;
     justify-content: space-between;

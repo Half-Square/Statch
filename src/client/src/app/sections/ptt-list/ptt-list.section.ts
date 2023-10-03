@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-09-21 15:40:44                              *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-10-03 10:46:58                              *
+ * @LastEditDate          : 2023-10-03 12:10:18                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -26,10 +26,10 @@ import { ITasks, ITickets, IVersions } from "src/app/interfaces";
   styleUrls: ["./ptt-list.section.scss"]
 })
 export class PttListSection {
-  @Input() link: string = "";
   @Input() elements: any[] = [];
   @Input() type: string = "";
   @Input() versions: IVersions[] | null = null;
+  @Input() other: string = ""; // Css class
 
   /**
   * Filter element by version

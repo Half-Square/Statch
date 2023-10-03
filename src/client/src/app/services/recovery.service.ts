@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-05-31 12:56:22                              *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-10-03 10:36:24                              *
+ * @LastEditDate          : 2023-10-03 12:20:38                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -73,11 +73,14 @@ export class RecoveryService {
   * @param observer - Data subscriber
   * @param name - Ressource name
   */
-  private handleSocketEvents(observer: Subscriber<any[]>, name: string): void {
+  private handleSocketEvents(
+    observer: Subscriber<any[]>,
+    name: string,
+    id?: string): void {
     let evtIndex = _.findIndex(this.socketEvt, (el) => el === name);
 
     const send = (): void => {
-      observer.next(this.data[name]);
+      observer.next(id ? _.find(this.data[name], {id: id}) : this.data[name]);
     };
 
     if (this.socket && evtIndex === -1) { // Avoid listener duplication
@@ -86,41 +89,6 @@ export class RecoveryService {
       this.socket.on(name, (data) => {
         this.updateData(data, name);
         send();
-      });
-    }
-  }
-  /***/
-
-  /**
-  * Handle socket events
-  * @param observer - Data subscriber
-  * @param name - Ressource name
-  * @param id - Ressource id
-  */
-  private handleSingleSocketEvents(
-    observer: Subscriber<any[]>,
-    name: string): void {
-    const send = (index: number): void => {
-      observer.next(this.data[name][index]);
-    };
-
-
-    if (this.socket) {
-      this.socket.on(name, (data) => {
-        let index = _.findIndex(this.data[name], {id: data.id});
-
-        if (data["deleted"] && index != -1) {
-          this.data[name].splice(index, 1);
-        } else {
-          if (index == -1) {
-            this.data[name] ? this.data[name].push(data) : this.data[name] = [data];
-            observer.next(data);
-          } else {
-            this.data[name][index] = data;
-          }
-        }
-
-        send(index);
       });
     }
   }
@@ -183,7 +151,7 @@ export class RecoveryService {
         observer.next(_.find(this.data[collection], {id: id}));
       }
 
-      this.handleSingleSocketEvents(observer, collection);
+      this.handleSocketEvents(observer, collection, id);
 
       return (() => {
         this.socket?.removeAllListeners(collection);

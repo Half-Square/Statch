@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-05-31 15:03:46                              *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-09-29 10:01:44                              *
+ * @LastEditDate          : 2023-10-03 11:17:12                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -29,7 +29,7 @@ import { LoginView } from "./views/login/login.view";
 import { NotFoundView } from "./views/not-found/not-found.view";
 import { PttView } from "./views/ptt/ptt.view";
 import { SignupView } from "./views/signup/signup.view";
-import { ProjectsView } from "./views/projects/projects.view";
+import { PttAllView } from "./views/ptt-all/ptt-all.view";
 import { MyTasksView } from "./views/my-tasks/my-tasks.view";
 import { ProfileView } from "./views/profile/profile.view";
 import { SettingsView } from "./views/settings/settings.view";
@@ -54,9 +54,9 @@ const routes: Routes = [
     ]
   },
 
-  { path: "projects", component: ProjectsView, canActivate: [IsConnectedGuard] },
   { path: "my-tasks", component: MyTasksView, canActivate: [IsConnectedGuard] },
   { path: "my-activities", component: MyActivitiesView, canActivate: [IsConnectedGuard] },
+  { path: ":type", component: PttAllView, canActivate: [IsConnectedGuard, TypeGuard] },
   { path: ":type/:id", component: PttView, canActivate: [TypeGuard, IsConnectedGuard] },
 
   { path: "not-found", component: NotFoundView },

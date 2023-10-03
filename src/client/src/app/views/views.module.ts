@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-06-01 15:46:03                              *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-09-28 15:52:27                              *
+ * @LastEditDate          : 2023-10-03 11:17:32                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -28,7 +28,7 @@ import { LoginView } from "./login/login.view";
 import { SignupView } from "./signup/signup.view";
 import { PttView } from "./ptt/ptt.view";
 import { NotFoundView } from "./not-found/not-found.view";
-import { ProjectsView } from "./projects/projects.view";
+import { PttAllView } from "./ptt-all/ptt-all.view";
 import { MyTasksView } from "./my-tasks/my-tasks.view";
 import { PipesModule } from "../pipes/pipes.module";
 import { ProfileView } from "./profile/profile.view";
@@ -45,7 +45,7 @@ import { MyActivitiesView } from "./my-activities/my-activities.view";
     SignupView,
     PttView,
     NotFoundView,
-    ProjectsView,
+    PttAllView,
     MyTasksView,
     ProfileView,
     SettingsView,
@@ -68,7 +68,7 @@ import { MyActivitiesView } from "./my-activities/my-activities.view";
     SignupView,
     PttView,
     NotFoundView,
-    ProjectsView,
+    PttAllView,
     MyTasksView,
     ProfileView,
     SettingsView,
