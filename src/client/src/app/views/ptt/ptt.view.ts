@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-09-30 15:55:46                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-10-03 12:20:34                               *
+ * @LastEditDate          : 2023-10-03 12:34:53                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -52,6 +52,7 @@ export class PttView implements OnInit, OnDestroy {
   public versions: IVersions[] = [];
   public _ = _;
   public versionFilters: IVersions[];
+  public root: IProjects;
 
   private subscriptions: Subscription[] = [];
   private routeListener: Subscription;
@@ -71,6 +72,7 @@ export class PttView implements OnInit, OnDestroy {
       this.childType = this.type == "projects" ? "tasks" : "tickets";
 
       this.getRootProject().then((root) => {
+        this.root = root;
         this.subscriptions.map((sub) => sub.unsubscribe()); // Clear old subscriptions
         this.subscriptions = [
           this.recovery.getSingle(this.type, this.id).subscribe((el) => { // Get current item

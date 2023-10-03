@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-09-27 16:52:14                              *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-10-03 10:47:29                              *
+ * @LastEditDate          : 2023-10-03 12:39:30                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -22,11 +22,12 @@ import * as _ from "lodash";
 /***/
 
 /* Interfaces */
-import { ILabels, IUsers, IVersions } from "src/app/interfaces";
+import { ILabels, IProjects, IUsers, IVersions } from "src/app/interfaces";
 /***/
 
 /* Services */
 import { RecoveryService } from "src/app/services/recovery.service";
+import { RequestService } from "src/app/services/request.service";
 /***/
 
 /* eslint-disable  @typescript-eslint/no-explicit-any */
@@ -41,6 +42,7 @@ export class PttDetailsSection implements OnInit, OnDestroy {
   @Input() versions: IVersions[] = [];
   @Input() type: string;
   @Input() nbList: number;
+  @Input() root: IProjects;
   @Output() itemChange = new EventEmitter();
 
   public labels: ILabels[] = [];
@@ -60,15 +62,17 @@ export class PttDetailsSection implements OnInit, OnDestroy {
     {id: "high", level: "high"}
   ];
 
-  constructor(public recovery: RecoveryService) {
+  public _ = _;
+  private subsciptions: Subscription[];
+
+  constructor(public recovery: RecoveryService,
+              public api: RequestService) {
     this.subsciptions = [
       this.recovery.get("users").subscribe((users) => this.users = users),
       this.recovery.get("labels").subscribe((labels) => this.labels = labels)
     ];
   }
 
-  public _ = _;
-  private subsciptions: Subscription[];
 
   ngOnInit(): void {
     this.subsciptions = [
@@ -118,7 +122,7 @@ export class PttDetailsSection implements OnInit, OnDestroy {
   * @param field - On change field name
   * @param value - New value of field
   */
-  public onItemChange(field: string, value: Event): void {
+  public async onItemChange(field: string, value: Event): Promise<void> {
     this.item[field] = value;
 
     switch(field) {
@@ -129,6 +133,7 @@ export class PttDetailsSection implements OnInit, OnDestroy {
       });
       break;
     case "actualVersion":
+      if ((value as any)["fromSearch"]) this.item[field] = [await this.createVersion(value)];
       this.item.actualVersion = this.type === "projects" ? this.item?.actualVersion[0]?.id : undefined;
       break;
     case "targetVersionId":
@@ -149,6 +154,18 @@ export class PttDetailsSection implements OnInit, OnDestroy {
     }
 
     this.itemChange.emit(this.item);
+  }
+  /***/
+
+  /**
+  * Create new version
+  * @param value - New data
+  * @return - New version
+  */
+  private async createVersion(value: any): Promise<IVersions> {
+    return await this.api.post(`api/projects/${this.root.id}/versions`, {
+      name: value.name
+    }) as IVersions;
   }
   /***/
 }
