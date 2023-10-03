@@ -1,0 +1,30 @@
+<!--
+* @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>
+* @CreatedDate           : 2023-09-22 18:44:00
+* @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>
+* @LastEditDate          : 2023-10-03 18:39:15
+-->
+
+<div class="view-ptt-all">
+  <ng-template [ngIf]="items" [ngIfElse]="loading">
+    <div class="header" *ngIf="type == 'projects' || id">
+      <h3>{{type}}</h3>
+
+      <core-button  type="flat"
+                    label="New {{type.slice(0, -1)}}"
+                    (click)="createItem()"/>
+    </div>
+
+    <div class="list" *ngIf="filterByParent(items).length > 0">
+      <section-ptt-list [elements]="filterByParent(items)"
+                        [type]="type"
+                        other="no-container"/>
+    </div>
+  </ng-template>
+
+  <ng-template #loading>
+    <div class="loading">
+      <core-loading/>
+    </div>
+  </ng-template>
+</div>

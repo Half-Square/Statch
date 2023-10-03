@@ -1,0 +1,24 @@
+<!--
+* @Author                : 0K00<qdouvillez@gmail.com>
+* @CreatedDate           : 2023-09-14 14:51:00
+* @LastEditors           : 0K00<qdouvillez@gmail.com>
+* @LastEditDate          : 2023-09-14 16:23:37
+-->
+
+<div class="paginator">
+  <core-button [type]="'basic'" [style]="'primary'" [size]="'medium'" (click)="changePage('prev')">
+    <core-icon icon="chevron-left"></core-icon>
+  </core-button>
+
+  <ng-container *ngIf="totalPages <= 7; else reducePages">
+    <core-button *ngFor="let page of totalPagesArray()" [class.active]="page === currentPage" (click)="changePage(page)" [type]="page === currentPage ? 'flat' :'basic'" [style]="'primary'" [size]="'medium'">{{ page }}</core-button>
+  </ng-container>
+
+  <ng-template #reducePages>
+    <core-button *ngFor="let page of visiblePages()"  [class.active]="page === currentPage" (click)="changePage(page)" [type]="page === currentPage ? 'flat' :'basic'" [style]="'primary'" [size]="'medium'">{{ page }}</core-button>
+  </ng-template>
+
+  <core-button [type]="'basic'" [style]="'primary'" [size]="'medium'" (click)="changePage('next')">
+    <core-icon icon="chevron-right"></core-icon>
+  </core-button>
+</div>

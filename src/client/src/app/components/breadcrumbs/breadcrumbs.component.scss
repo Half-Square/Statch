@@ -1,0 +1,37 @@
+.breadcrumb {
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  a {
+      font-style: normal;
+      font-weight: 500;
+      font-size: 12px;
+      line-height: 16px;
+      text-decoration: none;
+      color: #a7a7a7;
+      transition: all 250ms ease-out;
+      cursor: pointer;
+      &:hover {
+          color: #e1e5ee;
+          text-decoration: underline;
+      }
+  }
+
+  li {
+      display: inline-block;
+      text-transform: capitalize;
+      &:last-child {
+        a {
+          color: #1b67ff;
+
+        }
+      }
+      &:not(:last-child)::after {
+          content: '/';
+          margin: 0 8px;
+          color: #a7a7a7;
+      }
+  }
+}

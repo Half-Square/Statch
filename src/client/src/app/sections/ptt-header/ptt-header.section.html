@@ -1,0 +1,34 @@
+<!--
+* @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>
+* @CreatedDate           : 2023-09-21 13:37:00
+* @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>
+* @LastEditDate          : 2023-10-02 19:18:16
+-->
+
+<header class="ptt-header">
+  <div class="edit">
+    <ng-content></ng-content>
+  </div>
+
+  <h1 #nameEl
+      class="title"
+      (input)="content()"
+      (dblclick)="toggleEdit('name')"
+      [attr.contenteditable]="editName"
+      [innerHTML]="item.name"
+      (keydown)="saveEnter($event, 'name')">
+  </h1>
+
+  <div class="description">
+    <h2 class="subtitle">Description</h2>
+
+    <p  #descriptionEl
+        class="content"
+        (input)="content()"
+        (dblclick)="toggleEdit('description')"
+        [attr.contenteditable]="editDescription"
+        [innerHTML]="item.description"
+        (keydown)="saveEnter($event, 'description')">
+    </p>
+  </div>
+</header>

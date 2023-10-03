@@ -1,0 +1,22 @@
+<!--
+* @Author                : 0K0<qdouvillez@gmail.com>
+* @CreatedDate           : 2023-06-06 12:04:00
+* @LastEditors           : 0K0<qdouvillez@gmail.com>
+* @LastEditDate          : 2023-06-06 16:07:54
+-->
+
+<div [ngClass]='{ prbar: true }'>
+
+  <div *ngIf="isLabel" class='label'>{{ label }}</div>
+
+  <div class='container'>
+
+      <div class='progress'>
+          <div class='bar' [style]="'width: ' + this.value + '%'"></div>
+      </div>
+
+      <div *ngIf="showValue" class='value'>{{ value }}% done</div>
+
+  </div>
+
+</div>

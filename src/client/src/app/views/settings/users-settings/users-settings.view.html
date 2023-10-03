@@ -1,0 +1,26 @@
+<!--
+* @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>
+* @CreatedDate           : 2023-09-29 09:37:00
+* @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>
+* @LastEditDate          : 2023-09-29 09:53:46
+-->
+
+<div class="view-users-settings">
+  <ng-template [ngIf]="users" [ngIfElse]="loading">
+    <div class="users-list">
+      <div class="user-item" *ngFor="let user of users">
+        <div>{{user.id}}</div>
+        <div>{{user.name}}</div>
+        <div>{{user.email}}</div>
+        <core-checkbox label="Is admin" [(checked)]="user.isAdmin" (checkedChange)="updateUser(user.id)"/>
+        <core-checkbox label="Is Validated" [(checked)]="user.validate" (checkedChange)="updateUser(user.id)"/>
+      </div>
+    </div>
+  </ng-template>
+
+  <ng-template #loading>
+    <div class="loading">
+      <core-loading/>
+    </div>
+  </ng-template>
+</div>

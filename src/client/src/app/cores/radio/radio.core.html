@@ -1,0 +1,14 @@
+<!--
+* @Author                : 0K00<qdouvillez@gmail.com>
+* @CreatedDate           : 2023-08-30 16:33:00
+* @LastEditors           : 0K00<qdouvillez@gmail.com>
+* @LastEditDate          : 2023-08-31 16:07:35
+-->
+
+<label [ngClass]="['radio', style]">
+
+  <input type="radio" [checked]="checked" [name]="name" (change)="toggleChecked()" />
+
+  <span>{{label}}</span>
+
+</label>

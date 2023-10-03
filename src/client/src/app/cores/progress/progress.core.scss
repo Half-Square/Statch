@@ -1,0 +1,40 @@
+.prbar {
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+
+   .label {
+       font-size: 16px;
+       font-weight: 500;
+       line-height: 24px;
+       color: #a7a7a7;
+   }
+   .container {
+       width: 100%;
+       display: flex;
+       flex-direction: row;
+       flex-wrap: nowrap;
+       align-items: center;
+       gap: 8px;
+   }
+   .progress {
+       border-radius: 999px;
+       height: 8px;
+       width: 100%;
+       background: #0a1e48;
+       overflow: hidden;
+   }
+   .bar {
+       height: 100%;
+       background: #0055ff;
+   }
+   .value {
+       font-size: 12px;
+       font-weight: 500;
+       line-height: 16px;
+       color: #e1e5ee;
+       white-space: nowrap;
+   }
+}

@@ -1,0 +1,26 @@
+.tabs {
+  display: flex;
+  flex-direction: column;
+
+  .header {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: 12px;
+    line-height: 16px;
+    font-weight: 500;
+    display: flex;
+    gap: 8px;
+    border-bottom: 1px solid #3d3d3d;
+    margin-bottom: 16px;
+
+    .title {
+      padding: 8px 16px;
+      cursor: pointer;
+      color: #a7a7a7;
+    }
+
+    .title.active {
+      color: #0055ff;
+      box-shadow: 0px 2px 0px 0px #0055ff;
+    }
+  }
+}

@@ -1,0 +1,31 @@
+<!--
+* @Author                : Quentin<quentin@halfsquare.fr>
+* @CreatedDate           : 2023-09-18 19:17:00
+* @LastEditors           : Quentin<quentin@halfsquare.fr>
+* @LastEditDate          : 2023-09-19 12:44:35
+-->
+
+<ul class="tree">
+
+  <li *ngFor="let node of treeData">
+    <div class="item" [ngClass]="node.children ? '' : 'depth'">
+      <div class="collapse" *ngIf="node.children" (click)="toggleNode(node)"><core-icon [icon]="node.isExpanded ? 'chevron-down' : 'chevron-right'"></core-icon></div>
+
+      <a class="link" [routerLink]="'/' + node.link" routerLinkActive="active">
+        <core-icon *ngIf="node.status" [ngClass]="node.status" [icon]="node.status"></core-icon>
+
+        <div class="ellipsis">
+          {{ node.label }}
+        </div>
+
+      </a>
+
+    </div>
+
+    <ul class="list" *ngIf="node.isExpanded">
+      <component-tree *ngIf="node.children" [treeData]="node.children"></component-tree>
+    </ul>
+
+  </li>
+
+</ul>

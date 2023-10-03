@@ -1,0 +1,22 @@
+<!--
+* @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>
+* @CreatedDate           : 2023-09-28 16:38:00
+* @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>
+* @LastEditDate          : 2023-09-28 17:27:18
+-->
+
+<div class="component-labels-edit">
+  <component-color-select [(value)]="label.color" (valueChange)="labelChange.emit(label)"/>
+
+  <core-input placeholder="Add name"
+              [(value)]="label.name"
+              (valueChange)="labelChange.emit(label)"
+              (keydown.enter)="callback.emit()"
+              class="input"/>
+
+  <core-input placeholder="Description"
+              [(value)]="label.description"
+              (valueChange)="labelChange.emit(label)"
+              (keydown.enter)="callback.emit()"
+              class="input"/>
+</div>

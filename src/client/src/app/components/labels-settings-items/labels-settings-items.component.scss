@@ -1,0 +1,46 @@
+/*****************************************************************************
+ * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @CreatedDate           : 2023-09-28 16:16:58                              *
+ * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @LastEditDate          : 2023-09-28 18:01:16                              *
+ ****************************************************************************/
+
+.component-labels-settings-items {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px;
+  border-radius: 8px;
+
+  .label-details {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    color: #eaeaea80;
+  }
+
+  .actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &:hover {
+    background-color: #2E2E2E;
+  }
+
+  .edit-mode {
+    display: flex;
+    align-items: center;
+    width: 100%;
+
+    .edit {
+      flex-grow: 1;
+    }
+
+    .buttons {
+      display: flex;
+      align-items: center;
+    }
+  }
+}

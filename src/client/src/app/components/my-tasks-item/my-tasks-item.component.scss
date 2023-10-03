@@ -1,0 +1,56 @@
+/*****************************************************************************
+ * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @CreatedDate           : 2023-09-25 17:26:19                              *
+ * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @LastEditDate          : 2023-09-25 17:55:19                              *
+ ****************************************************************************/
+
+.component-my-tasks-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+
+  .start {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  &.level-0 {
+    background-color: rgb(34, 34, 34);
+  }
+
+  &.level-1 {
+    padding-left: 50px;
+  }
+
+  &.level-2 {
+    padding-left:80px;
+  }
+
+  &.level-1, &.level-2 {
+    border-bottom: 1px solid #ffffff52;
+  }
+
+  .end {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+
+    .date {
+      opacity: 0.5;
+      font-size: 12px;
+    }
+
+    .collapse.not-opennable {
+      visibility: hidden;
+      pointer-events: none;
+    }
+  }
+}

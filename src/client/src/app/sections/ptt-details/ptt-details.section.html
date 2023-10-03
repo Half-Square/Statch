@@ -1,0 +1,134 @@
+<!--
+* @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>
+* @CreatedDate           : 2023-09-27 16:52:00
+* @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>
+* @LastEditDate          : 2023-10-02 13:22:16
+-->
+
+<div class="ptt-details">
+  <h2 class="subtitle">Details</h2>
+
+  <div class="container">
+
+    <div class="block">
+      <div class="heading">Id</div>
+
+      <div class="content">
+        {{item.id }}
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="heading">Owner</div>
+
+      <div class="content">
+        <core-avatar  [imgLink]="item.ownerId | recovery:'picture':'users' | async"
+                      [label]="item.ownerId | recovery:'name':'users' | async"/>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="heading">Assignee</div>
+
+      <div class="content">
+        <component-select [data]="users"
+                          [selection]="replaceUsers()"
+                          [multi]="true"
+                          (callback)="onItemChange('assignments', $event)"/>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="heading">{{type === "projects" ? "Version" : "Target version"}}</div>
+
+      <div class="content">
+        <component-select [data]="versions"
+                          [selection]="replaceVersion()"
+                          (callback)="onItemChange(type === 'projects' ? 'actualVersion' : 'targetVersionId', $event)"
+                          [noResult]="true"
+                          [noOption]="'No version for the moment'"/>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="heading">Status</div>
+
+      <div class="content">
+        <component-select [data]="status"
+                          [selection]="[{id: 'status', status: item.status}]"
+                          [hasSearch]="false"
+                          (callback)="onItemChange('status', $event)"
+                          [multi]="false">
+          <ng-template let-select #selected>
+            <component-status [status]="select.status"/>
+          </ng-template>
+
+          <ng-template let-option #items>
+            <component-status [status]="option.status"/>
+          </ng-template>
+        </component-select>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="heading">Labels</div>
+
+      <div class="content">
+        <component-select [data]="labels"
+                          [selection]="replaceLabels()"
+                          (callback)="onItemChange('labels', $event)"
+                          [hasSearch]="true"
+                          [multi]="true">
+          <ng-template let-select #selected>
+            <component-labels [name]="select.name" [color]="select.color"/>
+          </ng-template>
+
+          <ng-template let-option #items>
+            <component-labels [name]="option.name" [color]="option.color"/>
+          </ng-template>
+        </component-select>
+      </div>
+    </div>
+
+    <div *ngIf="type != 'projects'" class="block">
+      <div class="heading">Level</div>
+
+      <div class="content">
+        <component-select [data]="levels"
+                          [selection]="[{id: 'level', level: item.level}]"
+                          (callback)="onItemChange('level', $event)"
+                          [hasSearch]="false"
+                          [multi]="false">
+          <ng-template let-select #selected>
+            <component-level [level]="select.level"></component-level>
+          </ng-template>
+
+          <ng-template let-option #items>
+            <component-level [level]="option.level"></component-level>
+          </ng-template>
+        </component-select>
+      </div>
+    </div>
+
+    <div *ngIf="type != 'tickets'" class="block">
+      <div class="heading">No. of {{type === "projects" ? "tasks" : "tickets"}}</div>
+
+      <div class="content list">
+        <a [routerLink]="type === 'projects' ? '/tasks' : '/tickets'" [queryParams]="{id: id}">
+          {{nbList}} {{type === "projects" ? "tasks" : "tickets"}}
+
+          <core-icon icon="arrow-right"></core-icon>
+        </a>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="heading">Created</div>
+
+      <div class="content">
+        {{ item.created | dateDifference }}
+      </div>
+    </div>
+
+  </div>
+</div>

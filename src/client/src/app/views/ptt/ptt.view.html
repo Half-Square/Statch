@@ -1,0 +1,70 @@
+<!--
+* @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>
+* @CreatedDate           : 2023-09-30 15:55:00
+* @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>
+* @LastEditDate          : 2023-10-03 12:35:11
+-->
+
+<div class="view-ptt">
+  <ng-template [ngIf]="item" [ngIfElse]="loading">
+    <section-ptt-tool-bar [isParentOf]="type != 'tickets'"
+                          [isAssignee]="_.find(item.assignments, {userId: user.getUser()?.id}) != null"
+                          (onDelete)="deleteItem()"
+                          (onCreateChild)="createChild()"
+                          (onAssign)="assignSelf()"/>
+
+    <div class="container">
+      <div class="main">
+        <section-ptt-header [(item)]="item" (itemChange)="saveItem()"/>
+
+        <div *ngIf="type != 'tickets'" class="advancement">
+          <section-ptt-advancement [value]="setAdvancement()"/>
+
+          <section-ptt-list [elements]="childs" [type]="childType" [versions]="versionFilters">
+            <ng-container sort>
+              {{type}}
+
+              <component-select [data]="versions"
+                                [placeholder]="'Select verions to sort...'"
+                                [multi]="true"
+                                [hasSearch]="false"
+                                (callback)="versionFilters = $event">
+              </component-select>
+            </ng-container>
+
+            <div class="add" add (click)="createChild()">
+              <core-icon icon="plus"></core-icon>
+              Create new {{childType}}
+            </div>
+          </section-ptt-list>
+        </div>
+
+        <div class="comment">
+          <section-ptt-comment [item]="item" [type]="type" [comments]="comments"/>
+        </div>
+      </div>
+
+      <aside class="right-panel">
+        <div class="details">
+          <section-ptt-details  [id]="id"
+                                [type]="type"
+                                [(item)]="item"
+                                (itemChange)="saveItem()"
+                                [versions]="versions"
+                                [nbList]="childs.length"
+                                [root]="root"/>
+        </div>
+
+        <div class="activities-list">
+          <component-activity-item [reduce]="true" *ngFor="let activity of activities | orderBy:'created':'desc' | slice:0:10" [activity]="activity"/>
+        </div>
+      </aside>
+    </div>
+  </ng-template>
+
+  <ng-template #loading>
+    <div class="loading">
+      <core-loading/>
+    </div>
+  </ng-template>
+</div>

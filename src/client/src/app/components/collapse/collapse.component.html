@@ -1,0 +1,21 @@
+<!--
+* @Author                : Quentin<quentin@halfsquare.fr>
+* @CreatedDate           : 2023-09-13 13:36:00
+* @LastEditors           : Quentin<quentin@halfsquare.fr>
+* @LastEditDate          : 2023-09-13 16:31:54
+-->
+
+<div class="collapse">
+
+  <div class="title" (click)="showContent = !showContent">
+    <ng-content select="[title]"></ng-content>
+    <core-icon icon="{{showContent ? 'chevron-up' : 'chevron-down'}}"></core-icon>
+  </div>
+
+  <div *ngIf="showContent" class="separator"></div>
+
+  <div *ngIf="showContent" class="content">
+    <ng-content select="[content]"></ng-content>
+  </div>
+
+</div>

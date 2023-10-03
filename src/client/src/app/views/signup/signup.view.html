@@ -1,0 +1,139 @@
+<!--
+* @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>
+* @CreatedDate           : 2023-06-02 15:11:00
+* @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>
+* @LastEditDate          : 2023-09-22 17:59:17
+-->
+
+<!-- SUMMARY
+  -- Step 1
+  -- Step 2
+  -- Step 3
+  -- Step 4
+  -- Step 5
+  -- Step 6
+-->
+
+<div class="view-signup">
+  <!-- Setp 1 -->
+  <div *ngIf="step === 1" class="container">
+    <h2 class="title">This is it!</h2>
+
+    <div class="subtitle">
+      The first step to becoming an efficient project manager in <i class="blue">Statch</i>.
+    </div>
+
+    <div class="center">
+      <core-button  id="toStep2"
+                    size="medium"
+                    label="Let's started !"
+                    type="flat"
+                    [style]="'primary'"
+                    (click)="checkStep()">
+        <core-icon icon="enter"/>
+      </core-button>
+    </div>
+  </div>
+  <!---->
+
+  <!-- Step 2 -->
+  <div *ngIf="step === 2" class="container">
+    <core-input id="name"
+                style="width: 100%"
+                [isLabel]="true"
+                label="Your name"
+                [(value)]="name"
+                is="text"
+                other="full"
+                placeholder="{{error ? 'Name should not be empty...' : 'Enter your name...'}}"
+                (keydown.enter)="checkStep()"/>
+
+    <core-button  id="toStep3"
+                  label="Next"
+                  size="medium"
+                  [style]="'primary'"
+                  type="flat"
+                  other="full space-between"
+                  (click)="checkStep()">
+      <core-icon icon="arrow-right"/>
+    </core-button>
+  </div>
+  <!---->
+
+  <!-- Step 3 -->
+  <div *ngIf="step === 3" class="container">
+    <core-input id="email"
+                style="width: 100%"
+                [isLabel]="true"
+                label="Your email"
+                [(value)]="email"
+                is="text"
+                other="full"
+                placeholder="{{error ? 'Please enter a valid email...' : 'Enter your email...'}}"
+                (keydown.enter)="checkStep()"/>
+
+    <core-button  id="toStep4"
+                  label="Next"
+                  size="medium"
+                  [style]="'primary'"
+                  type="flat"
+                  other="full space-between"
+                  (click)="checkStep()">
+      <core-icon icon="arrow-right"/>
+    </core-button>
+  </div>
+  <!---->
+
+  <!-- Step 4 -->
+  <div *ngIf="step === 4" class="container">
+    <core-input-pwd id="pwd"
+                    style="width: 100%"
+                    [isLabel]="true"
+                    label="Enter your password"
+                    [(value)]="pwd"
+                    is="text"
+                    other="full"
+                    placeholder="{{error ? 'invalid' : '' }}"
+                    (keydown.enter)="checkStep()"/>
+
+    <core-input-pwd id="conPwd"
+                    style="width: 100%"
+                    [isLabel]="true"
+                    label="Confirm your password"
+                    [(value)]="conPwd"
+                    is="text"
+                    other="full"
+                    placeholder="{{error ? 'invalid' : '' }}"
+                    (keydown.enter)="checkStep()"/>
+
+    <core-button  id="toStep5"
+                  label="Next"
+                  size="medium"
+                  [style]="'primary'"
+                  type="flat"
+                  other="full space-between"
+                  (click)="checkStep()">
+      <core-icon icon="arrow-right"/>
+    </core-button>
+  </div>
+  <!---->
+
+  <!-- Step 5 -->
+  <div *ngIf="step === 5" class="container">
+    <div class="title">Creating User...</div>
+    <div class="subtitle">Please wait while creating your account.</div>
+  </div>
+  <!---->
+
+  <!-- Step 6 -->
+  <div *ngIf="step === 6" class="container">
+    <div class="title">Completed!</div>
+    <div class="subtitle">Just wait for the person in charge to validate your account.</div>
+
+    <a href="/login" class="login">
+      <div>Return to login</div>
+      <core-icon icon="arrow-right" />
+    </a>
+  </div>
+  <!---->
+</div>

@@ -1,0 +1,54 @@
+<!--
+* @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>
+* @CreatedDate           : 2023-09-25 13:31:00
+* @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>
+* @LastEditDate          : 2023-09-25 17:53:26
+-->
+
+<div class="view-my-tasks">
+  <div class="header">
+    <h3>My tasks</h3>
+  </div>
+
+  <ng-template [ngIf]="sub" [ngIfElse]="loading">
+    <div class="items-list">
+      <div *ngFor="let project of sub.projects">
+        <component-my-tasks-item  [name]="project.name"
+                                  [status]="project.status"
+                                  [created]="project.created"
+                                  level="0"
+                                  [link]="'/projects/'+project.id"
+                                  [opennable]="hasChild(sub.tasks, {projectId: project.id})"
+                                  [isOpen]="isOpen(project.id)"
+                                  (onToggle)="toggleCollapse(project.id)"/>
+
+        <div *ngFor="let task of _.filter(sub.tasks, {projectId: project.id})">
+          <component-my-tasks-item  *ngIf="isOpen(project.id)"
+                                    [name]="task.name"
+                                    [status]="task.status"
+                                    [created]="task.created"
+                                    level="1"
+                                    [link]="'/tasks/'+task.id"
+                                    [opennable]="hasChild(sub.tickets, {taskId: task.id})"
+                                    [isOpen]="isOpen(task.id)"
+                                    (onToggle)="toggleCollapse(task.id)"/>
+
+          <div *ngFor="let ticket of _.filter(sub.tickets, {taskId: task.id})">
+            <component-my-tasks-item  *ngIf="isOpen(task.id)"
+                                      [name]="ticket.name"
+                                      [status]="ticket.status"
+                                      [created]="ticket.created"
+                                      level="2"
+                                      [link]="'/tickets/'+ticket.id"/>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+
+  <ng-template #loading>
+    <div class="loading">
+      <core-loading/>
+    </div>
+  </ng-template>
+</div>
