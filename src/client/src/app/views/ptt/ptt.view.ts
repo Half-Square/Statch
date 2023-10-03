@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-09-30 15:55:46                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-10-02 18:55:04                               *
+ * @LastEditDate          : 2023-10-03 10:24:31                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -136,8 +136,9 @@ export class PttView implements OnInit, OnDestroy {
       description: "..."
     }, this.user.getUser()?.token)
       .then((ret) => {
-        this.router.navigateByUrl(`${this.childType}/${(ret as {id: string}).id}`);
+        this.recovery.updateData(ret, this.childType);
         this.toast.print(`${_.capitalize(this.childType.slice(0, -1))} ${(ret as {id: string}).id} has been created`, "success");
+        this.router.navigateByUrl(`${this.childType}/${(ret as {id: string}).id}`);
       });
   }
   /***/
@@ -177,16 +178,6 @@ export class PttView implements OnInit, OnDestroy {
     return !_.isNaN(res) ? res : 0;
   }
   /***/
-
-  /**
-  * Sort childs by version
-  */
-  public sortElement(option: Event): void {
-    console.log(option); // Selected versions
-    // Filter child to print
-    // New progress value
-  }
-
 
   /**
   * Toggle self assignment

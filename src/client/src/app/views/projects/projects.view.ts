@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-09-22 18:44:16                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-09-25 13:29:42                               *
+ * @LastEditDate          : 2023-10-03 10:23:43                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -59,6 +59,7 @@ export class ProjectsView implements OnInit, OnDestroy {
   public createProject(): void {
     this.api.post("api/projects", {name: "New project", description: "..."}, this.user.getUser()?.token)
       .then((ret) => {
+        this.recovery.updateData(ret, "projects");
         this.router.navigate([`/projects/${(ret as IProjects).id}`]);
       }).catch((err) => {
         console.error(err);

@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-05-31 12:56:22                              *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-09-26 12:06:20                              *
+ * @LastEditDate          : 2023-10-03 10:36:24                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -84,18 +84,7 @@ export class RecoveryService {
       this.socketEvt.push(name); // Save socket listener
 
       this.socket.on(name, (data) => {
-        let index = _.findIndex(this.data[name], {id: data.id});
-
-        if (data["deleted"] && index != -1) {
-          this.data[name].splice(index, 1);
-        } else {
-          if (index == -1) {
-            this.data[name] ? this.data[name].push(data) : this.data[name] = [data];
-          } else {
-            this.data[name][index] = data;
-          }
-        }
-
+        this.updateData(data, name);
         send();
       });
     }
@@ -111,11 +100,16 @@ export class RecoveryService {
   private handleSingleSocketEvents(
     observer: Subscriber<any[]>,
     name: string): void {
+    const send = (index: number): void => {
+      observer.next(this.data[name][index]);
+    };
+
+
     if (this.socket) {
       this.socket.on(name, (data) => {
         let index = _.findIndex(this.data[name], {id: data.id});
 
-        if (data["deletec"] && index != -1) {
+        if (data["deleted"] && index != -1) {
           this.data[name].splice(index, 1);
         } else {
           if (index == -1) {
@@ -126,8 +120,25 @@ export class RecoveryService {
           }
         }
 
-        observer.next(this.data[name][index]);
+        send(index);
       });
+    }
+  }
+  /***/
+
+  /**
+  * Update cache data
+  * @param data - Item to update
+  * @param name - Collection name
+  */
+  public updateData(data: any, name: string): void {
+    let index = _.findIndex(this.data[name], {id: data.id});
+
+    if (index == -1) {
+      this.data[name] ? this.data[name].push(data) : this.data[name] = [data];
+    } else {
+      if (this.data[name][index]["deleted"]) this.data[name].splice(index, 1);
+      this.data[name][index] = data;
     }
   }
   /***/

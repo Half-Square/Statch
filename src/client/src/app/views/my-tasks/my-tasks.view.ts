@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-09-25 13:32:36                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-09-25 17:51:11                               *
+ * @LastEditDate          : 2023-10-03 10:36:28                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -67,8 +67,6 @@ export class MyTasksView implements OnInit {
             _.find(tickets, (ti: IAssignments) => ti.id === el.ticketId)
           )) as ITickets[]
         };
-
-        console.log(this.sub);
       });
     }
   }

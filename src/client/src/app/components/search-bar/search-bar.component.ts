@@ -135,10 +135,8 @@ export class SearchBarComponent {
 
   public handle(event: any): void {
     if(!event.altKey && event.key === "Enter")  {
-      console.log("Enter");
       this.handleEnter();
     } if (event.altKey && event.key === "Enter") {
-      console.log("Alt + Enter");
       this.handleCommands();
     }
   }
@@ -162,17 +160,14 @@ export class SearchBarComponent {
   }
 
   public returnStep(step: number): void {
-    console.log(step);
     if(step === 0) {
       this.resultsSelected = [];
       this.stepSearch = 0;
-      console.log("toto");
-
       return;
     }
+
     this.stepSearch -= this.resultsSelected.length - step;
     this.resultsSelected.splice(step);
-
   }
 
   private resetInput(): void {

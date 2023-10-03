@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-09-27 14:08:53                              *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-10-02 19:27:21                              *
+ * @LastEditDate          : 2023-10-02 19:30:18                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -19,7 +19,6 @@ import {
   Component,
   ElementRef,
   EventEmitter,
-  HostListener,
   Input,
   Output,
   Renderer2,

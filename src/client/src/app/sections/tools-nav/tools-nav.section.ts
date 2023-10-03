@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-09-25 10:29:00                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-09-29 16:07:47                               *
+ * @LastEditDate          : 2023-10-03 10:36:21                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -18,6 +18,7 @@ import { Router } from "@angular/router";
 /* Services */
 import { RequestService } from "src/app/services/request.service";
 import { UserService } from "src/app/services/user.service";
+import { RecoveryService } from "src/app/services/recovery.service";
 /***/
 
 @Component({
@@ -28,7 +29,8 @@ import { UserService } from "src/app/services/user.service";
 export class ToolsNavSection {
   constructor(private router: Router,
               private api: RequestService,
-              private user: UserService) {
+              private user: UserService,
+              private recovery: RecoveryService) {
   }
 
   /**
@@ -49,12 +51,11 @@ export class ToolsNavSection {
   * @param path - API path
   */
   private newItem(type: string, path: string): void {
-    console.log("Create ", type);
-
     this.api.post(`api/${path}`, {
       name: `New ${type.slice(0, -1)}`,
       description: `New empty ${type.slice(0, -1)}`
     }, this.user.getUser()?.token).then((ret) => {
+      this.recovery.updateData(ret, type);
       this.router.navigateByUrl(`${type}/${(ret as {id: string}).id}`);
     });
   }

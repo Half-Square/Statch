@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-09-28 13:52:36                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-10-02 15:34:45                               *
+ * @LastEditDate          : 2023-10-03 10:25:11                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -88,8 +88,6 @@ export class ProfileView implements OnInit {
             oldPicture: user?.picture,
             picture: json.path
           }, user?.token) as ILoggedUser;
-
-          console.log(user);
           this.user.setUser(user);
           this.profile = user;
         });

@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-09-21 12:45:58                              *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-09-30 15:48:32                              *
+ * @LastEditDate          : 2023-10-03 10:36:43                              *
  ****************************************************************************/
 
 import { Component, OnDestroy, OnInit } from "@angular/core";
@@ -305,13 +305,9 @@ export class PttView implements OnInit, OnDestroy {
       else
         obj = this.type === "projects" ? {actualVersion: null} : {targetVersionId: null};
 
-      console.log(obj);
-
       this.api.put(`api/${this.type}/${this.id}`,
         obj, this.user.getUser()?.token)
         .then((ret) => {
-          console.log(ret);
-
           this.currentElement = ret;
           this.toast.print(`Succes : ${this.type} version changed`, "success");
         })
