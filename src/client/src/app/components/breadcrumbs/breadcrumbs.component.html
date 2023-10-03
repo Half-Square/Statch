@@ -1,0 +1,14 @@
+<!--
+* @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>
+* @CreatedDate           : 2023-09-12 14:01:00
+* @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>
+* @LastEditDate          : 2023-09-27 17:19:42
+-->
+
+<nav>
+  <ol class="breadcrumb">
+      <li class="item" *ngFor="let crumb of crumbs; let index = index">
+          <a [routerLink]="[crumb.path]">{{ crumb.name }}</a>
+      </li>
+  </ol>
+</nav>

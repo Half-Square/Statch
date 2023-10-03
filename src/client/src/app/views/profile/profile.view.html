@@ -1,0 +1,46 @@
+<!--
+* @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>
+* @CreatedDate           : 2023-09-28 13:52:00
+* @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>
+* @LastEditDate          : 2023-10-02 15:34:58
+-->
+
+<div class="view-profile">
+  <ng-template [ngIf]="profile" [ngIfElse]="loading">
+    <div class="profile-card">
+      <div>
+        <label for="avatarIcon">
+          <core-avatar [label]="profile.name" [showLabel]="false" other="profile" [imgLink]="profile.picture !== '' ? profile.picture : null"/>
+        </label>
+        <input type="file" id="avatarIcon" (change)="uploadAvatar($event)" hidden/>
+      </div>
+
+      <div class="inputs">
+        <core-input [isLabel]="true"
+                    label="Name"
+                    placeholder="Your name..."
+                    other="full"
+                    (keydown.enter)="saveProfile()"
+                    [(value)]="profile.name"/>
+
+        <core-input [isLabel]="true"
+                    label="Email"
+                    placeholder="Your email..."
+                    (keydown.enter)="saveProfile()"
+                    [(value)]="profile.email"/>
+
+        <core-button  class="button"
+                      label="Save"
+                      type="flat"
+                      [style]="'primary'"
+                      (click)="saveProfile()"/>
+      </div>
+    </div>
+  </ng-template>
+
+  <ng-template #loading>
+    <div class="loading">
+      <core-loading/>
+    </div>
+  </ng-template>
+</div>

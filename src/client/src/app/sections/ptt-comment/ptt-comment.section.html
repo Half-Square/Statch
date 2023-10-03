@@ -1,0 +1,30 @@
+<!--
+* @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>
+* @CreatedDate           : 2023-09-27 15:26:00
+* @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>
+* @LastEditDate          : 2023-10-02 15:36:13
+-->
+
+<div class="ptt-comment">
+
+  <h2 class="subtitle">Comments</h2>
+
+  <div class="comment" *ngFor="let comment of comments">
+
+    <div class="header">
+      <core-avatar [imgLink]="comment.authorId | recovery:'picture':'users' | async" [label]="comment.authorId | recovery:'name':'users' | async"></core-avatar>
+      <span class="date">{{ comment.created | dateDifference }}</span>
+    </div>
+
+    <div class="content">
+      {{ comment.content }}
+    </div>
+
+  </div>
+
+  <div class="input">
+    <textarea (input)="content()" class="area" name="" id="" rows="5" #contentEl></textarea>
+    <core-button (click)="publish()" [type]="'flat'" [style]="'primary'" [size]="'medium'" [label]="'Publish'"></core-button>
+  </div>
+
+</div>

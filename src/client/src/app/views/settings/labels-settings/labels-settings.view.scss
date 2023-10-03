@@ -1,0 +1,20 @@
+/*****************************************************************************
+ * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @CreatedDate           : 2023-09-28 15:53:53                              *
+ * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @LastEditDate          : 2023-09-28 16:23:28                              *
+ ****************************************************************************/
+
+.view-labels-settings {
+  position: relative;
+  height: 100%;
+  padding: 28px;
+  box-sizing: border-box;
+
+  .loading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}

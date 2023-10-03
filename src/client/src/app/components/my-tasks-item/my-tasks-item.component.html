@@ -1,0 +1,21 @@
+<!--
+* @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>
+* @CreatedDate           : 2023-09-25 17:24:00
+* @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>
+* @LastEditDate          : 2023-09-25 17:55:25
+-->
+
+<div class="component-my-tasks-item level-{{level}}">
+  <div class="start">
+    <core-icon [icon]="status"/>
+    <a [routerLink]="[link]">{{name}}</a>
+  </div>
+
+  <div class="end">
+    <div class="date">{{created | dateDifference}}</div>
+
+    <core-button [ngClass]="{'collapse': true, 'not-opennable': !opennable}" (click)="toggleOpen()">
+      <core-icon icon="{{isOpen ? 'close' : 'open'}}"/>
+    </core-button>
+  </div>
+</div>

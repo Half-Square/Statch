@@ -1,0 +1,86 @@
+/*****************************************************************************
+ * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @CreatedDate           : 2023-10-03 11:28:33                              *
+ * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @LastEditDate          : 2023-10-03 11:33:24                              *
+ ****************************************************************************/
+
+.ptt-list {
+  &.no-container {
+    .sort {display: none;}
+    .add-item {display: none;}
+  }
+
+  .sort {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+  }
+
+  .element:nth-child(2) {
+    border-top: 1px solid #3d3d3d;
+  }
+
+  .element:not(:last-child) {
+    border-bottom: 1px solid #3d3d3d;
+  }
+
+  .element:last-child {
+    border-radius: 0 0 6px 6px;
+  }
+
+  .element {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 0 16px;
+    align-items: center;
+    text-decoration: none;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 16px;
+    color: #eaeaea;
+    cursor: pointer;
+
+    &:hover {
+      background: #303030;
+    }
+
+    .container {
+      overflow: auto;
+      width: 100%;
+      padding: 16px 0;
+      display: flex;
+      gap: 8px;
+      justify-content: space-between;
+    }
+
+    .block {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-style: normal;
+      font-weight: 400;
+      font-size: 12px;
+      line-height: 16px;
+
+      .status {
+        height: 16px;
+      }
+
+      .version {
+        color: #a7a7a7;
+      }
+
+      .name {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        max-width: 200px;
+      }
+
+
+    }
+  }
+}

@@ -1,0 +1,37 @@
+/*****************************************************************************
+ * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @CreatedDate           : 2023-09-22 18:55:47                              *
+ * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @LastEditDate          : 2023-09-29 15:44:29                              *
+ ****************************************************************************/
+
+.app {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  gap: 1px;
+  overflow-x: hidden;
+
+  .views-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+
+    .view {
+      flex-grow: 1;
+      height: 100%;
+      overflow: hidden;
+      overflow-y: auto;
+    }
+  }
+
+  .nav {
+    width: 250px;
+    transition: width ease 0.4s, transform ease 0.4s;
+
+    &.close {
+      transform: translateX(-250px);
+      width: 0;
+    }
+  }
+}

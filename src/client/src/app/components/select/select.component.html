@@ -1,0 +1,71 @@
+<!--
+* @Author                : Quentin<quentin@halfsquare.fr>
+* @CreatedDate           : 2023-09-15 12:53:00
+* @LastEditors           : Quentin<quentin@halfsquare.fr>
+* @LastEditDate          : 2023-09-28 19:00:33
+-->
+
+<div class="select" #selector>
+
+  <div (click)="toggleMenu($event)" class="control" ngClass="{{showMenu ? 'active' : ''}}">
+
+    <div ngClass="{{!showMenu && selection && selection.length && selection.length > 0 ? '' : 'hidden'}}" class="selections">
+      <div *ngFor="let select of selection | slice:0:2" class="selection">
+        <div class="ellipsis">
+
+          <ng-container
+            *ngIf="selectedTemplateRef"
+            [ngTemplateOutlet]="selectedTemplateRef"
+            [ngTemplateOutletContext]="{$implicit:select}"
+          >
+          </ng-container>
+
+          <ng-container *ngIf="!selectedTemplateRef">
+            {{select.name}}
+          </ng-container>
+
+        </div>
+      </div>
+
+      <div *ngIf="selection && selection.length && selection.length > 2"> + {{ selection.length - 2 }}</div>
+    </div>
+
+    <div *ngIf="!hasSearch" class="placeholder ellipsis" ngClass="{{showMenu || !selection || selection.length == 0 ? '' : 'hidden'}}">{{placeholder}}</div>
+    <input *ngIf="hasSearch" class="control_search" (input)="onSearchChange($event.target)" ngClass="{{showMenu || !selection || selection.length == 0 ? '' : 'hidden'}}" placeholder="{{placeholder}}" #search/>
+
+    <core-icon [icon]="showMenu ? 'chevron-up' : 'chevron-down'"></core-icon>
+
+  </div>
+
+  <div *ngIf="showMenu" class="menu">
+    <div class="options">
+      <div class="option" *ngIf="data.length <= 0 && !searchText">
+        <div class="ellipsis">
+          {{noOption}}
+        </div>
+      </div>
+
+      <div (click)="selectedOption(option)" *ngFor="let option of data | search: searchText : noResult; let i = index" class="option" [ngClass]="shouldApplyCheck(option) === true ? 'active' : ''">
+        <div class="ellipsis">
+
+          <span *ngIf="noResult && searchText && option.fromSearch">Add </span>
+
+          <ng-container
+              *ngIf="itemsTemplateRef"
+              [ngTemplateOutlet]="itemsTemplateRef"
+              [ngTemplateOutletContext]="{$implicit:option}"
+          >
+          </ng-container>
+
+          <ng-container *ngIf="!itemsTemplateRef">
+            {{option.name}}
+          </ng-container>
+
+        </div>
+
+        <core-icon icon="check" ngClass="checked" *ngIf="shouldApplyCheck(option)"></core-icon>
+      </div>
+    </div>
+  </div>
+
+</div>

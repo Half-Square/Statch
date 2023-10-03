@@ -1,0 +1,46 @@
+<!--
+* @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>
+* @CreatedDate           : 2023-09-28 15:01:00
+* @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>
+* @LastEditDate          : 2023-09-28 15:31:05
+-->
+
+<div class="view-smtp-settings">
+  <ng-template [ngIf]="smtp" [ngIfElse]="loading">
+    <div class="form">
+      <core-input label="Host"
+                  [isLabel]="true"
+                  [(value)]="smtp.host"
+                  (keydown.enter)="save()"
+                  placeholder="Smpt host..."/>
+
+      <core-input label="Port"
+                  is="number"
+                  [isLabel]="true"
+                  [(value)]="smtp.port"
+                  (keydown.enter)="save()"
+                  placeholder="Smpt port..."/>
+
+      <core-input label="User"
+                  [isLabel]="true"
+                  [(value)]="smtp.user"
+                  (keydown.enter)="save()"
+                  placeholder="Smpt user..."/>
+
+      <core-input-pwd label="Password"
+                      [isLabel]="true"
+                      [value]="smtp.password || ''"
+                      (valueChange)="smtp.password = $event"
+                      (keydown.enter)="save()"
+                      placeholder="Smpt password..."/>
+
+      <core-button class="button" label="Save" type="flat" [style]="'primary'" (click)="save()"/>
+    </div>
+  </ng-template>
+
+  <ng-template #loading>
+    <div class="loading">
+      <core-loading/>
+    </div>
+  </ng-template>
+</div>

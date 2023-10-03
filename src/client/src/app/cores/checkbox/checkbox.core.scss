@@ -1,0 +1,86 @@
+.checkbox {
+  // Core Functionality
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  position: relative;
+  display: inline-flex;
+  cursor: pointer;
+  color: #e1e5ee;
+
+  .label {
+    font-size: 12px;
+    line-height: 16px;
+    font-weight: 500;
+    transform: translateY(2px);
+    margin-left: 8px;
+  }
+
+  input {
+    // Core Functionality - Checkbox input styles
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+  }
+
+  .checkmark {
+    // Core Functionality - Checkbox mark styles
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  .checkmark:after {
+    // Core Functionality - Checkbox checkmark styles
+    content: "";
+    position: absolute;
+    display: none;
+  }
+
+  input:checked ~ .checkmark:after {
+    // Core Functionality - Checked checkbox checkmark styles
+    display: block;
+  }
+
+  .checkmark:after {
+    // Core Functionality - Checkbox checkmark shape styles
+    left: 5px;
+    top: 2px;
+  }
+}
+
+// Visual Styling
+// Add any visual modifications here for future customization
+.checkbox {
+  padding-left: 18px;
+
+  &:hover .checkmark {
+    // Visual Styling - Hover styles for the entire checkbox container
+    background: #11295e; // Visual Styling - Background color on hover
+  }
+
+  &:hover .checkmark::after {
+    display: block;
+  }
+
+  input:checked ~ .checkmark {
+    // Visual Styling - Checked checkbox styles
+    background-color: #0055ff; // Visual Styling - Background color for the checked checkbox
+  }
+
+  .checkmark {
+    // Visual Styling - Additional styles for the checkbox mark
+    background: #0a1e48; // Visual Styling - Background color for the checkbox container
+    width: 16px; // Visual Styling - Width of the checkbox mark
+    height: 16px; // Visual Styling - Height of the checkbox mark
+    border-radius: 4px;
+    border: 1px solid #0055ff;
+  }
+
+  .checkmark:after {
+    // Visual Styling - Additional styles for the checkbox checkmark shape
+    width: 4px; // Visual Styling - Width of the checkmark shape
+    height: 8px; // Visual Styling - Height of the checkmark shape
+    border: solid #e1e5ee;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+  }
+}

@@ -1,0 +1,30 @@
+<!--
+* @Author                : Quentin<quentin@halfsquare.fr>
+* @CreatedDate           : 2023-06-02 13:20:00
+* @LastEditors           : Quentin<quentin@halfsquare.fr>
+* @LastEditDate          : 2023-09-06 12:55:09
+-->
+
+<div [ngClass]="['input', type, size, other]">
+
+  <div class="container">
+    <input  type="{{ showPassword ? 'text' : 'password' }}"
+            [(ngModel)]="value"
+            (ngModelChange)="valueChange.emit(value)"
+            [disabled]="disabled"
+            [placeholder]="placeholder"
+            [autocomplete]="autocomplete"
+            [id]="id" />
+
+    <span class="toggle-icon" (click)="togglePasswordVisibility()">
+      <core-icon *ngIf="showPassword" icon="eye"></core-icon>
+      <core-icon *ngIf="!showPassword" icon="eye--fill"></core-icon>
+    </span>
+
+    <label *ngIf="isLabel" [for]="id">
+      {{ label }}
+    </label>
+
+  </div>
+
+</div>

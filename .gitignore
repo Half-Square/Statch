@@ -1,6 +1,5 @@
-/.vscode
-/01_Src/02_Server/.env
-/03_Dist/
-01_Src/02_Server/prisma/databases/statch.db
-/01_Src/02_Server/prisma/databases/statch.db
-/01_Src/02_Server/upload
+.vscode
+/src/server/prisma/databases
+
+/src/server/upload/*
+!/src/server/upload/.gitkeep

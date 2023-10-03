@@ -1,0 +1,74 @@
+/*****************************************************************************
+ * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @CreatedDate           : 2023-09-28 14:23:54                              *
+ * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @LastEditDate          : 2023-09-28 14:24:21                              *
+ ****************************************************************************/
+
+.avatar {
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 500;
+  text-transform: capitalize;
+  color: #eaeaea;
+}
+
+.avatar:hover .label {
+  text-decoration: underline;
+}
+
+.avatar .content {
+  background-color: #0055ff;
+  border-radius: 999px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.avatar.small .content {
+  width: 16px;
+  height: 16px;
+}
+
+.avatar.medium .content {
+  width: 24px;
+  height: 24px;
+}
+
+.avatar.large {
+  font-size: 16px;
+  line-height: 24px;
+
+  .content {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+.avatar.profile {
+  font-size: 32px;
+
+  .content {
+    width: 120px;
+    height: 120px;
+  }
+}
+
+.avatar .content .img {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.avatar .content .img img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}

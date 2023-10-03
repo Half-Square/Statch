@@ -1,0 +1,24 @@
+/*****************************************************************************
+ * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @CreatedDate           : 2023-09-25 10:28:56                              *
+ * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @LastEditDate          : 2023-09-29 16:29:10                              *
+ ****************************************************************************/
+
+.section-tools-nav {
+  padding: 10px 32px;
+  border-top: solid 1px #eaeaea20;
+  border-bottom: solid 1px #eaeaea20;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+
+  a {
+    width: 24px;
+    height: 24px;
+  }
+
+  .btn.active * {
+    color: #0055ff;
+  }
+}

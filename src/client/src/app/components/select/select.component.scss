@@ -1,0 +1,134 @@
+.select {
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  color: #e1e5ee;
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 500;
+  max-width: 200px;
+  position: relative;
+}
+.select .ellipsis {
+  overflow: hidden;
+  max-width: 100%;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.select .hidden {
+  display: none!important;
+}
+
+// Control
+.select .control {
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 8px;
+  padding-right: 8px;
+  min-height: 32px;
+  max-width: 200px;
+  border: 1px solid #3d3d3d;
+
+  &:hover {
+    background: #303030;
+  }
+}
+
+.select .control.active {
+  background: #303030;
+}
+
+// Selections
+.select .control .selections {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  padding: 4px 8px;
+  gap: 8px;
+
+  .selection {
+    display: flex;
+    max-width: 100%;
+    overflow: hidden;
+  }
+}
+
+.select .control .placeholder {
+  padding: 4px 8px;
+}
+
+// Search input
+.select .control .control_search {
+  border: none;
+  outline: none;
+  background: transparent;
+  width: 100%;
+  padding: 4px 8px;
+  color: #e1e5ee;
+
+  &::placeholder {
+    color: #a7a7a7;
+  }
+}
+
+// Menu
+.select .menu {
+  position: absolute;
+  z-index: 2;
+  max-height: 150px;
+  max-width: 190px;
+  width: 100%;
+  margin-top: 4px;
+  padding: 4px;
+  border-radius: 8px;
+  user-select: none;
+  background: #303030;
+  border: 1px solid #3d3d3d;
+}
+
+// Options
+.select .menu .options {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  max-height: 150px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding-right: 4px;
+
+  &::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+  }
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #585858;
+    border-radius: 999px;
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    background: #666666;
+  }
+
+  .option {
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    &:hover {
+      background: #252525;
+    }
+
+    .checked {
+      color: #eaeaea;
+    }
+  }
+
+  .option.active {
+    background: #0055ff;
+  }
+
+}

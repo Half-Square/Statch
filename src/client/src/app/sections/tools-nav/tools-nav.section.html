@@ -1,0 +1,24 @@
+<!--
+* @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>
+* @CreatedDate           : 2023-09-25 10:28:00
+* @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>
+* @LastEditDate          : 2023-09-29 10:00:19
+-->
+
+<div class="section-tools-nav">
+  <core-button class="btn" routerLink="/projects" title="Projects" routerLinkActive="active">
+    <core-icon icon="dashboard" other="icon--24"/>
+  </core-button>
+
+  <core-button class="btn" routerLink="/my-activities" title="My Activities" routerLinkActive="active">
+    <core-icon icon="bell-notif" other="icon--24"/>
+  </core-button>
+
+  <core-button (click)="newPttItem()">
+    <core-icon icon="plus" other="icon--24"/>
+  </core-button>
+
+  <core-button class="btn" routerLink="/my-tasks" title="My Tasks" routerLinkActive="active">
+    <core-icon icon="flag" other="icon--24"/>
+  </core-button>
+</div>

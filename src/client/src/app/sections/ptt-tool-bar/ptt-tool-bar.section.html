@@ -1,0 +1,30 @@
+<!--
+* @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>
+* @CreatedDate           : 2023-09-30 15:38:00
+* @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>
+* @LastEditDate          : 2023-10-02 15:27:54
+-->
+
+<div class="section-ptt-tool-bar">
+  <core-button  (click)="onDelete.emit()"
+                [type]="'basic'"
+                [style]="'warn'"
+                [size]="'medium'">
+    <core-icon icon="minus"/>
+  </core-button>
+
+  <core-button  *ngIf="isParentOf"
+                (click)="onCreateChild.emit()"
+                [type]="'basic'"
+                [style]="'default'"
+                [size]="'medium'">
+    <core-icon icon="plus"/>
+  </core-button>
+
+  <core-button  (click)="onAssign.emit()"
+                [type]="isAssignee ? 'flat' : 'basic'"
+                [style]="'primary'"
+                [size]="'medium'">
+    <core-icon [icon]="isAssignee ? 'heart--fill' : 'heart'"/>
+  </core-button>
+</div>

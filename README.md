@@ -4,7 +4,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/Half-Square/Statch">
-    <img src="00_Doc/logotypeStatch.png" alt="Logo" width="80" height="80">
+    <img src="doc/logotypeStatch.png" alt="Logo" width="80" height="80">
   </a>
 
   <h3 align="center">Statch</h3>
@@ -52,7 +52,7 @@ Welcome to the Statch Project Manager! This project is a project management tool
 
   <div align="center">
   <a href="https://github.com/Half-Square/Statch">
-  <img src="00_Doc/exempleApp.png" alt="Example App">
+  <img src="doc/exempleApp.png" alt="Example App">
   </a>
   </div>
 
@@ -237,4 +237,3 @@ Half Square - [Website](https://halfsquare.fr "Half Square's website") or [conta
 Project Link: [https://github.com/Half-Square/Statch](https://github.com/Half-Square/Statch)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-

@@ -1,0 +1,22 @@
+<!--
+* @Author                : Quentin<quentin@halfsquare.fr>
+* @CreatedDate           : 2023-09-18 18:09:00
+* @LastEditors           : Quentin<quentin@halfsquare.fr>
+* @LastEditDate          : 2023-09-18 18:48:38
+-->
+
+<div class="tabs">
+
+  <div class="header">
+    <div
+      class="title"
+      *ngFor="let tab of tabs; let i = index;"
+      [class.active]="tab.active"
+      (click)="selectTab(tab)"
+    >
+      {{ tab.title }}
+    </div>
+  </div>
+
+  <ng-content></ng-content>
+</div>

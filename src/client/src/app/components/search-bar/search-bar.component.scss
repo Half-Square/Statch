@@ -1,0 +1,183 @@
+/*****************************************************************************
+ * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @CreatedDate           : Invalid Date                                     *
+ * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @LastEditDate          : 2023-09-29 15:27:42                              *
+ ****************************************************************************/
+
+.searchBar {
+  background: rgba(51, 51, 51, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.32);
+  box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(25px);
+  border-radius: 8px;
+  width: 100%;
+
+    /* width */
+  ::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+  }
+
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #9C9C9C;
+    border-radius: 999px;
+  }
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #b8b8b8;
+  }
+
+  .searchInput {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: center;
+      overflow: hidden;
+      padding: 14px;
+      gap: 0.25rem;
+
+      .resultContainer {
+        display: flex;
+        gap: 0.25rem;
+
+        .invSearch {
+          display: none;
+        }
+
+        .label-block {
+          position: absolute;
+          top: 47px;
+          left: 58px;
+          padding-top: 4px;
+
+          .item {
+            display: flex;
+            flex-direction: column-reverse;
+            padding: 4px;
+            gap: 4px;
+            border-radius: 4px;
+            background: rgb(60 60 60);
+            z-index: 10;
+          }
+        }
+
+      }
+
+      .return {
+        cursor: pointer;
+      }
+
+      .label-search {
+        display: flex;
+        align-items: center;
+        font-style: normal;
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 16px;
+        background: rgba(255, 255, 255, 0.16);
+        padding: 4px 8px;
+        border-radius: 4px;
+        color: rgb(255, 255, 255);
+
+        .text {
+          max-width: 100px;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+        .return {
+          display: flex;
+          align-items: flex-end;
+
+          .icon {
+            font-size: 16px;
+          }
+        }
+      }
+
+      i {
+          color: rgba(255, 255, 255, 0.64);
+          font-size: 40px;
+      }
+      input {
+          all: unset;
+          color: rgba(255, 255, 255, 1);
+          font-style: normal;
+          font-weight: 400;
+          font-size: 24px;
+          line-height: 28px;
+          width: -webkit-fill-available;
+          &::placeholder {
+              color: rgba(255, 255, 255, 0.32);
+          }
+      }
+  }
+
+  .subtitle {
+      font-style: normal;
+      font-weight: 500;
+      font-size: 12px;
+      line-height: 14px;
+      color: rgba(255, 255, 255, 0.64);
+      padding: 16px 16px 8px;
+      border-top: 1px solid rgba(255, 255, 255, 0.32);
+  }
+
+  ul {
+      list-style: none;
+      margin: 0;
+      margin-right: 4px;
+      padding: 0 4px 8px 8px;
+      max-height: 300px;
+      overflow-y: auto;
+  }
+
+  li {
+      cursor: pointer;
+      padding: 8px;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 19px;
+      color: rgba(255, 255, 255, 1);
+      border-radius: 4px;
+  }
+
+  li.focused {
+      background: rgba(55, 117, 202, 1);
+  }
+
+  .footer {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 0.5rem;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 14px;
+    color: rgba(255, 255, 255, 0.80);
+    padding: 8px 16px;
+    border-top: 1px solid rgba(255, 255, 255, 0.32);
+
+    .shortcut {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.16);
+    color: rgba(255, 255, 255, 0.64);
+    font-size: 16px;
+    border-radius: 4px;
+    height: 20px;
+    width: 20px;
+    }
+  }
+}

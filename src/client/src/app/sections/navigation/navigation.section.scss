@@ -1,0 +1,18 @@
+/*****************************************************************************
+ * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @CreatedDate           : 2023-09-20 16:04:39                              *
+ * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @LastEditDate          : 2023-09-27 18:07:49                              *
+ ****************************************************************************/
+
+.section-navigation {
+  height: 100%;
+  width: 250px;
+  background-color: rgb(34,34,34);
+  overflow-y: auto;
+
+  h1 {
+    font-size: 16px;
+    padding: 10px 16px;
+  }
+}

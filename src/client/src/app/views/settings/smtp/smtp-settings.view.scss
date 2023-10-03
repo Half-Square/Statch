@@ -1,0 +1,29 @@
+/*****************************************************************************
+ * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @CreatedDate           : 2023-09-28 15:11:32                              *
+ * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @LastEditDate          : 2023-09-28 15:28:53                              *
+ ****************************************************************************/
+
+.view-smtp-settings {
+  height: 100%;
+  position: relative;
+  padding: 28px;
+  box-sizing: border-box;
+
+  .loading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .form {
+    display: grid;
+    grid-gap: 15px;
+
+    .button {
+      justify-self: flex-end;
+    }
+  }
+}

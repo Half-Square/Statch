@@ -1,0 +1,37 @@
+/*****************************************************************************
+ * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @CreatedDate           : 2023-09-29 10:03:37                              *
+ * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @LastEditDate          : 2023-09-29 15:58:35                              *
+ ****************************************************************************/
+
+.view-my-activities {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+
+  .loading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 20px;
+    border-bottom: 1px solid rgba(255,255,255,.08);
+  }
+
+  .activities-list {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    grid-gap: 15px;
+    padding: 24px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+}
