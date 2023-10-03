@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : Quentin<quentin@halfsquare.fr>                   *
+ * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-06-02 16:16:20                              *
- * @LastEditors           : Quentin<quentin@halfsquare.fr>                   *
- * @LastEditDate          : 2023-09-06 12:56:24                              *
+ * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @LastEditDate          : 2023-10-03 10:48:54                              *
  ****************************************************************************/
 
 import { Component, Input, Output, EventEmitter } from "@angular/core";
@@ -86,5 +86,5 @@ export class InputCore {
    * Event emitted when the value of the input changes.
    */
   @Output()
-    valueChange: EventEmitter<any> = new EventEmitter();
+    valueChange = new EventEmitter();
 }

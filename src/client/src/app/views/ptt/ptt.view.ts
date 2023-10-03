@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-09-30 15:55:46                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-10-03 10:24:31                               *
+ * @LastEditDate          : 2023-10-03 10:38:23                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -35,6 +35,7 @@ import { ToastService } from "src/app/services/toast.service";
 import { ILoggedUser, UserService } from "src/app/services/user.service";
 /***/
 
+/* eslint-disable  @typescript-eslint/no-explicit-any */
 @Component({
   selector: "view-ptt",
   templateUrl: "./ptt.view.html",

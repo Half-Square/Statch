@@ -1,12 +1,13 @@
 /*****************************************************************************
- * @Author                : Quentin<quentin@halfsquare.fr>                   *
+ * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-09-15 12:52:21                              *
- * @LastEditors           : Quentin<quentin@halfsquare.fr>                   *
- * @LastEditDate          : 2023-09-28 18:54:12                              *
+ * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @LastEditDate          : 2023-10-03 10:47:57                              *
  ****************************************************************************/
 
 import { Pipe, PipeTransform } from "@angular/core";
 
+/* eslint-disable  @typescript-eslint/no-explicit-any */
 @Pipe({
   name: "search",
   pure: false

@@ -1,9 +1,9 @@
-/******************************************************************************
- * @Author                : 0K0<qdouvillez@gmail.com>                         *
- * @CreatedDate           : 2023-06-05 17:10:01                               *
- * @LastEditors           : 0K0<qdouvillez@gmail.com>                         *
- * @LastEditDate          : 2023-06-06 13:07:32                               *
- *****************************************************************************/
+/*****************************************************************************
+ * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @CreatedDate           : 2023-06-05 17:10:01                              *
+ * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @LastEditDate          : 2023-10-03 10:49:30                              *
+ ****************************************************************************/
 
 import { Component, Input, Output, EventEmitter } from "@angular/core";
 
@@ -38,7 +38,7 @@ export class CheckboxCore {
   /**
    * Toggles the checked state of the checkbox and emits the updated value.
    */
-  public toggleChecked() {
+  public toggleChecked(): void {
     this.checked = !this.checked;
     this.checkedChange.emit(this.checked);
   }

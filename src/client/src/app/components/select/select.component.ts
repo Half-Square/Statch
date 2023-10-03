@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : 0K00<qdouvillez@gmail.com>                       *
+ * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-09-15 13:05:58                              *
- * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
- * @LastEditDate          : 2023-09-29 18:49:00                              *
+ * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @LastEditDate          : 2023-10-03 10:50:45                              *
  ****************************************************************************/
 
 import { Component, Input, TemplateRef, ContentChild, ViewChild, ElementRef, Renderer2, Output, EventEmitter } from "@angular/core";
@@ -10,6 +10,8 @@ import { Component, Input, TemplateRef, ContentChild, ViewChild, ElementRef, Ren
 /**
  * Custom select component
  */
+
+/* eslint-disable  @typescript-eslint/no-explicit-any */
 @Component({
   selector: "component-select",
   templateUrl: "./select.component.html",
@@ -40,7 +42,7 @@ export class SelectComponent {
    * Input property to hold data
    */
   @Input()
-    data :any;
+    data: any;
 
   /**
    * Input property to hold the selected options
@@ -76,7 +78,7 @@ export class SelectComponent {
    * Output property to emit callback events
    */
   @Output()
-    callback: EventEmitter<any> = new EventEmitter<any>();
+    callback = new EventEmitter();
 
   /**
    * Property to track whether the menu is shown or hidden

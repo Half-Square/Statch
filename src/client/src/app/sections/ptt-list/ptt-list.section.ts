@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-09-21 15:40:44                              *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-10-02 18:56:57                              *
+ * @LastEditDate          : 2023-10-03 10:46:58                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -16,9 +16,10 @@ import * as _ from "lodash";
 /***/
 
 /* Interfaces */
-import { IVersions } from "src/app/interfaces";
+import { ITasks, ITickets, IVersions } from "src/app/interfaces";
 /***/
 
+/* eslint-disable  @typescript-eslint/no-explicit-any */
 @Component({
   selector: "section-ptt-list",
   templateUrl: "./ptt-list.section.html",
@@ -34,9 +35,11 @@ export class PttListSection {
   * Filter element by version
   * @param el - Element to check
   */
-  filterByVersion(el: any): boolean {
+  filterByVersion(el: ITasks | ITickets): boolean {
     if (this.versions && this.versions.length > 0) {
-      return _.find(this.versions, {id: el.targetVersionId}) ? true: false;
+      return _.find(this.versions, {
+        id: (el as ITasks | ITickets).targetVersionId
+      }) ? true: false;
     } else return true;
   }
   /***/

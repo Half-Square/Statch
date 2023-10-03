@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-09-20 16:13:37                              *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-10-02 15:31:53                              *
+ * @LastEditDate          : 2023-10-03 10:42:46                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -28,6 +28,7 @@ interface IProjects {
   description: string,
   ownerId: string,
   status: string,
+  labels: ILabels[],
   assignments: IAssignments[]
 }
 /***/
@@ -44,6 +45,7 @@ interface ITasks {
   ownerId: string,
   projectId: string,
   status: string,
+  labels: ILabels[],
   targetVersionId: string | null,
   assignments: IAssignments[]
 }
@@ -62,6 +64,7 @@ interface ITickets {
   status: string,
   targetVersionId: string | null
   taskId: string,
+  labels: ILabels[],
   assignments: IAssignments[]
 }
 /***/

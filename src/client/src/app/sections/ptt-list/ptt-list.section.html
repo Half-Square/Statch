@@ -2,7 +2,7 @@
 * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>
 * @CreatedDate           : 2023-09-21 15:40:00
 * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>
-* @LastEditDate          : 2023-10-02 18:54:13
+* @LastEditDate          : 2023-10-03 10:44:38
 -->
 
 <div class="ptt-list">
@@ -39,7 +39,10 @@
 
             <div class="assignee">
               <div class="label" *ngFor="let assignee of element.assignments">
-                <core-avatar [showLabel]="false" [size]="'medium'" [imgLink]="assignee.imgLink" [label]="assignee.userId | recovery:'name':'users' | async"/>
+                <core-avatar  [showLabel]="false"
+                              [size]="'medium'"
+                              [imgLink]="assignee.userId | recovery:'picture':'users' | async"
+                              [label]="assignee.userId | recovery:'name':'users' | async"/>
               </div>
             </div>
           </div>

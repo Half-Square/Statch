@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-09-27 16:52:14                              *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-10-02 13:45:23                              *
+ * @LastEditDate          : 2023-10-03 10:47:29                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -29,6 +29,7 @@ import { ILabels, IUsers, IVersions } from "src/app/interfaces";
 import { RecoveryService } from "src/app/services/recovery.service";
 /***/
 
+/* eslint-disable  @typescript-eslint/no-explicit-any */
 @Component({
   selector: "section-ptt-details",
   templateUrl: "./ptt-details.section.html",

@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : Quentin<quentin@halfsquare.fr>                   *
+ * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-06-02 13:20:49                              *
- * @LastEditors           : Quentin<quentin@halfsquare.fr>                   *
- * @LastEditDate          : 2023-09-06 12:55:44                              *
+ * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @LastEditDate          : 2023-10-03 10:49:15                              *
  ****************************************************************************/
 
 import { Component, Input, Output, EventEmitter } from "@angular/core";
@@ -86,7 +86,7 @@ export class InputPwdCore {
    * Event emitted when the value of the input changes.
    */
   @Output()
-    valueChange: EventEmitter<any> = new EventEmitter();
+    valueChange = new EventEmitter();
 
   /**
    * Flag indicating whether the password is visible or hidden.

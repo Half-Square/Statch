@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-10-02 18:29:09                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-10-02 18:43:19                               *
+ * @LastEditDate          : 2023-10-03 10:48:14                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -14,6 +14,7 @@ import { Pipe, PipeTransform } from "@angular/core";
 import * as _ from "lodash";
 /***/
 
+/* eslint-disable  @typescript-eslint/no-explicit-any */
 @Pipe({
   name: "orderBy"
 })

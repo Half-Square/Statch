@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-03-20 16:31:02                              *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-09-29 15:30:05                              *
+ * @LastEditDate          : 2023-10-03 10:51:00                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -29,6 +29,7 @@ export interface ISearchResponse {
 import { RequestService } from "src/app/services/request.service";
 /***/
 
+/* eslint-disable  @typescript-eslint/no-explicit-any */
 @Component({
   selector: "component-search-bar",
   templateUrl: "./search-bar.component.html",

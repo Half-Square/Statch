@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-09-28 16:43:50                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-09-28 17:29:38                               *
+ * @LastEditDate          : 2023-10-03 10:51:24                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -10,7 +10,7 @@
 */
 
 /* Imports */
-import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
+import { Component, EventEmitter, Input, Output } from "@angular/core";
 /***/
 
 @Component({
