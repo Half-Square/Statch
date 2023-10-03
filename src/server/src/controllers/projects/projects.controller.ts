@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-06-13 14:10:50                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-10-02 19:46:02                               *
+ * @LastEditDate          : 2023-10-03 10:53:31                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -187,10 +187,8 @@ export class ProjectsController {
   @UseInterceptors(ActivitiesInterceptor)
   async deleteById(@Param("id") id: string): Promise<{message: string}> {
     try {
-      let tmp = await this.prisma.project.delete({where: {id: id}});
+      await this.prisma.project.delete({where: {id: id}});
       this.socket.broadcast("projects", {id: id}, true);
-      
-      console.log(tmp);
 
       return {message: `Project ${id} deleted`};
     } catch (err) {

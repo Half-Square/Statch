@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-09-27 09:58:46                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-09-27 12:01:59                               *
+ * @LastEditDate          : 2023-10-03 10:53:08                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -50,7 +50,7 @@ export class ActivitiesInterceptor implements NestInterceptor {
         return data;
       }));
     } catch (err) {
-      console.log(err);
+      console.error(err);
       return next.handle();
     }
   }

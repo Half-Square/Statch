@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-03-27 16:56:41                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-09-29 15:02:04                               *
+ * @LastEditDate          : 2023-10-03 10:54:12                               *
  *****************************************************************************/
 
 import {
@@ -24,7 +24,7 @@ import {PrismaService} from "../../prisma.service";
 import { IsConnectedGuard } from "src/guards/is-connected.guard";
 /***/
 
-
+/* eslint-disable  @typescript-eslint/no-explicit-any */
 @Controller("api/search")
 export class SearchController {
 
