@@ -10,8 +10,14 @@
     "url": "https://github.com/Half-Square/Statch"
   },
   "scripts": {
+    "setup:server": "npm i --prefix src/server && grunt copy:env && cd src/server && npx prisma migrate deploy src/server && npx prisma generate && cd ../..",
+    "setup": "npm i --prefix src/client && npm run setup:server",
     "start:client": "npm run start --prefix src/client",
     "start:server": "npm run start:dev --prefix src/server"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "grunt": "^1.6.1",
+    "grunt-contrib-copy": "^1.0.0"
+  }
 }

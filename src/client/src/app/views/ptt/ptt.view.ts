@@ -1,9 +1,9 @@
-/******************************************************************************
- * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @CreatedDate           : 2023-09-30 15:55:46                               *
- * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-10-03 12:34:53                               *
- *****************************************************************************/
+/*****************************************************************************
+ * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @CreatedDate           : 2023-09-30 15:55:46                              *
+ * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @LastEditDate          : 2023-10-03 19:08:36                              *
+ ****************************************************************************/
 
 /* SUMMARY
   * Imports
@@ -72,32 +72,39 @@ export class PttView implements OnInit, OnDestroy {
       this.childType = this.type == "projects" ? "tasks" : "tickets";
 
       this.getRootProject().then((root) => {
-        this.root = root;
-        this.subscriptions.map((sub) => sub.unsubscribe()); // Clear old subscriptions
-        this.subscriptions = [
-          this.recovery.getSingle(this.type, this.id).subscribe((el) => { // Get current item
-            if (!el) this.router.navigateByUrl("/not-found");
-            this.item = el;
-          }),
-          this.recovery.get(`projects/${root.id}/versions`).subscribe((versions) => {
-            this.versions = versions;
-          }),
-          this.recovery.get(`${this.type}/${this.id}/activities`).subscribe((a) => {
-            this.activities = a;
-          }),
-          this.recovery.get(`${this.type}/${this.id}/comments`).subscribe((c) => {
-            this.comments = c;
-          })
-        ];
+        if (root) {
+          this.root = root;
+          this.subscriptions.map((sub) => sub.unsubscribe()); // Clear old subscriptions
+          this.subscriptions = [
+            this.recovery.getSingle(this.type, this.id).subscribe((el) => { // Get current item
+              console.log(el, !el);
+              if (!el) this.router.navigate(["/not-found"]);
+              else this.item = el;
+            }),
+            this.recovery.get(`projects/${root.id}/versions`).subscribe((versions) => {
+              this.versions = versions;
+            }),
+            this.recovery.get(`${this.type}/${this.id}/activities`).subscribe((a) => {
+              this.activities = a;
+            }),
+            this.recovery.get(`${this.type}/${this.id}/comments`).subscribe((c) => {
+              this.comments = c;
+            })
+          ];
 
-        if (this.childType != this.type) this.subscriptions.push(this.getChilds());
+          if (this.childType != this.type) this.subscriptions.push(this.getChilds());
+        } else {
+          this.router.navigate(["/not-found"]);
+        }
       });
     });
   }
 
   ngOnDestroy(): void {
-    this.routeListener.unsubscribe();
-    this.subscriptions.map((sub) => sub.unsubscribe());
+    if (this.routeListener) this.routeListener.unsubscribe();
+    this.subscriptions.map((sub) => {
+      if (sub) sub.unsubscribe();
+    });
   }
 
   /**
@@ -163,6 +170,7 @@ export class PttView implements OnInit, OnDestroy {
   public deleteItem(): void {
     this.api.delete(`api/${this.type}/${this.id}`, this.user.getUser()?.token)
       .then(() => {
+        this.recovery.updateData({id: this.id, deleted: true}, this.type);
         this.toast.print(`${_.capitalize(this.type.slice(0, -1))} ${this.id} has been removed`, "success");
         this.router.navigateByUrl("/");
       });

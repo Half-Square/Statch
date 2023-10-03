@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-05-31 12:56:22                              *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-10-03 12:20:38                              *
+ * @LastEditDate          : 2023-10-03 19:03:45                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -105,8 +105,8 @@ export class RecoveryService {
     if (index == -1) {
       this.data[name] ? this.data[name].push(data) : this.data[name] = [data];
     } else {
-      if (this.data[name][index]["deleted"]) this.data[name].splice(index, 1);
       this.data[name][index] = data;
+      _.remove(this.data[name], (el: {deleted?: string}) => el.deleted);
     }
   }
   /***/
@@ -184,8 +184,12 @@ export class RecoveryService {
   */
   private wait(collection: string, time: number): Promise<void> {
     return new Promise((resolve) => {
+      const maxRetry = 50;
+      let retry = 0;
       let inter = setInterval(() => {
-        if (this.data[collection]) {
+        retry++;
+
+        if (this.data[collection] || retry >= maxRetry) {
           clearInterval(inter);
           return resolve();
         }

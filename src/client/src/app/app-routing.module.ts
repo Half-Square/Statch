@@ -54,12 +54,13 @@ const routes: Routes = [
     ]
   },
 
+  { path: "not-found", component: NotFoundView },
+
   { path: "my-tasks", component: MyTasksView, canActivate: [IsConnectedGuard] },
   { path: "my-activities", component: MyActivitiesView, canActivate: [IsConnectedGuard] },
   { path: ":type", component: PttAllView, canActivate: [IsConnectedGuard, TypeGuard] },
   { path: ":type/:id", component: PttView, canActivate: [TypeGuard, IsConnectedGuard] },
 
-  { path: "not-found", component: NotFoundView },
 
   { path: "", pathMatch: "full", redirectTo: "/projects" },
   { path: "**", redirectTo: "not-found" }

@@ -1,9 +1,9 @@
-/******************************************************************************
- * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @CreatedDate           : 2023-09-22 18:44:16                               *
- * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-10-03 12:12:09                               *
- *****************************************************************************/
+/*****************************************************************************
+ * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @CreatedDate           : 2023-09-22 18:44:16                              *
+ * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @LastEditDate          : 2023-10-03 18:36:59                              *
+ ****************************************************************************/
 
 /* SUMMARY
   * Imports
@@ -108,7 +108,7 @@ export class PttAllView implements OnInit, OnDestroy {
   * @return - Filtered list
   */
   public filterByParent(items:  any[]): any[] {
-    if (!this.id) return items;
+    if (!this.id || this.id == "") return items;
 
     return _.filter(items, (el) => (
       (el as ITasks).projectId == this.id ||
