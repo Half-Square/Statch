@@ -13,11 +13,16 @@
     "setup:server": "npm i --prefix src/server && grunt copy:env && cd src/server && npx prisma migrate deploy src/server && npx prisma generate && cd ../..",
     "setup": "npm i --prefix src/client && npm run setup:server",
     "start:client": "npm run start --prefix src/client",
-    "start:server": "npm run start:dev --prefix src/server"
+    "start:server": "npm run start:dev --prefix src/server",
+    "build:client": "npm run build --prefix src/client",
+    "build:server": "npm run build --prefix src/server",
+    "pack": "grunt build",
+    "build:full": "npm run build:client && npm run build:server && npm run pack"
   },
   "license": "MIT",
   "devDependencies": {
     "grunt": "^1.6.1",
+    "grunt-contrib-clean": "^2.0.1",
     "grunt-contrib-copy": "^1.0.0"
   }
 }
