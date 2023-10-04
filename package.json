@@ -17,6 +17,7 @@
     "build:client": "npm run build --prefix src/client",
     "build:server": "npm run build --prefix src/server",
     "pack": "grunt build",
+    "build:docker": "docker build . -t halfsquare/statch",
     "build:full": "npm run build:client && npm run build:server && npm run pack"
   },
   "license": "MIT",

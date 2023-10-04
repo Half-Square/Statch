@@ -2,18 +2,20 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-05-30 12:07:51                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-09-29 15:01:34                               *
+ * @LastEditDate          : 2023-10-04 10:49:03                               *
  *****************************************************************************/
 
 /* SUMMARY
   * Imports
-  * Controllers
-  * Services
+* Controllers
+* Services
 */
 
 /* Imports */
 import { Module } from "@nestjs/common";
 import { ConfigModule } from "@nestjs/config";
+import { ServeStaticModule } from "@nestjs/serve-static";
+import { join } from "path";
 /***/
 
 /* Controllers */
@@ -39,7 +41,10 @@ import { FilesController } from "./controllers/files/files.controller";
 
 @Module({
   imports: [
-    ConfigModule.forRoot()
+    ConfigModule.forRoot(),
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, "client")
+    })
   ],
   controllers: [
     UsersController,
