@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-05-31 15:03:46                              *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-10-03 11:17:12                              *
+ * @LastEditDate          : 2023-10-05 17:49:30                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -37,12 +37,14 @@ import { SmtpSettingsView } from "./views/settings/smtp/smtp-settings.view";
 import { LabelsSettingsView } from "./views/settings/labels-settings/labels-settings.view";
 import { UsersSettingsView } from "./views/settings/users-settings/users-settings.view";
 import { MyActivitiesView } from "./views/my-activities/my-activities.view";
+import { FirstLaunchView } from "./views/first-launch/first-launch.view";
 /***/
 
 /* Routes */
 const routes: Routes = [
   { path: "login", component: LoginView, canActivate: [IsNotConnectedGuard] },
   { path: "signup", component: SignupView, canActivate: [IsNotConnectedGuard] },
+  { path: "first-launch", component: FirstLaunchView },
 
   { path: "profile", component: ProfileView, canActivate: [IsConnectedGuard] },
   { path: "settings", component: SettingsView, canActivate: [IsConnectedGuard],

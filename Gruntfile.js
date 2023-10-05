@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-10-03 18:19:42                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-10-04 10:57:06                               *
+ * @LastEditDate          : 2023-10-05 20:14:21                               *
  *****************************************************************************/
 
 module.exports = function(grunt) {
@@ -24,8 +24,17 @@ module.exports = function(grunt) {
         files: [
           {expand: true, cwd: "./src/server/dist/", src: ["**"], dest: "./dist/"},
           {expand: true, cwd: "./src/client/dist/", src: ["**"], dest: "./dist/client/"},
-          {expand: true, cwd: "./src/server/", src: ["./prisma/**", "./package.json", "!./prisma/databases/**", "./upload/"], dest: "./dist/"},
-          {src: ["./src/server/.env.sample"], dest: "./dist/.env"}
+          {src: ["./src/server/.env.sample"], dest: "./dist/.env"},
+          {src: ["./src/server/config.json.sample"], dest: "./dist/config.json"},
+          {
+            expand: true, cwd: "./src/server/",
+            src: [
+              "./prisma/**", 
+              "./package.json", 
+              "!./prisma/databases/**"
+            ],
+            dest: "./dist/"
+          },
         ]
       }
     }

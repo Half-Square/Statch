@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-09-22 16:14:03                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-09-22 16:43:01                               *
+ * @LastEditDate          : 2023-10-05 21:11:56                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -14,6 +14,7 @@
   * Save settings to file
   * Get all settings
   * Get smtp settings
+  * Get system settings 
   * Update smtp settings
 */
 
@@ -39,6 +40,11 @@ import * as settingsDto from "./settings.dto";
 
 /* Interfaces */
 interface ISettings {
+  sys?: {
+    host: string,
+    api: string,
+    socket: string
+  },
   smtp: {
     host: string,
     port: number,
@@ -106,6 +112,30 @@ export class SettingsController {
     settings = this.saveSettings(settings);
 
     return new settingsDto.PublicSmtpOutput(settings.smtp);
+  }
+  /***/
+
+  /**
+  * Get system settings 
+  * @return - System settings
+  */
+  @Get("sys")
+  getSys(): {host: string, api: string, socket: string} | {message: string} {
+    return this.getSettings().sys || {message: "Not set yet"};
+  }
+  /***/
+
+  /**
+  * Update system settings
+  * @param body - System settings, host/api/socket 
+  * @return - Updated settings
+  */
+  @Put("sys")
+  updateSys(@Body() body: settingsDto.UpdateSysInput): {message: string} {
+    let config = this.getSettings();
+    config.sys = body;
+    this.saveSettings(config);
+    return {message: "Settings saved !"};
   }
   /***/
 }

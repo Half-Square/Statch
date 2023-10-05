@@ -2,12 +2,13 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-09-22 16:24:56                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-09-22 16:43:29                               *
+ * @LastEditDate          : 2023-10-05 21:02:50                               *
  *****************************************************************************/
 
 /* SUMMARY
   * Imports
   * Update smtp input
+  * Update System Input
   * Public output
   * Public smtp output
 */
@@ -36,9 +37,30 @@ class UpdateSmtpInput {
 /***/
 
 /**
+* Update System Input
+*/
+class UpdateSysInput {
+  @IsString()
+    host: string;
+
+  @IsString()
+    api: string;
+
+  @IsString()
+    socket: string;
+}
+/***/
+
+/**
 * Public output 
 */
 class PublicOutput {
+  sys?: {
+    host: string,
+    api: string,
+    socket: string
+  };
+
   smtp: {
     host: string;
     port: number;
@@ -52,6 +74,14 @@ class PublicOutput {
         port: data.smtp.port,
         user: data.smtp.user
       };
+
+      if (data.sys) {
+        this.sys = {
+          host: data.sys.host,
+          api: data.sys.api,
+          socket: data.sys.socket
+        };
+      }
     }
   }
 }
@@ -78,5 +108,6 @@ class PublicSmtpOutput {
 export {
   UpdateSmtpInput,
   PublicOutput,
+  UpdateSysInput,
   PublicSmtpOutput
 };
