@@ -2,18 +2,19 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-09-22 16:24:56                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-09-22 16:43:29                               *
+ * @LastEditDate          : 2023-10-06 11:52:21                               *
  *****************************************************************************/
 
 /* SUMMARY
   * Imports
   * Update smtp input
+  * Update System Input
   * Public output
   * Public smtp output
 */
 
 /* Imports */
-import { IsString, IsNumber, IsOptional } from "class-validator";
+import { IsString, IsNumber, IsOptional, IsIn } from "class-validator";
 /***/
 
 /**
@@ -36,9 +37,35 @@ class UpdateSmtpInput {
 /***/
 
 /**
+* Update System Input
+*/
+class UpdateSysInput {
+  @IsString()
+    host: string;
+
+  @IsString()
+    api: string;
+
+  @IsString()
+    socket: string;
+
+  @IsString()
+  @IsIn(["prod", "demo"])
+    mode: "prod" | "demo";
+}
+/***/
+
+/**
 * Public output 
 */
 class PublicOutput {
+  sys?: {
+    host: string,
+    api: string,
+    socket: string,
+    mode: "prod" | "demo"
+  };
+
   smtp: {
     host: string;
     port: number;
@@ -52,6 +79,8 @@ class PublicOutput {
         port: data.smtp.port,
         user: data.smtp.user
       };
+
+      if (data.sys) this.sys = data.sys;
     }
   }
 }
@@ -78,5 +107,6 @@ class PublicSmtpOutput {
 export {
   UpdateSmtpInput,
   PublicOutput,
+  UpdateSysInput,
   PublicSmtpOutput
 };

@@ -4,3 +4,4 @@
 /src/server/upload/*
 !/src/server/upload/.gitkeep
 /node_modules
+/dist

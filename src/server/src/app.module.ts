@@ -2,18 +2,19 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-05-30 12:07:51                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-09-29 15:01:34                               *
+ * @LastEditDate          : 2023-10-06 11:48:10                               *
  *****************************************************************************/
 
 /* SUMMARY
   * Imports
-  * Controllers
-  * Services
+* Controllers
+* Services
 */
 
 /* Imports */
 import { Module } from "@nestjs/common";
-import { ConfigModule } from "@nestjs/config";
+import { ServeStaticModule } from "@nestjs/serve-static";
+import { resolve } from "path";
 /***/
 
 /* Controllers */
@@ -35,11 +36,14 @@ import { PrismaService } from "./prisma.service";
 import { SocketService } from "./services/socket/socket.service";
 import { ActivitiesService } from "./controllers/activities/activities.service";
 import { FilesController } from "./controllers/files/files.controller";
+import { SettingsService } from "./controllers/settings/settings.service";
 /***/
 
 @Module({
   imports: [
-    ConfigModule.forRoot()
+    ServeStaticModule.forRoot({
+      rootPath: resolve("client")
+    })
   ],
   controllers: [
     UsersController,
@@ -58,7 +62,8 @@ import { FilesController } from "./controllers/files/files.controller";
   providers: [
     PrismaService,
     SocketService,
-    ActivitiesService
+    ActivitiesService,
+    SettingsService
   ]
 })
 export class AppModule {}

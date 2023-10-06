@@ -1,14 +1,12 @@
 <!--
-* @Author                : Quentin<quentin@halfsquare.fr>
+* @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>
 * @CreatedDate           : 2023-09-15 12:53:00
-* @LastEditors           : Quentin<quentin@halfsquare.fr>
-* @LastEditDate          : 2023-09-28 19:00:33
+* @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>
+* @LastEditDate          : 2023-10-06 11:32:48
 -->
 
-<div class="select" #selector>
-
+<div class="select {{other}}" #selector>
   <div (click)="toggleMenu($event)" class="control" ngClass="{{showMenu ? 'active' : ''}}">
-
     <div ngClass="{{!showMenu && selection && selection.length && selection.length > 0 ? '' : 'hidden'}}" class="selections">
       <div *ngFor="let select of selection | slice:0:2" class="selection">
         <div class="ellipsis">

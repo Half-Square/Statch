@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-09-27 16:52:14                              *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-10-03 12:39:30                              *
+ * @LastEditDate          : 2023-10-06 12:35:47                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -28,6 +28,7 @@ import { ILabels, IProjects, IUsers, IVersions } from "src/app/interfaces";
 /* Services */
 import { RecoveryService } from "src/app/services/recovery.service";
 import { RequestService } from "src/app/services/request.service";
+import { UserService } from "src/app/services/user.service";
 /***/
 
 /* eslint-disable  @typescript-eslint/no-explicit-any */
@@ -66,7 +67,8 @@ export class PttDetailsSection implements OnInit, OnDestroy {
   private subsciptions: Subscription[];
 
   constructor(public recovery: RecoveryService,
-              public api: RequestService) {
+              public api: RequestService,
+              private user: UserService) {
     this.subsciptions = [
       this.recovery.get("users").subscribe((users) => this.users = users),
       this.recovery.get("labels").subscribe((labels) => this.labels = labels)
@@ -165,7 +167,7 @@ export class PttDetailsSection implements OnInit, OnDestroy {
   private async createVersion(value: any): Promise<IVersions> {
     return await this.api.post(`api/projects/${this.root.id}/versions`, {
       name: value.name
-    }) as IVersions;
+    }, this.user.getUser()?.token) as IVersions;
   }
   /***/
 }

@@ -1,1 +1,1 @@
-{"smtp":{"host":"smtp.test.fr","port":427,"user":"test","password":"123"}}
+{"smtp":{"host":"smtp.test.fr","port":427,"user":"test","password":"123"},"sys":{"host":"localhost","api":"5000","socket":"5001","mode":"demo"},"demo":{}}

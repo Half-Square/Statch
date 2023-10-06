@@ -2,21 +2,32 @@
 * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>
 * @CreatedDate           : 2023-09-27 16:33:00
 * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>
-* @LastEditDate          : 2023-09-28 14:42:56
+* @LastEditDate          : 2023-10-06 12:33:41
 -->
 
 <div class="component-menu-options">
-  <core-button other="full space-between" size="large" routerLink="/profile" (click)="onClose.emit()">
+  <core-button  *ngIf="user.getUser()?.id !== 'demo'"
+                other="full space-between"
+                size="large"
+                routerLink="/profile"
+                (click)="onClose.emit()">
     <div>Profile</div>
     <core-icon icon="human" other="icon--16"/>
   </core-button>
 
-  <core-button other="full space-between" size="large" routerLink="/settings" (click)="onClose.emit()">
+  <core-button  other="full space-between"
+                size="large"
+                routerLink="/settings"
+                (click)="onClose.emit()">
     <div>Settings</div>
     <core-icon icon="gear" other="icon--16"/>
   </core-button>
 
-  <core-button [style]="'warn'" size="large" (click)="user.logout()" other="full space-between">
+  <core-button  *ngIf="user.getUser()?.id !== 'demo'"
+                [style]="'warn'"
+                size="large"
+                (click)="user.logout()"
+                other="full space-between">
     <div>Logout</div>
     <core-icon icon="logout" other="icon--16"/>
   </core-button>
