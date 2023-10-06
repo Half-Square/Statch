@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-09-22 18:44:16                              *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-10-03 18:36:59                              *
+ * @LastEditDate          : 2023-10-04 11:01:45                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -83,7 +83,7 @@ export class PttAllView implements OnInit, OnDestroy {
     let url = "";
 
     switch(this.type) {
-    case "projects": url = "projecs"; break;
+    case "projects": url = "projects"; break;
     case "tasks": url = `projects/${this.id}/tasks`; break;
     case "tickets": url = `tasks/${this.id}/tickets`; break;
     }

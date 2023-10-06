@@ -1,3 +1,10 @@
+/*****************************************************************************
+ * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @CreatedDate           : 2023-10-06 11:32:38                              *
+ * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @LastEditDate          : 2023-10-06 11:44:29                              *
+ ****************************************************************************/
+
 .select {
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   color: #e1e5ee;
@@ -6,13 +13,36 @@
   font-weight: 500;
   max-width: 200px;
   position: relative;
+
+  &.full {
+    width: 100%;
+    max-width: 100%;
+
+    .menu {
+      width: 100%;
+      box-sizing: border-box;
+      max-width: unset;
+    }
+
+    .control {
+      max-width: unset;
+    }
+  }
+
+  &.border-light {
+    &, .control {
+      border-color: #a7a7a7;
+    }
+  }
 }
+
 .select .ellipsis {
   overflow: hidden;
   max-width: 100%;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
+
 .select .hidden {
   display: none!important;
 }

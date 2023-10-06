@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-09-15 13:05:58                              *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-10-03 10:50:45                              *
+ * @LastEditDate          : 2023-10-06 11:33:59                              *
  ****************************************************************************/
 
 import { Component, Input, TemplateRef, ContentChild, ViewChild, ElementRef, Renderer2, Output, EventEmitter } from "@angular/core";
@@ -18,11 +18,19 @@ import { Component, Input, TemplateRef, ContentChild, ViewChild, ElementRef, Ren
   styleUrls: ["./select.component.scss"]
 })
 export class SelectComponent {
+  @Input() searchText: string = "";
+  @Input() data: any;
+  @Input() selection: any[] = [];
+  @Input() placeholder: string = "Select...";
+  @Input() multi: boolean = false;
+  @Input() hasSearch: boolean = true;
+  @Input() noResult: boolean = false;
+  @Input() noOption: string = "No option";
+  @Input() other: string = "";
+  @Output() callback = new EventEmitter();
 
-  /**
-   * Constructor for the SelectComponent
-   * @param renderer - Angular Renderer2 for DOM manipulation
-   */
+  public showMenu: boolean = false;
+
   constructor(private renderer: Renderer2) {
     // Listen for click events on the window to close the menu when clicking outside
     this.renderer.listen("window", "click", (e: Event) => {
@@ -31,59 +39,6 @@ export class SelectComponent {
         this.showMenu = false;
     });
   }
-
-  /**
-   * Input property to hold the search text
-   */
-  @Input()
-    searchText: string = "";
-
-  /**
-   * Input property to hold data
-   */
-  @Input()
-    data: any;
-
-  /**
-   * Input property to hold the selected options
-   */
-  @Input()
-    selection: any[] = [];
-
-  /**
-   * Input property to set the placeholder text
-   */
-  @Input()
-    placeholder: string = "Select...";
-
-  /**
-   * Input property to determine if it's a multi-select
-   */
-  @Input()
-    multi: boolean = false;
-
-  /**
-   * Input property to determine if search functionality is enabled
-   */
-  @Input()
-    hasSearch: boolean = true;
-
-  @Input()
-    noResult: boolean = false;
-
-  @Input()
-    noOption: string = "No option";
-
-  /**
-   * Output property to emit callback events
-   */
-  @Output()
-    callback = new EventEmitter();
-
-  /**
-   * Property to track whether the menu is shown or hidden
-   */
-  public showMenu: boolean = false;
 
   /**
    * ViewChild decorator to get a reference to the 'selected' template

@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-09-20 16:13:37                              *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-10-03 10:42:46                              *
+ * @LastEditDate          : 2023-10-05 17:46:14                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -15,6 +15,7 @@
   * IUsers
   * IActivities
   * IComments
+  * ISysConfig
 */
 
 /**
@@ -152,6 +153,22 @@ interface IComments {
 }
 /***/
 
+/* ISysConfig */
+interface ISysConfig {
+  smtp: {
+    host: string,
+    port: string,
+    user: string
+    password?: string
+  },
+  sys?: {
+    host: string,
+    api: string,
+    socket: string
+  }
+}
+/***/
+
 export {
   IProjects,
   ITasks,
@@ -161,5 +178,6 @@ export {
   ILabels,
   IUsers,
   IActivities,
-  IComments
+  IComments,
+  ISysConfig
 };

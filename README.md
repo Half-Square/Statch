@@ -97,78 +97,36 @@ To get started with the Statch, you'll need to have the following software insta
    git clone https://github.com/Half-Square/Statch.git
    ```
    
-2. Install the dependencies for Front
+2. Install the dependencies
 
    ```sh
-   cd 01_SRC
-   cd 01_Client
-   npm install # or yarn install
-   ```
-   
-3. Install the dependencies for Back
-
-   ```sh
-   cd 01_SRC
-   cd 01_Server
-   npm install # or yarn install
+    npm run setup
    ```
    
 ### Run project
 
 1. Start the front end development server
 
-   ```sh
-   cd 01_SRC
-   cd 01_Client
-   npm run start # or yarn 
-   ```
+  ```sh
+  npm run start:client
+  ```
    
 2. Start the back end server
 
-   ```sh
-   cd 01_SRC
-   cd 01_Server
-   npx prisma migrate dev
-   npm run start:dev # or yarn 
-   ```
+  ```sh
+  npm run start:server
+  ```
 
 
 ### Build project
 
 1. Build server
 
-   ```sh
-   cd 01_SRC
-   cd 02_Server
-   npm run build # or yarn 
-   ```
-
-2. Build front
-
-   ```sh
-   cd 01_SRC
-   cd 01_Client
-   npm run build # or yarn 
-   ```
-  
-3. Build front into server
-
-   ```sh
-   cd 01_SRC
-   cd 02_Server
-   npm run build-front # or yarn 
-   ```
-
-4. Build both into 02_Server/dist
-
-   ```sh
-   cd 01_SRC
-   cd 02_Server
-   npm run build-full # or yarn 
-   ```
+  ```sh
+  npm run build:full
+  ```
    
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
 
 
 <!-- USAGE EXAMPLES -->
@@ -186,7 +144,7 @@ To use the Statch Project Manager, follow these steps:
 
 
 
-<!-- ROADMAP -->
+<!-- ROADMAP
 ## Roadmap
 
 We have a number of features planned for future releases of the Statch Project Manager. These include:
@@ -199,7 +157,7 @@ We have a number of features planned for future releases of the Statch Project M
 See the [open issues](https://github.com/Half-Square/Statch/issues) for a full list of proposed features (and known issues).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
+-->
 
 
 <!-- CONTRIBUTING -->
