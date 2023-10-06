@@ -2,14 +2,14 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-09-22 16:14:03                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-10-05 21:11:56                               *
+ * @LastEditDate          : 2023-10-06 12:07:50                               *
  *****************************************************************************/
 
 /* SUMMARY
   * Imports
   * Guards
   * Dto
-  * Interfaces
+  * Services
   * Get settings from file
   * Save settings to file
   * Get all settings
@@ -26,8 +26,6 @@ import {
   Put,
   Body
 } from "@nestjs/common";
-import * as fs from "fs";
-import { resolve } from "path";
 /***/
 
 /* Guards */
@@ -36,46 +34,18 @@ import { IsAdminGuard } from "src/guards/is-admin.guard";
 
 /* Dto */
 import * as settingsDto from "./settings.dto";
+import * as usersDto from "../users/users.dto";
 /***/
 
-/* Interfaces */
-interface ISettings {
-  sys?: {
-    host: string,
-    api: string,
-    socket: string
-  },
-  smtp: {
-    host: string,
-    port: number,
-    user: string,
-    password: string
-  }
-}
+/* Services */
+import { SettingsService } from "./settings.service";
 /***/
 
 @Controller("api/settings")
 @UseGuards(IsAdminGuard)
 export class SettingsController {
-  /**
-  * Get settings from file
-  * @return - Settings in json format 
-  */
-  private getSettings(): ISettings {
-    return JSON.parse(fs.readFileSync(resolve("config.json"), {"encoding": "utf-8"}));
+  constructor(private settings: SettingsService) {
   }
-  /***/
-
-  /**
-  * Save settings to file
-  * @param data - Data to update
-  * @returns - Saved settings 
-  */
-  private saveSettings(data: ISettings): ISettings {
-    fs.writeFileSync(resolve("config.json"), JSON.stringify(data));
-    return this.getSettings();
-  }
-  /***/
 
   /**
   * Get all settings
@@ -83,7 +53,7 @@ export class SettingsController {
   */
   @Get()
   getAll(): settingsDto.PublicOutput {
-    let settings = this.getSettings();
+    let settings = this.settings.getSettings();
     return new settingsDto.PublicOutput(settings);
   }
   /***/
@@ -94,7 +64,7 @@ export class SettingsController {
   */
   @Get("smtp")
   getSmtp(): settingsDto.PublicSmtpOutput {
-    let settings = this.getSettings();
+    let settings = this.settings.getSettings();
     return new settingsDto.PublicSmtpOutput(settings.smtp);
   }
   /***/
@@ -106,10 +76,10 @@ export class SettingsController {
   */
   @Put("smtp")
   updateSmtp(@Body() body: settingsDto.UpdateSmtpInput): settingsDto.PublicSmtpOutput {
-    let settings = this.getSettings();
+    let settings = this.settings.getSettings();
     
     settings.smtp = {...settings.smtp, ...body};
-    settings = this.saveSettings(settings);
+    settings = this.settings.saveSettings(settings);
 
     return new settingsDto.PublicSmtpOutput(settings.smtp);
   }
@@ -121,7 +91,7 @@ export class SettingsController {
   */
   @Get("sys")
   getSys(): {host: string, api: string, socket: string} | {message: string} {
-    return this.getSettings().sys || {message: "Not set yet"};
+    return this.settings.getSettings().sys || {message: "Not set yet"};
   }
   /***/
 
@@ -131,11 +101,20 @@ export class SettingsController {
   * @return - Updated settings
   */
   @Put("sys")
-  updateSys(@Body() body: settingsDto.UpdateSysInput): {message: string} {
-    let config = this.getSettings();
+  updateSys(
+    @Body() body: settingsDto.UpdateSysInput
+  ): {message: string} | Promise<usersDto.ConnectOutput> {
+    let ret;
+    let config = this.settings.getSettings();
     config.sys = body;
-    this.saveSettings(config);
-    return {message: "Settings saved !"};
+
+    if (config.sys.mode === "demo") {
+      ret = this.settings.initDemo();
+      config["demo"] = ret;
+    } else ret = {message: "Settings saved !"};
+    
+    this.settings.saveSettings(config);
+    return ret;
   }
   /***/
 }

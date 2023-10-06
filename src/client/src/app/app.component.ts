@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-05-30 11:58:04                              *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-10-05 21:26:00                              *
+ * @LastEditDate          : 2023-10-06 12:17:58                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -23,7 +23,6 @@ import { NavService } from "./sections/navigation/nav.service";
 /***/
 
 /* Interfaces */
-import { ISysConfig } from "./interfaces";
 import { Router } from "@angular/router";
 /***/
 
@@ -47,6 +46,11 @@ export class AppComponent implements OnInit {
               if (json.api && json.host && json.socket) {
                 env.serverUrl = `http://${json["host"]}:${json["api"]}`;
                 env.socketUrl = `http://${json["host"]}:${json["socket"]}`;
+
+                if (json.demo) {
+                  this.user.setUser(json.demo);
+                  this.router.navigate(["/"]);
+                }
               } else this.router.navigate(["/first-launch"]);
             });
         });

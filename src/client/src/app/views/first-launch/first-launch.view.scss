@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-10-05 17:49:58                              *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-10-05 18:06:10                              *
+ * @LastEditDate          : 2023-10-06 11:41:54                              *
  ****************************************************************************/
 
 .view-first-launch {
@@ -20,6 +20,11 @@
   .config-form {
     display: grid;
     grid-gap: 16px;
+
+    .mode-field {
+      display: grid;
+      grid-gap: 8px;
+    }
 
     .btn {
       justify-self: flex-end;

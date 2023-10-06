@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-05-30 12:07:51                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-10-05 20:43:35                               *
+ * @LastEditDate          : 2023-10-06 11:48:10                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -36,6 +36,7 @@ import { PrismaService } from "./prisma.service";
 import { SocketService } from "./services/socket/socket.service";
 import { ActivitiesService } from "./controllers/activities/activities.service";
 import { FilesController } from "./controllers/files/files.controller";
+import { SettingsService } from "./controllers/settings/settings.service";
 /***/
 
 @Module({
@@ -61,7 +62,8 @@ import { FilesController } from "./controllers/files/files.controller";
   providers: [
     PrismaService,
     SocketService,
-    ActivitiesService
+    ActivitiesService,
+    SettingsService
   ]
 })
 export class AppModule {}

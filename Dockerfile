@@ -8,3 +8,4 @@ EXPOSE 8420
 EXPOSE 8421
 CMD ["node", "main.js"]
 VOLUME ["/prisma/databases"]
+VOLUME ["/config.json"]

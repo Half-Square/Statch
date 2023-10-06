@@ -1,9 +1,9 @@
-/******************************************************************************
- * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @CreatedDate           : 2023-09-27 16:43:25                               *
- * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-09-27 16:51:41                               *
- *****************************************************************************/
+/*****************************************************************************
+ * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @CreatedDate           : 2023-09-27 16:43:25                              *
+ * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @LastEditDate          : 2023-10-06 12:20:12                              *
+ ****************************************************************************/
 
 /* SUMMARY
   * Imports

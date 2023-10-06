@@ -2,7 +2,7 @@
 * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>
 * @CreatedDate           : 2023-10-05 17:49:00
 * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>
-* @LastEditDate          : 2023-10-05 21:19:10
+* @LastEditDate          : 2023-10-06 11:42:28
 -->
 
 <div class="view-first-launch">
@@ -32,6 +32,16 @@
                 placeholder="Default: 8421"
                 [(value)]="socketPort"
                 (keydown.enter)="saveConfig()"/>
+
+    <div class="mode-field">
+      <label>Mode</label>
+      <component-select [data]="modes"
+                        [selection]="[mode]"
+                        [hasSearch]="false"
+                        (callback)="mode = $event[0]"
+                        [multi]="false"
+                        other="full border-light"/>
+    </div>
 
     <core-button  class="btn"
                   label="save"
