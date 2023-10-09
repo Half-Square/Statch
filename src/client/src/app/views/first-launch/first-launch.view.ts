@@ -1,9 +1,9 @@
-/******************************************************************************
- * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @CreatedDate           : 2023-10-05 17:50:00                               *
- * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-10-06 12:11:41                               *
- *****************************************************************************/
+/*****************************************************************************
+ * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @CreatedDate           : 2023-10-05 17:50:00                              *
+ * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @LastEditDate          : 2023-10-09 11:35:23                              *
+ ****************************************************************************/
 
 /* SUMMARY
   * Imports
@@ -46,8 +46,13 @@ export class FirstLaunchView {
   * Save system configuration
   */
   public saveConfig(): void {
-    env.serverUrl = `http://${this.host}:${this.apiPort}`;
-    env.socketUrl = `http://${this.host}:${this.socketPort}`;
+    if (env.production) {
+      env.serverUrl = `https://${this.host}:${this.apiPort}`;
+      env.socketUrl = `https://${this.host}:${this.socketPort}`;
+    } else {
+      env.serverUrl = `http://${this.host}:${this.apiPort}`;
+      env.socketUrl = `http://${this.host}:${this.socketPort}`;
+    }
 
     this.api.put("api/settings/sys", {
       host: this.host,
