@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-10-05 17:50:00                              *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-10-09 15:02:43                              *
+ * @LastEditDate          : 2023-11-14 10:02:56                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -19,6 +19,7 @@ import { Router } from "@angular/router";
 import { RequestService } from "src/app/services/request.service";
 import { ToastService } from "src/app/services/toast.service";
 import { ILoggedUser, UserService } from "src/app/services/user.service";
+import { SocketService } from "src/app/services/socket.service";
 /***/
 
 @Component({
@@ -39,7 +40,8 @@ export class FirstLaunchView {
   constructor(private api: RequestService,
               private toast: ToastService,
               private router: Router,
-              private user: UserService) {
+              private user: UserService,
+              private socket: SocketService) {
   }
 
   /**
@@ -56,6 +58,8 @@ export class FirstLaunchView {
       mode: this.mode.value
     }).then((ret) => {
       if ((ret as {id?: string})?.id === "demo") this.user.setUser(ret as ILoggedUser);
+      this.socket.disconnect();
+      this.socket.connect(`${this.host}:${this.socketPort}`, {});
       this.router.navigate(["/login"]);
     }).catch((err) => {
       console.error(err);
