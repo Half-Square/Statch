@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-05-31 12:56:22                              *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-09-20 16:45:29                              *
+ * @LastEditDate          : 2023-11-14 10:00:15                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -38,7 +38,10 @@ export class SocketService {
   * Disconnect socket
   */
   public disconnect(): void {
-    if (this.socket) this.socket.disconnect();
+    if (this.socket) {
+      this.socket.disconnect();
+      this.socket = undefined;
+    }
   }
   /***/
 

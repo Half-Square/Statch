@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-06-16 10:35:39                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-06-26 13:53:55                               *
+ * @LastEditDate          : 2023-11-14 09:53:55                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -21,14 +21,15 @@ export class SocketService {
   private io;
 
   constructor() {
-    this.init();
+    this.init(Number(process.env.SOCKET_SERVER));
   }
 
   /**
-  * Initialize web socket server 
+  * Initialize web socket server
+  * @param port - Socket server port 
   */
-  init(): void {
-    this.io = new Server(Number(process.env.SOCKET_SERVER), {
+  init(port: number): void {
+    this.io = new Server(port, {
       cors: {
         credentials: false
       }
