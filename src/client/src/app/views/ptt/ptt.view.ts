@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-09-30 15:55:46                              *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-10-03 19:08:36                              *
+ * @LastEditDate          : 2023-11-14 10:37:14                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -70,6 +70,7 @@ export class PttView implements OnInit, OnDestroy {
       this.type = p.get("type") as string;
       this.id = p.get("id") as string;
       this.childType = this.type == "projects" ? "tasks" : "tickets";
+      this.versionFilters = [];
 
       this.getRootProject().then((root) => {
         if (root) {

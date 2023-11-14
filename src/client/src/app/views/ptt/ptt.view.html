@@ -2,7 +2,7 @@
 * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>
 * @CreatedDate           : 2023-09-30 15:55:00
 * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>
-* @LastEditDate          : 2023-10-03 12:35:11
+* @LastEditDate          : 2023-11-14 10:39:48
 -->
 
 <div class="view-ptt">
@@ -28,6 +28,7 @@
                                 [placeholder]="'Select verions to sort...'"
                                 [multi]="true"
                                 [hasSearch]="false"
+                                [selection]="versionFilters"
                                 (callback)="versionFilters = $event">
               </component-select>
             </ng-container>
