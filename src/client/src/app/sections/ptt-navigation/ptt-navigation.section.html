@@ -2,7 +2,7 @@
 * @Author                : 0K00<qdouvillez@gmail.com>
 * @CreatedDate           : 2023-09-20 16:09:00
 * @LastEditors           : 0K00<qdouvillez@gmail.com>
-* @LastEditDate          : 2023-11-15 15:00:25
+* @LastEditDate          : 2023-11-15 16:45:09
 -->
 
 <div class="section-ptt-navigation">
@@ -13,7 +13,7 @@
         <div  class="collapse"
               *ngIf="hasChild(tasks, {projectId: project.id})"
               (click)="toggleCollapse(project.id)">
-          <core-icon [icon]="isOpen(project.id) ? 'chevron-down' : 'chevron-right'"></core-icon>
+          <core-icon [ngStyle]="{'transform': 'translateY(-1px)'}" [icon]="isOpen(project.id) ? 'chevron-down' : 'chevron-right'"></core-icon>
         </div>
 
         <a routerLink="/projects/{{project.id}}" routerLinkActive="active" class="link">

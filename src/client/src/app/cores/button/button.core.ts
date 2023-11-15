@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @Author                : 0K00<qdouvillez@gmail.com>                       *
  * @CreatedDate           : 2023-08-21 16:28:49                              *
- * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-09-22 17:15:58                              *
+ * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
+ * @LastEditDate          : 2023-11-15 16:53:18                              *
  ****************************************************************************/
 
 import { Component, Input } from "@angular/core";
@@ -44,7 +44,7 @@ export class ButtonCore {
    * Size of the button.
    */
   @Input()
-    size: "small" | "medium" | "large" = "medium";
+    size: "small" | "medium" | "large" | "icon" = "medium";
 
   /**
    * Other CSS classes to apply to the button.
