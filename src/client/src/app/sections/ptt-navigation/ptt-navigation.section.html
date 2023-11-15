@@ -1,8 +1,8 @@
 <!--
-* @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>
+* @Author                : 0K00<qdouvillez@gmail.com>
 * @CreatedDate           : 2023-09-20 16:09:00
-* @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>
-* @LastEditDate          : 2023-09-27 17:33:56
+* @LastEditors           : 0K00<qdouvillez@gmail.com>
+* @LastEditDate          : 2023-11-15 15:00:25
 -->
 
 <div class="section-ptt-navigation">
@@ -18,7 +18,7 @@
 
         <a routerLink="/projects/{{project.id}}" routerLinkActive="active" class="link">
           <core-icon [icon]="project.status"></core-icon>
-          <div class="ellipsis">{{project.name}}</div>
+          <div [tooltip]="project.name" class="ellipsis">{{project.name}}</div>
         </a>
       </div>
 
@@ -34,7 +34,7 @@
 
             <a routerLink="/tasks/{{task.id}}" routerLinkActive="active" class="link">
               <core-icon [icon]="task.status"></core-icon>
-              <div class="ellipsis">{{task.name}}</div>
+              <div [tooltip]="task.name" class="ellipsis">{{task.name}}</div>
             </a>
           </div>
 
@@ -44,7 +44,7 @@
               <div class="head">
                 <a routerLink="tickets/{{ticket.id}}" routerLinkActive="active" class="link">
                   <core-icon [icon]="ticket.status"></core-icon>
-                  <div class="ellipsis">{{ticket.name}}</div>
+                  <div [tooltip]="ticket.name" class="ellipsis">{{ticket.name}}</div>
                 </a>
               </div>
             </li>
