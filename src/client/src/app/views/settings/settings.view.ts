@@ -1,9 +1,9 @@
-/******************************************************************************
- * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @CreatedDate           : 2023-09-28 14:50:46                               *
- * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-09-29 09:32:20                               *
- *****************************************************************************/
+/*****************************************************************************
+ * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @CreatedDate           : 2023-09-28 14:50:46                              *
+ * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @LastEditDate          : 2023-11-16 15:38:25                              *
+ ****************************************************************************/
 
 /* SUMMARY
   * Imports
@@ -35,6 +35,10 @@ export class SettingsView {
   }, {
     label: "Users",
     link: "users",
+    admin: true
+  }, {
+    label: "Database",
+    link: "database",
     admin: true
   }];
 
