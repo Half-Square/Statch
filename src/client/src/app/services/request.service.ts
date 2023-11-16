@@ -2,11 +2,12 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-05-30 16:14:10                              *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-09-30 16:09:47                              *
+ * @LastEditDate          : 2023-11-16 17:34:45                              *
  ****************************************************************************/
 
 /* SUMMARY
   * Imports
+  * Services
   * Generic request function
   * Get request shortcut
   * Put request shortcut
@@ -18,10 +19,17 @@ import { Injectable } from "@angular/core";
 import { environment } from "src/environments/environment";
 /***/
 
+/* Services */
+import { ToastService } from "./toast.service";
+/***/
+
 @Injectable({
   providedIn: "root"
 })
 export class RequestService {
+  constructor(private toast: ToastService) {
+  }
+
   /**
   * Generic request function
   * @param method - Request method (GET, POST, PUT, DELETE)
@@ -45,12 +53,16 @@ export class RequestService {
         body: body ? JSON.stringify(body) : null
       }).then((ret) => {
         ret.json().then((data: unknown) => {
-          if (!(/2[0-9]{2}/g).test(String(ret.status))) throw data;
+          if (!ret.ok) throw data;
           return resolve(data);
         }).catch((err) => {
+          console.log(err);
+          if (err.statusCode && err.statusCode === 404) this.toast.print("Ressource not found...", "error");
+          else this.toast.print(err.message || err.statusText, "error");
           return reject(err);
         });
       }).catch((err: Error) => {
+        this.toast.print("Something goes wrong, please retry later...", "error");
         return reject(err);
       });
     });
