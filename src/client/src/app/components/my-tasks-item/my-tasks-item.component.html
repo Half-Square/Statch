@@ -1,11 +1,11 @@
 <!--
-* @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>
+* @Author                : Quentin<quentin@halfsquare.fr>
 * @CreatedDate           : 2023-09-25 17:24:00
-* @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>
-* @LastEditDate          : 2023-09-25 17:55:25
+* @LastEditors           : Quentin<quentin@halfsquare.fr>
+* @LastEditDate          : 2023-11-16 14:07:34
 -->
 
-<div class="component-my-tasks-item level-{{level}}">
+<div class="component-my-tasks-item level-{{level}} {{bordered ? 'bordered' : ''}}">
   <div class="start">
     <core-icon [icon]="status"/>
     <a [routerLink]="[link]">{{name}}</a>

@@ -24,12 +24,15 @@
 }
 
 .avatar .content {
-  background-color: #0055ff;
   border-radius: 999px;
   overflow: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.avatar .bg {
+  background: #0055ff;
 }
 
 .avatar.small .content {

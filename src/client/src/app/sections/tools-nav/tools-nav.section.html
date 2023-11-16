@@ -1,24 +1,24 @@
 <!--
-* @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>
+* @Author                : Quentin<quentin@halfsquare.fr>
 * @CreatedDate           : 2023-09-25 10:28:00
-* @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>
-* @LastEditDate          : 2023-09-29 10:00:19
+* @LastEditors           : Quentin<quentin@halfsquare.fr>
+* @LastEditDate          : 2023-11-16 13:05:34
 -->
 
 <div class="section-tools-nav">
-  <core-button class="btn" routerLink="/projects" title="Projects" routerLinkActive="active">
+  <core-button class="btn" size="icon" routerLink="/projects" tooltip="projects" routerLinkActive="active">
     <core-icon icon="dashboard" other="icon--24"/>
   </core-button>
 
-  <core-button class="btn" routerLink="/my-activities" title="My Activities" routerLinkActive="active">
-    <core-icon icon="bell-notif" other="icon--24"/>
+  <core-button class="btn" size="icon" routerLink="/my-activities" tooltip="my activities" routerLinkActive="active">
+    <core-icon icon="bell" other="icon--24"/>
   </core-button>
 
-  <core-button (click)="newPttItem()">
+  <core-button size="icon" (click)="newPttItem()">
     <core-icon icon="plus" other="icon--24"/>
   </core-button>
 
-  <core-button class="btn" routerLink="/my-tasks" title="My Tasks" routerLinkActive="active">
-    <core-icon icon="flag" other="icon--24"/>
+  <core-button class="btn" size="icon" routerLink="/my-tasks" tooltip="my tasks" routerLinkActive="active" #rla="routerLinkActive">
+    <core-icon [icon]="rla.isActive ? 'flag-fill' : 'flag'" other="icon--24"/>
   </core-button>
 </div>

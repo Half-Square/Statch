@@ -1,15 +1,16 @@
 <!--
-* @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>
+* @Author                : Quentin<quentin@halfsquare.fr>
 * @CreatedDate           : 2023-09-30 15:38:00
-* @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>
-* @LastEditDate          : 2023-10-02 15:27:54
+* @LastEditors           : Quentin<quentin@halfsquare.fr>
+* @LastEditDate          : 2023-11-16 17:43:42
 -->
 
 <div class="section-ptt-tool-bar">
   <core-button  (click)="onDelete.emit()"
                 [type]="'basic'"
                 [style]="'warn'"
-                [size]="'medium'">
+                [size]="'icon'"
+                [tooltip]="'Delete ' + type">
     <core-icon icon="minus"/>
   </core-button>
 
@@ -17,14 +18,17 @@
                 (click)="onCreateChild.emit()"
                 [type]="'basic'"
                 [style]="'default'"
-                [size]="'medium'">
+                [size]="'icon'"
+                [tooltip]="type == 'project' ? 'Add new task' : 'Add new ticket'">
     <core-icon icon="plus"/>
   </core-button>
 
   <core-button  (click)="onAssign.emit()"
                 [type]="isAssignee ? 'flat' : 'basic'"
                 [style]="'primary'"
-                [size]="'medium'">
-    <core-icon [icon]="isAssignee ? 'heart--fill' : 'heart'"/>
+                [size]="'icon'"
+                [tooltip]="'Assign self'"
+                >
+    <core-icon [icon]="isAssignee ? 'heart-fill' : 'heart'"/>
   </core-button>
 </div>

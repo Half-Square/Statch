@@ -1,11 +1,27 @@
 <!--
-* @Author                : 0K00<qdouvillez@gmail.com>
+* @Author                : Quentin<quentin@halfsquare.fr>
 * @CreatedDate           : 2023-09-20 16:04:00
-* @LastEditors           : 0K00<qdouvillez@gmail.com>
-* @LastEditDate          : 2023-11-15 16:56:27
+* @LastEditors           : Quentin<quentin@halfsquare.fr>
+* @LastEditDate          : 2023-11-16 20:55:09
 -->
 
 <div class="section-navigation">
+  <core-button [type]="'basic'"
+               [style]="'default'"
+               [size]="'icon'"
+               [tooltip]="'Go back'"
+               [disabled]="!lastBackLocation"
+               (click)="onBack()">
+  <core-icon icon="arrow-left" />
+  </core-button>
+  <core-button [type]="'basic'"
+               [style]="'default'"
+               [size]="'icon'"
+               [tooltip]="'Go forward'"
+               [disabled]="!lastNextLocation"
+               (click)="onForward()">
+  <core-icon icon="arrow-right" />
+  </core-button>
   <div class="title">
     <h1>Half Square</h1>
   </div>

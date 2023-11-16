@@ -1,8 +1,8 @@
 <!--
-* @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>
+* @Author                : Quentin<quentin@halfsquare.fr>
 * @CreatedDate           : 2023-09-29 10:03:00
-* @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>
-* @LastEditDate          : 2023-09-29 11:15:49
+* @LastEditors           : Quentin<quentin@halfsquare.fr>
+* @LastEditDate          : 2023-11-16 14:55:35
 -->
 
 <div class="view-my-activities">
@@ -10,11 +10,13 @@
     <h3>My activities</h3>
   </div>
 
-  <ng-template [ngIf]="activities" [ngIfElse]="loading">
-    <div class="activities-list">
-      <component-activity-item *ngFor="let activity of activities" [activity]="activity"/>
-    </div>
-  </ng-template>
+  <div class="main">
+    <ng-template [ngIf]="activities" [ngIfElse]="loading">
+      <div class="activities-list">
+        <component-activity-item *ngFor="let activity of activities" [activity]="activity"/>
+      </div>
+    </ng-template>
+  </div>
 
   <ng-template #loading>
     <div class="loading">

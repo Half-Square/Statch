@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @Author                : Quentin<quentin@halfsquare.fr>                   *
  * @CreatedDate           : 2023-09-30 15:55:46                              *
- * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-11-14 10:37:14                              *
+ * @LastEditors           : Quentin<quentin@halfsquare.fr>                   *
+ * @LastEditDate          : 2023-11-16 18:28:49                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -78,7 +78,6 @@ export class PttView implements OnInit, OnDestroy {
           this.subscriptions.map((sub) => sub.unsubscribe()); // Clear old subscriptions
           this.subscriptions = [
             this.recovery.getSingle(this.type, this.id).subscribe((el) => { // Get current item
-              console.log(el, !el);
               if (!el) this.router.navigate(["/not-found"]);
               else this.item = el;
             }),

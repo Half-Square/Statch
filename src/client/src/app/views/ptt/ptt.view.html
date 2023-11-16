@@ -1,13 +1,14 @@
 <!--
-* @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>
+* @Author                : Quentin<quentin@halfsquare.fr>
 * @CreatedDate           : 2023-09-30 15:55:00
-* @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>
-* @LastEditDate          : 2023-11-14 10:39:48
+* @LastEditors           : Quentin<quentin@halfsquare.fr>
+* @LastEditDate          : 2023-11-16 17:20:05
 -->
 
 <div class="view-ptt">
   <ng-template [ngIf]="item" [ngIfElse]="loading">
     <section-ptt-tool-bar [isParentOf]="type != 'tickets'"
+                          [type]="type"
                           [isAssignee]="_.find(item.assignments, {userId: user.getUser()?.id}) != null"
                           (onDelete)="deleteItem()"
                           (onCreateChild)="createChild()"
@@ -57,6 +58,7 @@
         </div>
 
         <div class="activities-list">
+          <h2 class="subtitle">Last activity</h2>
           <component-activity-item [reduce]="true" *ngFor="let activity of activities | orderBy:'created':'desc' | slice:0:10" [activity]="activity"/>
         </div>
       </aside>
