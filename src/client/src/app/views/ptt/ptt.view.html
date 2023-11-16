@@ -2,7 +2,7 @@
 * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>
 * @CreatedDate           : 2023-09-30 15:55:00
 * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>
-* @LastEditDate          : 2023-11-14 10:39:48
+* @LastEditDate          : 2023-11-16 15:18:05
 -->
 
 <div class="view-ptt">
@@ -18,7 +18,7 @@
         <section-ptt-header [(item)]="item" (itemChange)="saveItem()"/>
 
         <div *ngIf="type != 'tickets'" class="advancement">
-          <section-ptt-advancement [value]="setAdvancement()"/>
+          <section-ptt-advancement [value]="advancement"/>
 
           <section-ptt-list [elements]="childs" [type]="childType" [versions]="versionFilters">
             <ng-container sort>
@@ -29,7 +29,7 @@
                                 [multi]="true"
                                 [hasSearch]="false"
                                 [selection]="versionFilters"
-                                (callback)="versionFilters = $event">
+                                (callback)="versionFilters = $event; setAdvancement()">
               </component-select>
             </ng-container>
 
