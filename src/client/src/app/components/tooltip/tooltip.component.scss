@@ -1,0 +1,27 @@
+.tooltip {
+  position: fixed;
+  z-index: 3;
+  padding: 4px 8px;
+  border-radius: 6px;
+  text-transform: capitalize;
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 500;
+  background-color: black;
+  color: #ffffff;
+  transform:translateX(-50%);
+  opacity: 0;
+  transition: opacity 150ms ease-in-out;
+
+  &::before {
+    content: '';
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid black;
+    position: absolute;
+    left: calc(50% - 5px);
+    bottom: -5px;
+  }
+}
