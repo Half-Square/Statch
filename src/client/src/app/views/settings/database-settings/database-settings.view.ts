@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-11-16 15:38:34                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-11-16 16:19:17                               *
+ * @LastEditDate          : 2023-11-16 16:50:03                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -19,6 +19,8 @@ import { environment as env } from "src/environments/environment";
 
 /* Services */
 import { ToastService } from "src/app/services/toast.service";
+import { ILoggedUser, UserService } from "src/app/services/user.service";
+import { Router } from "@angular/router";
 /***/
 
 @Component({
@@ -29,7 +31,9 @@ import { ToastService } from "src/app/services/toast.service";
 export class DatabaseSettingsView {
   @ViewChild("file") file: ElementRef;
 
-  constructor(private toast: ToastService) {
+  constructor(private toast: ToastService,
+              private user: UserService,
+              private router: Router) {
   }
 
   /**
@@ -37,9 +41,32 @@ export class DatabaseSettingsView {
   */
   public import(): void {
     let file = this.file.nativeElement.files[0];
+    const { token } = this.user.getUser() as ILoggedUser;
 
     if (file) {
+      let data = new FormData();
+      data.append("file", file);
 
+      fetch(`${env.serverUrl}/api/database/upload`, {
+        method: "POST",
+        headers: {
+          "x-token": token
+        },
+        body: data
+      }).then((ret) => {
+        if (ret.ok) {
+          this.toast.print("Database file uploaded ! You need to reconnect...", "info");
+
+          setTimeout(() => {
+            this.user.clearUser();
+            this.router.navigateByUrl("/login");
+            window.location.href = "/";
+          }, 3000);
+        } else throw ret;
+      }).catch((err) => {
+        console.error(err);
+        this.toast.print("An error occured, please retry later...", "error");
+      });
     } else {
       this.toast.print("No file selected...", "error");
     }
@@ -53,7 +80,7 @@ export class DatabaseSettingsView {
     this.toast.print("The download will start soon", "info");
 
     try {
-      const { token } = JSON.parse(sessionStorage.getItem("user") as string);
+      const { token } = this.user.getUser() as ILoggedUser;
 
       fetch(`${env.serverUrl}/api/database/dump`, {
         method: "GET",
