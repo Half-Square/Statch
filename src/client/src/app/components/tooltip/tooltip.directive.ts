@@ -1,9 +1,9 @@
-/******************************************************************************
- * @Author                : 0K00<qdouvillez@gmail.com>                        *
- * @CreatedDate           : 2023-11-15 14:37:55                               *
- * @LastEditors           : 0K00<qdouvillez@gmail.com>                        *
- * @LastEditDate          : 2023-11-15 14:53:53                               *
- *****************************************************************************/
+/*****************************************************************************
+ * @Author                : Quentin<quentin@halfsquare.fr>                   *
+ * @CreatedDate           : 2023-11-15 14:37:55                              *
+ * @LastEditors           : Quentin<quentin@halfsquare.fr>                   *
+ * @LastEditDate          : 2023-11-16 16:51:34                              *
+ ****************************************************************************/
 
 import { ApplicationRef, ComponentFactoryResolver, ComponentRef, Directive, ElementRef, EmbeddedViewRef, HostListener, Injector, Input, OnDestroy } from "@angular/core";
 
@@ -14,7 +14,7 @@ import { TooltipComponent } from "./tooltip.component";
 })
 export class TooltipDirective implements OnDestroy {
 
-  @Input() tooltip: string = "";
+  @Input() tooltip: string | null = "";
   private interval!: ReturnType<typeof setTimeout>;
 
   private componentRef: ComponentRef<any> | null = null;
@@ -36,22 +36,19 @@ export class TooltipDirective implements OnDestroy {
       this.appRef.attachView(this.componentRef.hostView);
       const domElem = (this.componentRef.hostView as EmbeddedViewRef<any>)
         .rootNodes[0] as HTMLElement;
-      document.body.appendChild(domElem);
-      this.setTooltipComponentProperties();
+      this.elementRef.nativeElement.appendChild(domElem);
+      this.componentRef.instance.tooltip = this.tooltip;
+
+      const {left, right, top} =
+      this.elementRef.nativeElement.getBoundingClientRect();
+      this.componentRef.instance.left = (right - left) / 2 + left;
+      this.componentRef.instance.top = top - 26 - 5 - 4;
     }
   }
 
   private setTooltipComponentProperties(): void {
     if (this.componentRef !== null) {
-      this.componentRef.instance.tooltip = this.tooltip;
-      const {left, right, top} =
-            this.elementRef.nativeElement.getBoundingClientRect();
-      this.componentRef.instance.left = (right - left) / 2 + left;
-      this.componentRef.instance.top = top - 26 - 5 - 4;
-      this.interval = setTimeout(() => {
-        this.componentRef!.instance.opacity = 1;
-        clearTimeout(this.interval);
-      }, 1000);
+
     }
   }
 

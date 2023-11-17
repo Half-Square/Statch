@@ -22,15 +22,25 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 15px 20px;
-    border-bottom: 1px solid rgba(255,255,255,.08);
+    padding: 0 16px;
+    border-bottom: 1px solid #3d3d3d;
+    height: 40px;
+    position: fixed;
+    top: 41px;
+    width: 100vw;
+    background: #17161a;
+    z-index: 1;
+  }
+
+  .main {
+    margin-top: 41px;
+    overflow-y: auto;
+    height: calc(100vh - 82px);
   }
 
   .activities-list {
     display: grid;
     grid-template-columns: minmax(0, 1fr);
-    grid-gap: 15px;
-    padding: 24px;
     width: 100%;
     box-sizing: border-box;
   }

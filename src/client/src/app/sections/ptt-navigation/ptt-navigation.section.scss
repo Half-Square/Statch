@@ -16,6 +16,8 @@
   padding-inline-start: 0px;
   padding: 8px;
   box-sizing: border-box;
+  overflow-y: auto;
+  height: calc(100vh - 181px);
 
   ul {
     list-style: none;
@@ -86,9 +88,13 @@
           }
         }
 
-        .link.active .ellipsis {
+        .link.active {
           color: #0055ff;
           text-decoration-color: #0055ff;
+
+          &:hover {
+            text-decoration-color: #0055ff;
+          }
         }
       }
 

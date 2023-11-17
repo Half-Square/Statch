@@ -1,8 +1,8 @@
 <!--
-* @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>
+* @Author                : 0K00<qdouvillez@gmail.com>
 * @CreatedDate           : 2023-09-21 15:40:00
-* @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>
-* @LastEditDate          : 2023-10-03 18:38:19
+* @LastEditors           : 0K00<qdouvillez@gmail.com>
+* @LastEditDate          : 2023-11-17 00:17:55
 -->
 
 <div class="ptt-list {{other}}" >
@@ -11,8 +11,8 @@
       <ng-content select="[sort]"/>
     </div>
 
-    <ng-container *ngFor="let element of elements">
-      <a *ngIf="filterByVersion(element)" [routerLink]="['/'+type+'/'+element.id]" class="element">
+    <ng-container *ngFor="let element of elements; let last = last; let first = first">
+      <a *ngIf="filterByVersion(element)" [routerLink]="['/'+type+'/'+element.id]" [ngClass]="first ? 'border-first' : last ? 'border-last' : ''" class="element">
         <div class="container">
           <div class="block">
             <div class="status">
@@ -51,7 +51,7 @@
     </ng-container>
 
     <div class="element add-item">
-      <div class="container">
+      <div class="container add">
         <ng-content select="[add]"></ng-content>
       </div>
     </div>

@@ -2,12 +2,33 @@
 * @Author                : 0K00<qdouvillez@gmail.com>
 * @CreatedDate           : 2023-09-20 16:04:00
 * @LastEditors           : 0K00<qdouvillez@gmail.com>
-* @LastEditDate          : 2023-11-15 16:56:27
+* @LastEditDate          : 2023-11-16 23:26:31
 -->
 
 <div class="section-navigation">
-  <div class="title">
-    <h1>Half Square</h1>
+  <div class="header">
+    <div class="title">
+      <img src="../../../assets/logotypeStatch.png" alt="" srcset="">
+      <h1>Statch</h1>
+    </div>
+    <div class="nav-btn">
+      <core-button [type]="'basic'"
+                   [style]="'default'"
+                   [size]="'icon'"
+                   [tooltip]="'Go back'"
+                   [disabled]="disabledBack"
+                   (click)="onBack()">
+        <core-icon icon="chevron-left" other="icon--24" />
+      </core-button>
+      <core-button [type]="'basic'"
+                   [style]="'default'"
+                   [size]="'icon'"
+                   [tooltip]="'Go forward'"
+                   [disabled]="disabledForward"
+                   (click)="onForward()">
+        <core-icon icon="chevron-right" other="icon--24" />
+      </core-button>
+    </div>
   </div>
   <section-tools-nav/>
   <section-ptt-navigation/>

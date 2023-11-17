@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @Author                : Quentin<quentin@halfsquare.fr>                   *
  * @CreatedDate           : 2023-09-29 11:11:14                              *
- * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-10-03 10:51:47                              *
+ * @LastEditors           : Quentin<quentin@halfsquare.fr>                   *
+ * @LastEditDate          : 2023-11-16 16:44:29                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -33,12 +33,24 @@ export class ActivityItemComponent implements OnInit {
   @Input() activity: IActivities;
   @Input() reduce: boolean = false;
   public actor: {name: string, picture: string | null};
+  public iconType: string;
 
   constructor(private recovery: RecoveryService) {
   }
 
   ngOnInit(): void {
     this.getActor();
+    switch (this.activity.action.type) {
+    case "CREATE":
+      this.iconType = "plus-circled";
+      break;
+    case "DELETE":
+      this.iconType = "minus-circled";
+      break;
+    case "SET":
+      this.iconType = "update";
+      break;
+    }
   }
 
   /**

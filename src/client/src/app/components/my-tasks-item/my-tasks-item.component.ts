@@ -1,9 +1,9 @@
-/******************************************************************************
- * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @CreatedDate           : 2023-09-25 17:24:48                               *
- * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-09-25 17:49:50                               *
- *****************************************************************************/
+/*****************************************************************************
+ * @Author                : Quentin<quentin@halfsquare.fr>                   *
+ * @CreatedDate           : 2023-09-25 17:24:48                              *
+ * @LastEditors           : Quentin<quentin@halfsquare.fr>                   *
+ * @LastEditDate          : 2023-11-16 14:07:32                              *
+ ****************************************************************************/
 
 /* SUMMARY
   * Imports
@@ -27,6 +27,7 @@ export class MyTasksItemComponent {
   @Input() link: string;
   @Input() opennable: boolean;
   @Input() isOpen: boolean = false;
+  @Input() bordered: boolean = false;
   @Output() onToggle = new EventEmitter();
 
   /**

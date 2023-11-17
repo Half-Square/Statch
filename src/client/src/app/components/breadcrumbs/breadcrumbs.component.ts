@@ -1,9 +1,9 @@
-/******************************************************************************
- * @Author                : Quentin<quentin@halfsquare.fr>                    *
- * @CreatedDate           : 2023-09-12 14:26:16                               *
- * @LastEditors           : Quentin<quentin@halfsquare.fr>                    *
- * @LastEditDate          : 2023-09-12 14:38:48                               *
- *****************************************************************************/
+/*****************************************************************************
+ * @Author                : 0K00<qdouvillez@gmail.com>                       *
+ * @CreatedDate           : 2023-09-12 14:26:16                              *
+ * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
+ * @LastEditDate          : 2023-11-17 01:00:02                              *
+ ****************************************************************************/
 
 import { Component, Input } from "@angular/core";
 
@@ -12,7 +12,8 @@ import { Component, Input } from "@angular/core";
  */
 interface CrumbsInterface {
   name: string,
-  path: string
+  path: string,
+  collection: string
 }
 
 /**
@@ -30,5 +31,7 @@ export class BreadcrumbsComponent {
    */
   @Input()
     crumbs: Array<CrumbsInterface> = [];
+
+  public reject: string[] = ["labels", "smtp", "users"];
 
 }

@@ -1,9 +1,9 @@
-/******************************************************************************
- * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @CreatedDate           : 2023-09-30 15:40:03                               *
- * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-10-02 15:27:31                               *
- *****************************************************************************/
+/*****************************************************************************
+ * @Author                : Quentin<quentin@halfsquare.fr>                   *
+ * @CreatedDate           : 2023-09-30 15:40:03                              *
+ * @LastEditors           : Quentin<quentin@halfsquare.fr>                   *
+ * @LastEditDate          : 2023-11-16 11:19:21                              *
+ ****************************************************************************/
 
 /* SUMMARY
   * Imports
@@ -21,6 +21,7 @@ import { Component, EventEmitter, Input, Output } from "@angular/core";
 export class PttToolBarSection {
   @Input() isParentOf: boolean = false;
   @Input() isAssignee: boolean = false;
+  @Input() type: string;
   @Output() onDelete = new EventEmitter();
   @Output() onCreateChild = new EventEmitter();
   @Output() onAssign = new EventEmitter();
