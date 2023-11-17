@@ -2,10 +2,10 @@
 * @Author                : 0K00<qdouvillez@gmail.com>
 * @CreatedDate           : 2023-09-27 16:33:00
 * @LastEditors           : 0K00<qdouvillez@gmail.com>
-* @LastEditDate          : 2023-11-17 00:03:11
+* @LastEditDate          : 2023-11-17 14:32:09
 -->
 
-<div class="component-menu-options">
+<div class="component-menu-options" #menu>
   <core-button  *ngIf="user.getUser()?.id !== 'demo'"
                 other="full"
                 size="small"
@@ -32,5 +32,3 @@
                 Logout
   </core-button>
 </div>
-
-<div class="menu-options-back" (click)="onClose.emit()"></div>

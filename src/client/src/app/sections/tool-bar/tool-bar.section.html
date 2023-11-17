@@ -1,8 +1,8 @@
 <!--
-* @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>
+* @Author                : 0K00<qdouvillez@gmail.com>
 * @CreatedDate           : 2023-09-27 14:35:00
-* @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>
-* @LastEditDate          : 2023-11-17 09:52:56
+* @LastEditors           : 0K00<qdouvillez@gmail.com>
+* @LastEditDate          : 2023-11-17 14:45:34
 -->
 
 <div class="section-tool-bar">
@@ -17,10 +17,12 @@
       <core-icon class="icon" icon="magnifying-glass" other="icon--24"/>
     </core-button>
 
-    <core-button size="icon" (click)="menuOptions = !menuOptions">
-      <core-icon class="icon" icon="dots-horizontal" other="icon--24"/>
-    </core-button>
+    <div class="" #menu>
+      <core-button size="icon" (click)="menuOptions = !menuOptions">
+        <core-icon class="icon" icon="dots-horizontal" other="icon--24"/>
+      </core-button>
 
-    <component-menu-options *ngIf="menuOptions" (onClose)="menuOptions = false"/>
+      <component-menu-options *ngIf="menuOptions" (onClose)="menuOptions = false" />
+    </div>
   </div>
 </div>

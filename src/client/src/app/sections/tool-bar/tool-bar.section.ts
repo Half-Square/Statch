@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @Author                : 0K00<qdouvillez@gmail.com>                       *
  * @CreatedDate           : 2023-09-27 14:35:32                              *
- * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-11-17 10:03:58                              *
+ * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
+ * @LastEditDate          : 2023-11-17 14:46:01                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -12,7 +12,7 @@
 */
 
 /* Imports */
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from "@angular/core";
+import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, Renderer2, ViewChild } from "@angular/core";
 import { NavigationEnd, Router } from "@angular/router";
 import { Subscription } from "rxjs";
 import * as _ from "lodash";
@@ -35,6 +35,7 @@ import { ICrumbs } from "src/app/components/breadcrumbs/breadcrumbs.component";
 export class ToolBarSection implements OnInit, OnDestroy {
   @Input() onSearch: boolean;
   @Output() onSearchChange = new EventEmitter<boolean>();
+  @ViewChild("menu") menu!: ElementRef;
 
   public routes: ICrumbs[] = [];
   public menuOptions: boolean = false;
@@ -42,7 +43,14 @@ export class ToolBarSection implements OnInit, OnDestroy {
 
   constructor(private router: Router,
               public nav: NavService,
-              public recovery: RecoveryService) {
+              public recovery: RecoveryService,
+              private renderer: Renderer2) {
+    this.renderer.listen("window", "click", (e: Event) => {
+      if(this.menu &&
+         this.menu.nativeElement &&
+         !this.menu.nativeElement.contains(e.target))
+        this.menuOptions = false;
+    });
   }
 
   ngOnInit(): void {
