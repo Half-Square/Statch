@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-09-25 15:20:21                              *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-11-17 08:56:54                              *
+ * @LastEditDate          : 2023-11-17 09:31:30                              *
  ****************************************************************************/
 
 import { Pipe, PipeTransform, Inject } from "@angular/core";
@@ -20,15 +20,12 @@ export class RecoveryPipe implements PipeTransform {
   transform(
     id: string | null,
     key: string,
-    collection: string,
-    reject?: string[]
+    collection: string
   ): Promise<string> {
     return new Promise(async(resolve) => {
       if(!id) return resolve("");
-
-      if(collection.length === 0) return resolve(id);
-      if(id.toLocaleLowerCase() == collection) return resolve(id);
-      if(reject?.includes(id.toLocaleLowerCase())) return resolve(id);
+      else if(collection.length === 0) return resolve(id);
+      else if(id.toLocaleLowerCase() == collection) return resolve(id);
 
       let el: any = await this.recovery.getSingleSync(collection, id);
 
