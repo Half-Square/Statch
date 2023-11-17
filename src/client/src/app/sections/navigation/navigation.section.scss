@@ -11,15 +11,39 @@
   background: #222222;
   border-right: 1px solid #000000;
 
-  .title {
+  .header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 4px;
+    padding: 0 8px;
     height: 40px;
+
+    .nav-btn {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      gap: 4px;
+    }
+  }
+
+  .title {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+
+    img {
+      width: 16px;
+      height: 16px;
+    }
   }
 
   h1 {
     cursor: default;
-    font-size: 16px;
-    line-height: 24px;
+    font-size: 12px;
+    line-height: 16px;
     font-weight: 500;
-    padding: 8px 16px;
   }
 }

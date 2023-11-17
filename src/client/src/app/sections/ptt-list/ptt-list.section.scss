@@ -37,6 +37,10 @@
     border-radius: 0 0 6px 6px;
   }
 
+  .element.add-item {
+    padding: 0;
+  }
+
   .element {
     display: flex;
     justify-content: space-between;
@@ -61,6 +65,10 @@
       display: flex;
       gap: 8px;
       justify-content: space-between;
+    }
+
+    .container.add {
+      padding: 0;
     }
 
     .block {

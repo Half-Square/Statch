@@ -1,9 +1,9 @@
-/******************************************************************************
- * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @CreatedDate           : 2023-09-27 14:35:32                               *
- * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-09-29 14:52:14                               *
- *****************************************************************************/
+/*****************************************************************************
+ * @Author                : 0K00<qdouvillez@gmail.com>                       *
+ * @CreatedDate           : 2023-09-27 14:35:32                              *
+ * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
+ * @LastEditDate          : 2023-11-17 00:47:21                              *
+ ****************************************************************************/
 
 /* SUMMARY
   * Imports
@@ -29,7 +29,7 @@ export class ToolBarSection implements OnInit, OnDestroy {
   @Input() onSearch: boolean;
   @Output() onSearchChange = new EventEmitter<boolean>();
 
-  public routes: {name: string, path: string}[] = [];
+  public routes: {name: string, path: string, collection: string}[] = [];
   public menuOptions: boolean = false;
   private sub: Subscription;
 
@@ -56,12 +56,14 @@ export class ToolBarSection implements OnInit, OnDestroy {
   * @param url - Current url
   */
   private setCrumbs(url: string): void {
-    this.routes = [{name: "Home", path: "/"}];
+    this.routes = [{name: "Home", path: "/", collection: "home"}];
+
 
     url.split("/").filter((el) => el != "").map((el, i) => {
       this.routes.push({
         name: el,
-        path: this.routes[i].path+(el !== this.routes[i].path ? "/"+el : "")
+        path: this.routes[i].path+(el !== this.routes[i].path ? "/"+el : ""),
+        collection: this.routes[i].path.replace(/\//g, "")
       });
     });
   }

@@ -1,20 +1,20 @@
 <!--
-* @Author                : Quentin<quentin@halfsquare.fr>
+* @Author                : 0K00<qdouvillez@gmail.com>
 * @CreatedDate           : 2023-09-25 17:24:00
-* @LastEditors           : Quentin<quentin@halfsquare.fr>
-* @LastEditDate          : 2023-11-16 14:07:34
+* @LastEditors           : 0K00<qdouvillez@gmail.com>
+* @LastEditDate          : 2023-11-17 00:06:33
 -->
 
 <div class="component-my-tasks-item level-{{level}} {{bordered ? 'bordered' : ''}}">
   <div class="start">
     <core-icon [icon]="status"/>
-    <a [routerLink]="[link]">{{name}}</a>
+    <a [tooltip]="name" [routerLink]="[link]">{{name}}</a>
   </div>
 
   <div class="end">
-    <div class="date">{{created | dateDifference}}</div>
+    <div [tooltip]="created" class="date">{{created | dateDifference}}</div>
 
-    <core-button [ngClass]="{'collapse': true, 'not-opennable': !opennable}" (click)="toggleOpen()">
+    <core-button [tooltip]="isOpen ? 'close' : 'open'" size="icon" [ngClass]="{'collapse': true, 'not-opennable': !opennable}" (click)="toggleOpen()">
       <core-icon icon="{{isOpen ? 'close' : 'open'}}"/>
     </core-button>
   </div>

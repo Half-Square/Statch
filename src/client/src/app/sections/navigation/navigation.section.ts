@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : Quentin<quentin@halfsquare.fr>                   *
+ * @Author                : 0K00<qdouvillez@gmail.com>                       *
  * @CreatedDate           : 2023-09-20 16:04:41                              *
- * @LastEditors           : Quentin<quentin@halfsquare.fr>                   *
- * @LastEditDate          : 2023-11-16 21:15:23                              *
+ * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
+ * @LastEditDate          : 2023-11-16 22:48:58                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -10,8 +10,8 @@
 */
 
 /* Imports */
-import { Component } from "@angular/core";
-import { Location, LocationStrategy } from "@angular/common";
+import { Component, OnInit } from "@angular/core";
+import { Location } from "@angular/common";
 import { Router, NavigationEnd } from "@angular/router";
 /***/
 
@@ -20,46 +20,57 @@ import { Router, NavigationEnd } from "@angular/router";
   templateUrl: "./navigation.section.html",
   styleUrls: ["./navigation.section.scss"]
 })
-export class NavigationSection {
+export class NavigationSection implements OnInit {
+  private history: string[] = [];
+  private forwardStack: string[] = [];
+  public disabledForward: boolean = true;
+  public disabledBack: boolean = true;
 
-  private history: number[] = [];
-  private currentIndex = 0;
-  public lastBackLocation: boolean = false;
-  public lastNextLocation: boolean = false;
-
-  constructor(
-    private location: Location,
-    private router: Router,
-    private locationStrategy: LocationStrategy) {
+  constructor(private router: Router, private location: Location) {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
-        const state = this.locationStrategy.getState() as {navigationId: number};
-        if(!this.history.includes(state.navigationId)) {
-          this.history.push(state.navigationId);
-          this.lastBackLocation = this.canGoBack();
+        const currentUrl = event.urlAfterRedirects;
+        const previousUrl = this.history[this.history.length - 1];
+        if (currentUrl !== previousUrl) {
+          this.history.push(currentUrl);
         }
+        this.checkForward();
+        this.checkBack();
       }
     });
   }
 
-  public onForward(): void {
-    this.locationStrategy.forward();
-    this.lastNextLocation = this.canGoForward();
+  public ngOnInit(): void {
+    this.history.push(this.router.url);
   }
 
   public onBack(): void {
-    this.locationStrategy.back();
-    this.lastBackLocation = this.canGoBack();
+    this.checkBack();
+    if (this.history.length > 1) {
+      this.forwardStack.push(this.history.pop() as string);
+      const previousUrl = this.history[this.history.length - 1];
+      this.router.navigateByUrl(previousUrl);
+    } else {
+      this.location.back();
+    }
   }
 
-  private canGoBack(): boolean {
-    const state = this.location.getState() as {navigationId: number};
-    console.log(state.navigationId, this.locationStrategy);
-    return state.navigationId > 1;
+  public onForward(): void {
+    if (this.forwardStack.length > 0) {
+      const nextUrl = this.forwardStack.pop() as string;
+      this.history.push(nextUrl);
+      this.router.navigateByUrl(nextUrl);
+    } else {
+      this.checkForward();
+      this.location.forward();
+    }
   }
 
-  private canGoForward(): boolean {
-    const state = this.location.getState() as {navigationId: number};
-    return state.navigationId < this.history.length;
+  private checkForward(): void {
+    this.disabledForward = this.forwardStack.length === 0;
+  }
+
+  private checkBack(): void {
+    this.disabledBack = this.history.length <= 1;
   }
 }

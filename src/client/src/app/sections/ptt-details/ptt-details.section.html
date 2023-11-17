@@ -1,8 +1,8 @@
 <!--
-* @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>
+* @Author                : 0K00<qdouvillez@gmail.com>
 * @CreatedDate           : 2023-09-27 16:52:00
-* @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>
-* @LastEditDate          : 2023-10-02 13:22:16
+* @LastEditors           : 0K00<qdouvillez@gmail.com>
+* @LastEditDate          : 2023-11-17 00:15:38
 -->
 
 <div class="ptt-details">
@@ -33,6 +33,7 @@
       <div class="content">
         <component-select [data]="users"
                           [selection]="replaceUsers()"
+                          placeholder="Assign to..."
                           [multi]="true"
                           (callback)="onItemChange('assignments', $event)"/>
       </div>
@@ -44,6 +45,7 @@
       <div class="content">
         <component-select [data]="versions"
                           [selection]="replaceVersion()"
+                          placeholder="Select version..."
                           (callback)="onItemChange(type === 'projects' ? 'actualVersion' : 'targetVersionId', $event)"
                           [noResult]="true"
                           [noOption]="'No version for the moment'"/>
@@ -56,6 +58,7 @@
       <div class="content">
         <component-select [data]="status"
                           [selection]="[{id: 'status', status: item.status}]"
+                          placeholder="Select status..."
                           [hasSearch]="false"
                           (callback)="onItemChange('status', $event)"
                           [multi]="false">
@@ -76,6 +79,7 @@
       <div class="content">
         <component-select [data]="labels"
                           [selection]="replaceLabels()"
+                          placeholder="Add label..."
                           (callback)="onItemChange('labels', $event)"
                           [hasSearch]="true"
                           [multi]="true">
@@ -96,6 +100,7 @@
       <div class="content">
         <component-select [data]="levels"
                           [selection]="[{id: 'level', level: item.level}]"
+                          placeholder="Choose level..."
                           (callback)="onItemChange('level', $event)"
                           [hasSearch]="false"
                           [multi]="false">
