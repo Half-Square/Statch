@@ -1,37 +1,57 @@
+/*****************************************************************************
+ * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @CreatedDate           : 2023-11-17 10:06:07                              *
+ * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @LastEditDate          : 2023-11-17 10:09:16                              *
+ ****************************************************************************/
+
 .breadcrumb {
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   list-style: none;
   padding: 0;
   margin: 0;
+  display: flex;
+  gap: 16px;
 
   a {
-      font-style: normal;
-      font-weight: 500;
-      font-size: 12px;
-      line-height: 16px;
-      text-decoration: none;
-      color: #a7a7a7;
-      transition: all 250ms ease-out;
-      cursor: pointer;
-      &:hover {
-          color: #e1e5ee;
-          text-decoration: underline;
-      }
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 16px;
+    text-decoration: none;
+    color: #a7a7a7;
+    transition: all 250ms ease-out;
+    cursor: pointer;
+    display: inline-block;
+    max-width: 250px;
+    overflow: hidden;
+    text-wrap: nowrap;
+    text-overflow: ellipsis;
+
+    &:hover {
+      color: #e1e5ee;
+      text-decoration: underline;
+    }
   }
 
   li {
-      display: inline-block;
-      text-transform: capitalize;
-      &:last-child {
-        a {
-          color: #1b67ff;
+    display: inline-block;
+    text-transform: capitalize;
+    position: relative;
 
-        }
+    &:last-child {
+      a {
+      color: #1b67ff;
+
       }
-      &:not(:last-child)::after {
-          content: '/';
-          margin: 0 8px;
-          color: #a7a7a7;
-      }
+    }
+
+    &:not(:last-child)::after {
+      content: '/';
+      margin: 0 4px;
+      color: #a7a7a7;
+      position: absolute;
+      top: -1px;
+    }
   }
 }
