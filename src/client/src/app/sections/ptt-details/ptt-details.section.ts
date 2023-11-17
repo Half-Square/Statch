@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-09-27 16:52:14                              *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-10-06 12:35:47                              *
+ * @LastEditDate          : 2023-11-16 17:19:50                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -139,6 +139,7 @@ export class PttDetailsSection implements OnInit, OnDestroy {
       this.item.actualVersion = this.type === "projects" ? this.item?.actualVersion[0]?.id : undefined;
       break;
     case "targetVersionId":
+      if ((value as any)["fromSearch"]) this.item[field] = [await this.createVersion(value)];
       this.item.targetVersionId = this.type !== "projects" ? this.item?.targetVersionId[0]?.id : undefined;
       break;
     case "status":

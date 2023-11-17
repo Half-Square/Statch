@@ -19,7 +19,7 @@
         <section-ptt-header [(item)]="item" (itemChange)="saveItem()"/>
 
         <div *ngIf="type != 'tickets'" class="advancement">
-          <section-ptt-advancement [value]="setAdvancement()"/>
+          <section-ptt-advancement [value]="advancement"/>
 
           <section-ptt-list [elements]="childs" [type]="childType" [versions]="versionFilters">
             <ng-container sort>
@@ -30,7 +30,7 @@
                                 [multi]="true"
                                 [hasSearch]="false"
                                 [selection]="versionFilters"
-                                (callback)="versionFilters = $event">
+                                (callback)="versionFilters = $event; setAdvancement()">
               </component-select>
             </ng-container>
 

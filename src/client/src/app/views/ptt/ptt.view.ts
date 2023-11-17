@@ -53,6 +53,7 @@ export class PttView implements OnInit, OnDestroy {
   public _ = _;
   public versionFilters: IVersions[];
   public root: IProjects;
+  public advancement: number = 0;
 
   private subscriptions: Subscription[] = [];
   private routeListener: Subscription;
@@ -133,6 +134,8 @@ export class PttView implements OnInit, OnDestroy {
       this.childs = _.filter(el, (c) => {
         return this.id === (this.childType == "tasks" ? (c as ITasks).projectId : (c as ITickets).taskId);
       });
+
+      this.setAdvancement();
     });
   }
   /***/
@@ -179,14 +182,25 @@ export class PttView implements OnInit, OnDestroy {
 
   /**
   * Set item advancement
-  * @return - Percent value of child with done state
   */
-  public setAdvancement(): number {
-    let length = this.childs.length;
-    let completed = (_.countBy(this.childs, {status: "done"}) as {true: number | undefined}).true || 0;
+  public setAdvancement(): void {
+    let childs = _.filter(this.childs, (el: ITasks | ITickets) => { // Filter child by selected version
+      if (this.versionFilters.length > 0) {
+        return el.targetVersionId ?
+          _.find(this.versionFilters, {id: el.targetVersionId})
+          :
+          false;
+      } else return true;
+    });
+    let length = childs.length;
+
+    let completed = (_.countBy(childs, (el: ITasks | ITickets) => {
+      let status = el.status;
+      return status == "done" || status == "reject" || status == "wait";
+    }) as {true: number | undefined}).true || 0;
     let res = Math.floor(completed * 100 / length);
 
-    return !_.isNaN(res) ? res : 0;
+    this.advancement = !_.isNaN(res) ? res : 0;
   }
   /***/
 

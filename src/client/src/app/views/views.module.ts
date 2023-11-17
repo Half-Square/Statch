@@ -38,6 +38,7 @@ import { LabelsSettingsView } from "./settings/labels-settings/labels-settings.v
 import { UsersSettingsView } from "./settings/users-settings/users-settings.view";
 import { MyActivitiesView } from "./my-activities/my-activities.view";
 import { FirstLaunchView } from "./first-launch/first-launch.view";
+import { DatabaseSettingsView } from "./settings/database-settings/database-settings.view";
 /***/
 
 @NgModule({
@@ -54,7 +55,8 @@ import { FirstLaunchView } from "./first-launch/first-launch.view";
     LabelsSettingsView,
     UsersSettingsView,
     MyActivitiesView,
-    FirstLaunchView
+    FirstLaunchView,
+    DatabaseSettingsView
   ],
   imports: [
     CommonModule,
@@ -78,7 +80,8 @@ import { FirstLaunchView } from "./first-launch/first-launch.view";
     LabelsSettingsView,
     UsersSettingsView,
     MyActivitiesView,
-    FirstLaunchView
+    FirstLaunchView,
+    DatabaseSettingsView
   ]
 })
 export class ViewsModule {}

@@ -1,0 +1,28 @@
+/*****************************************************************************
+ * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @CreatedDate           : 2023-11-16 15:39:09                              *
+ * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @LastEditDate          : 2023-11-16 15:46:02                              *
+ ****************************************************************************/
+
+.view-database-settings {
+  padding: 28px;
+  box-sizing: border-box;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+
+  section {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex-shrink: 0;
+
+    .input-file {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+  }
+}

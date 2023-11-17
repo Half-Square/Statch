@@ -1,0 +1,22 @@
+<!--
+* @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>
+* @CreatedDate           : 2023-11-16 15:39:00
+* @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>
+* @LastEditDate          : 2023-11-16 15:55:26
+-->
+
+<div class="view-database-settings">
+  <section>
+    <h3>Import</h3>
+
+    <div class="input-file">
+      <input type="file" accept="*.db" #file />
+      <core-button label="Import database" type="flat" (click)="import()" />
+    </div>
+  </section>
+
+  <section>
+    <h3>Export</h3>
+    <core-button label="Dump database" type="flat" (click)="dump()" />
+  </section>
+</div>

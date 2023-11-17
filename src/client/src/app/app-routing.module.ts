@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-05-31 15:03:46                              *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-10-05 17:49:30                              *
+ * @LastEditDate          : 2023-11-16 15:38:00                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -38,6 +38,7 @@ import { LabelsSettingsView } from "./views/settings/labels-settings/labels-sett
 import { UsersSettingsView } from "./views/settings/users-settings/users-settings.view";
 import { MyActivitiesView } from "./views/my-activities/my-activities.view";
 import { FirstLaunchView } from "./views/first-launch/first-launch.view";
+import { DatabaseSettingsView } from "./views/settings/database-settings/database-settings.view";
 /***/
 
 /* Routes */
@@ -52,6 +53,7 @@ const routes: Routes = [
       { path: "labels", component: LabelsSettingsView, canActivate: [IsConnectedGuard ]},
       { path: "smtp", component: SmtpSettingsView, canActivate: [IsConnectedGuard, IsAdminGuard] },
       { path: "users", component: UsersSettingsView, canActivate: [IsConnectedGuard, IsAdminGuard] },
+      { path: "database", component: DatabaseSettingsView, canActivate: [IsConnectedGuard, IsAdminGuard] },
       { path: "", pathMatch: "full", redirectTo: "/settings/labels"}
     ]
   },
