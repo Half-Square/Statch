@@ -1,8 +1,8 @@
 <!--
-* @Author                : Quentin<quentin@halfsquare.fr>
+* @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>
 * @CreatedDate           : 2023-09-29 11:17:00
-* @LastEditors           : Quentin<quentin@halfsquare.fr>
-* @LastEditDate          : 2023-11-16 17:22:43
+* @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>
+* @LastEditDate          : 2023-11-17 08:51:44
 -->
 
 <div class="component-activity-item" [ngClass]="reduce ? 'reduce' : ''">
@@ -22,7 +22,9 @@
                                       [activity]="activity"
                                       [state]="activity.action.prev"/>
 
-    <div class="to" *ngIf="activity.action.prev && activity.action.curr && !reduce"><core-icon tooltip="TO" icon="arrow-right" /></div>
+    <div class="to" *ngIf="activity.action.prev && activity.action.curr && !reduce">
+      <core-icon tooltip="TO" icon="arrow-right" />
+    </div>
 
     <component-activity-action-state  *ngIf="activity.action.curr && activity.action.type != 'CREATE' && activity.action.type != 'DELETE'"
                                       [activity]="activity"
