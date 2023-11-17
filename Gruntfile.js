@@ -15,7 +15,7 @@ module.exports = function(grunt) {
     copy: {
       env: {
         files: [{
-          expand: true,
+          expand: false,
           src: ["./src/server/.env.sample"],
           dest: "./src/server/.env"
         }]

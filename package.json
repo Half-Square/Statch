@@ -10,8 +10,8 @@
     "url": "https://github.com/Half-Square/Statch"
   },
   "scripts": {
-    "setup:server": "npm i --prefix src/server && grunt copy:env && cd src/server && npx prisma migrate deploy src/server && npx prisma generate && cd ../..",
-    "setup": "npm i --prefix src/client && npm run setup:server",
+    "setup:server": "npm i --prefix src/server && npx grunt copy:env && cd src/server && npx prisma migrate deploy src/server && npx prisma generate && cd ../..",
+    "setup": "npm i && npm i --prefix src/client && npm run setup:server",
     "start:client": "npm run start --prefix src/client",
     "start:server": "npm run start:dev --prefix src/server",
     "start:dist": "npm run build:full && cd ./dist && npm i && npx prisma migrate deploy && npx prisma generate && node main.js",
