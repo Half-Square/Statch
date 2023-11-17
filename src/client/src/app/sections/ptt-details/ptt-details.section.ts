@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @Author                : 0K00<qdouvillez@gmail.com>                       *
  * @CreatedDate           : 2023-09-27 16:52:14                              *
- * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-11-16 17:19:50                              *
+ * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
+ * @LastEditDate          : 2023-11-17 15:10:07                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -29,6 +29,7 @@ import { ILabels, IProjects, IUsers, IVersions } from "src/app/interfaces";
 import { RecoveryService } from "src/app/services/recovery.service";
 import { RequestService } from "src/app/services/request.service";
 import { UserService } from "src/app/services/user.service";
+import { ToastService } from "src/app/services/toast.service";
 /***/
 
 /* eslint-disable  @typescript-eslint/no-explicit-any */
@@ -68,7 +69,8 @@ export class PttDetailsSection implements OnInit, OnDestroy {
 
   constructor(public recovery: RecoveryService,
               public api: RequestService,
-              private user: UserService) {
+              private user: UserService,
+              public toast: ToastService) {
     this.subsciptions = [
       this.recovery.get("users").subscribe((users) => this.users = users),
       this.recovery.get("labels").subscribe((labels) => this.labels = labels)
@@ -171,4 +173,27 @@ export class PttDetailsSection implements OnInit, OnDestroy {
     }, this.user.getUser()?.token) as IVersions;
   }
   /***/
+
+  public clipboard(id: string): void {
+    if(navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(id)
+        .then(() => {
+          this.toast.print("Copied to clipboard", "info");
+        })
+        .catch(err => {
+          this.toast.print("Unable to copy", "error");
+          console.error(err);
+        });
+    } else {
+      const copyHandler = (e: ClipboardEvent): void => {
+        e.clipboardData!.setData("text/plain", id);
+        e.preventDefault();
+        document.removeEventListener("copy", copyHandler);
+        this.toast.print("Copied to clipboard", "info");
+      };
+
+      document.addEventListener("copy", copyHandler);
+      document.execCommand("copy");
+    }
+  }
 }

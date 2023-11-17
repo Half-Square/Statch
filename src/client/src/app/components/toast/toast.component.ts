@@ -1,9 +1,9 @@
-/******************************************************************************
- * @Author                : 0K00<qdouvillez@gmail.com>                        *
- * @CreatedDate           : 2023-09-20 15:37:10                               *
- * @LastEditors           : 0K00<qdouvillez@gmail.com>                        *
- * @LastEditDate          : 2023-09-20 16:07:48                               *
- *****************************************************************************/
+/*****************************************************************************
+ * @Author                : 0K00<qdouvillez@gmail.com>                       *
+ * @CreatedDate           : 2023-09-20 15:37:10                              *
+ * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
+ * @LastEditDate          : 2023-11-17 15:11:21                              *
+ ****************************************************************************/
 
 import { Component, Input, OnInit } from "@angular/core";
 
@@ -36,16 +36,16 @@ export class ToastComponent implements OnInit {
 
       switch (toast.type) {
       case "error":
-        this.icon = "cross-2";
+        this.icon = "cross-circled";
         break;
       case "warn":
-        this.icon = "minus";
+        this.icon = "warning";
         break;
       case "info":
-        this.icon = "dots-horizontal";
+        this.icon = "information-circled-2";
         break;
       case "success":
-        this.icon = "check";
+        this.icon = "check-circled";
         break;
       }
     });

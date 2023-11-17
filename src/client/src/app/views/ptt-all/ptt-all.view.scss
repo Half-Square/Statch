@@ -23,9 +23,6 @@
     padding: 0 16px;
     height: 40px;
     border-bottom: 1px solid #3d3d3d;
-    position: fixed;
-    top: 41px;
-    width: calc(100vw - 250px - 16px - 16px);
     background: #17161a;
     z-index: 1;
 
@@ -35,7 +32,6 @@
   }
 
   .list {
-    margin-top: 41px;
     overflow-y: auto;
     height: calc(100vh - 82px);
     padding: 8px;

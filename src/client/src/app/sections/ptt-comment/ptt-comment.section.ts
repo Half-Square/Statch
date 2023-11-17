@@ -2,7 +2,7 @@
  * @Author                : 0K00<qdouvillez@gmail.com>                       *
  * @CreatedDate           : 2023-09-27 15:26:28                              *
  * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
- * @LastEditDate          : 2023-11-17 14:18:50                              *
+ * @LastEditDate          : 2023-11-17 14:21:46                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -41,11 +41,11 @@ export class PttCommentSection {
               private user: UserService) {
   }
 
-  allowDrop(event: DragEvent): void {
+  public allowDrop(event: DragEvent): void {
     event.preventDefault();
   }
 
-  onDrop(event: DragEvent): void {
+  public onDrop(event: DragEvent): void {
     event.preventDefault();
     const dataTransfer = event.dataTransfer;
     if (dataTransfer) {
@@ -56,7 +56,7 @@ export class PttCommentSection {
     }
   }
 
-  handleFiles(files: FileList): void {
+  public handleFiles(files: FileList): void {
     for (let i = 0; i < files.length; i++) {
       const file = files[i];
       if (file.type.startsWith("image/")) {
@@ -70,7 +70,7 @@ export class PttCommentSection {
     }
   }
 
-  insertImage(img: string): void {
+  public insertImage(img: string): void {
     const range = window.getSelection()?.getRangeAt(0);
     if (range) {
       const fragment = range.createContextualFragment(img);
@@ -78,11 +78,7 @@ export class PttCommentSection {
     }
   }
 
-  onInput(event: Event): void {
-    const commentContent = this.commentEditor.nativeElement.innerHTML;
-  }
-
-  fileUpload(file: File): Promise<string> {
+  public fileUpload(file: File): Promise<string> {
     return new Promise<string>((resolve, reject) => {
       let form = new FormData();
       form.append("file", file);

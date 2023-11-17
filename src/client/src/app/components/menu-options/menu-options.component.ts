@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @Author                : 0K00<qdouvillez@gmail.com>                       *
  * @CreatedDate           : 2023-09-27 16:43:25                              *
- * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-10-06 12:20:12                              *
+ * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
+ * @LastEditDate          : 2023-11-17 14:36:10                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -26,6 +26,6 @@ import { UserService } from "src/app/services/user.service";
 export class MenuOptionsComponent {
   @Output() onClose = new EventEmitter<void>();
 
-  constructor(public user: UserService) {
-  }
+  constructor(public user: UserService) {}
+
 }
