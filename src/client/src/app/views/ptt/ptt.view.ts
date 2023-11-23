@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-09-30 15:55:46                              *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-11-23 12:16:57                              *
+ * @LastEditDate          : 2023-11-23 12:23:53                              *
  ****************************************************************************/
 
 /* SUMMARY

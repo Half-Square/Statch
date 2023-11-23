@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-09-27 16:52:14                              *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-11-23 12:18:19                              *
+ * @LastEditDate          : 2023-11-23 12:23:30                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -139,11 +139,13 @@ export class PttDetailsSection implements OnInit, OnDestroy {
       break;
     case "actualVersion":
       if ((value as any)["fromSearch"]) this.item[field] = [await this.createVersion(value)];
-      this.item.actualVersion = this.type === "projects" ? this.item?.actualVersion[0]?.id : undefined;
+      this.item.actualVersion = this.type === "projects" ? this.item?.actualVersion[0]?.id : null;
+      if (!this.item.actualVersion) this.item.actualVersion = null;
       break;
     case "targetVersionId":
       if ((value as any)["fromSearch"]) this.item[field] = [await this.createVersion(value)];
-      this.item.targetVersionId = this.type !== "projects" ? this.item?.targetVersionId[0]?.id : undefined;
+      this.item.targetVersionId = this.type !== "projects" ? this.item?.targetVersionId[0]?.id : null;
+      if (!this.item.targetVersionId) this.item.targetVersionId = null;
       break;
     case "status":
       this.item.status = this.item.status[0].status || this.item.status;
