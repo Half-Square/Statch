@@ -88,18 +88,62 @@
         display: none;
       }
 
+      .nowrap {
+        white-space: nowrap;
+      }
+
       .version {
         color: #a7a7a7;
       }
 
       .name {
+        display: table;
+        table-layout: fixed;
+        width: 100%;
+        white-space: nowrap;
+        min-width: 10ch;
+      }
+      .name > * {
+        display: table-cell;
         overflow: hidden;
         text-overflow: ellipsis;
-        white-space: nowrap;
-        max-width: 100px;
       }
 
+      .level {
+        transform: translateX(8px);
+      }
 
+      .assignee {
+        display: flex;
+
+        .label.more {
+          transform: translateX(16px);
+          z-index: 2;
+        }
+        .label:nth-child(2) {
+          z-index: 3;
+          transform: translateX(8px);
+        }
+
+        .label.avatar {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          justify-content: center;
+          gap: 8px;
+          cursor: pointer;
+          font-size: 12px;
+          line-height: 16px;
+          font-weight: 500;
+          text-transform: capitalize;
+          color: #eaeaea;
+          background: #3d3d3d;
+          width: 24px;
+          height: 24px;
+          border-radius: 999px;
+          z-index: 4;
+        }
+      }
     }
   }
 }

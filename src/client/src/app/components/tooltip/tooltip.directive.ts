@@ -2,7 +2,7 @@
  * @Author                : 0K00<qdouvillez@gmail.com>                       *
  * @CreatedDate           : 2023-11-15 14:37:55                              *
  * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
- * @LastEditDate          : 2023-11-23 12:25:24                              *
+ * @LastEditDate          : 2023-11-23 14:38:49                              *
  ****************************************************************************/
 
 import { AfterContentInit, ApplicationRef, ComponentFactoryResolver, ComponentRef, Directive, ElementRef, EmbeddedViewRef, HostListener, Injector, Input, OnDestroy } from "@angular/core";
