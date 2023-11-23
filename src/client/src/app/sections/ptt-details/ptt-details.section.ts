@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : 0K00<qdouvillez@gmail.com>                       *
+ * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-09-27 16:52:14                              *
- * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
- * @LastEditDate          : 2023-11-17 15:10:07                              *
+ * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @LastEditDate          : 2023-11-23 12:23:30                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -13,6 +13,7 @@
   * Replace version id by version data
   * Replace labels relation data by labels
   * Item change event handler
+  * Copy id to clipboard
 */
 
 /* Imports */
@@ -138,11 +139,13 @@ export class PttDetailsSection implements OnInit, OnDestroy {
       break;
     case "actualVersion":
       if ((value as any)["fromSearch"]) this.item[field] = [await this.createVersion(value)];
-      this.item.actualVersion = this.type === "projects" ? this.item?.actualVersion[0]?.id : undefined;
+      this.item.actualVersion = this.type === "projects" ? this.item?.actualVersion[0]?.id : null;
+      if (!this.item.actualVersion) this.item.actualVersion = null;
       break;
     case "targetVersionId":
       if ((value as any)["fromSearch"]) this.item[field] = [await this.createVersion(value)];
-      this.item.targetVersionId = this.type !== "projects" ? this.item?.targetVersionId[0]?.id : undefined;
+      this.item.targetVersionId = this.type !== "projects" ? this.item?.targetVersionId[0]?.id : null;
+      if (!this.item.targetVersionId) this.item.targetVersionId = null;
       break;
     case "status":
       this.item.status = this.item.status[0].status || this.item.status;
@@ -174,6 +177,10 @@ export class PttDetailsSection implements OnInit, OnDestroy {
   }
   /***/
 
+  /**
+  * Copy id to clipboard
+  * @param id - Id to copy
+  */
   public clipboard(id: string): void {
     if(navigator.clipboard && navigator.clipboard.writeText) {
       navigator.clipboard.writeText(id)
@@ -186,7 +193,7 @@ export class PttDetailsSection implements OnInit, OnDestroy {
         });
     } else {
       const copyHandler = (e: ClipboardEvent): void => {
-        e.clipboardData!.setData("text/plain", id);
+        if (e.clipboardData) e.clipboardData.setData("text/plain", id);
         e.preventDefault();
         document.removeEventListener("copy", copyHandler);
         this.toast.print("Copied to clipboard", "info");
@@ -196,4 +203,5 @@ export class PttDetailsSection implements OnInit, OnDestroy {
       document.execCommand("copy");
     }
   }
+  /***/
 }
