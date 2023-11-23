@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-09-20 17:27:56                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-09-20 17:32:27                               *
+ * @LastEditDate          : 2023-11-23 14:16:47                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -28,7 +28,7 @@ export class IsAdminGuard implements CanActivate {
     context: ExecutionContext,
   ): Promise<boolean> {
     try {
-      if (process.env.DISABLE_GUARDS) return true; // Ignore guard
+      if (process.env.DISABLE_GUARDS === "true") return true; // Ignore guard
 
       const token = context.switchToHttp().getRequest().headers["x-token"];
       const user = await this.prisma.user.findFirst({
