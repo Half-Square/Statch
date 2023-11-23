@@ -1,10 +1,10 @@
 <!--
-* @Author                : Quentin<quentin@halfsquare.fr>
+* @Author                : 0K00<qdouvillez@gmail.com>
 * @CreatedDate           : 2023-09-21 16:47:00
-* @LastEditors           : Quentin<quentin@halfsquare.fr>
-* @LastEditDate          : 2023-09-28 18:47:59
+* @LastEditors           : 0K00<qdouvillez@gmail.com>
+* @LastEditDate          : 2023-11-22 17:39:02
 -->
 
-<div class="labels" [ngStyle]="color ? {'background': color+'30', 'color': color, 'border': '1px solid' + color} : {}">
-  {{ name }}
+<div [tooltip]="name" class="labels" [ngStyle]="color ? {'background': color+'30', 'color': color, 'border': '1px solid' + color} : {}">
+  <span class="ellipsis">{{name}}</span>
 </div>
