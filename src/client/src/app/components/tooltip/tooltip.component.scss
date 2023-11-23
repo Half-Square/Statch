@@ -1,9 +1,14 @@
+:host {
+  position: fixed;
+  z-index: 1000;
+}
+
 .tooltip {
   --tooltipTriangle: calc(50% - 5px);
   position: fixed;
   width: fit-content;
   box-sizing: border-box;
-  z-index: 100;
+  z-index: 1000000;
   padding: 4px 8px;
   border-radius: 6px;
   text-transform: capitalize;
@@ -12,9 +17,9 @@
   font-weight: 500;
   background-color: black;
   color: #ffffff;
-  transform:translate(-50%, 30%);
   opacity: 0;
   text-wrap: nowrap;
+  transform: translate(-50%, 0);
   pointer-events: none;
   animation: tooltip-slide 150ms ease-out 1s;
   animation-fill-mode: forwards;
