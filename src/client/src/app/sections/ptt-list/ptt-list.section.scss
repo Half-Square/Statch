@@ -84,6 +84,10 @@
         height: 16px;
       }
 
+      .label.hidden {
+        display: none;
+      }
+
       .version {
         color: #a7a7a7;
       }
@@ -92,7 +96,7 @@
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
-        max-width: 200px;
+        max-width: 100px;
       }
 
 
