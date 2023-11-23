@@ -2,7 +2,7 @@
 * @Author                : 0K00<qdouvillez@gmail.com>
 * @CreatedDate           : 2023-09-20 16:09:00
 * @LastEditors           : 0K00<qdouvillez@gmail.com>
-* @LastEditDate          : 2023-11-15 16:45:09
+* @LastEditDate          : 2023-11-22 15:29:05
 -->
 
 <div class="section-ptt-navigation">
@@ -16,9 +16,9 @@
           <core-icon [ngStyle]="{'transform': 'translateY(-1px)'}" [icon]="isOpen(project.id) ? 'chevron-down' : 'chevron-right'"></core-icon>
         </div>
 
-        <a routerLink="/projects/{{project.id}}" routerLinkActive="active" class="link">
+        <a [tooltip]="project.name" routerLink="/projects/{{project.id}}" routerLinkActive="active" class="link">
           <core-icon [icon]="project.status"></core-icon>
-          <div [tooltip]="project.name" class="ellipsis">{{project.name}}</div>
+          <div class="ellipsis">{{project.name}}</div>
         </a>
       </div>
 
