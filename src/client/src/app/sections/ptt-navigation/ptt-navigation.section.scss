@@ -37,6 +37,11 @@
         height: 22px;
         overflow: hidden;
 
+        &:hover .add {
+          opacity: 1;
+          visibility: visible;
+        }
+
         &:active, &:focus {
           box-shadow: 0px 0px 0px 1px #3d3d3d;
         }
@@ -81,9 +86,15 @@
           }
 
           .ellipsis {
-            overflow: hidden;
-            max-width: 100%;
+            display: table;
+            table-layout: fixed;
+            width: 100%;
             white-space: nowrap;
+            min-width: 10ch;
+          }
+          .ellipsis > * {
+            display: table-cell;
+            overflow: hidden;
             text-overflow: ellipsis;
           }
         }
@@ -94,6 +105,28 @@
 
           &:hover {
             text-decoration-color: #0055ff;
+          }
+        }
+
+        .add {
+          visibility: hidden;
+          opacity: 0;
+          cursor: pointer;
+          padding: 4px;
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          justify-content: center;
+          border-radius: 6px;
+          color: #636363;
+
+          &:hover {
+            background: #303030;
+            color: #eaeaea;
+          }
+
+          &:focus, &:active {
+            box-shadow: 0 0 0 2px #1e1e1e;
           }
         }
       }

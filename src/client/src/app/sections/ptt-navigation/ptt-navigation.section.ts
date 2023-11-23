@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @Author                : 0K00<qdouvillez@gmail.com>                       *
  * @CreatedDate           : 2023-09-20 16:09:23                              *
- * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-09-21 15:51:58                              *
+ * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
+ * @LastEditDate          : 2023-11-23 15:43:49                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -26,6 +26,9 @@ import { RecoveryService } from "src/app/services/recovery.service";
 /* Interfaces */
 import { IProjects, ITasks, ITickets } from "src/app/interfaces";
 import { Subscription } from "rxjs";
+import { UserService } from "src/app/services/user.service";
+import { ToastService } from "src/app/services/toast.service";
+import { RequestService } from "src/app/services/request.service";
 /***/
 
 @Component({
@@ -42,7 +45,11 @@ export class PttNavigationSection implements OnInit, OnDestroy {
 
   private subscribers: Subscription[] = [];
 
-  constructor(private recovery: RecoveryService) {
+  constructor(
+    private recovery: RecoveryService,
+    public user: UserService,
+    private api: RequestService,
+    private toast: ToastService) {
   }
 
   ngOnInit(): void {
@@ -93,4 +100,15 @@ export class PttNavigationSection implements OnInit, OnDestroy {
     return _.find(this.open, (el) => el === id) ? true :  false;
   }
   /***/
+
+  public createChild(type: string, id: string, childType: string): void {
+    this.api.post(`api/${type}/${id}/${childType}`, {
+      name: `New ${childType.slice(0, -1)}`,
+      description: "..."
+    }, this.user.getUser()?.token)
+      .then((ret: any) => {
+        this.recovery.updateData(ret, childType);
+        this.toast.print(`${_.capitalize(childType.slice(0, -1))} ${(ret as {id: string}).id} has been created`, "success");
+      });
+  }
 }
