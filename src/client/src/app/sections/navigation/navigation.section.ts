@@ -2,7 +2,7 @@
  * @Author                : 0K00<qdouvillez@gmail.com>                       *
  * @CreatedDate           : 2023-09-20 16:04:41                              *
  * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
- * @LastEditDate          : 2023-11-16 22:48:58                              *
+ * @LastEditDate          : 2023-11-21 18:05:25                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -13,6 +13,7 @@
 import { Component, OnInit } from "@angular/core";
 import { Location } from "@angular/common";
 import { Router, NavigationEnd } from "@angular/router";
+import pkg from "../../../../package.json";
 /***/
 
 @Component({
@@ -25,6 +26,7 @@ export class NavigationSection implements OnInit {
   private forwardStack: string[] = [];
   public disabledForward: boolean = true;
   public disabledBack: boolean = true;
+  public version!: string | undefined;
 
   constructor(private router: Router, private location: Location) {
     this.router.events.subscribe((event) => {
@@ -42,6 +44,7 @@ export class NavigationSection implements OnInit {
 
   public ngOnInit(): void {
     this.history.push(this.router.url);
+    this.version = pkg.version;
   }
 
   public onBack(): void {

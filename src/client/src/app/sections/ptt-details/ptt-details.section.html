@@ -2,7 +2,7 @@
 * @Author                : 0K00<qdouvillez@gmail.com>
 * @CreatedDate           : 2023-09-27 16:52:00
 * @LastEditors           : 0K00<qdouvillez@gmail.com>
-* @LastEditDate          : 2023-11-17 15:01:40
+* @LastEditDate          : 2023-11-22 14:57:22
 -->
 
 <div class="ptt-details">
@@ -14,7 +14,7 @@
       <div class="heading">Id</div>
 
       <div class="content id">
-        {{item.id }}
+        <span (dblclick)="clipboard(item.id)">{{item.id }}</span>
 
         <div class="copy" (click)="clipboard(item.id)">
           <core-icon icon="copy" />
@@ -40,7 +40,17 @@
                           [selection]="replaceUsers()"
                           placeholder="Assign to..."
                           [multi]="true"
-                          (callback)="onItemChange('assignments', $event)"/>
+                          (callback)="onItemChange('assignments', $event)">
+          <ng-template let-select #selected>
+            <core-avatar [showLabel]="false"  [imgLink]="select.id | recovery:'picture':'users' | async"
+            [label]="select.id | recovery:'name':'users' | async"/>
+          </ng-template>
+
+          <ng-template let-option #items>
+            <core-avatar  [imgLink]="option.id | recovery:'picture':'users' | async"
+            [label]="option.id | recovery:'name':'users' | async"/>
+          </ng-template>
+        </component-select>
       </div>
     </div>
 
