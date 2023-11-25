@@ -2,7 +2,7 @@
 * @Author                : 0K00<qdouvillez@gmail.com>
 * @CreatedDate           : 2023-09-21 15:40:00
 * @LastEditors           : 0K00<qdouvillez@gmail.com>
-* @LastEditDate          : 2023-11-23 15:26:26
+* @LastEditDate          : 2023-11-25 13:39:13
 -->
 
 <div class="ptt-list {{other}}" >
@@ -31,17 +31,17 @@
           </div>
 
           <div class="block">
-            <div class="label" *ngFor="let label of element.labels; let i = index" [ngClass]="i>1 ? 'hidden' : ''">
+            <div class="label" *ngFor="let label of element.labels; let i = index" [ngClass]="{'hidden': i>1 || element.labels.length > 2 && i>0}">
               <component-labels [name]="label.labelId | recovery:'name':'labels' | async" [color]="label.labelId | recovery:'color':'labels' | async"></component-labels>
             </div>
-            <div class="nowrap" *ngIf="element.labels.length > 2">+ {{element.labels.length - 2}}</div>
+            <div class="nowrap" *ngIf="element.labels.length > 2">+ {{element.labels.length - 1}}</div>
 
-            <div class="level">
+            <div class="level" [ngClass]="{'more': element.assignments.length > 2}">
               <component-level [level]="element.level"></component-level>
             </div>
 
-            <div class="assignee">
-              <div class="label" *ngFor="let assignee of element.assignments; let i = index" [ngClass]="{'hidden' : i>1, 'more': i==0 && (element.assignments.length - 2) > 0}">
+            <div class="assignee" [ngClass]="{'gap': (element.assignments.length - 2) < 1}">
+              <div class="label" *ngFor="let assignee of element.assignments; let i = index" [ngClass]="{'hidden' : i>1, 'more': (i==0 || i==1) && (element.assignments.length - 2) > 0}">
                 <core-avatar  [showLabel]="false"
                               [tooltip]="assignee.userId | recovery:'name':'users' | async"
                               [size]="'medium'"
