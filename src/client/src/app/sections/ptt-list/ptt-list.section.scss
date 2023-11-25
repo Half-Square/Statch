@@ -109,8 +109,12 @@
         text-overflow: ellipsis;
       }
 
-      .level {
+      .level.more {
         transform: translateX(8px);
+      }
+
+      .assignee.gap {
+        gap: 4px;
       }
 
       .assignee {
@@ -120,7 +124,7 @@
           transform: translateX(16px);
           z-index: 2;
         }
-        .label:nth-child(2) {
+        .label.more:nth-child(2) {
           z-index: 3;
           transform: translateX(8px);
         }
