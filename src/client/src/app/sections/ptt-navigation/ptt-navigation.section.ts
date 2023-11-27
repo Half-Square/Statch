@@ -1,14 +1,15 @@
 /*****************************************************************************
- * @Author                : 0K00<qdouvillez@gmail.com>                       *
+ * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-09-20 16:09:23                              *
- * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
- * @LastEditDate          : 2023-11-25 12:59:39                              *
+ * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @LastEditDate          : 2023-11-27 14:06:22                              *
  ****************************************************************************/
 
 /* SUMMARY
   * Imports
   * Services
   * Interfaces
+  * Set open item by navigation context
   * Check if element has child
   * Toggle collapse
   * Check if item is open
@@ -17,18 +18,19 @@
 /* Imports */
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import * as _ from "lodash";
+import { NavigationEnd, Router } from "@angular/router";
+import { Subscription, filter } from "rxjs";
 /***/
 
 /* Services */
 import { RecoveryService } from "src/app/services/recovery.service";
+import { UserService } from "src/app/services/user.service";
+import { ToastService } from "src/app/services/toast.service";
+import { RequestService } from "src/app/services/request.service";
 /***/
 
 /* Interfaces */
 import { IProjects, ITasks, ITickets } from "src/app/interfaces";
-import { Subscription } from "rxjs";
-import { UserService } from "src/app/services/user.service";
-import { ToastService } from "src/app/services/toast.service";
-import { RequestService } from "src/app/services/request.service";
 /***/
 
 @Component({
@@ -44,12 +46,21 @@ export class PttNavigationSection implements OnInit, OnDestroy {
   public open: string[] = [];
 
   private subscribers: Subscription[] = [];
+  private context: {type: string, id?: string};
 
   constructor(
     private recovery: RecoveryService,
     public user: UserService,
     private api: RequestService,
-    private toast: ToastService) {
+    private toast: ToastService,
+    private router: Router) {
+    router.events.pipe(
+      filter((e): e is NavigationEnd => e instanceof NavigationEnd)
+    ).subscribe((e) => {
+      let tmp = e.url.split("/");
+      this.context = {type: tmp[1], id: tmp[2] || undefined};
+      this.setFocusByContext();
+    });
   }
 
   ngOnInit(): void {
@@ -63,6 +74,29 @@ export class PttNavigationSection implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.subscribers.forEach((s) => s.unsubscribe());
   }
+
+  /**
+  * Set open item by navigation context
+  */
+  private async setFocusByContext(): Promise<void> {
+    if (this.context.id) {
+      this.open = []; // Clear open items
+
+      if (this.context.type == "projects" || this.context.type == "tasks" || this.context.type == "tickets") { // Only for PTT
+        this.open.push(this.context.id);
+
+        let tmp;
+        let item = {type: this.context.type, id: this.context.id};
+
+        do {
+          tmp = await this.recovery.getSingleSync(item.type, item.id);
+          this.open.push(item.type == "tickets" ? tmp.taskId : tmp.projectId);
+          item = {type: item.type == "tickets" ? "tasks" : "projects", id: item.type == "tickets" ? tmp.taskId : tmp.id};
+        } while (item.type != "projects");
+      }
+    }
+  }
+  /***/
 
   /**
   * Check if element has child
@@ -124,9 +158,11 @@ export class PttNavigationSection implements OnInit, OnDestroy {
       name: `New ${childType.slice(0, -1)} ${this.nbChild(childType == "tasks" ? this.tasks : this.tickets)}`,
       description: "..."
     }, this.user.getUser()?.token)
-      .then((ret: any) => {
-        this.recovery.updateData(ret, childType);
+      .then((ret) => {
         this.toast.print(`${_.capitalize(childType.slice(0, -1))} ${(ret as {id: string}).id} has been created`, "success");
+        this.router.navigateByUrl(
+          `${childType}/${(ret as IProjects | ITasks | ITickets).id}`
+        );
       });
   }
   /***/
