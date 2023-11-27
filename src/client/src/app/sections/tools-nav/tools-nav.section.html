@@ -1,8 +1,8 @@
 <!--
-* @Author                : 0K00<qdouvillez@gmail.com>
+* @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>
 * @CreatedDate           : 2023-09-25 10:28:00
-* @LastEditors           : 0K00<qdouvillez@gmail.com>
-* @LastEditDate          : 2023-11-25 13:00:43
+* @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>
+* @LastEditDate          : 2023-11-27 13:34:35
 -->
 
 <div class="section-tools-nav">
@@ -16,10 +16,10 @@
     Activities
   </core-button>
 
-  <core-button other="full" size="small" (click)="newPttItem()">
+  <!-- <core-button other="full" size="small" (click)="newPttItem()">
     <core-icon icon="plus" other="icon--24"/>
     Add
-  </core-button>
+  </core-button> -->
 
   <core-button class="btn" size="small" other="full" routerLink="/my-tasks" tooltip="my tasks" routerLinkActive="active" #rla="routerLinkActive">
     <core-icon [icon]="rla.isActive ? 'flag-fill' : 'flag'" other="icon--24"/>
