@@ -1,0 +1,49 @@
+:host {
+  position: fixed;
+  z-index: 1000;
+}
+
+.tooltip {
+  --tooltipTriangle: calc(50% - 5px);
+  position: fixed;
+  width: fit-content;
+  box-sizing: border-box;
+  z-index: 1000000;
+  padding: 4px 8px;
+  border-radius: 6px;
+  text-transform: capitalize;
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 500;
+  background-color: black;
+  color: #ffffff;
+  opacity: 0;
+  text-wrap: nowrap;
+  transform: translate(-50%, 0);
+  pointer-events: none;
+  animation: tooltip-slide 150ms ease-out 1s;
+  animation-fill-mode: forwards;
+
+  &::before {
+    content: '';
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid black;
+    position: absolute;
+    left: var(--tooltipTriangle);
+    bottom: -5px;
+  }
+}
+
+@keyframes tooltip-slide {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, 30%);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}

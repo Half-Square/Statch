@@ -2,16 +2,24 @@
 * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>
 * @CreatedDate           : 2023-09-29 12:23:00
 * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>
-* @LastEditDate          : 2023-09-29 12:39:45
+* @LastEditDate          : 2023-11-17 08:57:23
 -->
 
-<div class="component-activity-action-state" [ngSwitch]="activity.action.field">
+<div class="component-activity-action-state" [tooltip]="state" [ngSwitch]="activity.action.field">
   <ng-container *ngSwitchCase="'status'">
     <component-status [status]="state"/>
   </ng-container>
 
   <ng-container *ngSwitchCase="'level'">
     <component-level [level]="state"/>
+  </ng-container>
+
+  <ng-container *ngSwitchCase="'actualVersion'">
+    {{state | recovery: "name":"versions" | async}}
+  </ng-container>
+
+  <ng-container *ngSwitchCase="'targetVersionId'">
+    {{state | recovery: "name":"versions" | async}}
   </ng-container>
 
   <ng-container *ngSwitchDefault>"{{state}}"</ng-container>

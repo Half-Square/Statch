@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @Author                : 0K00<qdouvillez@gmail.com>                       *
  * @CreatedDate           : 2023-09-21 16:47:10                              *
- * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-09-28 17:47:48                              *
+ * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
+ * @LastEditDate          : 2023-11-22 14:35:45                              *
  ****************************************************************************/
 
 import { Component, Input } from "@angular/core";
@@ -14,8 +14,8 @@ import { Component, Input } from "@angular/core";
 })
 export class LabelsComponent {
   @Input()
-    name: string = "";
+    name: string | null = "";
 
   @Input()
-    color: string;
+    color: string | null;
 }

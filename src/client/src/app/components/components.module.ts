@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @Author                : 0K00<qdouvillez@gmail.com>                       *
  * @CreatedDate           : 2023-09-19 16:08:01                              *
- * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-09-29 15:19:26                              *
+ * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
+ * @LastEditDate          : 2023-11-15 14:36:32                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -46,6 +46,7 @@ import { ActivityItemComponent } from "./activity-item/activity-item.component";
 import { ActivityActionStateComponent } from "./activity-action-state/activity-action-state.component";
 import { SearchBarComponent } from "./search-bar/search-bar.component";
 import { ModalComponent } from "./modal/modal.component";
+import { TooltipModule } from "./tooltip/tooltip.module";
 /***/
 
 @NgModule({
@@ -78,7 +79,8 @@ import { ModalComponent } from "./modal/modal.component";
     RouterModule,
     CoresModule,
     PipesModule,
-    FormsModule
+    FormsModule,
+    TooltipModule
   ],
   exports: [
     SelectComponent,
@@ -102,7 +104,8 @@ import { ModalComponent } from "./modal/modal.component";
     ActivityItemComponent,
     ActivityActionStateComponent,
     SearchBarComponent,
-    ModalComponent
+    ModalComponent,
+    TooltipModule
   ]
 })
 

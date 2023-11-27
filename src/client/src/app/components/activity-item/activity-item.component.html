@@ -1,31 +1,40 @@
 <!--
-* @Author                : 0K00<qdouvillez@gmail.com>
+* @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>
 * @CreatedDate           : 2023-09-29 11:17:00
-* @LastEditors           : 0K00<qdouvillez@gmail.com>
-* @LastEditDate          : 2023-09-29 19:28:57
+* @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>
+* @LastEditDate          : 2023-11-17 08:51:44
 -->
 
-<div class="component-activity-item">
-  <core-avatar class="avatar" *ngIf="actor" [showLabel]="reduce ? false : true" [label]="actor.name" [imgLink]="actor.picture"/>
-  <div>{{activity.action.type}}</div>
-  <div *ngIf="!activity.action.field">{{activity.target.type.slice(0, -1)}}</div>
-  <div *ngIf="activity.action.field">{{activity.action.field}}</div>
-  <div *ngIf="activity.action.prev && activity.action.curr && !reduce">from</div>
+<div class="component-activity-item" [ngClass]="reduce ? 'reduce' : ''">
+  <div class="user">
+    <core-avatar class="avatar" *ngIf="actor" [label]="actor.name" [imgLink]="actor.picture"/>
+    <div [tooltip]="activity.created" class="date" *ngIf="reduce">{{activity.created | dateDifference}}</div>
+  </div>
+  <div class="content">
+    <div class="type">
+      <core-icon [tooltip]="activity.action.type" [icon]="iconType" />
+    </div>
+    <div class="target" *ngIf="!activity.action.field">{{activity.target.type.slice(0, -1)}}</div>
+    <div class="action" *ngIf="activity.action.field">{{activity.action.field}}</div>
+    <div class="from" *ngIf="activity.action.prev && activity.action.curr && !reduce">from</div>
 
-  <component-activity-action-state  *ngIf="activity.action.prev && activity.action.type != 'CREATE' && activity.action.type != 'DELETE' && !reduce"
-                                    [activity]="activity"
-                                    [state]="activity.action.prev"/>
+    <component-activity-action-state  *ngIf="activity.action.prev && activity.action.type != 'CREATE' && activity.action.type != 'DELETE' && !reduce"
+                                      [activity]="activity"
+                                      [state]="activity.action.prev"/>
 
-  <div *ngIf="activity.action.prev && activity.action.curr && !reduce">to</div>
+    <div class="to" *ngIf="activity.action.prev && activity.action.curr && !reduce">
+      <core-icon tooltip="TO" icon="arrow-right" />
+    </div>
 
-  <component-activity-action-state  *ngIf="activity.action.curr && activity.action.type != 'CREATE' && activity.action.type != 'DELETE'"
-                                    [activity]="activity"
-                                    [state]="activity.action.curr"/>
+    <component-activity-action-state  *ngIf="activity.action.curr && activity.action.type != 'CREATE' && activity.action.type != 'DELETE'"
+                                      [activity]="activity"
+                                      [state]="activity.action.curr"/>
 
-  <core-link  [link]="'/'+activity.target.type+'/'+activity.target.id"
-              [style]="'primary'">
-    {{activity.target.id | recovery:'name':activity.target.type | async}}
-  </core-link>
+    <core-link [tooltip]="activity.target.id | recovery:'name':activity.target.type | async"  [link]="'/'+activity.target.type+'/'+activity.target.id"
+                [style]="'primary'">
+      {{activity.target.id | recovery:'name':activity.target.type | async}}
+    </core-link>
+  </div>
 
-  <div class="date">{{activity.created | dateDifference}}</div>
+  <div [tooltip]="activity.created" class="date" *ngIf="!reduce">{{activity.created | dateDifference}}</div>
 </div>

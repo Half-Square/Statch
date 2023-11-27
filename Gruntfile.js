@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-10-03 18:19:42                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-10-05 20:14:21                               *
+ * @LastEditDate          : 2023-11-27 14:46:21                               *
  *****************************************************************************/
 
 module.exports = function(grunt) {
@@ -15,7 +15,7 @@ module.exports = function(grunt) {
     copy: {
       env: {
         files: [{
-          expand: true,
+          expand: false,
           src: ["./src/server/.env.sample"],
           dest: "./src/server/.env"
         }]
@@ -26,6 +26,7 @@ module.exports = function(grunt) {
           {expand: true, cwd: "./src/client/dist/", src: ["**"], dest: "./dist/client/"},
           {src: ["./src/server/.env.sample"], dest: "./dist/.env"},
           {src: ["./src/server/config.json.sample"], dest: "./dist/config.json"},
+          {expand: true, cwd: "./src/server/", src: ["upload/"], dest: "./dist/"},
           {
             expand: true, cwd: "./src/server/",
             src: [

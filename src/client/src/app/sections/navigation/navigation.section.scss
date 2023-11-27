@@ -8,11 +8,47 @@
 .section-navigation {
   height: 100%;
   width: 250px;
-  background-color: rgb(34,34,34);
-  overflow-y: auto;
+  background: #222222;
+  border-right: 1px solid #000000;
+
+  .header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 4px;
+    padding: 0 8px;
+    height: 40px;
+
+    .nav-btn {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      gap: 4px;
+    }
+
+    .version {
+      font-size: 8px;
+      color: #636363;
+    }
+  }
+
+  .title {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+
+    img {
+      width: 16px;
+      height: 16px;
+    }
+  }
 
   h1 {
-    font-size: 16px;
-    padding: 10px 16px;
+    cursor: default;
+    font-size: 12px;
+    line-height: 16px;
+    font-weight: 500;
   }
 }

@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-09-27 16:52:14                              *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-10-06 12:35:47                              *
+ * @LastEditDate          : 2023-11-23 12:23:30                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -13,6 +13,7 @@
   * Replace version id by version data
   * Replace labels relation data by labels
   * Item change event handler
+  * Copy id to clipboard
 */
 
 /* Imports */
@@ -29,6 +30,7 @@ import { ILabels, IProjects, IUsers, IVersions } from "src/app/interfaces";
 import { RecoveryService } from "src/app/services/recovery.service";
 import { RequestService } from "src/app/services/request.service";
 import { UserService } from "src/app/services/user.service";
+import { ToastService } from "src/app/services/toast.service";
 /***/
 
 /* eslint-disable  @typescript-eslint/no-explicit-any */
@@ -68,7 +70,8 @@ export class PttDetailsSection implements OnInit, OnDestroy {
 
   constructor(public recovery: RecoveryService,
               public api: RequestService,
-              private user: UserService) {
+              private user: UserService,
+              public toast: ToastService) {
     this.subsciptions = [
       this.recovery.get("users").subscribe((users) => this.users = users),
       this.recovery.get("labels").subscribe((labels) => this.labels = labels)
@@ -136,10 +139,13 @@ export class PttDetailsSection implements OnInit, OnDestroy {
       break;
     case "actualVersion":
       if ((value as any)["fromSearch"]) this.item[field] = [await this.createVersion(value)];
-      this.item.actualVersion = this.type === "projects" ? this.item?.actualVersion[0]?.id : undefined;
+      this.item.actualVersion = this.type === "projects" ? this.item?.actualVersion[0]?.id : null;
+      if (!this.item.actualVersion) this.item.actualVersion = null;
       break;
     case "targetVersionId":
-      this.item.targetVersionId = this.type !== "projects" ? this.item?.targetVersionId[0]?.id : undefined;
+      if ((value as any)["fromSearch"]) this.item[field] = [await this.createVersion(value)];
+      this.item.targetVersionId = this.type !== "projects" ? this.item?.targetVersionId[0]?.id : null;
+      if (!this.item.targetVersionId) this.item.targetVersionId = null;
       break;
     case "status":
       this.item.status = this.item.status[0].status || this.item.status;
@@ -168,6 +174,34 @@ export class PttDetailsSection implements OnInit, OnDestroy {
     return await this.api.post(`api/projects/${this.root.id}/versions`, {
       name: value.name
     }, this.user.getUser()?.token) as IVersions;
+  }
+  /***/
+
+  /**
+  * Copy id to clipboard
+  * @param id - Id to copy
+  */
+  public clipboard(id: string): void {
+    if(navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(id)
+        .then(() => {
+          this.toast.print("Copied to clipboard", "info");
+        })
+        .catch(err => {
+          this.toast.print("Unable to copy", "error");
+          console.error(err);
+        });
+    } else {
+      const copyHandler = (e: ClipboardEvent): void => {
+        if (e.clipboardData) e.clipboardData.setData("text/plain", id);
+        e.preventDefault();
+        document.removeEventListener("copy", copyHandler);
+        this.toast.print("Copied to clipboard", "info");
+      };
+
+      document.addEventListener("copy", copyHandler);
+      document.execCommand("copy");
+    }
   }
   /***/
 }

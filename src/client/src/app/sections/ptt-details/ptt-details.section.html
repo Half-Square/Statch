@@ -1,8 +1,8 @@
 <!--
-* @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>
+* @Author                : 0K00<qdouvillez@gmail.com>
 * @CreatedDate           : 2023-09-27 16:52:00
-* @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>
-* @LastEditDate          : 2023-10-02 13:22:16
+* @LastEditors           : 0K00<qdouvillez@gmail.com>
+* @LastEditDate          : 2023-11-25 13:25:56
 -->
 
 <div class="ptt-details">
@@ -10,12 +10,17 @@
 
   <div class="container">
 
-    <div class="block">
+    <div class="block id">
       <div class="heading">Id</div>
 
-      <div class="content">
-        {{item.id }}
+      <div class="content id">
+        <span (dblclick)="clipboard(item.id)">{{item.id }}</span>
+
+        <div class="copy" (click)="clipboard(item.id)">
+          <core-icon icon="copy" />
+        </div>
       </div>
+
     </div>
 
     <div class="block">
@@ -33,8 +38,19 @@
       <div class="content">
         <component-select [data]="users"
                           [selection]="replaceUsers()"
+                          placeholder="Assign to..."
                           [multi]="true"
-                          (callback)="onItemChange('assignments', $event)"/>
+                          (callback)="onItemChange('assignments', $event)">
+          <ng-template let-select #selected>
+            <core-avatar [showLabel]="false"  [imgLink]="select.id | recovery:'picture':'users' | async"
+            [label]="select.id | recovery:'name':'users' | async"/>
+          </ng-template>
+
+          <ng-template let-option #items>
+            <core-avatar  [imgLink]="option.id | recovery:'picture':'users' | async"
+            [label]="option.id | recovery:'name':'users' | async"/>
+          </ng-template>
+        </component-select>
       </div>
     </div>
 
@@ -44,6 +60,7 @@
       <div class="content">
         <component-select [data]="versions"
                           [selection]="replaceVersion()"
+                          placeholder="Select version..."
                           (callback)="onItemChange(type === 'projects' ? 'actualVersion' : 'targetVersionId', $event)"
                           [noResult]="true"
                           [noOption]="'No version for the moment'"/>
@@ -56,6 +73,7 @@
       <div class="content">
         <component-select [data]="status"
                           [selection]="[{id: 'status', status: item.status}]"
+                          placeholder="Select status..."
                           [hasSearch]="false"
                           (callback)="onItemChange('status', $event)"
                           [multi]="false">
@@ -76,6 +94,7 @@
       <div class="content">
         <component-select [data]="labels"
                           [selection]="replaceLabels()"
+                          placeholder="Add label..."
                           (callback)="onItemChange('labels', $event)"
                           [hasSearch]="true"
                           [multi]="true">
@@ -90,12 +109,13 @@
       </div>
     </div>
 
-    <div *ngIf="type != 'projects'" class="block">
+    <div class="block">
       <div class="heading">Level</div>
 
       <div class="content">
         <component-select [data]="levels"
                           [selection]="[{id: 'level', level: item.level}]"
+                          placeholder="Choose level..."
                           (callback)="onItemChange('level', $event)"
                           [hasSearch]="false"
                           [multi]="false">

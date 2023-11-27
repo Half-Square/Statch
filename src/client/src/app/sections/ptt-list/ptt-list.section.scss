@@ -9,6 +9,12 @@
   &.no-container {
     .sort {display: none;}
     .add-item {display: none;}
+    .element.border-first {
+      border-top: none;
+    }
+    .element.border-last {
+      border-bottom: none;
+    }
   }
 
   .sort {
@@ -16,6 +22,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 16px;
+    text-transform: capitalize;
   }
 
   .element:nth-child(2) {
@@ -28,6 +35,10 @@
 
   .element:last-child {
     border-radius: 0 0 6px 6px;
+  }
+
+  .element.add-item {
+    padding: 0;
   }
 
   .element {
@@ -56,6 +67,10 @@
       justify-content: space-between;
     }
 
+    .container.add {
+      padding: 0;
+    }
+
     .block {
       display: flex;
       align-items: center;
@@ -69,18 +84,70 @@
         height: 16px;
       }
 
+      .label.hidden {
+        display: none;
+      }
+
+      .nowrap {
+        white-space: nowrap;
+      }
+
       .version {
         color: #a7a7a7;
       }
 
       .name {
+        display: table;
+        table-layout: fixed;
+        width: 100%;
+        white-space: nowrap;
+        min-width: 10ch;
+      }
+      .name > * {
+        display: table-cell;
         overflow: hidden;
         text-overflow: ellipsis;
-        white-space: nowrap;
-        max-width: 200px;
       }
 
+      .level.more {
+        transform: translateX(8px);
+      }
 
+      .assignee.gap {
+        gap: 4px;
+      }
+
+      .assignee {
+        display: flex;
+
+        .label.more {
+          transform: translateX(16px);
+          z-index: 2;
+        }
+        .label.more:nth-child(2) {
+          z-index: 3;
+          transform: translateX(8px);
+        }
+
+        .label.avatar {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          justify-content: center;
+          gap: 8px;
+          cursor: pointer;
+          font-size: 12px;
+          line-height: 16px;
+          font-weight: 500;
+          text-transform: capitalize;
+          color: #eaeaea;
+          background: #3d3d3d;
+          width: 24px;
+          height: 24px;
+          border-radius: 999px;
+          z-index: 4;
+        }
+      }
     }
   }
 }

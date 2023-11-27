@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-05-30 11:58:04                              *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-10-06 12:17:58                              *
+ * @LastEditDate          : 2023-11-14 10:21:00                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -11,13 +11,11 @@
 */
 
 /* Imports */
-import { Component, OnInit } from "@angular/core";
+import { Component } from "@angular/core";
 import { environment as env } from "./../environments/environment";
-import * as _ from "lodash";
 /***/
 
 /* Services */
-import { RecoveryService } from "./services/recovery.service";
 import { UserService } from "./services/user.service";
 import { NavService } from "./sections/navigation/nav.service";
 /***/
@@ -31,14 +29,13 @@ import { Router } from "@angular/router";
   templateUrl: "./app.component.html",
   styleUrls: ["./app.component.scss"]
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   public onSearch: boolean = false;
 
-  constructor(private recovery: RecoveryService,
-              public user: UserService,
+  constructor(public user: UserService,
               public nav: NavService,
               private router: Router) {
-    if (!env.dev) { // Recover system settings, only for production
+    if (env.production) { // Recover system settings, only for production
       fetch("/api/settings/sys", {headers: {"Content-Type": "application/json"}})
         .then((ret) => {
           ret.json()
@@ -46,7 +43,6 @@ export class AppComponent implements OnInit {
               if (json.api && json.host && json.socket) {
                 env.serverUrl = `http://${json["host"]}:${json["api"]}`;
                 env.socketUrl = `http://${json["host"]}:${json["socket"]}`;
-
                 if (json.demo) {
                   this.user.setUser(json.demo);
                   this.router.navigate(["/"]);
@@ -55,12 +51,5 @@ export class AppComponent implements OnInit {
             });
         });
     }
-  }
-
-  ngOnInit(): void {
-    this.recovery.init({
-      apiUrl: `${env.serverUrl}/api`,
-      socketUrl: env.socketUrl
-    });
   }
 }

@@ -37,6 +37,7 @@ import { SocketService } from "./services/socket/socket.service";
 import { ActivitiesService } from "./controllers/activities/activities.service";
 import { FilesController } from "./controllers/files/files.controller";
 import { SettingsService } from "./controllers/settings/settings.service";
+import { DatabaseController } from "./controllers/database/database.controller";
 /***/
 
 @Module({
@@ -57,7 +58,8 @@ import { SettingsService } from "./controllers/settings/settings.service";
     SettingsController,
     ActivitiesController,
     FilesController,
-    SearchController
+    SearchController,
+    DatabaseController
   ],
   providers: [
     PrismaService,

@@ -17,6 +17,15 @@
     flex-direction: column;
     gap: 16px;
 
+    .block.id:hover {
+      .content.id {
+        .copy {
+          visibility: visible;
+          opacity: 1;
+        }
+      }
+    }
+
     .block {
       display: grid;
       grid-template-columns: minmax(80px,max-content) minmax(104px,100%);
@@ -38,6 +47,35 @@
         font-size: 12px;
         line-height: 16px;
         color: #eaeaea;
+      }
+
+      .content.id {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 4px;
+
+        .copy {
+          visibility: hidden;
+          opacity: 0;
+          cursor: pointer;
+          padding: 4px;
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          justify-content: center;
+          border-radius: 6px;
+          color: #3d3d3d;
+
+          &:hover {
+            background: #303030;
+            color: #eaeaea;
+          }
+
+          &:focus, &:active {
+            box-shadow: 0 0 0 2px #1e1e1e;
+          }
+        }
       }
 
       .content.list {

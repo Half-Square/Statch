@@ -1,13 +1,13 @@
 <!--
-* @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>
+* @Author                : Quentin<quentin@halfsquare.fr>
 * @CreatedDate           : 2023-09-05 10:15:00
-* @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>
-* @LastEditDate          : 2023-10-02 15:35:32
+* @LastEditors           : Quentin<quentin@halfsquare.fr>
+* @LastEditDate          : 2023-11-16 17:03:34
 -->
 
 <div [ngClass]="['avatar', size, other]">
 
-  <div class="content">
+  <div [ngClass]="imgLink ? '' : 'bg'" class="content">
 
     <span *ngIf="imgLink" class="img">
       <img [src]="url+imgLink" [alt]="label + ' profil picture'">

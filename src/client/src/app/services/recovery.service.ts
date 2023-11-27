@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-05-31 12:56:22                              *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-10-03 19:03:45                              *
+ * @LastEditDate          : 2023-11-14 10:21:55                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -58,13 +58,16 @@ export class RecoveryService {
   /**
   * Init socket for data recovery
   * @param options - Server and socket informations and options
+  * @param force - Force re-init
   */
-  public init(options: IServerOptions): void {
-    this.options = options;
-    this.socket = this.mySocket.connect(
-      this.options.socketUrl,
-      this.options.socketOpt || {}
-    ); // Connect socket
+  public init(options: IServerOptions, force?: boolean): void {
+    if (!this.socket || force) {
+      this.options = options;
+      this.socket = this.mySocket.connect(
+        this.options.socketUrl,
+        this.options.socketOpt || {}
+      ); // Connect socket
+    }
   }
   /***/
 

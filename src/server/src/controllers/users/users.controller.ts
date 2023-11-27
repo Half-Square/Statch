@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-06-01 15:15:39                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-10-06 12:03:47                               *
+ * @LastEditDate          : 2023-11-23 14:30:28                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -108,7 +108,7 @@ export class UsersController {
 
       if (!res.validate) throw new HttpException("Not validate yet", HttpStatus.BAD_REQUEST);
 
-      res["token"] = jwt.sign(res, process.env.SALT);
+      res["token"] = jwt.sign(res, process.env.SALT, {expiresIn: process.env.SESSION_TIME});
 
       return new usersDto.ConnectOutput(res);
     } catch (err) {

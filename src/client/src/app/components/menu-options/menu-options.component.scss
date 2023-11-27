@@ -5,6 +5,13 @@
  * @LastEditDate          : 2023-09-29 12:50:16                              *
  ****************************************************************************/
 
+:host {
+  position: absolute;
+  right: 0;
+  top: 22px;
+}
+
+
 .component-menu-options {
   position: absolute;
   bottom: 0;
@@ -14,6 +21,7 @@
   border-radius: 8px;
   border: 1px solid #3d3d3d;
   z-index: 100;
+  padding: 4px;
 }
 
 .menu-options-back {

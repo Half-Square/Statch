@@ -5,6 +5,23 @@
  * @LastEditDate          : 2023-09-22 17:18:58                              *
  ****************************************************************************/
 
+:host[other="full"] {
+  width: 100%;
+  .button {
+    justify-content: flex-start
+  }
+}
+
+:host.active {
+  .button {
+    background: #0055ff;
+
+    &:hover {
+      background: #1b67ff!important;
+    }
+  }
+}
+
 .button {
   all: unset;
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
@@ -18,7 +35,7 @@
 
 .button.small {
   gap: 4px;
-  padding: 2px 6px;
+  padding: 4px 6px;
   font-size: 12px;
   line-height: 16px;
   font-weight: 500;
@@ -31,6 +48,11 @@
   font-size: 12px;
   line-height: 16px;
   font-weight: 500;
+  border: 1px solid transparent;
+}
+
+.button.icon {
+  padding: 4px;
   border: 1px solid transparent;
 }
 
@@ -98,7 +120,7 @@
 
 .button.basic:disabled {
   cursor: not-allowed;
-  color: #a7a7a7;
+  color: #5c5c5c;
 }
 
 
