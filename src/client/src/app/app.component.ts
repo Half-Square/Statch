@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-05-30 11:58:04                              *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-11-28 18:36:11                              *
+ * @LastEditDate          : 2023-11-28 18:43:47                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -41,8 +41,8 @@ export class AppComponent {
           ret.json()
             .then((json) => {
               if (json.api && json.host && json.socket) {
-                env.serverUrl = `http://${json["host"]}:${json["api"]}`;
-                env.socketUrl = `http://${json["host"]}:${json["socket"]}`;
+                env.serverUrl = `${location.protocol}${json["host"]}:${json["api"]}`;
+                env.socketUrl = `${location.protocol}${json["host"]}:${json["socket"]}`;
 
                 if (json.mode == "demo") {
                   this.user.getDemo().then((ret) => {
