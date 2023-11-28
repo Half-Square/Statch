@@ -2,11 +2,12 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-06-02 14:59:51                              *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-09-28 14:49:21                              *
+ * @LastEditDate          : 2023-11-28 18:35:46                              *
  ****************************************************************************/
 
 /* SUMMARY
   * Imports
+  * Services
   * Interface
   * Check if user is connected
   * Get logged user
@@ -18,6 +19,10 @@
 /* Imports */
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
+/***/
+
+/* Services */
+import { RequestService } from "./request.service";
 /***/
 
 /* Interfaces */
@@ -37,7 +42,8 @@ export interface ILoggedUser {
 export class UserService {
   private user: ILoggedUser | null = null;
 
-  constructor(private router: Router) {
+  constructor(private router: Router,
+              private request: RequestService) {
   }
 
   /**
@@ -96,6 +102,14 @@ export class UserService {
   */
   public isAdmin(): boolean {
     return this.user?.isAdmin || false;
+  }
+  /***/
+
+  /**
+  * Get demo user
+  */
+  public async getDemo(): Promise<ILoggedUser> {
+    return this.request.get("api/users/demo") as Promise<ILoggedUser>;
   }
   /***/
 }

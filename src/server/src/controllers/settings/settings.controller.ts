@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-09-22 16:14:03                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-10-06 12:07:50                               *
+ * @LastEditDate          : 2023-11-28 17:47:25                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -24,7 +24,9 @@ import {
   UseGuards,
   Get,
   Put,
-  Body
+  Body,
+  HttpException,
+  HttpStatus
 } from "@nestjs/common";
 /***/
 
@@ -42,7 +44,6 @@ import { SettingsService } from "./settings.service";
 /***/
 
 @Controller("api/settings")
-@UseGuards(IsAdminGuard)
 export class SettingsController {
   constructor(private settings: SettingsService) {
   }
@@ -52,6 +53,7 @@ export class SettingsController {
   * @return - Settings file 
   */
   @Get()
+  @UseGuards(IsAdminGuard)
   getAll(): settingsDto.PublicOutput {
     let settings = this.settings.getSettings();
     return new settingsDto.PublicOutput(settings);
@@ -63,6 +65,7 @@ export class SettingsController {
   * @return - Smtp settings 
   */
   @Get("smtp")
+  @UseGuards(IsAdminGuard)
   getSmtp(): settingsDto.PublicSmtpOutput {
     let settings = this.settings.getSettings();
     return new settingsDto.PublicSmtpOutput(settings.smtp);
@@ -75,6 +78,7 @@ export class SettingsController {
   * @return - Smtp settings 
   */
   @Put("smtp")
+  @UseGuards(IsAdminGuard)
   updateSmtp(@Body() body: settingsDto.UpdateSmtpInput): settingsDto.PublicSmtpOutput {
     let settings = this.settings.getSettings();
     
@@ -106,6 +110,8 @@ export class SettingsController {
   ): {message: string} | Promise<usersDto.ConnectOutput> {
     let ret;
     let config = this.settings.getSettings();
+
+    if (config.sys) throw new HttpException("Forbidden ressource", HttpStatus.FORBIDDEN);
     config.sys = body;
 
     if (config.sys.mode === "demo") {

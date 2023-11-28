@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-05-30 11:58:04                              *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-11-14 10:21:00                              *
+ * @LastEditDate          : 2023-11-28 18:36:11                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -43,10 +43,14 @@ export class AppComponent {
               if (json.api && json.host && json.socket) {
                 env.serverUrl = `http://${json["host"]}:${json["api"]}`;
                 env.socketUrl = `http://${json["host"]}:${json["socket"]}`;
-                if (json.demo) {
-                  this.user.setUser(json.demo);
-                  this.router.navigate(["/"]);
+
+                if (json.mode == "demo") {
+                  this.user.getDemo().then((ret) => {
+                    this.user.setUser(ret);
+                    this.router.navigateByUrl("/");
+                  });
                 }
+
               } else this.router.navigate(["/first-launch"]);
             });
         });
