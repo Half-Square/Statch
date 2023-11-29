@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-06-01 15:15:39                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-11-23 14:30:28                               *
+ * @LastEditDate          : 2023-11-28 18:33:14                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -185,6 +185,20 @@ export class UsersController {
     });
 
     return new usersDto.PublicOutput(user);
+  }
+  /***/
+
+  /**
+  * Get demo user 
+  */
+  @Get("users/demo")
+  async getDemo(): Promise<usersDto.ConnectOutput> {
+    let ret = await this.prisma.user.findUnique({where: {email: "demo@statch.app"}});
+    
+    if (ret) {
+      ret["token"] = jwt.sign(ret, process.env.SALT, {algorithm: "HS256"});
+      return new usersDto.ConnectOutput(ret);
+    } else throw new HttpException("Not Found", HttpStatus.NOT_FOUND);
   }
   /***/
 }
