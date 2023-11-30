@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @Author                : 0K00<qdouvillez@gmail.com>                       *
  * @CreatedDate           : 2023-09-20 16:09:23                              *
- * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-11-27 14:06:22                              *
+ * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
+ * @LastEditDate          : 2023-11-30 16:51:51                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -113,18 +113,6 @@ export class PttNavigationSection implements OnInit, OnDestroy {
   /***/
 
   /**
-   * Get size of specific data
-   * @param target - Tasks' or Tickets' data
-   * @returns - Number, length of tasks or tickets
-   */
-  public nbChild(target: IProjects[] | ITasks[] | ITickets[]): number {
-    let nb = _.size(target);
-    if(nb > 0) return nb;
-    else return 0;
-  }
-  /***/
-
-  /**
   * Toggle collapse
   * @param id - Item's id
   */
@@ -155,8 +143,8 @@ export class PttNavigationSection implements OnInit, OnDestroy {
    */
   public createChild(type: string, id: string, childType: string): void {
     this.api.post(`api/${type}/${id}/${childType}`, {
-      name: `New ${childType.slice(0, -1)} ${this.nbChild(childType == "tasks" ? this.tasks : this.tickets)}`,
-      description: "..."
+      name: `New ${childType.slice(0, -1)}`,
+      description: `It's a new ${childType.slice(0, -1)}`
     }, this.user.getUser()?.token)
       .then((ret) => {
         this.toast.print(`${_.capitalize(childType.slice(0, -1))} ${(ret as {id: string}).id} has been created`, "success");
