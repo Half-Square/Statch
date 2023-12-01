@@ -2,7 +2,7 @@
 * @Author                : 0K00<qdouvillez@gmail.com>
 * @CreatedDate           : 2023-09-27 14:35:00
 * @LastEditors           : 0K00<qdouvillez@gmail.com>
-* @LastEditDate          : 2023-11-17 14:45:34
+* @LastEditDate          : 2023-11-30 15:51:42
 -->
 
 <div class="section-tool-bar">
@@ -13,7 +13,7 @@
   <component-breadcrumbs [crumbs]="routes"/>
 
   <div class="end">
-    <core-button size="icon" (click)="onSearchChange.emit(!onSearch)">
+    <core-button size="icon" (click)="search.toggle()">
       <core-icon class="icon" icon="magnifying-glass" other="icon--24"/>
     </core-button>
 

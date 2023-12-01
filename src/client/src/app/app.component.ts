@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @Author                : 0K00<qdouvillez@gmail.com>                       *
  * @CreatedDate           : 2023-05-30 11:58:04                              *
- * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-11-28 19:02:56                              *
+ * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
+ * @LastEditDate          : 2023-11-30 17:25:16                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -11,7 +11,7 @@
 */
 
 /* Imports */
-import { Component } from "@angular/core";
+import { Component, HostListener } from "@angular/core";
 import { environment as env } from "./../environments/environment";
 import { Router } from "@angular/router";
 /***/
@@ -21,6 +21,8 @@ import { ILoggedUser, UserService } from "./services/user.service";
 import { NavService } from "./sections/navigation/nav.service";
 import { RequestService } from "./services/request.service";
 import { SocketService } from "./services/socket.service";
+import { ShortcutsService } from "./services/shortcuts.service";
+import { SearchService } from "./services/search.service";
 /***/
 
 @Component({
@@ -35,7 +37,9 @@ export class AppComponent {
               public nav: NavService,
               private router: Router,
               private request: RequestService,
-              private socket: SocketService) {
+              private socket: SocketService,
+              private shorcuts: ShortcutsService,
+              public search: SearchService) {
     if (env.production) { // Recover system settings, only for production
       fetch("/api/settings/sys", {headers: {"Content-Type": "application/json"}})
         .then((ret) => {
@@ -60,4 +64,22 @@ export class AppComponent {
         });
     }
   }
+
+  @HostListener("document:keydown", ["$event"])
+  handleKeyboardEvent(event: KeyboardEvent): void {
+    let shortcut = "";
+
+    if(event.ctrlKey)
+      shortcut += "Ctrl+";
+    if(event.altKey)
+      shortcut += "Alt+";
+    if(event.shiftKey)
+      shortcut += "Shift+";
+
+    shortcut += event.key.toUpperCase();
+
+    if(shortcut)
+      this.shorcuts.action(shortcut);
+  }
+
 }

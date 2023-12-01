@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @Author                : 0K00<qdouvillez@gmail.com>                       *
  * @CreatedDate           : 2023-09-22 18:44:16                              *
- * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-10-04 11:01:45                              *
+ * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
+ * @LastEditDate          : 2023-11-30 16:49:55                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -90,7 +90,7 @@ export class PttAllView implements OnInit, OnDestroy {
 
     this.api.post(`api/${url}`, {
       name: `New ${this.type.slice(0, -1)}`,
-      description: "..."
+      description: `It's a new ${this.type.slice(0, -1)}!`
     }, this.user.getUser()?.token)
       .then((ret) => {
         this.recovery.updateData(ret, this.type);
