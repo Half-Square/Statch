@@ -2,7 +2,7 @@
  * @Author                : 0K00<qdouvillez@gmail.com>                        *
  * @CreatedDate           : 2023-11-30 13:56:46                               *
  * @LastEditors           : 0K00<qdouvillez@gmail.com>                        *
- * @LastEditDate          : 2023-11-30 17:13:19                               *
+ * @LastEditDate          : 2023-12-01 15:36:28                               *
  *****************************************************************************/
 
 /* Imports */
@@ -151,6 +151,11 @@ export class ShortcutsService {
       if(matchedAction.action === "goActivities") this.commands.goActivities();
       if(matchedAction.action === "goProfile") this.commands.goProfile();
       if(matchedAction.action === "new") this.commands.new();
+      if(matchedAction.action === "assignSelf") this.commands.assignSelf();
+      if(matchedAction.action === "copyId") this.commands.copyId();
+      if(matchedAction.action === "copyUrl") this.commands.copyUrl();
+      if(matchedAction.action === "goParent") this.commands.goParent();
+      if(matchedAction.action === "goChild") this.commands.goChild();
     }
   }
   /***/
