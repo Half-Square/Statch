@@ -2,7 +2,7 @@
 * @Author                : 0K00<qdouvillez@gmail.com>
 * @CreatedDate           : 2023-09-20 16:09:00
 * @LastEditors           : 0K00<qdouvillez@gmail.com>
-* @LastEditDate          : 2023-11-23 15:44:41
+* @LastEditDate          : 2023-12-01 15:55:47
 -->
 
 <div class="section-ptt-navigation">
@@ -13,7 +13,7 @@
         <div  class="collapse"
               *ngIf="hasChild(tasks, {projectId: project.id})"
               (click)="toggleCollapse(project.id)">
-          <core-icon [ngStyle]="{'transform': 'translateY(-1px)'}" [icon]="isOpen(project.id) ? 'chevron-down' : 'chevron-right'"></core-icon>
+          <core-icon [ngStyle]="{'transform': 'translate(-1px, -1px)'}" [icon]="isOpen(project.id) ? 'chevron-down' : 'chevron-right'"></core-icon>
         </div>
 
         <a [tooltip]="project.name" routerLink="/projects/{{project.id}}" routerLinkActive="active" class="link">
@@ -35,7 +35,7 @@
             <div  class="collapse"
                   *ngIf="hasChild(tickets, {taskId: task.id})"
                   (click)="toggleCollapse(task.id)">
-              <core-icon [icon]="isOpen(task.id) ? 'chevron-down' : 'chevron-right'"></core-icon>
+              <core-icon [ngStyle]="{'transform': 'translate(-1px, -1px)'}" [icon]="isOpen(task.id) ? 'chevron-down' : 'chevron-right'"></core-icon>
             </div>
 
             <a [tooltip]="task.name" routerLink="/tasks/{{task.id}}" routerLinkActive="active" class="link">
@@ -55,7 +55,7 @@
                 *ngFor="let ticket of _.filter(tickets, {taskId: task.id})">
               <div class="head">
                 <a [tooltip]="ticket.name" routerLink="tickets/{{ticket.id}}" routerLinkActive="active" class="link">
-                  <core-icon [icon]="ticket.status"></core-icon>
+                  <core-icon [ngStyle]="{'transform': 'translate(-1px, -1px)'}" [icon]="ticket.status"></core-icon>
                   <div class="ellipsis">
                     <span>{{ticket.name}}</span>
                   </div>
