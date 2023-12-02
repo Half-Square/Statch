@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-09-27 09:58:46                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-10-03 10:53:08                               *
+ * @LastEditDate          : 2023-12-02 16:49:53                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -45,7 +45,15 @@ export class ActivitiesInterceptor implements NestInterceptor {
       return next.handle().pipe(map((data) => {
         if (req.method === "POST") this.activities.handlePost(user, data, controller);
         if (req.method === "PUT") this.activities.handlePut(user, tmp, data, controller);
-        if (req.method === "DELETE") this.activities.handleDelete(user, {id: tmp.id, name: tmp.name}, controller);
+        if (req.method === "DELETE") {
+          let parentId = tmp.projectId || tmp.taskId; // Get parent id
+          this.activities.handleDelete(
+            user,
+            {id: tmp.id, name: tmp.name},
+            controller,
+            parentId || undefined
+          );
+        }
   
         return data;
       }));

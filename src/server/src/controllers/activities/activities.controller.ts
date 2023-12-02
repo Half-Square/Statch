@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-09-27 09:48:39                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-09-29 11:11:30                               *
+ * @LastEditDate          : 2023-12-02 16:51:27                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -75,7 +75,12 @@ export class ActivitiesController {
   @Get(":parent/:id/activities")
   async getByTarget(@Param("parent") parent: "projects" | "tasks" | "tickets", @Param("id") id: string): Promise<Activity[]> {
     let act = await this.prisma.activity.findMany({
-      where: {target: JSON.stringify({type: parent, id: id})}
+      where: {
+        OR: [
+          {toPrint: id},
+          {target: JSON.stringify({type: parent, id: id})}
+        ]
+      }
     });
 
     return act.map((el) => ({
