@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-09-27 09:51:47                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-12-02 16:48:22                               *
+ * @LastEditDate          : 2023-12-02 17:03:30                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -127,8 +127,6 @@ export class ActivitiesService {
   * @param data - Activity data
   */
   private async save(data: IData): Promise<void> {
-    console.log(data);
-
     await this.prisma.activity.create({
       data: {
         actor: JSON.stringify(data.actor),
