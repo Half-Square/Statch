@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-09-30 15:55:46                              *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-11-23 12:23:53                              *
+ * @LastEditDate          : 2023-12-02 16:06:05                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -71,7 +71,6 @@ export class PttView implements OnInit, OnDestroy {
       this.type = p.get("type") as string;
       this.id = p.get("id") as string;
       this.childType = this.type == "projects" ? "tasks" : "tickets";
-      this.versionFilters = [];
 
       this.getRootProject().then((root) => {
         if (root) {
@@ -114,12 +113,15 @@ export class PttView implements OnInit, OnDestroy {
   */
   private async getRootProject(): Promise<IProjects> {
     let item = await this.recovery.getSingleSync(this.type, this.id);
+
     if (this.type == "tickets") {
       item = await this.recovery.getSingleSync("tasks", item.taskId);
       item = await this.recovery.getSingleSync("projects", item.projectId);
     } else if (this.type == "tasks") {
       item = await this.recovery.getSingleSync("projects", item.projectId);
     }
+
+    if (!this.root || this.root.id !== item.id) this.versionFilters = []; // Clear version filter on root change
 
     return item as IProjects;
   }
