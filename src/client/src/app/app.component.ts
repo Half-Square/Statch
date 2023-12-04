@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : 0K00<qdouvillez@gmail.com>                       *
+ * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-05-30 11:58:04                              *
- * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
- * @LastEditDate          : 2023-11-30 17:25:16                              *
+ * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @LastEditDate          : 2023-12-04 18:50:56                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -76,7 +76,7 @@ export class AppComponent {
     if(event.shiftKey)
       shortcut += "Shift+";
 
-    shortcut += event.key.toUpperCase();
+    shortcut += event.key?.toUpperCase();
 
     if(shortcut)
       this.shorcuts.action(shortcut);
