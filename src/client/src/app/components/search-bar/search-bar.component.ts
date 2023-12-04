@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-03-20 16:31:02                              *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-10-03 10:51:00                              *
+ * @LastEditDate          : 2023-12-02 12:49:05                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -27,6 +27,7 @@ export interface ISearchResponse {
 
 /* Services */
 import { RequestService } from "src/app/services/request.service";
+import { UserService } from "src/app/services/user.service";
 /***/
 
 /* eslint-disable  @typescript-eslint/no-explicit-any */
@@ -47,7 +48,8 @@ export class SearchBarComponent {
   public placeholderSearch: string = "Search projects or commands line...";
 
   constructor(private api: RequestService,
-              private router: Router) {
+              private router: Router,
+              private user: UserService) {
   }
 
 
@@ -65,7 +67,7 @@ export class SearchBarComponent {
   */
   public search(query: string): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.api.post("api/search", { query: query })
+      this.api.post("api/search", { query: query }, this.user.getUser()?.token)
         .then(data => {
           this.focusedResult = 0;
           this.results = data as ISearchResponse[];

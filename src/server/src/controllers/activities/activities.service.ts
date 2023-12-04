@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-09-27 09:51:47                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-09-27 11:34:00                               *
+ * @LastEditDate          : 2023-12-02 17:03:30                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -34,7 +34,8 @@ interface IData {
   target: {
     id: string,
     type: string
-  }
+  },
+  toPrint?: string
 }
 /***/
 
@@ -70,11 +71,13 @@ export class ActivitiesService {
   public async handleDelete(
     user: {id: string},
     target: {id: string, name: string},
-    controller: string): Promise<void> {
+    controller: string,
+    parent?: string): Promise<void> {
     this.save({
       actor: {type: "user", id: user.id},
       action: {type: "DELETE", curr: target.name},
-      target: {type: controller, id: target.id}
+      target: {type: controller, id: target.id},
+      toPrint: parent
     });
   }
   /***/
@@ -128,7 +131,8 @@ export class ActivitiesService {
       data: {
         actor: JSON.stringify(data.actor),
         action: JSON.stringify(data.action),
-        target: JSON.stringify(data.target)
+        target: JSON.stringify(data.target),
+        toPrint: data.toPrint || undefined
       }
     });
   }

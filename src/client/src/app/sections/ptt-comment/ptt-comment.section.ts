@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : 0K00<qdouvillez@gmail.com>                       *
+ * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-09-27 15:26:28                              *
- * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
- * @LastEditDate          : 2023-11-17 14:21:46                              *
+ * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @LastEditDate          : 2023-12-02 14:02:38                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -71,11 +71,9 @@ export class PttCommentSection {
   }
 
   public insertImage(img: string): void {
-    const range = window.getSelection()?.getRangeAt(0);
-    if (range) {
-      const fragment = range.createContextualFragment(img);
-      range.insertNode(fragment);
-    }
+    let i = img.indexOf("style");
+    img = img.slice(0, i)+" style='max-width: 100%' "+img.slice(i);
+    this.commentEditor.nativeElement.insertAdjacentHTML("beforeend", img);
   }
 
   public fileUpload(file: File): Promise<string> {
