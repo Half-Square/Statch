@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : 0K00<qdouvillez@gmail.com>                       *
+ * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-09-20 16:09:23                              *
- * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
- * @LastEditDate          : 2023-11-30 16:51:51                              *
+ * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @LastEditDate          : 2023-12-04 19:08:58                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -147,6 +147,7 @@ export class PttNavigationSection implements OnInit, OnDestroy {
       description: `It's a new ${childType.slice(0, -1)}`
     }, this.user.getUser()?.token)
       .then((ret) => {
+        this.recovery.updateData(ret, childType);
         this.toast.print(`${_.capitalize(childType.slice(0, -1))} ${(ret as {id: string}).id} has been created`, "success");
         this.router.navigateByUrl(
           `${childType}/${(ret as IProjects | ITasks | ITickets).id}`
