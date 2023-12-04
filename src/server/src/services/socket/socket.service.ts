@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-06-16 10:35:39                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-11-14 09:53:55                               *
+ * @LastEditDate          : 2023-12-04 18:44:17                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -14,11 +14,13 @@
 /* Imports */
 import { Logger, Injectable } from "@nestjs/common";
 import { Server } from "socket.io";
+import * as jwt from "jsonwebtoken";
 /***/
 
 @Injectable()
 export class SocketService {
   private io;
+  private sockets = [];
 
   constructor() {
     this.init(Number(process.env.SOCKET_SERVER));
@@ -34,6 +36,19 @@ export class SocketService {
         credentials: false
       }
     });
+
+    this.io.on("connection", (socket) => {
+      let token = socket.handshake.headers["x-token"];
+
+      try {
+        jwt.verify(token, process.env.SALT);
+        this.sockets.push({socket: socket, token: token});
+      } catch (err) {
+        socket.emit("error", "Invalid token");
+        socket.disconnect();
+      }
+    });
+
     Logger.log(`Web socket start on port ${process.env.SOCKET_SERVER}`);
   }
   /***/
@@ -44,9 +59,26 @@ export class SocketService {
   * @param data - Event data
   */
   broadcast(name: string, data: unknown, deleted?: boolean): void {
+    this.clear();
+    
     if (deleted) data["deleted"] = true;
     this.io.emit(name, data);
   }
   /***/
   
+  /**
+  * Clear timeout socket 
+  */
+  private clear(): void {
+    this.sockets.forEach((el, i) => {
+      try {
+        jwt.verify(el.token, process.env.SALT);
+      } catch (err) {
+        el.socket.emit("error", "Token timeout");
+        el.socket.disconnect();
+        this.sockets.splice(i, 1);
+      }
+    });
+  }
+  /***/
 }
