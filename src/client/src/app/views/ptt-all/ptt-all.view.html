@@ -6,7 +6,7 @@
 -->
 
 <div class="view-ptt-all">
-  <ng-template [ngIf]="items" [ngIfElse]="loading">
+  <ng-template [ngIf]="elements" [ngIfElse]="loading">
     <div class="header" *ngIf="type == 'projects' || id">
       <h3 class="title">{{type}}</h3>
 
@@ -15,8 +15,59 @@
                     (click)="createItem()"/>
     </div>
 
-    <div class="list" *ngIf="filterByParent(items).length > 0">
-      <section-ptt-list [elements]="filterByParent(items)"
+    <div class="test">
+      <component-select [data]="status"
+                        placeholder="Select status..."
+                        [hasSearch]="false"
+                        (callback)="addFilter('status', $event)"
+                        [multi]="true">
+        <ng-template let-select #selected>
+          <component-status [status]="select.status"/>
+        </ng-template>
+
+        <ng-template let-option #items>
+          <component-status [status]="option.status"/>
+        </ng-template>
+      </component-select>
+
+      <component-select [data]="levels"
+                        placeholder="Choose level..."
+                        (callback)="addFilter('level', $event)"
+                        [hasSearch]="false"
+                        [multi]="true">
+        <ng-template let-select #selected>
+          <component-level [level]="select.level"></component-level>
+        </ng-template>
+
+        <ng-template let-option #items>
+          <component-level [level]="option.level"></component-level>
+        </ng-template>
+      </component-select>
+
+      <component-select [data]="users"
+                        placeholder="Assign to..."
+                        [multi]="true"
+                        (callback)="addFilter('assignments', $event)">
+        <ng-template let-select #selected>
+          <core-avatar [showLabel]="false"  [imgLink]="select.id | recovery:'picture':'users' | async"
+          [label]="select.id | recovery:'name':'users' | async"/>
+        </ng-template>
+
+        <ng-template let-option #items>
+          <core-avatar  [imgLink]="option.id | recovery:'picture':'users' | async"
+          [label]="option.id | recovery:'name':'users' | async"/>
+        </ng-template>
+      </component-select>
+
+      <component-select [data]="versions"
+                        placeholder="Select version..."
+                        (callback)="addFilter('version', $event)"
+                        [multi]="true"
+                        [noOption]="'No version for the moment'"/>
+    </div>
+
+    <div class="list" *ngIf="filterByParent(filteredSortedItems).length > 0">
+      <section-ptt-list [elements]="filterByParent(filteredSortedItems)"
                         [type]="type"
                         other="no-container"/>
     </div>
