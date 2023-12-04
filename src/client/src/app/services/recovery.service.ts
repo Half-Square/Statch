@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-05-31 12:56:22                              *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-11-14 10:21:55                              *
+ * @LastEditDate          : 2023-12-04 17:55:31                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -16,6 +16,8 @@
   * Get collection sync
   * Wait collection
   * Get data in collection
+  * Clear waiting
+  * Check if collection is on waiting state
 */
 
 /* Imports */
@@ -48,6 +50,7 @@ export class RecoveryService {
   private socket: Socket | undefined;
   private options: IServerOptions | undefined;
   private socketEvt: string[] = []; // Manage socket listener
+  private onWaiting: string[] = []; // List of collection waiting server response
 
   constructor(
     private mySocket: SocketService,
@@ -121,10 +124,13 @@ export class RecoveryService {
   */
   public get(name: string): Observable<any[]> {
     return new Observable((observer) => {
-      if (!this.data[name]) {
+      if (!this.data[name] && !this.isWaiting(name)) {
         const user = this.user.getUser();
+        this.onWaiting.push(name);
+
         this.api.get(`api/${name}`, user?.token).then((data) => {
           this.data[name] = data;
+          this.clearWaiting(name);
           observer.next(this.data[name]);
         });
       } else {
@@ -144,10 +150,13 @@ export class RecoveryService {
   */
   public getSingle(collection: string, id: string): Observable<any> {
     return new Observable((observer) => {
-      if (!this.data[collection]) {
+      if (!this.data[collection] && !this.isWaiting(collection)) {
+        this.onWaiting.push(collection);
         const user = this.user.getUser();
+
         this.api.get(`api/${collection}`, user?.token).then((data) => {
           this.data[collection] = data;
+          this.clearWaiting(collection);
           observer.next(_.find(this.data[collection], {id: id}));
         });
       } else {
@@ -169,10 +178,13 @@ export class RecoveryService {
   * @return - Raw data
   */
   public async getSync(collection: string): Promise<unknown[]> {
-    if(!this.data[collection]) {
+    if(!this.data[collection] && !this.isWaiting(collection)) {
+      this.onWaiting.push(collection);
+
       const user = this.user.getUser();
       this.data[collection] = [];
       this.data[collection] = await this.api.get(`api/${collection}`, user?.token);
+      this.clearWaiting(collection);
     }
 
     return this.data[collection];
@@ -209,10 +221,13 @@ export class RecoveryService {
   */
   public getSingleSync(collection: string, id: string): Promise<any> {
     return new Promise((resolve) => {
-      if (!this.data[collection]) {
+      if (!this.data[collection] && !this.isWaiting(collection)) {
+        this.onWaiting.push(collection);
         let user = this.user.getUser();
+
         this.api.get(`api/${collection}`, user?.token).then((data) => {
           this.data[collection] = data;
+          this.clearWaiting(collection);
         });
       }
 
@@ -220,6 +235,26 @@ export class RecoveryService {
         return resolve(_.find(this.data[collection], {id: id}) || null);
       });
     });
+  }
+  /***/
+
+  /**
+  * Clear waiting
+  * @param collection - Collection to remove from waiting list
+  */
+  private clearWaiting(collection: string): void {
+    let i = _.findIndex(this.onWaiting, (el) => el === collection);
+    if (i != -1) this.onWaiting.splice(i, 1);
+  }
+  /***/
+
+  /**
+  * Check if collection is on waiting state
+  * @param collection - Collection to check
+  * @return - On waiting or not
+  */
+  private isWaiting(collection: string): boolean {
+    return _.find(this.onWaiting, (el) => el === collection) ? true : false;
   }
   /***/
 }
