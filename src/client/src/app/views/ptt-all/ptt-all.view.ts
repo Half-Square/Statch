@@ -10,6 +10,10 @@
   * Services
   * Interfaces
   * Create new item
+  * AddFilter
+  * ApplyFilters
+  * ApplySort
+  * AddParams
 */
 
 /* Imports */
@@ -174,7 +178,11 @@ export class PttAllView implements OnInit, OnDestroy {
   }
   /***/
 
-
+  /**
+   * Filer change event handler
+   * @param collection - On change collection name
+   * @param event - New value of collection
+   */
   public addFilter(collection: string, event: Event): void {
     if (this.filters.hasOwnProperty(collection)) {
       this.filters[collection] = event;
@@ -182,12 +190,21 @@ export class PttAllView implements OnInit, OnDestroy {
       this.addParams("filters", this.filters);
     }
   }
+  /***/
 
+  /**
+   * Sort change event handler
+   * @param event - New value of sort
+   */
   public addSort(event: SortKey[]): void {
     this.sortBy = event;
     this.applySort();
   }
+  /***/
 
+  /**
+   * Apply filters to items list
+   */
   public applyFilters(): void {
     const filtersEmpty = Object.values(this.filters)
       .every(collection => Array.isArray(collection) && collection.length === 0);
@@ -204,7 +221,11 @@ export class PttAllView implements OnInit, OnDestroy {
     if(filtersEmpty)
       this.filteredSortedItems = this.elements;
   }
+  /***/
 
+  /**
+   * Apply sorts to items list
+   */
   public applySort(): void {
     if(this.type === "tasks") {
       this.filteredSortedItems =
@@ -217,7 +238,13 @@ export class PttAllView implements OnInit, OnDestroy {
         this.filterSort.sortItems(this.filteredSortedItems as IProjects[], this.sortBy);
     }
   }
+  /***/
 
+  /**
+   * Add items with param to url
+   * @param param - On change param url name
+   * @param items - New value of param url
+   */
   public addParams(param: string, items: any): void {
     items = encodeURIComponent(JSON.stringify(items));
 
@@ -231,4 +258,5 @@ export class PttAllView implements OnInit, OnDestroy {
       queryParamsHandling: "merge"
     });
   }
+  /***/
 }

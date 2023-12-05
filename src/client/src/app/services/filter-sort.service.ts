@@ -7,6 +7,12 @@ import { IAssignments, ILabels, IProjects, ITasks, ITickets } from "src/app/inte
   providedIn: "root"
 })
 export class FilterSortService {
+  /**
+   * Filter list of items by parameters
+   * @param items - List of items need to filter
+   * @param filters - Filters parameters
+   * @returns - List of items filtered
+   */
   public filterItems<T extends IProjects | ITasks | ITickets>(
     items: T[],
     filters: any
@@ -87,11 +93,19 @@ export class FilterSortService {
 
     return filteredItems;
   }
+  /***/
 
+  /**
+   * Sort list of items by parameters
+   * @param items - List of items need to sort
+   * @param sortBy - Sorts parameters
+   * @returns - List of items sorted
+   */
   public sortItems<T extends IProjects | ITasks | ITickets>(
     items: T[],
     sortBy: any
   ): T[] {
     return _.orderBy(items, sortBy.map((el: any) => el.id), Array(sortBy.length).fill("asc") as ("asc" | "desc")[]);
   }
+  /***/
 }
