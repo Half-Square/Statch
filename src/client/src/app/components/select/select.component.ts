@@ -54,6 +54,12 @@ export class SelectComponent {
     itemsTemplateRef!: TemplateRef<any>;
 
   /**
+   * ViewChild decorator to get a reference to the 'placeholder' template
+   */
+    @ContentChild("placeholder", {static: false})
+      placeholderTemplateRef!: TemplateRef<any>;
+
+  /**
    * ViewChild decorator to get a reference to the 'selector' element
    */
   @ViewChild("selector")

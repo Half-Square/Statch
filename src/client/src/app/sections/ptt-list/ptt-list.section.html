@@ -55,7 +55,7 @@
       </a>
     </ng-container>
 
-    <div class="element add-item">
+    <div *ngIf="other !== 'no-container'" class="element add-item">
       <div class="container add">
         <ng-content select="[add]"></ng-content>
       </div>

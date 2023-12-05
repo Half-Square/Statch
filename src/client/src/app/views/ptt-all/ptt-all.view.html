@@ -15,63 +15,72 @@
                     (click)="createItem()"/>
     </div>
 
-    <div class="test">
-      <component-select [data]="status"
-                        [selection]="filters.status"
-                        [placeholder]="'Status' + (filters.status.length > 0 ? ' (' + filters.status.length + ')' : '')"
-                        (callback)="addFilter('status', $event)"
-                        [filter]="true"
-                        [multi]="true">
-        <ng-template let-option #items>
-          <component-status [status]="option.status"/>
-        </ng-template>
-      </component-select>
+    <div class="filters">
+      <div class="filter">
+        <component-select [data]="status"
+                          [selection]="filters.status"
+                          [placeholder]="'Status' + (filters.status.length > 0 ? ' (' + filters.status.length + ')' : '')"
+                          (callback)="addFilter('status', $event)"
+                          [filter]="true"
+                          [multi]="true">
+          <ng-template let-option #items>
+            <component-status [status]="option.status"/>
+          </ng-template>
+        </component-select>
 
-      <component-select [data]="levels"
-                        [selection]="filters.level"
-                        [placeholder]="'Level' + (filters.level.length > 0 ? ' (' + filters.level.length + ')' : '')"
-                        [filter]="true"
-                        (callback)="addFilter('level', $event)"
-                        [multi]="true">
-        <ng-template let-option #items>
-          <component-level [level]="option.level"></component-level>
-        </ng-template>
-      </component-select>
+        <component-select [data]="levels"
+                          [selection]="filters.level"
+                          [placeholder]="'Level' + (filters.level.length > 0 ? ' (' + filters.level.length + ')' : '')"
+                          [filter]="true"
+                          (callback)="addFilter('level', $event)"
+                          [multi]="true">
+          <ng-template let-option #items>
+            <component-level [level]="option.level"></component-level>
+          </ng-template>
+        </component-select>
 
-      <component-select [data]="users"
-                        [selection]="filters.assignments"
-                        [placeholder]="'Users' + (filters.assignments.length > 0 ? ' (' + filters.assignments.length + ')' : '')"
-                        [filter]="true"
-                        [multi]="true"
-                        (callback)="addFilter('assignments', $event)">
-        <ng-template let-option #items>
-          <core-avatar  [imgLink]="option.id | recovery:'picture':'users' | async"
-          [label]="option.id | recovery:'name':'users' | async"/>
-        </ng-template>
-      </component-select>
+        <component-select [data]="users"
+                          [selection]="filters.assignments"
+                          [placeholder]="'Users' + (filters.assignments.length > 0 ? ' (' + filters.assignments.length + ')' : '')"
+                          [filter]="true"
+                          [multi]="true"
+                          (callback)="addFilter('assignments', $event)">
+          <ng-template let-option #items>
+            <core-avatar  [imgLink]="option.id | recovery:'picture':'users' | async"
+            [label]="option.id | recovery:'name':'users' | async"/>
+          </ng-template>
+        </component-select>
 
-      <component-select [data]="versions"
-                        [selection]="filters.version"
-                        [placeholder]="'Version' + (filters.version.length > 0 ? ' (' + filters.version.length + ')' : '')"
-                        [filter]="true"
-                        (callback)="addFilter('version', $event)"
-                        [multi]="true"/>
+        <component-select [data]="versions"
+                          [selection]="filters.version"
+                          [placeholder]="'Version' + (filters.version.length > 0 ? ' (' + filters.version.length + ')' : '')"
+                          [filter]="true"
+                          (callback)="addFilter('version', $event)"
+                          [multi]="true"/>
 
-      <component-select [data]="labels"
-                        [selection]="filters.labels"
-                        [placeholder]="'Labels' + (filters.labels.length > 0 ? ' (' + filters.labels.length + ')' : '')"
-                        [filter]="true"
-                        (callback)="addFilter('labels', $event)"
-                        [multi]="true">
-        <ng-template let-option #items>
-          <component-labels [name]="option.name" [color]="option.color"/>
-        </ng-template>
-      </component-select>
+        <component-select [data]="labels"
+                          [selection]="filters.labels"
+                          [placeholder]="'Labels' + (filters.labels.length > 0 ? ' (' + filters.labels.length + ')' : '')"
+                          [filter]="true"
+                          (callback)="addFilter('labels', $event)"
+                          [multi]="true">
+          <ng-template let-option #items>
+            <component-labels [name]="option.name" [color]="option.color"/>
+          </ng-template>
+        </component-select>
+      </div>
+
 
       <component-select [data]="sorts"
-                        placeholder="Sort by..."
                         (callback)="addSort($event)"
-                        [multi]="true"/>
+                        [hasSearch]="false"
+                        [multi]="true">
+          <ng-template let-placeholder #placeholder>
+            <div class="sort-ph">
+              <core-icon  icon="straw"/> Sort by...
+            </div>
+          </ng-template>
+      </component-select>
     </div>
 
     <div class="list" *ngIf="filterByParent(filteredSortedItems).length > 0">
