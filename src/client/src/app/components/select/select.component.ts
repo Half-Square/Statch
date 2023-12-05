@@ -27,6 +27,7 @@ export class SelectComponent {
   @Input() noResult: boolean = false;
   @Input() noOption: string = "No option";
   @Input() other: string = "";
+  @Input() filter: boolean = false;
   @Output() callback = new EventEmitter();
 
   public showMenu: boolean = false;
@@ -51,6 +52,12 @@ export class SelectComponent {
    */
   @ContentChild("items", {static: false})
     itemsTemplateRef!: TemplateRef<any>;
+
+  /**
+   * ViewChild decorator to get a reference to the 'placeholder' template
+   */
+    @ContentChild("placeholder", {static: false})
+      placeholderTemplateRef!: TemplateRef<any>;
 
   /**
    * ViewChild decorator to get a reference to the 'selector' element

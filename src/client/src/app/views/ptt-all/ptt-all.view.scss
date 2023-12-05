@@ -31,10 +31,29 @@
     }
   }
 
+  .filters {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 16px;
+    border-bottom: 1px solid #3d3d3d;
+    gap: 8px;
+
+    .filter {
+      display: flex;
+      gap: 8px;
+    }
+
+    .sort-ph {
+      display: flex;
+      align-items: flex-start;
+      gap: 4px;
+    }
+  }
+
   .list {
     overflow-y: auto;
-    height: calc(100vh - 82px);
-    padding: 8px;
+    height: calc(100vh - 82px - 52px);
+    padding: 16px;
     box-sizing: border-box;
   }
 }

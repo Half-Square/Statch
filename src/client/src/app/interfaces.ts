@@ -27,6 +27,7 @@ interface IProjects {
   created: string,
   name: string,
   description: string,
+  level: string,
   ownerId: string,
   status: string,
   labels: ILabels[],
