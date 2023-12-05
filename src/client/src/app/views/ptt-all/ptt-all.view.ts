@@ -98,27 +98,32 @@ export class PttAllView implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.qSub = this.route.queryParams.subscribe((queries) => {
       this.id = queries["id"];
+      let querieFilter = queries["filters"];
+      if(querieFilter) {
+        let decodedFilter = decodeURIComponent(querieFilter);
+        this.filters = JSON.parse(decodedFilter);
+      }
     });
 
     this.pSub = this.route.paramMap.subscribe((params) => {
       this.subsciption.map((s) => s.unsubscribe());
       this.type = params.get("type") as string;
+      if(this.type === "projects")
+        this.sorts.push({id: "actualVersion", name: "Version"});
+      else
+        this.sorts.push({id: "targetVersionId", name: "Version"});
 
       this.subsciption = [
         this.recovery.get(this.type).subscribe((data) => {
           this.elements = data;
           this.filteredSortedItems = data;
+          this.applyFilters();
         }),
         this.recovery.get("users").subscribe((u) => this.users = u),
         this.recovery.get("versions").subscribe((v) => this.versions = [...v, {id: null, name: "No version"}]),
         this.recovery.get("labels").subscribe((l) => this.labels = [...l, {id: null, name: "No label"}])
       ];
     });
-
-    if(this.type === "projects")
-      this.sorts.push({id: "actualVersion", name: "Version"});
-    else
-      this.sorts.push({id: "targetVersionId", name: "Version"});
   }
 
   ngOnDestroy(): void {
@@ -174,6 +179,7 @@ export class PttAllView implements OnInit, OnDestroy {
     if (this.filters.hasOwnProperty(collection)) {
       this.filters[collection] = event;
       this.applyFilters();
+      this.addParams("filters", this.filters);
     }
   }
 
@@ -185,13 +191,13 @@ export class PttAllView implements OnInit, OnDestroy {
   public applyFilters(): void {
     const filtersEmpty = Object.values(this.filters)
       .every(collection => Array.isArray(collection) && collection.length === 0);
-    if ("projectId" in this.elements[0]) {
+    if (this.type === "tasks") {
       this.filteredSortedItems =
         this.filterSort.filterItems(this.elements  as ITasks[], this.filters);
-    } else if ("taskId" in this.elements[0]) {
+    } else if (this.type === "tickets") {
       this.filteredSortedItems =
         this.filterSort.filterItems(this.elements  as ITickets[], this.filters);
-    } else if (!("projectId" in this.elements[0]) || !("taskId" in this.elements[0])) {
+    } else if (this.type === "projects") {
       this.filteredSortedItems =
         this.filterSort.filterItems(this.elements  as IProjects[], this.filters);
     }
@@ -200,15 +206,29 @@ export class PttAllView implements OnInit, OnDestroy {
   }
 
   public applySort(): void {
-    if("projectId" in this.elements[0]) {
+    if(this.type === "tasks") {
       this.filteredSortedItems =
-        this.filterSort.sortItems(this.elements as ITasks[], this.sortBy);
-    } else if ("taskId" in this.elements[0]) {
+        this.filterSort.sortItems(this.filteredSortedItems as ITasks[], this.sortBy);
+    } else if (this.type === "tickets") {
       this.filteredSortedItems =
-        this.filterSort.sortItems(this.elements as ITickets[], this.sortBy);
-    } else if (!("projectId" in this.elements[0]) || !("taskId" in this.elements[0])) {
+        this.filterSort.sortItems(this.filteredSortedItems as ITickets[], this.sortBy);
+    } else if (this.type === "projects") {
       this.filteredSortedItems =
-        this.filterSort.sortItems(this.elements as IProjects[], this.sortBy);
+        this.filterSort.sortItems(this.filteredSortedItems as IProjects[], this.sortBy);
     }
+  }
+
+  public addParams(param: string, items: any): void {
+    items = encodeURIComponent(JSON.stringify(items));
+
+    const params = { ...this.route.snapshot.queryParams };
+
+    params[param] = items;
+
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: params,
+      queryParamsHandling: "merge"
+    });
   }
 }
