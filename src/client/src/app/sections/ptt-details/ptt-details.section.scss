@@ -1,3 +1,10 @@
+/*****************************************************************************
+ * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @CreatedDate           : 2023-12-05 17:22:47                              *
+ * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @LastEditDate          : 2023-12-05 17:25:21                              *
+ ****************************************************************************/
+
 .ptt-details {
   display: flex;
   flex-direction: column;
@@ -17,14 +24,23 @@
     flex-direction: column;
     gap: 16px;
 
-    .block.id:hover {
+    .block.id {
       .content.id {
-        .copy {
-          visibility: visible;
-          opacity: 1;
+        display: flex;
+        gap: 8px;
+        justify-content: flex-start;
+      }
+
+      &:hover {
+        .content.id {
+          .copy {
+            visibility: visible;
+            opacity: 1;
+          }
         }
       }
     }
+
 
     .block {
       display: grid;
