@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-10-03 18:19:42                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-11-27 14:46:21                               *
+ * @LastEditDate          : 2023-12-05 17:50:51                               *
  *****************************************************************************/
 
 module.exports = function(grunt) {
@@ -17,6 +17,13 @@ module.exports = function(grunt) {
         files: [{
           expand: false,
           src: ["./src/server/.env.sample"],
+          dest: "./src/server/.env"
+        }]
+      },
+      env_dev: {
+        files: [{
+          expand: false,
+          src: ["./src/server/.env.sample_dev"],
           dest: "./src/server/.env"
         }]
       },
@@ -45,5 +52,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-clean');
   
   grunt.registerTask("env", ["copy:env"]);
+  grunt.registerTask("env_dev", ["copy:env_dev"]);
   grunt.registerTask("build", ["clean:build", "copy:build"]);
 };
