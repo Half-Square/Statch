@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-05-31 12:56:22                              *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-12-04 17:55:31                              *
+ * @LastEditDate          : 2023-12-05 17:58:44                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -134,7 +134,9 @@ export class RecoveryService {
           observer.next(this.data[name]);
         });
       } else {
-        observer.next(this.data[name] || []);
+        this.wait(name, 10).then(() => {
+          observer.next(this.data[name] || []);
+        });
       }
 
       this.handleSocketEvents(observer, name);
@@ -160,7 +162,9 @@ export class RecoveryService {
           observer.next(_.find(this.data[collection], {id: id}));
         });
       } else {
-        observer.next(_.find(this.data[collection], {id: id}));
+        this.wait(collection, 10).then(() => {
+          observer.next(_.find(this.data[collection], {id: id}));
+        });
       }
 
       this.handleSocketEvents(observer, collection, id);
