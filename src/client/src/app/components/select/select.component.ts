@@ -27,6 +27,7 @@ export class SelectComponent {
   @Input() noResult: boolean = false;
   @Input() noOption: string = "No option";
   @Input() other: string = "";
+  @Input() filter: boolean = false;
   @Output() callback = new EventEmitter();
 
   public showMenu: boolean = false;

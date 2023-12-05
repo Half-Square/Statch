@@ -59,7 +59,13 @@ export class PttAllView implements OnInit, OnDestroy {
     labels: [],
     level: []
   };
-  public sortBy: SortKey;
+  public sorts: {id: SortKey, name: string}[] = [
+    {id: "assignments", name: "Assignments"},
+    {id: "status", name: "Status"},
+    {id: "labels", name: "Labels"},
+    {id: "level", name: "Level"}
+  ];
+  public sortBy: SortKey[];
   public users: IUsers[];
   public labels: ILabels[] = [];
   public readonly status: {id: string, status: string}[] = [
@@ -104,9 +110,15 @@ export class PttAllView implements OnInit, OnDestroy {
           this.filteredSortedItems = data;
         }),
         this.recovery.get("users").subscribe((u) => this.users = u),
-        this.recovery.get("versions").subscribe((v) => this.versions = [...v, {id: null, name: "No version"}])
+        this.recovery.get("versions").subscribe((v) => this.versions = [...v, {id: null, name: "No version"}]),
+        this.recovery.get("labels").subscribe((l) => this.labels = [...l, {id: null, name: "No label"}])
       ];
     });
+
+    if(this.type === "projects")
+      this.sorts.push({id: "actualVersion", name: "Version"});
+    else
+      this.sorts.push({id: "targetVersionId", name: "Version"});
   }
 
   ngOnDestroy(): void {
@@ -161,33 +173,42 @@ export class PttAllView implements OnInit, OnDestroy {
   public addFilter(collection: string, event: Event): void {
     if (this.filters.hasOwnProperty(collection)) {
       this.filters[collection] = event;
-      this.applyFiltersAndSort();
+      this.applyFilters();
     }
   }
 
-  public applyFiltersAndSort(): void {
+  public addSort(event: SortKey[]): void {
+    this.sortBy = event;
+    this.applySort();
+  }
+
+  public applyFilters(): void {
     const filtersEmpty = Object.values(this.filters)
       .every(collection => Array.isArray(collection) && collection.length === 0);
     if ("projectId" in this.elements[0]) {
       this.filteredSortedItems =
         this.filterSort.filterItems(this.elements  as ITasks[], this.filters);
-      this.filteredSortedItems =
-        this.filterSort.sortItems<ITasks>(
-          this.filteredSortedItems as ITasks[], this.sortBy as TaskSortKey);
     } else if ("taskId" in this.elements[0]) {
       this.filteredSortedItems =
         this.filterSort.filterItems(this.elements  as ITickets[], this.filters);
-      this.filteredSortedItems =
-        this.filterSort.sortItems<ITickets>(
-          this.filteredSortedItems as ITickets[], this.sortBy as TicketSortKey);
     } else if (!("projectId" in this.elements[0]) || !("taskId" in this.elements[0])) {
       this.filteredSortedItems =
         this.filterSort.filterItems(this.elements  as IProjects[], this.filters);
-      this.filteredSortedItems =
-        this.filterSort.sortItems<IProjects>(
-          this.filteredSortedItems as IProjects[], this.sortBy as ProjectSortKey);
     }
     if(filtersEmpty)
       this.filteredSortedItems = this.elements;
+  }
+
+  public applySort(): void {
+    if("projectId" in this.elements[0]) {
+      this.filteredSortedItems =
+        this.filterSort.sortItems(this.elements as ITasks[], this.sortBy);
+    } else if ("taskId" in this.elements[0]) {
+      this.filteredSortedItems =
+        this.filterSort.sortItems(this.elements as ITickets[], this.sortBy);
+    } else if (!("projectId" in this.elements[0]) || !("taskId" in this.elements[0])) {
+      this.filteredSortedItems =
+        this.filterSort.sortItems(this.elements as IProjects[], this.sortBy);
+    }
   }
 }

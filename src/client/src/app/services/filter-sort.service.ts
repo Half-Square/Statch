@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import * as _ from "lodash";
 
-import { IAssignments, IProjects, ITasks, ITickets } from "src/app/interfaces";
+import { IAssignments, ILabels, IProjects, ITasks, ITickets } from "src/app/interfaces";
 
 @Injectable({
   providedIn: "root"
@@ -13,10 +13,6 @@ export class FilterSortService {
   ): T[] {
 
     let filteredItems = _.cloneDeep(items);
-
-    if (filters.owner.length > 0) {
-      filteredItems = _.filter(filteredItems, { "ownerId": filters.owner });
-    }
 
     // Assignments
     if (filters.assignments.length > 0) {
@@ -68,8 +64,16 @@ export class FilterSortService {
       });
     }
 
+    // Labels
     if (filters.labels.length > 0) {
-      filteredItems = _.filter(filteredItems, (item) => _.intersectionBy(item.labels, filters.labels, "id").length > 0);
+      filteredItems = filteredItems.filter((item) => {
+        return filters.labels.some((labels: ILabels) => {
+          if(item.labels.length == 0) return item;
+          return item.labels.some((itemLabels: any) => {
+            return labels.id === itemLabels.labelId;
+          });
+        });
+      });
     }
 
     // Levels
@@ -86,8 +90,8 @@ export class FilterSortService {
 
   public sortItems<T extends IProjects | ITasks | ITickets>(
     items: T[],
-    sortBy: keyof T
+    sortBy: any
   ): T[] {
-    return _.orderBy(items, [sortBy], ["asc"]);
+    return _.orderBy(items, sortBy.map((el: any) => el.id), Array(sortBy.length).fill("asc") as ("asc" | "desc")[]);
   }
 }
