@@ -5,6 +5,8 @@
  * @LastEditDate          : 2023-09-29 16:26:04                              *
  ****************************************************************************/
 
+ @import '~quill/dist/quill.bubble.css';
+
  *, *::before, *::after {
   margin: 0;
   padding: 0;
@@ -50,5 +52,15 @@ a, .btn {
 
   &.active {
     color: #0055ff;
+  }
+}
+
+.ql-bubble {
+  .ql-tooltip {
+    background: red;
+  }
+
+  .ql-tooltip.ql-flip .ql-tooltip-arrow {
+    border-color: red transparent transparent transparent;
   }
 }

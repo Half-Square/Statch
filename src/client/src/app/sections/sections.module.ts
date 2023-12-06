@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @Author                : 0K00<qdouvillez@gmail.com>                       *
  * @CreatedDate           : 2023-09-20 16:03:27                              *
- * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-10-03 12:21:00                              *
+ * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
+ * @LastEditDate          : 2023-12-05 10:33:04                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -15,12 +15,14 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { RouterModule } from "@angular/router";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 /***/
 
 /* Modules */
 import { CoresModule } from "../cores/cores.module";
 import { ComponentsModule } from "../components/components.module";
 import { PipesModule } from "../pipes/pipes.module";
+import { QuillModule } from "ngx-quill";
 /***/
 
 /* Sections */
@@ -56,7 +58,10 @@ import { PttToolBarSection } from "./ptt-tool-bar/ptt-tool-bar.section";
     RouterModule,
     CoresModule,
     ComponentsModule,
-    PipesModule
+    PipesModule,
+    QuillModule.forRoot(),
+    FormsModule,
+    ReactiveFormsModule
   ],
   exports: [
     NavigationSection,

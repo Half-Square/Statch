@@ -16,19 +16,21 @@
       <span class="date">{{ comment.created | dateDifference }}</span>
     </div>
 
-    <div class="content" [innerHTML]="comment.content">
+    <div class="content" [innerHTML]="trustedContent(comment.content)">
     </div>
 
   </div>
 
-  <div class="input">
-    <div
+  <div class="input" #editorContainer [formGroup]="form">
+    <!-- <div
       class="area"
       contenteditable="true"
       (dragover)="allowDrop($event)"
       (drop)="onDrop($event)"
       #commentEditor>
-    </div>
+    </div> -->
+    <quill-editor [ngStyle]="{'width': '100%'}" [modules]="modules" theme="bubble" formControlName="text" [bounds]="editorContainer" >
+    </quill-editor>
     <core-button (click)="publish()" [type]="'flat'" [style]="'primary'" [size]="'medium'" [label]="'Publish'"></core-button>
   </div>
 

@@ -12,7 +12,8 @@
 */
 
 /* Imports */
-import { Component, ElementRef, Input, ViewChild } from "@angular/core";
+import { Component, ElementRef, Input, OnInit, ViewChild } from "@angular/core";
+import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { environment as env } from "src/environments/environment";
 /***/
 
@@ -23,22 +24,102 @@ import { IComments, IProjects, ITasks, ITickets } from "src/app/interfaces";
 /* Services */
 import { RequestService } from "src/app/services/request.service";
 import { UserService } from "src/app/services/user.service";
+import { FormControl, FormGroup } from "@angular/forms";
 /***/
+
+import { QuillEditorComponent } from "ngx-quill";
+
+import "quill-mention";
+import Quill from "quill";
 
 @Component({
   selector: "section-ptt-comment",
   templateUrl: "./ptt-comment.section.html",
   styleUrls: ["./ptt-comment.section.scss"]
 })
-export class PttCommentSection {
+export class PttCommentSection implements OnInit {
   @Input() item: IProjects | ITasks | ITickets;
   @Input() type: string;
   @Input() comments: IComments[] = [];
+  public html: any;
+  public form: FormGroup;
+  @ViewChild(QuillEditorComponent, { static: true }) editor: QuillEditorComponent;
+
+
+  modules = {
+    mention: {
+      allowedChars: /^[A-Za-z\sÅÄÖåäö]*$/,
+      linkTarget: "_self",
+      mentionDenotationChars: ["@", "#"],
+      blotName: "styled-mention",
+      // Dans la liste
+      renderItem: (item: any, searchTerm: any): string => {
+        console.log(item);
+        return `<span>test</span>`;
+      },
+      source: function(searchTerm: any, renderList: any, mentionChar: any): any {
+        const atValues = [
+          { id: 1, value: "Fredrik Sundqvist", link: "https://www.google.com", target: mentionChar },
+          { id: 2, value: "Patrik Sjölin", link: "https://www.google.com", target: mentionChar }
+        ];
+        const hashValues = [
+          { id: 3, value: "Fredrik Sundqvist 2" },
+          { id: 4, value: "Patrik Sjölin 2" }
+        ];
+        let values;
+
+        if (mentionChar === "@") {
+          values = atValues;
+        } else {
+          values = hashValues;
+        }
+
+        if (searchTerm.length === 0) {
+          renderList(values, searchTerm);
+        } else {
+          const matches = [];
+          for (let i = 0; i < values.length; i++)
+            if (
+              ~values[i].value.toLowerCase().indexOf(searchTerm.toLowerCase())
+            )
+              matches.push(values[i]);
+          renderList(matches, searchTerm);
+        }
+      },
+      showDenotationChar: false
+    }
+  };
+
 
   @ViewChild("commentEditor") commentEditor!: ElementRef;
 
   constructor(private api: RequestService,
+              private sanitizer: DomSanitizer,
               private user: UserService) {
+  }
+
+  ngOnInit(): void {
+    console.log(this.editor);
+    const MentionBlot = Quill.import("blots/mention");
+
+    class StyledMentionBlot extends MentionBlot {
+      static render(data: any): any {
+        const element = document.createElement("a");
+        console.log(data);
+        let prefix = data.target === "@" ? "@" : "#";
+        element.innerText = prefix + data.value;
+        element.style.color = data.color;
+        element.href = data.link;
+        return element;
+      }
+    }
+    StyledMentionBlot["blotName"] = "styled-mention";
+
+    Quill.register(StyledMentionBlot);
+
+    this.form = new FormGroup({
+      text: new FormControl()
+    });
   }
 
   public allowDrop(event: DragEvent): void {
@@ -63,7 +144,7 @@ export class PttCommentSection {
         this.fileUpload(file).then((path: string) => {
           const img = `<img src="${env.serverUrl}/api/files/raw/${path}" alt="Image" />`;
           this.insertImage(img);
-        }).catch(err => {
+        }).catch((err: any) => {
           console.error(err);
         });
       }
@@ -97,6 +178,10 @@ export class PttCommentSection {
     });
   }
 
+  public trustedContent(content: string): SafeHtml {
+    return this.sanitizer.bypassSecurityTrustHtml(content);
+  }
+
   /**
   * Publish comment
   */
@@ -106,10 +191,10 @@ export class PttCommentSection {
         content: this.content()
       }, this.user.getUser()?.token)
         .then(() => {
-          this.commentEditor.nativeElement.innerHTML = "";
+          this.form.reset();
         });
     }
-    this.commentEditor.nativeElement.innerHTML = "";
+    this.form.reset();
   }
   /***/
 
@@ -118,7 +203,7 @@ export class PttCommentSection {
   * @return - Content string
   */
   public content(): string {
-    return this.commentEditor.nativeElement.innerHTML;
+    return this.form.get("text")!.value;
   }
   /***/
 
@@ -127,7 +212,7 @@ export class PttCommentSection {
   * @returns - Boolean
   */
   public isEmpty(): boolean {
-    return this.commentEditor.nativeElement.innerHTML.trim() === "";
+    return this.form.get("text")!.value === null || this.form.get("text")!.value.replace(/^<p>/, "").replace(/<\/p>$/, "").trim() === "";
   }
   /***/
 }
