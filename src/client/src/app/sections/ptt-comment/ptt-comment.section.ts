@@ -14,7 +14,7 @@
 /* Imports */
 import { Component, ElementRef, Input, OnInit, ViewChild } from "@angular/core";
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
-import { environment as env } from "src/environments/environment";
+import { environment as env, environment } from "src/environments/environment";
 /***/
 
 /* Interfaces */
@@ -30,7 +30,10 @@ import { FormControl, FormGroup } from "@angular/forms";
 import { QuillEditorComponent } from "ngx-quill";
 
 import "quill-mention";
+import "quill-emoji/dist/quill-emoji.js";
 import Quill from "quill";
+import QuillImageDropAndPaste, { ImageData as QuillImageData } from "quill-image-drop-and-paste";
+Quill.register("modules/imageDropAndPaste", QuillImageDropAndPaste);
 
 @Component({
   selector: "section-ptt-comment",
@@ -47,6 +50,28 @@ export class PttCommentSection implements OnInit {
 
 
   modules = {
+    toolbar: [
+      [
+        "bold",
+        "italic",
+        "underline",
+        "strike",
+        "blockquote",
+        "code-block",
+        { "header": 1 },
+        { "header": 2 },
+        { "list": "ordered"},
+        { "list": "bullet" },
+        { "indent": "-1"},
+        { "indent": "+1" },
+        { "color": [] },
+        { "background": [] },
+        { "align": [] },
+        "clean",
+        "link",
+        "emoji"
+      ]
+    ],
     mention: {
       allowedChars: /^[A-Za-z\sÅÄÖåäö]*$/,
       linkTarget: "_self",
@@ -87,8 +112,29 @@ export class PttCommentSection implements OnInit {
         }
       },
       showDenotationChar: false
-    }
+    },
+    imageDropAndPaste: {
+      handler: this.imageHandler.bind(this)
+    },
+    "emoji-shortname": true,
+    "emoji-textarea": false,
+    "emoji-toolbar": true
   };
+
+  public imageHandler(dataUrl: string, type: string, imageData: QuillImageData): void {
+    const file = imageData.toFile();
+
+    if(file)
+      this.fileUpload(file).then((path) => {
+        console.log(environment.serverUrl + "/" + path, this.editor);
+        let index = (this.editor.quillEditor.getSelection() || {}).index;
+        if (index === undefined || index < 0) index = this.editor.quillEditor.getLength();
+        this.editor.quillEditor.insertEmbed(index, "image", environment.serverUrl + "/api/files/raw/" + path, "user");
+      })
+        .catch((err) => {
+          return;
+        });
+  }
 
 
   @ViewChild("commentEditor") commentEditor!: ElementRef;
@@ -100,6 +146,32 @@ export class PttCommentSection implements OnInit {
 
   ngOnInit(): void {
     console.log(this.editor);
+    let DirectionAttribute = Quill.import("attributors/attribute/direction");
+    Quill.register(DirectionAttribute, true);
+    let AlignClass = Quill.import("attributors/class/align");
+    Quill.register(AlignClass, true);
+    let BackgroundClass = Quill.import("attributors/class/background");
+    Quill.register(BackgroundClass, true);
+    let ColorClass = Quill.import("attributors/class/color");
+    Quill.register(ColorClass, true);
+    let DirectionClass = Quill.import("attributors/class/direction");
+    Quill.register(DirectionClass, true);
+    let FontClass = Quill.import("attributors/class/font");
+    Quill.register(FontClass, true);
+    let SizeClass = Quill.import("attributors/class/size");
+    Quill.register(SizeClass, true);
+    let AlignStyle = Quill.import("attributors/style/align");
+    Quill.register(AlignStyle, true);
+    let BackgroundStyle = Quill.import("attributors/style/background");
+    Quill.register(BackgroundStyle, true);
+    let ColorStyle = Quill.import("attributors/style/color");
+    Quill.register(ColorStyle, true);
+    let DirectionStyle = Quill.import("attributors/style/direction");
+    Quill.register(DirectionStyle, true);
+    let FontStyle = Quill.import("attributors/style/font");
+    Quill.register(FontStyle, true);
+    let SizeStyle = Quill.import("attributors/style/size");
+    Quill.register(SizeStyle, true);
     const MentionBlot = Quill.import("blots/mention");
 
     class StyledMentionBlot extends MentionBlot {
