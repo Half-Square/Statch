@@ -46,7 +46,7 @@ html {
   }
 }
 
-a, .btn {
+.btn {
   color: #eaeaea;
   text-decoration: none;
 
@@ -54,6 +54,17 @@ a, .btn {
     color: #0055ff;
   }
 }
+
+a {
+  color: #0055ff;
+  text-decoration: none;
+
+  &:hover {
+    color: #1b67ff;
+    text-decoration: underline;
+  }
+}
+
 
 .ql-bubble {
   .ql-tooltip {

@@ -18,10 +18,12 @@ import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 
 /* Interfaces */
 import { IComments, IProjects, ITasks, ITickets } from "src/app/interfaces";
+import { RecoveryService } from "src/app/services/recovery.service";
 /***/
 
 /* Services */
 import { RequestService } from "src/app/services/request.service";
+import { ToastService } from "src/app/services/toast.service";
 import { UserService } from "src/app/services/user.service";
 /***/
 
@@ -40,6 +42,8 @@ export class PttCommentSection {
 
   constructor(private api: RequestService,
               private sanitizer: DomSanitizer,
+              private recovery: RecoveryService,
+              private toast: ToastService,
               private user: UserService) {
   }
 
@@ -66,8 +70,18 @@ export class PttCommentSection {
         })
         .catch(() => this.hasPublish = false);
     }
+    this.hasPublish = false;
   }
   /***/
+
+  public onDelete(id: string): void {
+    this.api.delete(`api/${this.type}/${this.item.id}/comments/${id}`,
+      this.user.getUser()?.token)
+      .then(() => {
+        this.recovery.updateData(this.item, this.type);
+        this.toast.print("Comment has been removed", "success");
+      });
+  }
 
   /**
    * Get content of markdown

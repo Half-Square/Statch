@@ -144,7 +144,7 @@ export class CommentsController {
   */
   @Delete(":parent/:parentId/comments/:id")
   @UseInterceptors(ActivitiesInterceptor)
-  async deleteById(@Param("id") id: string, @Param("parentId") parentId: string): Promise<{message: string}> {
+  async deleteById(@Param("parent") parent: string, @Param("id") id: string, @Param("parentId") parentId: string): Promise<{message: string}> {
     try {
       await this.prisma.comment.delete({where: {id: id}});
       this.socket.broadcast(`${parent}/${parentId}/comments`, {id: id}, true);
