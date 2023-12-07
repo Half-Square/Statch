@@ -21,16 +21,9 @@
 
   </div>
 
-  <div class="input" #editorContainer [formGroup]="form">
-    <!-- <div
-      class="area"
-      contenteditable="true"
-      (dragover)="allowDrop($event)"
-      (drop)="onDrop($event)"
-      #commentEditor>
-    </div> -->
-    <quill-editor [ngStyle]="{'width': '100%'}" [modules]="modules" theme="bubble" formControlName="text" [bounds]="editorContainer" >
-    </quill-editor>
+
+  <div class="input">
+    <component-markdown [hasPublish]="hasPublish" (getContent)="getContent($event)"></component-markdown>
     <core-button (click)="publish()" [type]="'flat'" [style]="'primary'" [size]="'medium'" [label]="'Publish'"></core-button>
   </div>
 
