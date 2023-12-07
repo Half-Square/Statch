@@ -165,6 +165,18 @@ export class MarkdownComponent implements OnInit, OnChanges {
     let SizeStyle = Quill.import("attributors/style/size");
     Quill.register(SizeStyle, true);
     const MentionBlot = Quill.import("blots/mention");
+    const Image = Quill.import("formats/image");
+    class ImageBlot extends Image {
+      static create(value: any): any {
+        const node = super.create(value);
+        if (typeof value === "string") {
+          node.setAttribute("src", this["sanitize"](value));
+          node.setAttribute("alt", this["sanitize"](value).split("/").reverse()[0]);
+        }
+        return node;
+      }
+    }
+    Quill.register(ImageBlot);
     /***/
 
     /**
@@ -210,6 +222,7 @@ export class MarkdownComponent implements OnInit, OnChanges {
           if (index === undefined || index < 0)
             index = this.editor.quillEditor.getLength();
           this.editor.quillEditor.insertEmbed(index, "image", environment.serverUrl + "/api/files/raw/" + path, "user");
+          this.editor.quillEditor.formatText(index, 1, "alt", file.name);
         })
         .catch((err) => {
           return;
