@@ -5,7 +5,7 @@ import { environment as env, environment } from "src/environments/environment";
 /***/
 
 /* Interfaces */
-import { IComments, IProjects, ITasks, ITickets } from "src/app/interfaces";
+import { IComments, IProjects, ITasks, ITickets, IUsers } from "src/app/interfaces";
 /***/
 
 /* Services */
@@ -19,6 +19,7 @@ import { QuillEditorComponent } from "ngx-quill";
 import "quill-mention";
 import Quill from "quill";
 import QuillImageDropAndPaste, { ImageData as QuillImageData } from "quill-image-drop-and-paste";
+import { RecoveryService } from "src/app/services/recovery.service";
 Quill.register("modules/imageDropAndPaste", QuillImageDropAndPaste);
 /***/
 
@@ -29,79 +30,16 @@ Quill.register("modules/imageDropAndPaste", QuillImageDropAndPaste);
 })
 export class MarkdownComponent implements OnInit, OnChanges {
   public form: FormGroup;
+  public users: IUsers[];
+  public searchItems: [];
   @Output() getContent = new EventEmitter();
   @Input() hasPublish: boolean = false;
   @ViewChild(QuillEditorComponent, { static: true }) editor: QuillEditorComponent;
 
-  modules = {
-    toolbar: [
-      [
-        "bold",
-        "italic",
-        "underline",
-        "strike",
-        "blockquote",
-        "code-block",
-        { "header": 1 },
-        { "header": 2 },
-        { "list": "ordered"},
-        { "list": "bullet" },
-        { "indent": "-1"},
-        { "indent": "+1" },
-        { "color": [] },
-        { "background": [] },
-        { "align": [] },
-        "clean",
-        "link"
-      ]
-    ],
-    mention: {
-      allowedChars: /^[A-Za-z\sÅÄÖåäö]*$/,
-      linkTarget: "_self",
-      mentionDenotationChars: ["@", "#"],
-      blotName: "styled-mention",
-      // Dans la liste
-      renderItem: (item: any, searchTerm: any): string => {
-        return `<span>${item.value}</span>`;
-      },
-      source: function(searchTerm: any, renderList: any, mentionChar: any): any {
-        const atValues = [
-          { id: 1, value: "Fredrik Sundqvist", link: "https://www.google.com", target: mentionChar },
-          { id: 2, value: "Patrik Sjölin", link: "https://www.google.com", target: mentionChar }
-        ];
-        const hashValues = [
-          { id: 3, value: "Fredrik Sundqvist 2" },
-          { id: 4, value: "Patrik Sjölin 2" }
-        ];
-        let values;
-
-        if (mentionChar === "@") {
-          values = atValues;
-        } else {
-          values = hashValues;
-        }
-
-        if (searchTerm.length === 0) {
-          renderList(values, searchTerm);
-        } else {
-          const matches = [];
-          for (let i = 0; i < values.length; i++)
-            if (
-              ~values[i].value.toLowerCase().indexOf(searchTerm.toLowerCase())
-            )
-              matches.push(values[i]);
-          renderList(matches, searchTerm);
-        }
-      },
-      showDenotationChar: false
-    },
-    imageDropAndPaste: {
-      handler: this.imageHandler.bind(this)
-    }
-  };
+  public modules = {};
 
   constructor(private api: RequestService,
-    private sanitizer: DomSanitizer,
+    private recovery: RecoveryService,
     private user: UserService) {
   }
 
@@ -114,6 +52,93 @@ export class MarkdownComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
+    this.recovery.get("users").subscribe((users) => this.users = users);
+    // eslint-disable-next-line @typescript-eslint/no-this-alias
+    const _ = this;
+    this.modules = {
+      toolbar: [
+        [
+          "bold",
+          "italic",
+          "underline",
+          "strike",
+          "blockquote",
+          "code-block",
+          { "header": 1 },
+          { "header": 2 },
+          { "list": "ordered"},
+          { "list": "bullet" },
+          { "indent": "-1"},
+          { "indent": "+1" },
+          { "color": [] },
+          { "background": [] },
+          { "align": [] },
+          "clean",
+          "link"
+        ]
+      ],
+      mention: {
+        allowedChars: /^[A-Za-z\sÅÄÖåäö]*$/,
+        linkTarget: "_self",
+        mentionDenotationChars: ["@", "#"],
+        blotName: "styled-mention",
+        source: function(searchTerm: string, renderList: any, mentionChar: any): any {
+          let atUsers: {
+            id: string;
+            value: string;
+            link: string;
+            target: string;
+          }[] = [];
+          _.users.forEach((user: IUsers) => {
+            atUsers.push({id: user.id, value: user.name, link: "/profile?id=" + user.id, target: "@"});
+          });
+          const hashValues: {
+            id: string;
+            value: string;
+            link: string;
+            target: string;
+          }[] = [];
+          let values;
+
+          if (mentionChar === "@") {
+            values = atUsers;
+          } else {
+            values = hashValues;
+          }
+
+          if (searchTerm.length === 0) {
+            renderList(values, searchTerm);
+          } else if (mentionChar === "@") {
+            const matches = [];
+            for (let i = 0; i < values.length; i++)
+              if (
+                ~values[i].value.toLowerCase().indexOf(searchTerm.toLowerCase())
+              )
+                matches.push(values[i]);
+            renderList(matches, searchTerm);
+          } else if (mentionChar === "#") {
+            const matches: {
+              id: string;
+              value: string;
+              link: string;
+              target: string;
+            }[] = [];
+            _.search(searchTerm).then((data) => {
+              let datas = [];
+              datas.push(...data.slice(0, 5));
+              datas.forEach((data) => {
+                matches.push({id: data.id, value: data.name, link: "/" + data.type + "s/" + data.id, target: "#"});
+              });
+              renderList(matches, searchTerm);
+            });
+          }
+        },
+        showDenotationChar: false
+      },
+      imageDropAndPaste: {
+        handler: this.imageHandler.bind(this)
+      }
+    };
     /* Import atrributors for better style & classname */
     let DirectionAttribute = Quill.import("attributors/attribute/direction");
     Quill.register(DirectionAttribute, true);
@@ -218,6 +243,24 @@ export class MarkdownComponent implements OnInit, OnChanges {
       }).catch(err => {
         return reject(err);
       });
+    });
+  }
+  /***/
+
+  /**
+  * Sends request to the demo dataverse API to retrieve search results for the given query.
+  * @param query - The search query entered by the user.
+  */
+  private search(query: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.api.post("api/search", { query: query }, this.user.getUser()?.token)
+        .then(data => {
+          return resolve(data);
+        })
+        .catch(error => {
+          console.error(error);
+          return reject([]);
+        });
     });
   }
   /***/
