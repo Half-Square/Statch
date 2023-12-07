@@ -30,7 +30,6 @@ import { FormControl, FormGroup } from "@angular/forms";
 import { QuillEditorComponent } from "ngx-quill";
 
 import "quill-mention";
-import "quill-emoji/dist/quill-emoji.js";
 import Quill from "quill";
 import QuillImageDropAndPaste, { ImageData as QuillImageData } from "quill-image-drop-and-paste";
 Quill.register("modules/imageDropAndPaste", QuillImageDropAndPaste);
@@ -68,8 +67,7 @@ export class PttCommentSection implements OnInit {
         { "background": [] },
         { "align": [] },
         "clean",
-        "link",
-        "emoji"
+        "link"
       ]
     ],
     mention: {
@@ -115,10 +113,7 @@ export class PttCommentSection implements OnInit {
     },
     imageDropAndPaste: {
       handler: this.imageHandler.bind(this)
-    },
-    "emoji-shortname": true,
-    "emoji-textarea": false,
-    "emoji-toolbar": true
+    }
   };
 
   public imageHandler(dataUrl: string, type: string, imageData: QuillImageData): void {
