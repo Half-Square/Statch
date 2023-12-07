@@ -66,6 +66,7 @@ export class PttCommentSection {
         content: this.content
       }, this.user.getUser()?.token)
         .then(() => {
+          this.checkIfMention(this.content);
           this.hasPublish = true;
         })
         .catch(() => this.hasPublish = false);
@@ -74,6 +75,10 @@ export class PttCommentSection {
   }
   /***/
 
+  /**
+   * Delete comments
+   * @param id - Id of comments
+   */
   public onDelete(id: string): void {
     this.api.delete(`api/${this.type}/${this.item.id}/comments/${id}`,
       this.user.getUser()?.token)
@@ -81,6 +86,28 @@ export class PttCommentSection {
         this.recovery.updateData(this.item, this.type);
         this.toast.print("Comment has been removed", "success");
       });
+  }
+  /***/
+
+  /**
+   * Check if someone is mention
+   * @param content - Html content of comments
+   */
+  private checkIfMention(content: string): void {
+    let div = document.createElement("div");
+    div.innerHTML = content;
+    let mentions = Array.from(div.querySelectorAll("span.mention"));
+
+    let mentionsContent = mentions.map(span => span.attributes);
+    mentionsContent.forEach((mention: any) => {
+      if(mention["data-target"].value === "@")
+        this.pingUser(mention["data-id"].value, mention["data-value"].value);
+    });
+  }
+  /***/
+
+  private pingUser(id: string, name: string): void {
+    console.log(id, name);
   }
 
   /**
@@ -97,7 +124,7 @@ export class PttCommentSection {
   * @returns - Boolean
   */
   public isEmpty(): boolean {
-    return this.content === null || this.content.replace(/^<p>/, "").replace(/<\/p>$/, "").trim() === "";
+    return this.content === null || this.content.replace(/<p>|<\/p>|<br>/g, "").trim() === "";
   }
   /***/
 }

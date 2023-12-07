@@ -44,8 +44,6 @@ export class MarkdownComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes);
-
     if (changes["hasPublish"] && changes["hasPublish"].currentValue === true) {
       this.form.reset();
     }
