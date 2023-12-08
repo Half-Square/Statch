@@ -12,7 +12,7 @@
       <div class="head">
         <div  class="collapse"
               *ngIf="hasChild(tasks, {projectId: project.id})"
-              (click)="toggleCollapse(project.id)">
+              (click)="toggleCollapse(project.id, project.status)">
           <core-icon [ngStyle]="{'transform': 'translate(-1px, -1px)'}" [icon]="isOpen(project.id) ? 'chevron-down' : 'chevron-right'"></core-icon>
         </div>
 
@@ -29,41 +29,55 @@
       </div>
 
       <ul *ngIf="isOpen(project.id)" class="child">
-        <li [ngClass]="{'item': true, 'depth': !hasChild(tickets, {taskId: task.id})}"
-            *ngFor="let task of _.filter(tasks, {projectId: project.id})">
-          <div class="head">
-            <div  class="collapse"
-                  *ngIf="hasChild(tickets, {taskId: task.id})"
-                  (click)="toggleCollapse(task.id)">
-              <core-icon [ngStyle]="{'transform': 'translate(-1px, -1px)'}" [icon]="isOpen(task.id) ? 'chevron-down' : 'chevron-right'"></core-icon>
+        <div *ngFor="let statut of status">
+          <component-collapse [showContent]="isOpenStatus(statut.id)" *ngIf="_.filter(tasks, {projectId: project.id, status: statut.id}).length > 0">
+            <div class="{{statut.id}}" title>
+              <core-icon [icon]="statut.id" /> {{_.filter(tasks, {projectId: project.id, status: statut.id}).length}} {{statut.name}}
             </div>
-
-            <a [tooltip]="task.name" routerLink="/tasks/{{task.id}}" routerLinkActive="active" class="link">
-              <core-icon [icon]="task.status"></core-icon>
-              <div class="ellipsis">
-                <span>{{task.name}}</span>
-              </div>
-            </a>
-
-            <div (click)="createChild('tasks', task.id, 'tickets')" [tooltip]="'Add ticket for this task'" class="add">
-              <core-icon [icon]="'plus'"></core-icon>
-            </div>
-          </div>
-
-          <ul *ngIf="isOpen(task.id)" class="child">
-            <li class="item depth"
-                *ngFor="let ticket of _.filter(tickets, {taskId: task.id})">
+            <li content [ngClass]="{'item': true, 'depth': !hasChild(tickets, {taskId: task.id})}"
+                *ngFor="let task of _.filter(tasks, {projectId: project.id, status: statut.id})">
               <div class="head">
-                <a [tooltip]="ticket.name" routerLink="tickets/{{ticket.id}}" routerLinkActive="active" class="link">
-                  <core-icon [ngStyle]="{'transform': 'translate(-1px, -1px)'}" [icon]="ticket.status"></core-icon>
+                <div  class="collapse"
+                      *ngIf="hasChild(tickets, {taskId: task.id})"
+                      (click)="toggleCollapse(task.id, task.status)">
+                  <core-icon [ngStyle]="{'transform': 'translate(-1px, -1px)'}" [icon]="isOpen(task.id) ? 'chevron-down' : 'chevron-right'"></core-icon>
+                </div>
+
+                <a [tooltip]="task.name" routerLink="/tasks/{{task.id}}" routerLinkActive="active" class="link">
+                  <core-icon [icon]="task.status"></core-icon>
                   <div class="ellipsis">
-                    <span>{{ticket.name}}</span>
+                    <span>{{task.name}}</span>
                   </div>
                 </a>
+
+                <div (click)="createChild('tasks', task.id, 'tickets')" [tooltip]="'Add ticket for this task'" class="add">
+                  <core-icon [icon]="'plus'"></core-icon>
+                </div>
               </div>
+
+              <ul *ngIf="isOpen(task.id)" class="child">
+                <div *ngFor="let statut of status">
+                  <component-collapse [showContent]="isOpenStatus(statut.id)" *ngIf="_.filter(tickets, {taskId: task.id, status: statut.id}).length > 0">
+                    <div class="{{statut.id}}" title>
+                      <core-icon [icon]="statut.id" /> {{_.filter(tickets, {taskId: task.id, status: statut.id}).length}} {{statut.name}}
+                    </div>
+                    <li content class="item depth"
+                        *ngFor="let ticket of _.filter(tickets, {taskId: task.id, status: statut.id})">
+                      <div class="head">
+                        <a [tooltip]="ticket.name" routerLink="tickets/{{ticket.id}}" routerLinkActive="active" class="link">
+                          <core-icon [ngStyle]="{'transform': 'translate(-1px, -1px)'}" [icon]="ticket.status"></core-icon>
+                          <div class="ellipsis">
+                            <span>{{ticket.name}}</span>
+                          </div>
+                        </a>
+                      </div>
+                    </li>
+                  </component-collapse>
+                </div>
+              </ul>
             </li>
-          </ul>
-        </li>
+          </component-collapse>
+        </div>
       </ul>
     </li>
   </ul>
