@@ -24,6 +24,12 @@
 
     &.child {
       padding-inline-start: 24px;
+
+      .progress, .new, .wait, .reject, .done {
+        display: flex;
+        gap: 4px;
+        align-items: flex-start;
+      }
     }
 
     .item {

@@ -7,9 +7,9 @@
 
 <div class="collapse">
 
-  <div class="title" (click)="showContent = !showContent">
+  <div class="title" (click)="showContent = !showContent" [ngClass]="showContent === true ? 'open' : ''">
     <ng-content select="[title]"></ng-content>
-    <core-icon icon="{{showContent ? 'chevron-up' : 'chevron-down'}}"></core-icon>
+    <core-icon icon="{{showContent ? 'chevron-down' : 'chevron-right'}}"></core-icon>
   </div>
 
   <div *ngIf="showContent" class="separator"></div>

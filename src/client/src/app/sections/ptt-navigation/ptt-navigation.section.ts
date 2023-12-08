@@ -44,9 +44,10 @@ export class PttNavigationSection implements OnInit, OnDestroy {
   public tickets: ITickets[] = [];
   public _ = _;
   public open: string[] = [];
+  public status: {id: string, name: string}[] = [{id:"progress", name: "In progress"}, {id:"new", name: "New"}, {id:"wait", name: "Pending"}, {id:"reject", name: "Rejected"}, {id:"done", name: "Completed"}];
 
   private subscribers: Subscription[] = [];
-  private context: {type: string, id?: string};
+  public context: {type: string, id?: string};
 
   constructor(
     private recovery: RecoveryService,
@@ -106,7 +107,7 @@ export class PttNavigationSection implements OnInit, OnDestroy {
   */
   public hasChild(
     target: IProjects[] | ITasks[] | ITickets[],
-    cond: {projectId?: string, taskId?: string}): boolean {
+    cond: {projectId?: string, taskId?: string, status?: string}): boolean {
     if (_.find(target, cond)) return true;
     else return false;
   }
@@ -132,6 +133,29 @@ export class PttNavigationSection implements OnInit, OnDestroy {
   */
   public isOpen(id: string): boolean {
     return _.find(this.open, (el) => el === id) ? true :  false;
+  }
+  /***/
+
+  /**
+   * Check if status is open
+   * @param status - Status element
+   * @param type - Type of element
+   * @returns - Boolean, open or not
+   */
+  public isStatus(status: string, type: "tasks" | "tickets"): boolean {
+    if(this.context && this.context.type !== "projects") {
+      if(type === "tasks" && this.context.type !== "tickets") {
+        const current = _.filter(this.tasks, {id: this.context.id})[0];
+        return current.status === status ? true :  false;
+      } if (type === "tickets" && this.context.type !== "tasks") {
+        const current = _.filter(this.tickets, {id: this.context.id})[0];
+        return current.status === status ? true :  false;
+      } if (type === "tasks" && this.context.type === "tickets") {
+        const current = _.filter(this.tickets, {id: this.context.id})[0];
+        const parent = _.filter(this.tasks, {id: current.taskId})[0];
+        return parent.status === status ? true :  false;
+      } else return false;
+    } else return false;
   }
   /***/
 
