@@ -77,10 +77,20 @@ a {
 
 .ql-bubble {
   --bg-color: #222222;
-  border-radius: 8px;
-  background: rgba(0, 0, 0, 0.24);
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+
+  .ql-editor{
+    min-height: 150px;
+    border-radius: 8px;
+    border: 1px solid #0055ff;
+    color: #eaeaea;
+    &:active, &:focus {
+      box-shadow: 0 0 0 2px #16346e;
+    }
+  }
   .ql-editor.ql-blank::before {
-    color: #a7a7a7;
+    color: #7e7e7e;
+    font-style: normal;
   }
   .ql-tooltip {
     background: var(--bg-color);
