@@ -54,6 +54,7 @@ export class PttAllView implements OnInit, OnDestroy {
   public type: string;
   public id: string;
   public versions: IVersions[] = [];
+  public root: string;
   public filteredSortedItems: IProjects[] | ITasks[] | ITickets[];
   public filters: any = {
     owner: [],
@@ -112,6 +113,13 @@ export class PttAllView implements OnInit, OnDestroy {
     this.pSub = this.route.paramMap.subscribe((params) => {
       this.subsciption.map((s) => s.unsubscribe());
       this.type = params.get("type") as string;
+      if(this.type === "tasks") {
+        this.root = this.id;
+      } else if(this.type === "tickets") {
+        this.recovery.getSingle("tasks", this.id).subscribe((el) => {
+          this.root = el.projectId;
+        });
+      }
       if(this.type === "projects")
         this.sorts.push({id: "actualVersion", name: "Version"});
       else
@@ -124,9 +132,12 @@ export class PttAllView implements OnInit, OnDestroy {
           this.applyFilters();
         }),
         this.recovery.get("users").subscribe((u) => this.users = u),
-        this.recovery.get("versions").subscribe((v) => this.versions = [...v, {id: null, name: "No version"}]),
         this.recovery.get("labels").subscribe((l) => this.labels = [...l, {id: null, name: "No label"}])
       ];
+      if(this.type !== "projects")
+        this.subsciption.push(this.recovery.get(`projects/${this.root}/versions`).subscribe((v) => this.versions = this.filterSort.sortVersions([...v, {id: null, name: "No version"}])));
+      else
+        this.subsciption.push(this.recovery.get("versions").subscribe((v) => this.versions = this.filterSort.sortVersions([...v, {id: null, name: "No version"}])));
     });
   }
 
