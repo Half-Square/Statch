@@ -33,6 +33,7 @@ import { RecoveryService } from "src/app/services/recovery.service";
 import { RequestService } from "src/app/services/request.service";
 import { ToastService } from "src/app/services/toast.service";
 import { ILoggedUser, UserService } from "src/app/services/user.service";
+import { FilterSortService } from "src/app/services/filter-sort.service";
 /***/
 
 /* eslint-disable  @typescript-eslint/no-explicit-any */
@@ -63,7 +64,8 @@ export class PttView implements OnInit, OnDestroy {
               private router: Router,
               private api: RequestService,
               public user: UserService,
-              private toast: ToastService) {
+              private toast: ToastService,
+              private sort: FilterSortService) {
   }
 
   ngOnInit(): void {
@@ -82,7 +84,7 @@ export class PttView implements OnInit, OnDestroy {
               else this.item = el;
             }),
             this.recovery.get(`projects/${root.id}/versions`).subscribe((versions) => {
-              this.versions = versions;
+              this.versions = this.sort.sortVersions(versions);
             }),
             this.recovery.get(`${this.type}/${this.id}/activities`).subscribe((a) => {
               this.activities = a;

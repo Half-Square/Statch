@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import * as _ from "lodash";
 
-import { IAssignments, ILabels, IProjects, ITasks, ITickets } from "src/app/interfaces";
+import { IAssignments, ILabels, IProjects, ITasks, ITickets, IVersions } from "src/app/interfaces";
 
 @Injectable({
   providedIn: "root"
@@ -106,6 +106,17 @@ export class FilterSortService {
     sortBy: any
   ): T[] {
     return _.orderBy(items, sortBy.map((el: any) => el.id), Array(sortBy.length).fill("asc") as ("asc" | "desc")[]);
+  }
+  /***/
+
+  /**
+   * Sort list of items by versions
+   * @param items - List of items need to sort
+   * @returns - List of items sorted
+   */
+  public sortVersions(items: IVersions[]): IVersions[] {
+    const getVersionParts = (items: IVersions): number[] => items.name.split(".").map(Number);
+    return _.orderBy(items, getVersionParts, ["desc"]);
   }
   /***/
 }
