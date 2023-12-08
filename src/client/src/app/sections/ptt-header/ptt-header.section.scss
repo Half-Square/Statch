@@ -8,11 +8,15 @@
     border: 1px solid #0055ff;
     outline: none;
     border-radius: 8px;
-    padding: 4px;
+    padding: 4px 8px;
 
     &:focus, &:active {
       box-shadow: 0px 0px 0px 2px #16346e;
     }
+  }
+
+  & > *[contenteditable="false"] {
+    padding: 4px 0;
   }
 
   .edit {

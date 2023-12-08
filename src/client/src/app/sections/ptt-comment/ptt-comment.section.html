@@ -32,7 +32,7 @@
 
 
   <div class="input">
-    <component-markdown [hasPublish]="hasPublish" (getContent)="getContent($event)"></component-markdown>
+    <component-markdown [placeholder]="'Leave your comment...'" [hasPublish]="hasPublish" (getContent)="getContent($event)"></component-markdown>
     <core-button (click)="publish()" [type]="'flat'" [style]="'primary'" [size]="'medium'" [label]="'Publish'"></core-button>
   </div>
 
