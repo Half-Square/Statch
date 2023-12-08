@@ -73,17 +73,33 @@ a {
   background: 0055ff;
 }
 
+.ql-bubble.ql-disabled {
+  .ql-editor {
+    border-color: transparent;
+    padding: 8px 0;
+    &:active, &:focus {
+      box-shadow: none;
+    }
+  }
+}
 
+.input {
+  .ql-bubble {
+    .ql-editor {
+      min-height: 150px;
+    }
+  }
+}
 
 .ql-bubble {
   --bg-color: #222222;
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 
   .ql-editor{
-    min-height: 150px;
     border-radius: 8px;
     border: 1px solid #0055ff;
     color: #eaeaea;
+    padding: 8px 12px;
     &:active, &:focus {
       box-shadow: 0 0 0 2px #16346e;
     }

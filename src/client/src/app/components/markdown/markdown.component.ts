@@ -1,5 +1,5 @@
 /* Imports */
-import { Component, OnInit, Output, ViewChild, EventEmitter, Input, OnChanges, SimpleChanges } from "@angular/core";
+import { Component, OnInit, Output, ViewChild, EventEmitter, Input, OnChanges, SimpleChanges, ElementRef } from "@angular/core";
 import { DomSanitizer } from "@angular/platform-browser";
 import { environment as env, environment } from "src/environments/environment";
 /***/
@@ -32,8 +32,12 @@ export class MarkdownComponent implements OnInit, OnChanges {
   public form: FormGroup;
   public users: IUsers[];
   public searchItems: [];
+  @Input() hasDisabled: boolean = false;
+  @Input() reset: boolean = true;
   @Output() getContent = new EventEmitter();
   @Input() hasPublish: boolean = false;
+  @Input() placeholder: string;
+  @Input() externContent: string;
   @ViewChild(QuillEditorComponent, { static: true }) editor: QuillEditorComponent;
 
   public modules = {};
@@ -44,7 +48,7 @@ export class MarkdownComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes["hasPublish"] && changes["hasPublish"].currentValue === true) {
+    if (changes["hasPublish"] && changes["hasPublish"].currentValue === true && this.reset === true) {
       this.form.reset();
     }
   }
@@ -229,7 +233,6 @@ export class MarkdownComponent implements OnInit, OnChanges {
         });
   }
   /***/
-
 
   /**
  * File Upload to the server

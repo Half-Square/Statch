@@ -21,14 +21,6 @@
 
   <div class="description">
     <h2 class="subtitle">Description</h2>
-
-    <p  #descriptionEl
-        class="content"
-        (input)="content()"
-        (dblclick)="toggleEdit('description')"
-        [attr.contenteditable]="editDescription"
-        [innerHTML]="item.description"
-        (keydown)="saveEnter($event, 'description')">
-    </p>
+    <component-markdown [reset]="false" [externContent]="item.description" [placeholder]="'Write your description...'" #descriptionEl (dblclick)="toggleEdit('description')" (keydown)="saveEnter($event, 'description')" [hasDisabled]="!editDescription"  [hasPublish]="hasPublish" (getContent)="getContent($event)"></component-markdown>
   </div>
 </header>
