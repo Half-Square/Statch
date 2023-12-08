@@ -57,6 +57,16 @@
       (keydown)="handle($event)" />
   </div>
 
+  <div *ngIf="history.length > 0" class="subtitle">Last search</div>
+
+  <ul class="history" *ngIf="history.length > 0">
+    <li *ngFor="let result of history; let index = index"
+      (click)="selectHistory(result)">
+      <core-icon  icon="{{result.icon}}" />
+      {{ result.name }}
+    </li>
+  </ul>
+
   <div *ngIf="results.length > 0" class="subtitle">Results</div>
 
   <ul class="results" *ngIf="results.length > 0">
@@ -64,7 +74,7 @@
       [ngClass]="{ focused: index === focusedResult }"
       (click)="selectResult(result)"
       (mouseover)="focusResult(index)">
-      <i  class="icon {{result.icon}}"></i>
+      <core-icon  icon="{{result.icon}}" />
       {{ result.name }}
     </li>
   </ul>
