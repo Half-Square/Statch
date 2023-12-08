@@ -1,0 +1,4 @@
+<div class="markdown" #editorContainer [formGroup]="form">
+  <quill-editor placeholder="Leave your comment..." (onContentChanged)="content()" [ngStyle]="{'width': '100%'}" [modules]="modules" theme="bubble" formControlName="text" [bounds]="editorContainer" >
+  </quill-editor>
+</div>

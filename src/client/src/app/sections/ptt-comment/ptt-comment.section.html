@@ -13,22 +13,26 @@
 
     <div class="header">
       <core-avatar [imgLink]="comment.authorId | recovery:'picture':'users' | async" [label]="comment.authorId | recovery:'name':'users' | async"></core-avatar>
-      <span class="date">{{ comment.created | dateDifference }}</span>
+      <div class="option">
+        <span class="date">{{ comment.created | dateDifference }}</span>
+        <core-button (click)="onDelete(comment.id)"
+                     [type]="'basic'"
+                     [style]="'warn'"
+                     [size]="'icon'"
+                     [tooltip]="'Delete'">
+          <core-icon icon="minus"/>
+        </core-button>
+      </div>
     </div>
 
-    <div class="content" [innerHTML]="comment.content">
+    <div class="content" [innerHTML]="trustedContent(comment.content)">
     </div>
 
   </div>
 
+
   <div class="input">
-    <div
-      class="area"
-      contenteditable="true"
-      (dragover)="allowDrop($event)"
-      (drop)="onDrop($event)"
-      #commentEditor>
-    </div>
+    <component-markdown [hasPublish]="hasPublish" (getContent)="getContent($event)"></component-markdown>
     <core-button (click)="publish()" [type]="'flat'" [style]="'primary'" [size]="'medium'" [label]="'Publish'"></core-button>
   </div>
 

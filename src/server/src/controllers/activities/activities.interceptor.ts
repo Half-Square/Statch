@@ -45,7 +45,7 @@ export class ActivitiesInterceptor implements NestInterceptor {
       return next.handle().pipe(map((data) => {
         if (req.method === "POST") this.activities.handlePost(user, data, controller);
         if (req.method === "PUT") this.activities.handlePut(user, tmp, data, controller);
-        if (req.method === "DELETE") {
+        if (req.method === "DELETE" && tmp) {
           let parentId = tmp.projectId || tmp.taskId; // Get parent id
           this.activities.handleDelete(
             user,

@@ -15,12 +15,13 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { RouterModule } from "@angular/router";
-import { FormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 /***/
 
 /* Modules */
 import { PipesModule } from "../pipes/pipes.module";
 import { CoresModule } from "../cores/cores.module";
+import { QuillModule } from "ngx-quill";
 /***/
 
 /* Components */
@@ -47,6 +48,7 @@ import { ActivityActionStateComponent } from "./activity-action-state/activity-a
 import { SearchBarComponent } from "./search-bar/search-bar.component";
 import { ModalComponent } from "./modal/modal.component";
 import { TooltipModule } from "./tooltip/tooltip.module";
+import { MarkdownComponent } from "./markdown/markdown.component";
 /***/
 
 @NgModule({
@@ -72,7 +74,8 @@ import { TooltipModule } from "./tooltip/tooltip.module";
     ActivityItemComponent,
     ActivityActionStateComponent,
     SearchBarComponent,
-    ModalComponent
+    ModalComponent,
+    MarkdownComponent
   ],
   imports: [
     CommonModule,
@@ -80,7 +83,9 @@ import { TooltipModule } from "./tooltip/tooltip.module";
     CoresModule,
     PipesModule,
     FormsModule,
-    TooltipModule
+    TooltipModule,
+    ReactiveFormsModule,
+    QuillModule.forRoot()
   ],
   exports: [
     SelectComponent,
@@ -105,7 +110,8 @@ import { TooltipModule } from "./tooltip/tooltip.module";
     ActivityActionStateComponent,
     SearchBarComponent,
     ModalComponent,
-    TooltipModule
+    TooltipModule,
+    MarkdownComponent
   ]
 })
 
