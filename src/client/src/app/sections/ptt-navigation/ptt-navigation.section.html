@@ -12,7 +12,7 @@
       <div class="head">
         <div  class="collapse"
               *ngIf="hasChild(tasks, {projectId: project.id})"
-              (click)="toggleCollapse(project.id, project.status)">
+              (click)="toggleCollapse(project.id)">
           <core-icon [ngStyle]="{'transform': 'translate(-1px, -1px)'}" [icon]="isOpen(project.id) ? 'chevron-down' : 'chevron-right'"></core-icon>
         </div>
 
@@ -30,16 +30,16 @@
 
       <ul *ngIf="isOpen(project.id)" class="child">
         <div *ngFor="let statut of status">
-          <component-collapse [showContent]="isOpenStatus(statut.id)" *ngIf="_.filter(tasks, {projectId: project.id, status: statut.id}).length > 0">
+          <component-collapse [showContent]="isStatus(statut.id, 'tasks')" *ngIf="_.filter(tasks, {projectId: project.id, status: statut.id}).length > 0">
             <div class="{{statut.id}}" title>
-              <core-icon [icon]="statut.id" /> {{_.filter(tasks, {projectId: project.id, status: statut.id}).length}} {{statut.name}}
+              <core-icon [icon]="statut.id" /> {{statut.name}} ({{_.filter(tasks, {projectId: project.id, status: statut.id}).length}})
             </div>
             <li content [ngClass]="{'item': true, 'depth': !hasChild(tickets, {taskId: task.id})}"
                 *ngFor="let task of _.filter(tasks, {projectId: project.id, status: statut.id})">
               <div class="head">
                 <div  class="collapse"
                       *ngIf="hasChild(tickets, {taskId: task.id})"
-                      (click)="toggleCollapse(task.id, task.status)">
+                      (click)="toggleCollapse(task.id)">
                   <core-icon [ngStyle]="{'transform': 'translate(-1px, -1px)'}" [icon]="isOpen(task.id) ? 'chevron-down' : 'chevron-right'"></core-icon>
                 </div>
 
@@ -57,9 +57,9 @@
 
               <ul *ngIf="isOpen(task.id)" class="child">
                 <div *ngFor="let statut of status">
-                  <component-collapse [showContent]="isOpenStatus(statut.id)" *ngIf="_.filter(tickets, {taskId: task.id, status: statut.id}).length > 0">
+                  <component-collapse [showContent]="isStatus(statut.id, 'tickets')" *ngIf="_.filter(tickets, {taskId: task.id, status: statut.id}).length > 0">
                     <div class="{{statut.id}}" title>
-                      <core-icon [icon]="statut.id" /> {{_.filter(tickets, {taskId: task.id, status: statut.id}).length}} {{statut.name}}
+                      {{statut.name}} ({{_.filter(tickets, {taskId: task.id, status: statut.id}).length}})
                     </div>
                     <li content class="item depth"
                         *ngFor="let ticket of _.filter(tickets, {taskId: task.id, status: statut.id})">

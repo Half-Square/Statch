@@ -43,11 +43,11 @@ export class PttNavigationSection implements OnInit, OnDestroy {
   public tasks: ITasks[] = [];
   public tickets: ITickets[] = [];
   public _ = _;
-  public open: {id: string, status: string}[] = [];
+  public open: string[] = [];
   public status: {id: string, name: string}[] = [{id:"progress", name: "In progress"}, {id:"new", name: "New"}, {id:"wait", name: "Pending"}, {id:"reject", name: "Rejected"}, {id:"done", name: "Completed"}];
 
   private subscribers: Subscription[] = [];
-  private context: {type: string, id?: string, status?: string};
+  public context: {type: string, id?: string};
 
   constructor(
     private recovery: RecoveryService,
@@ -80,11 +80,11 @@ export class PttNavigationSection implements OnInit, OnDestroy {
   * Set open item by navigation context
   */
   private async setFocusByContext(): Promise<void> {
-    if (this.context.id && this.context.status) {
+    if (this.context.id) {
       this.open = []; // Clear open items
 
       if (this.context.type == "projects" || this.context.type == "tasks" || this.context.type == "tickets") { // Only for PTT
-        this.open.push({id: this.context.id, status: this.context.status});
+        this.open.push(this.context.id);
 
         let tmp;
         let item = {type: this.context.type, id: this.context.id};
@@ -98,13 +98,6 @@ export class PttNavigationSection implements OnInit, OnDestroy {
     }
   }
   /***/
-
-  public isOpenStatus(status: string): boolean {
-    if(this.context && this.context.id && this.context.type != "projects")
-      return _.find(this.open, (el) =>
-        el.id === this.context.id && el.status === status) ? true :  false;
-    else return false;
-  }
 
   /**
   * Check if element has child
@@ -124,9 +117,9 @@ export class PttNavigationSection implements OnInit, OnDestroy {
   * Toggle collapse
   * @param id - Item's id
   */
-  public toggleCollapse(id: string, status: string): void {
-    let i = _.findIndex(this.open, (el) => el.id === id);
-    if (i == -1) this.open.push({id: id, status: status});
+  public toggleCollapse(id: string): void {
+    let i = _.findIndex(this.open, (el) => el === id);
+    if (i == -1) this.open.push(id);
     else delete this.open[i];
 
     this.open = _.filter(this.open, (el) => el != null); // clear array
@@ -139,7 +132,30 @@ export class PttNavigationSection implements OnInit, OnDestroy {
   * @return - Boolean, open or not
   */
   public isOpen(id: string): boolean {
-    return _.find(this.open, (el) => el.id === id) ? true :  false;
+    return _.find(this.open, (el) => el === id) ? true :  false;
+  }
+  /***/
+
+  /**
+   * Check if status is open
+   * @param status - Status element
+   * @param type - Type of element
+   * @returns - Boolean, open or not
+   */
+  public isStatus(status: string, type: "tasks" | "tickets"): boolean {
+    if(this.context && this.context.type !== "projects") {
+      if(type === "tasks" && this.context.type !== "tickets") {
+        const current = _.filter(this.tasks, {id: this.context.id})[0];
+        return current.status === status ? true :  false;
+      } if (type === "tickets" && this.context.type !== "tasks") {
+        const current = _.filter(this.tickets, {id: this.context.id})[0];
+        return current.status === status ? true :  false;
+      } if (type === "tasks" && this.context.type === "tickets") {
+        const current = _.filter(this.tickets, {id: this.context.id})[0];
+        const parent = _.filter(this.tasks, {id: current.taskId})[0];
+        return parent.status === status ? true :  false;
+      } else return false;
+    } else return false;
   }
   /***/
 
