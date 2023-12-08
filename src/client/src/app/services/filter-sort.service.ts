@@ -119,4 +119,58 @@ export class FilterSortService {
     return _.orderBy(items, getVersionParts, ["desc"]);
   }
   /***/
+
+  /**
+   * Sort list of items by levels
+   * @param items -  List of items need to sort
+   * @returns - List of items sorted
+   */
+  public sortLevels<T extends IProjects | ITasks | ITickets>(items: T[]): T[] {
+    const levelOrder: Record<string, number>
+      = { high: 1, moderate: 2, normal: 3, low: 4 };
+    const getLevelWeight =
+      (item: T): number => levelOrder[item.level as keyof typeof levelOrder];
+
+    return _.orderBy(items, getLevelWeight, ["asc"]);
+  }
+  /***/
+
+  /**
+   * Sort list of items by status
+   * @param items -  List of items need to sort
+   * @returns - List of items sorted
+   */
+  public sortStatus<T extends IProjects | ITasks | ITickets>(items: T[]): T[] {
+    const statusOrder: Record<string, number>
+      = { progress: 1, new: 2, wait: 3, reject: 4, done: 5 };
+    const getStatusWeight =
+    (item: T): number => statusOrder[item.status as keyof typeof statusOrder];
+
+    return _.orderBy(items, getStatusWeight, ["asc"]);
+  }
+  /***/
+
+  /**
+   * Sort list of items by status, levels
+   * @param items -  List of items need to sort
+   * @returns - List of items sorted
+   */
+  public sortPTT<T extends IProjects | ITasks | ITickets>(items: T[]): T[] {
+    const levelOrder: Record<string, number>
+      = { high: 1, moderate: 2, normal: 3, low: 4 };
+    const statusOrder: Record<string, number>
+      = { progress: 1, new: 2, wait: 3, reject: 4, done: 5 };
+
+    const sortByLevel =
+      (item: T): number => levelOrder[item.level as keyof typeof levelOrder];
+    const sortByStatus =
+      (item: T): number => statusOrder[item.status as keyof typeof statusOrder];
+
+    const sortBy = [
+      sortByStatus,
+      sortByLevel
+    ];
+    return _.orderBy(items, sortBy, "asc");
+  }
+  /***/
 }

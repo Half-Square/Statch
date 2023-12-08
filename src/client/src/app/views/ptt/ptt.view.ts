@@ -135,9 +135,9 @@ export class PttView implements OnInit, OnDestroy {
   */
   private getChilds(): Subscription {
     return this.recovery.get(this.childType).subscribe((el) => { // Get childs
-      this.childs = _.filter(el, (c) => {
+      this.childs = this.sort.sortPTT(_.filter(el, (c) => {
         return this.id === (this.childType == "tasks" ? (c as ITasks).projectId : (c as ITickets).taskId);
-      });
+      }));
 
       this.setAdvancement();
     });
