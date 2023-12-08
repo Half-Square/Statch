@@ -143,7 +143,7 @@ export class PttNavigationSection implements OnInit, OnDestroy {
    * @returns - Boolean, open or not
    */
   public isStatus(status: string, type: "tasks" | "tickets"): boolean {
-    if(this.context && this.context.type !== "projects") {
+    if(this.context && this.context.id && this.context.type !== "projects") {
       if(type === "tasks" && this.context.type !== "tickets") {
         const current = _.filter(this.tasks, {id: this.context.id})[0];
         return current.status === status ? true :  false;
