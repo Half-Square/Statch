@@ -1,8 +1,10 @@
 /*****************************************************************************
- * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @Author                : 0K00<qdouvillez@gmail.com>                       *
  * @CreatedDate           : 2023-09-30 15:55:46                              *
- * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-12-02 16:06:05                              *
+ * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
+ * @LastEditDate          : 2023-12-11 11:20:18                              *
+ * @FilePath              : Statch/src/client/src/app/views/ptt/ptt.view.ts  *
+ * @CopyRight             : MerBleueAviation                                 *
  ****************************************************************************/
 
 /* SUMMARY
@@ -135,9 +137,9 @@ export class PttView implements OnInit, OnDestroy {
   */
   private getChilds(): Subscription {
     return this.recovery.get(this.childType).subscribe((el) => { // Get childs
-      this.childs = this.sort.sortPTT(_.filter(el, (c) => {
+      this.childs = _.filter(el, (c) => {
         return this.id === (this.childType == "tasks" ? (c as ITasks).projectId : (c as ITickets).taskId);
-      }));
+      });
 
       this.setAdvancement();
     });
