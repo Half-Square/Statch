@@ -29,6 +29,8 @@ import { VersionsController } from "./controllers/versions/versions.controller";
 import { SettingsController } from "./controllers/settings/settings.controller";
 import { ActivitiesController } from "./controllers/activities/activities.controller";
 import { SearchController } from "./controllers/search/search.controller";
+import { DatabaseController } from "./controllers/database/database.controller";
+import { RolesController } from "./controllers/roles/roles.controller";
 /***/
 
 /* Services */
@@ -37,7 +39,6 @@ import { SocketService } from "./services/socket/socket.service";
 import { ActivitiesService } from "./controllers/activities/activities.service";
 import { FilesController } from "./controllers/files/files.controller";
 import { SettingsService } from "./controllers/settings/settings.service";
-import { DatabaseController } from "./controllers/database/database.controller";
 /***/
 
 @Module({
@@ -59,7 +60,8 @@ import { DatabaseController } from "./controllers/database/database.controller";
     ActivitiesController,
     FilesController,
     SearchController,
-    DatabaseController
+    DatabaseController,
+    RolesController
   ],
   providers: [
     PrismaService,
