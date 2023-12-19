@@ -23,6 +23,7 @@ model User {
   tasks           Task[]
   tickets         Ticket[]
   assignment      Assignment[]
+  roles           UserRole[]
 }
 
 model Project {
@@ -187,4 +188,20 @@ model Smtp {
   port          Int
   user          String
   password      String
+}
+
+model UserRole {
+  user            User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId          String
+  role            Role            @relation(fields: [roleId], references: [id], onDelete: Cascade)
+  roleId          String
+
+  @@id([userId, roleId])
+}
+
+model Role {
+  id            String            @default(nanoid(8)) @id
+  name          String            @unique
+  permissions   String
+  users         UserRole[]
 }
