@@ -1,3 +1,10 @@
+/*****************************************************************************
+ * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @CreatedDate           : 2024-01-11 14:55:06                              *
+ * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @LastEditDate          : 2024-01-11 14:55:06                              *
+ ****************************************************************************/
+
 import { Injectable } from "@angular/core";
 import * as _ from "lodash";
 
@@ -8,11 +15,11 @@ import { IAssignments, ILabels, IProjects, ITasks, ITickets, IVersions } from "s
 })
 export class FilterSortService {
   /**
-   * Filter list of items by parameters
-   * @param items - List of items need to filter
-   * @param filters - Filters parameters
-   * @returns - List of items filtered
-   */
+  * Filter list of items by parameters
+  * @param items - List of items need to filter
+  * @param filters - Filters parameters
+  * @returns - List of items filtered
+  */
   public filterItems<T extends IProjects | ITasks | ITickets>(
     items: T[],
     filters: any
@@ -96,11 +103,11 @@ export class FilterSortService {
   /***/
 
   /**
-   * Sort list of items by parameters
-   * @param items - List of items need to sort
-   * @param sortBy - Sorts parameters
-   * @returns - List of items sorted
-   */
+  * Sort list of items by parameters
+  * @param items - List of items need to sort
+  * @param sortBy - Sorts parameters
+  * @returns - List of items sorted
+  */
   public sortItems<T extends IProjects | ITasks | ITickets>(
     items: T[],
     sortBy: any
@@ -110,10 +117,10 @@ export class FilterSortService {
   /***/
 
   /**
-   * Sort list of items by versions
-   * @param items - List of items need to sort
-   * @returns - List of items sorted
-   */
+  * Sort list of items by versions
+  * @param items - List of items need to sort
+  * @returns - List of items sorted
+  */
   public sortVersions(items: IVersions[]): IVersions[] {
     const getVersionParts = (items: IVersions): number[] => items.name.split(".").map(Number);
     return _.orderBy(items, getVersionParts, ["desc"]);
@@ -121,10 +128,10 @@ export class FilterSortService {
   /***/
 
   /**
-   * Sort list of items by levels
-   * @param items -  List of items need to sort
-   * @returns - List of items sorted
-   */
+  * Sort list of items by levels
+  * @param items -  List of items need to sort
+  * @returns - List of items sorted
+  */
   public sortLevels<T extends IProjects | ITasks | ITickets>(items: T[]): T[] {
     const levelOrder: Record<string, number>
       = { high: 1, moderate: 2, normal: 3, low: 4 };
@@ -136,10 +143,10 @@ export class FilterSortService {
   /***/
 
   /**
-   * Sort list of items by status
-   * @param items -  List of items need to sort
-   * @returns - List of items sorted
-   */
+  * Sort list of items by status
+  * @param items -  List of items need to sort
+  * @returns - List of items sorted
+  */
   public sortStatus<T extends IProjects | ITasks | ITickets>(items: T[]): T[] {
     const statusOrder: Record<string, number>
       = { progress: 1, new: 2, wait: 3, reject: 4, done: 5 };
@@ -151,10 +158,10 @@ export class FilterSortService {
   /***/
 
   /**
-   * Sort list of items by status, levels
-   * @param items -  List of items need to sort
-   * @returns - List of items sorted
-   */
+  * Sort list of items by status, levels
+  * @param items -  List of items need to sort
+  * @returns - List of items sorted
+  */
   public sortPTT<T extends IProjects | ITasks | ITickets>(items: T[]): T[] {
     const levelOrder: Record<string, number>
       = { high: 1, moderate: 2, normal: 3, low: 4 };
