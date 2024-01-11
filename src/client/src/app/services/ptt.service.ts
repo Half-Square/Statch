@@ -1,9 +1,9 @@
-/******************************************************************************
- * @Author                : 0K00<qdouvillez@gmail.com>                        *
- * @CreatedDate           : 2023-11-30 16:28:56                               *
- * @LastEditors           : 0K00<qdouvillez@gmail.com>                        *
- * @LastEditDate          : 2023-11-30 16:53:29                               *
- *****************************************************************************/
+/*****************************************************************************
+ * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @CreatedDate           : 2023-11-30 16:28:56                              *
+ * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @LastEditDate          : 2024-01-11 14:54:00                              *
+ ****************************************************************************/
 
 import { Injectable } from "@angular/core";
 import * as _ from "lodash";
@@ -27,10 +27,10 @@ export class PttService {
               private recovery: RecoveryService) {}
 
   /**
-   * Get size of specific data
-   * @param target - Tasks' or Tickets' data
-   * @returns - Number, length of tasks or tickets
-   */
+  * Get size of specific data
+  * @param target - Tasks' or Tickets' data
+  * @returns - Number, length of tasks or tickets
+  */
   public nbChild(target: IProjects[] | ITasks[] | ITickets[]): number {
     let nb = _.size(target);
     if(nb > 0) return nb;
@@ -39,11 +39,11 @@ export class PttService {
   /***/
 
   /**
-   * Create Child
-   * @param type - Parent type
-   * @param id - Parent id
-   * @param childType - Child type
-   */
+  * Create Child
+  * @param type - Parent type
+  * @param id - Parent id
+  * @param childType - Child type
+  */
   public createChild(type: string, id: string, childType: string): void {
     this.api.post(`api/${type}/${id}/${childType}`, {
       name: `New ${childType.slice(0, -1)}`,
@@ -59,8 +59,8 @@ export class PttService {
   /***/
 
   /**
-   * Create new item
-   */
+  * Create new item
+  */
   public createProject(): void {
     this.api.post("api/projects", {
       name: `New project`,
