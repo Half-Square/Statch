@@ -1,8 +1,8 @@
 <!--
-* @Author                : Quentin<quentin@halfsquare.fr>
+* @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>
 * @CreatedDate           : 2023-09-30 15:55:00
-* @LastEditors           : Quentin<quentin@halfsquare.fr>
-* @LastEditDate          : 2023-11-16 17:20:05
+* @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>
+* @LastEditDate          : 2024-01-11 14:00:10
 -->
 
 <div class="view-ptt">
@@ -59,7 +59,9 @@
 
         <div class="activities-list">
           <h2 class="subtitle">Last activity</h2>
-          <component-activity-item [reduce]="true" *ngFor="let activity of activities | orderBy:'created':'desc' | slice:0:10" [activity]="activity"/>
+          <component-activity-item  *ngFor="let activity of activities"
+                                    [activity]="activity"
+                                    [reduce]="true" />
         </div>
       </aside>
     </div>

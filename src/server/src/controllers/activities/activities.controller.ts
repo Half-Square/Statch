@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-09-27 09:48:39                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-12-02 16:51:27                               *
+ * @LastEditDate          : 2024-01-11 13:57:35                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -23,12 +23,14 @@ import { IsConnectedGuard } from "src/guards/is-connected.guard";
 
 /* Services */
 import { PrismaService } from "src/prisma.service";
+import { ActivitiesService } from "./activities.service";
 /***/
 
 @Controller("api")
 @UseGuards(IsConnectedGuard)
 export class ActivitiesController {
-  constructor(private prisma: PrismaService) {
+  constructor(private prisma: PrismaService,
+              private activities: ActivitiesService) {
   }
 
   /**
@@ -41,14 +43,7 @@ export class ActivitiesController {
     let ret = await this.prisma.assignment.findMany({where: {userId: id}});
 
     let queries = ret.map((el) => {
-      let tmp = {projectId: el.projectId, tasksId: el.taskId, ticketId: el.ticketId};
-      let ret = {type: "", id: ""};
-
-      if (tmp.projectId) ret = {type: "projects", id: tmp.projectId};
-      else if (tmp.tasksId) ret = {type: "tasks", id: tmp.tasksId};
-      else if (tmp.ticketId) ret = {type: "tickets", id: tmp.ticketId};
-
-      return {target: JSON.stringify(ret)};
+      return this.activities.formatAssignment(el);
     });
     
     let act = await this.prisma.activity.findMany({
@@ -57,12 +52,7 @@ export class ActivitiesController {
       }
     });
   
-    return act.map((el) => ({
-      ...el,
-      actor: JSON.parse(el.actor),
-      action: JSON.parse(el.action),
-      target: JSON.parse(el.target)
-    }));
+    return act.map((el) => this.activities.unFormat(el));
   }
   /***/
 
@@ -83,12 +73,9 @@ export class ActivitiesController {
       }
     });
 
-    return act.map((el) => ({
-      ...el,
-      actor: JSON.parse(el.actor),
-      action: JSON.parse(el.action),
-      target: JSON.parse(el.target)
-    }));
+    return act.map((el) => {
+      return this.activities.unFormat(el);
+    });
   }
   /***/
 }

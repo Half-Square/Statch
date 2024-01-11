@@ -1,10 +1,8 @@
 /*****************************************************************************
- * @Author                : 0K00<qdouvillez@gmail.com>                       *
+ * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-09-30 15:55:46                              *
- * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
- * @LastEditDate          : 2023-12-11 11:20:18                              *
- * @FilePath              : Statch/src/client/src/app/views/ptt/ptt.view.ts  *
- * @CopyRight             : MerBleueAviation                                 *
+ * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @LastEditDate          : 2024-01-11 14:00:03                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -89,6 +87,7 @@ export class PttView implements OnInit, OnDestroy {
               this.versions = this.sort.sortVersions(versions);
             }),
             this.recovery.get(`${this.type}/${this.id}/activities`).subscribe((a) => {
+              a = _.orderBy(a, "created", ["desc"]).slice(0, 10);
               this.activities = a;
             }),
             this.recovery.get(`${this.type}/${this.id}/comments`).subscribe((c) => {
