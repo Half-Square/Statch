@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2024-01-12 11:39:28                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2024-01-12 15:44:38                               *
+ * @LastEditDate          : 2024-01-12 17:03:42                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -15,14 +15,23 @@
   * Get number of tasks by labels
   * Get number of tasks by version
   * Get number of tasks by level
+  * Get label distribution by month
 */
 
 /* Imports */
 import { Injectable } from "@nestjs/common";
+import * as _ from "lodash";
 /***/
 
 /* Services */
 import { PrismaService } from "src/prisma.service";
+/***/
+
+/* Interfaces */
+export interface ILabelByMonth {
+  year: number,
+  month: {id: string, nb: number}[][]
+}
 /***/
 
 @Injectable()
@@ -180,6 +189,50 @@ export class StatsService {
       name: el.level,
       nb: el._count._all
     }));
+  }
+  /***/
+
+  /**
+  * Get label distribution by month
+  * @param id - Project id
+  * @return - Status distribution by month
+  */
+  public async nbTasksByLabelByMont(id: string): Promise<ILabelByMonth[]> {
+    let tasks = await this.prisma.task.findMany({
+      where: {projectId: id},
+      include: {labels: true}
+    });
+    let label = await this.nbTasksByLabel(id);
+    let ret: ILabelByMonth[] = [];
+
+    tasks.forEach((task) => {
+      let i = ret.findIndex((el) => el.year == task.created.getFullYear());
+
+      if (i == -1) {
+        ret.push({
+          year: task.created.getFullYear(),
+          month: new Array(12)
+        });
+
+        i = ret.length-1;
+        for(let m = 0; m < ret[i].month.length; m++) {
+          ret[i].month[m] = _.cloneDeep(label).map((el) => ({...el, nb: 0}));
+        }
+      }
+      
+      task.labels.forEach((l) => {
+        let index = ret[i].month[task.created.getMonth()].findIndex((el) => {
+          return el.id == l.labelId;
+        });
+        
+
+        if (index != -1) {
+          ret[i].month[task.created.getMonth()][index].nb += 1;
+        }
+      });
+    });
+
+    return ret.sort((a, b) => b.year - a.year);
   }
   /***/
 }
