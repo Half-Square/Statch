@@ -2,7 +2,7 @@
  * @Author                : 0K00<qdouvillez@gmail.com>                        *
  * @CreatedDate           : 2023-06-13 14:10:50                               *
  * @LastEditors           : 0K00<qdouvillez@gmail.com>                        *
- * @LastEditDate          : 2024-01-12 15:23:14                               *
+ * @LastEditDate          : 2024-01-12 16:40:01                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -81,6 +81,7 @@ export class RolesController {
       const role = await this.prisma.role.findUnique({ where: {id: id} });
       const permissions = JSON.parse(role.permissions)[0];
       let permGranted: boolean[] = [];
+      
       perms.forEach(perm => {        
         perm.action.forEach(act => {
           permGranted.push(permissions[perm.entity]?.[act] === true);

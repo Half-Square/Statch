@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @Author                : 0K00<qdouvillez@gmail.com>                       *
  * @CreatedDate           : 2023-05-31 15:03:46                              *
- * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-11-16 15:38:00                              *
+ * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
+ * @LastEditDate          : 2024-01-12 16:38:46                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -39,6 +39,7 @@ import { UsersSettingsView } from "./views/settings/users-settings/users-setting
 import { MyActivitiesView } from "./views/my-activities/my-activities.view";
 import { FirstLaunchView } from "./views/first-launch/first-launch.view";
 import { DatabaseSettingsView } from "./views/settings/database-settings/database-settings.view";
+import { RulesGuard } from "./guards/rules.guard";
 /***/
 
 /* Routes */
@@ -61,7 +62,13 @@ const routes: Routes = [
   { path: "not-found", component: NotFoundView },
 
   { path: "my-tasks", component: MyTasksView, canActivate: [IsConnectedGuard] },
-  { path: "my-activities", component: MyActivitiesView, canActivate: [IsConnectedGuard] },
+  { path: "my-activities", component: MyActivitiesView, canActivate: [IsConnectedGuard, RulesGuard],
+    data: {
+      requiredPermissions: [
+        { entity: "projects", action: ["view"] }
+      ]
+    }
+  },
   { path: ":type", component: PttAllView, canActivate: [IsConnectedGuard, TypeGuard] },
   { path: ":type/:id", component: PttView, canActivate: [TypeGuard, IsConnectedGuard] },
 
