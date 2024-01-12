@@ -1,8 +1,8 @@
 /******************************************************************************
- * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
+ * @Author                : 0K00<qdouvillez@gmail.com>                        *
  * @CreatedDate           : 2023-06-13 14:10:50                               *
- * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-11-16 17:29:36                               *
+ * @LastEditors           : 0K00<qdouvillez@gmail.com>                        *
+ * @LastEditDate          : 2024-01-12 15:23:14                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -74,6 +74,24 @@ export class RolesController {
     }
   }
   /***/
+
+  @Post(":id/check")
+  async check(@Param("id") id: string, @Body() perms: any): Promise<boolean> {
+    try {
+      const role = await this.prisma.role.findUnique({ where: {id: id} });
+      const permissions = JSON.parse(role.permissions)[0];
+      let permGranted: boolean[] = [];
+      perms.forEach(perm => {        
+        perm.action.forEach(act => {
+          permGranted.push(permissions[perm.entity]?.[act] === true);
+        });
+      });
+      return permGranted.every(Boolean);
+    } catch (err) {
+      throw err;
+    }
+  }
+
 
   /**
   * Get on role by id
