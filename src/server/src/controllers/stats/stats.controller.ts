@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2024-01-12 11:37:38                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2024-01-12 15:39:53                               *
+ * @LastEditDate          : 2024-01-12 15:43:22                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -38,7 +38,8 @@ interface IStats {
     owners: {id: string, nb: number}[],
     newByMonth: {year: number, tasks: number[]}[],
     labels: {id: string, nb: number}[],
-    versions: {id: string, nb: number}[]
+    versions: {id: string, nb: number}[],
+    levels: {name: string, nb: number}[]
   }
 }
 /***/
@@ -63,7 +64,8 @@ export class StatsController {
         owners: await this.stats.nbTasksByOwner(id),
         newByMonth: await this.stats.nbNewTasksByMonth(id),
         labels: await this.stats.nbTasksByLabel(id),
-        versions: await this.stats.nbTasksByVersion(id)
+        versions: await this.stats.nbTasksByVersion(id),
+        levels: await this.stats.nbTasksByLevel(id)
       }
     };
   }

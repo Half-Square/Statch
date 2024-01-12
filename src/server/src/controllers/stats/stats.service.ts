@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2024-01-12 11:39:28                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2024-01-12 15:39:36                               *
+ * @LastEditDate          : 2024-01-12 15:44:38                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -14,6 +14,7 @@
   * Get number of new tasks by month
   * Get number of tasks by labels
   * Get number of tasks by version
+  * Get number of tasks by level
 */
 
 /* Imports */
@@ -156,6 +157,27 @@ export class StatsService {
 
     return ret.map((el) => ({
       id: el.targetVersionId,
+      nb: el._count._all
+    }));
+  }
+  /***/
+
+  /**
+  * Get number of tasks by level
+  * @param id - Project id
+  * @return - number of tasks by level 
+  */
+  public async nbTasksByLevel(id: string): Promise<{name: string, nb: number}[]> {
+    let ret = await this.prisma.task.groupBy({
+      where: {projectId: id},
+      by: ["level"],
+      _count: {
+        _all: true
+      }
+    });
+
+    return ret.map((el) => ({
+      name: el.level,
       nb: el._count._all
     }));
   }
