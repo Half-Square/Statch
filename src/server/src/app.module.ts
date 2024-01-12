@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-05-30 12:07:51                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-10-06 11:48:10                               *
+ * @LastEditDate          : 2024-01-12 11:38:19                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -29,15 +29,17 @@ import { VersionsController } from "./controllers/versions/versions.controller";
 import { SettingsController } from "./controllers/settings/settings.controller";
 import { ActivitiesController } from "./controllers/activities/activities.controller";
 import { SearchController } from "./controllers/search/search.controller";
+import { DatabaseController } from "./controllers/database/database.controller";
+import { StatsController } from "./controllers/stats/stats.controller";
+import { FilesController } from "./controllers/files/files.controller";
 /***/
 
 /* Services */
 import { PrismaService } from "./prisma.service";
 import { SocketService } from "./services/socket/socket.service";
 import { ActivitiesService } from "./controllers/activities/activities.service";
-import { FilesController } from "./controllers/files/files.controller";
 import { SettingsService } from "./controllers/settings/settings.service";
-import { DatabaseController } from "./controllers/database/database.controller";
+import { StatsService } from "./controllers/stats/stats.service";
 /***/
 
 @Module({
@@ -59,13 +61,15 @@ import { DatabaseController } from "./controllers/database/database.controller";
     ActivitiesController,
     FilesController,
     SearchController,
-    DatabaseController
+    DatabaseController,
+    StatsController
   ],
   providers: [
     PrismaService,
     SocketService,
     ActivitiesService,
-    SettingsService
+    SettingsService,
+    StatsService
   ]
 })
 export class AppModule {}
