@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2024-01-12 11:39:28                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2024-01-12 15:14:01                               *
+ * @LastEditDate          : 2024-01-12 15:33:50                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -12,6 +12,7 @@
   * Get number of child tasks in project by status
   * Get number of child tasks in project by owner
   * Get number of new tasks by month
+  * Get number of tasks by labels
 */
 
 /* Imports */
@@ -42,7 +43,7 @@ export class StatsService {
   * @param id - Project id
   * @return - Number of tasks by status 
   */
-  public async nbTasksStatus(id: string): Promise<{name: string, nb: number}[]> {
+  public async nbTasksByStatus(id: string): Promise<{name: string, nb: number}[]> {
     let ret = await this.prisma.task.groupBy({
       where: {projectId: id},
       by: ["status"],
@@ -63,7 +64,7 @@ export class StatsService {
   * @param id - Project id
   * @return - Number of tasks by status 
   */
-  public async nbTasksOwner(id: string): Promise<{id: string, nb: number}[]> {
+  public async nbTasksByOwner(id: string): Promise<{id: string, nb: number}[]> {
     let ret = await this.prisma.task.groupBy({
       where: {projectId: id},
       by: ["ownerId"],
@@ -101,6 +102,40 @@ export class StatsService {
     });
 
     return ret.sort((a, b) => b.year - a.year);
+  }
+  /***/
+
+  /**
+  * Get number of tasks by labels
+  * @param id - Project id
+  * @return - Number of tasks by label 
+  */
+  public async nbTasksByLabel(id: string): Promise<{id: string, nb: number}[]> {
+    let tasks = await this.prisma.task.findMany({
+      where: {projectId: id},
+      include: {labels: true}
+    });
+    let ret: {id: string, nb: number}[] = [];
+
+    tasks.forEach((task) => {
+      task.labels.forEach((label) => {
+        let i = ret.findIndex((el) => el.id == label.labelId);
+        
+        if (i == -1) {
+          ret.push({
+            id: label.labelId,
+            nb: 0
+          });
+
+          i = ret.length-1;
+        }
+        
+        ret[i].nb +=1;
+      });
+      
+    });
+
+    return ret;
   }
   /***/
 }
