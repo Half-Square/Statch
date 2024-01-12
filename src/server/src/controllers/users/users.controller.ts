@@ -2,7 +2,7 @@
  * @Author                : 0K00<qdouvillez@gmail.com>                        *
  * @CreatedDate           : 2023-06-01 15:15:39                               *
  * @LastEditors           : 0K00<qdouvillez@gmail.com>                        *
- * @LastEditDate          : 2024-01-12 15:37:23                               *
+ * @LastEditDate          : 2024-01-12 15:43:33                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -142,11 +142,7 @@ export class UsersController {
   @Get("users")
   @UseGuards(IsConnectedGuard)
   async getAll(): Promise<usersDto.PublicOutput[]> {
-    let users = await this.prisma.user.findMany({
-      include: {
-        roles: true
-      }
-    });
+    let users = await this.prisma.user.findMany();
     return users.map((el) => new usersDto.PublicOutput(el));
   }
   /***/
