@@ -1,8 +1,8 @@
 /******************************************************************************
- * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
+ * @Author                : 0K00<qdouvillez@gmail.com>                        *
  * @CreatedDate           : 2023-06-01 15:15:39                               *
- * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-11-28 18:33:14                               *
+ * @LastEditors           : 0K00<qdouvillez@gmail.com>                        *
+ * @LastEditDate          : 2024-01-12 15:37:23                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -98,7 +98,10 @@ export class UsersController {
   @Post("login")
   async login(@Body() body: usersDto.ConnectInput): Promise<usersDto.ConnectOutput> {
     try {
-      const res = await this.prisma.user.findUnique({where: {email: body.email}});
+      const res = await this.prisma.user.findUnique({
+        where: {email: body.email}, 
+        include: { roles: true }
+      });
       if (!res) throw new HttpException("Not Found", HttpStatus.NOT_FOUND);
 
 
@@ -139,7 +142,11 @@ export class UsersController {
   @Get("users")
   @UseGuards(IsConnectedGuard)
   async getAll(): Promise<usersDto.PublicOutput[]> {
-    let users = await this.prisma.user.findMany();
+    let users = await this.prisma.user.findMany({
+      include: {
+        roles: true
+      }
+    });
     return users.map((el) => new usersDto.PublicOutput(el));
   }
   /***/
