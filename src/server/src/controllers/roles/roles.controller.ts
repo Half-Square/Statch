@@ -2,7 +2,7 @@
  * @Author                : 0K00<qdouvillez@gmail.com>                        *
  * @CreatedDate           : 2023-06-13 14:10:50                               *
  * @LastEditors           : 0K00<qdouvillez@gmail.com>                        *
- * @LastEditDate          : 2024-01-12 16:40:01                               *
+ * @LastEditDate          : 2024-01-15 16:59:18                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -10,11 +10,11 @@
   * Dto
   * Services
   * Guards
-  * Get all projects
-  * Get on project by id
-  * Create new project
-  * Update project
-  * Delete project
+  * Get all roles
+  * Get on role by id
+  * Create new role
+  * Update role
+  * Delete role
 */
 
 /* Imports */
@@ -75,24 +75,6 @@ export class RolesController {
   }
   /***/
 
-  @Post(":id/check")
-  async check(@Param("id") id: string, @Body() perms: any): Promise<boolean> {
-    try {
-      const role = await this.prisma.role.findUnique({ where: {id: id} });
-      const permissions = JSON.parse(role.permissions)[0];
-      let permGranted: boolean[] = [];
-      
-      perms.forEach(perm => {        
-        perm.action.forEach(act => {
-          permGranted.push(permissions[perm.entity]?.[act] === true);
-        });
-      });
-      return permGranted.every(Boolean);
-    } catch (err) {
-      throw err;
-    }
-  }
-
 
   /**
   * Get on role by id
@@ -129,8 +111,8 @@ export class RolesController {
           name: body.name,
           permissions: JSON.stringify(body.permissions),
           users: body.users ? {
-            create: body.users.map((el) => {
-              return {userId: el.userId};
+            connect: body.users.map(el => {
+              return el;
             })
           } : undefined
         },
@@ -163,8 +145,8 @@ export class RolesController {
           ...body,
           users: body.users ? {
             deleteMany: {},
-            create: body.users.map((el) => {
-              return {userId: el.userId};
+            connect: body.users.map(el => {
+              return el;
             })
           } : undefined
         },

@@ -2,7 +2,7 @@
  * @Author                : 0K00<qdouvillez@gmail.com>                        *
  * @CreatedDate           : 2023-02-21 13:03:45                               *
  * @LastEditors           : 0K00<qdouvillez@gmail.com>                        *
- * @LastEditDate          : 2024-01-12 15:40:40                               *
+ * @LastEditDate          : 2024-01-15 16:58:13                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -184,7 +184,7 @@ class ConnectOutput {
     picture: string;
   
   @IsArray()
-    roles: {roleId: string, userId: string}[];
+    role: [];
 
   constructor(data) {
     if (data) {
@@ -194,7 +194,7 @@ class ConnectOutput {
       this.token = data.token;
       this.isAdmin = data.isAdmin;
       this.picture = data.picture;
-      this.roles = data.roles;
+      this.role = data.role;
     }
   }
 }

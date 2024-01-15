@@ -2,7 +2,7 @@
  * @Author                : 0K00<qdouvillez@gmail.com>                        *
  * @CreatedDate           : 2024-01-12 16:58:25                               *
  * @LastEditors           : 0K00<qdouvillez@gmail.com>                        *
- * @LastEditDate          : 2024-01-12 17:17:25                               *
+ * @LastEditDate          : 2024-01-15 13:36:33                               *
  *****************************************************************************/
 
 import { Injectable } from "@angular/core";
@@ -16,37 +16,30 @@ export class PermissionsService {
 
   constructor(private user: UserService, private api: RequestService) {}
 
-  public check(
+  public async check(
     requiredPermissions: { entity: string, action: string[] }[]): Promise<boolean> {
+    return new Promise<boolean>(async(resolve, reject) => {
+      const user = this.user.getUser();
+      const roles: any = user?.roles;
 
-    const user = this.user.getUser();
-    const roles: any = user?.roles;
+      // if(user?.isAdmin) return true;
 
-    // if(user?.isAdmin) return true;
+      const results: boolean[] = [];
 
-    const promises: Promise<boolean>[] = [];
-
-    roles?.forEach((role: {userId: string, roleId: string}) => {
-      const promise =
-      this.api.post(`api/roles/${role.roleId}/check`, requiredPermissions, user?.token)
-        .then(data => {
-          return data as boolean;
-        })
-        .catch(error => {
-          console.error(error);
-          return false;
+      for (const role of roles || []) {
+        await this.api.post(
+          `api/roles/${role.roleId}/check`,
+          requiredPermissions,
+          user?.token
+        ).then((data) => {
+          results.push(data as boolean);
+        }).catch(err => {
+          console.error(err);
+          results.push(false);
         });
+      }
 
-      promises.push(promise);
+      return resolve(results.some(Boolean));
     });
-
-    return Promise.all(promises)
-      .then(perms => {
-        return perms.some(Boolean) && perms.length > 0;
-      })
-      .catch(error => {
-        console.error(error);
-        return false;
-      });
   }
 }

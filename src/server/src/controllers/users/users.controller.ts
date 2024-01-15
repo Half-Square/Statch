@@ -2,7 +2,7 @@
  * @Author                : 0K00<qdouvillez@gmail.com>                        *
  * @CreatedDate           : 2023-06-01 15:15:39                               *
  * @LastEditors           : 0K00<qdouvillez@gmail.com>                        *
- * @LastEditDate          : 2024-01-12 15:43:33                               *
+ * @LastEditDate          : 2024-01-15 16:57:26                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -100,7 +100,9 @@ export class UsersController {
     try {
       const res = await this.prisma.user.findUnique({
         where: {email: body.email}, 
-        include: { roles: true }
+        include: { 
+          role: true
+        }
       });
       if (!res) throw new HttpException("Not Found", HttpStatus.NOT_FOUND);
 

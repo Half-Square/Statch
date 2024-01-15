@@ -1,8 +1,8 @@
 /******************************************************************************
- * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
+ * @Author                : 0K00<qdouvillez@gmail.com>                        *
  * @CreatedDate           : 2023-06-19 17:06:36                               *
- * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-09-29 12:35:39                               *
+ * @LastEditors           : 0K00<qdouvillez@gmail.com>                        *
+ * @LastEditDate          : 2024-01-15 16:41:06                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -25,7 +25,7 @@ class CreateInput {
     permissions: any;
   @IsArray()
   @IsOptional()
-    users: [{userId: string}];
+    users: [];
 }
 /***/
 
@@ -43,7 +43,7 @@ class UpdateInput {
 
   @IsArray()
   @IsOptional()
-    users: [{userId: string}];
+    users: [];
 }
 /***/
 
