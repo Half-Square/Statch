@@ -2,7 +2,7 @@
 * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>
 * @CreatedDate           : 2023-11-16 15:39:00
 * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>
-* @LastEditDate          : 2023-11-16 15:55:26
+* @LastEditDate          : 2024-01-15 16:55:00
 -->
 
 <div class="view-database-settings">
@@ -13,10 +13,16 @@
       <input type="file" accept="*.db" #file />
       <core-button label="Import database" type="flat" (click)="import()" />
     </div>
+
+    <div class="input-file">
+      <input type="file" accept="*.zip" #fileImg />
+      <core-button label="Import images" type="flat" (click)="importImg()" />
+    </div>
   </section>
 
   <section>
     <h3>Export</h3>
     <core-button label="Dump database" type="flat" (click)="dump()" />
+    <core-button label="Dump images" type="flat" (click)="dumpImg()" />
   </section>
 </div>
