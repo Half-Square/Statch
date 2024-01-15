@@ -2,7 +2,7 @@
  * @Author                : 0K00<qdouvillez@gmail.com>                        *
  * @CreatedDate           : 2024-01-12 16:20:56                               *
  * @LastEditors           : 0K00<qdouvillez@gmail.com>                        *
- * @LastEditDate          : 2024-01-12 16:39:50                               *
+ * @LastEditDate          : 2024-01-15 17:01:56                               *
  *****************************************************************************/
 
 import { Injectable } from "@angular/core";
@@ -19,39 +19,71 @@ export class RulesGuard implements CanActivate{
 
   canActivate(
     route: ActivatedRouteSnapshot): Promise<boolean> {
+    return new Promise<boolean>((resolve, reject) => {
+      const actionsCheck =
+        route.data["requiredPermissions"] as { type: string, actions: string[] }[];
 
-    const requiredPermissions =
-      route.data["requiredPermissions"] as { entity: string, action: string[] }[];
+      if (!actionsCheck) {
+        return resolve(true);
+      }
 
-    const user = this.user.getUser();
-    const roles: any = user?.roles;
+      const user = this.user.getUser();
+      const role: any = user?.role;
 
-    // if(user?.isAdmin) return true;
+      // if(user?.isAdmin) return true;
 
-    const promises: Promise<boolean>[] = [];
+      const permissions = JSON.parse(role.permissions)[0];
+      let hasPermission = true;
 
-    roles?.forEach((role: {userId: string, roleId: string}) => {
-      const promise =
-      this.api.post(`api/roles/${role.roleId}/check`, requiredPermissions, user?.token)
-        .then(data => {
-          return data as boolean;
-        })
-        .catch(error => {
-          console.error(error);
-          return false;
-        });
+      for (const actionSet of actionsCheck) {
+        const elementType = actionSet.type;
+        const actions = actionSet.actions;
 
-      promises.push(promise);
+        for (const action of actions) {
+          if (!permissions[elementType][action]) {
+            hasPermission = false;
+          } else if (typeof permissions[elementType][action] === "object") {
+            const subActions = Object.values(permissions[elementType][action]);
+
+            if (subActions.includes(false)) {
+              hasPermission = false;
+            }
+          }
+        }
+      }
+
+      if (hasPermission)
+        return resolve(true);
+      else
+        return reject(false);
     });
 
-    return Promise.all(promises)
-      .then(perms => {
-        return perms.some(Boolean) && perms.length > 0;
-      })
-      .catch(error => {
-        console.error(error);
-        return false;
-      });
+
+
+    // const promises: Promise<boolean>[] = [];
+
+    // roles?.forEach((role: {userId: string, roleId: string}) => {
+    //   const promise =
+    //   this.api.post(`api/roles/${role.roleId}/check`, requiredPermissions, user?.token)
+    //     .then(data => {
+    //       return data as boolean;
+    //     })
+    //     .catch(error => {
+    //       console.error(error);
+    //       return false;
+    //     });
+
+    //   promises.push(promise);
+    // });
+
+    // return Promise.all(promises)
+    //   .then(perms => {
+    //     return perms.some(Boolean) && perms.length > 0;
+    //   })
+    //   .catch(error => {
+    //     console.error(error);
+    //     return false;
+    //   });
   }
 
 }

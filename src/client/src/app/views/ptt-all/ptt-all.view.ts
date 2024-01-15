@@ -2,7 +2,7 @@
  * @Author                : 0K00<qdouvillez@gmail.com>                       *
  * @CreatedDate           : 2023-09-22 18:44:16                              *
  * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
- * @LastEditDate          : 2024-01-12 17:09:47                              *
+ * @LastEditDate          : 2024-01-15 17:10:46                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -153,29 +153,25 @@ export class PttAllView implements OnInit, OnDestroy {
   * Create new item
   */
   public async createItem(): Promise<void> {
-    if(await this.perm.check([{ entity: "projects", action: ["create"] }])) {
-      let url = "";
+    let url = "";
 
-      switch(this.type) {
-      case "projects": url = "projects"; break;
-      case "tasks": url = `projects/${this.id}/tasks`; break;
-      case "tickets": url = `tasks/${this.id}/tickets`; break;
-      }
-
-      this.api.post(`api/${url}`, {
-        name: `New ${this.type.slice(0, -1)}`,
-        description: `It's a new ${this.type.slice(0, -1)}!`
-      }, this.user.getUser()?.token)
-        .then((ret) => {
-          this.recovery.updateData(ret, this.type);
-          this.router.navigate([`/${this.type}/${(ret as {id: string}).id}`]);
-        }).catch((err) => {
-          console.error(err);
-          this.toast.print(`Error >> ${err.message || err.statusText}`, "error");
-        });
-    } else {
-      this.toast.print("Permission denied", "warn");
+    switch(this.type) {
+    case "projects": url = "projects"; break;
+    case "tasks": url = `projects/${this.id}/tasks`; break;
+    case "tickets": url = `tasks/${this.id}/tickets`; break;
     }
+
+    this.api.post(`api/${url}`, {
+      name: `New ${this.type.slice(0, -1)}`,
+      description: `It's a new ${this.type.slice(0, -1)}!`
+    }, this.user.getUser()?.token)
+      .then((ret) => {
+        this.recovery.updateData(ret, this.type);
+        this.router.navigate([`/${this.type}/${(ret as {id: string}).id}`]);
+      }).catch((err) => {
+        console.error(err);
+        this.toast.print(`Error >> ${err.message || err.statusText}`, "error");
+      });
   }
   /***/
 

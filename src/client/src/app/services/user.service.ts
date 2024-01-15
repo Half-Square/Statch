@@ -2,7 +2,7 @@
  * @Author                : 0K00<qdouvillez@gmail.com>                       *
  * @CreatedDate           : 2023-06-02 14:59:51                              *
  * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
- * @LastEditDate          : 2024-01-12 15:31:34                              *
+ * @LastEditDate          : 2024-01-15 17:01:44                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -28,7 +28,7 @@ export interface ILoggedUser {
   token: string,
   isAdmin: boolean,
   picture: string,
-  roles: string[]
+  role: string[]
 }
 /***/
 

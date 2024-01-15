@@ -2,7 +2,7 @@
  * @Author                : 0K00<qdouvillez@gmail.com>                       *
  * @CreatedDate           : 2023-05-31 15:03:46                              *
  * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
- * @LastEditDate          : 2024-01-12 16:38:46                              *
+ * @LastEditDate          : 2024-01-15 17:07:26                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -65,7 +65,7 @@ const routes: Routes = [
   { path: "my-activities", component: MyActivitiesView, canActivate: [IsConnectedGuard, RulesGuard],
     data: {
       requiredPermissions: [
-        { entity: "projects", action: ["view"] }
+        { type: "projects", actions: ["create"] }
       ]
     }
   },
