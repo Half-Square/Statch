@@ -2,7 +2,7 @@
  * @Author                : 0K00<qdouvillez@gmail.com>                        *
  * @CreatedDate           : 2024-01-12 16:58:25                               *
  * @LastEditors           : 0K00<qdouvillez@gmail.com>                        *
- * @LastEditDate          : 2024-01-15 17:29:24                               *
+ * @LastEditDate          : 2024-01-16 16:55:16                               *
  *****************************************************************************/
 
 import { Injectable } from "@angular/core";
@@ -10,7 +10,7 @@ import { UserService } from "./user.service";
 
 export interface IRule {
   type: string,
-  actions: string[] | IRule,
+  actions: string[] | any,
 }
 
 export interface IPermissions {
@@ -133,7 +133,6 @@ export class PermissionsService {
   public getPermissions(): IPermissions {
     return this.permissions;
   }
-
   public check(rule: IRule): boolean {
     if(!rule)
       return true;
