@@ -2,10 +2,11 @@
  * @Author                : 0K00<qdouvillez@gmail.com>                        *
  * @CreatedDate           : 2024-01-12 16:58:25                               *
  * @LastEditors           : 0K00<qdouvillez@gmail.com>                        *
- * @LastEditDate          : 2024-01-16 16:55:16                               *
+ * @LastEditDate          : 2024-01-16 19:07:48                               *
  *****************************************************************************/
 
 import { Injectable } from "@angular/core";
+import { ToastService } from "./toast.service";
 import { UserService } from "./user.service";
 
 export interface IRule {
@@ -124,7 +125,7 @@ export interface IPermissions {
 export class PermissionsService {
   private permissions: IPermissions;
 
-  constructor(private user: UserService) {
+  constructor(private user: UserService, private toast: ToastService) {
     const userInfo = this.user.getUser();
     const role: any = userInfo?.role;
     this.permissions = JSON.parse(role.permissions)[0];
@@ -133,7 +134,11 @@ export class PermissionsService {
   public getPermissions(): IPermissions {
     return this.permissions;
   }
+
   public check(rule: IRule): boolean {
+    // if(this.user.getUser()?.isAdmin)
+    //   return true;
+
     if(!rule)
       return true;
 
@@ -144,15 +149,37 @@ export class PermissionsService {
     for(const action of rule.actions) {
       const permission = typePermissions[action];
 
+      if(typeof action !== "string") {
+        for(const sAction of action.actions) {
+
+          const sPermission = typePermissions[action.type][sAction];
+
+          if(sPermission === undefined)
+            return false;
+
+          if(typeof sPermission === "boolean" && !sPermission) {
+            this.toast.print("Permission denied", "warn");
+            return false;
+          }
+
+          if(typeof sPermission === "boolean" && sPermission) {
+            return true;
+          }
+        }
+      }
+
       if(permission === undefined)
         return false;
 
-      if(typeof permission === "boolean" && !permission)
+      if(typeof permission === "boolean" && !permission) {
+        this.toast.print("Permission denied", "warn");
         return false;
+      }
 
-      if(typeof permission === "object" && !this.check({type: action.type, actions: action.actions }))
-        return false;
+      if(typeof permission === "boolean" && permission) {
+        return true;
+      }
     }
-    return true;
+    return false;
   }
 }

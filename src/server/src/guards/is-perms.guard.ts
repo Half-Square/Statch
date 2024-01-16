@@ -5,7 +5,7 @@ import * as jwt from "jsonwebtoken";
  * @Author                : 0K00<qdouvillez@gmail.com>                        *
  * @CreatedDate           : 2024-01-15 16:21:58                               *
  * @LastEditors           : 0K00<qdouvillez@gmail.com>                        *
- * @LastEditDate          : 2024-01-15 16:39:56                               *
+ * @LastEditDate          : 2024-01-16 17:38:53                               *
  *****************************************************************************/
 
 /* Services */
@@ -20,9 +20,10 @@ export class IsPermissionsGuard implements CanActivate {
   async canActivate(
     context: ExecutionContext
   ): Promise<boolean> {
-
     const actionsCheck = this.reflector.get<{ type: string, actions: string[] }[]>("permissions", context.getHandler());
-
+    console.log(actionsCheck);
+    
+    
     if (!actionsCheck) {
       return true;
     }
@@ -49,6 +50,7 @@ export class IsPermissionsGuard implements CanActivate {
       const actions = actionSet.actions;
 
       for (const action of actions) {
+
         if (!permissions[elementType][action]) {
           hasPermission = false;
         } else if (typeof permissions[elementType][action] === "object") {
