@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @Author                : 0K00<qdouvillez@gmail.com>                       *
  * @CreatedDate           : 2023-06-05 17:10:01                              *
- * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-10-03 10:49:30                              *
+ * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
+ * @LastEditDate          : 2024-01-16 19:22:15                              *
  ****************************************************************************/
 
 import { Component, Input, Output, EventEmitter } from "@angular/core";
@@ -28,6 +28,9 @@ export class CheckboxCore {
   @Input()
     checked: boolean = false;
 
+  @Input()
+    disabled: boolean = false;
+
   /**
    * Event emitter triggered when the checkbox is toggled.
    * It emits the updated checked value.
@@ -39,7 +42,9 @@ export class CheckboxCore {
    * Toggles the checked state of the checkbox and emits the updated value.
    */
   public toggleChecked(): void {
-    this.checked = !this.checked;
-    this.checkedChange.emit(this.checked);
+    if(!this.disabled) {
+      this.checked = !this.checked;
+      this.checkedChange.emit(this.checked);
+    }
   }
 }

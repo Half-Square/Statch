@@ -1,9 +1,9 @@
-/******************************************************************************
- * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @CreatedDate           : 2023-11-16 15:38:34                               *
- * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-11-16 16:50:03                               *
- *****************************************************************************/
+/*****************************************************************************
+ * @Author                : 0K00<qdouvillez@gmail.com>                       *
+ * @CreatedDate           : 2023-11-16 15:38:34                              *
+ * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
+ * @LastEditDate          : 2024-01-16 19:11:48                              *
+ ****************************************************************************/
 
 /* SUMMARY
   * Imports
@@ -21,6 +21,7 @@ import { environment as env } from "src/environments/environment";
 import { ToastService } from "src/app/services/toast.service";
 import { ILoggedUser, UserService } from "src/app/services/user.service";
 import { Router } from "@angular/router";
+import { PermissionsService } from "src/app/services/permissions.service";
 /***/
 
 @Component({
@@ -33,7 +34,8 @@ export class DatabaseSettingsView {
 
   constructor(private toast: ToastService,
               private user: UserService,
-              private router: Router) {
+              private router: Router,
+              public perm: PermissionsService) {
   }
 
   /**

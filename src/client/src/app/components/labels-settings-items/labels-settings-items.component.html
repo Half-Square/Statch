@@ -1,8 +1,8 @@
 <!--
-* @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>
+* @Author                : 0K00<qdouvillez@gmail.com>
 * @CreatedDate           : 2023-09-28 16:17:00
-* @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>
-* @LastEditDate          : 2023-09-28 18:01:51
+* @LastEditors           : 0K00<qdouvillez@gmail.com>
+* @LastEditDate          : 2024-01-16 19:18:34
 -->
 
 <div  class="component-labels-settings-items">
@@ -13,8 +13,8 @@
     </div>
 
     <div class="actions">
-      <core-button label="Edit" (click)="enableEditMode()"/>
-      <core-button (click)="remove()" [style]="'warn'">
+      <core-button [disabled]="!perm.getPermissions().labels.update.name" label="Edit" (click)="enableEditMode()"/>
+      <core-button [disabled]="!perm.getPermissions().labels.delete" (click)="remove()" [style]="'warn'">
         <core-icon icon="minus"/>
       </core-button>
     </div>

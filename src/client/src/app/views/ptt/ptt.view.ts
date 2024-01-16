@@ -2,9 +2,7 @@
  * @Author                : 0K00<qdouvillez@gmail.com>                       *
  * @CreatedDate           : 2023-09-30 15:55:46                              *
  * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
- * @LastEditDate          : 2023-12-11 11:20:18                              *
- * @FilePath              : Statch/src/client/src/app/views/ptt/ptt.view.ts  *
- * @CopyRight             : MerBleueAviation                                 *
+ * @LastEditDate          : 2024-01-16 18:25:49                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -36,6 +34,7 @@ import { RequestService } from "src/app/services/request.service";
 import { ToastService } from "src/app/services/toast.service";
 import { ILoggedUser, UserService } from "src/app/services/user.service";
 import { FilterSortService } from "src/app/services/filter-sort.service";
+import { PermissionsService } from "src/app/services/permissions.service";
 /***/
 
 /* eslint-disable  @typescript-eslint/no-explicit-any */
@@ -67,7 +66,8 @@ export class PttView implements OnInit, OnDestroy {
               private api: RequestService,
               public user: UserService,
               private toast: ToastService,
-              private sort: FilterSortService) {
+              private sort: FilterSortService,
+              public perm: PermissionsService) {
   }
 
   ngOnInit(): void {

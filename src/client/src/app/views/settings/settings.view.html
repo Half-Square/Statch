@@ -1,8 +1,8 @@
 <!--
-* @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>
+* @Author                : 0K00<qdouvillez@gmail.com>
 * @CreatedDate           : 2023-09-28 14:50:00
-* @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>
-* @LastEditDate          : 2023-09-28 15:29:54
+* @LastEditors           : 0K00<qdouvillez@gmail.com>
+* @LastEditDate          : 2024-01-16 19:26:17
 -->
 
 <div class="view-settings">
@@ -11,7 +11,7 @@
       <a  class="settings-nav-item"
           [routerLink]="[item.link]"
           routerLinkActive="active"
-          *ngIf="!item.admin || user.isAdmin()">
+          *ngIf="(!item.admin || user.isAdmin()) && perm.getPermissions()[item.link].view">
         {{item.label}}
       </a>
     </ng-template>

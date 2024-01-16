@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @Author                : 0K00<qdouvillez@gmail.com>                       *
  * @CreatedDate           : 2023-09-27 15:26:28                              *
- * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-12-02 14:02:38                              *
+ * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
+ * @LastEditDate          : 2024-01-16 18:30:21                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -18,6 +18,7 @@ import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 
 /* Interfaces */
 import { IComments, IProjects, ITasks, ITickets } from "src/app/interfaces";
+import { PermissionsService } from "src/app/services/permissions.service";
 import { RecoveryService } from "src/app/services/recovery.service";
 /***/
 
@@ -44,7 +45,8 @@ export class PttCommentSection {
               private sanitizer: DomSanitizer,
               private recovery: RecoveryService,
               private toast: ToastService,
-              private user: UserService) {
+              private user: UserService,
+              public perm: PermissionsService) {
   }
 
   /**

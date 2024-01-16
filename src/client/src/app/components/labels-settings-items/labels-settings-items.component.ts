@@ -1,9 +1,9 @@
-/******************************************************************************
- * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @CreatedDate           : 2023-09-28 16:18:12                               *
- * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-09-28 17:58:17                               *
- *****************************************************************************/
+/*****************************************************************************
+ * @Author                : 0K00<qdouvillez@gmail.com>                       *
+ * @CreatedDate           : 2023-09-28 16:18:12                              *
+ * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
+ * @LastEditDate          : 2024-01-16 19:17:36                              *
+ ****************************************************************************/
 
 /* SUMMARY
   * Imports
@@ -17,6 +17,7 @@ import { Component, Input } from "@angular/core";
 
 /* Interfaces */
 import { ILabels } from "src/app/interfaces";
+import { PermissionsService } from "src/app/services/permissions.service";
 /***/
 
 /* Services */
@@ -35,7 +36,8 @@ export class LabelsSettingsItemsComponent {
   public onEdit: boolean = false;
 
   constructor(private api: RequestService,
-              private user: UserService) {
+              private user: UserService,
+              public perm: PermissionsService) {
   }
 
   /**

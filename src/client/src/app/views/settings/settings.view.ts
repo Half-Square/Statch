@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @Author                : 0K00<qdouvillez@gmail.com>                       *
  * @CreatedDate           : 2023-09-28 14:50:46                              *
- * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-11-16 15:38:25                              *
+ * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
+ * @LastEditDate          : 2024-01-16 19:25:21                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -12,6 +12,7 @@
 
 /* Imports */
 import { Component } from "@angular/core";
+import { PermissionsService } from "src/app/services/permissions.service";
 /***/
 
 /* Services */
@@ -42,6 +43,7 @@ export class SettingsView {
     admin: true
   }];
 
-  constructor(public user: UserService) {
+  constructor(public user: UserService,
+              public perm: PermissionsService) {
   }
 }

@@ -1,8 +1,8 @@
 <!--
-* @Author                : Quentin<quentin@halfsquare.fr>
+* @Author                : 0K00<qdouvillez@gmail.com>
 * @CreatedDate           : 2023-09-30 15:38:00
-* @LastEditors           : Quentin<quentin@halfsquare.fr>
-* @LastEditDate          : 2023-11-16 17:43:42
+* @LastEditors           : 0K00<qdouvillez@gmail.com>
+* @LastEditDate          : 2024-01-16 18:48:59
 -->
 
 <div class="section-ptt-tool-bar">
@@ -10,6 +10,7 @@
                 [type]="'basic'"
                 [style]="'warn'"
                 [size]="'icon'"
+                [disabled]="!perm.check({type: type, actions: ['delete']})"
                 [tooltip]="'Delete ' + type">
     <core-icon icon="minus"/>
   </core-button>
@@ -19,6 +20,7 @@
                 [type]="'basic'"
                 [style]="'default'"
                 [size]="'icon'"
+                [disabled]="!perm.check({type: type == 'project' ? 'tasks' : 'tickets', actions: ['create']})"
                 [tooltip]="type == 'project' ? 'Add new task' : 'Add new ticket'">
     <core-icon icon="plus"/>
   </core-button>
@@ -27,6 +29,7 @@
                 [type]="isAssignee ? 'flat' : 'basic'"
                 [style]="'primary'"
                 [size]="'icon'"
+                [disabled]="!perm.check({type: type, actions: ['assignSelf']})"
                 [tooltip]="'Assign self'"
                 >
     <core-icon [icon]="isAssignee ? 'heart-fill' : 'heart'"/>
