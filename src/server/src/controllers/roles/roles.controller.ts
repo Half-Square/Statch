@@ -2,7 +2,7 @@
  * @Author                : 0K00<qdouvillez@gmail.com>                        *
  * @CreatedDate           : 2023-06-13 14:10:50                               *
  * @LastEditors           : 0K00<qdouvillez@gmail.com>                        *
- * @LastEditDate          : 2024-01-17 17:17:32                               *
+ * @LastEditDate          : 2024-01-17 19:40:13                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -158,12 +158,12 @@ export class RolesController {
     @Param("id") id: string,
     @Body() body: rolesDTO.UpdateInput): Promise<Role> {
     try {
+
       const role = await this.prisma.role.update({
         where: {id: id},
         data: {
           ...body,
           users: body.users ? {
-            deleteMany: {},
             connect: body.users.map(el => {
               return el;
             })
