@@ -2,7 +2,7 @@
  * @Author                : 0K00<qdouvillez@gmail.com>                        *
  * @CreatedDate           : 2023-06-13 14:10:50                               *
  * @LastEditors           : 0K00<qdouvillez@gmail.com>                        *
- * @LastEditDate          : 2024-01-15 16:59:18                               *
+ * @LastEditDate          : 2024-01-17 14:19:38                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -61,7 +61,7 @@ export class RolesController {
   */
   @Get()
   @UseGuards(IsPermissionsGuard)
-  @SetMetadata("permissions", [{type: "projects", actions: ["create", "delete"]}])
+  @SetMetadata("permissions", [{type: "permissions", actions: ["view"]}])
   async getAll(): Promise<Role[]> {
     try {
       return await this.prisma.role.findMany({
@@ -82,6 +82,8 @@ export class RolesController {
   * @return - Role data 
   */
   @Get(":id")
+  @UseGuards(IsPermissionsGuard)
+  @SetMetadata("permissions", [{type: "permissions", actions: ["view"]}])
   async getById(@Param("id") id: string): Promise<Role> {
     try {
       const ret = await this.prisma.role.findUnique({
@@ -103,6 +105,8 @@ export class RolesController {
   * @param data - New role data 
   */
   @Post()
+  @UseGuards(IsPermissionsGuard)
+  @SetMetadata("permissions", [{type: "permissions", actions: ["create"]}])
   async create(
     @Body() body: rolesDTO.CreateInput): Promise<Role> {
     try {      
@@ -135,6 +139,8 @@ export class RolesController {
   * @param body - Data to update 
   */
   @Put(":id")
+  @UseGuards(IsPermissionsGuard)
+  @SetMetadata("permissions", [{type: "permissions", actions: ["update"]}])
   async update(
     @Param("id") id: string,
     @Body() body: rolesDTO.UpdateInput): Promise<Role> {
@@ -169,6 +175,8 @@ export class RolesController {
   * @return - Message success 
   */
   @Delete(":id")
+  @UseGuards(IsPermissionsGuard)
+  @SetMetadata("permissions", [{type: "permissions", actions: ["delete"]}])
   async deleteById(@Param("id") id: string): Promise<{message: string}> {
     try {
       await this.prisma.role.delete({where: {id: id}});

@@ -5,7 +5,7 @@ import * as jwt from "jsonwebtoken";
  * @Author                : 0K00<qdouvillez@gmail.com>                        *
  * @CreatedDate           : 2024-01-15 16:21:58                               *
  * @LastEditors           : 0K00<qdouvillez@gmail.com>                        *
- * @LastEditDate          : 2024-01-17 11:47:49                               *
+ * @LastEditDate          : 2024-01-17 14:41:01                               *
  *****************************************************************************/
 
 /* Services */
@@ -54,7 +54,10 @@ export class IsPermissionsGuard implements CanActivate {
       for (const action of actions) {
         
         if (typeof action == "string") {
-          hasPermission = false;
+          const vAction = permissions[elementType][action];
+
+          if(!vAction)
+            hasPermission = false;
         } else if (typeof action === "object") {
           const sActions = action["actions"] as string[];
 
@@ -68,7 +71,7 @@ export class IsPermissionsGuard implements CanActivate {
         }
       }
     }
-
+    
     if (hasPermission)
       return true;
 

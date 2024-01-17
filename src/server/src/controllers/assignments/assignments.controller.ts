@@ -1,8 +1,8 @@
 /******************************************************************************
- * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
+ * @Author                : 0K00<qdouvillez@gmail.com>                        *
  * @CreatedDate           : 2023-06-24 17:32:20                               *
- * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-09-27 11:57:52                               *
+ * @LastEditors           : 0K00<qdouvillez@gmail.com>                        *
+ * @LastEditDate          : 2024-01-17 14:37:50                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -22,7 +22,8 @@ import {
   Put,
   Body,
   Param,
-  UseInterceptors
+  UseInterceptors,
+  SetMetadata
 } from "@nestjs/common";
 import { Assignment } from "@prisma/client";
 /***/
@@ -33,6 +34,7 @@ import * as assignmentsDto from "./assignments.dto";
 
 /* Guards */
 import { IsConnectedGuard } from "src/guards/is-connected.guard";
+import { IsPermissionsGuard } from "src/guards/is-perms.guard";
 /***/
 
 /* Services */
@@ -80,6 +82,8 @@ export class AssignmentsController {
   */
   @Put(":parent/:id/assignments")
   @UseInterceptors(ActivitiesInterceptor)
+  @UseGuards(IsPermissionsGuard)
+  @SetMetadata("permissions", [{type: "pttAll", actions: [{type: "update", actions: ["assignee"]}]}])
   async updateAssignments(
     @Param("parent") parent: string,
     @Param("id") id: string,
