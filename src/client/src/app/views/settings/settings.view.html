@@ -2,7 +2,7 @@
 * @Author                : 0K00<qdouvillez@gmail.com>
 * @CreatedDate           : 2023-09-28 14:50:00
 * @LastEditors           : 0K00<qdouvillez@gmail.com>
-* @LastEditDate          : 2024-01-16 19:26:17
+* @LastEditDate          : 2024-01-17 18:59:42
 -->
 
 <div class="view-settings">
@@ -11,7 +11,7 @@
       <a  class="settings-nav-item"
           [routerLink]="[item.link]"
           routerLinkActive="active"
-          *ngIf="(!item.admin || user.isAdmin()) && perm.getPermissions()[item.link].view">
+          *ngIf="(!item.admin || user.isAdmin()) && perm.check({type: item.link, actions: ['view']})">
         {{item.label}}
       </a>
     </ng-template>

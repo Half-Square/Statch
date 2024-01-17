@@ -2,7 +2,7 @@
  * @Author                : 0K00<qdouvillez@gmail.com>                        *
  * @CreatedDate           : 2024-01-12 16:58:25                               *
  * @LastEditors           : 0K00<qdouvillez@gmail.com>                        *
- * @LastEditDate          : 2024-01-17 18:49:47                               *
+ * @LastEditDate          : 2024-01-17 19:27:36                               *
  *****************************************************************************/
 
 import { Injectable } from "@angular/core";
@@ -34,6 +34,8 @@ export class PermissionsService {
     if(!rule)
       return true;
 
+    console.log(rule, this.permissions);
+
     const typePermissions = this.permissions[rule.type];
     if(typeof typePermissions !== "object" || typePermissions === null)
       return false;
@@ -50,7 +52,6 @@ export class PermissionsService {
             return false;
 
           if(typeof sPermission === "boolean" && !sPermission) {
-            this.toast.print("Permission denied", "warn");
             return false;
           }
 
@@ -64,7 +65,6 @@ export class PermissionsService {
         return false;
 
       if(typeof permission === "boolean" && !permission) {
-        this.toast.print("Permission denied", "warn");
         return false;
       }
 

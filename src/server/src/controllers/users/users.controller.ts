@@ -2,7 +2,7 @@
  * @Author                : 0K00<qdouvillez@gmail.com>                        *
  * @CreatedDate           : 2023-06-01 15:15:39                               *
  * @LastEditors           : 0K00<qdouvillez@gmail.com>                        *
- * @LastEditDate          : 2024-01-17 14:40:30                               *
+ * @LastEditDate          : 2024-01-17 19:24:39                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -71,13 +71,16 @@ export class UsersController {
       let passwd = String(sha256(body.password));
       let count = await (await this.prisma.user.findMany()).length;
 
+      const defaultRole = await this.prisma.role.findFirst({ where: { name: "default" } });      
+
       const res = await this.prisma.user.create({
         data: {
           name: body.name,
           password: passwd,
           email: body.email,
           validate: count === 0,
-          isAdmin: count === 0 
+          isAdmin: count === 0,
+          roleId: defaultRole.id
         }
       });
       return new usersDto.DetailsOutput(res);
