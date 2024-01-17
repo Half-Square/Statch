@@ -84,3 +84,38 @@
     transform: rotate(45deg);
   }
 }
+
+.checkbox.disabled {
+
+  &:hover .checkmark {
+    // Visual Styling - Hover styles for the entire checkbox container
+    background: #3c4455; // Visual Styling - Background color on hover
+  }
+
+  &:hover .checkmark::after {
+    display: none;
+  }
+
+  input:checked ~ .checkmark {
+    // Visual Styling - Checked checkbox styles
+    background-color: #3c4455; // Visual Styling - Background color for the checked checkbox
+  }
+
+  .checkmark {
+    // Visual Styling - Additional styles for the checkbox mark
+    background: #3c4455; // Visual Styling - Background color for the checkbox container
+    width: 16px; // Visual Styling - Width of the checkbox mark
+    height: 16px; // Visual Styling - Height of the checkbox mark
+    border-radius: 4px;
+    border: 1px solid #4d5669;
+  }
+
+  .checkmark:after {
+    // Visual Styling - Additional styles for the checkbox checkmark shape
+    width: 4px; // Visual Styling - Width of the checkmark shape
+    height: 8px; // Visual Styling - Height of the checkmark shape
+    border: solid #4d5669;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+  }
+}

@@ -2,7 +2,7 @@
  * @Author                : 0K00<qdouvillez@gmail.com>                       *
  * @CreatedDate           : 2023-09-27 15:26:28                              *
  * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
- * @LastEditDate          : 2024-01-16 18:30:21                              *
+ * @LastEditDate          : 2024-01-17 14:52:11                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -12,17 +12,17 @@
 */
 
 /* Imports */
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, Input } from "@angular/core";
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 /***/
 
 /* Interfaces */
 import { IComments, IProjects, ITasks, ITickets } from "src/app/interfaces";
-import { PermissionsService } from "src/app/services/permissions.service";
-import { RecoveryService } from "src/app/services/recovery.service";
 /***/
 
 /* Services */
+import { PermissionsService } from "src/app/services/permissions.service";
+import { RecoveryService } from "src/app/services/recovery.service";
 import { RequestService } from "src/app/services/request.service";
 import { ToastService } from "src/app/services/toast.service";
 import { UserService } from "src/app/services/user.service";

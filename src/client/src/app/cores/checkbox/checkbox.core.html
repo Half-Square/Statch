@@ -1,13 +1,13 @@
 <!--
-* @Author                : Quentin<quentin@halfsquare.fr>
+* @Author                : 0K00<qdouvillez@gmail.com>
 * @CreatedDate           : 2023-06-05 17:05:00
-* @LastEditors           : Quentin<quentin@halfsquare.fr>
-* @LastEditDate          : 2023-09-05 10:51:42
+* @LastEditors           : 0K00<qdouvillez@gmail.com>
+* @LastEditDate          : 2024-01-17 14:51:47
 -->
 
-<label class="checkbox">
+<label class="checkbox" ngClass="{{disabled ? 'disabled' : ''}}">
 
-  <input type="checkbox" [checked]="checked" (change)="toggleChecked()" />
+  <input type="checkbox" [disabled]="disabled" [checked]="checked" (change)="toggleChecked()" />
 
   <span class="checkmark"></span>
 

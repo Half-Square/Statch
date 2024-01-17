@@ -2,7 +2,7 @@
  * @Author                : 0K00<qdouvillez@gmail.com>                       *
  * @CreatedDate           : 2023-09-28 16:18:12                              *
  * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
- * @LastEditDate          : 2024-01-16 19:17:36                              *
+ * @LastEditDate          : 2024-01-17 14:46:13                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -17,12 +17,12 @@ import { Component, Input } from "@angular/core";
 
 /* Interfaces */
 import { ILabels } from "src/app/interfaces";
-import { PermissionsService } from "src/app/services/permissions.service";
 /***/
 
 /* Services */
 import { RequestService } from "src/app/services/request.service";
 import { UserService } from "src/app/services/user.service";
+import { PermissionsService } from "src/app/services/permissions.service";
 /***/
 
 @Component({

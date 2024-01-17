@@ -2,7 +2,7 @@
  * @Author                : 0K00<qdouvillez@gmail.com>                       *
  * @CreatedDate           : 2023-05-31 15:03:46                              *
  * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
- * @LastEditDate          : 2024-01-16 19:26:55                              *
+ * @LastEditDate          : 2024-01-17 14:45:49                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -22,6 +22,7 @@ import { TypeGuard } from "./guards/type-guard.service";
 import { IsConnectedGuard } from "./guards/is-connected.guard";
 import { IsNotConnectedGuard } from "./guards/is-not-connected.guard";
 import { IsAdminGuard } from "./guards/is-admin.guard";
+import { RulesGuard } from "./guards/rules.guard";
 /***/
 
 /* Views */
@@ -39,7 +40,6 @@ import { UsersSettingsView } from "./views/settings/users-settings/users-setting
 import { MyActivitiesView } from "./views/my-activities/my-activities.view";
 import { FirstLaunchView } from "./views/first-launch/first-launch.view";
 import { DatabaseSettingsView } from "./views/settings/database-settings/database-settings.view";
-import { RulesGuard } from "./guards/rules.guard";
 /***/
 
 /* Routes */
