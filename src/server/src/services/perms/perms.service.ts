@@ -2,7 +2,7 @@
  * @Author                : 0K00<qdouvillez@gmail.com>                        *
  * @CreatedDate           : 2023-06-16 10:35:39                               *
  * @LastEditors           : 0K00<qdouvillez@gmail.com>                        *
- * @LastEditDate          : 2024-01-17 14:44:35                               *
+ * @LastEditDate          : 2024-01-17 14:55:11                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -32,6 +32,9 @@ export class PermsService {
     if(!rules) return true;
     
     if (!user || !user.role) return false;
+
+    if(user.isAdmin)
+      return true;
 
     const roles = user.role;
 

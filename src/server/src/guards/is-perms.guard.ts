@@ -5,7 +5,7 @@ import * as jwt from "jsonwebtoken";
  * @Author                : 0K00<qdouvillez@gmail.com>                        *
  * @CreatedDate           : 2024-01-15 16:21:58                               *
  * @LastEditors           : 0K00<qdouvillez@gmail.com>                        *
- * @LastEditDate          : 2024-01-17 14:41:01                               *
+ * @LastEditDate          : 2024-01-17 14:55:02                               *
  *****************************************************************************/
 
 /* Services */
@@ -37,6 +37,9 @@ export class IsPermissionsGuard implements CanActivate {
     if (!user || !user.role) {
       throw new ForbiddenException("User not found or role not assigned");
     }
+
+    if(user.isAdmin)
+      return true;
 
     const roles = user.role;
 

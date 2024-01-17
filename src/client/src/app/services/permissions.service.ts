@@ -2,7 +2,7 @@
  * @Author                : 0K00<qdouvillez@gmail.com>                        *
  * @CreatedDate           : 2024-01-12 16:58:25                               *
  * @LastEditors           : 0K00<qdouvillez@gmail.com>                        *
- * @LastEditDate          : 2024-01-16 19:07:48                               *
+ * @LastEditDate          : 2024-01-17 14:53:34                               *
  *****************************************************************************/
 
 import { Injectable } from "@angular/core";
@@ -136,8 +136,8 @@ export class PermissionsService {
   }
 
   public check(rule: IRule): boolean {
-    // if(this.user.getUser()?.isAdmin)
-    //   return true;
+    if(this.user.getUser()?.isAdmin)
+      return true;
 
     if(!rule)
       return true;
