@@ -2,7 +2,7 @@
  * @Author                : 0K00<qdouvillez@gmail.com>                        *
  * @CreatedDate           : 2024-01-12 16:20:56                               *
  * @LastEditors           : 0K00<qdouvillez@gmail.com>                        *
- * @LastEditDate          : 2024-01-17 14:53:53                               *
+ * @LastEditDate          : 2024-01-17 15:03:50                               *
  *****************************************************************************/
 
 import { Injectable } from "@angular/core";
@@ -31,7 +31,7 @@ export class RulesGuard implements CanActivate{
       const user = this.user.getUser();
       const role: any = user?.role;
 
-      if(user?.isAdmin) return true;
+      if(user?.isAdmin) return resolve(true);
 
       const permissions = JSON.parse(role.permissions)[0];
       let hasPermission = true;
