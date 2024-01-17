@@ -1,0 +1,88 @@
+.roles {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 32px;
+
+  .header {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    align-items: center;
+  }
+
+  .list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    .header {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border-bottom: 1px solid #3d3d3d;
+      padding-bottom: 8px;
+    }
+
+    .roles-list {
+      display: flex;
+      flex-direction: column;
+
+      .role {
+        display: grid;
+        align-items: center;
+        grid-template-columns: 1fr 1fr;
+        padding: 8px 16px;
+        border-radius: 8px;
+        cursor: pointer;
+        height: 24px;
+
+        &:hover {
+          background: #2E2E2E;
+        }
+
+        .name {
+          text-transform: capitalize;
+        }
+
+        .number.none {
+          color: #3d3d3d;
+        }
+        .assignee.gap {
+          gap: 4px;
+        }
+
+        .number {
+          display: flex;
+
+          .label.more {
+            transform: translateX(16px);
+            z-index: 2;
+          }
+          .label.more:nth-child(2) {
+            z-index: 3;
+            transform: translateX(8px);
+          }
+
+          .label.avatar {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            cursor: pointer;
+            font-size: 12px;
+            line-height: 16px;
+            font-weight: 500;
+            text-transform: capitalize;
+            color: #eaeaea;
+            background: #3d3d3d;
+            width: 24px;
+            height: 24px;
+            border-radius: 999px;
+            z-index: 4;
+          }
+        }
+      }
+    }
+  }
+}

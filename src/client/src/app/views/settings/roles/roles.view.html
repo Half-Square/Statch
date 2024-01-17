@@ -1,0 +1,89 @@
+<!--
+* @Author                : 0K00<qdouvillez@gmail.com>
+* @CreatedDate           : 2024-01-17 15:09:00
+* @LastEditors           : 0K00<qdouvillez@gmail.com>
+* @LastEditDate          : 2024-01-17 19:52:47
+-->
+
+<div *ngIf="!editMode" class="roles">
+  <div class="header">
+
+    <div class="search">
+      search
+    </div>
+
+    <core-button
+      [label]="'Create role'"
+      [type]="'flat'"
+      [style]="'primary'"
+      [size]="'medium'">
+    </core-button>
+  </div>
+
+  <div class="list">
+
+    <div class="header">
+      <div class="title">
+        Roles - {{roleNb}}
+      </div>
+
+      <div class="members">
+        Members
+      </div>
+    </div>
+
+    <div class="roles-list">
+      <div class="role" *ngFor="let role of roles" (click)="selectRole(role)">
+        <div class="name">{{role.name}}</div>
+
+        <div class="members">
+
+        <div class="number none" *ngIf="role.users!.length == 0">-</div>
+
+        <div class="number" *ngFor="let user of role.users; let i = index" [ngClass]="{'hidden' : i>1, 'more': (i==0 || i==1) && (role.users!.length - 2) > 0}">
+          <core-avatar
+                [showLabel]="false"
+                [imgLink]="user.id | recovery:'picture':'users' | async"
+                [label]="user.id | recovery:'name':'users' | async"
+          />
+        </div>
+
+        <div *ngIf="(role.users!.length - 2) > 0" [tooltip]="'+' + (role.users!.length - 2) + 'members'" class="label avatar">{{role.users!.length - 2}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="editMode" class="roles">
+  <div class="header">
+    <core-button
+        (click)="editMode = false"
+        [type]="'basic'"
+        [style]="'default'"
+        [size]="'icon'">
+      <core-icon icon="chevron-left"/>
+    </core-button>
+
+    {{currentRole.name}}
+  </div>
+
+  <div class="members">
+    Members
+    <component-select [data]="users"
+                      [selection]="replaceUsers()"
+                      placeholder="Add members..."
+                      [multi]="true"
+                      (callback)="onItemChange('users', $event)">
+      <ng-template let-select #selected>
+      <core-avatar [showLabel]="false"  [imgLink]="select.id | recovery:'picture':'users' | async"
+      [label]="select.id | recovery:'name':'users' | async"/>
+      </ng-template>
+
+      <ng-template let-option #items>
+      <core-avatar  [imgLink]="option.id | recovery:'picture':'users' | async"
+      [label]="option.id | recovery:'name':'users' | async"/>
+      </ng-template>
+    </component-select>
+  </div>
+</div>

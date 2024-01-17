@@ -2,7 +2,7 @@
  * @Author                : 0K00<qdouvillez@gmail.com>                       *
  * @CreatedDate           : 2023-09-28 14:50:46                              *
  * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
- * @LastEditDate          : 2024-01-16 19:25:21                              *
+ * @LastEditDate          : 2024-01-17 15:02:04                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -40,6 +40,10 @@ export class SettingsView {
   }, {
     label: "Database",
     link: "database",
+    admin: true
+  }, {
+    label: "Roles",
+    link: "roles",
     admin: true
   }];
 

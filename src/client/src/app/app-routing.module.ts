@@ -2,7 +2,7 @@
  * @Author                : 0K00<qdouvillez@gmail.com>                       *
  * @CreatedDate           : 2023-05-31 15:03:46                              *
  * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
- * @LastEditDate          : 2024-01-17 14:45:49                              *
+ * @LastEditDate          : 2024-01-17 15:06:50                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -40,6 +40,7 @@ import { UsersSettingsView } from "./views/settings/users-settings/users-setting
 import { MyActivitiesView } from "./views/my-activities/my-activities.view";
 import { FirstLaunchView } from "./views/first-launch/first-launch.view";
 import { DatabaseSettingsView } from "./views/settings/database-settings/database-settings.view";
+import { RolesView } from "./views/settings/roles/roles.view";
 /***/
 
 /* Routes */
@@ -76,6 +77,13 @@ const routes: Routes = [
         data: {
           requiredPermissions: [
             { type: "database", actions: ["view"] }
+          ]
+        }
+      },
+      { path: "roles", component: RolesView, canActivate: [IsConnectedGuard, IsAdminGuard, RulesGuard],
+        data: {
+          requiredPermissions: [
+            { type: "permissions", actions: ["view"] }
           ]
         }
       },

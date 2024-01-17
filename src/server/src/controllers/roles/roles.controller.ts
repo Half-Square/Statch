@@ -2,7 +2,7 @@
  * @Author                : 0K00<qdouvillez@gmail.com>                        *
  * @CreatedDate           : 2023-06-13 14:10:50                               *
  * @LastEditors           : 0K00<qdouvillez@gmail.com>                        *
- * @LastEditDate          : 2024-01-17 19:40:13                               *
+ * @LastEditDate          : 2024-01-17 19:45:06                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -156,7 +156,7 @@ export class RolesController {
   @SetMetadata("permissions", [{type: "permissions", actions: ["update"]}])
   async update(
     @Param("id") id: string,
-    @Body() body: rolesDTO.UpdateInput): Promise<Role> {
+    @Body() body: rolesDTO.UpdateInput): Promise<Role[]> {
     try {
 
       const role = await this.prisma.role.update({
@@ -172,7 +172,19 @@ export class RolesController {
       });
 
       this.socket.broadcast("roles", role);
-      return role;
+      return await this.prisma.role.findMany({
+        include: {
+          users: {
+            select: {
+              email: true,
+              id: true,
+              name: true,
+              picture: true,
+              roleId: true
+            }
+          }
+        }
+      });
     } catch (err) {
       throw err;
     }
