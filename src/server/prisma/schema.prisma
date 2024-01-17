@@ -23,7 +23,7 @@ model User {
   tasks           Task[]
   tickets         Ticket[]
   assignment      Assignment[]
-  role            Role?            @relation(fields: [roleId], references: [id], onDelete: Cascade)
+  role            Role?            @relation(fields: [roleId], references: [id], onDelete: SetNull)
   roleId          String?
 }
 

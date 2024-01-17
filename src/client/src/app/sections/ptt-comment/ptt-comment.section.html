@@ -2,7 +2,7 @@
 * @Author                : 0K00<qdouvillez@gmail.com>
 * @CreatedDate           : 2023-09-27 15:26:00
 * @LastEditors           : 0K00<qdouvillez@gmail.com>
-* @LastEditDate          : 2024-01-16 18:31:55
+* @LastEditDate          : 2024-01-17 18:56:42
 -->
 
 <div class="ptt-comment">
@@ -16,7 +16,7 @@
       <div class="option">
         <span class="date">{{ comment.created | dateDifference }}</span>
         <core-button (click)="onDelete(comment.id)"
-                     [disabled]="!perm.getPermissions()[type].comment.delete"
+                     [disabled]="!perm.check({type: type, actions: [{type: 'comment', actions: ['delete']}]})"
                      [type]="'basic'"
                      [style]="'warn'"
                      [size]="'icon'"
@@ -32,7 +32,7 @@
   </div>
 
 
-  <div *ngIf="perm.getPermissions()[type].comment.create" class="input">
+  <div *ngIf="perm.check({type: type, actions: [{type: 'comment', actions: ['create']}]})" class="input">
     <component-markdown [placeholder]="'Leave your comment...'" [hasPublish]="hasPublish" (getContent)="getContent($event)"></component-markdown>
     <core-button (click)="publish()" [type]="'flat'" [style]="'primary'" [size]="'medium'" [label]="'Publish'"></core-button>
   </div>

@@ -2,7 +2,7 @@
  * @Author                : 0K00<qdouvillez@gmail.com>                        *
  * @CreatedDate           : 2023-06-13 14:10:50                               *
  * @LastEditors           : 0K00<qdouvillez@gmail.com>                        *
- * @LastEditDate          : 2024-01-17 14:19:38                               *
+ * @LastEditDate          : 2024-01-17 17:17:32                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -66,7 +66,15 @@ export class RolesController {
     try {
       return await this.prisma.role.findMany({
         include: {
-          users: true
+          users: {
+            select: {
+              email: true,
+              id: true,
+              name: true,
+              picture: true,
+              roleId: true
+            }
+          }
         }
       });
     } catch (err) {
@@ -89,7 +97,15 @@ export class RolesController {
       const ret = await this.prisma.role.findUnique({
         where: {id: id},
         include: {
-          users: true
+          users: {
+            select: {
+              email: true,
+              id: true,
+              name: true,
+              picture: true,
+              roleId: true
+            }
+          }
         }
       });
       if (ret) return ret;
@@ -119,9 +135,6 @@ export class RolesController {
               return el;
             })
           } : undefined
-        },
-        include: {
-          users: true
         }
       });
 
@@ -155,9 +168,6 @@ export class RolesController {
               return el;
             })
           } : undefined
-        },
-        include: {
-          users: true
         }
       });
 

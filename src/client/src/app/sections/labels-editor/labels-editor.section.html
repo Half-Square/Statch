@@ -2,11 +2,11 @@
 * @Author                : 0K00<qdouvillez@gmail.com>
 * @CreatedDate           : 2023-09-28 16:23:00
 * @LastEditors           : 0K00<qdouvillez@gmail.com>
-* @LastEditDate          : 2024-01-16 19:17:19
+* @LastEditDate          : 2024-01-17 18:55:26
 -->
 
 <div class="section-labels-editor">
-  <div class="head" *ngIf="perm.getPermissions().labels.create">
+  <div class="head" *ngIf="perm.check({type: 'labels', actions: ['create']})">
     <component-labels-edit class="edit" [(label)]="nLabel" (callback)="createLabel()"/>
     <core-button type="flat" label="Add" (click)="createLabel()"/>
   </div>

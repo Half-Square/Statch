@@ -2,7 +2,7 @@
 * @Author                : 0K00<qdouvillez@gmail.com>
 * @CreatedDate           : 2023-09-28 16:17:00
 * @LastEditors           : 0K00<qdouvillez@gmail.com>
-* @LastEditDate          : 2024-01-16 19:18:34
+* @LastEditDate          : 2024-01-17 18:54:08
 -->
 
 <div  class="component-labels-settings-items">
@@ -13,8 +13,8 @@
     </div>
 
     <div class="actions">
-      <core-button [disabled]="!perm.getPermissions().labels.update.name" label="Edit" (click)="enableEditMode()"/>
-      <core-button [disabled]="!perm.getPermissions().labels.delete" (click)="remove()" [style]="'warn'">
+      <core-button [disabled]="!perm.check({type: 'labels', actions: [{type: 'update', actions: ['name']}]})" label="Edit" (click)="enableEditMode()"/>
+      <core-button [disabled]="!perm.check({type: 'labels', actions: [{type: 'update', actions: ['delete']}]})" (click)="remove()" [style]="'warn'">
         <core-icon icon="minus"/>
       </core-button>
     </div>

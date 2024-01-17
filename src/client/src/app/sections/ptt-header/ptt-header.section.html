@@ -2,7 +2,7 @@
 * @Author                : 0K00<qdouvillez@gmail.com>
 * @CreatedDate           : 2023-09-21 13:37:00
 * @LastEditors           : 0K00<qdouvillez@gmail.com>
-* @LastEditDate          : 2024-01-16 18:23:30
+* @LastEditDate          : 2024-01-17 18:57:28
 -->
 
 <header class="ptt-header">
@@ -13,7 +13,7 @@
   <h1 #nameEl
       class="title"
       (input)="content()"
-      (dblclick)="perm.getPermissions()[type].update.title ? toggleEdit('name') : null"
+      (dblclick)="perm.check({type: type, actions: [{type: 'update', actions: ['title']}]}) ? toggleEdit('name') : null"
       [attr.contenteditable]="editName"
       [innerHTML]="item.name"
       (keydown)="saveEnter($event, 'name')">
@@ -21,6 +21,6 @@
 
   <div class="description">
     <h2 class="subtitle">Description</h2>
-    <component-markdown [reset]="false" [externContent]="item.description" [placeholder]="'Write your description...'" #descriptionEl (dblclick)="perm.getPermissions()[type].update.description ?toggleEdit('description') : null" (keydown)="saveEnter($event, 'description')" [hasDisabled]="!editDescription"  [hasPublish]="hasPublish" (getContent)="getContent($event)"></component-markdown>
+    <component-markdown [reset]="false" [externContent]="item.description" [placeholder]="'Write your description...'" #descriptionEl (dblclick)="perm.check({type: type, actions: [{type: 'update', actions: ['description']}]}) ? toggleEdit('description') : null" (keydown)="saveEnter($event, 'description')" [hasDisabled]="!editDescription"  [hasPublish]="hasPublish" (getContent)="getContent($event)"></component-markdown>
   </div>
 </header>
