@@ -2,7 +2,7 @@
  * @Author                : 0K00<qdouvillez@gmail.com>                        *
  * @CreatedDate           : 2023-06-16 10:35:39                               *
  * @LastEditors           : 0K00<qdouvillez@gmail.com>                        *
- * @LastEditDate          : 2024-01-17 18:18:44                               *
+ * @LastEditDate          : 2024-01-19 17:45:43                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -55,7 +55,6 @@ export class PermsService {
             hasPermission = false;
         } else if (typeof action === "object") {
           const sActions = action["actions"] as string[];
-          console.log(sActions);
           
           for (const sAction of sActions) {
             const subActions = permissions[elementType][action["type"]][sAction];

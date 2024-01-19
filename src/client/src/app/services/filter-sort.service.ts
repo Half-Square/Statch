@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @Author                : 0K00<qdouvillez@gmail.com>                       *
  * @CreatedDate           : 2024-01-11 14:55:06                              *
- * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2024-01-11 14:55:06                              *
+ * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
+ * @LastEditDate          : 2024-01-19 17:45:47                              *
  ****************************************************************************/
 
 import { Injectable } from "@angular/core";
@@ -112,7 +112,25 @@ export class FilterSortService {
     items: T[],
     sortBy: any
   ): T[] {
-    return _.orderBy(items, sortBy.map((el: any) => el.id), Array(sortBy.length).fill("asc") as ("asc" | "desc")[]);
+    let sortItems = _.cloneDeep(items);
+
+    sortBy.map((sort: any) => {
+      if(sort.id === "level")
+        sortItems = this.sortLevels(sortItems);
+      if(sort.id === "status")
+        sortItems = this.sortStatus(sortItems);
+      if(sort.id === "labels")
+        sortItems = _.orderBy(sortItems, "labels", ["asc"]);
+      if(sort.id === "assignments")
+        sortItems = _.orderBy(sortItems, "assignments", ["asc"]);
+      if(sort.id === "actualVersion")
+        sortItems = _.orderBy(sortItems, "actualVersion", ["asc"]);
+      if(sort.id === "targetVersion")
+        sortItems = _.orderBy(sortItems, "targetVersion", ["asc"]);
+    });
+
+    return sortItems;
+
   }
   /***/
 
