@@ -2,7 +2,7 @@
  * @Author                : 0K00<qdouvillez@gmail.com>                       *
  * @CreatedDate           : 2023-09-22 18:44:16                              *
  * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
- * @LastEditDate          : 2023-11-30 16:49:55                              *
+ * @LastEditDate          : 2024-01-15 17:10:46                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -33,6 +33,7 @@ import { FilterSortService } from "src/app/services/filter-sort.service";
 
 /* Interfaces */
 import { ILabels, IProjects, ITasks, ITickets, IUsers, IVersions } from "src/app/interfaces";
+import { PermissionsService } from "src/app/services/permissions.service";
 /***/
 
 type ProjectSortKey = keyof IProjects;
@@ -97,7 +98,8 @@ export class PttAllView implements OnInit, OnDestroy {
               private toast: ToastService,
               private user: UserService,
               private route: ActivatedRoute,
-              private filterSort: FilterSortService) {
+              private filterSort: FilterSortService,
+              public perm: PermissionsService) {
   }
 
   ngOnInit(): void {
@@ -150,7 +152,7 @@ export class PttAllView implements OnInit, OnDestroy {
   /**
   * Create new item
   */
-  public createItem(): void {
+  public async createItem(): Promise<void> {
     let url = "";
 
     switch(this.type) {

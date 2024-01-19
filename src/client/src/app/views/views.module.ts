@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @Author                : 0K00<qdouvillez@gmail.com>                       *
  * @CreatedDate           : 2023-06-01 15:46:03                              *
- * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-10-03 11:17:32                              *
+ * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
+ * @LastEditDate          : 2024-01-18 12:21:45                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -39,6 +39,7 @@ import { UsersSettingsView } from "./settings/users-settings/users-settings.view
 import { MyActivitiesView } from "./my-activities/my-activities.view";
 import { FirstLaunchView } from "./first-launch/first-launch.view";
 import { DatabaseSettingsView } from "./settings/database-settings/database-settings.view";
+import { RolesView } from "./settings/roles/roles.view";
 /***/
 
 @NgModule({
@@ -56,7 +57,8 @@ import { DatabaseSettingsView } from "./settings/database-settings/database-sett
     UsersSettingsView,
     MyActivitiesView,
     FirstLaunchView,
-    DatabaseSettingsView
+    DatabaseSettingsView,
+    RolesView
   ],
   imports: [
     CommonModule,
@@ -81,7 +83,8 @@ import { DatabaseSettingsView } from "./settings/database-settings/database-sett
     UsersSettingsView,
     MyActivitiesView,
     FirstLaunchView,
-    DatabaseSettingsView
+    DatabaseSettingsView,
+    RolesView
   ]
 })
 export class ViewsModule {}

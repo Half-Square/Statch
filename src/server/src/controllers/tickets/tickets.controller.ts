@@ -1,8 +1,8 @@
 /******************************************************************************
- * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
+ * @Author                : 0K00<qdouvillez@gmail.com>                        *
  * @CreatedDate           : 2023-06-24 13:45:04                               *
- * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-09-27 14:32:03                               *
+ * @LastEditors           : 0K00<qdouvillez@gmail.com>                        *
+ * @LastEditDate          : 2024-01-17 14:40:13                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -31,7 +31,8 @@ import {
   HttpException,
   HttpStatus,
   UseGuards,
-  UseInterceptors
+  UseInterceptors,
+  SetMetadata
 } from "@nestjs/common";
 import { Ticket } from "@prisma/client";
 import * as jwt from "jsonwebtoken";
@@ -44,10 +45,12 @@ import * as ticketsDto from "./tickets.dto";
 /* Services */
 import { SocketService } from "src/services/socket/socket.service";
 import { PrismaService } from "src/prisma.service";
+import { PermsService } from "src/services/perms/perms.service";
 /***/
 
 /* Guards */
 import { IsConnectedGuard } from "src/guards/is-connected.guard";
+import { IsPermissionsGuard } from "src/guards/is-perms.guard";
 /***/
 
 /* Interceptors */
@@ -58,7 +61,8 @@ import { ActivitiesInterceptor } from "../activities/activities.interceptor";
 @UseGuards(IsConnectedGuard)
 export class TicketsController {
   constructor(private socket: SocketService,
-              private prisma: PrismaService) {
+              private prisma: PrismaService,
+              private perm: PermsService) {
   }
 
   /**
@@ -66,6 +70,8 @@ export class TicketsController {
   * @return - Tickets list 
   */
   @Get("tickets")
+  @UseGuards(IsPermissionsGuard)
+  @SetMetadata("permissions", [{type: "tickets", actions: ["view"]}])
   async getAll(): Promise<Ticket[]> {
     try {
       return await this.prisma.ticket.findMany({
@@ -86,6 +92,8 @@ export class TicketsController {
   * @return - Ticket's details 
   */
   @Get("tickets/:id")
+  @UseGuards(IsPermissionsGuard)
+  @SetMetadata("permissions", [{type: "tickets", actions: ["view"]}])
   async getById(@Param("id") id: string): Promise<Ticket> {
     try {
       const ticket = await this.prisma.ticket.findUnique({
@@ -111,6 +119,8 @@ export class TicketsController {
   */
   @Post("tasks/:id/tickets")
   @UseInterceptors(ActivitiesInterceptor)
+  @UseGuards(IsPermissionsGuard)
+  @SetMetadata("permissions", [{type: "tickets", actions: ["create"]}])
   async create(
     @Param("id") id: string,
     @Headers("x-token") token: string,
@@ -153,34 +163,53 @@ export class TicketsController {
   @UseInterceptors(ActivitiesInterceptor)
   async update(
     @Param("id") id: string,
-    @Body() body: ticketsDto.UpdateInput
+    @Body() body: ticketsDto.UpdateInput,
+    @Headers("x-token") token: string
   ): Promise<Ticket> {
     try {
-      const ticket = await this.prisma.ticket.update({
-        where: {id: id},
-        data: {
-          ...body,
-          assignments: body.assignments ? {
-            deleteMany: {},
-            create: body.assignments.map((el) => {
-              return {userId: el.userId};
-            })
-          } : undefined,
-          labels: body.labels ? {
-            deleteMany: {},
-            create: body.labels.map((el) => {
-              return {labelId: el.labelId};
-            })
-          } : undefined
-        },
+      const user = await this.prisma.user.findFirst({
+        where: { id: jwt.verify(token, process.env.SALT).id },
         include: {
-          labels: true,
-          assignments: true
+          role: true
         }
       });
 
-      this.socket.broadcast("tickets", ticket);
-      return ticket;
+      const canUpdate = await this.perm.updateData(
+        body, 
+        id, 
+        "tickets", 
+        user, 
+        ["assignments", "targetVersionId", "status", "labels", "level", "title", "description"]);
+      
+      if(canUpdate) {
+        const ticket = await this.prisma.ticket.update({
+          where: {id: id},
+          data: {
+            ...body,
+            assignments: body.assignments ? {
+              deleteMany: {},
+              create: body.assignments.map((el) => {
+                return {userId: el.userId};
+              })
+            } : undefined,
+            labels: body.labels ? {
+              deleteMany: {},
+              create: body.labels.map((el) => {
+                return {labelId: el.labelId};
+              })
+            } : undefined
+          },
+          include: {
+            labels: true,
+            assignments: true
+          }
+        });
+  
+        this.socket.broadcast("tickets", ticket);
+        return ticket;
+      } else {
+        throw new HttpException("You do not have the necessary permission to perform this action", HttpStatus.NOT_MODIFIED);
+      }
     } catch (err) {
       throw err;
     }
@@ -194,6 +223,8 @@ export class TicketsController {
   */
   @Delete("tickets/:id")
   @UseInterceptors(ActivitiesInterceptor)
+  @UseGuards(IsPermissionsGuard)
+  @SetMetadata("permissions", [{type: "tickets", actions: ["delete"]}])
   async deleteById(@Param("id") id: string): Promise<{message: string}> {
     try {
       await this.prisma.ticket.delete({where: {id: id}});

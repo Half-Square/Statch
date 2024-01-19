@@ -1,8 +1,8 @@
 /******************************************************************************
- * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
+ * @Author                : 0K00<qdouvillez@gmail.com>                        *
  * @CreatedDate           : 2023-06-01 15:15:39                               *
- * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-11-28 18:33:14                               *
+ * @LastEditors           : 0K00<qdouvillez@gmail.com>                        *
+ * @LastEditDate          : 2024-01-17 19:24:39                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -24,6 +24,7 @@ import {
   Get,
   Param,
   Body,
+  Headers,
   HttpException,
   HttpStatus,
   UseGuards,
@@ -33,10 +34,12 @@ import { sha256 } from "js-sha256";
 import * as jwt from "jsonwebtoken";
 import { Assignment } from "@prisma/client";
 import * as fs from "fs";
+import { resolve } from "path";
 /***/
 
 /* Services */
 import { PrismaService } from "src/prisma.service";
+import { PermsService } from "src/services/perms/perms.service";
 /***/
 
 /* Dto */
@@ -46,13 +49,13 @@ import * as usersDto from "./users.dto";
 /* Guards */
 import { IsConnectedGuard } from "src/guards/is-connected.guard";
 import { IsSelfGuard } from "src/guards/is-self.guard";
-import { resolve } from "path";
 import { IsAdminGuard } from "src/guards/is-admin.guard";
 /***/
 
 @Controller("api")
 export class UsersController {
-  constructor(private prisma: PrismaService) {
+  constructor(private prisma: PrismaService, 
+              private perm: PermsService) {
   }
 
   /**
@@ -68,13 +71,16 @@ export class UsersController {
       let passwd = String(sha256(body.password));
       let count = await (await this.prisma.user.findMany()).length;
 
+      const defaultRole = await this.prisma.role.findFirst({ where: { name: "default" } });      
+
       const res = await this.prisma.user.create({
         data: {
           name: body.name,
           password: passwd,
           email: body.email,
           validate: count === 0,
-          isAdmin: count === 0 
+          isAdmin: count === 0,
+          roleId: defaultRole.id
         }
       });
       return new usersDto.DetailsOutput(res);
@@ -98,7 +104,12 @@ export class UsersController {
   @Post("login")
   async login(@Body() body: usersDto.ConnectInput): Promise<usersDto.ConnectOutput> {
     try {
-      const res = await this.prisma.user.findUnique({where: {email: body.email}});
+      const res = await this.prisma.user.findUnique({
+        where: {email: body.email}, 
+        include: { 
+          role: true
+        }
+      });
       if (!res) throw new HttpException("Not Found", HttpStatus.NOT_FOUND);
 
 
@@ -151,22 +162,51 @@ export class UsersController {
   */
   @Put("users/:id")
   @UseGuards(IsSelfGuard)
-  async updateProfile(@Param("id") id: string, @Body() body: usersDto.UpdateInput): Promise<usersDto.ConnectOutput> {
-    if (body.oldPicture) fs.unlinkSync(resolve("upload")+"/"+body.oldPicture);
+  async updateProfile(
+    @Param("id") id: string, 
+    @Body() body: usersDto.UpdateInput,
+    @Headers("x-token") token: string
+  ): Promise<usersDto.ConnectOutput> {
+    try {
+      const userInfo = await this.prisma.user.findFirst({
+        where: { id: jwt.verify(token, process.env.SALT).id },
+        include: {
+          role: true
+        }
+      });
 
-    delete body.oldPicture;
-
-    let user = await this.prisma.user.update({
-      where: {id: id},
-      data: body
-    });
-
-    user["token"] = jwt.sign(user, process.env.SALT, {
-      algorithm: "HS256",
-      expiresIn: process.env.SESSION_TIME
-    });
-
-    return new usersDto.ConnectOutput(user);
+      const canUpdate = await this.perm.updateData(
+        body, 
+        id, 
+        "profile", 
+        userInfo, 
+        ["name", "email", "picture"]);
+      
+      if(canUpdate) {
+        if (body.oldPicture) fs.unlinkSync(resolve("upload")+"/"+body.oldPicture);
+  
+        delete body.oldPicture;
+    
+        let user = await this.prisma.user.update({
+          where: {id: id},
+          include: {
+            role: true
+          },
+          data: body
+        });
+    
+        user["token"] = jwt.sign(user, process.env.SALT, {
+          algorithm: "HS256",
+          expiresIn: process.env.SESSION_TIME
+        });
+    
+        return new usersDto.ConnectOutput(user);
+      } else {
+        throw new HttpException("You do not have the necessary permission to perform this action", HttpStatus.NOT_MODIFIED);
+      }
+    } catch (err) {
+      throw err;
+    }
   }
   /***/
 

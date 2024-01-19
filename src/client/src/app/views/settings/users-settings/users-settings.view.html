@@ -1,8 +1,8 @@
 <!--
-* @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>
+* @Author                : 0K00<qdouvillez@gmail.com>
 * @CreatedDate           : 2023-09-29 09:37:00
-* @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>
-* @LastEditDate          : 2023-09-29 09:53:46
+* @LastEditors           : 0K00<qdouvillez@gmail.com>
+* @LastEditDate          : 2024-01-17 19:01:48
 -->
 
 <div class="view-users-settings">
@@ -12,8 +12,8 @@
         <div>{{user.id}}</div>
         <div>{{user.name}}</div>
         <div>{{user.email}}</div>
-        <core-checkbox label="Is admin" [(checked)]="user.isAdmin" (checkedChange)="updateUser(user.id)"/>
-        <core-checkbox label="Is Validated" [(checked)]="user.validate" (checkedChange)="updateUser(user.id)"/>
+        <core-checkbox [disabled]="!perm.check({type: 'users', actions: ['update']})" label="Is admin" [(checked)]="user.isAdmin" (checkedChange)="updateUser(user.id)"/>
+        <core-checkbox [disabled]="!perm.check({type: 'users', actions: ['update']})" label="Is Validated" [(checked)]="user.validate" (checkedChange)="updateUser(user.id)"/>
       </div>
     </div>
   </ng-template>

@@ -1,8 +1,8 @@
 <!--
-* @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>
+* @Author                : 0K00<qdouvillez@gmail.com>
 * @CreatedDate           : 2023-11-16 15:39:00
-* @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>
-* @LastEditDate          : 2024-01-15 16:55:00
+* @LastEditors           : 0K00<qdouvillez@gmail.com>
+* @LastEditDate          : 2024-01-16 19:12:53
 -->
 
 <div class="view-database-settings">
@@ -11,7 +11,7 @@
 
     <div class="input-file">
       <input type="file" accept="*.db" #file />
-      <core-button label="Import database" type="flat" (click)="import()" />
+      <core-button [disabled]="!perm.check({type: 'database', actions: ['import']})" label="Import database" type="flat" (click)="import()" />
     </div>
 
     <div class="input-file">
@@ -22,7 +22,7 @@
 
   <section>
     <h3>Export</h3>
-    <core-button label="Dump database" type="flat" (click)="dump()" />
-    <core-button label="Dump images" type="flat" (click)="dumpImg()" />
+    <core-button [disabled]="!perm.check({type: 'database', actions: ['export']})" label="Dump database" type="flat" (click)="dump()" />
+    <core-button [disabled]="!perm.check({type: 'database', actions: ['export']})" label="Dump images" type="flat" (click)="dumpImg()" />
   </section>
 </div>

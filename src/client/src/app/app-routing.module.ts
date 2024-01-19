@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @Author                : 0K00<qdouvillez@gmail.com>                       *
  * @CreatedDate           : 2023-05-31 15:03:46                              *
- * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-11-16 15:38:00                              *
+ * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
+ * @LastEditDate          : 2024-01-17 15:06:50                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -22,6 +22,7 @@ import { TypeGuard } from "./guards/type-guard.service";
 import { IsConnectedGuard } from "./guards/is-connected.guard";
 import { IsNotConnectedGuard } from "./guards/is-not-connected.guard";
 import { IsAdminGuard } from "./guards/is-admin.guard";
+import { RulesGuard } from "./guards/rules.guard";
 /***/
 
 /* Views */
@@ -39,6 +40,7 @@ import { UsersSettingsView } from "./views/settings/users-settings/users-setting
 import { MyActivitiesView } from "./views/my-activities/my-activities.view";
 import { FirstLaunchView } from "./views/first-launch/first-launch.view";
 import { DatabaseSettingsView } from "./views/settings/database-settings/database-settings.view";
+import { RolesView } from "./views/settings/roles/roles.view";
 /***/
 
 /* Routes */
@@ -50,10 +52,41 @@ const routes: Routes = [
   { path: "profile", component: ProfileView, canActivate: [IsConnectedGuard] },
   { path: "settings", component: SettingsView, canActivate: [IsConnectedGuard],
     children: [
-      { path: "labels", component: LabelsSettingsView, canActivate: [IsConnectedGuard ]},
-      { path: "smtp", component: SmtpSettingsView, canActivate: [IsConnectedGuard, IsAdminGuard] },
-      { path: "users", component: UsersSettingsView, canActivate: [IsConnectedGuard, IsAdminGuard] },
-      { path: "database", component: DatabaseSettingsView, canActivate: [IsConnectedGuard, IsAdminGuard] },
+      { path: "labels", component: LabelsSettingsView, canActivate: [IsConnectedGuard, RulesGuard],
+        data: {
+          requiredPermissions: [
+            { type: "labels", actions: ["view"] }
+          ]
+        }
+      },
+      { path: "smtp", component: SmtpSettingsView, canActivate: [IsConnectedGuard, RulesGuard],
+        data: {
+          requiredPermissions: [
+            { type: "smtp", actions: ["view"] }
+          ]
+        }
+      },
+      { path: "users", component: UsersSettingsView, canActivate: [IsConnectedGuard, IsAdminGuard, RulesGuard],
+        data: {
+          requiredPermissions: [
+            { type: "users", actions: ["view"] }
+          ]
+        }
+      },
+      { path: "database", component: DatabaseSettingsView, canActivate: [IsConnectedGuard, IsAdminGuard, RulesGuard],
+        data: {
+          requiredPermissions: [
+            { type: "database", actions: ["view"] }
+          ]
+        }
+      },
+      { path: "roles", component: RolesView, canActivate: [IsConnectedGuard, IsAdminGuard, RulesGuard],
+        data: {
+          requiredPermissions: [
+            { type: "permissions", actions: ["view"] }
+          ]
+        }
+      },
       { path: "", pathMatch: "full", redirectTo: "/settings/labels"}
     ]
   },
@@ -62,8 +95,20 @@ const routes: Routes = [
 
   { path: "my-tasks", component: MyTasksView, canActivate: [IsConnectedGuard] },
   { path: "my-activities", component: MyActivitiesView, canActivate: [IsConnectedGuard] },
-  { path: ":type", component: PttAllView, canActivate: [IsConnectedGuard, TypeGuard] },
-  { path: ":type/:id", component: PttView, canActivate: [TypeGuard, IsConnectedGuard] },
+  { path: ":type", component: PttAllView, canActivate: [IsConnectedGuard, TypeGuard, RulesGuard],
+    data: {
+      requiredPermissions: [
+        { type: "pttType", actions: ["view"] }
+      ]
+    }
+  },
+  { path: ":type/:id", component: PttView, canActivate: [TypeGuard, IsConnectedGuard, RulesGuard],
+    data: {
+      requiredPermissions: [
+        { type: "pttType", actions: ["view"] }
+      ]
+    }
+  },
 
 
   { path: "", pathMatch: "full", redirectTo: "/projects" },

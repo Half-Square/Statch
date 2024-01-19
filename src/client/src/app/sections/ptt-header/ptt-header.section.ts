@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @Author                : 0K00<qdouvillez@gmail.com>                       *
  * @CreatedDate           : 2023-09-27 14:08:53                              *
- * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-10-02 19:30:18                              *
+ * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
+ * @LastEditDate          : 2024-01-16 18:22:42                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -28,6 +28,7 @@ import {
 
 /* Interfaces */
 import { IProjects, ITasks, ITickets } from "src/app/interfaces";
+import { PermissionsService } from "src/app/services/permissions.service";
 /***/
 
 @Component({
@@ -37,6 +38,7 @@ import { IProjects, ITasks, ITickets } from "src/app/interfaces";
 })
 export class PttHeaderSection {
   @Input() item: IProjects | ITasks | ITickets;
+  @Input() type: string;
   @Output() itemChange = new EventEmitter<IProjects | ITasks | ITickets>();
   public hasPublish: boolean = false;
 
@@ -51,7 +53,7 @@ export class PttHeaderSection {
   public contentEl: {name: string, description: string};
   public contentDesc: string;
 
-  constructor(private renderer: Renderer2) {
+  constructor(private renderer: Renderer2, public perm: PermissionsService) {
     this.onFocusEnd();
   }
 

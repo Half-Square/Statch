@@ -1,0 +1,37 @@
+<!--
+* @Author                : 0K00<qdouvillez@gmail.com>
+* @CreatedDate           : 2024-01-18 12:45:00
+* @LastEditors           : 0K00<qdouvillez@gmail.com>
+* @LastEditDate          : 2024-01-19 17:00:24
+-->
+
+<div class="perms">
+
+  <div class="perm" *ngFor="let perm of perms | keyvalue; let i = index;">
+
+    <div class="container" [ngClass]="{'disabled': !isDisabled(perm.key)}" *ngIf="perm.key != 'view'">
+      <label class="label" [ngClass]="{'disabled': !getPermissionValue(perm.key)}" >
+        <span class="text">{{perm.key}}</span>
+        <core-badge *ngIf="getLength(perm.key) > 0" [style]="!isDisabled(perm.key) ? 'passive' : 'informative'" [size]="'small'" [label]="getLength(perm.key) - 1 + ' Rules'" />
+      </label>
+      <core-checkbox
+        *ngIf="hasChild(perm.key)"
+        [checked]="getPermissionValue(perm.key, true)"
+        (change)="update(perm.key, true)"
+      ></core-checkbox>
+
+      <core-checkbox
+        [disabled]="!isDisabled(perm.key)"
+        *ngIf="!hasChild(perm.key)"
+        [checked]="getPermissionValue(perm.key)"
+        (change)="update(perm.key)"
+      ></core-checkbox>
+    </div>
+
+    <div [ngStyle]="{'padding-left': '24px'}" *ngIf="isObject(getPermissionValue(perm.key))">
+      <section-perms [ngClass]="'children'" *ngIf="isDisabled(perm.key)" [perms]="getPermissionValue(perm.key)" (callback)="updateFromChild(perm.key, $event)"></section-perms>
+    </div>
+
+  </div>
+
+</div>

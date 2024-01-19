@@ -1,8 +1,8 @@
 /******************************************************************************
- * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
+ * @Author                : 0K00<qdouvillez@gmail.com>                        *
  * @CreatedDate           : 2023-09-22 16:14:03                               *
- * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-11-28 17:47:25                               *
+ * @LastEditors           : 0K00<qdouvillez@gmail.com>                        *
+ * @LastEditDate          : 2024-01-17 14:39:53                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -26,12 +26,14 @@ import {
   Put,
   Body,
   HttpException,
-  HttpStatus
+  HttpStatus,
+  SetMetadata
 } from "@nestjs/common";
 /***/
 
 /* Guards */
 import { IsAdminGuard } from "src/guards/is-admin.guard";
+import { IsPermissionsGuard } from "src/guards/is-perms.guard";
 /***/
 
 /* Dto */
@@ -65,7 +67,8 @@ export class SettingsController {
   * @return - Smtp settings 
   */
   @Get("smtp")
-  @UseGuards(IsAdminGuard)
+  @UseGuards(IsAdminGuard, IsPermissionsGuard)
+  @SetMetadata("permissions", [{type: "smtp", actions: ["view"]}])
   getSmtp(): settingsDto.PublicSmtpOutput {
     let settings = this.settings.getSettings();
     return new settingsDto.PublicSmtpOutput(settings.smtp);
@@ -78,7 +81,8 @@ export class SettingsController {
   * @return - Smtp settings 
   */
   @Put("smtp")
-  @UseGuards(IsAdminGuard)
+  @UseGuards(IsAdminGuard, IsPermissionsGuard)
+  @SetMetadata("permissions", [{type: "smtp", actions: ["update"]}])
   updateSmtp(@Body() body: settingsDto.UpdateSmtpInput): settingsDto.PublicSmtpOutput {
     let settings = this.settings.getSettings();
     
