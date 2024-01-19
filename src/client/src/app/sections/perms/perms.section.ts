@@ -1,9 +1,9 @@
-/******************************************************************************
- * @Author                : 0K00<qdouvillez@gmail.com>                        *
- * @CreatedDate           : 2024-01-18 12:49:55                               *
- * @LastEditors           : 0K00<qdouvillez@gmail.com>                        *
- * @LastEditDate          : 2024-01-19 16:44:15                               *
- *****************************************************************************/
+/*****************************************************************************
+ * @Author                : 0K00<qdouvillez@gmail.com>                       *
+ * @CreatedDate           : 2024-01-18 12:49:55                              *
+ * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
+ * @LastEditDate          : 2024-01-19 17:54:40                              *
+ ****************************************************************************/
 
 import { Component, Input, Output, EventEmitter } from "@angular/core";
 
@@ -70,8 +70,6 @@ export class PermsSection {
    * @returns Value of perm
    */
   getPermissionValue(key: unknown, parent?: boolean): any {
-    console.log(this.perms[key as string]);
-
     if(parent)
       return this.perms[key as string].view;
     else
