@@ -1,9 +1,9 @@
-/******************************************************************************
- * @Author                : 0K00<qdouvillez@gmail.com>                        *
- * @CreatedDate           : 2024-01-12 16:58:25                               *
- * @LastEditors           : 0K00<qdouvillez@gmail.com>                        *
- * @LastEditDate          : 2024-01-17 19:27:36                               *
- *****************************************************************************/
+/*****************************************************************************
+ * @Author                : 0K00<qdouvillez@gmail.com>                       *
+ * @CreatedDate           : 2024-01-12 16:58:25                              *
+ * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
+ * @LastEditDate          : 2024-01-19 17:45:46                              *
+ ****************************************************************************/
 
 import { Injectable } from "@angular/core";
 import { ToastService } from "./toast.service";
@@ -33,8 +33,6 @@ export class PermissionsService {
 
     if(!rule)
       return true;
-
-    console.log(rule, this.permissions);
 
     const typePermissions = this.permissions[rule.type];
     if(typeof typePermissions !== "object" || typePermissions === null)
