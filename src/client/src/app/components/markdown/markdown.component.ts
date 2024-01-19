@@ -2,7 +2,12 @@
 import { Component, OnInit, Output, ViewChild, EventEmitter, Input, OnChanges, SimpleChanges, ElementRef } from "@angular/core";
 import { DomSanitizer } from "@angular/platform-browser";
 import { environment as env, environment } from "src/environments/environment";
-/***/
+/*****************************************************************************
+ * @Author                : 0K00<qdouvillez@gmail.com>                       *
+ * @CreatedDate           : 2024-01-19 17:57:05                              *
+ * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
+ * @LastEditDate          : 2024-01-19 17:57:46                              *
+ ****************************************************************************/
 
 /* Interfaces */
 import { IComments, IProjects, ITasks, ITickets, IUsers } from "src/app/interfaces";
@@ -180,7 +185,7 @@ export class MarkdownComponent implements OnInit, OnChanges {
         return node;
       }
     }
-    Quill.register(ImageBlot);
+    Quill.register(ImageBlot, true);
     /***/
 
     /**
@@ -198,7 +203,7 @@ export class MarkdownComponent implements OnInit, OnChanges {
     }
     StyledMentionBlot["blotName"] = "styled-mention";
 
-    Quill.register(StyledMentionBlot);
+    Quill.register(StyledMentionBlot, true);
     /***/
 
     /**
