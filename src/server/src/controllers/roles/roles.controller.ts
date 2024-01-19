@@ -2,7 +2,7 @@
  * @Author                : 0K00<qdouvillez@gmail.com>                        *
  * @CreatedDate           : 2023-06-13 14:10:50                               *
  * @LastEditors           : 0K00<qdouvillez@gmail.com>                        *
- * @LastEditDate          : 2024-01-17 19:45:06                               *
+ * @LastEditDate          : 2024-01-19 14:59:00                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -130,6 +130,7 @@ export class RolesController {
         data: {
           name: body.name,
           permissions: JSON.stringify(body.permissions),
+          default: false,
           users: body.users ? {
             connect: body.users.map(el => {
               return el;
@@ -158,11 +159,13 @@ export class RolesController {
     @Param("id") id: string,
     @Body() body: rolesDTO.UpdateInput): Promise<Role[]> {
     try {
+      const oldRole = await this.prisma.role.findUnique({where: {id: id}});
 
       const role = await this.prisma.role.update({
         where: {id: id},
         data: {
           ...body,
+          default: oldRole.default ? true : false,
           users: body.users ? {
             connect: body.users.map(el => {
               return el;
@@ -201,7 +204,11 @@ export class RolesController {
   @SetMetadata("permissions", [{type: "permissions", actions: ["delete"]}])
   async deleteById(@Param("id") id: string): Promise<{message: string}> {
     try {
-      await this.prisma.role.delete({where: {id: id}});
+      const oldRole = await this.prisma.role.findUnique({where: {id: id}});
+      if(!oldRole.default)
+        await this.prisma.role.delete({where: {id: id}});
+      else
+        throw new HttpException("You cannot delete this role", HttpStatus.NOT_ACCEPTABLE);
       this.socket.broadcast("roles", {id: id}, true);
 
       return {message: `Roles ${id} deleted`};

@@ -1,3 +1,8 @@
+:host {
+  width: 16px;
+  height: 16px;
+}
+
 .checkbox {
   // Core Functionality
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
@@ -24,7 +29,7 @@
   .checkmark {
     // Core Functionality - Checkbox mark styles
     position: absolute;
-    top: 0;
+    bottom: 0;
     left: 0;
   }
 

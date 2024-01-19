@@ -2,7 +2,7 @@
  * @Author                : 0K00<qdouvillez@gmail.com>                        *
  * @CreatedDate           : 2023-06-19 17:06:36                               *
  * @LastEditors           : 0K00<qdouvillez@gmail.com>                        *
- * @LastEditDate          : 2024-01-15 16:41:06                               *
+ * @LastEditDate          : 2024-01-19 14:39:04                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -12,7 +12,7 @@
 */
 
 /* Imports */
-import { IsArray, IsJSON, IsOptional, IsString } from "class-validator";
+import { IsArray, IsBoolean, IsJSON, IsOptional, IsString } from "class-validator";
 /***/
 
 /**
@@ -26,6 +26,8 @@ class CreateInput {
   @IsArray()
   @IsOptional()
     users: [];
+  @IsBoolean()
+    default: boolean;
 }
 /***/
 
@@ -44,6 +46,9 @@ class UpdateInput {
   @IsArray()
   @IsOptional()
     users: [];
+
+  @IsBoolean()
+    default: boolean;
 }
 /***/
 

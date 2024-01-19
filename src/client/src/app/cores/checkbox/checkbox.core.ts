@@ -2,7 +2,7 @@
  * @Author                : 0K00<qdouvillez@gmail.com>                       *
  * @CreatedDate           : 2023-06-05 17:10:01                              *
  * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
- * @LastEditDate          : 2024-01-16 19:22:15                              *
+ * @LastEditDate          : 2024-01-19 16:26:47                              *
  ****************************************************************************/
 
 import { Component, Input, Output, EventEmitter } from "@angular/core";
@@ -20,7 +20,7 @@ export class CheckboxCore {
    * The label text for the checkbox.
    */
   @Input()
-    label: string = "Label";
+    label: string = "";
 
   /**
    * Indicates whether the checkbox is checked or not.

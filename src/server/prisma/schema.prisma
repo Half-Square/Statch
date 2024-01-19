@@ -195,5 +195,6 @@ model Role {
   id            String            @default(nanoid(8)) @id
   name          String            @unique
   permissions   String
+  default       Boolean
   users         User[]
 }

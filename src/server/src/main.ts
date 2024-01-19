@@ -2,7 +2,7 @@
  * @Author                : 0K00<qdouvillez@gmail.com>                        *
  * @CreatedDate           : 2023-05-30 12:09:38                               *
  * @LastEditors           : 0K00<qdouvillez@gmail.com>                        *
- * @LastEditDate          : 2024-01-17 19:23:31                               *
+ * @LastEditDate          : 2024-01-19 14:40:17                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -27,10 +27,12 @@ async function bootstrap(): Promise<void> {
       await prismaService.role.create({
         data: {
           name: "default",
+          default: true,
           permissions: JSON.stringify([{
             projects: {
               create: false,
               update: {
+                view: true,
                 assignee: false,
                 version: false,
                 status: false,
@@ -43,6 +45,7 @@ async function bootstrap(): Promise<void> {
               delete: false,
               assignSelf: true,
               comment: {
+                view: true,
                 create: true,
                 delete: false,
                 update: false,
@@ -52,6 +55,7 @@ async function bootstrap(): Promise<void> {
             tasks: {
               create: false,
               update: {
+                view: true,
                 assignee: false,
                 version: false,
                 status: false,
@@ -64,6 +68,7 @@ async function bootstrap(): Promise<void> {
               delete: false,
               assignSelf: true,
               comment: {
+                view: true,
                 create: true,
                 delete: false,
                 update: false,
@@ -73,6 +78,7 @@ async function bootstrap(): Promise<void> {
             tickets: {
               create: false,
               update: {
+                view: true,
                 assignee: false,
                 version: false,
                 status: false,
@@ -85,6 +91,7 @@ async function bootstrap(): Promise<void> {
               delete: false,
               assignSelf: true,
               comment: {
+                view: true,
                 create: false,
                 delete: false,
                 update: false,
@@ -92,12 +99,14 @@ async function bootstrap(): Promise<void> {
               }
             },
             versions: {
+              view: true,
               create: false
             },
             labels: {
               create: false,
               view: true,
               update: {
+                view: true,
                 name: false,
                 description: false
               },
@@ -123,7 +132,9 @@ async function bootstrap(): Promise<void> {
               delete: false
             },
             profile: {
+              view: true,
               update: {
+                view: true,
                 name: true,
                 email: false,
                 picture: false

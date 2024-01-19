@@ -2,7 +2,7 @@
  * @Author                : 0K00<qdouvillez@gmail.com>                       *
  * @CreatedDate           : 2023-09-20 16:13:37                              *
  * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
- * @LastEditDate          : 2024-01-17 18:00:49                              *
+ * @LastEditDate          : 2024-01-19 14:40:30                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -283,7 +283,8 @@ interface IPermissions {
 interface IRoles {
   id: string,
   name: string,
-  permissions: [IPermissions],
+  permissions: [IPermissions] | any,
+  default: boolean,
   users: IUsers[] | undefined
 }
 
