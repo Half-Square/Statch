@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-09-27 09:58:46                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-12-02 16:49:53                               *
+ * @LastEditDate          : 2024-01-11 14:31:42                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -42,19 +42,25 @@ export class ActivitiesInterceptor implements NestInterceptor {
         tmp = await this.prisma[controller.substring(0, controller.length-1)].findUnique({where: {id: req.params["id"]}});
       }
   
-      return next.handle().pipe(map((data) => {
-        if (req.method === "POST") this.activities.handlePost(user, data, controller);
-        if (req.method === "PUT") this.activities.handlePut(user, tmp, data, controller);
-        if (req.method === "DELETE" && tmp) {
+      return next.handle().pipe(map(async(data) => {
+        if (req.method === "POST") { // Handle child creation
+          let parentId = data.projectId || data.taskId; // Get parent id
+          await this.activities.handlePost(
+            user,
+            data,
+            controller == "projects" ? "tasks" : "tickets", // Define target type
+            parentId || undefined); // Print to parent if possible
+        }
+        if (req.method === "PUT") await this.activities.handlePut(user, tmp, data, controller); // Handle update
+        if ((req.method === "POST" || req.method === "DELETE") && tmp) { // Handle child deletion
           let parentId = tmp.projectId || tmp.taskId; // Get parent id
-          this.activities.handleDelete(
+          await this.activities.handleDelete(
             user,
             {id: tmp.id, name: tmp.name},
             controller,
-            parentId || undefined
+            parentId || undefined // Print to parent if possible
           );
         }
-  
         return data;
       }));
     } catch (err) {

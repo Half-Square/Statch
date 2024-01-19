@@ -2,21 +2,30 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-09-27 09:51:47                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-12-02 17:03:30                               *
+ * @LastEditDate          : 2024-01-11 14:25:49                               *
  *****************************************************************************/
 
 /* SUMMARY
   * Imports
+  * Services
   * Interfaces
   * Handle post request
   * Handle delete request
   * Handle put request
   * Save activity
+  * Format assignement for final data
+  * Format activities
+  * Unformat activities before getting
 */
 
 /* Imports */
 import { Injectable } from "@nestjs/common";
+import { Activity, Assignment } from "@prisma/client";
+/***/
+
+/* Services */
 import { PrismaService } from "src/prisma.service";
+import { SocketService } from "src/services/socket/socket.service";
 /***/
 
 /* Interfaces */
@@ -41,7 +50,8 @@ interface IData {
 
 @Injectable()
 export class ActivitiesService {
-  constructor(private prisma: PrismaService) {
+  constructor(private prisma: PrismaService,
+              private socket: SocketService) {
   }
 
   /**
@@ -50,15 +60,25 @@ export class ActivitiesService {
   * @param data - Response data
   * @param controller - Called controller
   */
-  public handlePost(
+  public async handlePost(
     user: {id: string},
     data: {id: string, name: string},
-    controller: string): void {
-    this.save({
+    controller: string,
+    parent?: string): Promise<void> {
+    let ret = await this.save({
       actor: {type: "user", id: user.id},
       action: {type: "CREATE", curr: data.name},
-      target: {type: controller, id: data.id}
+      target: {type: controller, id: data.id},
+      toPrint: parent
     });
+
+    console.log(ret);
+    this.socket.broadcast(`users/${user.id}/activities`, this.unFormat(ret));
+    this.socket.broadcast(`${controller}/${data.id}/activities`, this.unFormat(ret));
+    if (ret.toPrint) {
+      let type = controller == "tickets" ? "tasks" : "projects";
+      this.socket.broadcast(`${type}/${parent}/activities`, this.unFormat(ret));
+    }
   }
   /***/
 
@@ -73,12 +93,19 @@ export class ActivitiesService {
     target: {id: string, name: string},
     controller: string,
     parent?: string): Promise<void> {
-    this.save({
+    let ret = await this.save({
       actor: {type: "user", id: user.id},
       action: {type: "DELETE", curr: target.name},
       target: {type: controller, id: target.id},
       toPrint: parent
     });
+
+    this.socket.broadcast(`users/${user.id}/activities`, this.unFormat(ret));
+    this.socket.broadcast(`${controller}/${target.id}/activities`, this.unFormat(ret));
+    if (ret.toPrint) {
+      let type = controller == "tickets" ? "tasks" : "projects";
+      this.socket.broadcast(`${type}/${parent}/activities`, this.unFormat(ret));
+    }
   }
   /***/
 
@@ -97,11 +124,14 @@ export class ActivitiesService {
     let diff = this.getDiff(body, res);
     
     for(let i = 0; i < diff.length; i++) {
-      await this.save({
+      let ret = await this.save({
         actor: {type: "user", id: user.id},
         action: {type: "SET", prev: diff[i].prev, curr: diff[i].curr, field: diff[i].field},
         target: {type: controller, id: res["id"]}
       });
+
+      this.socket.broadcast(`users/${user.id}/activities`, this.unFormat(ret));
+      this.socket.broadcast(`${controller}/${res["id"]}/activities`, this.unFormat(ret));
     }
   }
   /***/
@@ -126,8 +156,8 @@ export class ActivitiesService {
   * Save activity
   * @param data - Activity data
   */
-  private async save(data: IData): Promise<void> {
-    await this.prisma.activity.create({
+  private async save(data: IData): Promise<Activity> {
+    return await this.prisma.activity.create({
       data: {
         actor: JSON.stringify(data.actor),
         action: JSON.stringify(data.action),
@@ -135,6 +165,53 @@ export class ActivitiesService {
         toPrint: data.toPrint || undefined
       }
     });
+  }
+  /***/
+
+  /**
+  * Format assignement for final data
+  * @param data - Assignement item
+  * @return - Formated data 
+  */
+  public formatAssignment(data: Assignment): {target: string} {
+    let tmp = {projectId: data.projectId, tasksId: data.taskId, ticketId: data.ticketId};
+    let ret = {type: "", id: ""};
+
+    if (tmp.projectId) ret = {type: "projects", id: tmp.projectId};
+    else if (tmp.tasksId) ret = {type: "tasks", id: tmp.tasksId};
+    else if (tmp.ticketId) ret = {type: "tickets", id: tmp.ticketId};
+
+    return {target: JSON.stringify(ret)};
+  }
+  /***/
+
+  /**
+  * Format activities before saving
+  * @param data - Activity data
+  * @return - Formated data 
+  */
+  public format(data: Activity): Activity {
+    return {
+      ...data,
+      actor: JSON.parse(data.actor),
+      action: JSON.parse(data.action),
+      target: JSON.parse(data.target)
+    };
+  }
+  /***/
+
+  /**
+  * Unformat activities before getting
+  * @param data - Activity data
+  * @return - Formated data
+  */
+  public unFormat(data: Activity): Activity {
+    return data = {
+      ...data,
+      actor: JSON.parse(data.actor),
+      action: JSON.parse(data.action),
+      target: JSON.parse(data.target)
+    };
   }
   /***/
 }

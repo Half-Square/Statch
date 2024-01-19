@@ -13,10 +13,16 @@
       <input type="file" accept="*.db" #file />
       <core-button [disabled]="!perm.check({type: 'database', actions: ['import']})" label="Import database" type="flat" (click)="import()" />
     </div>
+
+    <div class="input-file">
+      <input type="file" accept="*.zip" #fileImg />
+      <core-button label="Import images" type="flat" (click)="importImg()" />
+    </div>
   </section>
 
   <section>
     <h3>Export</h3>
     <core-button [disabled]="!perm.check({type: 'database', actions: ['export']})" label="Dump database" type="flat" (click)="dump()" />
+    <core-button [disabled]="!perm.check({type: 'database', actions: ['export']})" label="Dump images" type="flat" (click)="dumpImg()" />
   </section>
 </div>

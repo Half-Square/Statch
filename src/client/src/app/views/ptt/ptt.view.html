@@ -59,7 +59,9 @@
 
         <div class="activities-list">
           <h2 class="subtitle">Last activity</h2>
-          <component-activity-item [reduce]="true" *ngFor="let activity of activities | orderBy:'created':'desc' | slice:0:10" [activity]="activity"/>
+          <component-activity-item  *ngFor="let activity of activities"
+                                    [activity]="activity"
+                                    [reduce]="true" />
         </div>
       </aside>
     </div>

@@ -12,23 +12,18 @@
 */
 
 /* Imports */
-import { Controller, UseGuards, Get, StreamableFile, Post, UseInterceptors, UploadedFile } from "@nestjs/common";
-import { SetMetadata } from "@nestjs/common/decorators";
+import { Controller, UseGuards, Get, StreamableFile, Post, UseInterceptors, UploadedFile, HttpException, HttpStatus, SetMetadata } from "@nestjs/common";
 import { FileInterceptor } from "@nestjs/platform-express";
-import { createReadStream, readdirSync, writeFileSync } from "fs";
+import { createReadStream, createWriteStream, readdirSync, writeFileSync } from "fs";
 import { resolve } from "path";
 import { IsAdminGuard } from "src/guards/is-admin.guard";
 import { IsPermissionsGuard } from "src/guards/is-perms.guard";
+import * as archiver from "archiver";
+import * as extract from "extract-zip";
 /***/
 
 @Controller("api/database")
 export class DatabaseController {
-  /*
-    @UseInterceptors(FileInterceptor("file"))
-  async upload(
-    @UploadedFile() file: Express.Multer.File
-  */
-
   /**
   * Upload database 
   */
@@ -42,7 +37,26 @@ export class DatabaseController {
     
     writeFileSync(resolve(`prisma/databases/${filename}`), file.buffer);
 
-    return {message: "Hello world"};
+    return {message: "Database uploaded !"};
+  }
+  /***/
+
+  /**
+  * Upload database 
+  */
+  @Post("upload/img")
+  @UseGuards(IsAdminGuard)
+  @UseInterceptors(FileInterceptor("file"))
+  async uploadImg(@UploadedFile() file: Express.Multer.File): Promise<{message: string}> {
+    writeFileSync(resolve("upload/images.zip"), file.buffer);
+
+    try {
+      await extract(resolve("upload/images.zip"), {dir: resolve("upload")});
+    } catch (error) {
+      throw new HttpException("Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    return {message: "Images uploaded !"};
   }
   /***/
 
@@ -56,6 +70,45 @@ export class DatabaseController {
     const files = readdirSync(resolve("prisma/databases"));
     const filename = files.find((el) => el.includes(".db"));
     return new StreamableFile(createReadStream(resolve(`prisma/databases/${filename}`)));
+  }
+  /***/
+
+  /**
+  * Download images archives 
+  */
+  @Get("dump/img")
+  @UseGuards(IsAdminGuard, IsPermissionsGuard)
+  @SetMetadata("permissions", [{type: "database", actions: ["export"]}])
+  async dumpImg(): Promise<StreamableFile> {
+    const zipFile: Promise<void> = new Promise((r, reject) => {
+      const output = createWriteStream(resolve("upload/images.zip"));
+      const archive = archiver("zip", {zlib: {level: 9}});
+      
+      output.on("close", () => {
+        return r();
+      });
+      
+      output.on("error", () => {
+        return reject();
+      });
+      
+      archive.pipe(output);
+
+      const files = readdirSync(resolve("upload"));
+      files.forEach((file) => {
+        if (!file.match(/(.*\.zip)|(\.gitkeep)/g)) {
+          archive.append(createReadStream(resolve(`upload/${file}`)), {name: file});
+        }
+      });
+
+      archive.finalize();
+    });
+    
+    await zipFile.then().catch(() => {
+      throw new HttpException("Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR);
+    });
+  
+    return new StreamableFile(createReadStream(resolve(`upload/images.zip`)));
   }
   /***/
 }
