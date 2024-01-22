@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @Author                : 0K00<qdouvillez@gmail.com>                       *
  * @CreatedDate           : 2023-03-20 16:31:02                              *
- * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-12-02 12:49:05                              *
+ * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
+ * @LastEditDate          : 2024-01-22 16:02:29                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -58,7 +58,7 @@ export class SearchBarComponent implements OnInit {
 
   ngOnInit(): void {
     let searchHistory = localStorage.getItem("searchHistory");
-    searchHistory = JSON.parse(searchHistory || "");
+    searchHistory = JSON.parse(searchHistory as string);
     if(searchHistory)
       this.history = searchHistory;
   }
