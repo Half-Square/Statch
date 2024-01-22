@@ -68,7 +68,8 @@ export class RecoveryService {
       this.options = options;
       this.socket = this.mySocket.connect(
         this.options.socketUrl,
-        this.options.socketOpt || {}
+        this.options.socketOpt || {},
+        this.user
       ); // Connect socket
     }
   }

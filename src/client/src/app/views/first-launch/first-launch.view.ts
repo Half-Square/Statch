@@ -59,7 +59,7 @@ export class FirstLaunchView {
     }).then((ret) => {
       if ((ret as {id?: string})?.id === "demo") this.user.setUser(ret as ILoggedUser);
       this.socket.disconnect();
-      this.socket.connect(`${this.host}:${this.socketPort}`, {});
+      this.socket.connect(`${this.host}:${this.socketPort}`, {}, this.user);
       this.router.navigate(["/login"]);
     }).catch((err) => {
       console.error(err);

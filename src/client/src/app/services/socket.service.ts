@@ -29,8 +29,7 @@ import { UserService } from "./user.service";
 export class SocketService {
   private socket: Socket | undefined;
 
-  constructor(private toast: ToastService,
-              private user: UserService) {
+  constructor(private toast: ToastService) {
   }
 
   /**
@@ -38,8 +37,8 @@ export class SocketService {
   * @param url - URL to connect
   * @param options - Socket options
   */
-  public connect(url: string, options: SocketOptions): Socket {
-    let token = this.user.getUser()?.token;
+  public connect(url: string, options: SocketOptions, user?: UserService): Socket {
+    let token = user?.getUser()?.token;
 
     if (!this.socket) {
       this.socket = io(url, {
@@ -52,7 +51,7 @@ export class SocketService {
       this.socket.on("error", (data) => {
         this.toast.print(data, "error");
         this.disconnect();
-        this.user.logout();
+        user?.logout();
       });
     }
 

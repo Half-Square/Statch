@@ -7,6 +7,7 @@
 
 /* SUMMARY
   * Imports
+  * Services
   * Interface
   * Check if user is connected
   * Get logged user
@@ -18,6 +19,10 @@
 /* Imports */
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
+/***/
+
+/* Services */
+import { SocketService } from "./socket.service";
 /***/
 
 /* Interfaces */
@@ -38,7 +43,8 @@ export interface ILoggedUser {
 export class UserService {
   private user: ILoggedUser | null = null;
 
-  constructor(private router: Router) {
+  constructor(private router: Router,
+              private socket: SocketService) {
   }
 
   /**
@@ -87,6 +93,7 @@ export class UserService {
   */
   public logout(): void {
     this.clearUser();
+    this.socket.disconnect();
     this.router.navigate(["/login"]);
   }
   /***/
