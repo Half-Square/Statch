@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @Author                : 0K00<qdouvillez@gmail.com>                       *
  * @CreatedDate           : 2023-09-27 14:08:53                              *
- * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-10-02 19:30:18                              *
+ * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
+ * @LastEditDate          : 2024-01-16 18:22:42                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -28,6 +28,7 @@ import {
 
 /* Interfaces */
 import { IProjects, ITasks, ITickets } from "src/app/interfaces";
+import { PermissionsService } from "src/app/services/permissions.service";
 /***/
 
 @Component({
@@ -37,19 +38,22 @@ import { IProjects, ITasks, ITickets } from "src/app/interfaces";
 })
 export class PttHeaderSection {
   @Input() item: IProjects | ITasks | ITickets;
+  @Input() type: string;
   @Output() itemChange = new EventEmitter<IProjects | ITasks | ITickets>();
+  public hasPublish: boolean = false;
 
   @ViewChild("nameEl", { static: false })
     nameEl!: ElementRef;
 
   @ViewChild("descriptionEl", { static: false })
-    descriptionEl!: ElementRef;
+    descriptionEl!: any;
 
   public editName: boolean = false;
   public editDescription: boolean = false;
   public contentEl: {name: string, description: string};
+  public contentDesc: string;
 
-  constructor(private renderer: Renderer2) {
+  constructor(private renderer: Renderer2, public perm: PermissionsService) {
     this.onFocusEnd();
   }
 
@@ -60,9 +64,9 @@ export class PttHeaderSection {
     this.renderer.listen("window", "click", (e: Event) => {
       if( (this.editName || this.editDescription) &&
           this.nameEl && this.descriptionEl &&
-          this.nameEl.nativeElement && this.descriptionEl.nativeElement &&
+          this.nameEl.nativeElement && this.descriptionEl.editor.bounds &&
           !this.nameEl.nativeElement.contains(e.target) &&
-          !this.descriptionEl.nativeElement.contains(e.target)) {
+          !this.descriptionEl.editor.bounds.contains(e.target)) {
         this.editName = false;
         this.editDescription = false;
         this.item.name = this.content().name;
@@ -85,6 +89,7 @@ export class PttHeaderSection {
       this.item.description = this.content().description;
       this.item.name = this.content().name;
       this.itemChange.emit(this.item);
+
     }
   }
   /***/
@@ -99,7 +104,6 @@ export class PttHeaderSection {
       this.nameEl.nativeElement.focus();
     } else {
       this.editDescription = true;
-      this.descriptionEl.nativeElement.focus();
     }
   }
   /***/
@@ -111,10 +115,20 @@ export class PttHeaderSection {
   public content(): {name: string, description: string} {
     this.contentEl = {
       name: this.nameEl.nativeElement.innerHTML,
-      description: this.descriptionEl.nativeElement.innerHTML
+      description: this.contentDesc || this.item.description
     };
 
     return this.contentEl;
+  }
+  /***/
+
+
+  /**
+ * Get content of markdown
+ * @param event - Content of markdown
+ */
+  public getContent(event: string): void {
+    this.contentDesc = event;
   }
   /***/
 }

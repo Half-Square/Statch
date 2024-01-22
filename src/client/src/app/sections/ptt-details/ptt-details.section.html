@@ -2,14 +2,13 @@
 * @Author                : 0K00<qdouvillez@gmail.com>
 * @CreatedDate           : 2023-09-27 16:52:00
 * @LastEditors           : 0K00<qdouvillez@gmail.com>
-* @LastEditDate          : 2023-11-25 13:25:56
+* @LastEditDate          : 2024-01-16 19:10:32
 -->
 
 <div class="ptt-details">
   <h2 class="subtitle">Details</h2>
 
   <div class="container">
-
     <div class="block id">
       <div class="heading">Id</div>
 
@@ -20,7 +19,6 @@
           <core-icon icon="copy" />
         </div>
       </div>
-
     </div>
 
     <div class="block">
@@ -37,6 +35,7 @@
 
       <div class="content">
         <component-select [data]="users"
+                          [disabled]="!perm.check({type: type, actions: [{type: 'update', actions: ['assignee']}]})"
                           [selection]="replaceUsers()"
                           placeholder="Assign to..."
                           [multi]="true"
@@ -60,6 +59,7 @@
       <div class="content">
         <component-select [data]="versions"
                           [selection]="replaceVersion()"
+                          [disabled]="!perm.check({type: type, actions: [{type: 'update', actions: ['version']}]})"
                           placeholder="Select version..."
                           (callback)="onItemChange(type === 'projects' ? 'actualVersion' : 'targetVersionId', $event)"
                           [noResult]="true"
@@ -73,6 +73,7 @@
       <div class="content">
         <component-select [data]="status"
                           [selection]="[{id: 'status', status: item.status}]"
+                          [disabled]="!perm.check({type: type, actions: [{type: 'update', actions: ['status']}]})"
                           placeholder="Select status..."
                           [hasSearch]="false"
                           (callback)="onItemChange('status', $event)"
@@ -95,6 +96,7 @@
         <component-select [data]="labels"
                           [selection]="replaceLabels()"
                           placeholder="Add label..."
+                          [disabled]="!perm.check({type: type, actions: [{type: 'update', actions: ['labels']}]})"
                           (callback)="onItemChange('labels', $event)"
                           [hasSearch]="true"
                           [multi]="true">
@@ -115,6 +117,7 @@
       <div class="content">
         <component-select [data]="levels"
                           [selection]="[{id: 'level', level: item.level}]"
+                          [disabled]="!perm.check({type: type, actions: [{type: 'update', actions: ['level']}]})"
                           placeholder="Choose level..."
                           (callback)="onItemChange('level', $event)"
                           [hasSearch]="false"

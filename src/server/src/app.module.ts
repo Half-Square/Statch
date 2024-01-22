@@ -1,8 +1,8 @@
 /******************************************************************************
- * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
+ * @Author                : 0K00<qdouvillez@gmail.com>                        *
  * @CreatedDate           : 2023-05-30 12:07:51                               *
- * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-10-06 11:48:10                               *
+ * @LastEditors           : 0K00<qdouvillez@gmail.com>                        *
+ * @LastEditDate          : 2024-01-17 12:27:57                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -29,6 +29,8 @@ import { VersionsController } from "./controllers/versions/versions.controller";
 import { SettingsController } from "./controllers/settings/settings.controller";
 import { ActivitiesController } from "./controllers/activities/activities.controller";
 import { SearchController } from "./controllers/search/search.controller";
+import { DatabaseController } from "./controllers/database/database.controller";
+import { RolesController } from "./controllers/roles/roles.controller";
 /***/
 
 /* Services */
@@ -37,7 +39,7 @@ import { SocketService } from "./services/socket/socket.service";
 import { ActivitiesService } from "./controllers/activities/activities.service";
 import { FilesController } from "./controllers/files/files.controller";
 import { SettingsService } from "./controllers/settings/settings.service";
-import { DatabaseController } from "./controllers/database/database.controller";
+import { PermsService } from "./services/perms/perms.service";
 /***/
 
 @Module({
@@ -59,13 +61,15 @@ import { DatabaseController } from "./controllers/database/database.controller";
     ActivitiesController,
     FilesController,
     SearchController,
-    DatabaseController
+    DatabaseController,
+    RolesController
   ],
   providers: [
     PrismaService,
     SocketService,
     ActivitiesService,
-    SettingsService
+    SettingsService,
+    PermsService
   ]
 })
 export class AppModule {}

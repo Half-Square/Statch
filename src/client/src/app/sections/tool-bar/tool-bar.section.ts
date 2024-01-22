@@ -2,7 +2,7 @@
  * @Author                : 0K00<qdouvillez@gmail.com>                       *
  * @CreatedDate           : 2023-09-27 14:35:32                              *
  * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
- * @LastEditDate          : 2023-11-17 14:46:01                              *
+ * @LastEditDate          : 2023-11-30 15:51:43                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -25,6 +25,7 @@ import { RecoveryService } from "src/app/services/recovery.service";
 
 /* Interfaces */
 import { ICrumbs } from "src/app/components/breadcrumbs/breadcrumbs.component";
+import { SearchService } from "src/app/services/search.service";
 /***/
 
 @Component({
@@ -43,6 +44,7 @@ export class ToolBarSection implements OnInit, OnDestroy {
 
   constructor(private router: Router,
               public nav: NavService,
+              public search: SearchService,
               public recovery: RecoveryService,
               private renderer: Renderer2) {
     this.renderer.listen("window", "click", (e: Event) => {

@@ -1,8 +1,8 @@
 /******************************************************************************
- * @Author                : 0K00<qdouvillez@gmail.com>                        *
+ * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-05-09 12:30:43                               *
- * @LastEditors           : 0K00<qdouvillez@gmail.com>                        *
- * @LastEditDate          : 2023-11-17 13:31:28                               *
+ * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
+ * @LastEditDate          : 2023-12-02 13:01:45                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -50,7 +50,6 @@ import { join, resolve } from "path";
 /***/
 
 @Controller("api/files")
-@UseGuards(IsConnectedGuard)
 export class FilesController {
   constructor(private prisma: PrismaService) {
   }
@@ -59,6 +58,7 @@ export class FilesController {
   * Get all saved file
   */
   @Get()
+  @UseGuards(IsConnectedGuard)
   async getFiles(): Promise<filesDto.FilesOutput[]> {
     try {
       const ret = await this.prisma.file.findMany();
@@ -85,6 +85,7 @@ export class FilesController {
   * @param id - File's id to get
   */
   @Get(":id")
+  @UseGuards(IsConnectedGuard)
   async getFile(@Param("id") id: string): Promise<filesDto.FilesOutput> {
     try {
       const ret = await this.prisma.file.findUnique({where: {id: id}});
@@ -102,6 +103,7 @@ export class FilesController {
   * @param file - Uploaded file
   */
   @Post()
+  @UseGuards(IsConnectedGuard)
   @UseInterceptors(FileInterceptor("file"))
   async upload(
     @UploadedFile() file: Express.Multer.File
@@ -129,6 +131,7 @@ export class FilesController {
   * @param id - File's id to remove 
   */
   @Delete(":id")
+  @UseGuards(IsConnectedGuard)
   async deleteFile(@Param("id") id: string): Promise<void> {
     try {
       const ret = await this.prisma.file.findUnique({where: {id: id}});

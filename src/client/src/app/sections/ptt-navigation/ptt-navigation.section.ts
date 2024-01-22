@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-09-20 16:09:23                              *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-11-27 14:06:22                              *
+ * @LastEditDate          : 2023-12-04 19:08:58                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -44,9 +44,10 @@ export class PttNavigationSection implements OnInit, OnDestroy {
   public tickets: ITickets[] = [];
   public _ = _;
   public open: string[] = [];
+  public status: {id: string, name: string}[] = [{id:"progress", name: "In progress"}, {id:"new", name: "New"}, {id:"wait", name: "Pending"}, {id:"reject", name: "Rejected"}, {id:"done", name: "Completed"}];
 
   private subscribers: Subscription[] = [];
-  private context: {type: string, id?: string};
+  public context: {type: string, id?: string};
 
   constructor(
     private recovery: RecoveryService,
@@ -106,21 +107,9 @@ export class PttNavigationSection implements OnInit, OnDestroy {
   */
   public hasChild(
     target: IProjects[] | ITasks[] | ITickets[],
-    cond: {projectId?: string, taskId?: string}): boolean {
+    cond: {projectId?: string, taskId?: string, status?: string}): boolean {
     if (_.find(target, cond)) return true;
     else return false;
-  }
-  /***/
-
-  /**
-   * Get size of specific data
-   * @param target - Tasks' or Tickets' data
-   * @returns - Number, length of tasks or tickets
-   */
-  public nbChild(target: IProjects[] | ITasks[] | ITickets[]): number {
-    let nb = _.size(target);
-    if(nb > 0) return nb;
-    else return 0;
   }
   /***/
 
@@ -148,6 +137,29 @@ export class PttNavigationSection implements OnInit, OnDestroy {
   /***/
 
   /**
+   * Check if status is open
+   * @param status - Status element
+   * @param type - Type of element
+   * @returns - Boolean, open or not
+   */
+  public isStatus(status: string, type: "tasks" | "tickets"): boolean {
+    if(this.context && this.context.id && this.context.type !== "projects") {
+      if(type === "tasks" && this.context.type !== "tickets") {
+        const current = _.filter(this.tasks, {id: this.context.id})[0];
+        return current.status === status ? true :  false;
+      } if (type === "tickets" && this.context.type !== "tasks") {
+        const current = _.filter(this.tickets, {id: this.context.id})[0];
+        return current.status === status ? true :  false;
+      } if (type === "tasks" && this.context.type === "tickets") {
+        const current = _.filter(this.tickets, {id: this.context.id})[0];
+        const parent = _.filter(this.tasks, {id: current.taskId})[0];
+        return parent.status === status ? true :  false;
+      } else return false;
+    } else return false;
+  }
+  /***/
+
+  /**
    * Create Child
    * @param type - Parent type
    * @param id - Parent id
@@ -155,10 +167,11 @@ export class PttNavigationSection implements OnInit, OnDestroy {
    */
   public createChild(type: string, id: string, childType: string): void {
     this.api.post(`api/${type}/${id}/${childType}`, {
-      name: `New ${childType.slice(0, -1)} ${this.nbChild(childType == "tasks" ? this.tasks : this.tickets)}`,
-      description: "..."
+      name: `New ${childType.slice(0, -1)}`,
+      description: `It's a new ${childType.slice(0, -1)}`
     }, this.user.getUser()?.token)
       .then((ret) => {
+        this.recovery.updateData(ret, childType);
         this.toast.print(`${_.capitalize(childType.slice(0, -1))} ${(ret as {id: string}).id} has been created`, "success");
         this.router.navigateByUrl(
           `${childType}/${(ret as IProjects | ITasks | ITickets).id}`

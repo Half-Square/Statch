@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-03-20 16:31:02                              *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-10-03 10:51:00                              *
+ * @LastEditDate          : 2023-12-02 12:49:05                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -12,8 +12,9 @@
 */
 
 /* Imports */
-import { Component, EventEmitter, Input, Output } from "@angular/core";
+import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { Router } from "@angular/router";
+import { CommandsService } from "src/app/services/commands.service";
 /***/
 
 /* Interfaces */
@@ -27,6 +28,7 @@ export interface ISearchResponse {
 
 /* Services */
 import { RequestService } from "src/app/services/request.service";
+import { UserService } from "src/app/services/user.service";
 /***/
 
 /* eslint-disable  @typescript-eslint/no-explicit-any */
@@ -35,19 +37,30 @@ import { RequestService } from "src/app/services/request.service";
   templateUrl: "./search-bar.component.html",
   styleUrls: ["./search-bar.component.scss"]
 })
-export class SearchBarComponent {
+export class SearchBarComponent implements OnInit {
   @Input() onSearch: boolean;
   @Output() onSearchChange = new EventEmitter<boolean>();
   public query: string = "";
   public results: Array<ISearchResponse> = []; // TO DO Cmd Interface
   public resultsSelected: any = [];
   public focusedResult: number = -1;
+  public focusedHistory: number = -1;
   public stepSearch: number = 0;
   public showBlock: boolean = false;
   public placeholderSearch: string = "Search projects or commands line...";
+  public history: any = [];
 
   constructor(private api: RequestService,
-              private router: Router) {
+              private router: Router,
+              private user: UserService,
+              private command: CommandsService) {
+  }
+
+  ngOnInit(): void {
+    let searchHistory = localStorage.getItem("searchHistory");
+    searchHistory = JSON.parse(searchHistory || "");
+    if(searchHistory)
+      this.history = searchHistory;
   }
 
 
@@ -65,7 +78,7 @@ export class SearchBarComponent {
   */
   public search(query: string): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.api.post("api/search", { query: query })
+      this.api.post("api/search", { query: query }, this.user.getUser()?.token)
         .then(data => {
           this.focusedResult = 0;
           this.results = data as ISearchResponse[];
@@ -109,6 +122,15 @@ export class SearchBarComponent {
   /***/
 
   /**
+* sets the focusedResult data property to the given index.
+* @param index - The index of the result to focus
+*/
+  public focusHistory(index: number): void {
+    this.focusedHistory = index;
+  }
+  /***/
+
+  /**
   * Follow the selected result and scroll into element.
   */
   public followFocus(event: string): void {
@@ -129,10 +151,32 @@ export class SearchBarComponent {
   */
   public selectResult(result: any): void {
     let ptt = [ "project", "task", "ticket"];
-    if (ptt.includes(result.type))
+    if (ptt.includes(result.type)) {
+      this.searchHistory(result);
       this.redirect(result);
+    }
   }
   /***/
+
+  /**
+  * Logs the selected result to the console.
+  * @param {any} result - The result to be selected
+  */
+  public selectHistory(result: any): void {
+    let ptt = [ "project", "task", "ticket"];
+    if (ptt.includes(result.type)) {
+      this.redirect(result);
+    }
+  }
+  /***/
+
+  private searchHistory(newSearch: any): void {
+    if(this.history && this.history.length >= 5)
+      this.history.pop();
+
+    this.history.unshift(newSearch);
+    localStorage.setItem("searchHistory", JSON.stringify(this.history));
+  }
 
   public handle(event: any): void {
     if(!event.altKey && event.key === "Enter")  {
@@ -145,6 +189,7 @@ export class SearchBarComponent {
   public redirect(result: any): void {
     this.router.navigate([result.type+"s", result.id ]);
     this.onSearchChange.emit(false);
+    this.command.openSearch();
   }
 
   public handleCommands(): void {
@@ -181,6 +226,7 @@ export class SearchBarComponent {
   */
   public handleEnter(): void {
     if (this.focusedResult > -1 && this.results.length > 0) {
+      this.searchHistory(this.results[this.focusedResult]);
       this.redirect(this.results[this.focusedResult]);
     }
   }

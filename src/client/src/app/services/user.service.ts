@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @Author                : 0K00<qdouvillez@gmail.com>                       *
  * @CreatedDate           : 2023-06-02 14:59:51                              *
- * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-11-28 18:55:54                              *
+ * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
+ * @LastEditDate          : 2024-01-15 17:01:44                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -27,7 +27,8 @@ export interface ILoggedUser {
   email: string,
   token: string,
   isAdmin: boolean,
-  picture: string
+  picture: string,
+  role: string[]
 }
 /***/
 

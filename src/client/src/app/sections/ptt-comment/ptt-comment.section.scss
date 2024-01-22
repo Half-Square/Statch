@@ -23,6 +23,12 @@
       justify-content: space-between;
       align-items: center;
 
+      .option {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
       .date {
         font-style: normal;
         font-weight: 500;

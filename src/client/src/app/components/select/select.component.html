@@ -1,35 +1,46 @@
 <!--
-* @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>
+* @Author                : 0K00<qdouvillez@gmail.com>
 * @CreatedDate           : 2023-09-15 12:53:00
-* @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>
-* @LastEditDate          : 2023-10-06 11:32:48
+* @LastEditors           : 0K00<qdouvillez@gmail.com>
+* @LastEditDate          : 2024-01-16 18:35:55
 -->
 
 <div class="select {{other}}" #selector>
   <div (click)="toggleMenu($event)" class="control" ngClass="{{showMenu ? 'active' : ''}}">
-    <div ngClass="{{!showMenu && selection && selection.length && selection.length > 0 ? '' : 'hidden'}}" class="selections">
+    <div ngClass="{{!showMenu && selection && selection.length && selection.length > 0 && !filter ? '' : 'hidden'}}" class="selections">
       <div *ngFor="let select of selection | slice:0:2" class="selection">
         <div class="ellipsis">
 
           <ng-container
-            *ngIf="selectedTemplateRef"
+            *ngIf="selectedTemplateRef && !filter"
             [ngTemplateOutlet]="selectedTemplateRef"
             [ngTemplateOutletContext]="{$implicit:select}"
           >
           </ng-container>
 
-          <ng-container *ngIf="!selectedTemplateRef">
+          <ng-container *ngIf="!selectedTemplateRef && !filter">
             {{select.name}}
           </ng-container>
 
         </div>
       </div>
 
-      <div *ngIf="selection && selection.length && selection.length > 2"> + {{ selection.length - 2 }}</div>
+      <div *ngIf="selection && selection.length && selection.length > 2 && !filter"> + {{ selection.length - 2 }}</div>
     </div>
 
-    <div *ngIf="!hasSearch" class="placeholder ellipsis" ngClass="{{showMenu || !selection || selection.length == 0 ? '' : 'hidden'}}">{{placeholder}}</div>
-    <input *ngIf="hasSearch" class="control_search" (input)="onSearchChange($event.target)" ngClass="{{showMenu || !selection || selection.length == 0 ? '' : 'hidden'}}" placeholder="{{placeholder}}" #search/>
+    <div *ngIf="!hasSearch" class="placeholder ellipsis" ngClass="{{filter || (showMenu || !selection || selection.length == 0) ? '' : 'hidden'}}">
+      <ng-container
+        *ngIf="placeholderTemplateRef"
+        [ngTemplateOutlet]="placeholderTemplateRef"
+        [ngTemplateOutletContext]="{$implicit:placeholder}"
+      >
+      </ng-container>
+
+      <ng-container  *ngIf="!placeholderTemplateRef">
+        {{placeholder}}
+      </ng-container>
+    </div>
+    <input *ngIf="hasSearch" class="control_search" (input)="onSearchChange($event.target)" ngClass="{{filter || (showMenu || !selection || selection.length == 0) ? '' : 'hidden'}}" placeholder="{{placeholder}}" #search/>
 
     <core-icon [icon]="showMenu ? 'chevron-up' : 'chevron-down'"></core-icon>
 
@@ -43,7 +54,7 @@
         </div>
       </div>
 
-      <div (click)="selectedOption(option)" *ngFor="let option of data | search: searchText : noResult; let i = index" class="option" [ngClass]="shouldApplyCheck(option) === true ? 'active' : ''">
+      <div (click)="disabled ? null : selectedOption(option)" *ngFor="let option of data | search: searchText : noResult; let i = index" class="option" [ngClass]="shouldApplyCheck(option) === true ? 'active' : ''">
         <div class="ellipsis">
 
           <span *ngIf="noResult && searchText && option.fromSearch">Add </span>

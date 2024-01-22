@@ -1,8 +1,8 @@
 /******************************************************************************
- * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
+ * @Author                : 0K00<qdouvillez@gmail.com>                        *
  * @CreatedDate           : 2023-06-24 17:11:00                               *
- * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-10-02 15:22:36                               *
+ * @LastEditors           : 0K00<qdouvillez@gmail.com>                        *
+ * @LastEditDate          : 2024-01-17 14:37:59                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -28,7 +28,8 @@ import {
   UseGuards,
   HttpException,
   HttpStatus,
-  UseInterceptors
+  UseInterceptors,
+  SetMetadata
 } from "@nestjs/common";
 import { Comment } from "@prisma/client";
 import * as jwt from "jsonwebtoken";
@@ -45,6 +46,7 @@ import { PrismaService } from "src/prisma.service";
 
 /* Guards */
 import { IsConnectedGuard } from "src/guards/is-connected.guard";
+import { IsPermissionsGuard } from "src/guards/is-perms.guard";
 /***/
 
 /* Interceptors */
@@ -71,6 +73,8 @@ export class CommentsController {
    * @returns - List of all comments related to parent
    */
   @Get(":parent/:id/comments")
+  @UseGuards(IsPermissionsGuard)
+  @SetMetadata("permissions", [{type: "pttAll", actions: ["view"]}])
   async getComments(
     @Param("parent") parent: string,
     @Param("id") id: string
@@ -100,6 +104,8 @@ export class CommentsController {
   */
   @Post(":parent/:id/comments")
   @UseInterceptors(ActivitiesInterceptor)
+  @UseGuards(IsPermissionsGuard)
+  @SetMetadata("permissions", [{type: "pttAll", actions: [{type: "comment", actions: ["create"]}]}])
   async addComment(
     @Param("parent") parent: string,
     @Param("id") id: string,
@@ -144,7 +150,9 @@ export class CommentsController {
   */
   @Delete(":parent/:parentId/comments/:id")
   @UseInterceptors(ActivitiesInterceptor)
-  async deleteById(@Param("id") id: string, @Param("parentId") parentId: string): Promise<{message: string}> {
+  @UseGuards(IsPermissionsGuard)
+  @SetMetadata("permissions", [{type: "pttAll", actions: [{type: "comment", actions: ["delete"]}]}])
+  async deleteById(@Param("parent") parent: string, @Param("id") id: string, @Param("parentId") parentId: string): Promise<{message: string}> {
     try {
       await this.prisma.comment.delete({where: {id: id}});
       this.socket.broadcast(`${parent}/${parentId}/comments`, {id: id}, true);

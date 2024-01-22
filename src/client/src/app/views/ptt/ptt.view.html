@@ -1,8 +1,8 @@
 <!--
-* @Author                : Quentin<quentin@halfsquare.fr>
+* @Author                : 0K00<qdouvillez@gmail.com>
 * @CreatedDate           : 2023-09-30 15:55:00
-* @LastEditors           : Quentin<quentin@halfsquare.fr>
-* @LastEditDate          : 2023-11-16 17:20:05
+* @LastEditors           : 0K00<qdouvillez@gmail.com>
+* @LastEditDate          : 2024-01-17 18:59:11
 -->
 
 <div class="view-ptt">
@@ -16,14 +16,14 @@
 
     <div class="container">
       <div class="main">
-        <section-ptt-header [(item)]="item" (itemChange)="saveItem()"/>
+        <section-ptt-header [type]="type" [(item)]="item" (itemChange)="saveItem()"/>
 
         <div *ngIf="type != 'tickets'" class="advancement">
           <section-ptt-advancement [value]="advancement"/>
 
           <section-ptt-list [elements]="childs" [type]="childType" [versions]="versionFilters">
-            <ng-container sort>
-              {{type}}
+            <ng-container *ngIf="perm.check({type: childType, actions: ['view']})" sort>
+              {{childType}}
 
               <component-select [data]="versions"
                                 [placeholder]="'Select verions to sort...'"
@@ -34,7 +34,7 @@
               </component-select>
             </ng-container>
 
-            <div class="add" add (click)="createChild()">
+            <div *ngIf="perm.check({type: childType, actions: ['create']})" class="add" add (click)="createChild()">
               <core-icon icon="plus"></core-icon>
               Create new {{childType}}
             </div>
@@ -59,7 +59,9 @@
 
         <div class="activities-list">
           <h2 class="subtitle">Last activity</h2>
-          <component-activity-item [reduce]="true" *ngFor="let activity of activities | orderBy:'created':'desc' | slice:0:10" [activity]="activity"/>
+          <component-activity-item  *ngFor="let activity of activities"
+                                    [activity]="activity"
+                                    [reduce]="true" />
         </div>
       </aside>
     </div>

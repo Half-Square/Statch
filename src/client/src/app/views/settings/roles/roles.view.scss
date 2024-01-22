@@ -1,0 +1,134 @@
+.roles {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  padding: 32px;
+
+  .header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 8px;
+    align-items: center;
+  }
+
+  .list {
+    display: flex;
+    flex-direction: column;
+
+    .header {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border-bottom: 1px solid #3d3d3d;
+      padding-bottom: 8px;
+    }
+
+    .roles-list {
+      display: flex;
+      flex-direction: column;
+      overflow: auto;
+      padding-bottom: 8px;
+      padding-top: 8px;
+      height: calc(100vh - 203px - 16px);
+
+      .role {
+        display: grid;
+        align-items: center;
+        grid-template-columns: 1fr 1fr;
+        padding: 8px 16px;
+        border-radius: 8px;
+        cursor: pointer;
+        height: 24px;
+
+        &:hover {
+          background: #2E2E2E;
+        }
+
+        .name {
+          text-transform: capitalize;
+        }
+
+        .number.none {
+          color: #3d3d3d;
+        }
+        .assignee.gap {
+          gap: 4px;
+        }
+
+        .members {
+          display: flex;
+          flex-direction: row;
+          gap: 8px;
+        }
+
+        .number {
+          display: flex;
+
+          .label.more {
+            transform: translateX(16px);
+            z-index: 2;
+          }
+          .label.more:nth-child(2) {
+            z-index: 3;
+            transform: translateX(8px);
+          }
+
+          .label.avatar {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            cursor: pointer;
+            font-size: 12px;
+            line-height: 16px;
+            font-weight: 500;
+            text-transform: capitalize;
+            color: #eaeaea;
+            background: #3d3d3d;
+            width: 24px;
+            height: 24px;
+            border-radius: 999px;
+            z-index: 4;
+          }
+        }
+      }
+    }
+  }
+}
+
+.edit {
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+
+  .header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 16px;
+  }
+
+  .main {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    border-bottom: 1px solid #3d3d3d;
+    padding-bottom: 16px;
+
+    .members {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+  }
+
+  .perms {
+    overflow: auto;
+    padding-bottom: 16px;
+    padding-top: 16px;
+    height: calc(100vh - 212px - 32px - 16px);
+  }
+}

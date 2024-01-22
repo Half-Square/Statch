@@ -149,10 +149,17 @@
       line-height: 19px;
       color: rgba(255, 255, 255, 1);
       border-radius: 4px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
   }
 
   li.focused {
       background: rgba(55, 117, 202, 1);
+  }
+
+  li:hover {
+    background: rgba(55, 117, 202, 1);
   }
 
   .footer {

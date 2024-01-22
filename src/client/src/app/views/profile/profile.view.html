@@ -1,8 +1,8 @@
 <!--
-* @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>
+* @Author                : 0K00<qdouvillez@gmail.com>
 * @CreatedDate           : 2023-09-28 13:52:00
-* @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>
-* @LastEditDate          : 2023-10-02 15:34:58
+* @LastEditors           : 0K00<qdouvillez@gmail.com>
+* @LastEditDate          : 2024-01-17 18:58:27
 -->
 
 <div class="view-profile">
@@ -12,7 +12,7 @@
         <label for="avatarIcon">
           <core-avatar [label]="profile.name" [showLabel]="false" other="profile" [imgLink]="profile.picture !== '' ? profile.picture : null"/>
         </label>
-        <input type="file" id="avatarIcon" (change)="uploadAvatar($event)" hidden/>
+        <input type="file" id="avatarIcon" [disabled]="!perm.check({type: 'profile', actions: [{type: 'update', actions: ['picture']}]})" (change)="uploadAvatar($event)" hidden/>
       </div>
 
       <div class="inputs">
@@ -20,12 +20,14 @@
                     label="Name"
                     placeholder="Your name..."
                     other="full"
+                    [disabled]="!perm.check({type: 'profile', actions: [{type: 'update', actions: ['name']}]})"
                     (keydown.enter)="saveProfile()"
                     [(value)]="profile.name"/>
 
         <core-input [isLabel]="true"
                     label="Email"
                     placeholder="Your email..."
+                    [disabled]="!perm.check({type: 'profile', actions: [{type: 'update', actions: ['email']}]})"
                     (keydown.enter)="saveProfile()"
                     [(value)]="profile.email"/>
 

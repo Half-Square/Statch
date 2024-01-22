@@ -1,6 +1,6 @@
 {
   "name": "statch",
-  "version": "0.7.1",
+  "version": "0.8.0",
   "description": "Tickets manager, bug tracker, open source",
   "author": "Half Square",
   "homepage": "https://statch.app",
@@ -10,8 +10,10 @@
     "url": "https://github.com/Half-Square/Statch"
   },
   "scripts": {
-    "setup:server": "npm i --prefix src/server && npx grunt copy:env && cd src/server && npx prisma migrate deploy src/server && npx prisma generate && cd ../..",
+    "setup:server": "npm i --prefix src/server && npx grunt env && cd src/server && npx prisma migrate deploy src/server && npx prisma generate && cd ../..",
+    "setup:server_dev": "npm i --prefix src/server && npx grunt env_dev && cd src/server && npx prisma migrate deploy src/server && npx prisma generate && cd ../..",
     "setup": "npm i && npm i --prefix src/client && npm run setup:server",
+    "setup:dev": "npm i && npm i --prefix src/client && npm run setup:server_dev",
     "start:client": "npm run start --prefix src/client",
     "start:server": "npm run start:dev --prefix src/server",
     "start:dist": "npm run build:full && cd ./dist && npm i && npx prisma migrate deploy && npx prisma generate && node main.js",

@@ -1,9 +1,9 @@
-/******************************************************************************
- * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @CreatedDate           : 2023-09-28 16:23:37                               *
- * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-09-28 17:34:33                               *
- *****************************************************************************/
+/*****************************************************************************
+ * @Author                : 0K00<qdouvillez@gmail.com>                       *
+ * @CreatedDate           : 2023-09-28 16:23:37                              *
+ * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
+ * @LastEditDate          : 2024-01-17 14:46:45                              *
+ ****************************************************************************/
 
 /* SUMMARY
   * Imports
@@ -18,10 +18,11 @@ import { Component, Input } from "@angular/core";
 
 /* Interfaces */
 import { ILabels } from "src/app/interfaces";
-import { RequestService } from "src/app/services/request.service";
 /***/
 
 /* Services */
+import { PermissionsService } from "src/app/services/permissions.service";
+import { RequestService } from "src/app/services/request.service";
 import { UserService } from "src/app/services/user.service";
 /***/
 
@@ -39,7 +40,8 @@ export class LabelsEditorSection {
   };
 
   constructor(private user: UserService,
-              private api: RequestService) {
+              private api: RequestService,
+              public perm: PermissionsService) {
   }
 
   /**

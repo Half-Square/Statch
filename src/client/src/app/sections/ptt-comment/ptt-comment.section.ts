@@ -2,7 +2,7 @@
  * @Author                : 0K00<qdouvillez@gmail.com>                       *
  * @CreatedDate           : 2023-09-27 15:26:28                              *
  * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
- * @LastEditDate          : 2023-11-17 14:21:46                              *
+ * @LastEditDate          : 2024-01-17 14:52:11                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -12,8 +12,8 @@
 */
 
 /* Imports */
-import { Component, ElementRef, Input, ViewChild } from "@angular/core";
-import { environment as env } from "src/environments/environment";
+import { Component, Input } from "@angular/core";
+import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 /***/
 
 /* Interfaces */
@@ -21,9 +21,13 @@ import { IComments, IProjects, ITasks, ITickets } from "src/app/interfaces";
 /***/
 
 /* Services */
+import { PermissionsService } from "src/app/services/permissions.service";
+import { RecoveryService } from "src/app/services/recovery.service";
 import { RequestService } from "src/app/services/request.service";
+import { ToastService } from "src/app/services/toast.service";
 import { UserService } from "src/app/services/user.service";
 /***/
+
 
 @Component({
   selector: "section-ptt-comment",
@@ -34,70 +38,26 @@ export class PttCommentSection {
   @Input() item: IProjects | ITasks | ITickets;
   @Input() type: string;
   @Input() comments: IComments[] = [];
-
-  @ViewChild("commentEditor") commentEditor!: ElementRef;
+  public content: string;
+  public hasPublish: boolean = false;
 
   constructor(private api: RequestService,
-              private user: UserService) {
+              private sanitizer: DomSanitizer,
+              private recovery: RecoveryService,
+              private toast: ToastService,
+              private user: UserService,
+              public perm: PermissionsService) {
   }
 
-  public allowDrop(event: DragEvent): void {
-    event.preventDefault();
+  /**
+   * Trusted Content Sanitizer
+   * @param content - Html element stringify
+   * @returns - SafeHtml element
+   */
+  public trustedContent(content: string): SafeHtml {
+    return this.sanitizer.bypassSecurityTrustHtml(content);
   }
-
-  public onDrop(event: DragEvent): void {
-    event.preventDefault();
-    const dataTransfer = event.dataTransfer;
-    if (dataTransfer) {
-      const files = dataTransfer.files;
-      if (files.length > 0) {
-        this.handleFiles(files);
-      }
-    }
-  }
-
-  public handleFiles(files: FileList): void {
-    for (let i = 0; i < files.length; i++) {
-      const file = files[i];
-      if (file.type.startsWith("image/")) {
-        this.fileUpload(file).then((path: string) => {
-          const img = `<img src="${env.serverUrl}/api/files/raw/${path}" alt="Image" />`;
-          this.insertImage(img);
-        }).catch(err => {
-          console.error(err);
-        });
-      }
-    }
-  }
-
-  public insertImage(img: string): void {
-    const range = window.getSelection()?.getRangeAt(0);
-    if (range) {
-      const fragment = range.createContextualFragment(img);
-      range.insertNode(fragment);
-    }
-  }
-
-  public fileUpload(file: File): Promise<string> {
-    return new Promise<string>((resolve, reject) => {
-      let form = new FormData();
-      form.append("file", file);
-
-      let headers: HeadersInit = new Headers();
-      headers.set("x-token", this.user.getUser()?.token || "");
-
-      fetch(`${env.serverUrl}/api/files`, {
-        method: "POST",
-        headers: headers,
-        body: form
-      }).then(async(res) => {
-        let json = await res.json();
-        return resolve(json.path);
-      }).catch(err => {
-        return reject(err);
-      });
-    });
-  }
+  /***/
 
   /**
   * Publish comment
@@ -105,22 +65,59 @@ export class PttCommentSection {
   public publish(): void {
     if(!this.isEmpty()) {
       this.api.post(`api/${this.type}/${this.item.id}/comments`, {
-        content: this.content()
+        content: this.content
       }, this.user.getUser()?.token)
         .then(() => {
-          this.commentEditor.nativeElement.innerHTML = "";
-        });
+          this.checkIfMention(this.content);
+          this.hasPublish = true;
+        })
+        .catch(() => this.hasPublish = false);
     }
-    this.commentEditor.nativeElement.innerHTML = "";
+    this.hasPublish = false;
   }
   /***/
 
   /**
-  * Get content in dom
-  * @return - Content string
-  */
-  public content(): string {
-    return this.commentEditor.nativeElement.innerHTML;
+   * Delete comments
+   * @param id - Id of comments
+   */
+  public onDelete(id: string): void {
+    this.api.delete(`api/${this.type}/${this.item.id}/comments/${id}`,
+      this.user.getUser()?.token)
+      .then(() => {
+        this.recovery.updateData(this.item, this.type);
+        this.toast.print("Comment has been removed", "success");
+      });
+  }
+  /***/
+
+  /**
+   * Check if someone is mention
+   * @param content - Html content of comments
+   */
+  private checkIfMention(content: string): void {
+    let div = document.createElement("div");
+    div.innerHTML = content;
+    let mentions = Array.from(div.querySelectorAll("span.mention"));
+
+    let mentionsContent = mentions.map(span => span.attributes);
+    mentionsContent.forEach((mention: any) => {
+      if(mention["data-target"].value === "@")
+        this.pingUser(mention["data-id"].value, mention["data-value"].value);
+    });
+  }
+  /***/
+
+  private pingUser(id: string, name: string): void {
+    console.log(id, name);
+  }
+
+  /**
+   * Get content of markdown
+   * @param event - Content of markdown
+   */
+  public getContent(event: string): void {
+    this.content = event;
   }
   /***/
 
@@ -129,7 +126,7 @@ export class PttCommentSection {
   * @returns - Boolean
   */
   public isEmpty(): boolean {
-    return this.commentEditor.nativeElement.innerHTML.trim() === "";
+    return this.content === null || this.content.replace(/<p>|<\/p>|<br>/g, "").trim() === "";
   }
   /***/
 }

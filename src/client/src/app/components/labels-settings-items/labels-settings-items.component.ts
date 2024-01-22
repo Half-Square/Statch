@@ -1,9 +1,9 @@
-/******************************************************************************
- * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @CreatedDate           : 2023-09-28 16:18:12                               *
- * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-09-28 17:58:17                               *
- *****************************************************************************/
+/*****************************************************************************
+ * @Author                : 0K00<qdouvillez@gmail.com>                       *
+ * @CreatedDate           : 2023-09-28 16:18:12                              *
+ * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
+ * @LastEditDate          : 2024-01-17 14:46:13                              *
+ ****************************************************************************/
 
 /* SUMMARY
   * Imports
@@ -22,6 +22,7 @@ import { ILabels } from "src/app/interfaces";
 /* Services */
 import { RequestService } from "src/app/services/request.service";
 import { UserService } from "src/app/services/user.service";
+import { PermissionsService } from "src/app/services/permissions.service";
 /***/
 
 @Component({
@@ -35,7 +36,8 @@ export class LabelsSettingsItemsComponent {
   public onEdit: boolean = false;
 
   constructor(private api: RequestService,
-              private user: UserService) {
+              private user: UserService,
+              public perm: PermissionsService) {
   }
 
   /**

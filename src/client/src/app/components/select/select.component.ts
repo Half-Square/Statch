@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @Author                : 0K00<qdouvillez@gmail.com>                       *
  * @CreatedDate           : 2023-09-15 13:05:58                              *
- * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-10-06 11:33:59                              *
+ * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
+ * @LastEditDate          : 2024-01-16 18:35:28                              *
  ****************************************************************************/
 
 import { Component, Input, TemplateRef, ContentChild, ViewChild, ElementRef, Renderer2, Output, EventEmitter } from "@angular/core";
@@ -27,6 +27,8 @@ export class SelectComponent {
   @Input() noResult: boolean = false;
   @Input() noOption: string = "No option";
   @Input() other: string = "";
+  @Input() filter: boolean = false;
+  @Input() disabled: boolean = false;
   @Output() callback = new EventEmitter();
 
   public showMenu: boolean = false;
@@ -51,6 +53,12 @@ export class SelectComponent {
    */
   @ContentChild("items", {static: false})
     itemsTemplateRef!: TemplateRef<any>;
+
+  /**
+   * ViewChild decorator to get a reference to the 'placeholder' template
+   */
+    @ContentChild("placeholder", {static: false})
+      placeholderTemplateRef!: TemplateRef<any>;
 
   /**
    * ViewChild decorator to get a reference to the 'selector' element

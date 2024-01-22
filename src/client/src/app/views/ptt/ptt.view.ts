@@ -1,8 +1,8 @@
 /*****************************************************************************
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-09-30 15:55:46                              *
- * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-11-23 12:23:53                              *
+ * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
+ * @LastEditDate          : 2024-01-16 18:25:49                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -33,6 +33,8 @@ import { RecoveryService } from "src/app/services/recovery.service";
 import { RequestService } from "src/app/services/request.service";
 import { ToastService } from "src/app/services/toast.service";
 import { ILoggedUser, UserService } from "src/app/services/user.service";
+import { FilterSortService } from "src/app/services/filter-sort.service";
+import { PermissionsService } from "src/app/services/permissions.service";
 /***/
 
 /* eslint-disable  @typescript-eslint/no-explicit-any */
@@ -63,7 +65,9 @@ export class PttView implements OnInit, OnDestroy {
               private router: Router,
               private api: RequestService,
               public user: UserService,
-              private toast: ToastService) {
+              private toast: ToastService,
+              private sort: FilterSortService,
+              public perm: PermissionsService) {
   }
 
   ngOnInit(): void {
@@ -71,7 +75,6 @@ export class PttView implements OnInit, OnDestroy {
       this.type = p.get("type") as string;
       this.id = p.get("id") as string;
       this.childType = this.type == "projects" ? "tasks" : "tickets";
-      this.versionFilters = [];
 
       this.getRootProject().then((root) => {
         if (root) {
@@ -83,9 +86,10 @@ export class PttView implements OnInit, OnDestroy {
               else this.item = el;
             }),
             this.recovery.get(`projects/${root.id}/versions`).subscribe((versions) => {
-              this.versions = versions;
+              this.versions = this.sort.sortVersions(versions);
             }),
             this.recovery.get(`${this.type}/${this.id}/activities`).subscribe((a) => {
+              a = _.orderBy(a, "created", ["desc"]).slice(0, 10);
               this.activities = a;
             }),
             this.recovery.get(`${this.type}/${this.id}/comments`).subscribe((c) => {
@@ -114,12 +118,15 @@ export class PttView implements OnInit, OnDestroy {
   */
   private async getRootProject(): Promise<IProjects> {
     let item = await this.recovery.getSingleSync(this.type, this.id);
+
     if (this.type == "tickets") {
       item = await this.recovery.getSingleSync("tasks", item.taskId);
       item = await this.recovery.getSingleSync("projects", item.projectId);
     } else if (this.type == "tasks") {
       item = await this.recovery.getSingleSync("projects", item.projectId);
     }
+
+    if (!this.root || this.root.id !== item.id) this.versionFilters = []; // Clear version filter on root change
 
     return item as IProjects;
   }

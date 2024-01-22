@@ -5,7 +5,7 @@
  * @LastEditDate          : 2023-09-19 13:06:06                               *
  *****************************************************************************/
 
-import { Component } from "@angular/core";
+import { Component, Input } from "@angular/core";
 
 /**
  * Collapse component
@@ -19,5 +19,5 @@ export class CollapseComponent {
   /**
    * Indicates weather the content is show or not.
    */
-  public showContent: boolean = false;
+  @Input() showContent: boolean = false;
 }

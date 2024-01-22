@@ -5,6 +5,8 @@
  * @LastEditDate          : 2023-09-29 16:26:04                              *
  ****************************************************************************/
 
+ @import '~quill/dist/quill.bubble.css';
+
  *, *::before, *::after {
   margin: 0;
   padding: 0;
@@ -44,11 +46,91 @@ html {
   }
 }
 
-a, .btn {
+.btn {
   color: #eaeaea;
   text-decoration: none;
 
   &.active {
     color: #0055ff;
   }
+}
+
+a {
+  color: #0055ff;
+  text-decoration: none;
+
+  &:hover {
+    color: #1b67ff;
+    text-decoration: underline;
+  }
+}
+
+::-moz-selection { /* Code for Firefox */
+  background: 0055ff;
+}
+
+::selection {
+  background: 0055ff;
+}
+
+.ql-bubble.ql-disabled {
+  .ql-editor {
+    border-color: transparent;
+    padding: 8px 0;
+    &:active, &:focus {
+      box-shadow: none;
+    }
+  }
+}
+
+.input {
+  .ql-bubble {
+    .ql-editor {
+      min-height: 150px;
+    }
+  }
+}
+
+.ql-bubble {
+  --bg-color: #222222;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+
+  .ql-editor{
+    border-radius: 8px;
+    border: 1px solid #0055ff;
+    color: #eaeaea;
+    padding: 8px 12px;
+    &:active, &:focus {
+      box-shadow: 0 0 0 2px #16346e;
+    }
+  }
+  .ql-editor.ql-blank::before {
+    color: #7e7e7e;
+    font-style: normal;
+  }
+  .ql-tooltip {
+    background: var(--bg-color);
+    border-radius: 4px;
+    box-shadow: 0px 0px 0px 1px #363636, 0px 10px 36px 0px rgba(0, 0, 0, 0.16);
+  }
+  .ql-tooltip:not(.ql-flip) .ql-tooltip-arrow {
+    border-bottom: none;
+  }
+  .ql-tooltip.ql-flip .ql-tooltip-arrow {
+    border-color: transparent;
+  }
+}
+
+.ql-bubble.ql-toolbar button:hover, .ql-bubble .ql-toolbar button:hover, .ql-bubble.ql-toolbar button:focus, .ql-bubble .ql-toolbar button:focus, .ql-bubble.ql-toolbar button.ql-active, .ql-bubble .ql-toolbar button.ql-active, .ql-bubble.ql-toolbar .ql-picker-label:hover, .ql-bubble .ql-toolbar .ql-picker-label:hover, .ql-bubble.ql-toolbar .ql-picker-label.ql-active, .ql-bubble .ql-toolbar .ql-picker-label.ql-active, .ql-bubble.ql-toolbar .ql-picker-item:hover, .ql-bubble .ql-toolbar .ql-picker-item:hover, .ql-bubble.ql-toolbar .ql-picker-item.ql-selected, .ql-bubble .ql-toolbar .ql-picker-item.ql-selected {
+  color: #0055ff;
+}
+.ql-bubble.ql-toolbar button:hover .ql-stroke, .ql-bubble .ql-toolbar button:hover .ql-stroke, .ql-bubble.ql-toolbar button:focus .ql-stroke, .ql-bubble .ql-toolbar button:focus .ql-stroke, .ql-bubble.ql-toolbar button.ql-active .ql-stroke, .ql-bubble .ql-toolbar button.ql-active .ql-stroke, .ql-bubble.ql-toolbar .ql-picker-label:hover .ql-stroke, .ql-bubble .ql-toolbar .ql-picker-label:hover .ql-stroke, .ql-bubble.ql-toolbar .ql-picker-label.ql-active .ql-stroke, .ql-bubble .ql-toolbar .ql-picker-label.ql-active .ql-stroke, .ql-bubble.ql-toolbar .ql-picker-item:hover .ql-stroke, .ql-bubble .ql-toolbar .ql-picker-item:hover .ql-stroke, .ql-bubble.ql-toolbar .ql-picker-item.ql-selected .ql-stroke, .ql-bubble .ql-toolbar .ql-picker-item.ql-selected .ql-stroke, .ql-bubble.ql-toolbar button:hover .ql-stroke-miter, .ql-bubble .ql-toolbar button:hover .ql-stroke-miter, .ql-bubble.ql-toolbar button:focus .ql-stroke-miter, .ql-bubble .ql-toolbar button:focus .ql-stroke-miter, .ql-bubble.ql-toolbar button.ql-active .ql-stroke-miter, .ql-bubble .ql-toolbar button.ql-active .ql-stroke-miter, .ql-bubble.ql-toolbar .ql-picker-label:hover .ql-stroke-miter, .ql-bubble .ql-toolbar .ql-picker-label:hover .ql-stroke-miter, .ql-bubble.ql-toolbar .ql-picker-label.ql-active .ql-stroke-miter, .ql-bubble .ql-toolbar .ql-picker-label.ql-active .ql-stroke-miter, .ql-bubble.ql-toolbar .ql-picker-item:hover .ql-stroke-miter, .ql-bubble .ql-toolbar .ql-picker-item:hover .ql-stroke-miter, .ql-bubble.ql-toolbar .ql-picker-item.ql-selected .ql-stroke-miter, .ql-bubble .ql-toolbar .ql-picker-item.ql-selected .ql-stroke-miter {
+  stroke: #0055ff;
+}
+.ql-bubble.ql-toolbar button:hover .ql-fill, .ql-bubble .ql-toolbar button:hover .ql-fill, .ql-bubble.ql-toolbar button:focus .ql-fill, .ql-bubble .ql-toolbar button:focus .ql-fill, .ql-bubble.ql-toolbar button.ql-active .ql-fill, .ql-bubble .ql-toolbar button.ql-active .ql-fill, .ql-bubble.ql-toolbar .ql-picker-label:hover .ql-fill, .ql-bubble .ql-toolbar .ql-picker-label:hover .ql-fill, .ql-bubble.ql-toolbar .ql-picker-label.ql-active .ql-fill, .ql-bubble .ql-toolbar .ql-picker-label.ql-active .ql-fill, .ql-bubble.ql-toolbar .ql-picker-item:hover .ql-fill, .ql-bubble .ql-toolbar .ql-picker-item:hover .ql-fill, .ql-bubble.ql-toolbar .ql-picker-item.ql-selected .ql-fill, .ql-bubble .ql-toolbar .ql-picker-item.ql-selected .ql-fill, .ql-bubble.ql-toolbar button:hover .ql-stroke.ql-fill, .ql-bubble .ql-toolbar button:hover .ql-stroke.ql-fill, .ql-bubble.ql-toolbar button:focus .ql-stroke.ql-fill, .ql-bubble .ql-toolbar button:focus .ql-stroke.ql-fill, .ql-bubble.ql-toolbar button.ql-active .ql-stroke.ql-fill, .ql-bubble .ql-toolbar button.ql-active .ql-stroke.ql-fill, .ql-bubble.ql-toolbar .ql-picker-label:hover .ql-stroke.ql-fill, .ql-bubble .ql-toolbar .ql-picker-label:hover .ql-stroke.ql-fill, .ql-bubble.ql-toolbar .ql-picker-label.ql-active .ql-stroke.ql-fill, .ql-bubble .ql-toolbar .ql-picker-label.ql-active .ql-stroke.ql-fill, .ql-bubble.ql-toolbar .ql-picker-item:hover .ql-stroke.ql-fill, .ql-bubble .ql-toolbar .ql-picker-item:hover .ql-stroke.ql-fill, .ql-bubble.ql-toolbar .ql-picker-item.ql-selected .ql-stroke.ql-fill, .ql-bubble .ql-toolbar .ql-picker-item.ql-selected .ql-stroke.ql-fill {
+  fill: #0055ff;
+}
+
+.ql-container.ql-bubble:not(.ql-disabled) a:hover::before, .ql-container.ql-bubble:not(.ql-disabled) a:hover::after {
+  visibility: hidden;
 }

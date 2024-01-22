@@ -2,7 +2,7 @@
 * @Author                : 0K00<qdouvillez@gmail.com>
 * @CreatedDate           : 2023-09-27 15:26:00
 * @LastEditors           : 0K00<qdouvillez@gmail.com>
-* @LastEditDate          : 2023-11-17 14:21:52
+* @LastEditDate          : 2024-01-17 18:56:42
 -->
 
 <div class="ptt-comment">
@@ -13,22 +13,27 @@
 
     <div class="header">
       <core-avatar [imgLink]="comment.authorId | recovery:'picture':'users' | async" [label]="comment.authorId | recovery:'name':'users' | async"></core-avatar>
-      <span class="date">{{ comment.created | dateDifference }}</span>
+      <div class="option">
+        <span class="date">{{ comment.created | dateDifference }}</span>
+        <core-button (click)="onDelete(comment.id)"
+                     [disabled]="!perm.check({type: type, actions: [{type: 'comment', actions: ['delete']}]})"
+                     [type]="'basic'"
+                     [style]="'warn'"
+                     [size]="'icon'"
+                     [tooltip]="'Delete'">
+          <core-icon icon="minus"/>
+        </core-button>
+      </div>
     </div>
 
-    <div class="content" [innerHTML]="comment.content">
+    <div class="content" [innerHTML]="trustedContent(comment.content)">
     </div>
 
   </div>
 
-  <div class="input">
-    <div
-      class="area"
-      contenteditable="true"
-      (dragover)="allowDrop($event)"
-      (drop)="onDrop($event)"
-      #commentEditor>
-    </div>
+
+  <div *ngIf="perm.check({type: type, actions: [{type: 'comment', actions: ['create']}]})" class="input">
+    <component-markdown [placeholder]="'Leave your comment...'" [hasPublish]="hasPublish" (getContent)="getContent($event)"></component-markdown>
     <core-button (click)="publish()" [type]="'flat'" [style]="'primary'" [size]="'medium'" [label]="'Publish'"></core-button>
   </div>
 

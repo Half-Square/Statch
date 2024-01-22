@@ -1,22 +1,91 @@
 <!--
-* @Author                : Quentin<quentin@halfsquare.fr>
+* @Author                : 0K00<qdouvillez@gmail.com>
 * @CreatedDate           : 2023-09-22 18:44:00
-* @LastEditors           : Quentin<quentin@halfsquare.fr>
-* @LastEditDate          : 2023-11-16 15:06:00
+* @LastEditors           : 0K00<qdouvillez@gmail.com>
+* @LastEditDate          : 2024-01-17 18:59:27
 -->
 
 <div class="view-ptt-all">
-  <ng-template [ngIf]="items" [ngIfElse]="loading">
+  <ng-template [ngIf]="elements" [ngIfElse]="loading">
     <div class="header" *ngIf="type == 'projects' || id">
       <h3 class="title">{{type}}</h3>
 
       <core-button  type="flat"
                     label="New {{type.slice(0, -1)}}"
+                    [disabled]="!perm.check({type: type, actions: ['create']})"
                     (click)="createItem()"/>
     </div>
 
-    <div class="list" *ngIf="filterByParent(items).length > 0">
-      <section-ptt-list [elements]="filterByParent(items)"
+    <div class="filters">
+      <div class="filter">
+        <component-select [data]="status"
+                          [selection]="filters.status"
+                          [placeholder]="'Status' + (filters.status.length > 0 ? ' (' + filters.status.length + ')' : '')"
+                          (callback)="addFilter('status', $event)"
+                          [filter]="true"
+                          [multi]="true">
+          <ng-template let-option #items>
+            <component-status [status]="option.status"/>
+          </ng-template>
+        </component-select>
+
+        <component-select [data]="levels"
+                          [selection]="filters.level"
+                          [placeholder]="'Level' + (filters.level.length > 0 ? ' (' + filters.level.length + ')' : '')"
+                          [filter]="true"
+                          (callback)="addFilter('level', $event)"
+                          [multi]="true">
+          <ng-template let-option #items>
+            <component-level [level]="option.level"></component-level>
+          </ng-template>
+        </component-select>
+
+        <component-select [data]="users"
+                          [selection]="filters.assignments"
+                          [placeholder]="'Users' + (filters.assignments.length > 0 ? ' (' + filters.assignments.length + ')' : '')"
+                          [filter]="true"
+                          [multi]="true"
+                          (callback)="addFilter('assignments', $event)">
+          <ng-template let-option #items>
+            <core-avatar  [imgLink]="option.id | recovery:'picture':'users' | async"
+            [label]="option.id | recovery:'name':'users' | async"/>
+          </ng-template>
+        </component-select>
+
+        <component-select [data]="versions"
+                          [selection]="filters.version"
+                          [placeholder]="'Version' + (filters.version.length > 0 ? ' (' + filters.version.length + ')' : '')"
+                          [filter]="true"
+                          (callback)="addFilter('version', $event)"
+                          [multi]="true"/>
+
+        <component-select [data]="labels"
+                          [selection]="filters.labels"
+                          [placeholder]="'Labels' + (filters.labels.length > 0 ? ' (' + filters.labels.length + ')' : '')"
+                          [filter]="true"
+                          (callback)="addFilter('labels', $event)"
+                          [multi]="true">
+          <ng-template let-option #items>
+            <component-labels [name]="option.name" [color]="option.color"/>
+          </ng-template>
+        </component-select>
+      </div>
+
+
+      <component-select [data]="sorts"
+                        (callback)="addSort($event)"
+                        [hasSearch]="false"
+                        [multi]="true">
+          <ng-template let-placeholder #placeholder>
+            <div class="sort-ph">
+              <core-icon  icon="straw"/> Sort by...
+            </div>
+          </ng-template>
+      </component-select>
+    </div>
+
+    <div class="list" *ngIf="filterByParent(filteredSortedItems).length > 0">
+      <section-ptt-list [elements]="filterByParent(filteredSortedItems)"
                         [type]="type"
                         other="no-container"/>
     </div>
