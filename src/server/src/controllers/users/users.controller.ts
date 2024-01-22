@@ -2,7 +2,7 @@
  * @Author                : 0K00<qdouvillez@gmail.com>                        *
  * @CreatedDate           : 2023-06-01 15:15:39                               *
  * @LastEditors           : 0K00<qdouvillez@gmail.com>                        *
- * @LastEditDate          : 2024-01-17 19:24:39                               *
+ * @LastEditDate          : 2024-01-22 17:28:25                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -233,7 +233,12 @@ export class UsersController {
   */
   @Get("users/demo")
   async getDemo(): Promise<usersDto.ConnectOutput> {
-    let ret = await this.prisma.user.findUnique({where: {email: "demo@statch.app"}});
+    let ret = await this.prisma.user.findUnique({
+      where: {email: "demo@statch.app"},
+      include: {
+        role: true
+      }
+    });
     
     if (ret) {
       ret["token"] = jwt.sign(ret, process.env.SALT, {algorithm: "HS256"});
