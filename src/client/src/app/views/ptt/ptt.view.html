@@ -2,7 +2,7 @@
 * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>
 * @CreatedDate           : 2023-09-30 15:55:00
 * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>
-* @LastEditDate          : 2024-01-11 14:00:10
+* @LastEditDate          : 2024-01-15 17:16:11
 -->
 
 <div class="view-ptt">
@@ -12,7 +12,8 @@
                           [isAssignee]="_.find(item.assignments, {userId: user.getUser()?.id}) != null"
                           (onDelete)="deleteItem()"
                           (onCreateChild)="createChild()"
-                          (onAssign)="assignSelf()"/>
+                          (onAssign)="assignSelf()"
+                          [id]="id"/>
 
     <div class="container">
       <div class="main">

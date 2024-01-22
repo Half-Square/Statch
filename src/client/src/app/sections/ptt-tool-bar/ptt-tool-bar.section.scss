@@ -2,17 +2,23 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-09-30 15:38:30                              *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-09-30 15:45:35                              *
+ * @LastEditDate          : 2024-01-15 17:07:54                              *
  ****************************************************************************/
 
 .section-ptt-tool-bar {
   display: flex;
   align-items: center;
-  justify-content: flex-end;
-  gap: 8px;
+  justify-content: space-between;
   height: 40px;
   padding: 0 16px;
   border-bottom: 1px solid #000000;
   background: #17161a;
   z-index: 3;
+
+  .actions, .tabs {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+  }
 }

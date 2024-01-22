@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : Quentin<quentin@halfsquare.fr>                   *
+ * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-09-30 15:40:03                              *
- * @LastEditors           : Quentin<quentin@halfsquare.fr>                   *
- * @LastEditDate          : 2023-11-16 11:19:21                              *
+ * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @LastEditDate          : 2024-01-15 17:15:53                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -22,6 +22,7 @@ export class PttToolBarSection {
   @Input() isParentOf: boolean = false;
   @Input() isAssignee: boolean = false;
   @Input() type: string;
+  @Input() id: string;
   @Output() onDelete = new EventEmitter();
   @Output() onCreateChild = new EventEmitter();
   @Output() onAssign = new EventEmitter();
