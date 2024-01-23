@@ -2,7 +2,7 @@
  * @Author                : 0K00<qdouvillez@gmail.com>                       *
  * @CreatedDate           : 2023-09-20 16:03:27                              *
  * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
- * @LastEditDate          : 2023-12-05 10:33:04                              *
+ * @LastEditDate          : 2024-01-23 11:56:45                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -16,6 +16,7 @@ import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { RouterModule } from "@angular/router";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { DragDropModule } from '@angular/cdk/drag-drop';
 /***/
 
 /* Modules */
@@ -38,6 +39,7 @@ import { ToolBarSection } from "./tool-bar/tool-bar.section";
 import { LabelsEditorSection } from "./labels-editor/labels-editor.section";
 import { PttToolBarSection } from "./ptt-tool-bar/ptt-tool-bar.section";
 import { PermsSection } from './perms/perms.section';
+import { KabanSection } from './kaban/kaban.section';
 /***/
 
 @NgModule({
@@ -53,11 +55,13 @@ import { PermsSection } from './perms/perms.section';
     ToolBarSection,
     LabelsEditorSection,
     PttToolBarSection,
-    PermsSection
+    PermsSection,
+    KabanSection
   ],
   imports: [
     CommonModule,
     RouterModule,
+    DragDropModule,
     CoresModule,
     ComponentsModule,
     PipesModule,
@@ -77,7 +81,8 @@ import { PermsSection } from './perms/perms.section';
     ToolBarSection,
     LabelsEditorSection,
     PttToolBarSection,
-    PermsSection
+    PermsSection,
+    KabanSection
   ]
 })
 export class SectionsModule { }

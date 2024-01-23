@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @Author                : 0K00<qdouvillez@gmail.com>                       *
  * @CreatedDate           : 2023-05-30 11:58:09                              *
- * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-09-29 15:11:03                              *
+ * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
+ * @LastEditDate          : 2024-01-23 11:53:19                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -17,6 +17,7 @@ import { NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
 import { AppRoutingModule } from "./app-routing.module";
 import { FormsModule } from "@angular/forms";
+import { DragDropModule } from '@angular/cdk/drag-drop';
 /***/
 
 /* Services */
@@ -40,6 +41,7 @@ import { ComponentsModule } from "./components/components.module";
   imports: [
     BrowserModule,
     AppRoutingModule,
+    DragDropModule,
     FormsModule,
     ViewsModule,
     CoresModule,

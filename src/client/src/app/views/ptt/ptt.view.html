@@ -2,7 +2,7 @@
 * @Author                : 0K00<qdouvillez@gmail.com>
 * @CreatedDate           : 2023-09-30 15:55:00
 * @LastEditors           : 0K00<qdouvillez@gmail.com>
-* @LastEditDate          : 2024-01-17 18:59:11
+* @LastEditDate          : 2024-01-23 14:25:51
 -->
 
 <div class="view-ptt">
@@ -11,59 +11,84 @@
                           [type]="type"
                           [isAssignee]="_.find(item.assignments, {userId: user.getUser()?.id}) != null"
                           (onDelete)="deleteItem()"
+                          [tabs]="tabs"
+                          (switchView)="switchTab($event)"
                           (onCreateChild)="createChild()"
                           (onAssign)="assignSelf()"/>
+    <div class="tabs" *ngFor="let tab of tabs">
 
-    <div class="container">
-      <div class="main">
-        <section-ptt-header [type]="type" [(item)]="item" (itemChange)="saveItem()"/>
+      <div class="container" *ngIf="tab.name === 'overview' && tab.active">
+        <div class="main">
+          <section-ptt-header [type]="type" [(item)]="item" (itemChange)="saveItem()"/>
 
-        <div *ngIf="type != 'tickets'" class="advancement">
-          <section-ptt-advancement [value]="advancement"/>
+          <div *ngIf="type != 'tickets'" class="advancement">
+            <section-ptt-advancement [value]="advancement"/>
 
-          <section-ptt-list [elements]="childs" [type]="childType" [versions]="versionFilters">
-            <ng-container *ngIf="perm.check({type: childType, actions: ['view']})" sort>
-              {{childType}}
+            <section-ptt-list [elements]="childs" [type]="childType" [versions]="versionFilters">
+              <ng-container *ngIf="perm.check({type: childType, actions: ['view']})" sort>
+                {{childType}}
 
-              <component-select [data]="versions"
-                                [placeholder]="'Select verions to sort...'"
-                                [multi]="true"
-                                [hasSearch]="false"
-                                [selection]="versionFilters"
-                                (callback)="versionFilters = $event; setAdvancement()">
-              </component-select>
-            </ng-container>
+                <component-select [data]="versions"
+                                  [placeholder]="'Select verions to sort...'"
+                                  [multi]="true"
+                                  [hasSearch]="false"
+                                  [selection]="versionFilters"
+                                  (callback)="versionFilters = $event; setAdvancement()">
+                </component-select>
+              </ng-container>
 
-            <div *ngIf="perm.check({type: childType, actions: ['create']})" class="add" add (click)="createChild()">
-              <core-icon icon="plus"></core-icon>
-              Create new {{childType}}
-            </div>
-          </section-ptt-list>
+              <div *ngIf="perm.check({type: childType, actions: ['create']})" class="add" add (click)="createChild()">
+                <core-icon icon="plus"></core-icon>
+                Create new {{childType}}
+              </div>
+            </section-ptt-list>
+          </div>
+
+          <div class="comment">
+            <section-ptt-comment [item]="item" [type]="type" [comments]="comments"/>
+          </div>
         </div>
 
-        <div class="comment">
-          <section-ptt-comment [item]="item" [type]="type" [comments]="comments"/>
-        </div>
+        <aside class="right-panel">
+          <div class="details">
+            <section-ptt-details  [id]="id"
+                                  [type]="type"
+                                  [(item)]="item"
+                                  (itemChange)="saveItem()"
+                                  [versions]="versions"
+                                  [nbList]="childs.length"
+                                  [root]="root"/>
+          </div>
+
+          <div class="activities-list">
+            <h2 class="subtitle">Last activity</h2>
+            <component-activity-item  *ngFor="let activity of activities"
+                                      [activity]="activity"
+                                      [reduce]="true" />
+          </div>
+        </aside>
       </div>
 
-      <aside class="right-panel">
-        <div class="details">
-          <section-ptt-details  [id]="id"
-                                [type]="type"
-                                [(item)]="item"
-                                (itemChange)="saveItem()"
-                                [versions]="versions"
-                                [nbList]="childs.length"
-                                [root]="root"/>
-        </div>
-
-        <div class="activities-list">
-          <h2 class="subtitle">Last activity</h2>
-          <component-activity-item  *ngFor="let activity of activities"
-                                    [activity]="activity"
-                                    [reduce]="true" />
-        </div>
-      </aside>
+      <div class="container kaban" *ngIf="tab.name === 'kaban' && tab.active">
+        <section-kaban
+          [type]="type"
+          [id]="id"
+          [childsType]="childType"
+          [columns]="[
+            {id: 'new', name: 'new', open: true},
+            {id: 'progress', name: 'in progress', open: true},
+            {id: 'done', name: 'completed', open: true},
+            {id: 'reject', name: 'rejected', open: false}
+            ]"
+          [tasks]="{
+            'new': _.filter(childs, {'status': 'new'}),
+            'progress': _.filter(childs, {'status': 'progress'}),
+            'done': _.filter(childs, {'status': 'done'}),
+            'reject': _.filter(childs, {'status': 'reject'}),
+          }"
+        >
+        </section-kaban>
+      </div>
     </div>
   </ng-template>
 

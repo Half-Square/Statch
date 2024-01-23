@@ -2,7 +2,7 @@
  * @Author                : 0K00<qdouvillez@gmail.com>                        *
  * @CreatedDate           : 2023-06-24 13:45:04                               *
  * @LastEditors           : 0K00<qdouvillez@gmail.com>                        *
- * @LastEditDate          : 2024-01-17 14:40:13                               *
+ * @LastEditDate          : 2024-01-23 13:59:35                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -133,6 +133,8 @@ export class TicketsController {
           ...body,
           taskId: id,
           ownerId: user.id,
+          level: body.level ? body.level : "normal",
+          status: body.status ? body.status : "new",
           assignments: {
             create: [{
               userId: user.id

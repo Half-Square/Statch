@@ -1,8 +1,8 @@
 /******************************************************************************
- * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
+ * @Author                : 0K00<qdouvillez@gmail.com>                        *
  * @CreatedDate           : 2023-06-24 13:45:39                               *
- * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-10-02 13:17:19                               *
+ * @LastEditors           : 0K00<qdouvillez@gmail.com>                        *
+ * @LastEditDate          : 2024-01-23 13:59:51                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -24,6 +24,14 @@ class CreateInput {
 
   @IsString()
     description: string;
+
+  @IsString()
+  @IsOptional()
+    level: string;
+
+  @IsString()
+  @IsOptional()
+    status: string;
 }
 /***/
 

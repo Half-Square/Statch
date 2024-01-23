@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @Author                : 0K00<qdouvillez@gmail.com>                       *
  * @CreatedDate           : 2023-09-30 15:55:46                              *
  * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
- * @LastEditDate          : 2024-01-16 18:25:49                              *
+ * @LastEditDate          : 2024-01-23 14:23:49                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -56,6 +56,11 @@ export class PttView implements OnInit, OnDestroy {
   public versionFilters: IVersions[];
   public root: IProjects;
   public advancement: number = 0;
+  public tabs: {name: string, active: boolean}[] = [
+    {name: 'overview', active: true},
+    {name: 'kaban', active: false}
+  ]
+  public test: any;
 
   private subscriptions: Subscription[] = [];
   private routeListener: Subscription;
@@ -112,12 +117,17 @@ export class PttView implements OnInit, OnDestroy {
     });
   }
 
+  public switchTab(value: {name: string, active: boolean}[]): void {
+    this.tabs = value;
+  }
+
   /**
   * Get root project
   * @return - Root project
   */
   private async getRootProject(): Promise<IProjects> {
     let item = await this.recovery.getSingleSync(this.type, this.id);
+    console.log(item);
 
     if (this.type == "tickets") {
       item = await this.recovery.getSingleSync("tasks", item.taskId);
@@ -141,7 +151,6 @@ export class PttView implements OnInit, OnDestroy {
       this.childs = _.filter(el, (c) => {
         return this.id === (this.childType == "tasks" ? (c as ITasks).projectId : (c as ITickets).taskId);
       });
-
       this.setAdvancement();
     });
   }

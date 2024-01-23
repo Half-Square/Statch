@@ -2,36 +2,43 @@
 * @Author                : 0K00<qdouvillez@gmail.com>
 * @CreatedDate           : 2023-09-30 15:38:00
 * @LastEditors           : 0K00<qdouvillez@gmail.com>
-* @LastEditDate          : 2024-01-16 18:48:59
+* @LastEditDate          : 2024-01-23 11:32:30
 -->
 
 <div class="section-ptt-tool-bar">
-  <core-button  (click)="onDelete.emit()"
-                [type]="'basic'"
-                [style]="'warn'"
-                [size]="'icon'"
-                [disabled]="!perm.check({type: type, actions: ['delete']})"
-                [tooltip]="'Delete ' + type">
-    <core-icon icon="minus"/>
-  </core-button>
+  <div class="tabs">
+    <div class="tab" [ngClass]="{'active': tab.active}" (click)="switchTab(i)" *ngFor="let tab of tabs; let i = index">
+      {{tab.name}}
+    </div>
+  </div>
 
-  <core-button  *ngIf="isParentOf"
-                (click)="onCreateChild.emit()"
-                [type]="'basic'"
-                [style]="'default'"
-                [size]="'icon'"
-                [disabled]="!perm.check({type: type == 'project' ? 'tasks' : 'tickets', actions: ['create']})"
-                [tooltip]="type == 'project' ? 'Add new task' : 'Add new ticket'">
-    <core-icon icon="plus"/>
-  </core-button>
+  <div class="controls">
+    <core-button  (click)="onDelete.emit()"
+        [type]="'basic'"
+        [style]="'warn'"
+        [size]="'icon'"
+        [disabled]="!perm.check({type: type, actions: ['delete']})"
+        [tooltip]="'Delete ' + type">
+      <core-icon icon="minus"/>
+    </core-button>
 
-  <core-button  (click)="onAssign.emit()"
-                [type]="isAssignee ? 'flat' : 'basic'"
-                [style]="'primary'"
-                [size]="'icon'"
-                [disabled]="!perm.check({type: type, actions: ['assignSelf']})"
-                [tooltip]="'Assign self'"
-                >
-    <core-icon [icon]="isAssignee ? 'heart-fill' : 'heart'"/>
-  </core-button>
+    <core-button  *ngIf="isParentOf"
+        (click)="onCreateChild.emit()"
+        [type]="'basic'"
+        [style]="'default'"
+        [size]="'icon'"
+        [disabled]="!perm.check({type: type == 'project' ? 'tasks' : 'tickets', actions: ['create']})"
+        [tooltip]="type == 'project' ? 'Add new task' : 'Add new ticket'">
+      <core-icon icon="plus"/>
+    </core-button>
+
+    <core-button  (click)="onAssign.emit()"
+        [type]="isAssignee ? 'flat' : 'basic'"
+        [style]="'primary'"
+        [size]="'icon'"
+        [disabled]="!perm.check({type: type, actions: ['assignSelf']})"
+        [tooltip]="'Assign self'">
+      <core-icon [icon]="isAssignee ? 'heart-fill' : 'heart'"/>
+    </core-button>
+  </div>
 </div>

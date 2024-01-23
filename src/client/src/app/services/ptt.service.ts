@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @Author                : 0K00<qdouvillez@gmail.com>                       *
  * @CreatedDate           : 2023-11-30 16:28:56                              *
- * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2024-01-11 14:54:00                              *
+ * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
+ * @LastEditDate          : 2024-01-23 14:19:34                              *
  ****************************************************************************/
 
 import { Injectable } from "@angular/core";
@@ -44,12 +44,15 @@ export class PttService {
   * @param id - Parent id
   * @param childType - Child type
   */
-  public createChild(type: string, id: string, childType: string): void {
+  public createChild(type: string, id: string, childType: string, options?: {level?: string, status?: string}): void {
     this.api.post(`api/${type}/${id}/${childType}`, {
       name: `New ${childType.slice(0, -1)}`,
-      description: `It's a new ${childType.slice(0, -1)}!`
+      description: `It's a new ${childType.slice(0, -1)}!`,
+      level: options && options.level ? options.level : "normal",
+      status: options && options.status ? options.status : "new",
     }, this.user.getUser()?.token)
       .then((ret) => {
+        this.recovery.updateData(ret, type);
         this.toast.print(`${_.capitalize(childType.slice(0, -1))} ${(ret as {id: string}).id} has been created`, "success");
         this.router.navigateByUrl(
           `${childType}/${(ret as IProjects | ITasks | ITickets).id}`

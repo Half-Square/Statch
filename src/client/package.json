@@ -9,6 +9,7 @@
   },
   "private": true,
   "dependencies": {
+    "@angular/cdk": "^15.2.9",
     "@angular/common": "^15.2.0",
     "@angular/compiler": "^15.2.0",
     "@angular/core": "^15.2.0",

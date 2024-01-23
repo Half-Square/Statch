@@ -1,0 +1,54 @@
+<!--
+* @Author                : 0K00<qdouvillez@gmail.com>
+* @CreatedDate           : 2024-01-23 11:56:00
+* @LastEditors           : 0K00<qdouvillez@gmail.com>
+* @LastEditDate          : 2024-01-23 15:37:24
+-->
+
+<div class="kanban-board" cdkDropListGroup>
+  <div *ngFor="let column of columns" class="column" [ngClass]="{'reduce': !column.open}" cdkDropList [cdkDropListData]="tasks[column.id]" [id]="column.id" (cdkDropListDropped)="drop($event)">
+
+    <div class="header">
+      <div class="block">
+        <core-icon [icon]="column.id" />
+        <span class="title" *ngIf="column.open">{{column.name}}</span>
+        <span class="number">{{tasks[column.id].length}}</span>
+        <core-button
+          [type]="'basic'"
+          [style]="'default'"
+          [size]="'icon'"
+          (click)="column.open = !column.open"
+        >
+          <core-icon [icon]="column.open ? 'eye-open' : 'eye-close'" />
+        </core-button>
+      </div>
+
+      <core-button
+        *ngIf="type != 'tickets' && column.open"
+        [type]="'basic'"
+        [style]="'default'"
+        [size]="'icon'"
+        (click)="ptt.createChild(type, id, childsType, {status: column.id})"
+      >
+        <core-icon [icon]="'plus'" />
+      </core-button>
+    </div>
+
+    <div class="tasks">
+      <div *ngFor="let task of tasks[column.id]" [ngClass]="{'hidden': !column.open}" class="task" cdkDrag>
+        <div class="header">
+          <span class="version">{{ task.targetVersion ? task.targetVersion : '-' }}</span>
+          <component-level [level]="task.level"/>
+        </div>
+
+        <div class="title">
+          {{ task.name }}
+        </div>
+
+        <div class="description">
+          {{ task.description }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

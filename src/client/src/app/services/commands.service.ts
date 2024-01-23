@@ -1,9 +1,9 @@
-/******************************************************************************
- * @Author                : 0K00<qdouvillez@gmail.com>                        *
- * @CreatedDate           : 2023-11-30 14:48:32                               *
- * @LastEditors           : 0K00<qdouvillez@gmail.com>                        *
- * @LastEditDate          : 2023-12-01 15:46:08                               *
- *****************************************************************************/
+/*****************************************************************************
+ * @Author                : 0K00<qdouvillez@gmail.com>                       *
+ * @CreatedDate           : 2023-11-30 14:48:32                              *
+ * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
+ * @LastEditDate          : 2024-01-23 13:52:30                              *
+ ****************************************************************************/
 
 /* Imports */
 import { Injectable } from "@angular/core";
@@ -100,14 +100,14 @@ export class CommandsService {
   /**
    * Add new project/task/ticket
    */
-  public new(): void {
+  public new(options?: unknown): void {
     const route = this.route.snapshot.children[0].params;
     let type = route["type"];
     let id = route["id"];
     let childrenType = type === "projects" ? "tasks" : "tickets";
 
     if(Object.keys(route).length > 0 && route["type"] !== "tickets")
-      this.ptt.createChild(type, id, childrenType);
+      this.ptt.createChild(type, id, childrenType, options as IProjects | ITasks | ITasks);
     else if (type != "tickets")
       this.ptt.createProject();
   }
@@ -151,6 +151,20 @@ export class CommandsService {
         this.recovery.updateData(item, type);
         this.toast.print(`${_.capitalize(type.slice(0, -1))} ${id} has been saved`, "success");
       });
+  }
+  /***/
+
+  /**
+   * Save item
+   * @param item - Item's data
+   * @param type - Type Projects | Tasks | Tickets
+   */
+  public save(item: IProjects | ITasks | ITickets, type: string): void {
+    this.api.put(`api/${type}/${item.id}`, item, this.user.getUser()?.token)
+    .then(() => {
+      this.recovery.updateData(item, type);
+      this.toast.print(`${_.capitalize(type.slice(0, -1))} ${item.id} has been saved`, "success");
+    });
   }
   /***/
 

@@ -2,7 +2,7 @@
  * @Author                : 0K00<qdouvillez@gmail.com>                        *
  * @CreatedDate           : 2023-06-24 13:47:35                               *
  * @LastEditors           : 0K00<qdouvillez@gmail.com>                        *
- * @LastEditDate          : 2024-01-17 14:40:04                               *
+ * @LastEditDate          : 2024-01-23 13:57:53                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -128,11 +128,15 @@ export class TasksController {
   ): Promise<Task> {
     try {
       const user = jwt.verify(token, process.env.SALT);
+      console.log(body);
+      
       const newTask = await this.prisma.task.create({
         data: {
           ...body,
           projectId: id,
           ownerId: user.id,
+          level: body.level ? body.level : "normal",
+          status: body.status ? body.status : "new",
           assignments: {
             create: [{
               userId: user.id
