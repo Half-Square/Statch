@@ -105,9 +105,9 @@ To get started with the Statch, you'll need to have the following software insta
 
 3. To install for development purpose
 
-  ```
+   ```
     npm run setup:dev
-  ```
+   ```
    
 ### Run project
 
