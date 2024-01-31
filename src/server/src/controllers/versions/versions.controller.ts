@@ -1,8 +1,8 @@
 /******************************************************************************
- * @Author                : 0K00<qdouvillez@gmail.com>                        *
+ * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-09-21 12:01:16                               *
- * @LastEditors           : 0K00<qdouvillez@gmail.com>                        *
- * @LastEditDate          : 2024-01-17 14:40:38                               *
+ * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
+ * @LastEditDate          : 2024-01-31 17:03:45                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -31,8 +31,7 @@ import {
   Delete,
   Param,
   Body,
-  UseInterceptors,
-  SetMetadata
+  UseInterceptors
 } from "@nestjs/common";
 /***/
 
@@ -43,7 +42,6 @@ import { SocketService } from "src/services/socket/socket.service";
 
 /* Guards */
 import { IsConnectedGuard } from "src/guards/is-connected.guard";
-import { IsPermissionsGuard } from "src/guards/is-perms.guard";
 /***/
 
 /* Dto */
@@ -103,8 +101,7 @@ export class VersionsController {
   */
   @Post("projects/:projectId/versions")
   @UseInterceptors(ActivitiesInterceptor)
-  @UseGuards(IsPermissionsGuard)
-  @SetMetadata("permissions", [{type: "versions", actions: ["create"]}])
+  @UseGuards(IsConnectedGuard)
   async create( @Param("projectId") projectId: string,
                 @Body() body: versionsDto.CreateInput): Promise<Version> {
     let version = await this.prisma.version.create({
@@ -125,8 +122,7 @@ export class VersionsController {
   */
   @Put("projects/:projectId/versions/:id")
   @UseInterceptors(ActivitiesInterceptor)
-  @UseGuards(IsPermissionsGuard)
-  @SetMetadata("permissions", [{type: "versions", actions: ["update"]}])
+  @UseGuards(IsConnectedGuard)
   async update(@Param("id") id: string, @Body() body: versionsDto.UpdateInput): Promise<Version> {
     let version = await this.prisma.version.update({
       where: {id: id},
@@ -146,8 +142,7 @@ export class VersionsController {
   */
   @Delete("projects/:projectId/versions/:id")
   @UseInterceptors(ActivitiesInterceptor)
-  @UseGuards(IsPermissionsGuard)
-  @SetMetadata("permissions", [{type: "versions", actions: ["delete"]}])
+  @UseGuards(IsConnectedGuard)
   async deleteById(@Param("id") id: string): Promise<{message: string}> {
     await this.prisma.version.delete({where: {id: id}});
 

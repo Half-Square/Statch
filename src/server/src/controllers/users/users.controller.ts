@@ -1,8 +1,8 @@
 /******************************************************************************
- * @Author                : 0K00<qdouvillez@gmail.com>                        *
+ * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-06-01 15:15:39                               *
- * @LastEditors           : 0K00<qdouvillez@gmail.com>                        *
- * @LastEditDate          : 2024-01-22 17:28:25                               *
+ * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
+ * @LastEditDate          : 2024-01-31 17:17:30                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -24,7 +24,6 @@ import {
   Get,
   Param,
   Body,
-  Headers,
   HttpException,
   HttpStatus,
   UseGuards,
@@ -39,7 +38,6 @@ import { resolve } from "path";
 
 /* Services */
 import { PrismaService } from "src/prisma.service";
-import { PermsService } from "src/services/perms/perms.service";
 /***/
 
 /* Dto */
@@ -54,8 +52,7 @@ import { IsAdminGuard } from "src/guards/is-admin.guard";
 
 @Controller("api")
 export class UsersController {
-  constructor(private prisma: PrismaService, 
-              private perm: PermsService) {
+  constructor(private prisma: PrismaService) {
   }
 
   /**
@@ -71,16 +68,13 @@ export class UsersController {
       let passwd = String(sha256(body.password));
       let count = await (await this.prisma.user.findMany()).length;
 
-      const defaultRole = await this.prisma.role.findFirst({ where: { name: "default" } });      
-
       const res = await this.prisma.user.create({
         data: {
           name: body.name,
           password: passwd,
           email: body.email,
           validate: count === 0,
-          isAdmin: count === 0,
-          roleId: defaultRole.id
+          isAdmin: count === 0
         }
       });
       return new usersDto.DetailsOutput(res);
@@ -105,10 +99,7 @@ export class UsersController {
   async login(@Body() body: usersDto.ConnectInput): Promise<usersDto.ConnectOutput> {
     try {
       const res = await this.prisma.user.findUnique({
-        where: {email: body.email}, 
-        include: { 
-          role: true
-        }
+        where: {email: body.email}
       });
       if (!res) throw new HttpException("Not Found", HttpStatus.NOT_FOUND);
 
@@ -164,46 +155,24 @@ export class UsersController {
   @UseGuards(IsSelfGuard)
   async updateProfile(
     @Param("id") id: string, 
-    @Body() body: usersDto.UpdateInput,
-    @Headers("x-token") token: string
+    @Body() body: usersDto.UpdateInput
   ): Promise<usersDto.ConnectOutput> {
     try {
-      const userInfo = await this.prisma.user.findFirst({
-        where: { id: jwt.verify(token, process.env.SALT).id },
-        include: {
-          role: true
-        }
-      });
+      if (body.oldPicture) fs.unlinkSync(resolve("upload")+"/"+body.oldPicture);
 
-      const canUpdate = await this.perm.updateData(
-        body, 
-        id, 
-        "profile", 
-        userInfo, 
-        ["name", "email", "picture"]);
-      
-      if(canUpdate) {
-        if (body.oldPicture) fs.unlinkSync(resolve("upload")+"/"+body.oldPicture);
+      delete body.oldPicture;
   
-        delete body.oldPicture;
-    
-        let user = await this.prisma.user.update({
-          where: {id: id},
-          include: {
-            role: true
-          },
-          data: body
-        });
-    
-        user["token"] = jwt.sign(user, process.env.SALT, {
-          algorithm: "HS256",
-          expiresIn: process.env.SESSION_TIME
-        });
-    
-        return new usersDto.ConnectOutput(user);
-      } else {
-        throw new HttpException("You do not have the necessary permission to perform this action", HttpStatus.NOT_MODIFIED);
-      }
+      let user = await this.prisma.user.update({
+        where: {id: id},
+        data: body
+      });
+  
+      user["token"] = jwt.sign(user, process.env.SALT, {
+        algorithm: "HS256",
+        expiresIn: process.env.SESSION_TIME
+      });
+  
+      return new usersDto.ConnectOutput(user);
     } catch (err) {
       throw err;
     }
@@ -234,10 +203,7 @@ export class UsersController {
   @Get("users/demo")
   async getDemo(): Promise<usersDto.ConnectOutput> {
     let ret = await this.prisma.user.findUnique({
-      where: {email: "demo@statch.app"},
-      include: {
-        role: true
-      }
+      where: {email: "demo@statch.app"}
     });
     
     if (ret) {

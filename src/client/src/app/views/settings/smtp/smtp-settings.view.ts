@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : 0K00<qdouvillez@gmail.com>                       *
+ * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-09-28 15:01:19                              *
- * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
- * @LastEditDate          : 2024-01-16 19:20:31                              *
+ * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @LastEditDate          : 2024-01-31 16:49:41                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -13,7 +13,6 @@
 
 /* Imports */
 import { Component, OnInit } from "@angular/core";
-import { PermissionsService } from "src/app/services/permissions.service";
 /***/
 
 /* Services */
@@ -41,8 +40,7 @@ export class SmtpSettingsView implements OnInit {
 
   constructor(private api: RequestService,
               private user: UserService,
-              private toast: ToastService,
-              public perm: PermissionsService) {
+              private toast: ToastService) {
   }
 
   ngOnInit(): void {

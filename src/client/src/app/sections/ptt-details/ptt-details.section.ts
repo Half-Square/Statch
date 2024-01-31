@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : 0K00<qdouvillez@gmail.com>                       *
+ * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-09-27 16:52:14                              *
- * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
- * @LastEditDate          : 2024-01-16 18:32:35                              *
+ * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @LastEditDate          : 2024-01-31 16:55:53                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -31,7 +31,6 @@ import { RecoveryService } from "src/app/services/recovery.service";
 import { RequestService } from "src/app/services/request.service";
 import { UserService } from "src/app/services/user.service";
 import { ToastService } from "src/app/services/toast.service";
-import { PermissionsService } from "src/app/services/permissions.service";
 /***/
 
 /* eslint-disable  @typescript-eslint/no-explicit-any */
@@ -72,8 +71,7 @@ export class PttDetailsSection implements OnInit, OnDestroy {
   constructor(public recovery: RecoveryService,
               public api: RequestService,
               private user: UserService,
-              public toast: ToastService,
-              public perm: PermissionsService) {
+              public toast: ToastService) {
     this.subsciptions = [
       this.recovery.get("users").subscribe((users) => this.users = users),
       this.recovery.get("labels").subscribe((labels) => this.labels = labels)

@@ -1,8 +1,8 @@
 /******************************************************************************
- * @Author                : 0K00<qdouvillez@gmail.com>                        *
+ * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-05-30 12:07:51                               *
- * @LastEditors           : 0K00<qdouvillez@gmail.com>                        *
- * @LastEditDate          : 2024-01-17 12:27:57                               *
+ * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
+ * @LastEditDate          : 2024-01-31 17:11:03                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -30,7 +30,6 @@ import { SettingsController } from "./controllers/settings/settings.controller";
 import { ActivitiesController } from "./controllers/activities/activities.controller";
 import { SearchController } from "./controllers/search/search.controller";
 import { DatabaseController } from "./controllers/database/database.controller";
-import { RolesController } from "./controllers/roles/roles.controller";
 /***/
 
 /* Services */
@@ -39,7 +38,6 @@ import { SocketService } from "./services/socket/socket.service";
 import { ActivitiesService } from "./controllers/activities/activities.service";
 import { FilesController } from "./controllers/files/files.controller";
 import { SettingsService } from "./controllers/settings/settings.service";
-import { PermsService } from "./services/perms/perms.service";
 /***/
 
 @Module({
@@ -61,15 +59,13 @@ import { PermsService } from "./services/perms/perms.service";
     ActivitiesController,
     FilesController,
     SearchController,
-    DatabaseController,
-    RolesController
+    DatabaseController
   ],
   providers: [
     PrismaService,
     SocketService,
     ActivitiesService,
-    SettingsService,
-    PermsService
+    SettingsService
   ]
 })
 export class AppModule {}

@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : 0K00<qdouvillez@gmail.com>                       *
+ * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-09-27 14:08:53                              *
- * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
- * @LastEditDate          : 2024-01-16 18:22:42                              *
+ * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @LastEditDate          : 2024-01-31 16:54:29                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -28,7 +28,6 @@ import {
 
 /* Interfaces */
 import { IProjects, ITasks, ITickets } from "src/app/interfaces";
-import { PermissionsService } from "src/app/services/permissions.service";
 /***/
 
 @Component({
@@ -53,7 +52,7 @@ export class PttHeaderSection {
   public contentEl: {name: string, description: string};
   public contentDesc: string;
 
-  constructor(private renderer: Renderer2, public perm: PermissionsService) {
+  constructor(private renderer: Renderer2) {
     this.onFocusEnd();
   }
 
