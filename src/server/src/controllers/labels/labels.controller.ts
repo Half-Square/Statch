@@ -1,8 +1,8 @@
 /******************************************************************************
- * @Author                : 0K00<qdouvillez@gmail.com>                        *
+ * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-09-20 15:37:10                               *
- * @LastEditors           : 0K00<qdouvillez@gmail.com>                        *
- * @LastEditDate          : 2024-01-17 14:39:02                               *
+ * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
+ * @LastEditDate          : 2024-01-31 17:08:52                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -28,8 +28,7 @@ import {
   Delete,
   HttpException,
   HttpStatus,
-  UseGuards,
-  SetMetadata
+  UseGuards
 } from "@nestjs/common";
 /***/
 
@@ -40,7 +39,6 @@ import { PrismaService } from "src/prisma.service";
 
 /* Guards */
 import { IsConnectedGuard } from "src/guards/is-connected.guard";
-import { IsPermissionsGuard } from "src/guards/is-perms.guard";
 /***/
 
 /* Dto */
@@ -60,8 +58,7 @@ export class LabelsController {
   * @return - Labels list 
   */
   @Get()
-  @UseGuards(IsPermissionsGuard)
-  @SetMetadata("permissions", [{type: "labels", actions: ["view"]}])
+  @UseGuards(IsConnectedGuard)
   async getAll(): Promise<Label[]> {
     return await this.prisma.label.findMany();
   }
@@ -73,8 +70,7 @@ export class LabelsController {
   * @return - Label data
   */
   @Get("/:id")
-  @UseGuards(IsPermissionsGuard)
-  @SetMetadata("permissions", [{type: "labels", actions: ["view"]}])
+  @UseGuards(IsConnectedGuard)
   async getById(@Param("id") id: string): Promise<Label> {
     let label = await this.prisma.label.findFirst({where: {id: id}});
     if (label) return label;
@@ -88,8 +84,7 @@ export class LabelsController {
   * @return - New label 
   */
   @Post("")
-  @UseGuards(IsPermissionsGuard)
-  @SetMetadata("permissions", [{type: "labels", actions: ["create"]}])
+  @UseGuards(IsConnectedGuard)
   async create(@Body() body: labelsDto.CreateInput): Promise<Label> {
     let label = await this.prisma.label.create({
       data: body
@@ -107,8 +102,7 @@ export class LabelsController {
   * @return - Update label
   */
   @Put(":id")
-  @UseGuards(IsPermissionsGuard)
-  @SetMetadata("permissions", [{type: "labels", actions: [{type: "update", actions: ["name", "description"]}]}])
+  @UseGuards(IsConnectedGuard)
   async update(@Param("id") id: string, @Body() body: labelsDto.UpdateInput): Promise<Label> {
     let label =  await this.prisma.label.update({
       where: {id: id},
@@ -126,8 +120,7 @@ export class LabelsController {
   * @return - Message 
   */
   @Delete("/:id")
-  @UseGuards(IsPermissionsGuard)
-  @SetMetadata("permissions", [{type: "labels", actions: ["delete"]}])
+  @UseGuards(IsConnectedGuard)
   async delete(@Param("id") id: string): Promise<{message: string}> {
     await this.prisma.label.delete({where: {id: id}});
     this.socket.broadcast("labels", {id: id}, true);
