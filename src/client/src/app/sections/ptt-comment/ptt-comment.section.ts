@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : 0K00<qdouvillez@gmail.com>                       *
+ * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-09-27 15:26:28                              *
- * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
- * @LastEditDate          : 2024-01-17 14:52:11                              *
+ * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @LastEditDate          : 2024-01-31 16:57:04                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -21,7 +21,6 @@ import { IComments, IProjects, ITasks, ITickets } from "src/app/interfaces";
 /***/
 
 /* Services */
-import { PermissionsService } from "src/app/services/permissions.service";
 import { RecoveryService } from "src/app/services/recovery.service";
 import { RequestService } from "src/app/services/request.service";
 import { ToastService } from "src/app/services/toast.service";
@@ -45,8 +44,7 @@ export class PttCommentSection {
               private sanitizer: DomSanitizer,
               private recovery: RecoveryService,
               private toast: ToastService,
-              private user: UserService,
-              public perm: PermissionsService) {
+              private user: UserService) {
   }
 
   /**

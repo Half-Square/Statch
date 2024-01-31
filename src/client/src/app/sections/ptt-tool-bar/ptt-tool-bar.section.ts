@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : 0K00<qdouvillez@gmail.com>                       *
+ * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-09-30 15:40:03                              *
- * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
- * @LastEditDate          : 2024-01-16 18:09:22                              *
+ * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @LastEditDate          : 2024-01-31 16:54:06                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -11,7 +11,6 @@
 
 /* Imports */
 import { Component, EventEmitter, Input, Output } from "@angular/core";
-import { PermissionsService } from "src/app/services/permissions.service";
 /***/
 
 @Component({
@@ -26,6 +25,4 @@ export class PttToolBarSection {
   @Output() onDelete = new EventEmitter();
   @Output() onCreateChild = new EventEmitter();
   @Output() onAssign = new EventEmitter();
-
-  constructor(public perm: PermissionsService) {}
 }

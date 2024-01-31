@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : 0K00<qdouvillez@gmail.com>                       *
+ * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-09-28 13:52:36                              *
- * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
- * @LastEditDate          : 2024-01-16 18:02:01                              *
+ * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @LastEditDate          : 2024-01-31 16:53:13                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -21,7 +21,6 @@ import { environment as env } from "src/environments/environment";
 import { ILoggedUser, UserService } from "src/app/services/user.service";
 import { RequestService } from "src/app/services/request.service";
 import { ToastService } from "src/app/services/toast.service";
-import { PermissionsService } from "src/app/services/permissions.service";
 /***/
 
 @Component({
@@ -34,8 +33,7 @@ export class ProfileView implements OnInit {
 
   constructor(private user: UserService,
               private api: RequestService,
-              private toast: ToastService,
-              public perm: PermissionsService) {
+              private toast: ToastService) {
   }
 
   ngOnInit(): void {

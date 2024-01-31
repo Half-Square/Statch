@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : 0K00<qdouvillez@gmail.com>                       *
+ * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-09-28 16:23:37                              *
- * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
- * @LastEditDate          : 2024-01-17 14:46:45                              *
+ * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @LastEditDate          : 2024-01-31 16:58:07                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -21,7 +21,6 @@ import { ILabels } from "src/app/interfaces";
 /***/
 
 /* Services */
-import { PermissionsService } from "src/app/services/permissions.service";
 import { RequestService } from "src/app/services/request.service";
 import { UserService } from "src/app/services/user.service";
 /***/
@@ -40,8 +39,7 @@ export class LabelsEditorSection {
   };
 
   constructor(private user: UserService,
-              private api: RequestService,
-              public perm: PermissionsService) {
+              private api: RequestService) {
   }
 
   /**

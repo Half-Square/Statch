@@ -1,8 +1,8 @@
 <!--
-* @Author                : 0K00<qdouvillez@gmail.com>
+* @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>
 * @CreatedDate           : 2023-09-30 15:55:00
-* @LastEditors           : 0K00<qdouvillez@gmail.com>
-* @LastEditDate          : 2024-01-17 18:59:11
+* @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>
+* @LastEditDate          : 2024-01-31 16:52:31
 -->
 
 <div class="view-ptt">
@@ -22,7 +22,7 @@
           <section-ptt-advancement [value]="advancement"/>
 
           <section-ptt-list [elements]="childs" [type]="childType" [versions]="versionFilters">
-            <ng-container *ngIf="perm.check({type: childType, actions: ['view']})" sort>
+            <ng-container sort>
               {{childType}}
 
               <component-select [data]="versions"
@@ -34,7 +34,7 @@
               </component-select>
             </ng-container>
 
-            <div *ngIf="perm.check({type: childType, actions: ['create']})" class="add" add (click)="createChild()">
+            <div class="add" add (click)="createChild()">
               <core-icon icon="plus"></core-icon>
               Create new {{childType}}
             </div>

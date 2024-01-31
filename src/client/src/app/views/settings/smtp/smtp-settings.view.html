@@ -1,8 +1,8 @@
 <!--
-* @Author                : 0K00<qdouvillez@gmail.com>
+* @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>
 * @CreatedDate           : 2023-09-28 15:01:00
-* @LastEditors           : 0K00<qdouvillez@gmail.com>
-* @LastEditDate          : 2024-01-17 19:01:18
+* @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>
+* @LastEditDate          : 2024-01-31 16:49:58
 -->
 
 <div class="view-smtp-settings">
@@ -11,7 +11,6 @@
       <core-input label="Host"
                   [isLabel]="true"
                   [(value)]="smtp.host"
-                  [disabled]="!perm.check({type: 'smtp', actions: ['update']})"
                   (keydown.enter)="save()"
                   placeholder="Smpt host..."/>
 
@@ -19,26 +18,23 @@
                   is="number"
                   [isLabel]="true"
                   [(value)]="smtp.port"
-                  [disabled]="!perm.check({type: 'smtp', actions: ['update']})"
                   (keydown.enter)="save()"
                   placeholder="Smpt port..."/>
 
       <core-input label="User"
                   [isLabel]="true"
                   [(value)]="smtp.user"
-                  [disabled]="!perm.check({type: 'smtp', actions: ['update']})"
                   (keydown.enter)="save()"
                   placeholder="Smpt user..."/>
 
       <core-input-pwd label="Password"
                       [isLabel]="true"
                       [value]="smtp.password || ''"
-                      [disabled]="!perm.check({type: 'smtp', actions: ['update']})"
                       (valueChange)="smtp.password = $event"
                       (keydown.enter)="save()"
                       placeholder="Smpt password..."/>
 
-      <core-button [disabled]="!perm.check({type: 'smtp', actions: ['update']})" class="button" label="Save" type="flat" [style]="'primary'" (click)="save()"/>
+      <core-button class="button" label="Save" type="flat" [style]="'primary'" (click)="save()"/>
     </div>
   </ng-template>
 
