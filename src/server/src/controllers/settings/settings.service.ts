@@ -1,8 +1,8 @@
 /******************************************************************************
- * @Author                : 0K00<qdouvillez@gmail.com>                        *
+ * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-10-06 11:46:37                               *
- * @LastEditors           : 0K00<qdouvillez@gmail.com>                        *
- * @LastEditDate          : 2024-01-22 15:50:38                               *
+ * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
+ * @LastEditDate          : 2024-01-31 17:18:39                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -71,131 +71,6 @@ export class SettingsService {
   * @return - Demo user
   */
   public async initDemo(): Promise<usersDto.ConnectOutput> {
-    const defaultRole = await this.prisma.role.findFirst({ where: { name: "demoRole" } });
-
-    if(!defaultRole) {
-      await this.prisma.role.create({
-        data: {
-          id: "demoRole",
-          name: "demoRole",
-          default: true,
-          permissions: JSON.stringify([{
-            projects: {
-              create: true,
-              update: {
-                view: true,
-                assignee: true,
-                version: true,
-                status: true,
-                labels: true,
-                level: true,
-                title: true,
-                description: true
-              },
-              view: true,
-              delete: true,
-              assignSelf: true,
-              comment: {
-                view: true,
-                create: true,
-                delete: true,
-                update: true,
-                updateSelf: true
-              }
-            },
-            tasks: {
-              create: true,
-              update: {
-                view: true,
-                assignee: true,
-                version: true,
-                status: true,
-                labels: true,
-                level: true,
-                title: true,
-                description: true
-              },
-              view: true,
-              delete: true,
-              assignSelf: true,
-              comment: {
-                view: true,
-                create: true,
-                delete: true,
-                update: true,
-                updateSelf: true
-              }
-            },
-            tickets: {
-              create: true,
-              update: {
-                view: true,
-                assignee: true,
-                version: true,
-                status: true,
-                labels: true,
-                level: true,
-                title: true,
-                description: true
-              },
-              view: true,
-              delete: true,
-              assignSelf: true,
-              comment: {
-                view: true,
-                create: true,
-                delete: true,
-                update: true,
-                updateSelf: true
-              }
-            },
-            versions: {
-              view: true,
-              create: true
-            },
-            labels: {
-              create: true,
-              view: true,
-              update: {
-                view: true,
-                name: true,
-                description: true
-              },
-              delete: true
-            },
-            smtp: {
-              update: true,
-              view: true
-            },
-            users: {
-              view: true,
-              update: true
-            },
-            database: {
-              view: true,
-              import: true,
-              export: true
-            },
-            permissions: {
-              view: true,
-              create: true,
-              update: true,
-              delete: true
-            },
-            profile: {
-              view: true,
-              update: {
-                view: true,
-                name: true,
-                email: true,
-                picture: true
-              }
-            }
-          }])
-        }
-      });
-    }
-
     let demo = await this.prisma.user.findUnique({where: {id: "demo"}});
     if (!demo) {
       await this.prisma.user.create({
@@ -209,22 +84,8 @@ export class SettingsService {
       });
     }
 
-    await this.prisma.role.update({
-      where: {id: "demoRole"},
-      data: {
-        users: {
-          connect: {
-            id: "demo"
-          }
-        }
-      }
-    });
-
     demo = await this.prisma.user.findUnique({
-      where: {id: "demo"},
-      include: {
-        role: true
-      }
+      where: {id: "demo"}
     });
     
     demo["token"] = jwt.sign(demo, process.env.SALT, {algorithm: "HS256"});

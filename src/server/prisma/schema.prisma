@@ -23,8 +23,6 @@ model User {
   tasks           Task[]
   tickets         Ticket[]
   assignment      Assignment[]
-  role            Role?            @relation(fields: [roleId], references: [id], onDelete: SetNull)
-  roleId          String?
 }
 
 model Project {
@@ -196,5 +194,4 @@ model Role {
   name          String            @unique
   permissions   String
   default       Boolean
-  users         User[]
 }

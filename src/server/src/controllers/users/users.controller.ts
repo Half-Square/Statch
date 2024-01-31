@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-06-01 15:15:39                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2024-01-31 17:04:32                               *
+ * @LastEditDate          : 2024-01-31 17:17:30                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -68,16 +68,13 @@ export class UsersController {
       let passwd = String(sha256(body.password));
       let count = await (await this.prisma.user.findMany()).length;
 
-      const defaultRole = await this.prisma.role.findFirst({ where: { name: "default" } });      
-
       const res = await this.prisma.user.create({
         data: {
           name: body.name,
           password: passwd,
           email: body.email,
           validate: count === 0,
-          isAdmin: count === 0,
-          roleId: defaultRole.id
+          isAdmin: count === 0
         }
       });
       return new usersDto.DetailsOutput(res);
@@ -102,10 +99,7 @@ export class UsersController {
   async login(@Body() body: usersDto.ConnectInput): Promise<usersDto.ConnectOutput> {
     try {
       const res = await this.prisma.user.findUnique({
-        where: {email: body.email}, 
-        include: { 
-          role: true
-        }
+        where: {email: body.email}
       });
       if (!res) throw new HttpException("Not Found", HttpStatus.NOT_FOUND);
 
@@ -170,9 +164,6 @@ export class UsersController {
   
       let user = await this.prisma.user.update({
         where: {id: id},
-        include: {
-          role: true
-        },
         data: body
       });
   
@@ -212,10 +203,7 @@ export class UsersController {
   @Get("users/demo")
   async getDemo(): Promise<usersDto.ConnectOutput> {
     let ret = await this.prisma.user.findUnique({
-      where: {email: "demo@statch.app"},
-      include: {
-        role: true
-      }
+      where: {email: "demo@statch.app"}
     });
     
     if (ret) {
