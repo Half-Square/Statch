@@ -1,8 +1,8 @@
 /******************************************************************************
- * @Author                : 0K00<qdouvillez@gmail.com>                        *
+ * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-06-24 13:47:35                               *
- * @LastEditors           : 0K00<qdouvillez@gmail.com>                        *
- * @LastEditDate          : 2024-01-17 14:40:04                               *
+ * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
+ * @LastEditDate          : 2024-01-31 17:06:41                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -31,8 +31,7 @@ import {
   HttpStatus,
   Param,
   UseGuards,
-  UseInterceptors,
-  SetMetadata
+  UseInterceptors
 } from "@nestjs/common";
 import { Task } from "@prisma/client";
 import * as jwt from "jsonwebtoken";
@@ -45,12 +44,10 @@ import * as tasksDto from "./tasks.dto";
 /* Services */
 import { SocketService } from "src/services/socket/socket.service";
 import { PrismaService } from "src/prisma.service";
-import { PermsService } from "src/services/perms/perms.service";
 /***/
 
 /* Guards */
 import { IsConnectedGuard } from "src/guards/is-connected.guard";
-import { IsPermissionsGuard } from "src/guards/is-perms.guard";
 /***/
 
 /* Interceptors */
@@ -61,8 +58,7 @@ import { ActivitiesInterceptor } from "../activities/activities.interceptor";
 @UseGuards(IsConnectedGuard)
 export class TasksController {
   constructor(private socket: SocketService,
-              private prisma: PrismaService,
-              private perm: PermsService) {
+              private prisma: PrismaService) {
   }
 
   /**
@@ -70,8 +66,7 @@ export class TasksController {
   * @return - Tasks list
   */
   @Get("tasks")
-  @UseGuards(IsPermissionsGuard)
-  @SetMetadata("permissions", [{type: "tasks", actions: ["view"]}])
+  @UseGuards(IsConnectedGuard)
   async getAll(): Promise<Task[]> {
     try {
       return await this.prisma.task.findMany({
@@ -92,8 +87,7 @@ export class TasksController {
   * @return - Task's data 
   */
   @Get("tasks/:id")
-  @UseGuards(IsPermissionsGuard)
-  @SetMetadata("permissions", [{type: "tasks", actions: ["view"]}])
+  @UseGuards(IsConnectedGuard)
   async getById(@Param("id") id: string): Promise<Task> {
     try {
       const task = await this.prisma.task.findUnique({
@@ -118,8 +112,7 @@ export class TasksController {
   * @returns - Task's details
   */
   @Post("projects/:id/tasks")
-  @UseGuards(IsPermissionsGuard)
-  @SetMetadata("permissions", [{type: "tasks", actions: ["create"]}])
+  @UseGuards(IsConnectedGuard)
   @UseInterceptors(ActivitiesInterceptor)
   async create(
     @Param("id") id: string,
@@ -163,53 +156,34 @@ export class TasksController {
   @UseInterceptors(ActivitiesInterceptor)
   async update(
     @Param("id") id: string,
-    @Body() body: tasksDto.UpdateInput,
-    @Headers("x-token") token: string
+    @Body() body: tasksDto.UpdateInput
   ): Promise<Task> {
     try {
-      const user = await this.prisma.user.findFirst({
-        where: { id: jwt.verify(token, process.env.SALT).id },
+      const task = await this.prisma.task.update({
+        where: {id: id},
+        data: {
+          ...body,
+          assignments: body.assignments ? {
+            deleteMany: {},
+            create: body.assignments.map((el) => {
+              return {userId: el.userId};
+            })
+          } : undefined,
+          labels: body.labels ? {
+            deleteMany: {},
+            create: body.labels.map((el) => {
+              return {labelId: el.labelId};
+            })
+          } : undefined
+        },
         include: {
-          role: true
+          labels: true,
+          assignments: true
         }
       });
 
-      const canUpdate = await this.perm.updateData(
-        body, 
-        id, 
-        "tasks", 
-        user, 
-        ["assignments", "targetVersionId", "status", "labels", "level", "title", "description"]);
-      
-      if(canUpdate) {
-        const task = await this.prisma.task.update({
-          where: {id: id},
-          data: {
-            ...body,
-            assignments: body.assignments ? {
-              deleteMany: {},
-              create: body.assignments.map((el) => {
-                return {userId: el.userId};
-              })
-            } : undefined,
-            labels: body.labels ? {
-              deleteMany: {},
-              create: body.labels.map((el) => {
-                return {labelId: el.labelId};
-              })
-            } : undefined
-          },
-          include: {
-            labels: true,
-            assignments: true
-          }
-        });
-  
-        this.socket.broadcast("tasks", task);
-        return task;
-      } else {
-        throw new HttpException("You do not have the necessary permission to perform this action", HttpStatus.NOT_MODIFIED);
-      }
+      this.socket.broadcast("tasks", task);
+      return task;
     } catch (err) {
       throw err;
     }
@@ -223,8 +197,7 @@ export class TasksController {
   */
   @Delete("tasks/:id")
   @UseInterceptors(ActivitiesInterceptor)
-  @UseGuards(IsPermissionsGuard)
-  @SetMetadata("permissions", [{type: "tasks", actions: ["delete"]}])
+  @UseGuards(IsConnectedGuard)
   async deleteById(@Param("id") id: string): Promise<{message: string}> {
     try {
       await this.prisma.task.delete({where: {id: id}});

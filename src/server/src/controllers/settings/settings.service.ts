@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-10-06 11:46:37                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-10-06 12:15:57                               *
+ * @LastEditDate          : 2024-01-31 17:18:39                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -73,7 +73,7 @@ export class SettingsService {
   public async initDemo(): Promise<usersDto.ConnectOutput> {
     let demo = await this.prisma.user.findUnique({where: {id: "demo"}});
     if (!demo) {
-      demo = await this.prisma.user.create({
+      await this.prisma.user.create({
         data: {
           id: "demo",
           name: "Demo",
@@ -83,6 +83,10 @@ export class SettingsService {
         }
       });
     }
+
+    demo = await this.prisma.user.findUnique({
+      where: {id: "demo"}
+    });
     
     demo["token"] = jwt.sign(demo, process.env.SALT, {algorithm: "HS256"});
     return new usersDto.ConnectOutput(demo);

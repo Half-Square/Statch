@@ -1,8 +1,8 @@
 /******************************************************************************
- * @Author                : 0K00<qdouvillez@gmail.com>                        *
+ * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-09-22 16:14:03                               *
- * @LastEditors           : 0K00<qdouvillez@gmail.com>                        *
- * @LastEditDate          : 2024-01-17 14:39:53                               *
+ * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
+ * @LastEditDate          : 2024-01-31 17:07:13                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -26,14 +26,12 @@ import {
   Put,
   Body,
   HttpException,
-  HttpStatus,
-  SetMetadata
+  HttpStatus
 } from "@nestjs/common";
 /***/
 
 /* Guards */
 import { IsAdminGuard } from "src/guards/is-admin.guard";
-import { IsPermissionsGuard } from "src/guards/is-perms.guard";
 /***/
 
 /* Dto */
@@ -43,6 +41,7 @@ import * as usersDto from "../users/users.dto";
 
 /* Services */
 import { SettingsService } from "./settings.service";
+import { IsConnectedGuard } from "src/guards/is-connected.guard";
 /***/
 
 @Controller("api/settings")
@@ -67,8 +66,7 @@ export class SettingsController {
   * @return - Smtp settings 
   */
   @Get("smtp")
-  @UseGuards(IsAdminGuard, IsPermissionsGuard)
-  @SetMetadata("permissions", [{type: "smtp", actions: ["view"]}])
+  @UseGuards(IsAdminGuard, IsConnectedGuard)
   getSmtp(): settingsDto.PublicSmtpOutput {
     let settings = this.settings.getSettings();
     return new settingsDto.PublicSmtpOutput(settings.smtp);
@@ -81,8 +79,7 @@ export class SettingsController {
   * @return - Smtp settings 
   */
   @Put("smtp")
-  @UseGuards(IsAdminGuard, IsPermissionsGuard)
-  @SetMetadata("permissions", [{type: "smtp", actions: ["update"]}])
+  @UseGuards(IsAdminGuard, IsConnectedGuard)
   updateSmtp(@Body() body: settingsDto.UpdateSmtpInput): settingsDto.PublicSmtpOutput {
     let settings = this.settings.getSettings();
     

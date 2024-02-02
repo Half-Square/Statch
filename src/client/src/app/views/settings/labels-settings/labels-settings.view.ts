@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : 0K00<qdouvillez@gmail.com>                       *
+ * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-09-28 15:53:55                              *
- * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
- * @LastEditDate          : 2024-01-16 19:13:12                              *
+ * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @LastEditDate          : 2024-01-31 16:50:55                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -18,7 +18,6 @@ import { Subscription } from "rxjs";
 
 /* Interfaces */
 import { ILabels } from "src/app/interfaces";
-import { PermissionsService } from "src/app/services/permissions.service";
 /***/
 
 /* Services */
@@ -34,8 +33,7 @@ export class LabelsSettingsView implements OnInit, OnDestroy {
   public labels: ILabels[];
   private sub: Subscription;
 
-  constructor(private recovery: RecoveryService,
-              public perm: PermissionsService) {
+  constructor(private recovery: RecoveryService) {
   }
 
   ngOnInit(): void {

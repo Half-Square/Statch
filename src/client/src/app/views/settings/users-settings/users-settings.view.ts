@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : 0K00<qdouvillez@gmail.com>                       *
+ * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-09-29 09:34:09                              *
- * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
- * @LastEditDate          : 2024-01-16 19:22:39                              *
+ * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @LastEditDate          : 2024-01-31 16:49:05                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -25,7 +25,6 @@ import { UserService } from "src/app/services/user.service";
 /* Interfaces */
 import { IUsers } from "src/app/interfaces";
 import { ToastService } from "src/app/services/toast.service";
-import { PermissionsService } from "src/app/services/permissions.service";
 /***/
 
 @Component({
@@ -40,8 +39,7 @@ export class UsersSettingsView implements OnInit, OnDestroy {
   constructor(private recovery: RecoveryService,
               private api: RequestService,
               private user: UserService,
-              private toast: ToastService,
-              public perm: PermissionsService) {
+              private toast: ToastService) {
   }
 
   ngOnInit(): void {
