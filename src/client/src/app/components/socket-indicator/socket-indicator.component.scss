@@ -1,0 +1,38 @@
+/*****************************************************************************
+ * @Author                : Jbristhuille<jbristhuille@gmail.com>             *
+ * @CreatedDate           : 2024-07-25 20:21:13                              *
+ * @LastEditors           : Jbristhuille<jbristhuille@gmail.com>             *
+ * @LastEditDate          : 2024-07-25 21:31:16                              *
+ ****************************************************************************/
+
+.component-socket-indicator {
+  font-size: 9px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  .response-time {
+    width: 30px;
+    display: flex;
+    justify-content: flex-end;
+
+    .number {
+      margin-right: 2px;
+    }
+  }
+
+  .status {
+    border-radius: 100%;
+    background-color: red;
+    width: 9px;
+    height: 9px;
+
+    &.ok {
+      background-color: green;
+    }
+
+    &.warn {
+      background-color: orange;
+    }
+  }
+}

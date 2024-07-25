@@ -1,8 +1,8 @@
 /******************************************************************************
- * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
+ * @Author                : Jbristhuille<jbristhuille@gmail.com>              *
  * @CreatedDate           : 2023-06-16 10:35:39                               *
- * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-12-04 18:44:17                               *
+ * @LastEditors           : Jbristhuille<jbristhuille@gmail.com>              *
+ * @LastEditDate          : 2024-07-25 21:25:32                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -30,7 +30,7 @@ export class SocketService {
   * Initialize web socket server
   * @param port - Socket server port 
   */
-  init(port: number): void {
+  public init(port: number): void {
     this.io = new Server(port, {
       cors: {
         credentials: false
@@ -58,11 +58,26 @@ export class SocketService {
   * @param name - Event name
   * @param data - Event data
   */
-  broadcast(name: string, data: unknown, deleted?: boolean): void {
+  public broadcast(name: string, data: unknown, deleted?: boolean): void {
     this.clear();
     
     if (deleted) data["deleted"] = true;
     this.io.emit(name, data);
+  }
+  /***/
+
+  /**
+  * Send to client
+  * @param id - Client id
+  * @param event - Event name
+  * @param data - Data to send 
+  */
+  public sendTo(id: string, event: string, data: unknown): void {
+    let index = this.sockets.findIndex((el) => el.socket.id == id);
+
+    if (index != -1) {
+      this.sockets[index].socket.emit(event, data);
+    }
   }
   /***/
   

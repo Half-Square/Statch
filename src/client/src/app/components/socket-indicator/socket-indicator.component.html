@@ -1,0 +1,17 @@
+<!--
+* @Author                : Jbristhuille<jbristhuille@gmail.com>
+* @CreatedDate           : 2024-07-25 20:18:00
+* @LastEditors           : Jbristhuille<jbristhuille@gmail.com>
+* @LastEditDate          : 2024-07-25 21:30:55
+-->
+
+<div class="component-socket-indicator">
+  <div>Socket: </div>
+
+  <div class="response-time">
+    <div class="number">{{response ? response : "offline"}}</div>
+    <div *ngIf="response">ms</div>
+  </div>
+
+  <div class="status {{status}}"></div>
+</div>
