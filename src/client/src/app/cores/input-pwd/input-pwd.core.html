@@ -1,8 +1,8 @@
 <!--
-* @Author                : Quentin<quentin@halfsquare.fr>
+* @Author                : Jbristhuille<jbristhuille@gmail.com>
 * @CreatedDate           : 2023-06-02 13:20:00
-* @LastEditors           : Quentin<quentin@halfsquare.fr>
-* @LastEditDate          : 2023-09-06 12:55:09
+* @LastEditors           : Jbristhuille<jbristhuille@gmail.com>
+* @LastEditDate          : 2024-07-26 15:23:01
 -->
 
 <div [ngClass]="['input', type, size, other]">
@@ -17,8 +17,8 @@
             [id]="id" />
 
     <span class="toggle-icon" (click)="togglePasswordVisibility()">
-      <core-icon *ngIf="showPassword" icon="eye"></core-icon>
-      <core-icon *ngIf="!showPassword" icon="eye--fill"></core-icon>
+      <core-icon *ngIf="showPassword" other="icon--24" icon="eye-close"></core-icon>
+      <core-icon *ngIf="!showPassword" other="icon--24" icon="eye-open"></core-icon>
     </span>
 
     <label *ngIf="isLabel" [for]="id">
