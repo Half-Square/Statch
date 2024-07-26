@@ -49,6 +49,7 @@ import { SearchBarComponent } from "./search-bar/search-bar.component";
 import { ModalComponent } from "./modal/modal.component";
 import { TooltipModule } from "./tooltip/tooltip.module";
 import { MarkdownComponent } from "./markdown/markdown.component";
+import { SocketIndicatorComponent } from "./socket-indicator/socket-indicator.component";
 /***/
 
 @NgModule({
@@ -75,7 +76,8 @@ import { MarkdownComponent } from "./markdown/markdown.component";
     ActivityActionStateComponent,
     SearchBarComponent,
     ModalComponent,
-    MarkdownComponent
+    MarkdownComponent,
+    SocketIndicatorComponent
   ],
   imports: [
     CommonModule,
@@ -111,7 +113,8 @@ import { MarkdownComponent } from "./markdown/markdown.component";
     SearchBarComponent,
     ModalComponent,
     TooltipModule,
-    MarkdownComponent
+    MarkdownComponent,
+    SocketIndicatorComponent
   ]
 })
 
