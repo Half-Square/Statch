@@ -1,9 +1,17 @@
-/******************************************************************************
- * @Author                : 0K00<qdouvillez@gmail.com>                        *
- * @CreatedDate           : 2023-11-30 13:56:46                               *
- * @LastEditors           : 0K00<qdouvillez@gmail.com>                        *
- * @LastEditDate          : 2023-12-01 15:36:28                               *
- *****************************************************************************/
+/*****************************************************************************
+ * @Author                : Jbristhuille<jbristhuille@gmail.com>             *
+ * @CreatedDate           : 2023-11-30 13:56:46                              *
+ * @LastEditors           : Jbristhuille<jbristhuille@gmail.com>             *
+ * @LastEditDate          : 2024-07-26 15:01:01                              *
+ ****************************************************************************/
+
+/* SUMMARY
+  * Imports
+  * Services
+  * Interfaces
+  * Get all Shortcuts
+  * Action & active commands if is matched
+*/
 
 /* Imports */
 import { Injectable } from "@angular/core";
@@ -63,14 +71,14 @@ export class ShortcutsService {
       description: "Goto p",
       category: "Navigation",
       action: "goProjects",
-      shortcut: "Shift+D"
+      shortcut: "Alt+P"
     },
     {
       name: "Go to activities",
       description: "Goto a",
       category: "Navigation",
       action: "goActivities",
-      shortcut: "Shift+A"
+      shortcut: "Alt+C"
     },
     {
       name: "Go to profile",
