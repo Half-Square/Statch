@@ -2,8 +2,16 @@
  * @Author                : Jbristhuille<jbristhuille@gmail.com>             *
  * @CreatedDate           : 2023-11-30 13:56:46                              *
  * @LastEditors           : Jbristhuille<jbristhuille@gmail.com>             *
- * @LastEditDate          : 2024-07-26 14:59:03                              *
+ * @LastEditDate          : 2024-07-26 15:01:01                              *
  ****************************************************************************/
+
+/* SUMMARY
+  * Imports
+  * Services
+  * Interfaces
+  * Get all Shortcuts
+  * Action & active commands if is matched
+*/
 
 /* Imports */
 import { Injectable } from "@angular/core";
