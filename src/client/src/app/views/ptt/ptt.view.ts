@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @Author                : Jbristhuille<jbristhuille@gmail.com>             *
  * @CreatedDate           : 2023-09-30 15:55:46                              *
- * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2024-01-31 16:52:01                              *
+ * @LastEditors           : Jbristhuille<jbristhuille@gmail.com>             *
+ * @LastEditDate          : 2024-07-27 18:04:20                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -85,6 +85,11 @@ export class PttView implements OnInit, OnDestroy {
             }),
             this.recovery.get(`projects/${root.id}/versions`).subscribe((versions) => {
               this.versions = this.sort.sortVersions(versions);
+              this.versions.unshift({
+                id: "",
+                name: "No version",
+                projectId: ""
+              });
             }),
             this.recovery.get(`${this.type}/${this.id}/activities`).subscribe((a) => {
               a = _.orderBy(a, "created", ["desc"]).slice(0, 10);
