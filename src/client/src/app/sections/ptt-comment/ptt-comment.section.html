@@ -1,21 +1,21 @@
 <!--
-* @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>
+* @Author                : Jbristhuille<jbristhuille@gmail.com>
 * @CreatedDate           : 2023-09-27 15:26:00
-* @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>
-* @LastEditDate          : 2024-01-31 16:57:52
+* @LastEditors           : Jbristhuille<jbristhuille@gmail.com>
+* @LastEditDate          : 2024-08-02 21:36:03
 -->
 
 <div class="ptt-comment">
-
   <h2 class="subtitle">Comments</h2>
 
   <div class="comment" *ngFor="let comment of comments">
-
     <div class="header">
       <core-avatar  [imgLink]="comment.authorId | recovery:'picture':'users' | async"
                     [label]="comment.authorId | recovery:'name':'users' | async" />
+
       <div class="option">
         <span class="date">{{ comment.created | dateDifference }}</span>
+
         <core-button (click)="onDelete(comment.id)"
                      [type]="'basic'"
                      [style]="'warn'"
@@ -26,7 +26,7 @@
       </div>
     </div>
 
-    <div class="content" [innerHTML]="trustedContent(comment.content)">
+    <div class="content" [innerHTML]="comment.content">
     </div>
 
   </div>
