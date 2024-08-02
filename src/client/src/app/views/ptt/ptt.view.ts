@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jbristhuille@gmail.com>             *
  * @CreatedDate           : 2023-09-30 15:55:46                              *
  * @LastEditors           : Jbristhuille<jbristhuille@gmail.com>             *
- * @LastEditDate          : 2024-07-27 18:04:20                              *
+ * @LastEditDate          : 2024-08-02 21:18:05                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -141,9 +141,9 @@ export class PttView implements OnInit, OnDestroy {
   */
   private getChilds(): Subscription {
     return this.recovery.get(this.childType).subscribe((el) => { // Get childs
-      this.childs = _.filter(el, (c) => {
+      this.childs = this.childs = this.sort.sortPTT(_.filter(el, (c) => {
         return this.id === (this.childType == "tasks" ? (c as ITasks).projectId : (c as ITickets).taskId);
-      });
+      }));
 
       this.setAdvancement();
     });
