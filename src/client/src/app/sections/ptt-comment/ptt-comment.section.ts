@@ -1,18 +1,24 @@
 /*****************************************************************************
- * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @Author                : Jbristhuille<jbristhuille@gmail.com>             *
  * @CreatedDate           : 2023-09-27 15:26:28                              *
- * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2024-01-31 16:57:04                              *
+ * @LastEditors           : Jbristhuille<jbristhuille@gmail.com>             *
+ * @LastEditDate          : 2024-08-02 21:35:49                              *
  ****************************************************************************/
 
 /* SUMMARY
   * Imports
   * Interfaces
   * Service
+  * Trusted Content Sanitizer
+  * Publish comment
+  * Delete comments
+  * Check if someone is mention
+  * Get content of markdown
+  * Check if string is empty or not
 */
 
 /* Imports */
-import { Component, Input } from "@angular/core";
+import { Component, Input, OnInit } from "@angular/core";
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 /***/
 
@@ -33,7 +39,7 @@ import { UserService } from "src/app/services/user.service";
   templateUrl: "./ptt-comment.section.html",
   styleUrls: ["./ptt-comment.section.scss"]
 })
-export class PttCommentSection {
+export class PttCommentSection implements OnInit {
   @Input() item: IProjects | ITasks | ITickets;
   @Input() type: string;
   @Input() comments: IComments[] = [];
@@ -47,12 +53,22 @@ export class PttCommentSection {
               private user: UserService) {
   }
 
+  ngOnInit(): void {
+    this.comments.forEach((comment) => {
+      return {
+        ...comment,
+        content: this.trustedContent(comment.content)
+      };
+    });
+  }
+
   /**
-   * Trusted Content Sanitizer
-   * @param content - Html element stringify
-   * @returns - SafeHtml element
-   */
+  * Trusted Content Sanitizer
+  * @param content - Html element stringify
+  * @returns - SafeHtml element
+  */
   public trustedContent(content: string): SafeHtml {
+    console.log("Hello");
     return this.sanitizer.bypassSecurityTrustHtml(content);
   }
   /***/
@@ -76,9 +92,9 @@ export class PttCommentSection {
   /***/
 
   /**
-   * Delete comments
-   * @param id - Id of comments
-   */
+  * Delete comments
+  * @param id - Id of comments
+  */
   public onDelete(id: string): void {
     this.api.delete(`api/${this.type}/${this.item.id}/comments/${id}`,
       this.user.getUser()?.token)
@@ -90,9 +106,9 @@ export class PttCommentSection {
   /***/
 
   /**
-   * Check if someone is mention
-   * @param content - Html content of comments
-   */
+  * Check if someone is mention
+  * @param content - Html content of comments
+  */
   private checkIfMention(content: string): void {
     let div = document.createElement("div");
     div.innerHTML = content;
@@ -111,9 +127,9 @@ export class PttCommentSection {
   }
 
   /**
-   * Get content of markdown
-   * @param event - Content of markdown
-   */
+  * Get content of markdown
+  * @param event - Content of markdown
+  */
   public getContent(event: string): void {
     this.content = event;
   }
