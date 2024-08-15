@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jbristhuille@gmail.com>             *
  * @CreatedDate           : 2023-09-30 15:55:46                              *
  * @LastEditors           : Jbristhuille<jbristhuille@gmail.com>             *
- * @LastEditDate          : 2024-08-02 21:18:05                              *
+ * @LastEditDate          : 2024-08-15 16:20:55                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -181,11 +181,20 @@ export class PttView implements OnInit, OnDestroy {
   * Delete current item
   */
   public deleteItem(): void {
+
     this.api.delete(`api/${this.type}/${this.id}`, this.user.getUser()?.token)
       .then(() => {
         this.recovery.updateData({id: this.id, deleted: true}, this.type);
         this.toast.print(`${_.capitalize(this.type.slice(0, -1))} ${this.id} has been removed`, "success");
-        this.router.navigateByUrl("/");
+
+        if (this.type != "projects") {
+          let targetType = this.type == "tickets" ? "tasks" : "projects";
+          if (targetType == "projects") this.router.navigate([`${targetType}/${(this.item as ITasks).projectId}`]);
+          else this.router.navigate([`${targetType}/${(this.item as ITickets).taskId}`]);
+        } else {
+          this.router.navigate(["/"]);
+        }
+
       });
   }
   /***/
