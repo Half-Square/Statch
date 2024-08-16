@@ -1,16 +1,34 @@
-/* Imports */
-import { Component, OnInit, Output, ViewChild, EventEmitter, Input, OnChanges, SimpleChanges, ElementRef } from "@angular/core";
-import { DomSanitizer } from "@angular/platform-browser";
-import { environment as env, environment } from "src/environments/environment";
 /*****************************************************************************
- * @Author                : 0K00<qdouvillez@gmail.com>                       *
+ * @Author                : Jbristhuille<jbristhuille@gmail.com>             *
  * @CreatedDate           : 2024-01-19 17:57:05                              *
- * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
- * @LastEditDate          : 2024-01-19 17:57:46                              *
+ * @LastEditors           : Jbristhuille<jbristhuille@gmail.com>             *
+ * @LastEditDate          : 2024-08-16 10:43:03                              *
  ****************************************************************************/
 
+/* SUMMARY
+  * Imports
+  * Interfaces
+  * Services
+  * Modules
+*/
+
+/* Imports */
+import {
+  Component,
+  OnInit,
+  Output,
+  ViewChild,
+  EventEmitter,
+  Input,
+  OnChanges,
+  SimpleChanges
+
+} from "@angular/core";
+import { environment as env, environment } from "src/environments/environment";
+/***/
+
 /* Interfaces */
-import { IComments, IProjects, ITasks, ITickets, IUsers } from "src/app/interfaces";
+import { IUsers } from "src/app/interfaces";
 /***/
 
 /* Services */

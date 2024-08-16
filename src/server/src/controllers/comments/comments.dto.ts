@@ -1,13 +1,14 @@
 /******************************************************************************
- * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
+ * @Author                : Jbristhuille<jbristhuille@gmail.com>              *
  * @CreatedDate           : 2023-06-24 17:20:05                               *
- * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-06-24 17:20:42                               *
+ * @LastEditors           : Jbristhuille<jbristhuille@gmail.com>              *
+ * @LastEditDate          : 2024-08-16 11:21:28                               *
  *****************************************************************************/
 
 /* SUMMARY
   * Imports
   * CreateInput
+  * Edit input
 */
 
 /* Imports */
@@ -23,6 +24,22 @@ class CreateInput {
 }
 /***/
 
+/**
+* Edit input 
+*/
+class EditInput {
+  @IsString()
+    content: string;
+  
+  @IsString()
+    created: string;
+
+  @IsString()
+    authorId: string;
+}
+/***/
+
 export {
-  CreateInput
+  CreateInput,
+  EditInput
 };
