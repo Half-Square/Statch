@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jbristhuille@gmail.com>             *
  * @CreatedDate           : 2023-09-27 15:26:28                              *
  * @LastEditors           : Jbristhuille<jbristhuille@gmail.com>             *
- * @LastEditDate          : 2024-08-02 21:35:49                              *
+ * @LastEditDate          : 2024-08-16 12:16:44                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -20,6 +20,7 @@
 /* Imports */
 import { Component, Input, OnInit } from "@angular/core";
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
+import * as _ from "lodash";
 /***/
 
 /* Interfaces */
@@ -45,12 +46,13 @@ export class PttCommentSection implements OnInit {
   @Input() comments: IComments[] = [];
   public content: string;
   public hasPublish: boolean = false;
+  public commentEdit: IComments | null;
 
   constructor(private api: RequestService,
               private sanitizer: DomSanitizer,
               private recovery: RecoveryService,
               private toast: ToastService,
-              private user: UserService) {
+              public user: UserService) {
   }
 
   ngOnInit(): void {
@@ -141,6 +143,54 @@ export class PttCommentSection implements OnInit {
   */
   public isEmpty(): boolean {
     return this.content === null || this.content.replace(/<p>|<\/p>|<br>/g, "").trim() === "";
+  }
+  /***/
+
+  /**
+  * On edit comment event
+  * @param id - Comment's id to edit
+  */
+  public onEdit(id: string): void {
+    let com = _.find(this.comments, {id: id});
+
+    if (com) {
+      this.commentEdit = com;
+      this.content = com.content;
+    }
+  }
+  /***/
+
+  /**
+  * Save comment .
+  */
+  public saveEdit(): void {
+    console.log(this.commentEdit);
+
+    if (this.commentEdit) {
+      this.api.put(
+        `api/comments/${this.commentEdit.id}`,
+        {...this.commentEdit, content: this.content},
+        this.user.getUser()?.token)
+        .then((ret) => {
+          let index = _.findIndex(this.comments, {id: (ret as IComments).id});
+          if (index != -1) this.comments[index] = (ret as IComments);
+
+          this.recovery.updateData(ret, `${this.type}/comments`);
+          this.cancelEdit();
+        }).catch((err) => {
+          console.error(err);
+          this.toast.print("An error occured !", "error");
+        });
+    }
+  }
+  /***/
+
+  /**
+  * Cancel edit
+  */
+  public cancelEdit(): void {
+    this.content = "";
+    this.commentEdit = null;
   }
   /***/
 }

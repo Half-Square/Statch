@@ -2,7 +2,7 @@
 * @Author                : Jbristhuille<jbristhuille@gmail.com>
 * @CreatedDate           : 2023-09-27 15:26:00
 * @LastEditors           : Jbristhuille<jbristhuille@gmail.com>
-* @LastEditDate          : 2024-08-02 21:36:03
+* @LastEditDate          : 2024-08-16 10:50:04
 -->
 
 <div class="ptt-comment">
@@ -16,6 +16,15 @@
       <div class="option">
         <span class="date">{{ comment.created | dateDifference }}</span>
 
+        <core-button (click)="onEdit(comment.id)"
+                     [type]="'basic'"
+                     [style]="'primary'"
+                     [size]="'icon'"
+                     [tooltip]="'Delete'"
+                     *ngIf="comment.authorId == user.getUser()?.id">
+          <core-icon icon="edit"/>
+        </core-button>
+
         <core-button (click)="onDelete(comment.id)"
                      [type]="'basic'"
                      [style]="'warn'"
@@ -28,20 +37,36 @@
 
     <div class="content" [innerHTML]="comment.content">
     </div>
-
   </div>
 
 
   <div class="input">
     <component-markdown [placeholder]="'Leave your comment...'"
                         [hasPublish]="hasPublish"
+                        [externContent]="content"
                         (getContent)="getContent($event)" />
+    <div class="buttons">
+      <ng-template [ngIf]="commentEdit" [ngIfElse]="default">
+        <core-button  (click)="cancelEdit()"
+                      [type]="'flat'"
+                      [style]="'default'"
+                      [size]="'medium'"
+                      [label]="'Cancel'" />
 
-    <core-button  (click)="publish()"
-                  [type]="'flat'"
-                  [style]="'primary'"
-                  [size]="'medium'"
-                  [label]="'Publish'" />
+        <core-button  (click)="saveEdit()"
+                      [type]="'flat'"
+                      [style]="'primary'"
+                      [size]="'medium'"
+                      [label]="'Save'" />
+      </ng-template>
+
+      <ng-template #default>
+        <core-button  (click)="publish()"
+                      [type]="'flat'"
+                      [style]="'primary'"
+                      [size]="'medium'"
+                      [label]="'Publish'" />
+      </ng-template>
+    </div>
   </div>
-
 </div>
