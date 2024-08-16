@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jbristhuille@gmail.com>             *
  * @CreatedDate           : 2023-09-27 15:26:28                              *
  * @LastEditors           : Jbristhuille<jbristhuille@gmail.com>             *
- * @LastEditDate          : 2024-08-16 12:16:44                              *
+ * @LastEditDate          : 2024-08-16 12:24:07                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -175,7 +175,7 @@ export class PttCommentSection implements OnInit {
           let index = _.findIndex(this.comments, {id: (ret as IComments).id});
           if (index != -1) this.comments[index] = (ret as IComments);
 
-          this.recovery.updateData(ret, `${this.type}/comments`);
+          this.recovery.updateData(ret, `${this.type}/${this.item.id}/comments`);
           this.cancelEdit();
         }).catch((err) => {
           console.error(err);
