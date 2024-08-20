@@ -1,12 +1,13 @@
 /*****************************************************************************
- * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @Author                : 0K00<qdouvillez@gmail.com>                       *
  * @CreatedDate           : 2023-06-02 14:59:51                              *
- * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-11-28 18:55:54                              *
+ * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
+ * @LastEditDate          : 2024-01-15 17:01:44                              *
  ****************************************************************************/
 
 /* SUMMARY
   * Imports
+  * Services
   * Interface
   * Check if user is connected
   * Get logged user
@@ -20,6 +21,10 @@ import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 /***/
 
+/* Services */
+import { SocketService } from "./socket.service";
+/***/
+
 /* Interfaces */
 export interface ILoggedUser {
   id: string,
@@ -27,7 +32,8 @@ export interface ILoggedUser {
   email: string,
   token: string,
   isAdmin: boolean,
-  picture: string
+  picture: string,
+  role: string[]
 }
 /***/
 
@@ -37,7 +43,8 @@ export interface ILoggedUser {
 export class UserService {
   private user: ILoggedUser | null = null;
 
-  constructor(private router: Router) {
+  constructor(private router: Router,
+              private socket: SocketService) {
   }
 
   /**
@@ -86,6 +93,7 @@ export class UserService {
   */
   public logout(): void {
     this.clearUser();
+    this.socket.disconnect();
     this.router.navigate(["/login"]);
   }
   /***/

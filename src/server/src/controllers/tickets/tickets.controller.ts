@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-06-24 13:45:04                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-09-27 14:32:03                               *
+ * @LastEditDate          : 2024-01-31 17:05:40                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -66,6 +66,7 @@ export class TicketsController {
   * @return - Tickets list 
   */
   @Get("tickets")
+  @UseGuards(IsConnectedGuard)
   async getAll(): Promise<Ticket[]> {
     try {
       return await this.prisma.ticket.findMany({
@@ -86,6 +87,7 @@ export class TicketsController {
   * @return - Ticket's details 
   */
   @Get("tickets/:id")
+  @UseGuards(IsConnectedGuard)
   async getById(@Param("id") id: string): Promise<Ticket> {
     try {
       const ticket = await this.prisma.ticket.findUnique({
@@ -111,6 +113,7 @@ export class TicketsController {
   */
   @Post("tasks/:id/tickets")
   @UseInterceptors(ActivitiesInterceptor)
+  @UseGuards(IsConnectedGuard)
   async create(
     @Param("id") id: string,
     @Headers("x-token") token: string,
@@ -194,6 +197,7 @@ export class TicketsController {
   */
   @Delete("tickets/:id")
   @UseInterceptors(ActivitiesInterceptor)
+  @UseGuards(IsConnectedGuard)
   async deleteById(@Param("id") id: string): Promise<{message: string}> {
     try {
       await this.prisma.ticket.delete({where: {id: id}});

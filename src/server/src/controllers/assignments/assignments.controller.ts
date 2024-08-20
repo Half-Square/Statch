@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-06-24 17:32:20                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-09-27 11:57:52                               *
+ * @LastEditDate          : 2024-01-31 17:10:51                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -80,6 +80,7 @@ export class AssignmentsController {
   */
   @Put(":parent/:id/assignments")
   @UseInterceptors(ActivitiesInterceptor)
+  @UseGuards(IsConnectedGuard)
   async updateAssignments(
     @Param("parent") parent: string,
     @Param("id") id: string,

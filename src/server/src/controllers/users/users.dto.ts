@@ -1,8 +1,8 @@
 /******************************************************************************
- * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
+ * @Author                : 0K00<qdouvillez@gmail.com>                        *
  * @CreatedDate           : 2023-02-21 13:03:45                               *
- * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-09-29 09:51:49                               *
+ * @LastEditors           : 0K00<qdouvillez@gmail.com>                        *
+ * @LastEditDate          : 2024-01-15 16:58:13                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -16,7 +16,7 @@
 */
 
 /* Imports */
-import { IsBoolean, IsOptional, IsString } from "class-validator";
+import { IsArray, IsBoolean, IsOptional, IsString } from "class-validator";
 
 /**
 * RegisterInput
@@ -182,6 +182,9 @@ class ConnectOutput {
 
   @IsString()
     picture: string;
+  
+  @IsArray()
+    role: [];
 
   constructor(data) {
     if (data) {
@@ -191,6 +194,7 @@ class ConnectOutput {
       this.token = data.token;
       this.isAdmin = data.isAdmin;
       this.picture = data.picture;
+      this.role = data.role;
     }
   }
 }

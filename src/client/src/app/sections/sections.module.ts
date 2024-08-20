@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : 0K00<qdouvillez@gmail.com>                       *
+ * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-09-20 16:03:27                              *
- * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
- * @LastEditDate          : 2023-12-05 10:33:04                              *
+ * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @LastEditDate          : 2024-01-31 16:48:29                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -37,6 +37,7 @@ import { ToolsNavSection } from "./tools-nav/tools-nav.section";
 import { ToolBarSection } from "./tool-bar/tool-bar.section";
 import { LabelsEditorSection } from "./labels-editor/labels-editor.section";
 import { PttToolBarSection } from "./ptt-tool-bar/ptt-tool-bar.section";
+import { BottomBarSection } from "./bottom-bar/bottom-bar.section";
 /***/
 
 @NgModule({
@@ -51,7 +52,8 @@ import { PttToolBarSection } from "./ptt-tool-bar/ptt-tool-bar.section";
     ToolsNavSection,
     ToolBarSection,
     LabelsEditorSection,
-    PttToolBarSection
+    PttToolBarSection,
+    BottomBarSection
   ],
   imports: [
     CommonModule,
@@ -74,7 +76,8 @@ import { PttToolBarSection } from "./ptt-tool-bar/ptt-tool-bar.section";
     ToolsNavSection,
     ToolBarSection,
     LabelsEditorSection,
-    PttToolBarSection
+    PttToolBarSection,
+    BottomBarSection
   ]
 })
 export class SectionsModule { }

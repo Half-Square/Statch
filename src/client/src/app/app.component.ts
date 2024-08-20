@@ -50,7 +50,7 @@ export class AppComponent {
                 env.socketUrl = `${location.protocol}//${json["host"]}:${json["socket"]}`;
 
                 this.socket.disconnect();
-                this.socket.connect(`${json["host"]}:${json["socket"]}`, {});
+                if (this.user.isConnected()) this.socket.connect(`${json["host"]}:${json["socket"]}`, {}, this.user);
 
                 if (json.mode == "demo") {
                   this.request.get("api/users/demo").then((ret) => {

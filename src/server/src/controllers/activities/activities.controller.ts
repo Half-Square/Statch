@@ -1,8 +1,8 @@
 /******************************************************************************
- * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
+ * @Author                : Jbristhuille<jbristhuille@gmail.com>              *
  * @CreatedDate           : 2023-09-27 09:48:39                               *
- * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2024-01-11 13:57:35                               *
+ * @LastEditors           : Jbristhuille<jbristhuille@gmail.com>              *
+ * @LastEditDate          : 2024-07-26 15:43:51                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -49,7 +49,8 @@ export class ActivitiesController {
     let act = await this.prisma.activity.findMany({
       where: {
         OR: queries
-      }
+      },
+      orderBy: {created: "desc"}
     });
   
     return act.map((el) => this.activities.unFormat(el));

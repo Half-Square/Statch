@@ -2,7 +2,7 @@
 * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>
 * @CreatedDate           : 2023-09-21 13:37:00
 * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>
-* @LastEditDate          : 2023-10-02 19:18:16
+* @LastEditDate          : 2024-01-31 16:55:35
 -->
 
 <header class="ptt-header">
@@ -21,6 +21,14 @@
 
   <div class="description">
     <h2 class="subtitle">Description</h2>
-    <component-markdown [reset]="false" [externContent]="item.description" [placeholder]="'Write your description...'" #descriptionEl (dblclick)="toggleEdit('description')" (keydown)="saveEnter($event, 'description')" [hasDisabled]="!editDescription"  [hasPublish]="hasPublish" (getContent)="getContent($event)"></component-markdown>
+    <component-markdown [reset]="false"
+                        [externContent]="item.description"
+                        [placeholder]="'Write your description...'"
+                        #descriptionEl
+                        (dblclick)="toggleEdit('description')"
+                        (keydown)="saveEnter($event, 'description')"
+                        [hasDisabled]="!editDescription"
+                        [hasPublish]="hasPublish"
+                        (getContent)="getContent($event)" />
   </div>
 </header>

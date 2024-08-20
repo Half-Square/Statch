@@ -1,9 +1,9 @@
-/******************************************************************************
- * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @CreatedDate           : 2023-09-28 16:23:37                               *
- * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-09-28 17:34:33                               *
- *****************************************************************************/
+/*****************************************************************************
+ * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @CreatedDate           : 2023-09-28 16:23:37                              *
+ * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @LastEditDate          : 2024-01-31 16:58:07                              *
+ ****************************************************************************/
 
 /* SUMMARY
   * Imports
@@ -18,10 +18,10 @@ import { Component, Input } from "@angular/core";
 
 /* Interfaces */
 import { ILabels } from "src/app/interfaces";
-import { RequestService } from "src/app/services/request.service";
 /***/
 
 /* Services */
+import { RequestService } from "src/app/services/request.service";
 import { UserService } from "src/app/services/user.service";
 /***/
 

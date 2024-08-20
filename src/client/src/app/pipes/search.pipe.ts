@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @Author                : 0K00<qdouvillez@gmail.com>                       *
  * @CreatedDate           : 2023-09-15 12:52:21                              *
- * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-10-03 10:47:57                              *
+ * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
+ * @LastEditDate          : 2024-01-19 17:51:09                              *
  ****************************************************************************/
 
 import { Pipe, PipeTransform } from "@angular/core";
@@ -41,7 +41,7 @@ export class SearchPipe implements PipeTransform {
     }
 
     if (filteredData.length === 0) {
-      return [{ name: "No result", fromSearch: true }];
+      return [{id: "no", name: "No result", fromSearch: true }];
     }
 
     return filteredData;

@@ -1,8 +1,8 @@
 <!--
-* @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>
+* @Author                : Jbristhuille<jbristhuille@gmail.com>
 * @CreatedDate           : 2023-09-30 15:55:00
-* @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>
-* @LastEditDate          : 2024-01-15 17:16:11
+* @LastEditors           : Jbristhuille<jbristhuille@gmail.com>
+* @LastEditDate          : 2024-07-27 18:06:12
 -->
 
 <div class="view-ptt">
@@ -17,14 +17,14 @@
 
     <div class="container">
       <div class="main">
-        <section-ptt-header [(item)]="item" (itemChange)="saveItem()"/>
+        <section-ptt-header [type]="type" [(item)]="item" (itemChange)="saveItem()"/>
 
         <div *ngIf="type != 'tickets'" class="advancement">
           <section-ptt-advancement [value]="advancement"/>
 
           <section-ptt-list [elements]="childs" [type]="childType" [versions]="versionFilters">
             <ng-container sort>
-              {{type}}
+              {{childType}}
 
               <component-select [data]="versions"
                                 [placeholder]="'Select verions to sort...'"

@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : 0K00<qdouvillez@gmail.com>                       *
+ * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-09-22 18:44:16                              *
- * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
- * @LastEditDate          : 2023-11-30 16:49:55                              *
+ * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @LastEditDate          : 2024-01-31 16:52:51                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -150,7 +150,7 @@ export class PttAllView implements OnInit, OnDestroy {
   /**
   * Create new item
   */
-  public createItem(): void {
+  public async createItem(): Promise<void> {
     let url = "";
 
     switch(this.type) {

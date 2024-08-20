@@ -1,8 +1,8 @@
 <!--
-* @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>
+* @Author                : 0K00<qdouvillez@gmail.com>
 * @CreatedDate           : 2023-09-15 12:53:00
-* @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>
-* @LastEditDate          : 2023-10-06 11:32:48
+* @LastEditors           : 0K00<qdouvillez@gmail.com>
+* @LastEditDate          : 2024-01-16 18:35:55
 -->
 
 <div class="select {{other}}" #selector>
@@ -54,7 +54,7 @@
         </div>
       </div>
 
-      <div (click)="selectedOption(option)" *ngFor="let option of data | search: searchText : noResult; let i = index" class="option" [ngClass]="shouldApplyCheck(option) === true ? 'active' : ''">
+      <div (click)="disabled ? null : selectedOption(option)" *ngFor="let option of data | search: searchText : noResult; let i = index" class="option" [ngClass]="shouldApplyCheck(option) === true ? 'active' : ''">
         <div class="ellipsis">
 
           <span *ngIf="noResult && searchText && option.fromSearch">Add </span>

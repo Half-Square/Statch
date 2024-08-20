@@ -1,20 +1,30 @@
 <!--
-* @Author                : 0K00<qdouvillez@gmail.com>
+* @Author                : Jbristhuille<jbristhuille@gmail.com>
 * @CreatedDate           : 2023-09-27 15:26:00
-* @LastEditors           : 0K00<qdouvillez@gmail.com>
-* @LastEditDate          : 2023-11-17 14:21:52
+* @LastEditors           : Jbristhuille<jbristhuille@gmail.com>
+* @LastEditDate          : 2024-08-16 10:50:04
 -->
 
 <div class="ptt-comment">
-
   <h2 class="subtitle">Comments</h2>
 
   <div class="comment" *ngFor="let comment of comments">
-
     <div class="header">
-      <core-avatar [imgLink]="comment.authorId | recovery:'picture':'users' | async" [label]="comment.authorId | recovery:'name':'users' | async"></core-avatar>
+      <core-avatar  [imgLink]="comment.authorId | recovery:'picture':'users' | async"
+                    [label]="comment.authorId | recovery:'name':'users' | async" />
+
       <div class="option">
         <span class="date">{{ comment.created | dateDifference }}</span>
+
+        <core-button (click)="onEdit(comment.id)"
+                     [type]="'basic'"
+                     [style]="'primary'"
+                     [size]="'icon'"
+                     [tooltip]="'Delete'"
+                     *ngIf="comment.authorId == user.getUser()?.id">
+          <core-icon icon="edit"/>
+        </core-button>
+
         <core-button (click)="onDelete(comment.id)"
                      [type]="'basic'"
                      [style]="'warn'"
@@ -25,15 +35,38 @@
       </div>
     </div>
 
-    <div class="content" [innerHTML]="trustedContent(comment.content)">
+    <div class="content" [innerHTML]="comment.content">
     </div>
-
   </div>
 
 
   <div class="input">
-    <component-markdown [placeholder]="'Leave your comment...'" [hasPublish]="hasPublish" (getContent)="getContent($event)"></component-markdown>
-    <core-button (click)="publish()" [type]="'flat'" [style]="'primary'" [size]="'medium'" [label]="'Publish'"></core-button>
-  </div>
+    <component-markdown [placeholder]="'Leave your comment...'"
+                        [hasPublish]="hasPublish"
+                        [externContent]="content"
+                        (getContent)="getContent($event)" />
+    <div class="buttons">
+      <ng-template [ngIf]="commentEdit" [ngIfElse]="default">
+        <core-button  (click)="cancelEdit()"
+                      [type]="'flat'"
+                      [style]="'default'"
+                      [size]="'medium'"
+                      [label]="'Cancel'" />
 
+        <core-button  (click)="saveEdit()"
+                      [type]="'flat'"
+                      [style]="'primary'"
+                      [size]="'medium'"
+                      [label]="'Save'" />
+      </ng-template>
+
+      <ng-template #default>
+        <core-button  (click)="publish()"
+                      [type]="'flat'"
+                      [style]="'primary'"
+                      [size]="'medium'"
+                      [label]="'Publish'" />
+      </ng-template>
+    </div>
+  </div>
 </div>

@@ -1,8 +1,8 @@
 /******************************************************************************
- * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
+ * @Author                : 0K00<qdouvillez@gmail.com>                        *
  * @CreatedDate           : 2023-09-27 09:51:47                               *
- * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2024-01-11 14:25:49                               *
+ * @LastEditors           : 0K00<qdouvillez@gmail.com>                        *
+ * @LastEditDate          : 2024-01-19 17:45:45                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -72,7 +72,6 @@ export class ActivitiesService {
       toPrint: parent
     });
 
-    console.log(ret);
     this.socket.broadcast(`users/${user.id}/activities`, this.unFormat(ret));
     this.socket.broadcast(`${controller}/${data.id}/activities`, this.unFormat(ret));
     if (ret.toPrint) {

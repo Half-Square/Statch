@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-05-30 12:07:51                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2024-01-12 11:38:19                               *
+ * @LastEditDate          : 2024-01-31 17:11:03                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -39,6 +39,7 @@ import { PrismaService } from "./prisma.service";
 import { SocketService } from "./services/socket/socket.service";
 import { ActivitiesService } from "./controllers/activities/activities.service";
 import { SettingsService } from "./controllers/settings/settings.service";
+import { SystemController } from "./controllers/system/system.controller";
 import { StatsService } from "./controllers/stats/stats.service";
 /***/
 
@@ -62,6 +63,7 @@ import { StatsService } from "./controllers/stats/stats.service";
     FilesController,
     SearchController,
     DatabaseController,
+    SystemController
     StatsController
   ],
   providers: [

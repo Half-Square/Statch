@@ -1,103 +1,44 @@
 /*****************************************************************************
- * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @Author                : Jbristhuille<jbristhuille@gmail.com>             *
  * @CreatedDate           : 2023-06-02 13:20:49                              *
- * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-10-03 10:49:15                              *
+ * @LastEditors           : Jbristhuille<jbristhuille@gmail.com>             *
+ * @LastEditDate          : 2024-07-26 15:16:29                              *
  ****************************************************************************/
 
-import { Component, Input, Output, EventEmitter } from "@angular/core";
+/* SUMMARY
+  * Imports
+  * Toggles the visibility of the password.
+*/
 
-/**
- * Component representing a password input field with toggleable visibility.
- */
+/* Imports */
+import { Component, Input, Output, EventEmitter } from "@angular/core";
+/***/
+
 @Component({
   selector: "core-input-pwd",
   templateUrl: "./input-pwd.core.html",
   styleUrls: ["./input-pwd.core.scss"]
 })
 export class InputPwdCore {
-  /**
-   * Identifier of the input.
-   */
-  @Input()
-    id: string = "";
+  @Input() id: string = "";
+  @Input() isLabel: boolean = false;
+  @Input() label: string = "Label";
+  @Input() placeholder: string = "";
+  @Input() type: "default" | "primary" | "accent" = "primary";
+  @Input() size: "small" | "medium" | "large" = "medium";
+  @Input() other: string = "";
+  @Input() is: string = "text";
+  @Input() autocomplete: string = "";
+  @Input() disabled: boolean = false;
+  @Input() value: string = "";
+  @Output() valueChange = new EventEmitter();
+  @Input() showPassword: boolean = false;
 
   /**
-   * Indicates whether a label is displayed.
-   */
-  @Input()
-    isLabel: boolean = false;
-
-  /**
-   * Label text.
-   */
-  @Input()
-    label: string = "Label";
-
-  /**
-   * Placeholder of the input.
-   */
-  @Input()
-    placeholder: string = "";
-
-  /**
-   * Type of the input.
-   */
-  @Input()
-    type: "default" | "primary" | "accent" = "primary";
-
-  /**
-   * Size of the input.
-   */
-  @Input()
-    size: "small" | "medium" | "large" = "medium";
-
-  /**
-   * Other CSS classes to apply to the input.
-   */
-  @Input()
-    other: string = "";
-
-  /**
-   * HTML input type.
-   */
-  @Input()
-    is: string = "text";
-
-  /**
-   * Autocomplte values of the input.
-   */
-  @Input()
-    autocomplete: string = "";
-
-  /**
-   * Indicates if input are disabled or not.
-   */
-  @Input()
-    disabled: boolean = false;
-
-  /**
-   * Value of the input.
-   */
-  @Input()
-    value: string = "";
-
-  /**
-   * Event emitted when the value of the input changes.
-   */
-  @Output()
-    valueChange = new EventEmitter();
-
-  /**
-   * Flag indicating whether the password is visible or hidden.
-   */
-  @Input()
-    showPassword: boolean = false;
-
-  /**
-   * Toggles the visibility of the password.
-   */
+  * Toggles the visibility of the password.
+  */
   public togglePasswordVisibility(): void {
     this.showPassword = !this.showPassword;
   }
+  /***/
 }

@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-09-21 12:01:16                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-10-02 11:12:55                               *
+ * @LastEditDate          : 2024-01-31 17:03:45                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -101,6 +101,7 @@ export class VersionsController {
   */
   @Post("projects/:projectId/versions")
   @UseInterceptors(ActivitiesInterceptor)
+  @UseGuards(IsConnectedGuard)
   async create( @Param("projectId") projectId: string,
                 @Body() body: versionsDto.CreateInput): Promise<Version> {
     let version = await this.prisma.version.create({
@@ -121,6 +122,7 @@ export class VersionsController {
   */
   @Put("projects/:projectId/versions/:id")
   @UseInterceptors(ActivitiesInterceptor)
+  @UseGuards(IsConnectedGuard)
   async update(@Param("id") id: string, @Body() body: versionsDto.UpdateInput): Promise<Version> {
     let version = await this.prisma.version.update({
       where: {id: id},
@@ -140,6 +142,7 @@ export class VersionsController {
   */
   @Delete("projects/:projectId/versions/:id")
   @UseInterceptors(ActivitiesInterceptor)
+  @UseGuards(IsConnectedGuard)
   async deleteById(@Param("id") id: string): Promise<{message: string}> {
     await this.prisma.version.delete({where: {id: id}});
 

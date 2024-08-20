@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
  * @CreatedDate           : 2023-05-31 15:03:46                              *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2024-01-15 17:23:27                              *
+ * @LastEditDate          : 2024-01-31 16:47:45                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -51,8 +51,8 @@ const routes: Routes = [
   { path: "profile", component: ProfileView, canActivate: [IsConnectedGuard] },
   { path: "settings", component: SettingsView, canActivate: [IsConnectedGuard],
     children: [
-      { path: "labels", component: LabelsSettingsView, canActivate: [IsConnectedGuard ]},
-      { path: "smtp", component: SmtpSettingsView, canActivate: [IsConnectedGuard, IsAdminGuard] },
+      { path: "labels", component: LabelsSettingsView, canActivate: [IsConnectedGuard]},
+      { path: "smtp", component: SmtpSettingsView, canActivate: [IsConnectedGuard] },
       { path: "users", component: UsersSettingsView, canActivate: [IsConnectedGuard, IsAdminGuard] },
       { path: "database", component: DatabaseSettingsView, canActivate: [IsConnectedGuard, IsAdminGuard] },
       { path: "", pathMatch: "full", redirectTo: "/settings/labels"}
@@ -66,7 +66,6 @@ const routes: Routes = [
   { path: ":type", component: PttAllView, canActivate: [IsConnectedGuard, TypeGuard] },
   { path: ":type/:id", component: PttView, canActivate: [TypeGuard, IsConnectedGuard] },
   { path: ":type/:id/stats", component: StatsView, canActivate: [TypeGuard, IsConnectedGuard] },
-
 
   { path: "", pathMatch: "full", redirectTo: "/projects" },
   { path: "**", redirectTo: "not-found" }

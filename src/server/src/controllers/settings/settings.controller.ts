@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-09-22 16:14:03                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-11-28 17:47:25                               *
+ * @LastEditDate          : 2024-01-31 17:07:13                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -41,6 +41,7 @@ import * as usersDto from "../users/users.dto";
 
 /* Services */
 import { SettingsService } from "./settings.service";
+import { IsConnectedGuard } from "src/guards/is-connected.guard";
 /***/
 
 @Controller("api/settings")
@@ -65,7 +66,7 @@ export class SettingsController {
   * @return - Smtp settings 
   */
   @Get("smtp")
-  @UseGuards(IsAdminGuard)
+  @UseGuards(IsAdminGuard, IsConnectedGuard)
   getSmtp(): settingsDto.PublicSmtpOutput {
     let settings = this.settings.getSettings();
     return new settingsDto.PublicSmtpOutput(settings.smtp);
@@ -78,7 +79,7 @@ export class SettingsController {
   * @return - Smtp settings 
   */
   @Put("smtp")
-  @UseGuards(IsAdminGuard)
+  @UseGuards(IsAdminGuard, IsConnectedGuard)
   updateSmtp(@Body() body: settingsDto.UpdateSmtpInput): settingsDto.PublicSmtpOutput {
     let settings = this.settings.getSettings();
     

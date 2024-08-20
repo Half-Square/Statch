@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-06-13 14:10:50                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-11-16 17:29:36                               *
+ * @LastEditDate          : 2024-01-31 17:08:18                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -65,6 +65,7 @@ export class ProjectsController {
   * @return - Projects list 
   */
   @Get()
+  @UseGuards(IsConnectedGuard)
   async getAll(): Promise<Project[]> {
     try {
       return await this.prisma.project.findMany({
@@ -85,6 +86,7 @@ export class ProjectsController {
   * @return - Project data 
   */
   @Get(":id")
+  @UseGuards(IsConnectedGuard)
   async getById(@Param("id") id: string): Promise<Project> {
     try {
       const ret = await this.prisma.project.findUnique({
@@ -107,6 +109,7 @@ export class ProjectsController {
   */
   @Post()
   @UseInterceptors(ActivitiesInterceptor)
+  @UseGuards(IsConnectedGuard)
   async create(
     @Body() body: projectsDto.CreateInput,
     @Headers("x-token") token: string): Promise<Project> {
@@ -145,7 +148,8 @@ export class ProjectsController {
   @UseInterceptors(ActivitiesInterceptor)
   async update(
     @Param("id") id: string,
-    @Body() body: projectsDto.UpdateInput): Promise<Project> {
+    @Body() body: projectsDto.UpdateInput
+  ): Promise<Project | { perm: boolean; message: string; }> {
     try {
       const project = await this.prisma.project.update({
         where: {id: id},
@@ -185,6 +189,7 @@ export class ProjectsController {
   */
   @Delete(":id")
   @UseInterceptors(ActivitiesInterceptor)
+  @UseGuards(IsConnectedGuard)
   async deleteById(@Param("id") id: string): Promise<{message: string}> {
     try {
       await this.prisma.project.delete({where: {id: id}});

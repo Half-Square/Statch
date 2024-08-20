@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @Author                : Jbristhuille<jbristhuille@gmail.com>             *
  * @CreatedDate           : 2023-05-31 12:56:22                              *
- * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2023-12-05 17:58:44                              *
+ * @LastEditors           : Jbristhuille<jbristhuille@gmail.com>             *
+ * @LastEditDate          : 2024-07-25 21:25:38                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -18,6 +18,8 @@
   * Get data in collection
   * Clear waiting
   * Check if collection is on waiting state
+  * Wait socket connection
+  * Ping socket
 */
 
 /* Imports */
@@ -68,7 +70,8 @@ export class RecoveryService {
       this.options = options;
       this.socket = this.mySocket.connect(
         this.options.socketUrl,
-        this.options.socketOpt || {}
+        this.options.socketOpt || {},
+        this.user
       ); // Connect socket
     }
   }
@@ -259,6 +262,61 @@ export class RecoveryService {
   */
   private isWaiting(collection: string): boolean {
     return _.find(this.onWaiting, (el) => el === collection) ? true : false;
+  }
+  /***/
+
+  /**
+  * Wait socket connection
+  */
+  public waitSocket(): Promise<void> {
+    return new Promise((resolve) => {
+      let inter = setInterval(() => {
+        if (this.socket && this.socket.id) {
+          clearInterval(inter);
+          return resolve();
+        }
+      }, 100);
+    });
+  }
+  /***/
+
+  /**
+  * Ping socket
+  * @param time - Ping time loop
+  * @param timeout - Max time before timeout
+  * @return - Socket status as observable
+  */
+  public ping(time: number, timeout: number): Observable<{time: number, status: "ok" | "ko" | "warn"}> {
+    return new Observable((sub) => {
+      let onRequest: boolean = false;
+      let start: number = 0;
+
+      let inter = setInterval(() => {
+        if (!onRequest && this.socket) {
+          onRequest = true;
+          start = Date.now();
+
+          this.api.post("api/system/ping", {id: this.socket?.id})
+            .catch(() => sub.next({time: 0, status: "ko"}));
+        } else if (Date.now() - start > timeout) {
+          onRequest = false;
+          sub.next({time: 0, status: "ko"});
+        }
+      }, time);
+
+      this.waitSocket().then(() => {
+        console.log(this.socket?.id);
+
+        this.socket?.on("pong", () => {
+          onRequest = false;
+          sub.next({time:  Date.now() - start, status: "ok"});
+        });
+      });
+
+      return () => { // On observable close
+        if (inter) clearInterval(inter);
+      };
+    });
   }
   /***/
 }

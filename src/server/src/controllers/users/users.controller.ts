@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-06-01 15:15:39                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-11-28 18:33:14                               *
+ * @LastEditDate          : 2024-01-31 17:17:30                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -33,6 +33,7 @@ import { sha256 } from "js-sha256";
 import * as jwt from "jsonwebtoken";
 import { Assignment } from "@prisma/client";
 import * as fs from "fs";
+import { resolve } from "path";
 /***/
 
 /* Services */
@@ -46,7 +47,6 @@ import * as usersDto from "./users.dto";
 /* Guards */
 import { IsConnectedGuard } from "src/guards/is-connected.guard";
 import { IsSelfGuard } from "src/guards/is-self.guard";
-import { resolve } from "path";
 import { IsAdminGuard } from "src/guards/is-admin.guard";
 /***/
 
@@ -74,7 +74,7 @@ export class UsersController {
           password: passwd,
           email: body.email,
           validate: count === 0,
-          isAdmin: count === 0 
+          isAdmin: count === 0
         }
       });
       return new usersDto.DetailsOutput(res);
@@ -98,7 +98,9 @@ export class UsersController {
   @Post("login")
   async login(@Body() body: usersDto.ConnectInput): Promise<usersDto.ConnectOutput> {
     try {
-      const res = await this.prisma.user.findUnique({where: {email: body.email}});
+      const res = await this.prisma.user.findUnique({
+        where: {email: body.email}
+      });
       if (!res) throw new HttpException("Not Found", HttpStatus.NOT_FOUND);
 
 
@@ -151,22 +153,29 @@ export class UsersController {
   */
   @Put("users/:id")
   @UseGuards(IsSelfGuard)
-  async updateProfile(@Param("id") id: string, @Body() body: usersDto.UpdateInput): Promise<usersDto.ConnectOutput> {
-    if (body.oldPicture) fs.unlinkSync(resolve("upload")+"/"+body.oldPicture);
+  async updateProfile(
+    @Param("id") id: string, 
+    @Body() body: usersDto.UpdateInput
+  ): Promise<usersDto.ConnectOutput> {
+    try {
+      if (body.oldPicture) fs.unlinkSync(resolve("upload")+"/"+body.oldPicture);
 
-    delete body.oldPicture;
-
-    let user = await this.prisma.user.update({
-      where: {id: id},
-      data: body
-    });
-
-    user["token"] = jwt.sign(user, process.env.SALT, {
-      algorithm: "HS256",
-      expiresIn: process.env.SESSION_TIME
-    });
-
-    return new usersDto.ConnectOutput(user);
+      delete body.oldPicture;
+  
+      let user = await this.prisma.user.update({
+        where: {id: id},
+        data: body
+      });
+  
+      user["token"] = jwt.sign(user, process.env.SALT, {
+        algorithm: "HS256",
+        expiresIn: process.env.SESSION_TIME
+      });
+  
+      return new usersDto.ConnectOutput(user);
+    } catch (err) {
+      throw err;
+    }
   }
   /***/
 
@@ -193,7 +202,9 @@ export class UsersController {
   */
   @Get("users/demo")
   async getDemo(): Promise<usersDto.ConnectOutput> {
-    let ret = await this.prisma.user.findUnique({where: {email: "demo@statch.app"}});
+    let ret = await this.prisma.user.findUnique({
+      where: {email: "demo@statch.app"}
+    });
     
     if (ret) {
       ret["token"] = jwt.sign(ret, process.env.SALT, {algorithm: "HS256"});

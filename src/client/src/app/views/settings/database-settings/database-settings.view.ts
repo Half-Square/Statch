@@ -1,15 +1,16 @@
-/******************************************************************************
- * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @CreatedDate           : 2023-11-16 15:38:34                               *
- * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-11-16 16:50:03                               *
- *****************************************************************************/
+/*****************************************************************************
+ * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @CreatedDate           : 2023-11-16 15:38:34                              *
+ * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @LastEditDate          : 2024-01-31 16:51:17                              *
+ ****************************************************************************/
 
 /* SUMMARY
   * Imports
   * Services
   * Import database file
   * Dump database file
+  * Dump image from server
 */
 
 /* Imports */
@@ -30,6 +31,7 @@ import { Router } from "@angular/router";
 })
 export class DatabaseSettingsView {
   @ViewChild("file") file: ElementRef;
+  @ViewChild("fileImg") fileImg: ElementRef;
 
   constructor(private toast: ToastService,
               private user: UserService,
@@ -88,6 +90,8 @@ export class DatabaseSettingsView {
           "x-token": token
         }
       }).then((ret) => {
+        if (!ret.ok) throw ret.statusText;
+
         ret.blob().then((file) => {
           let a = document.createElement("a");
           let url = window.URL.createObjectURL(file);
@@ -100,10 +104,84 @@ export class DatabaseSettingsView {
         }).catch((err) => {
           throw err;
         });
+      }).catch((err) => {
+        console.error(err);
+        this.toast.print("An error occured, please retry later...", "error");
       });
     } catch (err) {
       console.error(err);
       this.toast.print("An error occured, please retry later...", "error");
+    }
+  }
+  /***/
+
+  /**
+  * Dump image from server
+  */
+  public dumpImg(): void {
+    this.toast.print("The download will start soon", "info");
+
+    try {
+      const { token } = this.user.getUser() as ILoggedUser;
+
+      fetch(`${env.serverUrl}/api/database/dump/img`, {
+        method: "GET",
+        headers: {
+          "x-token": token
+        }
+      }).then((ret) => {
+        if (!ret.ok) throw ret.statusText;
+
+        ret.blob().then((file) => {
+          let a = document.createElement("a");
+          let url = window.URL.createObjectURL(file);
+
+          a.href = url;
+          a.download = "images.zip";
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+        }).catch((err) => {
+          throw err;
+        });
+      }).catch((err) => {
+        console.error(err);
+        this.toast.print("An error occured, please retry later...", "error");
+      });
+    } catch (err) {
+      console.error(err);
+      this.toast.print("An error occured, please retry later...", "error");
+    }
+  }
+  /***/
+
+  /**
+  * Import database file
+  */
+  public importImg(): void {
+    let file = this.fileImg.nativeElement.files[0];
+    const { token } = this.user.getUser() as ILoggedUser;
+
+    if (file) {
+      let data = new FormData();
+      data.append("file", file);
+
+      fetch(`${env.serverUrl}/api/database/upload/img`, {
+        method: "POST",
+        headers: {
+          "x-token": token
+        },
+        body: data
+      }).then((ret) => {
+        if (ret.ok) {
+          this.toast.print("Database file uploaded !", "info");
+        } else throw ret;
+      }).catch((err) => {
+        console.error(err);
+        this.toast.print("An error occured, please retry later...", "error");
+      });
+    } else {
+      this.toast.print("No file selected...", "error");
     }
   }
   /***/

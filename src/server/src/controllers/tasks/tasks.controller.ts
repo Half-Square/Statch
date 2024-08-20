@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
  * @CreatedDate           : 2023-06-24 13:47:35                               *
  * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-09-27 14:31:16                               *
+ * @LastEditDate          : 2024-01-31 17:06:41                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -66,6 +66,7 @@ export class TasksController {
   * @return - Tasks list
   */
   @Get("tasks")
+  @UseGuards(IsConnectedGuard)
   async getAll(): Promise<Task[]> {
     try {
       return await this.prisma.task.findMany({
@@ -86,6 +87,7 @@ export class TasksController {
   * @return - Task's data 
   */
   @Get("tasks/:id")
+  @UseGuards(IsConnectedGuard)
   async getById(@Param("id") id: string): Promise<Task> {
     try {
       const task = await this.prisma.task.findUnique({
@@ -110,6 +112,7 @@ export class TasksController {
   * @returns - Task's details
   */
   @Post("projects/:id/tasks")
+  @UseGuards(IsConnectedGuard)
   @UseInterceptors(ActivitiesInterceptor)
   async create(
     @Param("id") id: string,
@@ -194,6 +197,7 @@ export class TasksController {
   */
   @Delete("tasks/:id")
   @UseInterceptors(ActivitiesInterceptor)
+  @UseGuards(IsConnectedGuard)
   async deleteById(@Param("id") id: string): Promise<{message: string}> {
     try {
       await this.prisma.task.delete({where: {id: id}});

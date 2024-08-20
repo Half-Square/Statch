@@ -2,7 +2,7 @@
 * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>
 * @CreatedDate           : 2023-09-28 14:50:00
 * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>
-* @LastEditDate          : 2023-09-28 15:29:54
+* @LastEditDate          : 2024-01-31 16:50:25
 -->
 
 <div class="view-settings">
@@ -11,7 +11,7 @@
       <a  class="settings-nav-item"
           [routerLink]="[item.link]"
           routerLinkActive="active"
-          *ngIf="!item.admin || user.isAdmin()">
+          *ngIf="(!item.admin || user.isAdmin())">
         {{item.label}}
       </a>
     </ng-template>
