@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @Author                : Jbristhuille<jbristhuille@gmail.com>             *
  * @CreatedDate           : 2023-06-01 15:46:03                              *
- * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2024-01-31 16:48:16                              *
+ * @LastEditors           : Jbristhuille<jbristhuille@gmail.com>             *
+ * @LastEditDate          : 2024-08-20 10:35:01                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -15,6 +15,7 @@ import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { FormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
+import { NgApexchartsModule } from "ng-apexcharts";
 /***/
 
 /* Modules */
@@ -67,7 +68,8 @@ import { StatsView } from "./stats/stats.view";
     CoresModule,
     ComponentsModule,
     SectionsModule,
-    PipesModule
+    PipesModule,
+    NgApexchartsModule
   ],
   exports: [
     LoginView,

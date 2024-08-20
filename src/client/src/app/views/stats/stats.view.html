@@ -1,14 +1,20 @@
 <!--
-* @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>
+* @Author                : Jbristhuille<jbristhuille@gmail.com>
 * @CreatedDate           : 2024-01-15 17:23:00
-* @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>
-* @LastEditDate          : 2024-01-16 10:35:43
+* @LastEditors           : Jbristhuille<jbristhuille@gmail.com>
+* @LastEditDate          : 2024-08-20 11:00:44
 -->
 
 <div class="stats-view">
   <ng-template [ngIf]="stats" [ngIfElse]="loading">
     Nb. tasks {{stats.tasks.total}}
-    <!-- cf. ng-apexcharts: https://www.npmjs.com/package/ng-apexcharts -->
+
+    <div class="chart-container tasks-by-status">
+      <apx-chart  [series]="tasksByStatus.data"
+                  [labels]="tasksByStatus.labels"
+                  [chart]="{type: 'polarArea'}"
+                  [title]="{text: 'Tasks by status'}"/>
+    </div>
   </ng-template>
 
   <ng-template #loading>

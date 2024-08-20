@@ -1,14 +1,15 @@
-/******************************************************************************
- * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @CreatedDate           : 2024-01-15 17:24:09                               *
- * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2024-01-16 10:14:43                               *
- *****************************************************************************/
+/*****************************************************************************
+ * @Author                : Jbristhuille<jbristhuille@gmail.com>             *
+ * @CreatedDate           : 2024-01-15 17:24:09                              *
+ * @LastEditors           : Jbristhuille<jbristhuille@gmail.com>             *
+ * @LastEditDate          : 2024-08-20 10:58:02                              *
+ ****************************************************************************/
 
 /* SUMMARY
   * Imports
   * Services
   * Interfaces
+  * Format data before printing
 */
 
 /* Imports */
@@ -49,6 +50,8 @@ export class StatsView implements OnInit {
   public id: string;
   public stats: IStats;
 
+  public tasksByStatus: {data: number[], labels: string[]} = {data: [], labels: []};
+
   constructor(private api: RequestService,
               private route: ActivatedRoute,
               private toast: ToastService) {
@@ -59,11 +62,24 @@ export class StatsView implements OnInit {
       this.type = param["type"];
       this.id = param["id"];
       this.api.get(`api/${this.type}/${this.id}/stats`)
-        .then((ret) => this.stats = ret as IStats)
-        .catch((err) => {
+        .then((ret) => {
+          this.stats = ret as IStats;
+          this.formatData();
+        }).catch((err) => {
           console.error(err);
           this.toast.print("An error occured please retry later...");
         });
     });
   }
+
+  /**
+  * Format data before printing
+  */
+  public formatData(): void {
+    this.tasksByStatus = {
+      data: this.stats.tasks.status.map((el) => el.nb),
+      labels: this.stats.tasks.status.map((el) => el.name)
+    };
+  }
+  /***/
 }
