@@ -38,6 +38,11 @@ interface IStats {
     }[]
   }
 }
+
+interface IData {
+  data: number[],
+  labels: string[]
+}
 /***/
 
 @Component({
@@ -50,7 +55,8 @@ export class StatsView implements OnInit {
   public id: string;
   public stats: IStats;
 
-  public tasksByStatus: {data: number[], labels: string[]} = {data: [], labels: []};
+  public tasksByStatus: IData;
+  public newByMonth: IData;
 
   constructor(private api: RequestService,
               private route: ActivatedRoute,
@@ -79,6 +85,12 @@ export class StatsView implements OnInit {
     this.tasksByStatus = {
       data: this.stats.tasks.status.map((el) => el.nb),
       labels: this.stats.tasks.status.map((el) => el.name)
+    };
+
+    this.newByMonth = {
+      data: this.stats.tasks.newByMonth[0].tasks,
+      labels: [ "January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December" ]
     };
   }
   /***/

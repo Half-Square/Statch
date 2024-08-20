@@ -2,7 +2,7 @@
 * @Author                : Jbristhuille<jbristhuille@gmail.com>
 * @CreatedDate           : 2024-01-15 17:23:00
 * @LastEditors           : Jbristhuille<jbristhuille@gmail.com>
-* @LastEditDate          : 2024-08-20 11:00:44
+* @LastEditDate          : 2024-08-20 14:42:04
 -->
 
 <div class="stats-view">
@@ -14,6 +14,14 @@
                   [labels]="tasksByStatus.labels"
                   [chart]="{type: 'polarArea'}"
                   [title]="{text: 'Tasks by status'}"/>
+    </div>
+
+    <div class="chart-container new-by-month">
+      <apx-chart  [series]="[{name: 'new', data: newByMonth.data}]"
+                  [plotOptions]="{bar: {dataLabels: {position: 'top'}}}"
+                  [xaxis]="{categories: newByMonth.labels}"
+                  [chart]="{type: 'bar'}"
+                  [title]="{text: 'New by month '+stats.tasks.newByMonth[0].year}"/>
     </div>
   </ng-template>
 
