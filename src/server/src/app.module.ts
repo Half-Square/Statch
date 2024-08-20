@@ -30,15 +30,17 @@ import { SettingsController } from "./controllers/settings/settings.controller";
 import { ActivitiesController } from "./controllers/activities/activities.controller";
 import { SearchController } from "./controllers/search/search.controller";
 import { DatabaseController } from "./controllers/database/database.controller";
+import { StatsController } from "./controllers/stats/stats.controller";
+import { FilesController } from "./controllers/files/files.controller";
 /***/
 
 /* Services */
 import { PrismaService } from "./prisma.service";
 import { SocketService } from "./services/socket/socket.service";
 import { ActivitiesService } from "./controllers/activities/activities.service";
-import { FilesController } from "./controllers/files/files.controller";
 import { SettingsService } from "./controllers/settings/settings.service";
 import { SystemController } from "./controllers/system/system.controller";
+import { StatsService } from "./controllers/stats/stats.service";
 /***/
 
 @Module({
@@ -62,12 +64,14 @@ import { SystemController } from "./controllers/system/system.controller";
     SearchController,
     DatabaseController,
     SystemController
+    StatsController
   ],
   providers: [
     PrismaService,
     SocketService,
     ActivitiesService,
-    SettingsService
+    SettingsService,
+    StatsService
   ]
 })
 export class AppModule {}

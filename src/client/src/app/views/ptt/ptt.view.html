@@ -12,7 +12,8 @@
                           [isAssignee]="_.find(item.assignments, {userId: user.getUser()?.id}) != null"
                           (onDelete)="deleteItem()"
                           (onCreateChild)="createChild()"
-                          (onAssign)="assignSelf()"/>
+                          (onAssign)="assignSelf()"
+                          [id]="id"/>
 
     <div class="container">
       <div class="main">

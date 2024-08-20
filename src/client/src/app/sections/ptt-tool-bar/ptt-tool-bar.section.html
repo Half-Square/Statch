@@ -6,29 +6,38 @@
 -->
 
 <div class="section-ptt-tool-bar">
-  <core-button  (click)="onDelete.emit()"
-                [type]="'basic'"
-                [style]="'warn'"
-                [size]="'icon'"
-                [tooltip]="'Delete ' + type">
-    <core-icon icon="minus"/>
-  </core-button>
+  <div class="tabs">
+    <core-button  *ngIf="type == 'projects'"
+                  type="basic"
+                  label="Analytic"
+                  [routerLink]="['/'+type+'/'+id+'/'+'stats']" />
+  </div>
 
-  <core-button  *ngIf="isParentOf"
-                (click)="onCreateChild.emit()"
-                [type]="'basic'"
-                [style]="'default'"
-                [size]="'icon'"
-                [tooltip]="type == 'project' ? 'Add new task' : 'Add new ticket'">
-    <core-icon icon="plus"/>
-  </core-button>
+  <div class="actions">
+    <core-button  (click)="onDelete.emit()"
+                  [type]="'basic'"
+                  [style]="'warn'"
+                  [size]="'icon'"
+                  [tooltip]="'Delete ' + type">
+      <core-icon icon="minus"/>
+    </core-button>
 
-  <core-button  (click)="onAssign.emit()"
-                [type]="isAssignee ? 'flat' : 'basic'"
-                [style]="'primary'"
-                [size]="'icon'"
-                [tooltip]="'Assign self'"
-                >
-    <core-icon [icon]="isAssignee ? 'heart-fill' : 'heart'"/>
-  </core-button>
+    <core-button  *ngIf="isParentOf"
+                  (click)="onCreateChild.emit()"
+                  [type]="'basic'"
+                  [style]="'default'"
+                  [size]="'icon'"
+                  [tooltip]="type == 'project' ? 'Add new task' : 'Add new ticket'">
+      <core-icon icon="plus"/>
+    </core-button>
+
+    <core-button  (click)="onAssign.emit()"
+                  [type]="isAssignee ? 'flat' : 'basic'"
+                  [style]="'primary'"
+                  [size]="'icon'"
+                  [tooltip]="'Assign self'"
+                  >
+      <core-icon [icon]="isAssignee ? 'heart-fill' : 'heart'"/>
+    </core-button>
+  </div>
 </div>

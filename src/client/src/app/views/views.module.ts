@@ -39,6 +39,7 @@ import { UsersSettingsView } from "./settings/users-settings/users-settings.view
 import { MyActivitiesView } from "./my-activities/my-activities.view";
 import { FirstLaunchView } from "./first-launch/first-launch.view";
 import { DatabaseSettingsView } from "./settings/database-settings/database-settings.view";
+import { StatsView } from "./stats/stats.view";
 /***/
 
 @NgModule({
@@ -56,7 +57,8 @@ import { DatabaseSettingsView } from "./settings/database-settings/database-sett
     UsersSettingsView,
     MyActivitiesView,
     FirstLaunchView,
-    DatabaseSettingsView
+    DatabaseSettingsView,
+    StatsView
   ],
   imports: [
     CommonModule,
@@ -81,7 +83,8 @@ import { DatabaseSettingsView } from "./settings/database-settings/database-sett
     UsersSettingsView,
     MyActivitiesView,
     FirstLaunchView,
-    DatabaseSettingsView
+    DatabaseSettingsView,
+    StatsView
   ]
 })
 export class ViewsModule {}

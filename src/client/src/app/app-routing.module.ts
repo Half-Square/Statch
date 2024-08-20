@@ -39,6 +39,7 @@ import { UsersSettingsView } from "./views/settings/users-settings/users-setting
 import { MyActivitiesView } from "./views/my-activities/my-activities.view";
 import { FirstLaunchView } from "./views/first-launch/first-launch.view";
 import { DatabaseSettingsView } from "./views/settings/database-settings/database-settings.view";
+import { StatsView } from "./views/stats/stats.view";
 /***/
 
 /* Routes */
@@ -64,6 +65,7 @@ const routes: Routes = [
   { path: "my-activities", component: MyActivitiesView, canActivate: [IsConnectedGuard] },
   { path: ":type", component: PttAllView, canActivate: [IsConnectedGuard, TypeGuard] },
   { path: ":type/:id", component: PttView, canActivate: [TypeGuard, IsConnectedGuard] },
+  { path: ":type/:id/stats", component: StatsView, canActivate: [TypeGuard, IsConnectedGuard] },
 
   { path: "", pathMatch: "full", redirectTo: "/projects" },
   { path: "**", redirectTo: "not-found" }

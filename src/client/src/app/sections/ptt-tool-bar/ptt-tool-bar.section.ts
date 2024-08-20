@@ -22,6 +22,7 @@ export class PttToolBarSection {
   @Input() isParentOf: boolean = false;
   @Input() isAssignee: boolean = false;
   @Input() type: string;
+  @Input() id: string;
   @Output() onDelete = new EventEmitter();
   @Output() onCreateChild = new EventEmitter();
   @Output() onAssign = new EventEmitter();
