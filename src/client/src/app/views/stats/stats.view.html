@@ -2,7 +2,7 @@
 * @Author                : Jbristhuille<jbristhuille@gmail.com>
 * @CreatedDate           : 2024-01-15 17:23:00
 * @LastEditors           : Jbristhuille<jbristhuille@gmail.com>
-* @LastEditDate          : 2024-08-26 13:08:53
+* @LastEditDate          : 2024-08-26 15:37:47
 -->
 
 <div class="stats-view">
@@ -29,6 +29,13 @@
                   [labels]="tasksByLabel.labels"
                   [chart]="{type: 'polarArea'}"
                   [title]="{text: 'Tasks by labels'}"/>
+    </div>
+
+    <div class="chart-container tasks-by-versions" *ngIf="tasksByVersions">
+      <apx-chart  [series]="tasksByVersions.data"
+                  [labels]="tasksByVersions.labels"
+                  [chart]="{type: 'polarArea'}"
+                  [title]="{text: 'Tasks by versions'}"/>
     </div>
   </ng-template>
 

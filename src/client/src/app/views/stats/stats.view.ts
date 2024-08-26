@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jbristhuille@gmail.com>             *
  * @CreatedDate           : 2024-01-15 17:24:09                              *
  * @LastEditors           : Jbristhuille<jbristhuille@gmail.com>             *
- * @LastEditDate          : 2024-08-26 12:19:27                              *
+ * @LastEditDate          : 2024-08-26 15:39:38                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -10,6 +10,10 @@
   * Services
   * Interfaces
   * Format data before printing
+    * Nb. tasks by status
+    * Nb. new task by month
+    * Nb. tasks by labels
+    * Nb. tasks by versions
 */
 
 /* Imports */
@@ -59,6 +63,7 @@ export class StatsView implements OnInit {
   public tasksByStatus: IData;
   public newByMonth: IData;
   public tasksByLabel: IData;
+  public tasksByVersions: IData;
 
   constructor(private api: RequestService,
               private route: ActivatedRoute,
@@ -85,17 +90,22 @@ export class StatsView implements OnInit {
   * Format data before printing
   */
   public async formatData(): Promise<void> {
+    /* Nb. tasks by status */
     this.tasksByStatus = {
       data: this.stats.tasks.status.map((el) => el.nb),
       labels: this.stats.tasks.status.map((el) => el.name)
     };
+    /***/
 
+    /* Nb. new task by month */
     this.newByMonth = {
       data: this.stats.tasks.newByMonth[0].tasks,
       labels: [ "January", "February", "March", "April", "May", "June",
         "July", "August", "September", "October", "November", "December" ]
     };
+    /***/
 
+    /* Nb. tasks by labels */
     let labels = [];
     for(let i = 0; i < this.stats.tasks.labels.length; i++) {
       labels.push(await this.recovery.getSingleSync("labels", this.stats.tasks.labels[i].id));
@@ -106,6 +116,19 @@ export class StatsView implements OnInit {
       data: this.stats.tasks.labels.map((el) => el.nb),
       labels: labels.map((el) => el.name)
     };
+    /***/
+
+    /* Nb. tasks by versions */
+    let versions = [];
+    for(let i = 0; i < this.stats.tasks.versions.length; i++) {
+      versions.push(await this.recovery.getSingleSync("versions", this.stats.tasks.versions[i].id));
+    }
+
+    this.tasksByVersions = {
+      data: this.stats.tasks.versions.map((el) => el.nb),
+      labels: versions.map((el) => el ? `v${el.name}` : "No version")
+    };
+    /***/
   }
   /***/
 }
