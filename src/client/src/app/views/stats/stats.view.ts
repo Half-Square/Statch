@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jbristhuille@gmail.com>             *
  * @CreatedDate           : 2024-01-15 17:24:09                              *
  * @LastEditors           : Jbristhuille<jbristhuille@gmail.com>             *
- * @LastEditDate          : 2024-08-26 15:39:38                              *
+ * @LastEditDate          : 2024-08-26 15:44:24                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -14,6 +14,7 @@
     * Nb. new task by month
     * Nb. tasks by labels
     * Nb. tasks by versions
+    * Nb. tasks by levels
 */
 
 /* Imports */
@@ -64,6 +65,7 @@ export class StatsView implements OnInit {
   public newByMonth: IData;
   public tasksByLabel: IData;
   public tasksByVersions: IData;
+  public tasksByLevels: IData;
 
   constructor(private api: RequestService,
               private route: ActivatedRoute,
@@ -127,6 +129,13 @@ export class StatsView implements OnInit {
     this.tasksByVersions = {
       data: this.stats.tasks.versions.map((el) => el.nb),
       labels: versions.map((el) => el ? `v${el.name}` : "No version")
+    };
+    /***/
+
+    /* Nb. tasks by levels */
+    this.tasksByLevels = {
+      data: this.stats.tasks.levels.map((el) => el.nb),
+      labels: this.stats.tasks.levels.map((el) => el.name)
     };
     /***/
   }

@@ -2,21 +2,21 @@
 * @Author                : Jbristhuille<jbristhuille@gmail.com>
 * @CreatedDate           : 2024-01-15 17:23:00
 * @LastEditors           : Jbristhuille<jbristhuille@gmail.com>
-* @LastEditDate          : 2024-08-26 15:37:47
+* @LastEditDate          : 2024-08-26 15:43:48
 -->
 
 <div class="stats-view">
   <ng-template [ngIf]="stats" [ngIfElse]="loading">
     Nb. tasks {{stats.tasks.total}}
 
-    <div class="chart-container tasks-by-status">
+    <div class="chart-container tasks-by-status" *ngIf="tasksByStatus">
       <apx-chart  [series]="tasksByStatus.data"
                   [labels]="tasksByStatus.labels"
                   [chart]="{type: 'polarArea'}"
                   [title]="{text: 'Tasks by status'}"/>
     </div>
 
-    <div class="chart-container new-by-month">
+    <div class="chart-container new-by-month" *ngIf="newByMonth">
       <apx-chart  [series]="[{name: 'new', data: newByMonth.data}]"
                   [plotOptions]="{bar: {dataLabels: {position: 'top'}}}"
                   [xaxis]="{categories: newByMonth.labels}"
@@ -36,6 +36,13 @@
                   [labels]="tasksByVersions.labels"
                   [chart]="{type: 'polarArea'}"
                   [title]="{text: 'Tasks by versions'}"/>
+    </div>
+
+    <div class="chart-container tasks-by-levels" *ngIf="tasksByLevels">
+      <apx-chart  [series]="tasksByLevels.data"
+                  [labels]="tasksByLevels.labels"
+                  [chart]="{type: 'polarArea'}"
+                  [title]="{text: 'Tasks by levels'}"/>
     </div>
   </ng-template>
 
