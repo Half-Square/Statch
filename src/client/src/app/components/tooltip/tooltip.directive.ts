@@ -1,14 +1,26 @@
 /*****************************************************************************
- * @Author                : 0K00<qdouvillez@gmail.com>                       *
+ * @Author                : Jbristhuille<jbristhuille@gmail.com>             *
  * @CreatedDate           : 2023-11-15 14:37:55                              *
- * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
- * @LastEditDate          : 2023-11-25 13:23:39                              *
+ * @LastEditors           : Jbristhuille<jbristhuille@gmail.com>             *
+ * @LastEditDate          : 2024-08-26 16:33:31                              *
  ****************************************************************************/
 
-import { AfterContentInit, ApplicationRef, ComponentFactoryResolver, ComponentRef, Directive, ElementRef, EmbeddedViewRef, HostListener, Injector, Input, OnDestroy } from "@angular/core";
+import {
+  ApplicationRef,
+  ComponentFactoryResolver,
+  ComponentRef,
+  Directive,
+  ElementRef,
+  EmbeddedViewRef,
+  HostListener,
+  Injector,
+  Input,
+  OnDestroy
+} from "@angular/core";
 
 import { TooltipComponent } from "./tooltip.component";
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
 @Directive({
   selector: "[tooltip]"
 })
@@ -45,10 +57,9 @@ export class TooltipDirective implements OnDestroy {
   private setTooltipComponentProperties(): void {
     if (this.componentRef !== null) {
       this.componentRef.instance.tooltip = this.tooltip;
-      const {left, right, bottom, top} =
+      const {left, right, top} =
             this.elementRef.nativeElement.getBoundingClientRect();
 
-      const blockRect = this.componentRef.location.nativeElement.getBoundingClientRect();
       const tooltipRect = this.elementRef.nativeElement.getBoundingClientRect();
       const tooltipWidth = this.componentRef.instance.width;
       const windowWidth = window.innerWidth;

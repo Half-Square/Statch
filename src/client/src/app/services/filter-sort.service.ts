@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jbristhuille@gmail.com>             *
  * @CreatedDate           : 2024-01-11 14:55:06                              *
  * @LastEditors           : Jbristhuille<jbristhuille@gmail.com>             *
- * @LastEditDate          : 2024-08-02 20:43:48                              *
+ * @LastEditDate          : 2024-08-26 16:44:16                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -33,6 +33,7 @@ import {
 } from "src/app/interfaces";
 /***/
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
 @Injectable({
   providedIn: "root"
 })
