@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jbristhuille@gmail.com>             *
  * @CreatedDate           : 2024-01-15 17:24:07                              *
  * @LastEditors           : Jbristhuille<jbristhuille@gmail.com>             *
- * @LastEditDate          : 2024-08-20 14:43:47                              *
+ * @LastEditDate          : 2024-08-26 16:14:49                              *
  ****************************************************************************/
 
 .stats-view {
@@ -18,7 +18,18 @@
     transform: translate(-50%, -50%);
   }
 
-  .chart-container {
-    width: 50%;
+  .charts-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 28px;
+    margin-top: 8px;
+
+    .new-by-month {
+      ::ng-deep {
+        .apexcharts-tooltip span, .apexcharts-tooltip-title {
+          color: #222222;
+        }
+      }
+    }
   }
 }

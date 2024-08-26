@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jbristhuille@gmail.com>             *
  * @CreatedDate           : 2024-01-15 17:24:09                              *
  * @LastEditors           : Jbristhuille<jbristhuille@gmail.com>             *
- * @LastEditDate          : 2024-08-26 15:44:24                              *
+ * @LastEditDate          : 2024-08-26 15:56:45                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -66,6 +66,8 @@ export class StatsView implements OnInit {
   public tasksByLabel: IData;
   public tasksByVersions: IData;
   public tasksByLevels: IData;
+
+  public onLoading: boolean = true;
 
   constructor(private api: RequestService,
               private route: ActivatedRoute,
@@ -138,6 +140,8 @@ export class StatsView implements OnInit {
       labels: this.stats.tasks.levels.map((el) => el.name)
     };
     /***/
+
+    this.onLoading = false;
   }
   /***/
 }
