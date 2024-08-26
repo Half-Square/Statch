@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jbristhuille@gmail.com>             *
  * @CreatedDate           : 2024-01-19 17:57:05                              *
  * @LastEditors           : Jbristhuille<jbristhuille@gmail.com>             *
- * @LastEditDate          : 2024-08-16 10:43:03                              *
+ * @LastEditDate          : 2024-08-26 16:22:59                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -46,6 +46,7 @@ import { RecoveryService } from "src/app/services/recovery.service";
 Quill.register("modules/imageDropAndPaste", QuillImageDropAndPaste);
 /***/
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
 @Component({
   selector: "component-markdown",
   templateUrl: "./markdown.component.html",
@@ -252,6 +253,7 @@ export class MarkdownComponent implements OnInit, OnChanges {
           this.editor.quillEditor.formatText(index, 1, "alt", file.name);
         })
         .catch((err) => {
+          console.error(err);
           return;
         });
   }
@@ -307,7 +309,7 @@ export class MarkdownComponent implements OnInit, OnChanges {
   * @return - Content string
   */
   public content(): void {
-    this.getContent.emit(this.form.get("text")!.value);
+    this.getContent.emit(this.form.get("text")?.value);
   }
   /***/
 }
