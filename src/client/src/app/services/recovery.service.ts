@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jbristhuille@gmail.com>             *
  * @CreatedDate           : 2023-05-31 12:56:22                              *
  * @LastEditors           : Jbristhuille<jbristhuille@gmail.com>             *
- * @LastEditDate          : 2024-07-25 21:25:38                              *
+ * @LastEditDate          : 2024-08-26 12:20:15                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -305,8 +305,6 @@ export class RecoveryService {
       }, time);
 
       this.waitSocket().then(() => {
-        console.log(this.socket?.id);
-
         this.socket?.on("pong", () => {
           onRequest = false;
           sub.next({time:  Date.now() - start, status: "ok"});

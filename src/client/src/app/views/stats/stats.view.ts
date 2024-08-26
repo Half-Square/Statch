@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jbristhuille@gmail.com>             *
  * @CreatedDate           : 2024-01-15 17:24:09                              *
  * @LastEditors           : Jbristhuille<jbristhuille@gmail.com>             *
- * @LastEditDate          : 2024-08-20 10:58:02                              *
+ * @LastEditDate          : 2024-08-26 12:19:27                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -20,6 +20,7 @@ import { ActivatedRoute } from "@angular/router";
 /* Services */
 import { RequestService } from "src/app/services/request.service";
 import { ToastService } from "src/app/services/toast.service";
+import { RecoveryService } from "src/app/services/recovery.service";
 /***/
 
 /* Interfaces */
@@ -57,10 +58,12 @@ export class StatsView implements OnInit {
 
   public tasksByStatus: IData;
   public newByMonth: IData;
+  public tasksByLabel: IData;
 
   constructor(private api: RequestService,
               private route: ActivatedRoute,
-              private toast: ToastService) {
+              private toast: ToastService,
+              private recovery: RecoveryService) {
   }
 
   ngOnInit(): void {
@@ -81,7 +84,7 @@ export class StatsView implements OnInit {
   /**
   * Format data before printing
   */
-  public formatData(): void {
+  public async formatData(): Promise<void> {
     this.tasksByStatus = {
       data: this.stats.tasks.status.map((el) => el.nb),
       labels: this.stats.tasks.status.map((el) => el.name)
@@ -91,6 +94,17 @@ export class StatsView implements OnInit {
       data: this.stats.tasks.newByMonth[0].tasks,
       labels: [ "January", "February", "March", "April", "May", "June",
         "July", "August", "September", "October", "November", "December" ]
+    };
+
+    let labels = [];
+    for(let i = 0; i < this.stats.tasks.labels.length; i++) {
+      labels.push(await this.recovery.getSingleSync("labels", this.stats.tasks.labels[i].id));
+
+    }
+
+    this.tasksByLabel = {
+      data: this.stats.tasks.labels.map((el) => el.nb),
+      labels: labels.map((el) => el.name)
     };
   }
   /***/
