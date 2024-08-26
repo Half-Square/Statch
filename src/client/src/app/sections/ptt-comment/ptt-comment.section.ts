@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jbristhuille@gmail.com>             *
  * @CreatedDate           : 2023-09-27 15:26:28                              *
  * @LastEditors           : Jbristhuille<jbristhuille@gmail.com>             *
- * @LastEditDate          : 2024-08-16 12:24:07                              *
+ * @LastEditDate          : 2024-08-26 16:40:49                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -84,7 +84,6 @@ export class PttCommentSection implements OnInit {
         content: this.content
       }, this.user.getUser()?.token)
         .then(() => {
-          this.checkIfMention(this.content);
           this.hasPublish = true;
         })
         .catch(() => this.hasPublish = false);
@@ -104,23 +103,6 @@ export class PttCommentSection implements OnInit {
         this.recovery.updateData(this.item, this.type);
         this.toast.print("Comment has been removed", "success");
       });
-  }
-  /***/
-
-  /**
-  * Check if someone is mention
-  * @param content - Html content of comments
-  */
-  private checkIfMention(content: string): void {
-    let div = document.createElement("div");
-    div.innerHTML = content;
-    let mentions = Array.from(div.querySelectorAll("span.mention"));
-
-    let mentionsContent = mentions.map(span => span.attributes);
-    mentionsContent.forEach((mention: any) => {
-      if(mention["data-target"].value === "@")
-        this.pingUser(mention["data-id"].value, mention["data-value"].value);
-    });
   }
   /***/
 
