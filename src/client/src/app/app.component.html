@@ -2,7 +2,7 @@
 * @Author                : Jbristhuille<jbristhuille@gmail.com>
 * @CreatedDate           : 2023-05-30 11:57:00
 * @LastEditors           : Jbristhuille<jbristhuille@gmail.com>
-* @LastEditDate          : 2024-07-25 20:12:23
+* @LastEditDate          : 2024-08-20 10:07:40
 -->
 
 <div class="app">
@@ -15,7 +15,7 @@
       <router-outlet></router-outlet>
     </div>
 
-    <section-bottom-bar/>
+    <section-bottom-bar *ngIf="user.isConnected()"/>
   </div>
 
 </div>

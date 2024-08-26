@@ -1,14 +1,51 @@
 <!--
-* @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>
+* @Author                : Jbristhuille<jbristhuille@gmail.com>
 * @CreatedDate           : 2024-01-15 17:23:00
-* @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>
-* @LastEditDate          : 2024-01-16 10:35:43
+* @LastEditors           : Jbristhuille<jbristhuille@gmail.com>
+* @LastEditDate          : 2024-08-26 16:13:06
 -->
 
 <div class="stats-view">
-  <ng-template [ngIf]="stats" [ngIfElse]="loading">
-    Nb. tasks {{stats.tasks.total}}
-    <!-- cf. ng-apexcharts: https://www.npmjs.com/package/ng-apexcharts -->
+  <ng-template [ngIf]="!onLoading" [ngIfElse]="loading">
+    Nb. tasks total: {{stats.tasks.total}}
+
+    <div class="charts-container">
+      <div class="chart-container tasks-by-status">
+        <apx-chart  [series]="tasksByStatus.data"
+                    [labels]="tasksByStatus.labels"
+                    [chart]="{type: 'polarArea', foreColor: '#eaeaea'}"
+                    [title]="{text: 'Tasks by status'}"/>
+      </div>
+
+      <div class="chart-container tasks-by-label">
+        <apx-chart  [series]="tasksByLabel.data"
+                    [labels]="tasksByLabel.labels"
+                    [chart]="{type: 'polarArea', foreColor: '#eaeaea'}"
+                    [title]="{text: 'Tasks by labels'}"/>
+      </div>
+
+      <div class="chart-container tasks-by-versions">
+        <apx-chart  [series]="tasksByVersions.data"
+                    [labels]="tasksByVersions.labels"
+                    [chart]="{type: 'polarArea', foreColor: '#eaeaea'}"
+                    [title]="{text: 'Tasks by versions'}"/>
+      </div>
+
+      <div class="chart-container tasks-by-levels">
+        <apx-chart  [series]="tasksByLevels.data"
+                    [labels]="tasksByLevels.labels"
+                    [chart]="{type: 'polarArea', foreColor: '#eaeaea'}"
+                    [title]="{text: 'Tasks by levels'}"/>
+      </div>
+
+      <div class="chart-container new-by-month">
+        <apx-chart  [series]="[{name: 'new', data: newByMonth.data}]"
+                    [plotOptions]="{bar: {dataLabels: {position: 'top'}}}"
+                    [xaxis]="{categories: newByMonth.labels}"
+                    [chart]="{type: 'bar', foreColor: '#eaeaea'}"
+                    [title]="{text: 'New by month '+stats.tasks.newByMonth[0].year}"/>
+      </div>
+    </div>
   </ng-template>
 
   <ng-template #loading>

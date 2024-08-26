@@ -1,8 +1,8 @@
 /******************************************************************************
- * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
+ * @Author                : Jbristhuille<jbristhuille@gmail.com>              *
  * @CreatedDate           : 2023-05-30 12:07:51                               *
- * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2024-01-31 17:11:03                               *
+ * @LastEditors           : Jbristhuille<jbristhuille@gmail.com>              *
+ * @LastEditDate          : 2024-08-20 10:07:57                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -63,7 +63,7 @@ import { StatsService } from "./controllers/stats/stats.service";
     FilesController,
     SearchController,
     DatabaseController,
-    SystemController
+    SystemController,
     StatsController
   ],
   providers: [
