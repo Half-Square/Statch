@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jbristhuille@gmail.com>             *
  * @CreatedDate           : 2023-09-27 14:08:53                              *
  * @LastEditors           : Jbristhuille<jbristhuille@gmail.com>             *
- * @LastEditDate          : 2024-08-13 09:39:44                              *
+ * @LastEditDate          : 2024-08-26 16:43:07                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -44,8 +44,8 @@ export class PttHeaderSection {
   @ViewChild("nameEl", { static: false })
     nameEl!: ElementRef;
 
-  @ViewChild("descriptionEl", { static: false })
-    descriptionEl!: any;
+  /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
+  @ViewChild("descriptionEl", { static: false }) descriptionEl!: any;
 
   public editName: boolean = false;
   public editDescription: boolean = false;
