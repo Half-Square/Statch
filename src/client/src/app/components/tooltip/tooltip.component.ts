@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : 0K00<qdouvillez@gmail.com>                       *
+ * @Author                : Jbristhuille<jbristhuille@gmail.com>             *
  * @CreatedDate           : 2023-11-15 14:37:36                              *
- * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
- * @LastEditDate          : 2023-11-22 15:45:15                              *
+ * @LastEditors           : Jbristhuille<jbristhuille@gmail.com>             *
+ * @LastEditDate          : 2024-08-26 16:24:37                              *
  ****************************************************************************/
 
 import { Input, Component, ElementRef, ViewChild } from "@angular/core";
@@ -42,8 +42,13 @@ export class TooltipComponent {
     let fontSize = "12px";
     let canvas = document.createElement("canvas");
     let context = canvas.getContext("2d");
-    context!.font = fontSize + " " + fontFamily;
-    let metrics = context!.measureText(this.tooltip);
-    return metrics.width;
+
+    if (context) {
+      context.font = fontSize + " " + fontFamily;
+      let metrics = context.measureText(this.tooltip);
+      return metrics.width;
+    } else {
+      return 0;
+    }
   }
 }
