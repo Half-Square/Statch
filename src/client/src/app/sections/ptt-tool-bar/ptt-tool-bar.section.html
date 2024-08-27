@@ -11,6 +11,11 @@
                   type="basic"
                   label="Stats"
                   [routerLink]="['/'+type+'/'+id+'/'+'stats']" />
+
+    <core-button  *ngIf="type == 'projects'"
+                  type="basic"
+                  label="Versions"
+                  [routerLink]="['/'+type+'/'+id+'/'+'versions']" />
   </div>
 
   <div class="actions">

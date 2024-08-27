@@ -1,36 +1,34 @@
 /*****************************************************************************
  * @Author                : Jbristhuille<jbristhuille@gmail.com>             *
- * @CreatedDate           : 2024-01-15 17:24:07                              *
+ * @CreatedDate           : 2024-08-27 10:19:28                              *
  * @LastEditors           : Jbristhuille<jbristhuille@gmail.com>             *
- * @LastEditDate          : 2024-08-27 10:21:57                              *
+ * @LastEditDate          : 2024-08-27 10:59:43                              *
  ****************************************************************************/
 
-.stats-view {
+.view-versions {
   height: 100%;
   overflow: auto;
   box-sizing: border-box;
   padding: 16px;
   position: relative;
 
+  .versions-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    .versions {
+      display: grid;
+      grid-template-columns: 1fr 32px;
+      align-items: center;
+      gap: 8px;
+    }
+  }
+
   .loading {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-  }
-
-  .charts-container {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 28px;
-    margin-top: 8px;
-
-    .new-by-month {
-      ::ng-deep {
-        .apexcharts-tooltip span, .apexcharts-tooltip-title {
-          color: #222222;
-        }
-      }
-    }
   }
 }

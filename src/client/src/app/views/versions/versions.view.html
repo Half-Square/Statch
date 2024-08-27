@@ -1,0 +1,33 @@
+<!--
+* @Author                : Jbristhuille<jbristhuille@gmail.com>
+* @CreatedDate           : 2024-08-27 10:19:00
+* @LastEditors           : Jbristhuille<jbristhuille@gmail.com>
+* @LastEditDate          : 2024-08-27 10:59:01
+-->
+
+<div class="view-versions">
+  <ng-template [ngIf]="versions" [ngIfElse]="loading">
+    <div class="versions-container">
+      <div class="versions" *ngFor="let version of versions">
+        <core-input [(value)]="version.name"
+                    placeholder="Version name"
+                    (focusout)="save(version)"
+                    (keydown.enter)="save(version)"/>
+
+        <core-button (click)="delete(version.id)"
+                      [type]="'basic'"
+                      [style]="'warn'"
+                      [size]="'icon'"
+                      tooltip="Delete version">
+          <core-icon icon="minus"/>
+      </core-button>
+      </div>
+    </div>
+  </ng-template>
+
+  <ng-template #loading>
+    <div class="loading">
+      <core-loading/>
+    </div>
+  </ng-template>
+</div>
