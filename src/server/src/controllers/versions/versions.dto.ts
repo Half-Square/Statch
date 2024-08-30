@@ -1,8 +1,8 @@
 /******************************************************************************
- * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
+ * @Author                : Jbristhuille<jbristhuille@gmail.com>              *
  * @CreatedDate           : 2023-09-21 12:04:55                               *
- * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-09-21 12:17:08                               *
+ * @LastEditors           : Jbristhuille<jbristhuille@gmail.com>              *
+ * @LastEditDate          : 2024-08-27 10:49:05                               *
  *****************************************************************************/
 
 import { IsString } from "class-validator";

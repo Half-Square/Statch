@@ -1,8 +1,8 @@
 /******************************************************************************
- * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
+ * @Author                : Jbristhuille<jbristhuille@gmail.com>              *
  * @CreatedDate           : 2023-09-21 12:01:16                               *
- * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2024-01-31 17:03:45                               *
+ * @LastEditors           : Jbristhuille<jbristhuille@gmail.com>              *
+ * @LastEditDate          : 2024-08-27 10:52:58                               *
  *****************************************************************************/
 
 /* SUMMARY

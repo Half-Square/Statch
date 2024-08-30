@@ -1,8 +1,8 @@
 /******************************************************************************
- * @Author                : 0K00<qdouvillez@gmail.com>                        *
+ * @Author                : Jbristhuille<jbristhuille@gmail.com>              *
  * @CreatedDate           : 2023-09-27 09:51:47                               *
- * @LastEditors           : 0K00<qdouvillez@gmail.com>                        *
- * @LastEditDate          : 2024-01-19 17:45:45                               *
+ * @LastEditors           : Jbristhuille<jbristhuille@gmail.com>              *
+ * @LastEditDate          : 2024-08-27 10:52:50                               *
  *****************************************************************************/
 
 /* SUMMARY
