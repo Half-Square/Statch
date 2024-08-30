@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jbristhuille@gmail.com>             *
  * @CreatedDate           : 2024-08-27 10:19:28                              *
  * @LastEditors           : Jbristhuille<jbristhuille@gmail.com>             *
- * @LastEditDate          : 2024-08-27 10:59:43                              *
+ * @LastEditDate          : 2024-08-30 11:10:22                              *
  ****************************************************************************/
 
 .view-versions {
@@ -22,6 +22,10 @@
       grid-template-columns: 1fr 32px;
       align-items: center;
       gap: 8px;
+    }
+
+    .add-button {
+      align-self: center;
     }
   }
 

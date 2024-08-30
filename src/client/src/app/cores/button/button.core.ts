@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : 0K00<qdouvillez@gmail.com>                       *
+ * @Author                : Jbristhuille<jbristhuille@gmail.com>             *
  * @CreatedDate           : 2023-08-21 16:28:49                              *
- * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
- * @LastEditDate          : 2023-11-15 16:53:18                              *
+ * @LastEditors           : Jbristhuille<jbristhuille@gmail.com>             *
+ * @LastEditDate          : 2024-08-30 11:07:36                              *
  ****************************************************************************/
 
 import { Component, Input } from "@angular/core";
@@ -16,45 +16,11 @@ import { Component, Input } from "@angular/core";
   styleUrls: ["./button.core.scss"]
 })
 export class ButtonCore {
-  /**
-   * Identifier of the button.
-   */
-  @Input()
-    id: string = "";
-
-  /**
-   * Label text.
-   */
-  @Input()
-    label?: string = undefined;
-
-  /**
-   * Type of the button.
-   */
-  @Input()
-    type: "basic" | "flat" | "stroked" = "basic";
-
-  /**
-   * Style of the button.
-   */
-  @Input()
-    style: "default" | "primary" | "accent" | "warn" = "default";
-
-  /**
-   * Size of the button.
-   */
-  @Input()
-    size: "small" | "medium" | "large" | "icon" = "medium";
-
-  /**
-   * Other CSS classes to apply to the button.
-   */
-  @Input()
-    other: string = "";
-
-  /**
-   * Indicates if button are disabled or not.
-   */
-  @Input()
-    disabled: boolean = false;
+  @Input() id: string = "";
+  @Input() label?: string = undefined;
+  @Input() type: "basic" | "flat" | "stroked" = "basic";
+  @Input() style: "default" | "primary" | "accent" | "warn" = "default";
+  @Input() size: "small" | "medium" | "large" | "icon" = "medium";
+  @Input() other: string = "";
+  @Input() disabled: boolean = false;
 }

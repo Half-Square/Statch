@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jbristhuille@gmail.com>              *
  * @CreatedDate           : 2024-08-27 10:19:52                               *
  * @LastEditors           : Jbristhuille<jbristhuille@gmail.com>              *
- * @LastEditDate          : 2024-08-27 11:04:22                               *
+ * @LastEditDate          : 2024-08-30 11:09:40                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -10,6 +10,8 @@
   * Interfaces
   * Services
   * Save version
+  * Delete version
+  * Create version
 */
 
 /* Imports */
@@ -84,6 +86,23 @@ export class VersionsView implements OnInit, OnDestroy {
       .then(() => {
         this.recovery.updateData({id: id, deleted: true}, `projects/${this.id}/versions`);
         this.toast.print(`Version has been saved !`, "success");
+      }).catch((err) => {
+        console.error(err);
+        this.toast.print("An error occured, on saving...", "error");
+      });
+  }
+  /***/
+
+  /**
+  * Create version
+  */
+  public createVersion(): void {
+    this.api.post(`api/projects/${this.id}/versions`, {
+      name: "New version"
+    }, this.user.getUser()?.token)
+      .then((ret) => {
+        this.recovery.updateData(ret, `projects/${this.id}/versions`);
+        this.toast.print(`Version has been created !`, "success");
       }).catch((err) => {
         console.error(err);
         this.toast.print("An error occured, on saving...", "error");

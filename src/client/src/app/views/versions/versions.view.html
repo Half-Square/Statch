@@ -2,7 +2,7 @@
 * @Author                : Jbristhuille<jbristhuille@gmail.com>
 * @CreatedDate           : 2024-08-27 10:19:00
 * @LastEditors           : Jbristhuille<jbristhuille@gmail.com>
-* @LastEditDate          : 2024-08-27 10:59:01
+* @LastEditDate          : 2024-08-30 11:10:42
 -->
 
 <div class="view-versions">
@@ -14,7 +14,7 @@
                     (focusout)="save(version)"
                     (keydown.enter)="save(version)"/>
 
-        <core-button (click)="delete(version.id)"
+        <core-button  (click)="delete(version.id)"
                       [type]="'basic'"
                       [style]="'warn'"
                       [size]="'icon'"
@@ -22,6 +22,15 @@
           <core-icon icon="minus"/>
       </core-button>
       </div>
+
+      <core-button  class="add-button"
+                    (click)="createVersion()"
+                    type="flat"
+                    [style]="'primary'"
+                    size="medium"
+                    tooltip="Create version">
+        <core-icon icon="plus"/>
+      </core-button>
     </div>
   </ng-template>
 
