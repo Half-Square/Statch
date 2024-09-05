@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jbristhuille@gmail.com>             *
  * @CreatedDate           : 2023-05-30 11:59:22                              *
  * @LastEditors           : Jbristhuille<jbristhuille@gmail.com>             *
- * @LastEditDate          : 2024-08-26 16:06:02                              *
+ * @LastEditDate          : 2024-09-05 11:58:44                              *
  ****************************************************************************/
 
  @import '~quill/dist/quill.bubble.css';
@@ -43,6 +43,10 @@ html {
   /* Handle on hover */
   ::-webkit-scrollbar-thumb:hover {
     background: #666666;
+  }
+
+  body {
+    position: relative;
   }
 }
 
@@ -133,4 +137,67 @@ a {
 
 .ql-container.ql-bubble:not(.ql-disabled) a:hover::before, .ql-container.ql-bubble:not(.ql-disabled) a:hover::after {
   visibility: hidden;
+}
+
+.dropdown-menu {
+  position: absolute;
+  z-index: 2;
+  max-height: 150px;
+  max-width: 190px;
+  width: 100%;
+  margin-top: 4px;
+  padding: 4px;
+  border-radius: 8px;
+  user-select: none;
+  background: #303030;
+  border: 1px solid #3d3d3d;
+  left: 0;
+  top: 0;
+  box-sizing: border-box;
+
+  .options {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    max-height: 150px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding-right: 4px;
+
+    &::-webkit-scrollbar {
+      width: 4px;
+      height: 4px;
+    }
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    &::-webkit-scrollbar-thumb {
+      background: #585858;
+      border-radius: 999px;
+    }
+    &::-webkit-scrollbar-thumb:hover {
+      background: #666666;
+    }
+
+    .option {
+      cursor: pointer;
+      padding: 8px;
+      border-radius: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      &:hover {
+        background: #252525;
+      }
+
+      .checked {
+        color: #eaeaea;
+      }
+    }
+
+    .option.active {
+      background: #0055ff;
+    }
+  }
 }

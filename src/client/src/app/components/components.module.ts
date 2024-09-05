@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : 0K00<qdouvillez@gmail.com>                       *
+ * @Author                : Jbristhuille<jbristhuille@gmail.com>             *
  * @CreatedDate           : 2023-09-19 16:08:01                              *
- * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
- * @LastEditDate          : 2023-11-15 14:36:32                              *
+ * @LastEditors           : Jbristhuille<jbristhuille@gmail.com>             *
+ * @LastEditDate          : 2024-09-05 11:44:18                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -21,6 +21,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 /* Modules */
 import { PipesModule } from "../pipes/pipes.module";
 import { CoresModule } from "../cores/cores.module";
+import { DirectivesModule } from "../directives/directives.module";
 import { QuillModule } from "ngx-quill";
 /***/
 
@@ -87,6 +88,7 @@ import { SocketIndicatorComponent } from "./socket-indicator/socket-indicator.co
     FormsModule,
     TooltipModule,
     ReactiveFormsModule,
+    DirectivesModule,
     QuillModule.forRoot()
   ],
   exports: [
