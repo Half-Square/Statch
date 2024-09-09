@@ -1,6 +1,6 @@
 {
   "name": "statch_client",
-  "version": "0.8.0",
+  "version": "0.9.0-dev",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -19,6 +19,7 @@
     "@types/lodash": "^4.14.195",
     "@types/socket.io": "^3.0.2",
     "lodash": "^4.17.21",
+    "ng-apexcharts": "^1.8.0",
     "ngx-quill": "^21.0.0",
     "quill-image-drop-and-paste": "^1.3.0",
     "quill-image-resize-module-ts": "^3.0.3",

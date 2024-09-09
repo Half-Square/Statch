@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @Author                : Jbristhuille<jbristhuille@gmail.com>             *
  * @CreatedDate           : 2023-09-27 14:08:53                              *
- * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2024-01-31 16:54:29                              *
+ * @LastEditors           : Jbristhuille<jbristhuille@gmail.com>             *
+ * @LastEditDate          : 2024-08-26 16:43:07                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -44,8 +44,8 @@ export class PttHeaderSection {
   @ViewChild("nameEl", { static: false })
     nameEl!: ElementRef;
 
-  @ViewChild("descriptionEl", { static: false })
-    descriptionEl!: any;
+  /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
+  @ViewChild("descriptionEl", { static: false }) descriptionEl!: any;
 
   public editName: boolean = false;
   public editDescription: boolean = false;
@@ -81,8 +81,8 @@ export class PttHeaderSection {
   */
   public saveEnter(event: KeyboardEvent, origin: string): void {
     if (event.key === "Enter" &&
-          (origin === "name" ||
-          (origin === "description" && !event.shiftKey))) {
+      (origin === "name" ||
+        (origin === "description" && !event.shiftKey))) {
       this.editDescription = false;
       this.editName = false;
       this.item.description = this.content().description;
@@ -112,9 +112,18 @@ export class PttHeaderSection {
   * @return - Item name and description
   */
   public content(): {name: string, description: string} {
+    let title = this.nameEl.nativeElement.innerHTML;
+    let description = this.contentDesc || this.item.description;
+
+    let regTitle = (/<br>$/g).exec(title);
+    if (regTitle) title = title.substring(0, regTitle?.index);
+
+    let regDes = (/<br>$/g).exec(description);
+    if (regDes) title = title.substring(0, regDes?.index);
+
     this.contentEl = {
-      name: this.nameEl.nativeElement.innerHTML,
-      description: this.contentDesc || this.item.description
+      name: title,
+      description: description
     };
 
     return this.contentEl;

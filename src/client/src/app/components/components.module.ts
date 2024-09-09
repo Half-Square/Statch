@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : 0K00<qdouvillez@gmail.com>                       *
+ * @Author                : Jbristhuille<jbristhuille@gmail.com>             *
  * @CreatedDate           : 2023-09-19 16:08:01                              *
- * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
- * @LastEditDate          : 2023-11-15 14:36:32                              *
+ * @LastEditors           : Jbristhuille<jbristhuille@gmail.com>             *
+ * @LastEditDate          : 2024-09-05 11:44:18                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -21,6 +21,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 /* Modules */
 import { PipesModule } from "../pipes/pipes.module";
 import { CoresModule } from "../cores/cores.module";
+import { DirectivesModule } from "../directives/directives.module";
 import { QuillModule } from "ngx-quill";
 /***/
 
@@ -49,6 +50,7 @@ import { SearchBarComponent } from "./search-bar/search-bar.component";
 import { ModalComponent } from "./modal/modal.component";
 import { TooltipModule } from "./tooltip/tooltip.module";
 import { MarkdownComponent } from "./markdown/markdown.component";
+import { SocketIndicatorComponent } from "./socket-indicator/socket-indicator.component";
 /***/
 
 @NgModule({
@@ -75,7 +77,8 @@ import { MarkdownComponent } from "./markdown/markdown.component";
     ActivityActionStateComponent,
     SearchBarComponent,
     ModalComponent,
-    MarkdownComponent
+    MarkdownComponent,
+    SocketIndicatorComponent
   ],
   imports: [
     CommonModule,
@@ -85,6 +88,7 @@ import { MarkdownComponent } from "./markdown/markdown.component";
     FormsModule,
     TooltipModule,
     ReactiveFormsModule,
+    DirectivesModule,
     QuillModule.forRoot()
   ],
   exports: [
@@ -111,7 +115,8 @@ import { MarkdownComponent } from "./markdown/markdown.component";
     SearchBarComponent,
     ModalComponent,
     TooltipModule,
-    MarkdownComponent
+    MarkdownComponent,
+    SocketIndicatorComponent
   ]
 })
 

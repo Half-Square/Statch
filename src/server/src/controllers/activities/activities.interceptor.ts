@@ -1,8 +1,8 @@
 /******************************************************************************
- * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
+ * @Author                : Jbristhuille<jbristhuille@gmail.com>              *
  * @CreatedDate           : 2023-09-27 09:58:46                               *
- * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2024-01-11 14:31:42                               *
+ * @LastEditors           : Jbristhuille<jbristhuille@gmail.com>              *
+ * @LastEditDate          : 2024-08-27 10:54:01                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -51,7 +51,7 @@ export class ActivitiesInterceptor implements NestInterceptor {
             controller == "projects" ? "tasks" : "tickets", // Define target type
             parentId || undefined); // Print to parent if possible
         }
-        if (req.method === "PUT") await this.activities.handlePut(user, tmp, data, controller); // Handle update
+        if (req.method === "PUT" && tmp != null) await this.activities.handlePut(user, tmp, data, controller); // Handle update
         if ((req.method === "POST" || req.method === "DELETE") && tmp) { // Handle child deletion
           let parentId = tmp.projectId || tmp.taskId; // Get parent id
           await this.activities.handleDelete(

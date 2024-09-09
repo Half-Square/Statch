@@ -1,9 +1,30 @@
-/******************************************************************************
- * @Author                : 0K00<qdouvillez@gmail.com>                        *
- * @CreatedDate           : 2023-11-30 14:48:32                               *
- * @LastEditors           : 0K00<qdouvillez@gmail.com>                        *
- * @LastEditDate          : 2023-12-01 15:46:08                               *
- *****************************************************************************/
+/*****************************************************************************
+ * @Author                : Jbristhuille<jbristhuille@gmail.com>             *
+ * @CreatedDate           : 2023-11-30 14:48:32                              *
+ * @LastEditors           : Jbristhuille<jbristhuille@gmail.com>             *
+ * @LastEditDate          : 2024-08-15 16:13:25                              *
+ ****************************************************************************/
+
+/* SUMMARY
+  * Imports
+  * Interfaces
+  * Services
+  * Logout command
+  * Navbar toggle open/close command
+  * Searchbar toggle open/close command
+  * Navigate to settings command
+  * Navigate to projects command
+  * Navigate to activities
+  * Navigate to profile
+  * Add new project/task/ticket
+  * Toggle self assignment
+  * Save current item
+  * Search current id and send to clipboard function
+  * Search current url and send to clipboard function
+  * Copy data to clipboard
+  * Navigate to parent
+  * Navigate to the first child
+*/
 
 /* Imports */
 import { Injectable } from "@angular/core";
@@ -12,7 +33,7 @@ import * as _ from "lodash";
 /***/
 
 /* Interfaces */
-import { IActivities, IComments, IProjects, ITasks, ITickets, IVersions } from "src/app/interfaces";
+import { IProjects, ITasks, ITickets } from "src/app/interfaces";
 /***/
 
 /* Services */
@@ -42,64 +63,64 @@ export class CommandsService {
               private toast: ToastService) {}
 
   /**
-   * Logout command
-   */
+  * Logout command
+  */
   public logout(): void {
     this.user.logout();
   }
   /***/
 
   /**
-   * Navbar toggle open/close command
-   */
+  * Navbar toggle open/close command
+  */
   public navToggle(): void {
     this.nav.toggle();
   }
   /***/
 
   /**
-   * Searchbar toggle open/close command
-   */
+  * Searchbar toggle open/close command
+  */
   public openSearch(): void {
     this.search.toggle();
   }
   /***/
 
   /**
-   * Navigate to settings command
-   */
+  * Navigate to settings command
+  */
   public goSetting(): void {
     this.router.navigate(["/settings"]);
   }
   /***/
 
   /**
-   * Navigate to projects command
-   */
+  * Navigate to projects command
+  */
   public goProjects(): void {
     this.router.navigate(["/projects"]);
   }
   /***/
 
   /**
-   * Navigate to activities
-   */
+  * Navigate to activities
+  */
   public goActivities(): void {
     this.router.navigate(["/my-activities"]);
   }
   /***/
 
   /**
-   * Navigate to profile
-   */
+  * Navigate to profile
+  */
   public goProfile(): void {
     this.router.navigate(["/profile"]);
   }
   /***/
 
   /**
-   * Add new project/task/ticket
-   */
+  * Add new project/task/ticket
+  */
   public new(): void {
     const route = this.route.snapshot.children[0].params;
     let type = route["type"];
@@ -114,8 +135,8 @@ export class CommandsService {
   /***/
 
   /**
-   * Toggle self assignment
-   */
+  * Toggle self assignment
+  */
   public assignSelf(): void {
     let u = this.user.getUser() as ILoggedUser;
     const route = this.route.snapshot.children[0].params;
@@ -140,8 +161,8 @@ export class CommandsService {
   /***/
 
   /**
-   * Save current item
-   */
+  * Save current item
+  */
   private saveItem(item: IProjects | ITasks | ITickets): void {
     const route = this.route.snapshot.children[0].params;
     let type = route["type"];
@@ -155,8 +176,8 @@ export class CommandsService {
   /***/
 
   /**
-   * Search current id and send to clipboard function
-   */
+  * Search current id and send to clipboard function
+  */
   public copyId(): void {
     const route = this.route.snapshot.children[0].params;
     let id = route["id"];
@@ -166,8 +187,8 @@ export class CommandsService {
   /***/
 
   /**
-   * Search current url and send to clipboard function
-   */
+  * Search current url and send to clipboard function
+  */
   public copyUrl(): void {
     const route = window.location.href;
     this.clipboard(route);
@@ -175,9 +196,9 @@ export class CommandsService {
   /***/
 
   /**
-   * Copy data to clipboard
-   * @param data - Data to copy
-   */
+  * Copy data to clipboard
+  * @param data - Data to copy
+  */
   private clipboard(data: string): void {
     if(navigator.clipboard && navigator.clipboard.writeText) {
       navigator.clipboard.writeText(data)
@@ -203,12 +224,14 @@ export class CommandsService {
   /***/
 
   /**
-   * Navigate to parent
-   */
+  * Navigate to parent
+  */
   public goParent(): void {
     const route = this.route.snapshot.children[0].params;
+
     let type = route["type"];
     let id = route["id"];
+
     this.recovery.getSingleSync(type, id)
       .then((res) => {
         if(res.projectId) this.router.navigate([`/projects/${res.projectId}`]);
@@ -218,8 +241,8 @@ export class CommandsService {
   /***/
 
   /**
-   * Navigate to the first child
-   */
+  * Navigate to the first child
+  */
   public goChild(): void {
     const route = this.route.snapshot.children[0].params;
     let type = route["type"];

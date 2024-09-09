@@ -1,34 +1,48 @@
 <!--
-* @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>
+* @Author                : Jbristhuille<jbristhuille@gmail.com>
 * @CreatedDate           : 2023-09-30 15:38:00
-* @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>
-* @LastEditDate          : 2024-01-31 16:54:14
+* @LastEditors           : Jbristhuille<jbristhuille@gmail.com>
+* @LastEditDate          : 2024-08-20 14:45:57
 -->
 
 <div class="section-ptt-tool-bar">
-  <core-button  (click)="onDelete.emit()"
-                [type]="'basic'"
-                [style]="'warn'"
-                [size]="'icon'"
-                [tooltip]="'Delete ' + type">
-    <core-icon icon="minus"/>
-  </core-button>
+  <div class="tabs">
+    <core-button  *ngIf="type == 'projects'"
+                  type="basic"
+                  label="Stats"
+                  [routerLink]="['/'+type+'/'+id+'/'+'stats']" />
 
-  <core-button  *ngIf="isParentOf"
-                (click)="onCreateChild.emit()"
-                [type]="'basic'"
-                [style]="'default'"
-                [size]="'icon'"
-                [tooltip]="type == 'project' ? 'Add new task' : 'Add new ticket'">
-    <core-icon icon="plus"/>
-  </core-button>
+    <core-button  *ngIf="type == 'projects'"
+                  type="basic"
+                  label="Versions"
+                  [routerLink]="['/'+type+'/'+id+'/'+'versions']" />
+  </div>
 
-  <core-button  (click)="onAssign.emit()"
-                [type]="isAssignee ? 'flat' : 'basic'"
-                [style]="'primary'"
-                [size]="'icon'"
-                [tooltip]="'Assign self'"
-                >
-    <core-icon [icon]="isAssignee ? 'heart-fill' : 'heart'"/>
-  </core-button>
+  <div class="actions">
+    <core-button  (click)="onDelete.emit()"
+                  [type]="'basic'"
+                  [style]="'warn'"
+                  [size]="'icon'"
+                  [tooltip]="'Delete ' + type">
+      <core-icon icon="minus"/>
+    </core-button>
+
+    <core-button  *ngIf="isParentOf"
+                  (click)="onCreateChild.emit()"
+                  [type]="'basic'"
+                  [style]="'default'"
+                  [size]="'icon'"
+                  [tooltip]="type == 'project' ? 'Add new task' : 'Add new ticket'">
+      <core-icon icon="plus"/>
+    </core-button>
+
+    <core-button  (click)="onAssign.emit()"
+                  [type]="isAssignee ? 'flat' : 'basic'"
+                  [style]="'primary'"
+                  [size]="'icon'"
+                  [tooltip]="'Assign self'"
+                  >
+      <core-icon [icon]="isAssignee ? 'heart-fill' : 'heart'"/>
+    </core-button>
+  </div>
 </div>

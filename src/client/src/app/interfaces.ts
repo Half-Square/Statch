@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : 0K00<qdouvillez@gmail.com>                       *
+ * @Author                : Jbristhuille<jbristhuille@gmail.com>             *
  * @CreatedDate           : 2023-09-20 16:13:37                              *
- * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
- * @LastEditDate          : 2024-01-19 14:40:30                              *
+ * @LastEditors           : Jbristhuille<jbristhuille@gmail.com>             *
+ * @LastEditDate          : 2024-08-26 16:35:19                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -170,124 +170,6 @@ interface ISysConfig {
 }
 /***/
 
-interface IRule {
-  type: string,
-  actions: string[] | any,
-}
-
-interface IPermissions {
-  projects: {
-      create: boolean,
-      update: {
-          assignee: boolean,
-          version: boolean,
-          status: boolean,
-          labels: boolean,
-          level: boolean,
-          title: boolean,
-          description: boolean
-      },
-      view: boolean,
-      delete: boolean,
-      assignSelf: boolean,
-      comment: {
-          create: boolean,
-          delete: boolean,
-          update: boolean,
-          updateSelf: boolean
-      }
-  },
-  tasks: {
-      create: boolean,
-      update: {
-          assignee: boolean,
-          version: boolean,
-          status: boolean,
-          labels: boolean,
-          level: boolean,
-          title: boolean,
-          description: boolean
-      },
-      view: boolean,
-      delete: boolean,
-      assignSelf: boolean,
-      comment: {
-          create: boolean,
-          delete: boolean,
-          update: boolean,
-          updateSelf: boolean
-      }
-  },
-  tickets: {
-      create: boolean,
-      update: {
-          assignee: boolean,
-          version: boolean,
-          status: boolean,
-          labels: boolean,
-          level: boolean,
-          title: boolean,
-          description: boolean
-      },
-      view: boolean,
-      delete: boolean,
-      assignSelf: boolean,
-      comment: {
-          create: boolean,
-          delete: boolean,
-          update: boolean,
-          updateSelf: boolean
-      }
-  },
-  versions: {
-      create: boolean
-  },
-  labels: {
-      create: boolean,
-      view: boolean,
-      update: {
-          name: boolean,
-          description: boolean
-      },
-      delete: boolean
-  },
-  smtp: {
-      update: boolean,
-      view: boolean
-  },
-  users: {
-      view: boolean,
-      update: boolean
-  },
-  database: {
-      view: boolean,
-      import: boolean,
-      export: boolean
-  },
-  permissions: {
-      view: boolean,
-      create: boolean,
-      update: boolean,
-      delete: boolean
-  },
-  profile: {
-      update: {
-          name: boolean,
-          email: boolean,
-          picture: boolean
-      }
-  },
-  [key: string]: any;
-}
-
-interface IRoles {
-  id: string,
-  name: string,
-  permissions: [IPermissions] | any,
-  default: boolean,
-  users: IUsers[] | undefined
-}
-
 export {
   IProjects,
   ITasks,
@@ -298,8 +180,5 @@ export {
   IUsers,
   IActivities,
   IComments,
-  ISysConfig,
-  IRule,
-  IPermissions,
-  IRoles
+  ISysConfig
 };

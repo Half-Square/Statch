@@ -1,8 +1,8 @@
 /******************************************************************************
- * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
+ * @Author                : Jbristhuille<jbristhuille@gmail.com>              *
  * @CreatedDate           : 2023-06-24 17:11:00                               *
- * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2024-01-31 17:10:32                               *
+ * @LastEditors           : Jbristhuille<jbristhuille@gmail.com>              *
+ * @LastEditDate          : 2024-08-16 12:11:48                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -28,7 +28,8 @@ import {
   UseGuards,
   HttpException,
   HttpStatus,
-  UseInterceptors
+  UseInterceptors,
+  Put
 } from "@nestjs/common";
 import { Comment } from "@prisma/client";
 import * as jwt from "jsonwebtoken";
@@ -65,11 +66,11 @@ export class CommentsController {
   }
 
   /**
-   * Get comments from parent
-   * @param parent - Parent endpoints name
-   * @param id - Parent's ID
-   * @returns - List of all comments related to parent
-   */
+  * Get comments from parent
+  * @param parent - Parent endpoints name
+  * @param id - Parent's ID
+  * @returns - List of all comments related to parent
+  */
   @Get(":parent/:id/comments")
   @UseGuards(IsConnectedGuard)
   async getComments(
@@ -154,6 +155,38 @@ export class CommentsController {
 
       return {message: `Comment ${id} deleted`};
     } catch (err) {
+      throw err;
+    }
+  }
+  /***/
+
+  /**
+  * Edit comment, only for author
+  * @param id - Comment id to edit
+  * @param body - Comment content
+  * @return - Updated comment
+  */
+  @Put("comments/:id")
+  @UseGuards(IsConnectedGuard)
+  async editComment(
+    @Param("id") id: string,
+    @Body() body: commentsDto.EditInput,
+    @Headers("x-token") token: string): Promise<Comment> {
+    try {
+      let userId = jwt.verify(token, process.env.SALT).id;
+      let comment = await this.prisma.comment.findUnique({where: {id: id}});
+      
+      if (!comment) throw new HttpException("Not Found", HttpStatus.NOT_FOUND);
+      if (comment.authorId != userId) throw new HttpException("Forbidden", HttpStatus.FORBIDDEN);
+
+      return await this.prisma.comment.update({
+        where: {id: id},
+        data: {
+          content: body.content,
+          created: new Date()
+        }
+      });
+    } catch(err) {
       throw err;
     }
   }

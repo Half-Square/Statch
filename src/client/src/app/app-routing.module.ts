@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @Author                : Jbristhuille<jbristhuille@gmail.com>             *
  * @CreatedDate           : 2023-05-31 15:03:46                              *
- * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2024-01-31 16:47:45                              *
+ * @LastEditors           : Jbristhuille<jbristhuille@gmail.com>             *
+ * @LastEditDate          : 2024-08-27 10:18:07                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -39,6 +39,8 @@ import { UsersSettingsView } from "./views/settings/users-settings/users-setting
 import { MyActivitiesView } from "./views/my-activities/my-activities.view";
 import { FirstLaunchView } from "./views/first-launch/first-launch.view";
 import { DatabaseSettingsView } from "./views/settings/database-settings/database-settings.view";
+import { StatsView } from "./views/stats/stats.view";
+import { VersionsView } from "./views/versions/versions.view";
 /***/
 
 /* Routes */
@@ -64,6 +66,8 @@ const routes: Routes = [
   { path: "my-activities", component: MyActivitiesView, canActivate: [IsConnectedGuard] },
   { path: ":type", component: PttAllView, canActivate: [IsConnectedGuard, TypeGuard] },
   { path: ":type/:id", component: PttView, canActivate: [TypeGuard, IsConnectedGuard] },
+  { path: ":type/:id/stats", component: StatsView, canActivate: [TypeGuard, IsConnectedGuard] },
+  { path: ":type/:id/versions", component: VersionsView, canActivate: [TypeGuard, IsConnectedGuard]},
 
   { path: "", pathMatch: "full", redirectTo: "/projects" },
   { path: "**", redirectTo: "not-found" }

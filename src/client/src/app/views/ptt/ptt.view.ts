@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @Author                : Jbristhuille<jbristhuille@gmail.com>             *
  * @CreatedDate           : 2023-09-30 15:55:46                              *
- * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2024-01-31 16:52:01                              *
+ * @LastEditors           : Jbristhuille<jbristhuille@gmail.com>             *
+ * @LastEditDate          : 2024-08-15 16:20:55                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -85,6 +85,11 @@ export class PttView implements OnInit, OnDestroy {
             }),
             this.recovery.get(`projects/${root.id}/versions`).subscribe((versions) => {
               this.versions = this.sort.sortVersions(versions);
+              this.versions.unshift({
+                id: "",
+                name: "No version",
+                projectId: ""
+              });
             }),
             this.recovery.get(`${this.type}/${this.id}/activities`).subscribe((a) => {
               a = _.orderBy(a, "created", ["desc"]).slice(0, 10);
@@ -136,9 +141,9 @@ export class PttView implements OnInit, OnDestroy {
   */
   private getChilds(): Subscription {
     return this.recovery.get(this.childType).subscribe((el) => { // Get childs
-      this.childs = _.filter(el, (c) => {
+      this.childs = this.childs = this.sort.sortPTT(_.filter(el, (c) => {
         return this.id === (this.childType == "tasks" ? (c as ITasks).projectId : (c as ITickets).taskId);
-      });
+      }));
 
       this.setAdvancement();
     });
@@ -176,11 +181,20 @@ export class PttView implements OnInit, OnDestroy {
   * Delete current item
   */
   public deleteItem(): void {
+
     this.api.delete(`api/${this.type}/${this.id}`, this.user.getUser()?.token)
       .then(() => {
         this.recovery.updateData({id: this.id, deleted: true}, this.type);
         this.toast.print(`${_.capitalize(this.type.slice(0, -1))} ${this.id} has been removed`, "success");
-        this.router.navigateByUrl("/");
+
+        if (this.type != "projects") {
+          let targetType = this.type == "tickets" ? "tasks" : "projects";
+          if (targetType == "projects") this.router.navigate([`${targetType}/${(this.item as ITasks).projectId}`]);
+          else this.router.navigate([`${targetType}/${(this.item as ITickets).taskId}`]);
+        } else {
+          this.router.navigate(["/"]);
+        }
+
       });
   }
   /***/

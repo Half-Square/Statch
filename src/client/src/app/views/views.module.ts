@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @Author                : Jbristhuille<jbristhuille@gmail.com>             *
  * @CreatedDate           : 2023-06-01 15:46:03                              *
- * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2024-01-31 16:48:16                              *
+ * @LastEditors           : Jbristhuille<jbristhuille@gmail.com>             *
+ * @LastEditDate          : 2024-08-20 10:35:01                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -15,6 +15,7 @@ import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { FormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
+import { NgApexchartsModule } from "ng-apexcharts";
 /***/
 
 /* Modules */
@@ -39,6 +40,8 @@ import { UsersSettingsView } from "./settings/users-settings/users-settings.view
 import { MyActivitiesView } from "./my-activities/my-activities.view";
 import { FirstLaunchView } from "./first-launch/first-launch.view";
 import { DatabaseSettingsView } from "./settings/database-settings/database-settings.view";
+import { StatsView } from "./stats/stats.view";
+import { VersionsView } from "./versions/versions.view";
 /***/
 
 @NgModule({
@@ -56,7 +59,9 @@ import { DatabaseSettingsView } from "./settings/database-settings/database-sett
     UsersSettingsView,
     MyActivitiesView,
     FirstLaunchView,
-    DatabaseSettingsView
+    DatabaseSettingsView,
+    StatsView,
+    VersionsView
   ],
   imports: [
     CommonModule,
@@ -65,7 +70,8 @@ import { DatabaseSettingsView } from "./settings/database-settings/database-sett
     CoresModule,
     ComponentsModule,
     SectionsModule,
-    PipesModule
+    PipesModule,
+    NgApexchartsModule
   ],
   exports: [
     LoginView,
@@ -81,7 +87,9 @@ import { DatabaseSettingsView } from "./settings/database-settings/database-sett
     UsersSettingsView,
     MyActivitiesView,
     FirstLaunchView,
-    DatabaseSettingsView
+    DatabaseSettingsView,
+    StatsView,
+    VersionsView
   ]
 })
 export class ViewsModule {}

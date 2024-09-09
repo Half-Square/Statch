@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : 0K00<qdouvillez@gmail.com>                       *
+ * @Author                : Jbristhuille<jbristhuille@gmail.com>             *
  * @CreatedDate           : 2023-09-21 15:40:44                              *
- * @LastEditors           : 0K00<qdouvillez@gmail.com>                       *
- * @LastEditDate          : 2023-11-22 14:36:25                              *
+ * @LastEditors           : Jbristhuille<jbristhuille@gmail.com>             *
+ * @LastEditDate          : 2024-07-27 18:10:51                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -37,8 +37,13 @@ export class PttListSection {
   */
   filterByVersion(el: ITasks | ITickets): boolean {
     if (this.versions && this.versions.length > 0) {
-      return _.find(this.versions, {
-        id: (el as ITasks | ITickets).targetVersionId
+      return _.find(this.versions, (version) => {
+        if (( el as ITasks | ITickets).targetVersionId == version.id ||
+              version.id === "" && el.targetVersionId === null) {
+          return true;
+        } else {
+          return false;
+        }
       }) ? true: false;
     } else return true;
   }

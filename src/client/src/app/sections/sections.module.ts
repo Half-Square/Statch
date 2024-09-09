@@ -37,6 +37,7 @@ import { ToolsNavSection } from "./tools-nav/tools-nav.section";
 import { ToolBarSection } from "./tool-bar/tool-bar.section";
 import { LabelsEditorSection } from "./labels-editor/labels-editor.section";
 import { PttToolBarSection } from "./ptt-tool-bar/ptt-tool-bar.section";
+import { BottomBarSection } from "./bottom-bar/bottom-bar.section";
 /***/
 
 @NgModule({
@@ -51,7 +52,8 @@ import { PttToolBarSection } from "./ptt-tool-bar/ptt-tool-bar.section";
     ToolsNavSection,
     ToolBarSection,
     LabelsEditorSection,
-    PttToolBarSection
+    PttToolBarSection,
+    BottomBarSection
   ],
   imports: [
     CommonModule,
@@ -74,7 +76,8 @@ import { PttToolBarSection } from "./ptt-tool-bar/ptt-tool-bar.section";
     ToolsNavSection,
     ToolBarSection,
     LabelsEditorSection,
-    PttToolBarSection
+    PttToolBarSection,
+    BottomBarSection
   ]
 })
 export class SectionsModule { }
