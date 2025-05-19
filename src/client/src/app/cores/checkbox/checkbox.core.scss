@@ -1,3 +1,10 @@
+/*****************************************************************************
+ * @Author                : Jbristhuille<jbristhuille@gmail.com>             *
+ * @CreatedDate           : 2025-05-19 16:03:55                              *
+ * @LastEditors           : Jbristhuille<jbristhuille@gmail.com>             *
+ * @LastEditDate          : 2025-05-19 16:04:56                              *
+ ****************************************************************************/
+
 :host {
   width: 16px;
   height: 16px;
@@ -10,13 +17,15 @@
   display: inline-flex;
   cursor: pointer;
   color: #e1e5ee;
+  display: flex;
+  align-items: center;
 
   .label {
     font-size: 12px;
     line-height: 16px;
     font-weight: 500;
-    transform: translateY(2px);
     margin-left: 8px;
+    flex-shrink: 0;
   }
 
   input {
