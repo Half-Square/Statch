@@ -1,8 +1,8 @@
 /******************************************************************************
- * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
+ * @Author                : Jbristhuille<jbristhuille@gmail.com>              *
  * @CreatedDate           : 2023-10-06 11:46:37                               *
- * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2024-01-31 17:18:39                               *
+ * @LastEditors           : Jbristhuille<jbristhuille@gmail.com>              *
+ * @LastEditDate          : 2025-05-19 16:48:43                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -33,6 +33,9 @@ export interface ISettings {
     port: number,
     user: string,
     password: string
+  },
+  features: {
+    allowSignup: boolean,
   }
 }
 /***/

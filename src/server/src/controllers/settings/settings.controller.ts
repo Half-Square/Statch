@@ -1,8 +1,8 @@
 /******************************************************************************
- * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
+ * @Author                : Jbristhuille<jbristhuille@gmail.com>              *
  * @CreatedDate           : 2023-09-22 16:14:03                               *
- * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2024-01-31 17:07:13                               *
+ * @LastEditors           : Jbristhuille<jbristhuille@gmail.com>              *
+ * @LastEditDate          : 2025-05-19 17:02:35                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -14,8 +14,9 @@
   * Save settings to file
   * Get all settings
   * Get smtp settings
-  * Get system settings 
   * Update smtp settings
+  * Get system settings 
+  * Update system settings
 */
 
 /* Imports */
@@ -122,6 +123,36 @@ export class SettingsController {
     
     this.settings.saveSettings(config);
     return ret;
+  }
+  /***/
+
+  /**
+  * Get features settings
+  * @return - Features settings 
+  */
+  @Get("features")
+  @UseGuards(IsAdminGuard, IsAdminGuard)
+  getFeatures(): settingsDto.PublicFeaturesOutput {
+    let settings = this.settings.getSettings();
+    return new settingsDto.PublicFeaturesOutput(settings.features);
+  }
+  /***/
+
+  /**
+  * Update features settings
+  * @param body - Features settings to update
+  * @return - Features settings 
+  */
+  @Put("features")
+  @UseGuards(IsAdminGuard, IsConnectedGuard)
+  updateFeatures(
+    @Body() body: settingsDto.UpdateFeaturesInput
+  ): settingsDto.PublicFeaturesOutput {
+    let settings = this.settings.getSettings();
+    settings.features = {...settings.features, ...body};
+    settings = this.settings.saveSettings(settings);
+
+    return new settingsDto.PublicFeaturesOutput(settings.features);
   }
   /***/
 }

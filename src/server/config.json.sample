@@ -1,1 +1,1 @@
-{"smtp":{"host":"smtp.test.fr","port":427,"user":"test","password":"123"}}
+{"smtp":{"host":"smtp.test.fr","port":427,"user":"test","password":"123"}, features: {allowSignUp: true}}

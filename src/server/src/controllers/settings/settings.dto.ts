@@ -1,20 +1,22 @@
 /******************************************************************************
- * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
+ * @Author                : Jbristhuille<jbristhuille@gmail.com>              *
  * @CreatedDate           : 2023-09-22 16:24:56                               *
- * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-10-06 11:52:21                               *
+ * @LastEditors           : Jbristhuille<jbristhuille@gmail.com>              *
+ * @LastEditDate          : 2025-05-19 17:02:33                               *
  *****************************************************************************/
 
 /* SUMMARY
   * Imports
   * Update smtp input
   * Update System Input
+  * Update features input
   * Public output
   * Public smtp output
+  * Public features output
 */
 
 /* Imports */
-import { IsString, IsNumber, IsOptional, IsIn } from "class-validator";
+import { IsString, IsNumber, IsOptional, IsIn, IsBoolean } from "class-validator";
 /***/
 
 /**
@@ -52,6 +54,15 @@ class UpdateSysInput {
   @IsString()
   @IsIn(["prod", "demo"])
     mode: "prod" | "demo";
+}
+/***/
+
+/**
+* Update features input 
+*/
+class UpdateFeaturesInput {
+  @IsBoolean()
+    allowSignup: boolean;
 }
 /***/
 
@@ -104,9 +115,25 @@ class PublicSmtpOutput {
 }
 /***/
 
+/**
+* Public features output 
+*/
+class PublicFeaturesOutput {
+  allowSignup: boolean;
+
+  constructor(data: PublicFeaturesOutput) {
+    if (data) {
+      this.allowSignup = data.allowSignup;
+    }
+  }
+}
+/***/
+
 export {
   UpdateSmtpInput,
   PublicOutput,
   UpdateSysInput,
-  PublicSmtpOutput
+  UpdateFeaturesInput,
+  PublicSmtpOutput,
+  PublicFeaturesOutput
 };
