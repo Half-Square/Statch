@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jbristhuille@gmail.com>             *
  * @CreatedDate           : 2023-05-31 12:56:22                              *
  * @LastEditors           : Jbristhuille<jbristhuille@gmail.com>             *
- * @LastEditDate          : 2024-08-26 12:20:15                              *
+ * @LastEditDate          : 2024-09-09 09:52:17                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -296,7 +296,7 @@ export class RecoveryService {
           onRequest = true;
           start = Date.now();
 
-          this.api.post("api/system/ping", {id: this.socket?.id})
+          this.api.post("api/system/ping", {id: this.socket?.id}, this.user.getUser()?.token)
             .catch(() => sub.next({time: 0, status: "ko"}));
         } else if (Date.now() - start > timeout) {
           onRequest = false;
