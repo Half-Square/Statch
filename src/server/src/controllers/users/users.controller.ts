@@ -1,8 +1,8 @@
 /******************************************************************************
- * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
+ * @Author                : Jbristhuille<jbristhuille@gmail.com>              *
  * @CreatedDate           : 2023-06-01 15:15:39                               *
- * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2024-01-31 17:17:30                               *
+ * @LastEditors           : Jbristhuille<jbristhuille@gmail.com>              *
+ * @LastEditDate          : 2025-05-19 17:24:32                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -38,6 +38,7 @@ import { resolve } from "path";
 
 /* Services */
 import { PrismaService } from "src/prisma.service";
+import { SettingsService } from "../settings/settings.service";
 /***/
 
 /* Dto */
@@ -52,7 +53,8 @@ import { IsAdminGuard } from "src/guards/is-admin.guard";
 
 @Controller("api")
 export class UsersController {
-  constructor(private prisma: PrismaService) {
+  constructor(private prisma: PrismaService,
+              private settings: SettingsService) {
   }
 
   /**
@@ -64,6 +66,10 @@ export class UsersController {
   */
   @Post("users")
   async register(@Body() body: usersDto.RegisterInput): Promise<usersDto.DetailsOutput> {
+    if (this.settings.getSettings().features.allowSignup === false) {
+      throw new HttpException("Signup is disabled...", HttpStatus.NOT_ACCEPTABLE);
+    }
+
     try {
       let passwd = String(sha256(body.password));
       let count = await (await this.prisma.user.findMany()).length;
