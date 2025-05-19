@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jbristhuille@gmail.com>              *
  * @CreatedDate           : 2025-05-19 15:50:40                               *
  * @LastEditors           : Jbristhuille<jbristhuille@gmail.com>              *
- * @LastEditDate          : 2025-05-19 17:00:14                               *
+ * @LastEditDate          : 2025-05-19 17:23:56                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -18,6 +18,7 @@ import { IFeatureConfig } from "src/app/interfaces";
 
 /* Services */
 import { RequestService } from "src/app/services/request.service";
+import { ToastService } from "src/app/services/toast.service";
 /***/
 
 @Component({
@@ -28,7 +29,9 @@ import { RequestService } from "src/app/services/request.service";
 export class SystemSettingsView implements OnInit {
   public features: IFeatureConfig;
 
-  constructor(private api: RequestService) {}
+  constructor(private api: RequestService,
+              private toast: ToastService) {
+  }
 
   ngOnInit(): void {
     this.api.get("api/settings/features").then(res => {
@@ -48,6 +51,7 @@ export class SystemSettingsView implements OnInit {
 
     this.api.put("api/settings/features", this.features).then(res => {
       this.features = res as IFeatureConfig;
+      this.toast.print("Settings updated !", "success");
     }).catch(err => {
       console.error(err);
       this.features[key] = !value;
