@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jbristhuille@gmail.com>             *
  * @CreatedDate           : 2023-05-31 15:03:46                              *
  * @LastEditors           : Jbristhuille<jbristhuille@gmail.com>             *
- * @LastEditDate          : 2024-08-27 10:18:07                              *
+ * @LastEditDate          : 2025-05-19 15:49:48                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -39,6 +39,7 @@ import { UsersSettingsView } from "./views/settings/users-settings/users-setting
 import { MyActivitiesView } from "./views/my-activities/my-activities.view";
 import { FirstLaunchView } from "./views/first-launch/first-launch.view";
 import { DatabaseSettingsView } from "./views/settings/database-settings/database-settings.view";
+import { SystemSettingsView } from "./views/settings/system-settings/system-settings.view";
 import { StatsView } from "./views/stats/stats.view";
 import { VersionsView } from "./views/versions/versions.view";
 /***/
@@ -56,6 +57,7 @@ const routes: Routes = [
       { path: "smtp", component: SmtpSettingsView, canActivate: [IsConnectedGuard] },
       { path: "users", component: UsersSettingsView, canActivate: [IsConnectedGuard, IsAdminGuard] },
       { path: "database", component: DatabaseSettingsView, canActivate: [IsConnectedGuard, IsAdminGuard] },
+      { path: "system", component: SystemSettingsView, canActivate: [IsConnectedGuard, IsAdminGuard] },
       { path: "", pathMatch: "full", redirectTo: "/settings/labels"}
     ]
   },

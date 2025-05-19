@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jbristhuille@gmail.com>             *
  * @CreatedDate           : 2023-09-20 16:13:37                              *
  * @LastEditors           : Jbristhuille<jbristhuille@gmail.com>             *
- * @LastEditDate          : 2024-08-26 16:35:19                              *
+ * @LastEditDate          : 2025-05-19 16:59:32                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -155,6 +155,11 @@ interface IComments {
 /***/
 
 /* ISysConfig */
+interface IFeatureConfig {
+  allowSignup: boolean
+  [key: string]: boolean
+}
+
 interface ISysConfig {
   smtp: {
     host: string,
@@ -166,7 +171,8 @@ interface ISysConfig {
     host: string,
     api: string,
     socket: string
-  }
+  },
+  features: IFeatureConfig
 }
 /***/
 
@@ -180,5 +186,6 @@ export {
   IUsers,
   IActivities,
   IComments,
+  IFeatureConfig,
   ISysConfig
 };

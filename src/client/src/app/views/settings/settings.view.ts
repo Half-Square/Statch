@@ -1,8 +1,8 @@
 /*****************************************************************************
- * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>        *
+ * @Author                : Jbristhuille<jbristhuille@gmail.com>             *
  * @CreatedDate           : 2023-09-28 14:50:46                              *
- * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>        *
- * @LastEditDate          : 2024-01-31 17:23:09                              *
+ * @LastEditors           : Jbristhuille<jbristhuille@gmail.com>             *
+ * @LastEditDate          : 2025-05-19 15:44:39                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -39,6 +39,10 @@ export class SettingsView {
   }, {
     label: "Database",
     link: "database",
+    admin: true
+  }, {
+    label: "System",
+    link: "system",
     admin: true
   }];
 

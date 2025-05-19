@@ -1,0 +1,18 @@
+<!--
+* @Author                : Jbristhuille<jbristhuille@gmail.com>
+* @CreatedDate           : 2025-05-19 15:51:00
+* @LastEditors           : Jbristhuille<jbristhuille@gmail.com>
+* @LastEditDate          : 2025-05-19 16:59:56
+-->
+
+<div class="system-settings-view">
+  <ng-template [ngIf]="features" [ngIfElse]="loading">
+    <core-checkbox  label="Allow signup"
+                    [(checked)]="features.allowSignup"
+                    (checkedChange)="updateSettings($event, 'allowSignup')"/>
+  </ng-template>
+
+  <ng-template #loading>
+    <core-loading class="loader"/>
+  </ng-template>
+</div>
