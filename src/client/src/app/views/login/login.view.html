@@ -2,7 +2,7 @@
 * @Author                : Jbristhuille<jbristhuille@gmail.com>
 * @CreatedDate           : 2023-06-01 16:16:00
 * @LastEditors           : Jbristhuille<jbristhuille@gmail.com>
-* @LastEditDate          : 2024-07-26 15:16:51
+* @LastEditDate          : 2025-05-19 17:25:16
 -->
 
 <div class="view-login">
@@ -31,7 +31,7 @@
       <core-icon icon="enter"/>
     </core-button>
 
-    <a href="/signup" class="register">
+    <a href="/signup" class="register" *ngIf="allowSignup">
       <div>Create your account</div>
       <core-icon icon="arrow-right" />
     </a>
