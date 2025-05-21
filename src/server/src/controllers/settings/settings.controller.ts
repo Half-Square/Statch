@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jbristhuille@gmail.com>              *
  * @CreatedDate           : 2023-09-22 16:14:03                               *
  * @LastEditors           : Jbristhuille<jbristhuille@gmail.com>              *
- * @LastEditDate          : 2025-05-19 17:02:35                               *
+ * @LastEditDate          : 2025-05-21 09:36:19                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -131,7 +131,6 @@ export class SettingsController {
   * @return - Features settings 
   */
   @Get("features")
-  @UseGuards(IsAdminGuard, IsAdminGuard)
   getFeatures(): settingsDto.PublicFeaturesOutput {
     let settings = this.settings.getSettings();
     return new settingsDto.PublicFeaturesOutput(settings.features);
