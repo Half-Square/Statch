@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jbristhuille@gmail.com>             *
  * @CreatedDate           : 2024-01-15 17:24:09                              *
  * @LastEditors           : Jbristhuille<jbristhuille@gmail.com>             *
- * @LastEditDate          : 2024-08-26 15:56:45                              *
+ * @LastEditDate          : 2025-05-21 09:54:42                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -26,6 +26,7 @@ import { ActivatedRoute } from "@angular/router";
 import { RequestService } from "src/app/services/request.service";
 import { ToastService } from "src/app/services/toast.service";
 import { RecoveryService } from "src/app/services/recovery.service";
+import { UserService } from "src/app/services/user.service";
 /***/
 
 /* Interfaces */
@@ -72,14 +73,15 @@ export class StatsView implements OnInit {
   constructor(private api: RequestService,
               private route: ActivatedRoute,
               private toast: ToastService,
-              private recovery: RecoveryService) {
+              private recovery: RecoveryService,
+              private user: UserService) {
   }
 
   ngOnInit(): void {
     this.route.params.subscribe((param) => {
       this.type = param["type"];
       this.id = param["id"];
-      this.api.get(`api/${this.type}/${this.id}/stats`)
+      this.api.get(`api/${this.type}/${this.id}/stats`, this.user.getUser()?.token)
         .then((ret) => {
           this.stats = ret as IStats;
           this.formatData();
