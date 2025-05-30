@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jbristhuille@gmail.com>             *
  * @CreatedDate           : 2023-05-30 11:59:22                              *
  * @LastEditors           : Jbristhuille<jbristhuille@gmail.com>             *
- * @LastEditDate          : 2024-09-05 11:58:44                              *
+ * @LastEditDate          : 2025-05-30 09:52:10                              *
  ****************************************************************************/
 
  @import '~quill/dist/quill.bubble.css';
@@ -70,11 +70,11 @@ a {
 }
 
 ::-moz-selection { /* Code for Firefox */
-  background: 0055ff;
+  background: #0055ff;
 }
 
 ::selection {
-  background: 0055ff;
+  background: #0055ff;
 }
 
 .ql-bubble.ql-disabled {
