@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jbristhuille@gmail.com>             *
  * @CreatedDate           : 2023-09-20 16:13:37                              *
  * @LastEditors           : Jbristhuille<jbristhuille@gmail.com>             *
- * @LastEditDate          : 2025-05-19 16:59:32                              *
+ * @LastEditDate          : 2025-05-30 10:11:23                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -77,6 +77,7 @@ interface ITickets {
 interface IVersions {
   id: string,
   name: string,
+  description: string,
   projectId: string
 }
 /***/

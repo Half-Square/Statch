@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jbristhuille@gmail.com>             *
  * @CreatedDate           : 2023-09-30 15:55:46                              *
  * @LastEditors           : Jbristhuille<jbristhuille@gmail.com>             *
- * @LastEditDate          : 2024-08-15 16:20:55                              *
+ * @LastEditDate          : 2025-05-30 10:12:04                              *
  ****************************************************************************/
 
 /* SUMMARY
@@ -88,6 +88,7 @@ export class PttView implements OnInit, OnDestroy {
               this.versions.unshift({
                 id: "",
                 name: "No version",
+                description: "",
                 projectId: ""
               });
             }),
