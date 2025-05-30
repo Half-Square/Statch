@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jbristhuille@gmail.com>              *
  * @CreatedDate           : 2023-09-21 12:04:55                               *
  * @LastEditors           : Jbristhuille<jbristhuille@gmail.com>              *
- * @LastEditDate          : 2025-05-30 10:05:17                               *
+ * @LastEditDate          : 2025-05-30 10:19:04                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -12,8 +12,7 @@
 */
 
 /* Imports */
-import { Optional } from "@nestjs/common";
-import { IsString } from "class-validator";
+import { IsOptional, IsString } from "class-validator";
 /***/
 
 /** 
@@ -24,7 +23,7 @@ class CreateInput {
     name: string;
 
   @IsString()
-  @Optional()
+  @IsOptional()
     description: string;
 }
 /***/
@@ -37,7 +36,7 @@ class UpdateInput {
     name: string;
 
   @IsString()
-  @Optional()
+  @IsOptional()
     description: string;
 }
 /***/
