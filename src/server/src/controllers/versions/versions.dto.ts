@@ -2,10 +2,8 @@
  * @Author                : Jbristhuille<jbristhuille@gmail.com>              *
  * @CreatedDate           : 2023-09-21 12:04:55                               *
  * @LastEditors           : Jbristhuille<jbristhuille@gmail.com>              *
- * @LastEditDate          : 2024-08-27 10:49:05                               *
+ * @LastEditDate          : 2025-05-30 10:05:17                               *
  *****************************************************************************/
-
-import { IsString } from "class-validator";
 
 /* SUMMARY
   * Imports
@@ -14,7 +12,8 @@ import { IsString } from "class-validator";
 */
 
 /* Imports */
-
+import { Optional } from "@nestjs/common";
+import { IsString } from "class-validator";
 /***/
 
 /** 
@@ -23,6 +22,10 @@ import { IsString } from "class-validator";
 class CreateInput {
   @IsString()
     name: string;
+
+  @IsString()
+  @Optional()
+    description: string;
 }
 /***/
 
@@ -32,6 +35,10 @@ class CreateInput {
 class UpdateInput {
   @IsString()
     name: string;
+
+  @IsString()
+  @Optional()
+    description: string;
 }
 /***/
 
