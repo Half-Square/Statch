@@ -1,8 +1,8 @@
 /******************************************************************************
- * @Author                : Jbristhuille<jean-baptiste@halfsquare.fr>         *
+ * @Author                : Jbristhuille<jbristhuille@gmail.com>              *
  * @CreatedDate           : 2023-05-09 12:30:43                               *
- * @LastEditors           : Jbristhuille<jean-baptiste@halfsquare.fr>         *
- * @LastEditDate          : 2023-12-02 13:01:45                               *
+ * @LastEditors           : Jbristhuille<jbristhuille@gmail.com>              *
+ * @LastEditDate          : 2025-05-30 10:31:52                               *
  *****************************************************************************/
 
 /* SUMMARY
@@ -132,7 +132,7 @@ export class FilesController {
   */
   @Delete(":id")
   @UseGuards(IsConnectedGuard)
-  async deleteFile(@Param("id") id: string): Promise<void> {
+  async deleteFile(@Param("id") id: string): Promise<{message: string}> {
     try {
       const ret = await this.prisma.file.findUnique({where: {id: id}});
 
@@ -140,7 +140,7 @@ export class FilesController {
       else {
         fs.unlinkSync(resolve("upload")+"/"+ret.path);
         await this.prisma.file.delete({where: {id: id}});
-        return;
+        return {message: `File ${ret.name} deleted`};
       }
     } catch (err) {
       throw err;
